@@ -3,7 +3,7 @@
 Shelly Cadora:
   name        : "Shelly Cadora"
   email       : "scadora@cisco.com"
-  bio         : "Technical Marketing Engineer, Cisco"
+  bio         : "Principal Technical Marketing Engineer, Cisco"
   avatar      : "scadora16.jpeg"
   twitter     : "scadora"
   github      : "scadora"
@@ -12,7 +12,7 @@ Akshat Sharma:
   name        : "Akshat Sharma"
   github      : "akshshar"
   email       : "akshshar@cisco.com"
-  bio         : "Evangelist, tinkerer, dog-lover and Technical Marketing Engineer, Web Solutions, Cisco."
+  bio         : "Evangelist, tinkerer, dog-lover and Technical Marketing Engineer, Cisco."
   avatar      : "akshat_bio_photo.jpeg"
   twitter     : "irakshat"
 
@@ -132,14 +132,14 @@ Jose Liste:
   github      : "joseliste"
   email       : "jliste@cisco.com"
   avatar      : "jliste_bio.jpg"
-  bio         : "A (blue collar) Technical Marketing Engineer, Web Solutions, Cisco."
+  bio         : "Principal Technical Marketing Engineer, Cisco."
   twitter     : "jliste2002"
   
 Patrick Warichet:
   name        : "Patrick Warichet"
   email       : "pwariche@cisco.com"
   avatar      : "pwariche_bio.jpg"
-  bio         : "Technical Marketing Engineer, Web Solutions, Cisco."
+  bio         : "Technical Marketing Engineer, Cisco."
 
 Cisco Programmability Team:
   name        : "Cisco Web Team"
@@ -156,13 +156,12 @@ Karthik Kumaravel:
   avatar      : "kkumara3.jpg"
 
 
-
-Patrick Warichet:
-  name        : "Patrick Warichet"
-  email       : "pwariche@cisco.com"
-  avatar      : "pwariche_bio.jpg"
-  bio         : "Technical Marketing Engineer, Web Solutions, Cisco."
-  twitter	  : "pwariche"
+Phil Bedard:
+  name        : "Phil Bedard"
+  github      : "philbedard"
+  email       : "phbedard@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco"
+  avatar      : "phbedard.jpg"
 
 Cisco Software Management Team:
   name        : "Cisco Web Team"
