@@ -46,7 +46,6 @@ Marco Umer:
 
 Cisco Telemetry Team:
   name        : "Cisco Web Team"
-  uri         : "https://developer.cisco.com/site/ios-xr"
   github      : "ios-xr"
   bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
   avatar      : "telemetry-team.png"
@@ -92,16 +91,20 @@ Sushrut Shirole:
   
 Cisco Web Team:
   name        : "Cisco Web Team"
-  uri         : "https://developer.cisco.com/site/ios-xr"
   github      : "ios-xr"
   bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
   avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
+Cisco Design Team:
+  name        : "Cisco Web Team"
+  github      : "ios-xr"
+  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "cisco-design-team.png"
+  twitter     : "xrdocs"
 
 Cisco Application Hosting Team:
   name        : "Cisco Web Team"
-  uri         : "https://developer.cisco.com/site/ios-xr"
   github      : "ios-xr"
   bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
   avatar      : "app-hosting-team.jpg"
@@ -140,7 +143,6 @@ Patrick Warichet:
 
 Cisco Programmability Team:
   name        : "Cisco Web Team"
-  uri         : "https://developer.cisco.com/site/ios-xr"
   github      : "ios-xr"
   bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
   avatar      : "programmability-team.png"
@@ -164,7 +166,6 @@ Patrick Warichet:
 
 Cisco Software Management Team:
   name        : "Cisco Web Team"
-  uri         : "https://developer.cisco.com/site/ios-xr"
   github      : "ios-xr"
   bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
   avatar      : "software-management-team.png"
