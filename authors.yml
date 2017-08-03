@@ -163,6 +163,13 @@ Phil Bedard:
   bio         : "Technical Marketing Engineer, Cisco"
   avatar      : "phbedard.jpg"
 
+Derek Tay:
+  name        : "Derek Tay"
+  github      : "derektay"
+  email       : "derekta@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco"
+  avatar      : "derekta.png"
+
 Cisco Software Management Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
