@@ -22,9 +22,6 @@ foo:
 # main links links
 # DO NOT TOUCH main!
 main:
-  - title: "@xrdocs"
-    url: https://xrdocs.github.io
-
   - title: "Blogs"
     url: /blogs/
 
