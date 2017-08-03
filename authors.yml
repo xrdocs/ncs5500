@@ -170,6 +170,13 @@ Derek Tay:
   bio         : "Technical Marketing Engineer, Cisco"
   avatar      : "derekta.png"
 
+Josh Peters:
+  name        : "Josh Peters"
+  github      : "jpeters1"
+  email       : "joshpete@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco"
+  avatar      : "jpeters.png"
+
 Cisco Software Management Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
