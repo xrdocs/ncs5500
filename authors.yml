@@ -177,6 +177,15 @@ Josh Peters:
   bio         : "Technical Marketing Engineer, Cisco"
   avatar      : "jpeters.png"
 
+
+Nicolas Fevrier:
+  name        : "Nicolas Fevrier"
+  github      : "nfevrier"
+  email       : "nifevrie@cisco.com"
+  avatar      : "nfevrier_bio.jpeg"
+  bio         : "Technical Leader, Cloud Scale Networking, Cisco"
+  twitter     : "CiscoIOSXR"
+
 Cisco Software Management Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
