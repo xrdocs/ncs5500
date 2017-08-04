@@ -186,6 +186,13 @@ Nicolas Fevrier:
   bio         : "Technical Leader, Cloud Scale Networking, Cisco"
   twitter     : "CiscoIOSXR"
 
+Viktor Osipchuk:
+  name        : "Viktor Osipchuk"
+  github      : "vosipchu"
+  email       : "vosipchu@cisco.com"
+  bio         : "A person who never made a mistake never tried anything new"
+  avatar      : "vosipchu.jpeg"
+
 Cisco Software Management Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
