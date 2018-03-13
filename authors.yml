@@ -30,6 +30,13 @@ Bruce McDougall:
   avatar      : "brucemc_bio.jpg"
   bio         : "Systems Engineer, Web Solutions, Cisco."
   
+Praveen Bhagwatula:
+  name        : "Praveen Bhagwatula"
+  github      : "pbhagwat27"
+  email       : "pbhagwat@cisco.com"
+  avatar      : "pbhagwat.jpg"
+  bio         : "Distinguished Engineer, Cisco"
+  
 Richard Wade:
   name        : "Richard Wade"
   github      : "rikwade"
