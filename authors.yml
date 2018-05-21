@@ -208,6 +208,12 @@ Jiri Chaloupka:
   bio         : "Technical Marketing Engineer, Cisco. CCIE#39800"
   avatar      : "jichalou.jpg"
   linkedin    : "jiri-chaloupka"
+  
+Lane Wigley:
+  name        : "Lane Wigley"
+  email       : "lwigley@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco."
+  avatar      : "lwigley.jpg"
 
 Cisco Software Management Team:
   name        : "Cisco Web Team"
