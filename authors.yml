@@ -20,8 +20,11 @@ Mike Korshunov:
   name        : "Mike Korshunov"
   github      : "maikor"
   email       : "mkorshun@cisco.com"
-  bio         : "Good guy"
+  bio         : "Technical Marketing Engineer, Cisco"
   avatar      : "Mike_pic.jpg"
+  twitter     : "mike_korshunov" 
+  linkedin    : "mkorshunov"
+  
 
 Bruce McDougall:
   name        : "Bruce McDougall"
