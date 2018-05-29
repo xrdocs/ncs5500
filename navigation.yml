@@ -1,26 +1,3 @@
-# example navigation
-foo:
-  - title: "Parent Link 1"
-    url: /parent-1-page-url/
-    children:
-      - title: "Child Link 1"
-        url: /child-1-page-url/
-      - title: "Child Link 2"
-        url: /child-2-page-url/
-
-  - title: "Parent Link 2"
-    url: /parent-2-page-url/
-    children:
-      - title: "Child Link 1"
-        url: /child-1-page-url/
-      - title: "Child Link 2"
-        url: /child-2-page-url/
-      - title: "Child Link 3"
-        url: /child-3-page-url/
-
-
-# main links links
-# DO NOT TOUCH main!
 main:
   - title: "Blogs"
     url: /blogs/
@@ -34,8 +11,6 @@ main:
   - title: "Tags"
     url: /tags/
     
-  - title: "Archive"
-    url: /collection-archive/  
 
 
 
@@ -87,39 +62,3 @@ app_hosting_on_iosxr:
       - title: "Testing applications using vagrant IOS-XRv"
         url: /techdocs/app_hosting_on_iosxr/testing_apps_using_vagrant_xrv
         
-  
-# doc3 navigation links owned by akshshar
-doc3:
-  - title: Introduction
-    children:
-      - title: "Overview of the Architecture"
-        url: /techdocs/doc3/architecture_overview
-      - title: "doc3 shell"
-        url: /techdocs/doc3/doc3_shell
-      - title: "Setting up the environment"
-        url: /techdocs/doc3/doc3_env
-
-  - title: doc3 in Action
-    children:
-      - title: "Building a native doc"
-        url: /techdocs/doc3/building_a_native_doc
-      - title: "Deploying a native doc"
-        url: /techdocs/doc3/deploying_a_native_doc
-      
-# doc4 navigation links owned by akshshar
-doc4:
-  - title: Introduction
-    children:
-      - title: "Overview of the Architecture"
-        url: /techdocs/doc4/architecture_overview
-      - title: "doc3 shell"
-        url: /techdocs/doc4/doc3_shell
-      - title: "Setting up the environment"
-        url: /techdocs/doc4/doc3_env
-
-  - title: doc4 in Action
-    children:
-      - title: "Building a native doc"
-        url: /techdocs/doc4/building_a_native_doc
-      - title: "Deploying a native doc"
-        url: /techdocs/doc4/deploying_a_native_doc
