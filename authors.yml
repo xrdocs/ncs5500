@@ -218,6 +218,13 @@ Lane Wigley:
   bio         : "Technical Marketing Engineer, Cisco."
   avatar      : "lwigley.jpg"
 
+Xander Thuijs:
+  name        : "Xander Thuijs"
+  email       : "xthuijs@cisco.com"
+  bio         : "Principal Engineer for IOS-XR, ASR9000 and NCS5500 focusing on routing, architecture, automation and UX"
+  avatar      : "xander-thuijs.png"
+  linkedin    : "xander-thuijs-886a00"
+
 Cisco Software Management Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
