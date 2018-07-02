@@ -1,3 +1,33 @@
+# Teams
+
+Cisco Software Management Team:
+  name        : "Cisco Web Team"
+  github      : "ios-xr"
+  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "software-management-team.png"
+  twitter     : "xrdocs"
+
+Cisco Automation Team:
+  name        : "Cisco Web Team"
+  github      : "ios-xr"
+  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "automation-xrdocs.jpg"
+  twitter     : "xrdocs"
+
+Cisco Cloud Scale Networking Team:
+  name        : "Cisco Web Team"
+  github      : "ios-xr"
+  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "cloud-scale-networking-team.png"
+  twitter     : "xrdocs"
+
+Cisco Service Layer Team:
+  name        : "Cisco Web Team"
+  github      : "ios-xr"
+  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "cisco-service-layer-team.png"
+  twitter     : "xrdocs"
+
 # Authors
 
 Shelly Cadora:
@@ -225,30 +255,8 @@ Xander Thuijs:
   avatar      : "xander-thuijs.png"
   linkedin    : "xander-thuijs-886a00"
 
-Cisco Software Management Team:
-  name        : "Cisco Web Team"
-  github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "software-management-team.png"
-  twitter     : "xrdocs"
-
-Cisco Automation Team:
-  name        : "Cisco Web Team"
-  github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "automation-xrdocs.jpg"
-  twitter     : "xrdocs"
-
-Cisco Cloud Scale Networking Team:
-  name        : "Cisco Web Team"
-  github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "cloud-scale-networking-team.png"
-  twitter     : "xrdocs"
-
-Cisco Service Layer Team:
-  name        : "Cisco Web Team"
-  github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "cisco-service-layer-team.png"
-  twitter     : "xrdocs"
+Thomas Wang:
+  name        : "Thomas Wang"
+  email       : "pewang@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco."
+  avatar      : "pewang.png"
