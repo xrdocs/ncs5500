@@ -259,7 +259,7 @@ Thomas Wang:
   name        : "Thomas Wang"
   email       : "pewang@cisco.com"
   bio         : "Technical Marketing Engineer, Cisco."
-  avatar      : "pewang.png"
+  avatar      : "pewang.png"    
 
 Cristina Precup:
   name        : "Cristina Precup"
@@ -272,3 +272,11 @@ Ahmad Bilal Siddiqui:
   email       : "ahsiddiq@cisco.com"
   bio         : "Technical Marketing Engineer, Cisco."
   avatar      : "ahsiddiq.jpg"
+  
+Dan Backman:
+  name        : "Dan Backman"
+  twitter     : "jonahsfo"
+  github      : "dbackmancsco"
+  email       : "dbackman@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco."
+  avatar      : "dbackman.jpg"    
