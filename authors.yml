@@ -49,6 +49,13 @@ Cisco Design Team:
   avatar      : "cisco-design-team.png"
   twitter     : "xrdocs"
 
+Cisco SP BU:
+  name        : "Cisco SP BU"
+  github      : "ios-xr"
+  bio         : "A Team of dedicated network engineers determined to build the best network operating system for Web-Scale Service Providers."
+  avatar      : "cisco-design-team.png"
+  twitter     : "xrdocs"
+
 Cisco Application Hosting Team:
   name        : "Cisco Web Team"
   github      : "ios-xr"
