@@ -33,9 +33,9 @@ EVPN uses MAC addresses as routable addresses and distribute them to all partici
 
 In this and next few posts we will cover BGP-EVPN configuration, implementation and verification on NCS 5500 Platform using IOS-XR. The goal of this tutorial is to provide familiarity to BGP-EVPN from configuration perspective and cover the following use cases.
 
-- [Configuring BGP EVPN control-plane and Segment Routing based forwarding plane](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-1/)
-- [Configure EVPN based Multi-homing to the Hosts](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-2/)
-- [EVPN based Layer-2 VPN Service](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)
+- [Configuring BGP EVPN control-plane and Segment Routing based forwarding plane](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/)
+- [Configure EVPN based Multi-homing to the Hosts](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/)
+- [EVPN based Layer-2 VPN Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)
 - EVPN-IRB between Leafs in the network
 
 
@@ -62,7 +62,7 @@ In this post, we will configure the BGP EVPN control-plane and ISIS Segment Rout
 
 
 ## Reference Topology:
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/Reference-Topology.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/Reference-Topology.png?raw=true)
 
 ### Task 1: Configure the Routing Protocol for Transport:
 
@@ -116,7 +116,7 @@ The Prefix-SID can be an absolute value or an indexed value. In this guide, we a
 
 Following is a sample config to enable Segment Routing in the network. Similar config with prefix-SID that is unique for each device in the network, should be configured on other devices (as per the above diagram) to enable ISIS Segment Routing. In this config prefix-SID is enabled on the “loopback 0” interface of the devices.
 
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/ISIS-SR-Forwarding-Plane.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/ISIS-SR-Forwarding-Plane.png?raw=true)
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -291,7 +291,7 @@ MP-BGP with its various address families is used to transport specific reachabil
 
 In this configuration guide to configure EVPN in the Fabric, we will configure iBGP EVPN, however eBGP EVPN can also be configured and is support on NCS 5500 routers. Spines are configured as the BGP EVPN Route Reflectors. Leaf-1, Leaf-2 and Leaf-5 will all be Route Reflector clients.
 
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/EVPN-Control-Plane.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/EVPN-Control-Plane.png?raw=true)
 Configure Spines as RR for BGP EVPN address family.
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -467,4 +467,4 @@ Use “**show bgp l2vpn evpn summary**” cli command to verify the evpn neighbo
 </pre>
 </div>
 
-In this post we covered the configuration and verification of BGP-EVPN control-plane and ISIS-SR based MPLS forwarding plane. In the [next post](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) we will leverage the EVPN control-plane and ISIS-SR to provision BGP-EVPN based Multi-Homing of devices.
+In this post we covered the configuration and verification of BGP-EVPN control-plane and ISIS-SR based MPLS forwarding plane. In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) we will leverage the EVPN control-plane and ISIS-SR to provision BGP-EVPN based Multi-Homing of devices.

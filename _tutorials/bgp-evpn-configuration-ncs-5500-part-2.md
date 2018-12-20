@@ -16,13 +16,13 @@ tags:
 {% include toc %}
 # Topic: BGP-EVPN based MC-LAG for Multi-Homing of devices
 
-This post will cover BGP-EVPN based MC-LAG for Multi-Homing of devices. Multi-homing is achieved by EVPN Ethernet Segment feature; it offers redundant connectivity and utilizes all the links for active/active per-flow load balancing. For EVPN Multi-Homing tutorial, we will leverage EVPN control-plane and ISIS Segment Routing based forwarding that we configured in the [previous post](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-1/).
+This post will cover BGP-EVPN based MC-LAG for Multi-Homing of devices. Multi-homing is achieved by EVPN Ethernet Segment feature; it offers redundant connectivity and utilizes all the links for active/active per-flow load balancing. For EVPN Multi-Homing tutorial, we will leverage EVPN control-plane and ISIS Segment Routing based forwarding that we configured in the [previous post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/).
 
 EVPN Ethernet segment is a set of Ethernet links that connects a multi-homed device. If a multi-homed device or network is connected to two or more PEs through a set of Ethernet links, then that set of links is referred to as an Ethernet segment. Each device connected in the network is identified by a unique non-zero identifier called Ethernet-Segment Identifier (ESI).
 
 On NCS 5500 platform, following modes of operation are supported.
 
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/Ethernet-Segment.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/Ethernet-Segment.png?raw=true)
 
 **-	Single-Homing** — A device is single-homed when its connected to only one Leaf or PE. There is no 		redundancy in this mode of operation and it does not need Ethernet Segment to be configured.
 
@@ -43,7 +43,7 @@ Note: NCS 5500 platform supports only BGP-EVPN based multi-homing with 2-way red
 
 
 ## Reference Topology
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/Host-connectivity.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/Host-connectivity.png?raw=true)
 
 ### Task 1: Configure LACP bundle on Host-1
 
@@ -80,7 +80,7 @@ Configure Leaf-1 and Leaf-2 to provision all active multi-homing to host-1. The 
 
 NCS 5500 platform supports static LAG as well as LACP, however in this guide we are using LACP for link aggregation.
 
-![](https://github.com/xrdocs/cloud-scale-networking/blob/gh-pages/images/evpn-config/Ether-segment.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/Ether-segment.png?raw=true)
 
 Configure the bundle on the Leaf-1 and Leaf-2. Use the same config for both the Leafs.
 
@@ -256,6 +256,6 @@ Verify the Ethernet Segment status by CLI command “show evpn ethernet-segment 
 
 As we verify the Ethernet segment status, it is observed that there is no information of VLAN services and  Designated Forwarder election. Also, the below output only shows Leaf-1’s own next-hop IP address for Ethernet segment, although for all-active multi-homing we should also see peer Leaf’s address as next-hop address. This is due to the reason that we have configured Ethernet segment but have not provisioned a VLAN service for it yet.  
 
-In the [next post](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-3/), we will implement configuration of VLAN and stretching layer-2 bridging for that VLAN between the Leafs. [Task-2](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-3/#task-2-configure-layer-2-interfaces-and-bridge-domain-on-leafs) and [Task-3](https://xrdocs.io/cloud-scale-networking/tutorials/bgp-evpn-configuration-ncs-5500-part-3/#task-3-configure-evpn-evi-on-leaf-1-leaf-2-for-vlan-10) focuses on VLAN configuration and service carving for Ethernet Segment.
+In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/), we will implement configuration of VLAN and stretching layer-2 bridging for that VLAN between the Leafs. [Task-2](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/#task-2-configure-layer-2-interfaces-and-bridge-domain-on-leafs) and [Task-3](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/#task-3-configure-evpn-evi-on-leaf-1-leaf-2-for-vlan-10) focuses on VLAN configuration and service carving for Ethernet Segment.
 
  

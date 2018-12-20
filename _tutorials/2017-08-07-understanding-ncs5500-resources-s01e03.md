@@ -16,20 +16,20 @@ tags:
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %} 
 
-You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E03 IPv6 Prefixes
 
 ### Previously on "Understanding NCS5500 Resources"
 
-In the previous posts, we introduced the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/) and we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/).
+In the previous posts, we introduced the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/) and we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/).
 
 All the principles described below and the examples used to illustrate them were validated in August 2017 with Jericho-based systems, using scale (with eTCAM) and base (without eTCAM) line cards and running the two IOS XR releases available: 6.1.4 and 6.2.2.
 {: .notice--info}
 
 ### IPv6 routes and FIB Profiles
 
-Please take a few minutes to read the [S01E02](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/) to understand the different databases used to store routes in NCS5500:
+Please take a few minutes to read the [S01E02](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/) to understand the different databases used to store routes in NCS5500:
 
 ![Resources]({{site.baseurl}}/images/resources.jpg){: .align-center}
 
@@ -587,6 +587,6 @@ RP/0/RP0/CPU0:NCS5508-1-614#
 | 100k IPv6/128 | LPM: 161,334 | LPM: 161,456 |
 | 120k IPv6/128 | LPM: 141,370 | LPM: 141,476 |
 
-Again this chart is just provided for information with "aligned"/"sorted" routes, not really representing a real internet distribution. Take a look at the [former post for a production router with public view IPv4+IPv6](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/).
+Again this chart is just provided for information with "aligned"/"sorted" routes, not really representing a real internet distribution. Take a look at the [former post for a production router with public view IPv4+IPv6](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/).
 
 In next posts, we will cover Encapsulation database, FEC and ECMP FEC database, MPLS use-cases and the classifiers/ACLs. Stay tuned.

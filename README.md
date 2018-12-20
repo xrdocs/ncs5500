@@ -1,5 +1,4 @@
-[![Build Status](https://travis-ci.org/xrdocs/cloud-scale-networking.svg?branch=gh-pages)](https://travis-ci.org/xrdocs/cloud-scale-networking)
 
-# Cloud Scale Networking
+# NCS 5500
 
-Blogs, Documentation and Tutorials on IOS-XR platforms and features built for Cloud Scale Operations.
+Blogs, Documentation and Tutorials on Cisco NCS 5500.

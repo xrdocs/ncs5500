@@ -16,7 +16,7 @@ position: top
 ---
 {% include toc icon="table" title="NCS5500 FIB Programming Speed" %} 
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## Programming Speed
 

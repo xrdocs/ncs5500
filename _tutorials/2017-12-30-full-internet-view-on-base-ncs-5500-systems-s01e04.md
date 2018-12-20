@@ -21,16 +21,16 @@ position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %}  
 
-You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E04 Full Internet View on "Base" NCS 5500 Systems
 
 ### Previously on "Understanding NCS5500 Resources"
 
 In previous posts, we presented:
-- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
-- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
-- and [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
+- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
+- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
+- and [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/ncs5500/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
 
 Let's illustrate how we can handle a full IPv4 and IPv6 Internet view on base systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC).
 

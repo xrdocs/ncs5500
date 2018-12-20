@@ -14,7 +14,7 @@ position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %}  
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E06 Introduction of the Jericho+ based platforms and impact on the scale
 
@@ -27,11 +27,11 @@ You can find more content related to NCS5500 including routing memory management
 ### Previously on "Understanding NCS5500 Resources"
 
 In previous posts, we presented:
-- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
-- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
-- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
-- [we demonstrated in a video](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on "Base" systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
-- finally in the fifth post, [we demonstrated in another video](https://xrdocs.github.io/cloud-scale-networking/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/) the scale we can reach on Jericho-based systems with an external TCAM
+- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
+- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
+- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/ncs5500/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
+- [we demonstrated in a video](https://xrdocs.github.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on "Base" systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
+- finally in the fifth post, [we demonstrated in another video](https://xrdocs.github.io/ncs5500/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/) the scale we can reach on Jericho-based systems with an external TCAM
 
 In this episode we will introduce and study a second generation of line cards and systems based on an evolution of the Forwarding ASIC.
 
@@ -144,7 +144,7 @@ So it's possible to use two different modes:
 
 ![36H-S-internet.jpg]({{site.baseurl}}/images/36H-S-internet.jpg){: .align-center}
 
-I invite you take a look at the [second](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/) and [third](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/) episode of this series. You will find detailed explanations and examples with real internet views.
+I invite you take a look at the [second](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/) and [third](https://xrdocs.github.io/ncs5500/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/) episode of this series. You will find detailed explanations and examples with real internet views.
 
 ### NCS55A1-36H-SE-S Scale
 
@@ -154,7 +154,7 @@ Also, please note that the way we sort routes is different between 6.3.15 and 6.
 
 ![6315-632.jpg]({{site.baseurl}}/images/6315-632.jpg){: .align-center}
 
-The [uRPF](https://xrdocs.github.io/cloud-scale-networking/tutorials/ncs5500-urpf/) does not affect the scale of this eTCAM (on the contrary of the first generation where it was necessary to disable the dual capacity feature, reducing the eTCAM to 1M entries). Also, the hybrid ACLs are using a different zone of the eTCAM memory and don't affect the overall scale.
+The [uRPF](https://xrdocs.github.io/ncs5500/tutorials/ncs5500-urpf/) does not affect the scale of this eTCAM (on the contrary of the first generation where it was necessary to disable the dual capacity feature, reducing the eTCAM to 1M entries). Also, the hybrid ACLs are using a different zone of the eTCAM memory and don't affect the overall scale.
 {: .notice--info}
 
 <div class="highlighter-rouge">

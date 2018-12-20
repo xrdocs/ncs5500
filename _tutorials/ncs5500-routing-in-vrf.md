@@ -14,13 +14,13 @@ Position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %}  
 
-You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E08 NCS5500 Routes in VRF
 
 ### Previously on "Understanding NCS5500 Resources"
 
-In previous posts... Well ok, you got it now. You can check all the former articles [in the page here](https://xrdocs.github.io/cloud-scale-networking/tutorials/). We presented the different platforms, based on Qumran-MX, Jericho and Jericho+. We detailed all the mechanisms used to optimized the routes sorting inside the various memories and we also detailed the impact of features like URPF.
+In previous posts... Well ok, you got it now. You can check all the former articles [in the page here](https://xrdocs.github.io/ncs5500/tutorials/). We presented the different platforms, based on Qumran-MX, Jericho and Jericho+. We detailed all the mechanisms used to optimized the routes sorting inside the various memories and we also detailed the impact of features like URPF.
 
 Last week, we've been asked if it's possible "to run the Internet Feed inside a VRF/VPN".
 

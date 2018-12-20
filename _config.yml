@@ -285,8 +285,8 @@ tags:
 
 
 prose:
-  siteurl: 'https://xrdocs.github.io/cloud-scale-networking/'
-  relativeLinks: 'https://xrdocs.github.io/cloud-scale-networking/links.jsonp'
+  siteurl: 'https://xrdocs.github.io/ncs5500/'
+  relativeLinks: 'https://xrdocs.github.io/ncs5500/links.jsonp'
   media: 'images'
   ignore:
     - index.md

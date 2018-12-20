@@ -16,7 +16,7 @@ position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %} 
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E01 The Platforms
 
@@ -141,7 +141,7 @@ RP/0/RP0/CPU0:Router#
 </pre>
 </div>
 
-**Note**: Inside a modular chassis, we can mix and match eTCAM and non-eTCAM line cards. A feature is available to decide where the prefixes should be programmed (differentiating IGP and BGP, and using specific ext-communities). [You can check the blog post dedicated to this topic here.](https://xrdocs.io/cloud-scale-networking/tutorials/mixing-base-and-scale-LC-in-NCS5500/)
+**Note**: Inside a modular chassis, we can mix and match eTCAM and non-eTCAM line cards. A feature is available to decide where the prefixes should be programmed (differentiating IGP and BGP, and using specific ext-communities). [You can check the blog post dedicated to this topic here.](https://xrdocs.io/ncs5500/tutorials/mixing-base-and-scale-LC-in-NCS5500/)
 {: .notice--info}
 
 So basically, this external memory used to extend the scale in terms of routes and classifiers (Access-list entries for instance) is what differentiates the systems and line cards.  
@@ -318,4 +318,4 @@ RP/0/RP0/CPU0:NCS5501-622#
 </pre>
 </div>
 
-Depending on the address family (IPv4 or IPv6), but also depending on the prefix subnet length, routes will be sorted and stored in LEM, LPM or eTCAM. Route handling will depend on the platform type, the IOS XR release running and the profile activated. That's what we will cover in the [next episode](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
+Depending on the address family (IPv4 or IPv6), but also depending on the prefix subnet length, routes will be sorted and stored in LEM, LPM or eTCAM. Route handling will depend on the platform type, the IOS XR release running and the profile activated. That's what we will cover in the [next episode](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)

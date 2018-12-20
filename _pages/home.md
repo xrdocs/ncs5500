@@ -48,7 +48,7 @@ date: null
              systems) handling the current internet table with still significant growth margin. </p>
             </div>
           <p><a href="https://www.youtube.com/watch?v=8Tq4nyP2wuA" target="_blank"  class="btn btn--large">Watch on Youtube</a>
-          <a href="https://xrdocs.io/cloud-scale-networking/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/" target="_blank"
+          <a href="https://xrdocs.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/" target="_blank"
            class="btn btn--large">Read article</a></p>
         </div>
       </div>
@@ -75,7 +75,7 @@ date: null
               we will see how it can fit in a Jericho-based system with External TCAM </p>
             </div>
           <p><a href="https://www.youtube.com/watch?v=lVC3ppgi7ak" target="_blank"  class="btn btn--large">Watch on Youtube</a>
-          <a href="https://xrdocs.io/cloud-scale-networking/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/" target="_blank"
+          <a href="https://xrdocs.io/ncs5500/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/" target="_blank"
            class="btn btn--large">Read article</a></p>
         </div>
       </div>

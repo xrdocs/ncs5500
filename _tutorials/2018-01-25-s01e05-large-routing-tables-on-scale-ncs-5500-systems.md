@@ -22,17 +22,17 @@ position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %}  
 
-You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing in VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E05 Large Routing Tables on "Scale" NCS 5500 Systems
 
 ### Previously on "Understanding NCS5500 Resources"
 
 In previous posts, we presented:
-- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
-- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
-- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
-- and finally [we demonstrated in a video](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on base systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
+- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
+- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
+- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/ncs5500/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
+- and finally [we demonstrated in a video](https://xrdocs.github.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on base systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
 
 Today, we are pushing the limits further. We will take a much larger existing (ie. real) routing table (internet + a very large number of host routes), we will add a projection of the internet table to year 2025 and we will see how it can fit in a Jericho-based system with External TCAM
 
@@ -363,7 +363,7 @@ RP/0/RP0/CPU0:TME-5508-6.2.3#
 </pre>
 </div>
 
-The 2025 internet estimation [is described in the previous post](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/). As mentioned in this post and in the video, the method is certainly a matter of debate. Let's take it for what it is: an estimation.
+The 2025 internet estimation [is described in the previous post](https://xrdocs.github.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/). As mentioned in this post and in the video, the method is certainly a matter of debate. Let's take it for what it is: an estimation.
 
 In these use-cases with large public routing table and extreme amount of host routes, we are far from reaching the limits of the systems based on Jericho ASICs with External TCAMs.
 

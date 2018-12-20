@@ -14,7 +14,7 @@ position: top
 ---
 {% include toc icon="table" title="Netflow, Sampling-Interval and the Mythical Internet Packet Size" %} 
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs,  following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs,  following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## Introduction
 
@@ -357,7 +357,7 @@ Packet size, NDR, bandwidth and performance in PPS are of course directly linked
 
 The average packet size parameter is very important to qualify the Netflow/IPFIX capability of a device and how far we can push in term of sampling-interval. It will be covered in the next part of this blog post.
 
-So, understanding the traffic profiles and the average packet size per link and per ASIC is mandatory to qualify your network. Also it will be necessary to know precisely the port allocation to each ASIC, [something we documented in this post](https://xrdocs.github.io/cloud-scale-networking/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/).
+So, understanding the traffic profiles and the average packet size per link and per ASIC is mandatory to qualify your network. Also it will be necessary to know precisely the port allocation to each ASIC, [something we documented in this post](https://xrdocs.github.io/ncs5500/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/).
 
 You will find a large variety of answers in the litterature or when using your favorite search engine: commonly from 350 bytes to 500 bytes per packet. But the real answer should be, as usual: it depends.
 
@@ -528,7 +528,7 @@ It’s capital to understand that the only relevant parameter is the number of s
 This information can be easily derived from following parameters:
 - average packet size (depends on the charts presented above)
 - are we using ingress only or both ingress and egress (currently egress NF is not supported in NCS5500)
-- how the ports configured for netflow [are connected to the forwarding ASIC](https://xrdocs.github.io/cloud-scale-networking/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/)
+- how the ports configured for netflow [are connected to the forwarding ASIC](https://xrdocs.github.io/ncs5500/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/)
 - sum of bandwidth for all the ports connected to the NPU (an estimation can be taken from peak hour traffic, or the projection of growth, or even the biggest DDoS attack)
 - and finally, the sampling-interval we configured
 

@@ -8,7 +8,7 @@ position: top
 ---
 {% include toc icon="table" title="NCS5500 Things to know" %} 
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## NCS5500 (and some other XR platforms): Good to Know
 
@@ -223,7 +223,7 @@ Buffers:
 Each ASIC is associated by 4GB of GDDR5 memory (total is the multiplication of number of NPU by 4GB).  
 The buffer size is not related to the -SE or non-SE aspect (it's not related to TCAM).  
 For more details, refer to Lane's whitepaper:  
-[https://xrdocs.io/cloud-scale-networking/blogs/2018-05-07-ncs-5500-buffering-architecture/](https://xrdocs.io/cloud-scale-networking/blogs/2018-05-07-ncs-5500-buffering-architecture/)
+[https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/](https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/)
 
 
 ### Supported optics
@@ -287,7 +287,7 @@ If you insert a QSFP28, the port will be seen as HundredGig 0/x/y/z
 - x being the slot number, starting from the top of the chassis with 0
 - y being the position inside a modular line card (NC55-MOD***), if it's a non-MOD card, it will be 0
 - z being the port position in the line card or the system
-- [This xrdocs post](https://xrdocs.io/cloud-scale-networking/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/) detailed the ports for each platform
+- [This xrdocs post](https://xrdocs.io/ncs5500/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/) detailed the ports for each platform
 
 If you insert a QSFP+, the port will be seen as FortyGig 0/x/y/z by default
 - same description for x, y and z

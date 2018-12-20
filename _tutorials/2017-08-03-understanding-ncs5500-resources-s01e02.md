@@ -17,13 +17,13 @@ position: top
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %} 
 
-You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## S01E02 IPv4 Prefixes
 
 ### Previously on "Understanding NCS5500 Resources"
 
-In the [previous post](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/), we introduced the different routers and line cards in NCS5500 portfolio. We classified them into two categories: with or without external TCAM (eTCAM). And we introduced the different databases available to store information, inside and outside the Forwarding ASIC (FA).
+In the [previous post](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/), we introduced the different routers and line cards in NCS5500 portfolio. We classified them into two categories: with or without external TCAM (eTCAM). And we introduced the different databases available to store information, inside and outside the Forwarding ASIC (FA).
 
 All the principles described below and the examples used to illustrate them were validated in August 2017 with Jericho-based systems, using scale (with eTCAM) and base (without eTCAM) line cards and running the two IOS XR releases available: 6.1.4 and 6.2.2. Jericho+ based systems will be used in a follow up post in the same series (season 2 ;)
 {: .notice--info}

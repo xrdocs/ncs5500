@@ -16,7 +16,7 @@ tags:
 ---
 {% include toc icon="table" title="Understanding NCS5500 Resources" %}  
 
-You can find more content related to NCS5500 including routing memory management, VRF, ACLs, Netflow following this [link](https://xrdocs.io/cloud-scale-networking/tutorials/).
+You can find more content related to NCS5500 including routing memory management, VRF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 Edited in August 2018 to add a note on the lack of support of S-RTBH, and to fix an error pointed by Muffadal Presswala (thanks :) related to the behavior with eTCAM systems.
 {: .notice--info}
@@ -26,12 +26,12 @@ Edited in August 2018 to add a note on the lack of support of S-RTBH, and to fix
 ### Previously on "Understanding NCS5500 Resources"
 
 In previous posts, we presented:
-- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
-- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
-- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
-- [we demonstrated in a video](https://xrdocs.github.io/cloud-scale-networking/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on "Base" systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
-- in the fifth post, [we continued with a new video](https://xrdocs.github.io/cloud-scale-networking/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/) where we demonstrated the very high scale we can reach on Jericho-based systems when using an external TCAM
-- last post, [we introduced systems based on the Jericho+ forwarding ASIC](https://xrdocs.github.io/cloud-scale-networking/tutorials/Understanding-ncs5500-jericho-plus-systems/) and we detailed the routing distribution between the different memories and the scale they can achieve.
+- the [different routers and line cards in NCS5500 portfolio](https://xrdocs.github.io/ncs5500/tutorials/2017-08-02-understanding-ncs5500-resources-s01e01/)  
+- we explained [how IPv4 prefixes are sorted in LEM, LPM and eTCAM](https://xrdocs.github.io/ncs5500/tutorials/2017-08-03-understanding-ncs5500-resources-s01e02/)
+- we covered [how IPv6 prefixes are stored in the same databases](https://xrdocs.github.io/ncs5500/tutorials/2017-08-07-understanding-ncs5500-resources-s01e03/).
+- [we demonstrated in a video](https://xrdocs.github.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/) how we can handle a full IPv4 and IPv6 Internet view on "Base" systems and line cards (i.e. without external TCAM, only using the LEM and LPM internal to the forwarding ASIC)
+- in the fifth post, [we continued with a new video](https://xrdocs.github.io/ncs5500/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/) where we demonstrated the very high scale we can reach on Jericho-based systems when using an external TCAM
+- last post, [we introduced systems based on the Jericho+ forwarding ASIC](https://xrdocs.github.io/ncs5500/tutorials/Understanding-ncs5500-jericho-plus-systems/) and we detailed the routing distribution between the different memories and the scale they can achieve.
 
 In this new episode, we will cover the impact of activating URPF on the NCS5500 routers.
 
