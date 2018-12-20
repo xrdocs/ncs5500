@@ -7,8 +7,8 @@
 
 # Site Settings
 locale                   : "en-US"
-title                    : "Cisco NCS 5500 @xrdocs"
-title_short              : "NCS 5500"
+title                    : "Cisco NCS5500 @xrdocs"
+title_short              : "NCS5500"
 title_separator          : "|"
 name                     : &name "Cisco Systems Inc"
 description              : &description "Documentation, Blogs and Tutorials on Cloud Scale Networking with IOS-XR"
