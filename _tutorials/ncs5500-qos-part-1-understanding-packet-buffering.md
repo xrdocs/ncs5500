@@ -96,8 +96,8 @@ If the queue is congested, the egress scheduler will not provide token for trans
 
 Depending on the level of queue congestion, the packet will be stored inside the NPU or in the external DRAM.  Once the congestion state disappears, the egress scheduler will be able to issue the token for the most critical queue. The QoS configuration will dictate this behavior. If QoS is not configured, the First In First Out rule will apply.  
 
-So the packets are buffered in different places in the process:  
-- (ingress) On-chip Buffer: 16MB
+So the packets are buffered in different places along the path:  
+- (ingress) On-chip Buffer: 16MB or
 - (ingress) external DRAM: 4BG
 - (egress) Port Buffer: 16MB
 
@@ -205,7 +205,7 @@ RP/0/RP0/CPU0:R1#
 It represents the number of packets received on NPU0 LC7 and targeted to HundredGig 0/7/0/1 queues, in the same ASIC.  
 
 Even if the packets destination is located in the same NPU, it will follow the same rules of request / grant to get the right to transmit.  
-The packets will not transit through the fabric even if they will be split in cells, but they will take an internal path inside the ASIC. It's also what happens when using a System on the Chip (NCS5501, NCS55A2-MOD, ...).
+In such case, the packets will not transit through the fabric but still, they will be split in cells. They will take an internal path inside the ASIC. It's also what happens when using a System on the Chip (NCS5501, NCS55A2-MOD, ...).
 
 Each ingress NPU links the local VOQ to the output queues via a "flow connector".
 
@@ -229,15 +229,15 @@ If we maintain a constant state of queue eviction (all the queues are constantly
 
 ![20-DRAM-Speed2.jpg]({{site.baseurl}}/images/20-DRAM-Speed2.jpg){: .align-center}
 
-To reach such a situation, we need very specifically crafted traffic, maintaining a constant state of saturation without being taildropped (check the next section).  
-Aside in a lab, having traffic received on a given NPU and targeted all the queues of all the egress ports while maintaining a congestion state, is an impossible scenario.
+To reach such a situation, we need very specifically crafted traffic flows, maintaining a constant state of saturation without being taildropped (check the next section).  
+Aside in a lab, having traffic received on a given NPU and targeted all the queues of all the egress ports while maintaining a congestion state, is not a realistic scenario.
 
-It's important to keep in mind we are increasing the amount of DRAM and the total amount of bandwidth to this DRAM when we had more line cards (more NPUs) in a system:  
+It's important to keep in mind we are increasing the amount of DRAM and the total amount of bandwidth to this DRAM when we insert more line cards (more NPUs) in a system:  
 
 ![21-DRAM-and-BW.jpg]({{site.baseurl}}/images/21-DRAM-and-BW.jpg){: .align-center}
 
 In this example, we have 3 NPUs, representing a total of 12GB of traffic and an aggregated bandwidth of 2.7Tbps unidirectional to the external buffer.  
-More line cards, more NPU and more DRAM / bandwidth to DRAM.
+More line cards --> more NPUs --> more DRAM and more bandwidth to DRAM.
 
 ### Taildrop
 
