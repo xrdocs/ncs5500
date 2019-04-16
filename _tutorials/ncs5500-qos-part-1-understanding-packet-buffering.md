@@ -41,7 +41,8 @@ or interconnected through one or multiple Fabric Engines:
   
 
 All Jericho and Qumran options are following a very similar architecture, they are using resources inside the ASIC (packet memory, routing information memories, next-hop memories, encapsulation memories, statistics memories, etc etc) and also external to the chipset (like the DRAM used for packet buffering).  
-Some systems are equipped with external TCAMs or not, that's how we differentiate base and scale systems/LCs.  
+Some systems are equipped with external TCAMs or not, that's how we differentiate base and scale systems/LCs. 
+
 On the Jericho side:
 
 ![03-Jericho x3.jpg]({{site.baseurl}}/images/03-Jericho x3.jpg){: .align-center}  
@@ -66,18 +67,21 @@ All the DNX forwarding ASICs used in the NCS550 portfolio are made of two cores 
 
 A packet processed in the forwarding ASIC will always be received in the ingress pipeline handling the receiving port and via the egress pipeline of the outgoing port, could it be in the same NPU or in different NPUs (connected through a fabric engine).  
 
-![06b-Pipelines.png]({{site.baseurl}}/images/06b-Pipelines.png){: .align-center}  
-
 A big difference, compared to our tradition routers based on run-to-completion architectures, is the fact we will only perform a single-lookup in ingress to figure out the destination of a received packet. So, this operation will happen in the ingress pipeline only.  
 
 ![05-SingleLookup.jpg]({{site.baseurl}}/images/05-SingleLookup.jpg){: .align-center}  
 
 It will reduce the latency and globally will improve the performance.  
-But it has significant implications on the packet buffering too. Indeed, the buffering in egress side will be minimal and in case of queue or port congestion, the packets will be stored in ingress. That also implies an advanced mechanism of request/authorization between arbitrers. That's what we will describe now.
+But it has significant implications on the packet buffering too. Indeed, the buffering in egress side will be minimal and in case of queue or port congestion, the packets will be stored in ingress. That also implies an advanced mechanism of request/authorization between arbitrators. 
+
+That's what we will describe now.
 
 ### Ingress-only buffering
 
-Every packet received in the ingress pipeline will go through multiple stages. Each pipeline block has a specific role and a budget of resource access (read and write). The FWD block will be responsible for the packet destination lookup. That's where the routing decision is made and it will result in pointers to next-hop information and header encapsulation (among other things).  
+Every packet received in the ingress pipeline will go through multiple stages. Each pipeline block has a specific role and a budget of resource access (read and write). The FWD block will be responsible for the packet destination lookup. That's where the routing decision is made and it will result in pointers to next-hop information and header encapsulation (among other things). 
+
+![06b-Pipelines.png]({{site.baseurl}}/images/06b-Pipelines.png){: .align-center}  
+
 Once the destination is identified, the packet is associated to a queue (a VOQ more precisely) but we will come back on this concept below.  
 The ingress scheduler will contact its egress counterpart and will issue a packet transmission request: 
 
