@@ -30,7 +30,7 @@ The short version of this article is available in the following Youtube video:
 
 ### DNX ASICs in NCS5500 family
 
-All the NCS5500 routers are powered by the Broadcom StrataDNX (or DNX) Network Processor Units (NPUs).  
+All the NCS5500 routers are powered by  Broadcom StrataDNX (or DNX) Network Processor Units (NPUs).  
 These ASICs can be used in standalone mode (Systems on Chip) or interconnected through one or multiple Fabric Engines.  
 
 ![01-dnx-fe3600.jpg]({{site.baseurl}}/images/01-dnx-fe3600.jpg){: .align-center}  
