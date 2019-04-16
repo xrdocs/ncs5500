@@ -31,10 +31,14 @@ The short version of this article is available in the following Youtube video:
 ### DNX ASICs in NCS5500 family
 
 All the NCS5500 routers are powered by  Broadcom StrataDNX (or DNX) Network Processor Units (NPUs).  
-These ASICs can be used in standalone mode (Systems on Chip) or interconnected through one or multiple Fabric Engines.  
+These ASICs can be used in standalone mode (Systems on Chip):
+
+![02-dnx-soc.jpg]({{site.baseurl}}/images/02-dnx-soc.jpg){: .align-center}
+
+or interconnected through one or multiple Fabric Engines:
 
 ![01-dnx-fe3600.jpg]({{site.baseurl}}/images/01-dnx-fe3600.jpg){: .align-center}  
-![02-dnx-soc.jpg]({{site.baseurl}}/images/02-dnx-soc.jpg){: .align-center}  
+  
 
 All Jericho and Qumran options are following a very similar architecture, they are using resources inside the ASIC (packet memory, routing information memories, next-hop memories, encapsulation memories, statistics memories, etc etc) and also external to the chipset (like the DRAM used for packet buffering).  
 Some systems are equipped with external TCAMs or not, that's how we differentiate base and scale systems/LCs.  
