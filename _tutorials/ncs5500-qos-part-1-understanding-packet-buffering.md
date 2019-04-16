@@ -15,7 +15,7 @@ position: top
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
-## Cisco NCS5500 QOS Series - 01 - Introduction to Packet BUFFERING
+## Introduction to Packet BUFFERING
 
 This first blog post will help understanding key concepts on the buffering architecture and clarify things like VOQ-only, single-lookup and ingress-buffering only designs.  
 It's necessary to detail all these mechanisms to understand later the subtleties of the QoS implementation, including the scales and limitations.  
