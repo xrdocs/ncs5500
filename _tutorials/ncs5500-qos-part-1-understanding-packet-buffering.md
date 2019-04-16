@@ -9,7 +9,7 @@ tags:
   - qos
   - voq
   - buffers
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS5500 Buffering Architecture Part 1" %} 
 
