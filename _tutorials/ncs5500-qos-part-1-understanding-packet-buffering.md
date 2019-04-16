@@ -127,6 +127,8 @@ In this example, the egress port HunGig0/7/0/1 is materialized by 8 queues in EA
 
 ![16-VOQ1b.jpg]({{site.baseurl}}/images/16-VOQ1b.jpg){: .align-center}
 
+And for three interfaces:
+
 ![17-VOQ2b.jpg]({{site.baseurl}}/images/17-VOQ2b.jpg){: .align-center}
 
 With this show command, we take the perspective of the NPU 0 on Line Card 1, the queue is seen as remote.  
