@@ -26,9 +26,9 @@ The short version of this article is available in the following Youtube video:
 
 [https://www.youtube.com/watch?v=_ozPYN6Ej9Y](https://www.youtube.com/watch?v=_ozPYN6Ej9Y)
 
-<iframe src="https://www.youtube.com/watch?v=_ozPYN6Ej9Y" width="800" height="550" frameborder="0" allowfullscreen></iframe>
+<iframe src="https://www.youtube.com/embed/_ozPYN6Ej9Y" width="800" height="550" frameborder="0" allowfullscreen></iframe>
 
-<iframe width="560" height="315" src="https://www.youtube.com/watch?v=_ozPYN6Ej9Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_ozPYN6Ej9Y" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 
 ### DNX ASICs in NCS5500 family
 
