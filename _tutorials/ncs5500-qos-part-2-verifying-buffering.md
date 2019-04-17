@@ -73,13 +73,13 @@ In the former test, we used specific counters to verify the buffering behavior.
 Let's review them.  
 
 We will collect the following Broadcom counters:  
-- IQM_EnqueuePktCnt: total number of packets handled by the NPU
-- IDR_MMU_CREDITS: total number of packets moved to DRAM
-- IQM_EnqueueDscrdPktCnt: total number of packets dropped because of taildrop
-- IQM_RejectDramIneligiblePktCnt: total number of packets dropped because DRAM was not accessible in read, typically when the bandwidth to DRAM is saturated
-- and potentially also IDR_FullDramRejectPktsCnt and IDR_PartialDramRejectPktsCnt
+- **IQM_EnqueuePktCnt**: total number of packets handled by the NPU
+- **IDR_MMU_CREDITS**: total number of packets moved to DRAM
+- **IQM_EnqueueDscrdPktCnt**: total number of packets dropped because of taildrop
+- **IQM_RejectDramIneligiblePktCnt**: total number of packets dropped because DRAM was not accessible in read, typically when the bandwidth to DRAM is saturated
+- and potentially also **IDR_FullDramRejectPktsCnt** and **IDR_PartialDramRejectPktsCnt**
 
-Form CLI "show controller npu stats counters-all instance all location all" we can extract: ENQUEUE_PKT_CNT, MMU_IDR_PACKET_COUNTER and ENQ_DISCARDED_PACKET_COUNTER
+Form CLI "_show controller npu stats counters-all instance all location all_" we can extract: ENQUEUE_PKT_CNT, MMU_IDR_PACKET_COUNTER and ENQ_DISCARDED_PACKET_COUNTER
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -118,9 +118,9 @@ IQM:
 </div>
 
 To get the DRAM reject counters, we will use:  
-- show contr npu stats counters-all detail instance all location all  
+- _show contr npu stats counters-all detail instance all location all_  
 or if the IOS XR version doesn't support the "detail" option, use the following instead:   
-- show controllers fia diagshell 0 "diag counters" loc 0/x/CPU0
+- _show controllers fia diagshell 0 "diag counters" loc 0/x/CPU0_
 
 <div class="highlighter-rouge">
 <pre class="highlight">
