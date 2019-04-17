@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2019-04-16 23:17 +0200'
 title: NCS5500 QoS Part 2 - Verifying Buffering in Lab and Live Networks
 author: Nicolas Fevrier
