@@ -207,10 +207,10 @@ The total amount of traffic measured is tremendous: 24,526,679,839,376,100 packe
 Not in lab, not in academic models / simulations, but in real routers.  
 
 With the show commands described in former section, we extracted:  
-- ENQUEUE_PKT_CNT: packets transmitted in the NPU
-- MMU_IDR_PACKET_COUNTER: packets passed to DRAM
-- ENQ_DISCARDED_PACKET_COUNTER: packets taildropped
-- RjctDramIneligiblePktCnt: packets drop because of DRAM bandwidth
+- **ENQUEUE_PKT_CNT**: packets transmitted in the NPU
+- **MMU_IDR_PACKET_COUNTER**: packets passed to DRAM
+- **ENQ_DISCARDED_PACKET_COUNTER**: packets taildropped
+- **RjctDramIneligiblePktCnt**: packets drop because of DRAM bandwidth
 
 Dividing MMU_IDR_PACKET_COUNTER by ENQUEUE_PKT_CNT, we can compute the ratio of packets moved to DRAM.  
 --> 0,151%  
