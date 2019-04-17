@@ -292,7 +292,7 @@ In this chart, we are sorting the entries by the number of ENQUEUE_PKT_CNT, so i
 | 49 | 119 048 492 308 148 | 19 756 851 882 | 1 468 594 303 | 0 | 0,016596 | 0,001234 | Peering |
 | 50 | 118 902 447 078 432 | 20 140 676 286 | 1 437 569 523 | 0 | 0,016939 | 0,001209 | Peering |
 
-For these more busiest NPUs collected, we see the DRAM ratio and taildrop ratio being actually much smaller than the aggregated numbers.  
+For the more busiest NPUs collected, we see the DRAM ratio and taildrop ratio being actually much smaller than the aggregated numbers.  
 
 ### How to read these numbers?
 
