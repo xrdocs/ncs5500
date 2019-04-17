@@ -212,15 +212,15 @@ With the show commands described in former section, we extracted:
 - **ENQ_DISCARDED_PACKET_COUNTER**: packets taildropped
 - **RjctDramIneligiblePktCnt**: packets drop because of DRAM bandwidth
 
-Dividing MMU_IDR_PACKET_COUNTER by ENQUEUE_PKT_CNT, we can compute the ratio of packets moved to DRAM.  
+Dividing **MMU_IDR_PACKET_COUNTER** by **ENQUEUE_PKT_CNT**, we can compute the ratio of packets moved to DRAM.  
 --> 0,151%  
 This number is an average value and should be considered as such. It just shows that indeed, the vast majority of the traffic is handled in OCB (inside the NPU).  
 
-Dividing ENQ_DISCARDED_PACKET_COUNTER by ENQUEUE_PKT_CNT, we can compute the ratio of packets taildropped.  
+Dividing **ENQ_DISCARDED_PACKET_COUNTER** by **ENQUEUE_PKT_CNT**, we can compute the ratio of packets taildropped.  
 --> 0,0358%  
 Having drops is normal in the life of a router. Multiple reasons here, from TCP windowing to temporary congestion situations.  
 
-Finally, RjctDramIneligiblePktCnt will tell us if we have situation in production where the link from the NPU to the DRAM gets saturated and drops packets.  
+Finally, **RjctDramIneligiblePktCnt** will tell us if we have situation in production where the link from the NPU to the DRAM gets saturated and drops packets.  
 --> not a single packet discarded in such scenario.
 
 <div class="highlighter-rouge">
