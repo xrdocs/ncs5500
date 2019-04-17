@@ -298,7 +298,7 @@ For the more busiest NPUs collected, we see the DRAM ratio and taildrop ratio be
 
 First of all, it demonstrates clearly that most of the packets are handled inside the ASIC, only a very small portion of the traffic being evicted to DRAM.  
 
-Second, with RjctDramIneligiblePktCnt being zero in EVERY data collection, we prove that bandwidth from NPU to DRAM (900Gbps unidirectional) is correctly dimensionned. It handles the real burstiness of the traffic without a single drop.  
+Second, with **RjctDramIneligiblePktCnt** being zero in EVERY data collection, we prove that bandwidth from NPU to DRAM (900Gbps unidirectional) is correctly dimensionned. It handles the real burstiness of the traffic without a single drop.  
 
 Last, the data collected represents a snapshot.  It is recommended to collect these counters regularly and to compare them with the network activity during the interval.  
 Having higher numbers in your network may be correlated to a particular outage or specific situation.  
