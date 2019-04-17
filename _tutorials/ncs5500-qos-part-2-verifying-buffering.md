@@ -71,31 +71,140 @@ This test is basic but has been asked by several customers who expected to see d
 In the former test, we checked some counters to verify the behavior of the buffering.  
 Let's review what's available and what should be used.  
 
+We will collect the following Broadcom counters:  
+- IQM_EnqueuePktCnt: total number of packets handled by the NPU
+- IDR_MMU_CREDITS: total number of packets moved to DRAM
+- IQM_EnqueueDscrdPktCnt: total number of packets dropped because of taildrop
+- IQM_RejectDramIneligiblePktCnt: total number of packets dropped because DRAM was not accessible in read, typically when the bandwidth to DRAM is saturated
+- and potentially also IDR_FullDramRejectPktsCnt and IDR_PartialDramRejectPktsCnt
 
+Form CLI "show controller npu stats counters-all instance all location all" we can extract: ENQUEUE_PKT_CNT, MMU_IDR_PACKET_COUNTER and ENQ_DISCARDED_PACKET_COUNTER
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:ROUTER#show controller npu stats counters-all instance all location all
 
-at https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/652/Cisco-IOS-XR-fretta-bcm-dpa-hw-resources-oper-sub2.yang
+FIA Statistics Rack: 0, Slot: 0, Asic instance: 0
+
+Per Block Statistics:
+
+Ingress:
+
+NBI RX:
+  RX_TOTAL_BYTE_COUNTER          = 161392268790033002
+  RX_TOTAL_PKT_COUNTER           = 164628460653364
+
+IRE:
+  CPU_PACKET_COUNTER             = 0
+  NIF_PACKET_COUNTER             = 164628460651867
+  OAMP_PACKET_COUNTER            = 32771143
+  OLP_PACKET_COUNTER             = 4787508
+  RCY_PACKET_COUNTER             = 67452938
+  IRE_FDT_INTRFACE_CNT           = 192
+
+IDR:
+  MMU_IDR_PACKET_COUNTER         = <mark>697231761913</mark>
+  IDR_OCB_PACKET_COUNTER         = 1
+
+IQM:
+  ENQUEUE_PKT_CNT                = <mark>164640311902277</mark>
+  DEQUEUE_PKT_CNT                = 164640311902198
+  DELETED_PKT_CNT                = 0
+  ENQ_DISCARDED_PACKET_COUNTER   = <mark>90015441</mark>
+</code>
+</pre>
+</div>
+
+To get the DRAM reject counters, we will use:  
+- show contr npu stats counters-all detail instance all location all
+or if the IOS XR version doesn't support the "detail" option, use the following instead:   
+- show controllers fia diagshell 0 "diag counters" loc 0/x/CPU0
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:ROUTER#show contr npu stats counters-all detail instance all location all | i Dram
+
+  IDR FullDramRejectPktsCnt            :                0
+  IDR FullDramRejectBytesCnt           :                0
+  IDR PartialDramRejectPktsCnt         :                0
+  IDR PartialDramRejectBytesCnt        :                0
+  IQM0 RjctDramIneligiblePktCnt        :                0
+  IQM1 RjctDramIneligiblePktCnt        :                0
+  IDR FullDramRejectPktsCnt            :                0
+  IDR FullDramRejectBytesCnt           :                0
+  IDR PartialDramRejectPktsCnt         :                0
+  IDR PartialDramRejectBytesCnt        :                0
+  IQM0 RjctDramIneligiblePktCnt        :                0
+  IQM1 RjctDramIneligiblePktCnt        :                0
+
+--%--SNIP--%--SNIP--%--
+  
+</code>
+</pre>
+</div>
+
+None of these counters are available through SNMP / MIB but instead you can use streaming telemetry:
+
+From [https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/Cisco-IOS-XR-fretta-bcm-dpa-hw-resources-oper-sub2.yang](https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/Cisco-IOS-XR-fretta-bcm-dpa-hw-resources-oper-sub2.yang)
  
-And found:
+You'll found:
  
-IQM_EnqueueDscrdPktCnt
- 
+ENQUEUE_PKT_CNT: iqm-enqueue-pkt-cnt
+
     leaf iqm-enqueue-pkt-cnt {
       type uint64;
       description "Counts enqueued packets";
  
-IQM_EnqueueDscrdPktCnt
- 
-leaf iqm-enq-discarded-pkt-cnt {
-      type uint64;
-      description
-"Counts all packets discarded at the ENQ pipe";
- 
-IDR_MMU_CREDITS
- 
+MMU_IDR_PACKET_COUNTER: idr-mmu-if-cnt
+
   leaf idr-mmu-if-cnt {
       type uint64;
       description
 "Performance counter of the MMU interface";
  
+ENQ_DISCARDED_PACKET_COUNTER: iqm-enq-discarded-pkt-cnt
+ 
+leaf iqm-enq-discarded-pkt-cnt {
+      type uint64;
+      description
+"Counts all packets discarded at the ENQ pipe";
+
+At the moment (Apr 2019), RjctDramIneligiblePktCnt / FullDramRejectPktsCnt / PartialDramRejectPktsCnt are not available in the data model and can't be streamed.  
+
+### Auditing real production routers
+
+We have the counters available and we asked multiple customers (25+) to collect data from their production routers.  
+In total, we had 550 NPUs transporting live traffic in multiple network positions:  
+- IP core
+- MPLS core (P/LSR)
+- Internet border (transit / peering)
+- CDN (connected to FB, Akamai, Google Cache, Netflix, ...)
+- PE (L2VPN and L3VPN)
+- Aggregation
+- SPDC / ToR leaf
+
+The data aggregated is helpful since it gives a vision of what is happening in reality.  
+The total amount of traffic measured is tremendous: 24,526,679,839,376,100 packets!!!  
+Not in lab, not in models, but in real routers.  
+
+With the show commands described in former section, we extracted:  
+- ENQUEUE_PKT_CNT: packets transmitted in the NPU
+- MMU_IDR_PACKET_COUNTER: packets passed to DRAM
+- ENQ_DISCARDED_PACKET_COUNTER: packets taildropped
+- RjctDramIneligiblePktCnt: packets drop because of DRAM bandwidth
+
+Dividing MMU_IDR_PACKET_COUNTER by ENQUEUE_PKT_CNT, we can compute the ratio of packets moved to DRAM.  
+--> 0,151%  
+This number is interesting. 
+
+Dividing ENQ_DISCARDED_PACKET_COUNTER by ENQUEUE_PKT_CNT, we can compute the ratio of packets taildropped.  
+--> 0,0358%  
+
+
+Finally, RjctDramIneligiblePktCnt will tell us if we have situation in production where the link from the NPU to the DRAM gets saturated and drops packets.
+
+### Recommendation for counter collection
+
 
