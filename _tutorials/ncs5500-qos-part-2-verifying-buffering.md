@@ -6,7 +6,7 @@ author: Nicolas Fevrier
 excerpt: >-
   Second part of the NCS5500 QoS Series: Packet Buffering illustrated in lab and
   in production networks
-position: hidden
+position: top
 tags:
   - ncs5500
   - qos
@@ -22,10 +22,10 @@ Also you can find the first part of this post here:
 
 ## Checking Buffering in action
 
-This second blog post will take concrete examples to illustrate the concepts covered in the first part.   
+This second blog post will take concrete examples to illustrate the concepts covered in the first [part](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/).   
 The NCS5500 is based on a VOQ-only, single-lookup and ingress-buffering forwarding architecture.  
-We will use a lab example to illustrate how the system handles bursts, then we will present the monitoring tools / counters we can use to measure the numbers of packets handled in OCB or in DRAM, and finally we will present the data collected on 500+ NPUs in production.  
-This should answer questions often asked by customers and clarify all potential doubts.
+We will use a lab example to illustrate how the system handles bursts, then we will present the monitoring tools / counters we can use to measure where packets are buffered, and finally we will present the data collected on 500+ NPUs in production.  
+This should answer frequently asked questions and clarify all potential doubts.
 
 ### Video
 
@@ -36,8 +36,8 @@ We recommend to start watching this short Youtube video first:
 
 ### Lab test
 
-For this first part, and following customer request, we set up a large test bed:
-- NCS5508 with two line cards 36x100G-A-SE (each card is made of 4 NPU Jericho+, each one handling 9 ports 100G)
+For this first part, and following customer request, we built a large test bed:
+- NCS5508 with two line cards 36x100G-A-SE (each card is made of 4x NPU Jericho+, each one handling 9 ports 100G)
 - 27 tester ports 100GE (Spirent) connected to 27 router ports
 	- 9 ports on LC 4 NPU 0
     - 9 ports on LC 4 NPU 1
@@ -45,13 +45,13 @@ For this first part, and following customer request, we set up a large test bed:
 
 ![]({{site.baseurl}}/images/testBed.jpg){: .align-center}  
 
-We generate a background / constant traffic of 80% line rate (80Gbps on each port) between two NPUs. This traffic is illustrated in purple in the diagram above. Traffic is bi-directional.  
-Then, we will use the remaining 9 ports to create bursts of traffic targeted to the ports Hu0/6/0/0-8 (shown in red in the diagram).  
-The bursts are lasting 100ms, every second.  
+We generate a background / constant traffic of 80% line rate (80Gbps on each port) between two NPUs. This bi-directional traffic is displayed in purple in the diagram above.  
+Then, we will use the remaining 9 ports to generate peaks of traffic targeted to the ports Hu0/6/0/0-8 (shown in red in the diagram).  
+These bursts are lasting 100ms, every second.  
 
 On the tester, we didn't make any specific PPM adjustment and used internal clock.
 
-On the router itself, no specific configuration. Interfaces are configured with IPv4 addresses only and no QoS.
+On the router, no specific configuration either. Interfaces are simply configured with IPv4 addresses (no QoS).
 
 The tests performed are the following:  
 - test 1: 80% background and all the ports bursting at 20%. That means:
@@ -61,7 +61,7 @@ We verify no packets are dropped on the background or the bursts, and we also ma
 - test 2 : 
 	- 80% background 
     - other ports bursting at 20%
-    - one single port bursts at 25%, create a 5Gbps saturation for 100ms  
+    - one single port bursts at 25%, creating a 5Gbps saturation for 100ms  
 Here again, we verify no packets are dropped on the background or the bursts, but also we verify that packets are sent to the DRAM.  
 It's expected since one queue exceeds the threshold and is evicted to the external buffer.
 
@@ -152,7 +152,7 @@ From [https://github.com/YangModels/yang/blob/master/vendor/cisco/xr/653/Cisco-I
  
 You'll found:
  
-ENQUEUE_PKT_CNT: iqm-enqueue-pkt-cnt
+**ENQUEUE_PKT_CNT**: iqm-enqueue-pkt-cnt
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -164,7 +164,7 @@ ENQUEUE_PKT_CNT: iqm-enqueue-pkt-cnt
 </pre>
 </div>
  
-MMU_IDR_PACKET_COUNTER: idr-mmu-if-cnt
+**MMU_IDR_PACKET_COUNTER**: idr-mmu-if-cnt
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -176,7 +176,7 @@ MMU_IDR_PACKET_COUNTER: idr-mmu-if-cnt
 </pre>
 </div>
 
-ENQ_DISCARDED_PACKET_COUNTER: iqm-enq-discarded-pkt-cnt
+**ENQ_DISCARDED_PACKET_COUNTER**: iqm-enq-discarded-pkt-cnt
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -188,7 +188,7 @@ ENQ_DISCARDED_PACKET_COUNTER: iqm-enq-discarded-pkt-cnt
 </pre>
 </div>
 
-At the moment (Apr 2019), RjctDramIneligiblePktCnt / FullDramRejectPktsCnt / PartialDramRejectPktsCnt are not available in the data models and can't be streamed.  
+At the moment (Apr 2019), **RjctDramIneligiblePktCnt** / **FullDramRejectPktsCnt** / **PartialDramRejectPktsCnt** are not available in the data models and therefor, can't be streamed.  
 
 ### Auditing real production routers
 
@@ -204,7 +204,7 @@ In total, we had information for 550 NPUs transporting live traffic in multiple 
 
 The data aggregated is helpful since it gives a vision of what is happening in reality.  
 The total amount of traffic measured is tremendous: 24,526,679,839,376,100 packets!!!  
-Not in lab, not in academic models / simulations, but in real routers.  
+Not in lab, not in academic models / simulations, but in **real** routers.  
 
 With the show commands described in former section, we extracted:  
 - **ENQUEUE_PKT_CNT**: packets transmitted in the NPU
@@ -214,13 +214,13 @@ With the show commands described in former section, we extracted:
 
 Dividing **MMU_IDR_PACKET_COUNTER** by **ENQUEUE_PKT_CNT**, we can compute the ratio of packets moved to DRAM.  
 --> 0,151%  
-This number is an average value and should be considered as such. It just shows that indeed, the vast majority of the traffic is handled in OCB (inside the NPU).  
+This number is an average value and should be considered as such. It shows that indeed, the vast majority of the traffic is handled in OCB (inside the NPU).  
 
 Dividing **ENQ_DISCARDED_PACKET_COUNTER** by **ENQUEUE_PKT_CNT**, we can compute the ratio of packets taildropped.  
 --> 0,0358%  
 Having drops is normal in the life of a router. Multiple reasons here, from TCP windowing to temporary congestion situations.  
 
-Finally, **RjctDramIneligiblePktCnt** will tell us if we have situation in production where the link from the NPU to the DRAM gets saturated and drops packets.  
+Finally, **RjctDramIneligiblePktCnt** will tell us if the link from the NPU to the DRAM can get saturated and drops packets with production traffic.  
 --> not a single packet discarded in such scenario.
 
 <div class="highlighter-rouge">
@@ -237,7 +237,7 @@ LAPTOP: nicolas$
 </pre>
 </div>
 
-In this chart, we are sorting the entries by the number of ENQUEUE_PKT_CNT, so it represents the most active ASICs in term of packets handled.  
+In this chart, we sort by numbers of ENQUEUE_PKT_CNT: it represents the most active ASICs in term of packets handled.  
 
 | Rank | ENQUEUE_PKT_CNT | MMU_IDR	ENQ_DISC | RjctDram | Ratio DRAM % | Ratio drops % | Network roles |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
@@ -292,7 +292,7 @@ In this chart, we are sorting the entries by the number of ENQUEUE_PKT_CNT, so i
 | 49 | 119 048 492 308 148 | 19 756 851 882 | 1 468 594 303 | 0 | 0,016596 | 0,001234 | Peering |
 | 50 | 118 902 447 078 432 | 20 140 676 286 | 1 437 569 523 | 0 | 0,016939 | 0,001209 | Peering |
 
-For the more busiest NPUs collected, we see the DRAM ratio and taildrop ratio being actually much smaller than the aggregated numbers.  
+For the most busiest NPUs collected, we see the DRAM ratio and taildrop ratio being actually much smaller than aggregated numbers.  
 
 ### How to read these numbers?
 
@@ -300,7 +300,7 @@ First of all, it demonstrates clearly that most of the packets are handled insid
 
 Second, with **RjctDramIneligiblePktCnt** being zero in EVERY data collection, we prove that bandwidth from NPU to DRAM (900Gbps unidirectional) is correctly dimensionned. It handles the real burstiness of the traffic without a single drop.  
 
-Last, the data collected represents a snapshot.  It is recommended to collect these counters regularly and to compare them with the network activity during the interval.  
+Last, the data collected represents a snapshot.  It is recommended to collect these counters regularly and to analyze them with the network activity during the interval.  
 Having higher numbers in your network may be correlated to a particular outage or specific situation.  
 Having small numbers, in the other hand, is much easier to read (no drops being... no drops).
 
@@ -310,5 +310,6 @@ In conclusion, the ingress-buffering / VOQ-only model is well adapted for real n
 
 We have seen "academic" studies trying to prove the contrary, but the numbers are talking here.  
 
-A sandbox, or an imaginary model are not relevant approach.  
+A sandbox, or an imaginary model are not relevant approach.
+
 Production networks deployed all around the world, in different positions/roles, transporting Petabytes of traffic for multiple years, prove the efficiency of this architecture.
