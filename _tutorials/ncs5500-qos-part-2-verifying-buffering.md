@@ -228,11 +228,11 @@ Finally, **RjctDramIneligiblePktCnt** will tell us if we have situation in produ
 <code>
 LAPTOP: nicolas$ grep RjctDramIneligiblePktCnt * | wc -l
     1570
-LAPTOP:  nicolas$ grep RjctDramIneligiblePktCnt * | grep " 0" | wc -l
+LAPTOP: nicolas$ grep RjctDramIneligiblePktCnt * | grep " 0" | wc -l
     1570
-LAPTOP:  nicolas$ grep RjctDramIneligiblePktCnt * | grep -v " 0" | wc -l
+LAPTOP: nicolas$ grep RjctDramIneligiblePktCnt * | grep -v " 0" | wc -l
        0
-LAPTOP:  nicolas$
+LAPTOP: nicolas$
 </code>
 </pre>
 </div>
