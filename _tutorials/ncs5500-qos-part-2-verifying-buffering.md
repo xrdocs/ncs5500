@@ -220,7 +220,7 @@ LAPTOP:  nicolas$
 </pre>
 </div>
 
-In this chart, we are sorting the entries by the number of ENQUEUE_PKT_CNT.
+In this chart, we are sorting the entries by the number of ENQUEUE_PKT_CNT, so it represents the most active ASICs in term of packets handled.  
 
 | Rank | ENQUEUE_PKT_CNT | MMU_IDR	ENQ_DISC | RjctDram | Ratio DRAM % | Ratio drops % | Network roles |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
@@ -280,8 +280,12 @@ For these more busiest NPUs collected, we see the DRAM ratio and taildrop ratio 
 ### How to read these numbers?
 
 First of all, it demonstrates clearly that most of the packets are handled inside the ASIC, only a very small portion of the traffic being evicted to DRAM.  
-Second, with 
 
-### Recommendation for counter collection
+Second, with RjctDramIneligiblePktCnt being zero in EVERY data collection, we prove that bandwidth from NPU to DRAM (900Gbps unidirectional) is correctly dimensionned. It handles the real burstiness of the traffic without a single drop.  
 
+Last, the data collected represents a snapshot.  It is recommended to collect these counters regularly and to compare them with the network activity during the interval.  
+Having higher numbers in your network may be correlated to a particular outage or specific situation.  
+Having small numbers, in the other hand, is much easier to read (no drops being... no drops).
 
+In conclusion, the ingress-buffering / VOQ-only model is well adapted for real networks.  
+We have seen "academic" studies trying to prove the contrary, but the numbers are talking here. A sandbox, or an imaginary model are not relevant approach. Production networks deployed all around the world, in different positions/roles, transporting Petabytes of traffic for multiple years, prove the efficiency of this architecture.
