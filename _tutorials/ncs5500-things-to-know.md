@@ -20,6 +20,7 @@ We will keep this one updated regularly.
 - 2018-07-09: First version
 - 2018-07-11: Add link to software center, and fix the optics support URL
 - 2018-07-26: Add section on PIDs + section on the scale per LC / systems
+- 2019-04-18: Add RSFEC/ER4L section
 {: .notice--info}
 
 
@@ -294,3 +295,35 @@ If you insert a QSFP+, the port will be seen as FortyGig 0/x/y/z by default
 - depending on the optic type, it may be possible to configure the breakout option. In this case, the port will appear as TenGig 0/x/y/z/w. You notice a fifth tuple to describe the interface position. Check the configuration needed above in this article
 
 If you insert a QSA optic (QSFP to SFP Adaptor), the port will appear as TenGig 0/x/y/z
+
+## ER4L
+
+We support ER4-Lite optics in NCS5500 and it needs error correction (FEC) on both ends to reach to 40Km.  
+RS-FEC is enabled by default, so nothing specific is required to activate the feature.
+
+You could verify with:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:router#show controllers HundredGigE0/0/0/13 all | in Forward
+<mark>Forward error correction: Standard (Reed-Solomon)</mark>
+</code>
+</pre>
+</div>
+
+You could turn it off to interop with a remote optics that do not have RS-FEC on:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:router(config)#interface HundredGigE <0/2/0/8>
+RP/0/RP0/CPU0:router(config-if)#fec ?
+base-r   Enable BASE-R FEC
+<mark>none</mark>     Disable any FEC enabled on the interface
+standard Enable the standard (Reed-Solomon) FEC
+RP/0/RP0/CPU0:router(config-if)#fec none
+</code>
+</pre>
+</div>
+
