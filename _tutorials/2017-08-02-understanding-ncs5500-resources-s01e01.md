@@ -101,7 +101,7 @@ RP/0/RP0/CPU0:Router#
 
 - NCS-55A2-MOD-S / NCS-55A2-MOD-HD-S
 
-![55a2-mod.jpg]({{site.baseurl}}/images/55a2-mod.jpg){: .align-center}
+![new-55a2-mod.jpg]({{site.baseurl}}/images/new-55a2-mod.jpg){: .align-center}
 
 - NC55-36X100G
 
