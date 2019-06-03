@@ -354,7 +354,7 @@ Note that the 10G mode allows the 1G operation too.
 - Quad 2 represents ports 0/0/0/32 to 0/0/0/35  
 - Quad 3 represents ports 0/0/0/36 to 0/0/0/39  
 
-By default, the ports from 0/0/0/24 to 0/0/0/39 are configured for 25G (or "TG*") as shown below. 
+By default, the ports from 0/0/0/24 to 0/0/0/39 are configured for 25G (or "TF*") as shown below. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
