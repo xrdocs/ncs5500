@@ -334,13 +334,12 @@ These groups of ports are call "quad" and are configured with the following CLI:
 <code>RP/0/RP0/CPU0:Peyto-SE#conf
 Sun Apr 14 19:04:34.426 UTC
 RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad ?
-  <0-11>  configure quad properties
+  0-11  configure quad properties
 RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 ?
   location  fully qualified location specification
-RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/cPU0 ?
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/CPU0 ?
   mode  select mode 10g or 25g for a quad(group of 4 ports).
-  <cr>
-RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/cPU0 mode ?
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/CPU0 mode ?
   WORD  10g or 25g, (10g mode also operates 1g transceivers)
 RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </pre>
