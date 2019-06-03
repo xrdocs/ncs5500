@@ -21,6 +21,7 @@ We will keep this one updated regularly.
 - 2018-07-11: Add link to software center, and fix the optics support URL
 - 2018-07-26: Add section on PIDs + section on the scale per LC / systems
 - 2019-04-18: Add RSFEC/ER4L section
+- 2019-06-03: Clarification on the Quad concept in NCS55A2-MOD systems
 {: .notice--info}
 
 
@@ -71,8 +72,7 @@ Second, very ofter you will not find in the ordering or maintenance tool the sam
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:TME-5508-1-6.3.2#sh platform
+<code>RP/0/RP0/CPU0:TME-5508-1-6.3.2#sh platform
 Node              Type                       State             Config state
 --------------------------------------------------------------------------------
 0/1/CPU0          <mark>NC55-36X100G-A-SE</mark>          IOS XR RUN        NSHUT
@@ -108,8 +108,7 @@ Node              Type                       State             Config state
 0/FT2             <mark>NC55-5508-FAN</mark>              OPERATIONAL       NSHUT
 0/SC0             <mark>NC55-SC</mark>                    OPERATIONAL       NSHUT
 0/SC1             <mark>NC55-SC</mark>                    OPERATIONAL       NSHUT
-RP/0/RP0/CPU0:TME-5508-1-6.3.2#
-</code>
+RP/0/RP0/CPU0:TME-5508-1-6.3.2#</code>
 </pre>
 </div>
 
@@ -189,7 +188,7 @@ Let's summarize the product IDs in this chart:
 
 Line cards count starts from 0, from top to bottom.  
 
-![slot-numbering.png]({{site.baseurl}}/images/slot-numbering.png)
+![slot-numbering.png]({{site.baseurl}}/images/slot-numbering.png){: .align-center}
 
 
 ### Products, ASICs and route scale
@@ -258,10 +257,8 @@ Yes, depending on the optic type, it's possible to configure 4x10G or 4x25G
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:NCS5500(config)#controller optics 0/0/0/2
-RP/0/RP0/CPU0:NCS5500(config-Optics)# breakout 4x10
-</code>
+<code>RP/0/RP0/CPU0:NCS5500(config)#controller optics 0/0/0/2
+RP/0/RP0/CPU0:NCS5500(config-Optics)# breakout 4x10</code>
 </pre>
 </div>
 
@@ -296,7 +293,7 @@ If you insert a QSFP+, the port will be seen as FortyGig 0/x/y/z by default
 
 If you insert a QSA optic (QSFP to SFP Adaptor), the port will appear as TenGig 0/x/y/z
 
-## ER4L
+### ER4L
 
 We support ER4-Lite optics in NCS5500 and it needs error correction (FEC) on both ends to reach to 40Km.  
 RS-FEC is enabled by default, so nothing specific is required to activate the feature.
@@ -305,10 +302,8 @@ You could verify with:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:router#show controllers HundredGigE0/0/0/13 all | in Forward
-<mark>Forward error correction: Standard (Reed-Solomon)</mark>
-</code>
+<code>RP/0/RP0/CPU0:router#show controllers HundredGigE0/0/0/13 all | in Forward
+<mark>Forward error correction: Standard (Reed-Solomon)</mark></code>
 </pre>
 </div>
 
@@ -316,14 +311,95 @@ You could turn it off to interop with a remote optics that do not have RS-FEC on
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:router(config)#interface HundredGigE <0/2/0/8>
+<code>RP/0/RP0/CPU0:router(config)#interface HundredGigE <0/2/0/8>
 RP/0/RP0/CPU0:router(config-if)#fec ?
 base-r   Enable BASE-R FEC
 <mark>none</mark>     Disable any FEC enabled on the interface
 standard Enable the standard (Reed-Solomon) FEC
-RP/0/RP0/CPU0:router(config-if)#fec none
-</code>
+RP/0/RP0/CPU0:router(config-if)#fec none</code>
+</pre>
+</div>
+
+### Quad ?
+
+Reading this blog post [http://networkingbodges.blogspot.com/2019/03/how-to-use-25g-ports-in-110g-mode-on.html](http://networkingbodges.blogspot.com/2019/03/how-to-use-25g-ports-in-110g-mode-on.html), it appeared that the concept of quad was poorly documented.  
+Briefly mentioned in the NCS540 documentation, it was inexistent on the NCS5500 side. Let's try to address this, until the documentation team fixes the situation.
+  
+Contrary to QSFP ports where the insertion of QSFP+ optic or a QSFP28 optic made the port automatically 40Gbps or 100Gbps (or 4x10G / 4x25G is the breakout option is configured), the SFP does not automatically become a SFP+ 10G or a SFP28 25G.  
+It's necessary to configure the group of 4 ports where you insert the optic first.  
+These groups of ports are call "quad" and are configured with the following CLI:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#conf
+Sun Apr 14 19:04:34.426 UTC
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad ?
+  <0-11>  configure quad properties
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 ?
+  location  fully qualified location specification
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/cPU0 ?
+  mode  select mode 10g or 25g for a quad(group of 4 ports).
+  <cr>
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module quad 0 location 0/0/cPU0 mode ?
+  WORD  10g or 25g, (10g mode also operates 1g transceivers)
+RP/0/RP0/CPU0:Peyto-SE(config)#</code>
+</pre>
+</div>
+
+Note that the 10G mode allows the 1G operation too.  
+
+![quad-ncs55a2.jpg]({{site.baseurl}}/images/quad-ncs55a2.jpg){: .align-center}
+
+- Quad 0 represents ports 0/0/0/24 to 0/0/0/27  
+- Quad 1 represents ports 0/0/0/28 to 0/0/0/31  
+- Quad 2 represents ports 0/0/0/32 to 0/0/0/35  
+- Quad 3 represents ports 0/0/0/36 to 0/0/0/39  
+
+By default, the ports from 0/0/0/24 to 0/0/0/39 are configured for 25G (or "TG*") as shown below. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>         TF0/0/0/24  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/25  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/26  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/27  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/28  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/29  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/30  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/31  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/32  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/33  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/34  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/35  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/36  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/37  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/38  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/39  admin-down  admin-down               ARPA  1514   25000000</code>
+</pre>
+</div>
+         
+Changing the configuration does not require system reload and only takes a few second to become effective. During the process, the ports are shown as "not ready" in the show commands.  
+
+Changing quad 0 for 10G:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>         Te0/0/0/24  admin-down  admin-down               ARPA  1514   10000000
+         Te0/0/0/25  admin-down  admin-down               ARPA  1514   10000000
+         Te0/0/0/26  admin-down  admin-down               ARPA  1514   10000000
+         Te0/0/0/27  admin-down  admin-down               ARPA  1514   10000000
+         TF0/0/0/28  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/29  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/30  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/31  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/32  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/33  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/34  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/35  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/36  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/37  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/38  admin-down  admin-down               ARPA  1514   25000000
+         TF0/0/0/39  admin-down  admin-down               ARPA  1514   25000000</code>
 </pre>
 </div>
 
