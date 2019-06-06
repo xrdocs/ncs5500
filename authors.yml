@@ -1,39 +1,39 @@
 #################################   Teams   #################################
 
 Cisco Software Management Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "software-management-team.png"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
 Cisco Automation Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "automation-xrdocs.jpg"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
 Cisco Cloud Scale Networking Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "cloud-scale-networking-team.png"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
 Cisco Service Layer Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "cisco-service-layer-team.png"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
 Cisco Telemetry Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "telemetry-team.png"
-  twitter     : "CiscoDevNet"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
+  twitter     : "xrdocs"
 
 Cisco Web Team:
   name        : "Cisco SP Routing Team"
@@ -43,10 +43,10 @@ Cisco Web Team:
   twitter     : "xrdocs"
 
 Cisco Design Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "cisco-design-team.png"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
   twitter     : "xrdocs"
 
 Cisco SP BU:
@@ -57,18 +57,18 @@ Cisco SP BU:
   twitter     : "xrdocs"
 
 Cisco Application Hosting Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "app-hosting-team.jpg"
-  twitter     : "CiscoDevNet"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
+  twitter     : "xrdocs"
 
 Cisco Programmability Team:
-  name        : "Cisco Web Team"
+  name        : "Cisco SP Routing Team"
   github      : "ios-xr"
-  bio         : "A Team of coders and network engineers determined to build the best network operating system for Web-Scale Service Providers."
-  avatar      : "programmability-team.png"
-  twitter     : "CiscoDevNet"
+  bio         : "A Team of coders and network engineers determined to build the best architectures & technology for Service Providers."
+  avatar      : "cisco-web-team.jpg"
+  twitter     : "xrdocs"
 
 #################################   Authors   #################################
 
