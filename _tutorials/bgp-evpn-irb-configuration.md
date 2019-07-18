@@ -6,6 +6,9 @@ author: Ahmad Bilal Siddiqui
 excerpt: In this post we will cover the EVPN-IRB configuration on NCS5500
 tags:
   - iosxr
+  - ncs 5500
+  - evpn
+  - NCS5500
 ---
 # Topic: Configure BGP-EVPN Integrated Routing and Bridging (IRB) for inter-subnet routing
 
