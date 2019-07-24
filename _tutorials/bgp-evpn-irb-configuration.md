@@ -203,4 +203,21 @@ Configure Bridge domain for the VLAN 20 and add the VLAN tagged interface to the
 </pre>
 </div>
 
+Associate the BVI interface to the bridge-domain. Configure the following on Leaf-5. 
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-5: 
+      l2vpn
+       bridge group bg-1
+        bridge-domain bd-20
+             interface TenGigE0/0/0/45.20
+         !
+         routed interface BVI 20
+      !
+
+</code>
+</pre>
+</div>
