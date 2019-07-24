@@ -55,14 +55,30 @@ RD auto under VRF generates RD value automatically based on BGP **router-id:EVI-
 <code>
 Configure the following on Leaf-1, Leaf-2 and Leaf-5
 
-router bgp 65001
- address-family vpnv4 unicast
- !
- vrf 10
-  rd auto
-  address-family ipv4 unicast
-   redistribute connected
-!
+      router bgp 65001
+       address-family vpnv4 unicast
+       !
+       vrf 10
+        rd auto
+        address-family ipv4 unicast
+         redistribute connected
+      !
 </code>
 </pre>
 </div>
+
+Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 under VRF 10. The BVI will serve as the Distributed Anycast GW for subnet 10.0.0.0/24. Make sure the BVI IP address and MAC address are identical on Leaf-1 and Leaf-2.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+      interface BVI 10
+       host-routing
+       vrf 10
+       ipv4 address 10.0.0.1 255.255.255.0
+       mac-address 1001.1001.1001
+      !
+</code>
+</pre>
+</div>
+
