@@ -85,4 +85,4 @@ Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 un
 </pre>
 </div>
 
-In order for the BVI interface to come up and serve as the gateway to the host connected to the Leaf, we will have to configure the host connectivity to the Leaf (this is already configured in [post-2](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) and [post-3](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)) and also associate the BVI to a Bridge-Domain.
+In order for the BVI interface to come up and serve as the gateway to the host connected to the Leaf, we will have to configure the host connectivity to the Leaf _(this is already configured in_ [post-2](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) _and_ [post-3](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)) and also associate the BVI to a Bridge-Domain.
