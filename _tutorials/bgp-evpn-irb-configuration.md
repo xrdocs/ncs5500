@@ -28,4 +28,24 @@ BGP EVPN provides Distributed anycast gateway feature that enables any Leaf in t
 
 A virtual routing and forwarding instance VRF, represents a tenant. This VRF will have the routes that belong to the overlay network for that tenant. The route-target values should be configured for the VRF to define which prefixes are exported and imported on the Leafs. As we will configure BVI under VRF, the related show commands and troubleshooting should point to the VRF.
 
- 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+Configure VRF 10 on Leaf-1, Leaf-2 and Leaf-5
+
+      vrf 10
+       address-family ipv4 unicast
+        import route-target
+         10:10
+        !
+        export route-target
+         10:10
+       !
+
+
+      Use “show vrf 10” to verify the config.
+
+</code>
+</pre>
+</div> 
