@@ -174,3 +174,33 @@ Configure the BVI for subnet 20.0.0.0/24 on Leaf-5.
 </code>
 </pre>
 </div>
+
+As mentioned earlier in this post; for the BVI to come up and serve as the gateway, we will have to configure the host connectivity to the Leaf and also associate the BVI to a Bridge-Domain.
+
+Configure layer-2 interfaces with dot1q encapsulation for VLAN 20 on Leaf-5.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-5 
+      interface TenGigE0/0/0/45.20 l2transport
+       encapsulation dot1q 20
+       rewrite ingress tag pop 1 symmetric
+      !
+
+Configure Bridge domain for the VLAN 20 and add the VLAN tagged interface to the bridge-domain. Configure the following on Leaf-5.
+
+      Leaf-5
+      l2vpn
+       bridge group bg-1
+        bridge-domain bd-20
+         interface TenGigE0/0/0/45.20
+         !
+      ! 
+
+</code>
+</pre>
+</div>
+
+
