@@ -78,8 +78,8 @@ Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 un
       interface BVI 10
        host-routing
        vrf 10
-       ipv4 address 10.0.0.1 255.255.255.0
-       mac-address 1001.1001.1001
+       ipv4 address <mark>10.0.0.1 255.255.255.0</mark>
+       mac-address <mark>1001.1001.1001</mark>
       !
 </code>
 </pre>
@@ -167,8 +167,8 @@ Configure the BVI for subnet 20.0.0.0/24 on Leaf-5.
       interface BVI 20
        host-routing
        vrf 10
-       ipv4 address 20.0.0.1 255.255.255.0
-       mac-address 1001.1001.2002
+       ipv4 address <mark>20.0.0.1 255.255.255.0</mark>
+       mac-address <mark>1001.1001.2002</mark>
       !
 
 </code>
@@ -215,7 +215,7 @@ Associate the BVI interface to the bridge-domain. Configure the following on Lea
         bridge-domain bd-20
              interface TenGigE0/0/0/45.20
          !
-         routed interface BVI 20
+         <mark>routed interface BVI 20</mark>
       !
 
 </code>
@@ -234,7 +234,7 @@ Leaf-5
 RP/0/RP0/CPU0:Leaf-5#show ip interface brief
 
 Interface                      IP-Address      Status          Protocol Vrf-Name
-BVI20                          20.0.0.1        Up              Up       20      
+BVI20                          <mark>20.0.0.1</mark>        Up              Up       <mark>20</mark>      
 
 </code>
 </pre>
@@ -316,7 +316,7 @@ Lets try to check the routing by pinging from Host-1 (IP 10.0.0.10/32) to Host-9
 
       Host-1:
 
-      RP/0/RSP0/CPU0:Host-1#ping 20.0.0.50
+      RP/0/RSP0/CPU0:Host-1#ping <mark>20.0.0.50</mark>
       Type escape sequence to abort.
       Sending 5, 100-byte ICMP Echos to 20.0.0.50, timeout is 2 seconds:
       !!!!!
@@ -326,7 +326,7 @@ Lets try to check the routing by pinging from Host-1 (IP 10.0.0.10/32) to Host-9
 
       Host-9:
 
-      RP/0/RSP0/CPU0:Host-9#ping 10.0.0.10
+      RP/0/RSP0/CPU0:Host-9#ping <mark>10.0.0.10</mark>
       Type escape sequence to abort.
       Sending 5, 100-byte ICMP Echos to 10.0.0.10, timeout is 2 seconds:
       !!!!!
@@ -350,7 +350,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
       C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
       L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
       B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
-      B    20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54
+      B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54</mark>
       RP/0/RP0/CPU0:Leaf-1#
 
       Leaf-2:
@@ -360,7 +360,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
       C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
       L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
       B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
-      B    20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45
+      B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45</mark>
       RP/0/RP0/CPU0:Leaf-2#
 
       Leaf-5:
