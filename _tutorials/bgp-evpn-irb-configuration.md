@@ -94,6 +94,7 @@ In order for the BVI interface to come up and serve as the gateway to the host c
 Associate the BVI interface to the bridge-domain. Configure the following on Leaf-1 and Leaf-2. 
 
     Leaf-1 and Leaf-2
+    
     l2vpn
      bridge group bg-1
       bridge-domain bd-10
