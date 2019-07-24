@@ -306,3 +306,215 @@ Associate the EVI to bridge-domain for VLAN 20, this is where the attachment-cir
 </code>
 </pre>
 </div>
+
+
+Lets try to check the routing by pinging from Host-1 (IP 10.0.0.10/32) to Host-9 (IP 20.0.0.50/32). In the below output we can see that we can ping between the Host-1 (IP 10.0.0.10) and Host-9 (IP 20.0.0.50) successfully which are both on different subnets.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Host-1:
+
+      RP/0/RSP0/CPU0:Host-1#ping 20.0.0.50
+      Type escape sequence to abort.
+      Sending 5, 100-byte ICMP Echos to 20.0.0.50, timeout is 2 seconds:
+      !!!!!
+      Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+      RP/0/RSP0/CPU0:Host-1#
+
+
+      Host-9:
+
+      RP/0/RSP0/CPU0:Host-9#ping 10.0.0.10
+      Type escape sequence to abort.
+      Sending 5, 100-byte ICMP Echos to 10.0.0.10, timeout is 2 seconds:
+      !!!!!
+      Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+      RP/0/RSP0/CPU0:Host-9#
+
+</code>
+</pre>
+</div>
+
+Lets check the routing table of VRF 10 on the Leafs. In below output we can see that 10.0.0.10/32 and 20.0.0.50/32 prefixes are being learnt on the Leafs.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-1:
+      RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+      Gateway of last resort is not set
+
+      C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
+      L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
+      B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
+      B    20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54
+      RP/0/RP0/CPU0:Leaf-1#
+
+      Leaf-2:
+      RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
+      Gateway of last resort is not set
+
+      C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
+      L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
+      B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
+      B    20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45
+      RP/0/RP0/CPU0:Leaf-2#
+
+      Leaf-5:
+      RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+      Gateway of last resort is not set
+
+      B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:53:31
+      C    20.0.0.0/24 is directly connected, 01:05:38, BVI20
+      L    20.0.0.1/32 is directly connected, 01:05:38, BVI20
+      RP/0/RP0/CPU0:Leaf-5#
+
+</code>
+</pre>
+</div>
+
+Lets see how the ARP looks on the Leafs and the routes are being learnt. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-1:
+      RP/0/RP0/CPU0:Leaf-1#sh arp vrf 10
+
+      -------------------------------------------------------------------------------
+      0/0/CPU0
+      -------------------------------------------------------------------------------
+      Address         Age        Hardware Addr   State      Type  Interface
+      10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
+      10.0.0.10       -          6c9c.ed6d.1d8b  EVPN_SYNC  ARPA  BVI10
+      RP/0/RP0/CPU0:Leaf-1#
+
+      Leaf-2:
+      RP/0/RP0/CPU0:Leaf-2#sh arp vrf 10          
+
+      -------------------------------------------------------------------------------
+      0/0/CPU0
+      -------------------------------------------------------------------------------
+      Address         Age        Hardware Addr   State      Type  Interface
+      10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
+      10.0.0.10       00:03:59   6c9c.ed6d.1d8b  Dynamic    ARPA  BVI10
+      RP/0/RP0/CPU0:Leaf-2#
+
+
+      Leaf-5:
+      RP/0/RP0/CPU0:Leaf-5#sh arp vrf 10
+
+      -------------------------------------------------------------------------------
+      0/0/CPU0
+      -------------------------------------------------------------------------------
+      Address         Age        Hardware Addr   State      Type  Interface
+      20.0.0.1        -          1001.1001.2002  Interface  ARPA  BVI20
+      20.0.0.50       00:03:20   a03d.6f3d.5447  Dynamic    ARPA  BVI20
+      RP/0/RP0/CPU0:Leaf-5#
+
+</code>
+</pre>
+</div>
+
+We can also verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-9 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
+
+Example of Host-1 MAC+IP learnt via Route-Type-2 ([2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136)
+
+The route distinguisher value is comprised of router-id:EVI eg. for Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10 which are highlighted below.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-5:
+      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn        
+      BGP router identifier 5.5.5.5, local AS number 65001
+      BGP generic scan interval 60 secs
+      Non-stop routing is enabled
+      BGP table state: Active
+      Table ID: 0x0   RD version: 0
+      BGP main routing table version 130
+      BGP NSR Initial initsync version 10 (Reached)
+      BGP NSR/ISSU Sync-Group versions 0/0
+      BGP scan interval 60 secs
+
+      Status codes: s suppressed, d damped, h history, * valid, > best
+                    i - internal, r RIB-failure, S stale, N Nexthop-discard
+      Origin codes: i - IGP, e - EGP, ? - incomplete
+         Network            Next Hop            Metric LocPrf Weight Path
+      Route Distinguisher: 1.1.1.1:10
+      *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+                            1.1.1.1                       100      0 i
+      * i                   1.1.1.1                       100      0 i
+      Route Distinguisher: 2.2.2.2:10
+      *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+                            2.2.2.2                       100      0 i
+      * i                   2.2.2.2                       100      0 i
+      Route Distinguisher: 5.5.5.5:20 (default for vrf bd-20)
+      *> [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                            0.0.0.0                                0 i
+      *> [3][0][32][5.5.5.5]/80
+                            0.0.0.0                                0 i
+
+      Processed 4 prefixes, 6 paths
+      RP/0/RP0/CPU0:Leaf-5#
+
+      Similarly, on Leaf-1 and Leaf-2 we can see the prefix learnt, advertised by Leaf-5
+
+      Leaf-1:
+      RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20
+      BGP router identifier 1.1.1.1, local AS number 65001
+      BGP generic scan interval 60 secs
+      Non-stop routing is enabled
+      BGP table state: Active
+      Table ID: 0x0   RD version: 0
+      BGP main routing table version 252
+      BGP NSR Initial initsync version 5 (Reached)
+      BGP NSR/ISSU Sync-Group versions 0/0
+      BGP scan interval 60 secs
+
+      Status codes: s suppressed, d damped, h history, * valid, > best
+                    i - internal, r RIB-failure, S stale, N Nexthop-discard
+      Origin codes: i - IGP, e - EGP, ? - incomplete
+         Network            Next Hop            Metric LocPrf Weight Path
+      Route Distinguisher: 5.5.5.5:20
+      *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                            5.5.5.5                       100      0 i
+      * i                   5.5.5.5                       100      0 i
+
+      Processed 1 prefixes, 2 paths
+      RP/0/RP0/CPU0:Leaf-1#
+
+
+      Leaf-2:
+      RP/0/RP0/CPU0:Leaf-2#sh bgp l2vpn evpn rd 5.5.5.5:20
+      BGP router identifier 2.2.2.2, local AS number 65001
+      BGP generic scan interval 60 secs
+      Non-stop routing is enabled
+      BGP table state: Active
+      Table ID: 0x0   RD version: 0
+      BGP main routing table version 243
+      BGP NSR Initial initsync version 5 (Reached)
+      BGP NSR/ISSU Sync-Group versions 0/0
+      BGP scan interval 60 secs
+
+      Status codes: s suppressed, d damped, h history, * valid, > best
+                    i - internal, r RIB-failure, S stale, N Nexthop-discard
+      Origin codes: i - IGP, e - EGP, ? - incomplete
+         Network            Next Hop            Metric LocPrf Weight Path
+      Route Distinguisher: 5.5.5.5:20
+      *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                            5.5.5.5                       100      0 i
+      * i                   5.5.5.5                       100      0 i
+
+      Processed 1 prefixes, 2 paths
+      RP/0/RP0/CPU0:Leaf-2#
+
+</code>
+</pre>
+</div>
