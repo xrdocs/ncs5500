@@ -43,7 +43,6 @@ Configure VRF 10 on Leaf-1, Leaf-2 and Leaf-5
          10:10
        !
 
-
       Use “show vrf 10” to verify the config.
 
 </code>
