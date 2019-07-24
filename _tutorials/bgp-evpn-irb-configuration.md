@@ -31,6 +31,7 @@ A virtual routing and forwarding instance VRF, represents a tenant. This VRF wil
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 Configure VRF 10 on Leaf-1, Leaf-2 and Leaf-5
 
       vrf 10
@@ -53,6 +54,7 @@ RD auto under VRF generates RD value automatically based on BGP **router-id:EVI-
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 Configure the following on Leaf-1, Leaf-2 and Leaf-5
 
       router bgp 65001
