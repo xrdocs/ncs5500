@@ -72,6 +72,7 @@ Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 un
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
       interface BVI 10
        host-routing
        vrf 10
