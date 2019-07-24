@@ -130,3 +130,27 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
 </code>
 </pre>
 </div>
+
+We can see that the BVI is up and is part of the relevant VRF. 
+
+## Reference config of Host-1 with default route to BVI interface on Leaf-1 and Leaf-2 serving as Gateway:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Host-1:
+      interface Bundle-Ether1.10
+      description "Dual-homed Bundle to Leaf-1 and Leaf-2"
+       ipv4 address 10.0.0.10 255.255.255.0
+       encapsulation dot1q 10
+      !
+
+      router static
+       address-family ipv4 unicast
+        0.0.0.0/0 10.0.0.1
+       !
+
+</code>
+</pre>
+</div>
