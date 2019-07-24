@@ -221,3 +221,24 @@ Associate the BVI interface to the bridge-domain. Configure the following on Lea
 </code>
 </pre>
 </div>
+
+
+Verify that the BVI is up on Leaf-5. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+Leaf-5
+
+RP/0/RP0/CPU0:Leaf-5#show ip interface brief
+
+Interface                      IP-Address      Status          Protocol Vrf-Name
+BVI20                          20.0.0.1        Up              Up       20      
+
+</code>
+</pre>
+</div>
+
+
+We can see that the BVI is up and is part of the relevant VRF. 
