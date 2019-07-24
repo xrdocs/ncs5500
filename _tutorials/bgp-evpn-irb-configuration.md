@@ -154,3 +154,23 @@ We can see that the BVI is up and is part of the relevant VRF.
 </code>
 </pre>
 </div>
+
+
+### Task 2: Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-5
+
+Configure the BVI for subnet 20.0.0.0/24 on Leaf-5. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      interface BVI 20
+       host-routing
+       vrf 10
+       ipv4 address 20.0.0.1 255.255.255.0
+       mac-address 1001.1001.2002
+      !
+
+</code>
+</pre>
+</div>
