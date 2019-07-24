@@ -448,11 +448,11 @@ The route distinguisher value is comprised of router-id:EVI eg. for Leaf-1: 1.1.
       Origin codes: i - IGP, e - EGP, ? - incomplete
          Network            Next Hop            Metric LocPrf Weight Path
       Route Distinguisher: 1.1.1.1:10
-      *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+      *>i**[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136**
                             1.1.1.1                       100      0 i
       * i                   1.1.1.1                       100      0 i
       Route Distinguisher: 2.2.2.2:10
-      *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+      *>i**[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136**
                             2.2.2.2                       100      0 i
       * i                   2.2.2.2                       100      0 i
       Route Distinguisher: 5.5.5.5:20 (default for vrf bd-20)
@@ -483,7 +483,7 @@ The route distinguisher value is comprised of router-id:EVI eg. for Leaf-1: 1.1.
       Origin codes: i - IGP, e - EGP, ? - incomplete
          Network            Next Hop            Metric LocPrf Weight Path
       Route Distinguisher: 5.5.5.5:20
-      *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+      *>i**[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136**
                             5.5.5.5                       100      0 i
       * i                   5.5.5.5                       100      0 i
 
@@ -508,7 +508,7 @@ The route distinguisher value is comprised of router-id:EVI eg. for Leaf-1: 1.1.
       Origin codes: i - IGP, e - EGP, ? - incomplete
          Network            Next Hop            Metric LocPrf Weight Path
       Route Distinguisher: 5.5.5.5:20
-      *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+      *>i**[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136**
                             5.5.5.5                       100      0 i
       * i                   5.5.5.5                       100      0 i
 
