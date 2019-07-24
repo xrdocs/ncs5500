@@ -46,3 +46,23 @@ Configure VRF 10 on Leaf-1, Leaf-2 and Leaf-5
 </code>
 </pre>
 </div> 
+
+Configure the VRF in BGP so that the layer-3 routes can be advertised to the Leafs for layer-3 inter-subnet routing. In order to advertise the VRF via BGP EVPN we will have to initiate the VPNv4 address family in BGP to provide the VRF capability in MP-BGP.
+RD auto under VRF generates RD value automatically based on BGP **router-id:EVI-id**. We can also manually configure the RD value. We will use “redistribute connected” to advertise any connected routes via BGP.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Configure the following on Leaf-1, Leaf-2 and Leaf-5
+
+router bgp 65001
+ address-family vpnv4 unicast
+ !
+ vrf 10
+  rd auto
+  address-family ipv4 unicast
+   redistribute connected
+!
+</code>
+</pre>
+</div>
