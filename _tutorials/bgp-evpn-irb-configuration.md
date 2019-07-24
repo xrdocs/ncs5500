@@ -253,7 +253,8 @@ We can see that the BVI is up and is part of the relevant VRF.
 <pre class="highlight">
 <code>
 
-      Host-9:
+     Host-9
+     
       interface TenGigE0/0/1/3.20
        description "Link to Leaf-5"
        ipv4 address 20.0.0.50 255.255.255.0
@@ -387,6 +388,7 @@ Lets see how the ARP looks on the Leafs and the routes are being learnt.
 <code>
 
       Leaf-1:
+      
       RP/0/RP0/CPU0:Leaf-1#sh arp vrf 10
 
       -------------------------------------------------------------------------------
@@ -398,6 +400,7 @@ Lets see how the ARP looks on the Leafs and the routes are being learnt.
       RP/0/RP0/CPU0:Leaf-1#
 
       Leaf-2:
+      
       RP/0/RP0/CPU0:Leaf-2#sh arp vrf 10          
 
       -------------------------------------------------------------------------------
@@ -410,6 +413,7 @@ Lets see how the ARP looks on the Leafs and the routes are being learnt.
 
 
       Leaf-5:
+      
       RP/0/RP0/CPU0:Leaf-5#sh arp vrf 10
 
       -------------------------------------------------------------------------------
@@ -436,6 +440,7 @@ The route distinguisher value is comprised of **router-id:EVI eg**. for **Leaf-1
 <code>
 
       Leaf-5:
+      
       RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn        
       BGP router identifier 5.5.5.5, local AS number 65001
       BGP generic scan interval 60 secs
@@ -471,6 +476,7 @@ The route distinguisher value is comprised of **router-id:EVI eg**. for **Leaf-1
       Similarly, on Leaf-1 and Leaf-2 we can see the prefix learnt, advertised by Leaf-5
 
       Leaf-1:
+      
       RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20
       BGP router identifier 1.1.1.1, local AS number 65001
       BGP generic scan interval 60 secs
@@ -496,6 +502,7 @@ The route distinguisher value is comprised of **router-id:EVI eg**. for **Leaf-1
 
 
       Leaf-2:
+      
       RP/0/RP0/CPU0:Leaf-2#sh bgp l2vpn evpn rd 5.5.5.5:20
       BGP router identifier 2.2.2.2, local AS number 65001
       BGP generic scan interval 60 secs
