@@ -93,14 +93,39 @@ In order for the BVI interface to come up and serve as the gateway to the host c
 
 Associate the BVI interface to the bridge-domain. Configure the following on Leaf-1 and Leaf-2. 
 
-Leaf-1 and Leaf-2: 
-l2vpn
- bridge group bg-1
-  bridge-domain bd-10
-   interface Bundle-Ether 1.10
-   !
-   routed interface BVI 10
-!
+    Leaf-1 and Leaf-2: 
+    l2vpn
+     bridge group bg-1
+      bridge-domain bd-10
+       interface Bundle-Ether 1.10
+       !
+       routed interface BVI 10
+    !
+
+</code>
+</pre>
+</div>
+
+Verify that the BVI is up on Leaf-1 and Leaf-2. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-1
+
+      RP/0/RP0/CPU0:Leaf-1#show ip interface brief
+
+      Interface                      IP-Address      Status          Protocol Vrf-Name
+      BVI10                          10.0.0.1        Up              Up       10      
+
+      Leaf-2
+
+      RP/0/RP0/CPU0:Leaf-2#show ip interface brief
+
+      Interface                      IP-Address      Status          Protocol Vrf-Name
+      BVI10                          10.0.0.1        Up              Up       10      
+
 
 </code>
 </pre>
