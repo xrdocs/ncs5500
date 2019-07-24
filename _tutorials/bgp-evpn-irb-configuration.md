@@ -139,7 +139,8 @@ We can see that the BVI is up and is part of the relevant VRF.
 <pre class="highlight">
 <code>
 
-      Host-1:
+     Host-1
+     
       interface Bundle-Ether1.10
       description "Dual-homed Bundle to Leaf-1 and Leaf-2"
        ipv4 address 10.0.0.10 255.255.255.0
@@ -183,7 +184,8 @@ Configure layer-2 interfaces with dot1q encapsulation for VLAN 20 on Leaf-5.
 <pre class="highlight">
 <code>
 
-      Leaf-5 
+     Leaf-5 
+     
       interface TenGigE0/0/0/45.20 l2transport
        encapsulation dot1q 20
        rewrite ingress tag pop 1 symmetric
@@ -191,7 +193,8 @@ Configure layer-2 interfaces with dot1q encapsulation for VLAN 20 on Leaf-5.
 
 Configure Bridge domain for the VLAN 20 and add the VLAN tagged interface to the bridge-domain. Configure the following on Leaf-5.
 
-      Leaf-5
+     Leaf-5
+     
       l2vpn
        bridge group bg-1
         bridge-domain bd-20
@@ -209,7 +212,8 @@ Associate the BVI interface to the bridge-domain. Configure the following on Lea
 <pre class="highlight">
 <code>
 
-      Leaf-5: 
+     Leaf-5
+      
       l2vpn
        bridge group bg-1
         bridge-domain bd-20
