@@ -242,3 +242,67 @@ BVI20                          20.0.0.1        Up              Up       20
 
 
 We can see that the BVI is up and is part of the relevant VRF. 
+
+## Reference config of Host-9 with default route to BVI interface on Leaf-5 serving as Gateway:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Host-9:
+      interface TenGigE0/0/1/3.20
+       description "Link to Leaf-5"
+       ipv4 address 20.0.0.50 255.255.255.0
+       encapsulation dot1q 20
+      !
+      router static
+       address-family ipv4 unicast
+        0.0.0.0/0 20.0.0.1
+       !
+
+</code>
+</pre>
+</div>
+
+Associate Bridge-domain 20 on Leaf-5 to an EVPN instance (EVI) so that it can be represented as a VPN to other Leafs/PE routers. Based on the route-target values, other Leafs might/might not import the prefixes and MAC addresses advertised by Leaf-5. 
+
+Configure EVI in EVPN config on Leaf-5. Also assign the route-target values for the EVI related network to get advertised and received via BGP EVPN control-plane. 
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+	Leaf-5
+
+    evpn
+     evi 20
+      bgp
+       route-target import 1001:22
+       route-target export 1001:22
+      !
+     source interface loopback 0
+     !
+
+</code>
+</pre>
+</div>
+
+Associate the EVI to bridge-domain for VLAN 20, this is where the attachment-circuit/host is connected.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+	Leaf-5
+  
+    l2vpn
+     bridge group bg-1
+      bridge-domain bd-20
+       evi 20
+       !
+      !
+
+</code>
+</pre>
+</div>
