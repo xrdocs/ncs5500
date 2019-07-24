@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2019-07-18 17:19 +0100'
 title: BGP-EVPN IRB Configuration for Inter-Subnet Routing
 author: Ahmad Bilal Siddiqui
@@ -9,6 +9,7 @@ tags:
   - ncs 5500
   - evpn
   - NCS5500
+position: hidden
 ---
 {% include toc %}
 # Topic: Configure BGP-EVPN Integrated Routing and Bridging (IRB) for inter-subnet routing
