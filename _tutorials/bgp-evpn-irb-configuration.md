@@ -387,7 +387,7 @@ We can also verify the routes advertisement using the BGP EVPN control-plane. In
 
 Example of Host-1 MAC+IP learnt via Route-Type-2 **([2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136)**
 
-The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for **Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10** which are highlighted below.
+The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for **Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10**.
 
 
 <div class="highlighter-rouge">
