@@ -162,9 +162,7 @@ Configure the BVI for subnet 20.0.0.0/24 on Leaf-5.
 </pre>
 </div>
 
-As mentioned earlier in this post; for the BVI to come up and serve as the gateway, we will have to configure the host connectivity to the Leaf and also associate the BVI to a Bridge-Domain.
-
-Configure layer-2 interfaces with dot1q encapsulation for VLAN 20 on Leaf-5.
+Associate the BVI to a Bridge-Domain and add the Host's attachment circuit to the Bridge Domain. The BVI will come up once the host connectivity to the Leaf is conifgured. For Host's connectivity configure layer-2 interface with dot1q encapsulation for VLAN 20 on Leaf-5.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
