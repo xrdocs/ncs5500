@@ -344,8 +344,8 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
           RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
           Gateway of last resort is not set
 
-          B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32
-                            [200/0] via 2.2.2.2 (nexthop in vrf default), 00:39:32</mark>
+          B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32</mark>
+                            <mark>[200/0] via 2.2.2.2 (nexthop in vrf default), 00:39:32</mark>
           C    20.0.0.0/24 is directly connected, 1d19h, BVI20
           L    20.0.0.1/32 is directly connected, 1d19h, BVI20
           RP/0/RP0/CPU0:Leaf-5#
