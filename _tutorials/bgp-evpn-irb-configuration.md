@@ -221,7 +221,7 @@ BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>     
 
 We can see that the BVI is up and is part of the relevant VRF. 
 
-## Reference config of Host-9 with default route to BVI interface on Leaf-5 serving as Gateway:
+**Reference config of Host-9 with default route to BVI interface on Leaf-5 serving as Gateway:**
 
 <div class="highlighter-rouge">
 <pre class="highlight">
