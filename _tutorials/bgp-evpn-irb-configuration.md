@@ -123,12 +123,11 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
 </div>
 
 
-#### Reference config of Host-1 with default route to BVI interface on Leaf-1 and Leaf-2 serving as Gateway:
+**Reference config of Host-1 with default route to BVI interface on Leaf-1 and Leaf-2 serving as Gateway:**
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
      Host-1
      
       interface Bundle-Ether1.10
@@ -141,7 +140,6 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
        address-family ipv4 unicast
         0.0.0.0/0 10.0.0.1
        !
-
 </code>
 </pre>
 </div>
@@ -154,14 +152,12 @@ Configure the BVI for subnet 20.0.0.0/24 on Leaf-5.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
       interface BVI 20
        host-routing
        vrf 10
        ipv4 address <mark>20.0.0.1 255.255.255.0</mark>
        mac-address <mark>1001.1001.2002</mark>
       !
-
 </code>
 </pre>
 </div>
