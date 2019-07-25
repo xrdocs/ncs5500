@@ -422,7 +422,7 @@ In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the 
 <code>
     Leaf-1
       RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20 [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136 detail
-      BGP routing table entry for [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136, Route Distinguisher: 5.5.5.5:20
+      <mark>BGP routing table entry for [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136, Route Distinguisher: 5.5.5.5:20</mark>
       Versions:
         Process           bRIB/RIB  SendTblVer
         Speaker               3760        3760
@@ -435,10 +435,10 @@ In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the 
         Not advertised to any peer
         Local
           5.5.5.5 (metric 20) from 6.6.6.6 (5.5.5.5)
-            Received Label 24001, Second Label 24000
+            <mark>Received Label 24001, Second Label 24000</mark>
             Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
             Received Path ID 0, Local Path ID 1, version 3760
-            Extended community: Flags 0x1e: SoO:5.5.5.5:20 RT:10:10 RT:1001:22 
+            Extended community: Flags 0x1e: SoO:5.5.5.5:20 <mark>RT:10:10 RT:1001:22</mark>
             Originator: 5.5.5.5, Cluster list: 6.6.6.6
             EVPN ESI: 0000.0000.0000.0000.0000
         Path #2: Received by speaker 0
@@ -446,10 +446,10 @@ In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the 
         Not advertised to any peer
         Local
           5.5.5.5 (metric 20) from 7.7.7.7 (5.5.5.5)
-            Received Label 24001, Second Label 24000
+            <mark>Received Label 24001, Second Label 24000</mark>
             Origin IGP, localpref 100, valid, internal, not-in-vrf
             Received Path ID 0, Local Path ID 0, version 0
-            Extended community: Flags 0x1e: SoO:5.5.5.5:20 RT:10:10 RT:1001:22 
+            Extended community: Flags 0x1e: SoO:5.5.5.5:20 <mark>RT:10:10 RT:1001:22</mark> 
             Originator: 5.5.5.5, Cluster list: 7.7.7.7
             EVPN ESI: 0000.0000.0000.0000.0000
       RP/0/RP0/CPU0:Leaf-1#
