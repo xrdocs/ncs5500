@@ -421,8 +421,8 @@ In the below output on Leaf-5 for the prefix learnt from Leaf-1 (RD 1.1.1.1:10),
 <pre class="highlight">
 <code>
     Leaf-5
-      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b$
-      BGP routing table entry for [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136, Route Distinguisher: 1.1.1.1:10
+      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136 detail
+      <mark>BGP routing table entry for [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136, Route Distinguisher: 1.1.1.1:10</mark>
       Versions:
         Process           bRIB/RIB  SendTblVer
         Speaker                209         209
