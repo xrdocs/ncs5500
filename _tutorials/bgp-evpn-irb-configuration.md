@@ -239,8 +239,7 @@ BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>     
 </pre>
 </div>
 
-Configure EVI under EVPN config on Leaf-5 to create EVPN service for VLAN 20. This EVI 20 will then be associated to the Bridge-Domain for VLAN 20.  
-Assign the route-target values for the EVI related network to get advertised and received via BGP EVPN control-plane. Based on the route-target values, other Leafs/PEs might or might not import the prefixes and MAC addresses advertised by Leaf-5.
+Configure EVI under EVPN config on Leaf-5 to create EVPN service for VLAN 20. This EVI 20 will then be associated to the Bridge-Domain for VLAN 20. Assign the route-target values for the EVI to import and export prefixes via BGP EVPN control-plane.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
