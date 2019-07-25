@@ -414,7 +414,7 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 </pre>
 </div>
 
-When a host is discovered through ARP, the MAC and IP Route Type 2 is advertised with both Bridge-Domain label and IP VRF label and their respective route-targets. The VRF route-targets and IP VPN labels are associated with Route Type-2 to achieve Leaf-Leaf IP routing similar to traditional L3VPNs. For Layer-2 forwarding between Leaf-Leaf, the Bridge-Domain route-targets and Bridge-Domain labels associated with the Route Type 2 are used.  
+When a host is discovered through ARP, the MAC and IP Route Type 2 is advertised with both Bridge-Domain/EVI label and IP VRF label with their respective route-targets. The VRF route-targets and IP VPN labels are associated with Route Type-2 to achieve Leaf-Leaf IP routing similar to traditional L3VPNs. For Layer-2 forwarding between Leaf-Leaf, the Bridge-Domain/EVI route-targets and labels associated with the Route Type 2 are used.  
 In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the highlighted route-target and label values.
 
 <div class="highlighter-rouge">
