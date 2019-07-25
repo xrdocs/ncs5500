@@ -213,7 +213,7 @@ Leaf-5
 RP/0/RP0/CPU0:Leaf-5#show ip interface brief
 
 Interface                      IP-Address      Status          Protocol Vrf-Name
-BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>              <mark>Up</mark>       20      
+BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>              <mark>Up</mark>       10      
 </code>
 </pre>
 </div>
