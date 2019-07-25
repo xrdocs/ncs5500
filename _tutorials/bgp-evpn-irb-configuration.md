@@ -400,7 +400,7 @@ Lets see how the ARP looks on the Leafs and the routes are being learnt.
 </pre>
 </div>
 
-We can also verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-9 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
+We can also verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-5 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
 
 Example of Host-1 MAC+IP learnt via Route-Type-2 **([2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136)**
 
