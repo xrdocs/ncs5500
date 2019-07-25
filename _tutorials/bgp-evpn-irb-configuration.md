@@ -49,7 +49,7 @@ Use “show vrf 10” to verify the config.
 </div> 
 
 Configure the VRF in BGP to advertised the routes of the VRF to other Leafs. Initiate the VPNv4 address family to advertise VRF label. RD auto under VRF generates RD value automatically based on **[BGP-Router-ID:EVI-ID]**. However, configuring RD manually is also supported.  
-We will use “redistribute connected” under VRF to advertise connected routes via BGP. In addition, we are configuring BGP multipathing/aliasing for load balancing where multiple next-hops are available for a prefix. 
+We will use “redistribute connected” under VRF to advertise connected routes via BGP. In addition, we are configuring BGP multipathing for load balancing where multiple next-hops are available for a prefix. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
