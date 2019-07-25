@@ -105,7 +105,6 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
       Leaf-1
 
       RP/0/RP0/CPU0:Leaf-1#show ip interface brief
