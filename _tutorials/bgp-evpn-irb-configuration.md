@@ -353,58 +353,41 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
 </pre>
 </div>
 
-Lets see how the ARP looks on the Leafs and the routes are being learnt. 
-
+Below output shows the cef programming for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can observe that we have ECMP paths available to reach to Host-1 and bgp multipathing is operational.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+    Leaf-5
 
-      Leaf-1:
-      
-      RP/0/RP0/CPU0:Leaf-1#sh arp vrf 10
-
-      -------------------------------------------------------------------------------
-      0/0/CPU0
-      -------------------------------------------------------------------------------
-      Address         Age        Hardware Addr   State      Type  Interface
-      10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
-      10.0.0.10       -          6c9c.ed6d.1d8b  EVPN_SYNC  ARPA  BVI10
-      RP/0/RP0/CPU0:Leaf-1#
-
-      Leaf-2:
-      
-      RP/0/RP0/CPU0:Leaf-2#sh arp vrf 10          
-
-      -------------------------------------------------------------------------------
-      0/0/CPU0
-      -------------------------------------------------------------------------------
-      Address         Age        Hardware Addr   State      Type  Interface
-      10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
-      10.0.0.10       00:03:59   6c9c.ed6d.1d8b  Dynamic    ARPA  BVI10
-      RP/0/RP0/CPU0:Leaf-2#
-
-
-      Leaf-5:
-      
-      RP/0/RP0/CPU0:Leaf-5#sh arp vrf 10
-
-      -------------------------------------------------------------------------------
-      0/0/CPU0
-      -------------------------------------------------------------------------------
-      Address         Age        Hardware Addr   State      Type  Interface
-      20.0.0.1        -          1001.1001.2002  Interface  ARPA  BVI20
-      20.0.0.50       00:03:20   a03d.6f3d.5447  Dynamic    ARPA  BVI20
+      RP/0/RP0/CPU0:Leaf-5#sh cef vrf 10 10.0.0.10/32
+      10.0.0.10/32, version 16, internal 0x5000001 0x0 (ptr 0x97d2f7fc) [1], 0x0 (0x0), 0x208 (0x98aa3138)
+       Updated Jul 25 17:45:29.253
+       Prefix Len 32, traffic index 0, precedence n/a, priority 3
+         via <mark>1.1.1.1/32</mark>, 3 dependencies, recursive, <mark>bgp-multipath</mark> [flags 0x6080]
+          path-idx 0 NHID 0x0 [0x96e3ba50 0x0]
+          recursion-via-/32
+          next hop VRF - 'default', table - 0xe0000000
+          next hop 1.1.1.1/32 via 16001/0/21
+           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16001 24004}
+           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16001 24004}
+         via <mark>2.2.2.2/32</mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+          path-idx 1 NHID 0x0 [0x96e3bbf0 0x0]
+          recursion-via-/32
+          next hop VRF - 'default', table - 0xe0000000
+          next hop 2.2.2.2/32 via 16002/0/21
+           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16002 24004}
+           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16002 24004}
       RP/0/RP0/CPU0:Leaf-5#
-
 </code>
 </pre>
 </div>
+
 
 We can also verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-5 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
 
 Example of Host-1 MAC+IP learnt via Route-Type-2 **([2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136)**
 
-The route distinguisher value is comprised of **router-id:EVI eg**. for **Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10** which are highlighted below.
+The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for **Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10** which are highlighted below.
 
 
 <div class="highlighter-rouge">
@@ -413,39 +396,39 @@ The route distinguisher value is comprised of **router-id:EVI eg**. for **Leaf-1
 
       Leaf-5:
       
-      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn        
-      BGP router identifier 5.5.5.5, local AS number 65001
-      BGP generic scan interval 60 secs
-      Non-stop routing is enabled
-      BGP table state: Active
-      Table ID: 0x0   RD version: 0
-      BGP main routing table version 130
-      BGP NSR Initial initsync version 10 (Reached)
-      BGP NSR/ISSU Sync-Group versions 0/0
-      BGP scan interval 60 secs
+        RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn 
+        BGP router identifier 5.5.5.5, local AS number 65001
+        BGP generic scan interval 60 secs
+        Non-stop routing is enabled
+        BGP table state: Active
+        Table ID: 0x0   RD version: 0
+        BGP main routing table version 147
+        BGP NSR Initial initsync version 10 (Reached)
+        BGP NSR/ISSU Sync-Group versions 0/0
+        BGP scan interval 60 secs
 
-      Status codes: s suppressed, d damped, h history, * valid, > best
-                    i - internal, r RIB-failure, S stale, N Nexthop-discard
-      Origin codes: i - IGP, e - EGP, ? - incomplete
-         Network            Next Hop            Metric LocPrf Weight Path
-      Route Distinguisher: 1.1.1.1:10
-      *>i**[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136**
-                            1.1.1.1                       100      0 i
-      * i                   1.1.1.1                       100      0 i
-      Route Distinguisher: 2.2.2.2:10
-      *>i**[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136**
-                            2.2.2.2                       100      0 i
-      * i                   2.2.2.2                       100      0 i
-      Route Distinguisher: 5.5.5.5:20 (default for vrf bd-20)
-      *> [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
-                            0.0.0.0                                0 i
-      *> [3][0][32][5.5.5.5]/80
-                            0.0.0.0                                0 i
+        Status codes: s suppressed, d damped, h history, * valid, > best
+                      i - internal, r RIB-failure, S stale, N Nexthop-discard
+        Origin codes: i - IGP, e - EGP, ? - incomplete
+           Network            Next Hop            Metric LocPrf Weight Path
+        Route Distinguisher: 1.1.1.1:10
+        *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+                              1.1.1.1                       100      0 i
+        * i                   1.1.1.1                       100      0 i
+        Route Distinguisher: 2.2.2.2:10
+        *>i[2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136
+                              2.2.2.2                       100      0 i
+        * i                   2.2.2.2                       100      0 i
+        Route Distinguisher: 5.5.5.5:20 (default for vrf bd-20)
+        *> [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                              0.0.0.0                                0 i
+        *> [3][0][32][5.5.5.5]/80
+                              0.0.0.0                                0 i
 
-      Processed 4 prefixes, 6 paths
-      RP/0/RP0/CPU0:Leaf-5#
+        Processed 4 prefixes, 6 paths
+        RP/0/RP0/CPU0:Leaf-5#
 
-      Similarly, on Leaf-1 and Leaf-2 we can see the prefix learnt, advertised by Leaf-5
+      Similarly, on Leaf-1 and Leaf-2 we can see the prefix learnt that is advertised by Leaf-5.
 
       Leaf-1:
       
