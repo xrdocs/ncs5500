@@ -226,7 +226,6 @@ We can see that the BVI is up and is part of the relevant VRF.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
      Host-9
      
       interface TenGigE0/0/1/3.20
@@ -238,7 +237,6 @@ We can see that the BVI is up and is part of the relevant VRF.
        address-family ipv4 unicast
         0.0.0.0/0 20.0.0.1
        !
-
 </code>
 </pre>
 </div>
