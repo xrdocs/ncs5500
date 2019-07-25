@@ -259,7 +259,7 @@ In the below configuration route-target is manually configured, however route-ta
 </pre>
 </div>
 
-Associate the EVI 20 to Bridge-Domain for VLAN 20 where the attachment-circuit/host is connected on subnet 20.0.0.0/24.
+Associate the EVI 20 to Bridge-Domain for VLAN 20 that has attachment-circuit/host-9 connected.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
