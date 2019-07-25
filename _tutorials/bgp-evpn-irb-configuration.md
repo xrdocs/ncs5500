@@ -61,6 +61,8 @@ Configure the following on Leaf-1, Leaf-2 and Leaf-5
        vrf 10
         rd auto
         <mark>address-family ipv4 unicast</mark>
+         additional-paths receive
+         maximum-paths ibgp 10
          redistribute connected
       !
 </code>
