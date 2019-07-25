@@ -432,55 +432,54 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 
       Leaf-1:
       
-      RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20
-      BGP router identifier 1.1.1.1, local AS number 65001
-      BGP generic scan interval 60 secs
-      Non-stop routing is enabled
-      BGP table state: Active
-      Table ID: 0x0   RD version: 0
-      BGP main routing table version 252
-      BGP NSR Initial initsync version 5 (Reached)
-      BGP NSR/ISSU Sync-Group versions 0/0
-      BGP scan interval 60 secs
+        RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn EVpn rd 5.5.5.5:20
+        BGP router identifier 1.1.1.1, local AS number 65001
+        BGP generic scan interval 60 secs
+        Non-stop routing is enabled
+        BGP table state: Active
+        Table ID: 0x0   RD version: 0
+        BGP main routing table version 3911
+        BGP NSR Initial initsync version 5 (Reached)
+        BGP NSR/ISSU Sync-Group versions 0/0
+        BGP scan interval 60 secs
 
-      Status codes: s suppressed, d damped, h history, * valid, > best
-                    i - internal, r RIB-failure, S stale, N Nexthop-discard
-      Origin codes: i - IGP, e - EGP, ? - incomplete
-         Network            Next Hop            Metric LocPrf Weight Path
-      Route Distinguisher: 5.5.5.5:20
-      *>i**[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136**
-                            5.5.5.5                       100      0 i
-      * i                   5.5.5.5                       100      0 i
+        Status codes: s suppressed, d damped, h history, * valid, > best
+                      i - internal, r RIB-failure, S stale, N Nexthop-discard
+        Origin codes: i - IGP, e - EGP, ? - incomplete
+           Network            Next Hop            Metric LocPrf Weight Path
+        Route Distinguisher: 5.5.5.5:20
+        *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                              5.5.5.5                       100      0 i
+        * i                   5.5.5.5                       100      0 i
 
-      Processed 1 prefixes, 2 paths
-      RP/0/RP0/CPU0:Leaf-1#
+        Processed 1 prefixes, 2 paths
+        RP/0/RP0/CPU0:Leaf-1#
 
 
       Leaf-2:
       
-      RP/0/RP0/CPU0:Leaf-2#sh bgp l2vpn evpn rd 5.5.5.5:20
-      BGP router identifier 2.2.2.2, local AS number 65001
-      BGP generic scan interval 60 secs
-      Non-stop routing is enabled
-      BGP table state: Active
-      Table ID: 0x0   RD version: 0
-      BGP main routing table version 243
-      BGP NSR Initial initsync version 5 (Reached)
-      BGP NSR/ISSU Sync-Group versions 0/0
-      BGP scan interval 60 secs
+        RP/0/RP0/CPU0:Leaf-2#sh bgp l2vpn evpn rd 5.5.5.5:20
+        BGP router identifier 2.2.2.2, local AS number 65001
+        BGP generic scan interval 60 secs
+        Non-stop routing is enabled
+        BGP table state: Active
+        Table ID: 0x0   RD version: 0
+        BGP main routing table version 3947
+        BGP NSR Initial initsync version 5 (Reached)
+        BGP NSR/ISSU Sync-Group versions 0/0
+        BGP scan interval 60 secs
 
-      Status codes: s suppressed, d damped, h history, * valid, > best
-                    i - internal, r RIB-failure, S stale, N Nexthop-discard
-      Origin codes: i - IGP, e - EGP, ? - incomplete
-         Network            Next Hop            Metric LocPrf Weight Path
-      Route Distinguisher: 5.5.5.5:20
-      *>i**[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136**
-                            5.5.5.5                       100      0 i
-      * i                   5.5.5.5                       100      0 i
+        Status codes: s suppressed, d damped, h history, * valid, > best
+                      i - internal, r RIB-failure, S stale, N Nexthop-discard
+        Origin codes: i - IGP, e - EGP, ? - incomplete
+           Network            Next Hop            Metric LocPrf Weight Path
+        Route Distinguisher: 5.5.5.5:20
+        *>i[2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136
+                              5.5.5.5                       100      0 i
+        * i                   5.5.5.5                       100      0 i
 
-      Processed 1 prefixes, 2 paths
-      RP/0/RP0/CPU0:Leaf-2#
-
+        Processed 1 prefixes, 2 paths
+        RP/0/RP0/CPU0:Leaf-2#
 </code>
 </pre>
 </div>
