@@ -415,44 +415,44 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 </div>
 
 When a host is discovered through ARP, the MAC and IP Route Type 2 is advertised with both Bridge-Domain/EVI label and IP VRF label with their respective route-targets. The VRF route-targets and IP VPN labels are associated with Route Type-2 to achieve Leaf-Leaf IP routing similar to traditional L3VPNs. For Layer-2 forwarding between Leaf-Leaf, the Bridge-Domain/EVI route-targets and labels associated with the Route Type 2 are used.  
-In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the highlighted route-target and label values.
+In the below output on Leaf-5 for the prefix learnt from Leaf-1 (RD 1.1.1.1:10), we can see the highlighted route-target and label values.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-    Leaf-1
-      RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20 [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136 detail
-      <mark>BGP routing table entry for [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136, Route Distinguisher: 5.5.5.5:20</mark>
+    Leaf-5
+      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b$
+      BGP routing table entry for [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136, Route Distinguisher: 1.1.1.1:10
       Versions:
         Process           bRIB/RIB  SendTblVer
-        Speaker               3760        3760
-          Flags: 0x00040001+0x00010000; 
-      Last Modified: Jul 25 17:12:41.605 for 01:57:19
+        Speaker                209         209
+          Flags: 0x00840001+0x00010000; 
+      Last Modified: Jul 25 19:37:14.072 for 00:01:17
       Paths: (2 available, best #1)
         Not advertised to any peer
         Path #1: Received by speaker 0
         Flags: 0x4000000025060005, import: 0x1f, EVPN: 0x3
         Not advertised to any peer
         Local
-          5.5.5.5 (metric 20) from 6.6.6.6 (5.5.5.5)
-            <mark>Received Label 24001, Second Label 24000</mark>
+          1.1.1.1 (metric 20) from 6.6.6.6 (1.1.1.1)
+            <mark>Received Label 24060, Second Label 24004</mark>
             Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
-            Received Path ID 0, Local Path ID 1, version 3760
-            Extended community: Flags 0x1e: SoO:5.5.5.5:20 <mark>RT:10:10 RT:1001:22</mark>
-            Originator: 5.5.5.5, Cluster list: 6.6.6.6
-            EVPN ESI: 0000.0000.0000.0000.0000
+            Received Path ID 0, Local Path ID 1, version 209
+            Extended community: Flags 0x1e: SoO:2.2.2.2:10 <mark>RT:10:10 RT:1001:11</mark> 
+            Originator: 1.1.1.1, Cluster list: 6.6.6.6
+            EVPN ESI: 0011.1111.1111.1111.1111
         Path #2: Received by speaker 0
-        Flags: 0x4000000020020005, import: 0x20, EVPN: 0x3
+        Flags: 0x4000000020020005, import: 0x40, EVPN: 0x3
         Not advertised to any peer
         Local
-          5.5.5.5 (metric 20) from 7.7.7.7 (5.5.5.5)
-            <mark>Received Label 24001, Second Label 24000</mark>
+          1.1.1.1 (metric 20) from 7.7.7.7 (1.1.1.1)
+            <mark>Received Label 24060, Second Label 24004</mark>
             Origin IGP, localpref 100, valid, internal, not-in-vrf
             Received Path ID 0, Local Path ID 0, version 0
-            Extended community: Flags 0x1e: SoO:5.5.5.5:20 <mark>RT:10:10 RT:1001:22</mark> 
-            Originator: 5.5.5.5, Cluster list: 7.7.7.7
-            EVPN ESI: 0000.0000.0000.0000.0000
-      RP/0/RP0/CPU0:Leaf-1#
+            Extended community: Flags 0x1e: SoO:2.2.2.2:10 <mark>RT:10:10 RT:1001:11</mark> 
+            Originator: 1.1.1.1, Cluster list: 7.7.7.7
+            EVPN ESI: 0011.1111.1111.1111.1111
+      RP/0/RP0/CPU0:Leaf-5#
 </code>
 </pre>
 </div>
