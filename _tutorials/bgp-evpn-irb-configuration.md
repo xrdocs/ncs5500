@@ -245,7 +245,7 @@ In the below configuration route-target is manually configured, however route-ta
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-    Leaf-5
+       Leaf-5
 
         evpn
          <mark>evi 20</mark>
@@ -264,7 +264,7 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20 that has attachment-circuit/ho
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-        Leaf-5
+       Leaf-5
 
         l2vpn
          bridge group bg-1
