@@ -259,19 +259,19 @@ In the below configuration route-target is manually configured, however route-ta
 </pre>
 </div>
 
-Associate the EVI 20 to Bridge-Domain for VLAN 20, this is where the attachment-circuit/host is connected.
+Associate the EVI 20 to Bridge-Domain for VLAN 20 where the attachment-circuit/host is connected on subnet 20.0.0.0/24.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-	Leaf-5
-  
-    l2vpn
-     bridge group bg-1
-      bridge-domain bd-20
-       evi 20
-       !
-      !
+      Leaf-5
+
+      l2vpn
+       bridge group bg-1
+        bridge-domain bd-20
+         <mark>evi 20</mark>
+         !
+        !
 </code>
 </pre>
 </div>
