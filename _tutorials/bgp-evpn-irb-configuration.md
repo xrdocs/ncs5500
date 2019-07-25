@@ -70,7 +70,7 @@ Configure the following on Leaf-1, Leaf-2 and Leaf-5
 </pre>
 </div>
 
-Now, we will configure the BVI-10 on Leaf-1 and Leaf-2 under VRF 10. The BVI will serve as the Distributed Anycast GW for subnet 10.0.0.0/24. Make sure the BVI IP address and MAC address are identical on Leaf-1 and Leaf-2.
+Now, we will configure the BVI-10 on Leaf-1 and Leaf-2 under VRF 10. The BVI will serve as the Distributed Anycast GW for subnet 10.0.0.0/24. Make sure the BVI IP address and MAC address are identical on Leaf-1 and Leaf-2. Configure "host-routing" under BVI interface to advertise route-type 2. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
