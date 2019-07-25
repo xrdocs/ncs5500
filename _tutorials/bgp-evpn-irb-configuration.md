@@ -32,7 +32,6 @@ A virtual routing and forwarding instance VRF, represents a tenant. This VRF wil
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 Configure VRF 10 on Leaf-1, Leaf-2 and Leaf-5
 
       vrf 10
