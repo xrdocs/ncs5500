@@ -264,14 +264,18 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20 where the attachment-circuit/h
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-      Leaf-5
+        Leaf-5
 
-      l2vpn
-       bridge group bg-1
-        bridge-domain bd-20
-         <mark>evi 20</mark>
-         !
-        !
+        l2vpn
+         bridge group bg-1
+          bridge-domain bd-20
+           interface TenGigE0/0/0/45.20
+           !
+           routed interface BVI20
+           !
+           <mark>evi 20</mark>
+           !
+          !
 </code>
 </pre>
 </div>
