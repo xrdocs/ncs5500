@@ -53,7 +53,6 @@ Configure the VRF in BGP to advertised the routes of the VRF to other Leafs. Ini
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 Configure the following on Leaf-1, Leaf-2 and Leaf-5
 
       router bgp 65001
@@ -68,7 +67,7 @@ Configure the following on Leaf-1, Leaf-2 and Leaf-5
 </pre>
 </div>
 
-Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 under VRF 10. The BVI will serve as the Distributed Anycast GW for subnet 10.0.0.0/24. Make sure the BVI IP address and MAC address are identical on Leaf-1 and Leaf-2.
+Now, we will configure the BVI-10 on Leaf-1 and Leaf-2 under VRF 10. The BVI will serve as the Distributed Anycast GW for subnet 10.0.0.0/24. Make sure the BVI IP address and MAC address are identical on Leaf-1 and Leaf-2.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -84,7 +83,7 @@ Now, we will configure the BVI-10 for subnet 10.0.0.0/24 on Leaf-1 and Leaf-2 un
 </pre>
 </div>
 
-In order for the BVI interface to come up and serve as the gateway to the host connected to the Leaf, we will have to configure the host connectivity to the Leaf _(this is already configured in_ [post-2](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) _and_ [post-3](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)_)_ and also associate the BVI to a Bridge-Domain.
+In order for the BVI interface to come up and serve as the gateway to the host connected to the Leaf, we will have to configure the host connectivity to the Leaf _(this is already configured in_ [post-2](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/) _and_ [post-3](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)_)_. Also associate the BVI to a Bridge-Domain.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
