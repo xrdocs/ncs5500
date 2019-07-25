@@ -110,14 +110,14 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
       RP/0/RP0/CPU0:Leaf-1#show ip interface brief
 
       Interface                      IP-Address      Status          Protocol Vrf-Name
-      BVI10                          <mark>10.0.0.1</mark>        Up              Up       <mark>10</mark>      
+      BVI10                          10.0.0.1        Up              Up       10
 
       Leaf-2
 
       RP/0/RP0/CPU0:Leaf-2#show ip interface brief
 
       Interface                      IP-Address      Status          Protocol Vrf-Name
-      BVI10                          <mark>10.0.0.1</mark>        Up              Up       <mark>10</mark>      
+      BVI10                          10.0.0.1        Up              Up       10      
 </code>
 </pre>
 </div>
