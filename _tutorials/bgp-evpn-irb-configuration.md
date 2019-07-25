@@ -122,7 +122,7 @@ Verify that the BVI is up on Leaf-1 and Leaf-2.
 </pre>
 </div>
 
-
+  
 **Reference config of Host-1 with default route to BVI interface on Leaf-1 and Leaf-2 serving as Gateway:**
 
 <div class="highlighter-rouge">
