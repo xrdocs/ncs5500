@@ -321,34 +321,34 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
 <code>
 
       Leaf-1:
-      RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
-      Gateway of last resort is not set
+          RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+          Gateway of last resort is not set
 
-      C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
-      L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
-      B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
-      B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54</mark>
-      RP/0/RP0/CPU0:Leaf-1#
+          C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
+          L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
+          B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
+          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54</mark>
+          RP/0/RP0/CPU0:Leaf-1#
 
       Leaf-2:
-      RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
-      Gateway of last resort is not set
+          RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
+          Gateway of last resort is not set
 
-      C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
-      L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
-      B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
-      B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45</mark>
-      RP/0/RP0/CPU0:Leaf-2#
+          C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
+          L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
+          B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
+          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45</mark>
+          RP/0/RP0/CPU0:Leaf-2#
 
       Leaf-5:
-      RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
-      Gateway of last resort is not set
+          RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+          Gateway of last resort is not set
 
-      B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:53:31
-      C    20.0.0.0/24 is directly connected, 01:05:38, BVI20
-      L    20.0.0.1/32 is directly connected, 01:05:38, BVI20
-      RP/0/RP0/CPU0:Leaf-5#
-
+          B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32
+                            [200/0] via 2.2.2.2 (nexthop in vrf default), 00:39:32
+          C    20.0.0.0/24 is directly connected, 1d19h, BVI20
+          L    20.0.0.1/32 is directly connected, 1d19h, BVI20
+          RP/0/RP0/CPU0:Leaf-5#
 </code>
 </pre>
 </div>
