@@ -496,7 +496,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
 </pre>
 </div>
 
-Lastly, we can verify the cef table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can observe that we have ECMP paths available to reach to Host-1 and BGP multipathing is operational.
+Lastly, we can verify the CEF table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can ssee that we have ECMP paths available to reach to Host-1 and BGP multipathing is operational.  
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -524,3 +524,5 @@ Lastly, we can verify the cef table for Host-1's prefix (10.0.0.10/32) on Leaf-5
 </code>
 </pre>
 </div>
+
+After the configuration and verifcation we are able to perform inter-subnet routing between Host-1 and Host-5. This was achieved with BGP EVPN Integrated Routing and Bridging (IRB) feature along with Distributed Anycast Gateway. For deep dive details of BGP EVPN, refer to our **[e-vpn.io](https://e-vpn.io/)** webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details. 
