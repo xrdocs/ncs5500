@@ -281,7 +281,8 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20 that has attachment-circuit/ho
 </div>
 
 
-Lets try to check the routing by pinging from Host-1 (IP 10.0.0.10/32) to Host-9 (IP 20.0.0.50/32). In the below output we can see that we can ping between the Host-1 (IP 10.0.0.10) and Host-9 (IP 20.0.0.50) successfully which are both on different subnets.
+Lets check the host reachability by pinging from Host-1 (IP 10.0.0.10/32) to Host-9 (IP 20.0.0.50/32).  
+In the below output we can see that we can ping between the Host-1 (IP 10.0.0.10) and Host-9 (IP 20.0.0.50) successfully which are both on different subnets.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
