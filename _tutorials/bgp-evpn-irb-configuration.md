@@ -167,7 +167,6 @@ Associate the BVI to a Bridge-Domain and add the Host's attachment circuit to th
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
      Leaf-5 
      
       interface TenGigE0/0/0/45.20 l2transport
@@ -185,7 +184,6 @@ Configure Bridge domain for the VLAN 20 and add the VLAN tagged interface to the
          interface TenGigE0/0/0/45.20
          !
       ! 
-
 </code>
 </pre>
 </div>
