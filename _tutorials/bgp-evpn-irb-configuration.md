@@ -264,7 +264,6 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20, this is where the attachment-
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 	Leaf-5
   
     l2vpn
@@ -273,7 +272,6 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20, this is where the attachment-
        evi 20
        !
       !
-
 </code>
 </pre>
 </div>
