@@ -162,8 +162,7 @@ Configure the BVI for subnet 20.0.0.0/24 on Leaf-5.
 </pre>
 </div>
 
-Associate the BVI to a Bridge-Domain and add the Host's attachment circuit to the Bridge Domain. The BVI will come up once the host connectivity to the Leaf is conifgured. For Host's connectivity configure layer-2 interface with dot1q encapsulation for VLAN 20 on Leaf-5.
-
+Associate the BVI to a Bridge-Domain and add the Host's attachment circuit to the Bridge Domain. The BVI will come up once the host connectivity to the Leaf is configured. For Host's connectivity, configure layer-2 interface with dot1q encapsulation for VLAN 20 on Leaf-5.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -182,7 +181,6 @@ Configure Bridge domain for the VLAN 20 and add the VLAN tagged interface to the
        bridge group bg-1
         bridge-domain bd-20
          interface TenGigE0/0/0/45.20
-         !
       ! 
 </code>
 </pre>
@@ -193,7 +191,6 @@ Associate the BVI interface to the bridge-domain. Configure the following on Lea
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
      Leaf-5
       
       l2vpn
@@ -203,25 +200,20 @@ Associate the BVI interface to the bridge-domain. Configure the following on Lea
          !
          <mark>routed interface BVI 20</mark>
       !
-
 </code>
 </pre>
 </div>
 
-
 Verify that the BVI is up on Leaf-5. 
-
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 Leaf-5
 
 RP/0/RP0/CPU0:Leaf-5#show ip interface brief
 
 Interface                      IP-Address      Status          Protocol Vrf-Name
-BVI20                          <mark>20.0.0.1</mark>        Up              Up       <mark>20</mark>      
-
+BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>              <mark>Up</mark>       20      
 </code>
 </pre>
 </div>
