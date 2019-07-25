@@ -268,7 +268,7 @@ Associate the EVI 20 to Bridge-Domain for VLAN 20 that has attachment-circuit/ho
 
         l2vpn
          bridge group bg-1
-          bridge-domain bd-20
+          bridge-domain <mark>bd-20</mark>
            interface TenGigE0/0/0/45.20
            !
            routed interface BVI20
