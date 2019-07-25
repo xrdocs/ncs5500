@@ -239,26 +239,22 @@ BVI20                          <mark>20.0.0.1</mark>        <mark>Up</mark>     
 </pre>
 </div>
 
-Associate Bridge-Domain 20 on Leaf-5 to an EVPN instance (EVI) so that it can be represented as a VPN to other Leafs/PE routers. Based on the route-target values, other Leafs might or might not import the prefixes and MAC addresses advertised by Leaf-5. 
-
 Configure EVI in EVPN config on Leaf-5. Also assign the route-target values for the EVI related network to get advertised and received via BGP EVPN control-plane. 
 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+  Leaf-5
 
-	Leaf-5
-
-    evpn
-     evi 20
-      bgp
-       route-target import 1001:22
-       route-target export 1001:22
-      !
-     source interface loopback 0
-     !
-
+      evpn
+       evi 20
+        bgp
+         route-target import 1001:22
+         route-target export 1001:22
+        !
+       source interface loopback 0
+       !
 </code>
 </pre>
 </div>
