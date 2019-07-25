@@ -72,7 +72,6 @@ Now, we will configure the BVI-10 on Leaf-1 and Leaf-2 under VRF 10. The BVI wil
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
       interface BVI 10
        host-routing
        vrf 10
@@ -88,7 +87,6 @@ In order for the BVI interface to come up and serve as the gateway to the host c
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 Associate the BVI interface to the bridge-domain. Configure the following on Leaf-1 and Leaf-2. 
 
     Leaf-1 and Leaf-2
