@@ -314,81 +314,11 @@ In the below output we can see that we can ping between the Host-1 (IP 10.0.0.10
 </pre>
 </div>
 
-Lets check the routing table of VRF 10 on the Leafs. In below output we can see that 10.0.0.10/32 and 20.0.0.50/32 prefixes are being learnt on the Leafs.
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-
-      Leaf-1:
-          RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
-          Gateway of last resort is not set
-
-          C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
-          L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
-          B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
-          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54</mark>
-          RP/0/RP0/CPU0:Leaf-1#
-
-      Leaf-2:
-          RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
-          Gateway of last resort is not set
-
-          C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
-          L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
-          B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
-          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45</mark>
-          RP/0/RP0/CPU0:Leaf-2#
-
-      Leaf-5:
-          RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
-          Gateway of last resort is not set
-
-          B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32</mark>
-                            <mark>[200/0] via 2.2.2.2 (nexthop in vrf default), 00:39:32</mark>
-          C    20.0.0.0/24 is directly connected, 1d19h, BVI20
-          L    20.0.0.1/32 is directly connected, 1d19h, BVI20
-          RP/0/RP0/CPU0:Leaf-5#
-</code>
-</pre>
-</div>
-
-Below output shows the cef programming for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can observe that we have ECMP paths available to reach to Host-1 and bgp multipathing is operational.
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-    Leaf-5
-
-      RP/0/RP0/CPU0:Leaf-5#sh cef vrf 10 10.0.0.10/32
-      10.0.0.10/32, version 16, internal 0x5000001 0x0 (ptr 0x97d2f7fc) [1], 0x0 (0x0), 0x208 (0x98aa3138)
-       Updated Jul 25 17:45:29.253
-       Prefix Len 32, traffic index 0, precedence n/a, priority 3
-         via <mark>1.1.1.1/32</mark>, 3 dependencies, recursive, <mark>bgp-multipath</mark> [flags 0x6080]
-          path-idx 0 NHID 0x0 [0x96e3ba50 0x0]
-          recursion-via-/32
-          next hop VRF - 'default', table - 0xe0000000
-          next hop 1.1.1.1/32 via 16001/0/21
-           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16001 24004}
-           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16001 24004}
-         via <mark>2.2.2.2/32</mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
-          path-idx 1 NHID 0x0 [0x96e3bbf0 0x0]
-          recursion-via-/32
-          next hop VRF - 'default', table - 0xe0000000
-          next hop 2.2.2.2/32 via 16002/0/21
-           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16002 24004}
-           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16002 24004}
-      RP/0/RP0/CPU0:Leaf-5#
-</code>
-</pre>
-</div>
-
-
-We can also verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-5 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
+We can verify the routes advertisement using the BGP EVPN control-plane. In the below output from Leaf-5 we can see the MAC and IP address of Host-1 are learnt under their respective route distinguishers via EVPN Route-Type-2.
 
 Example of Host-1 MAC+IP learnt via Route-Type-2 **([2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136)**
 
 The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for **Leaf-1: 1.1.1.1:10, Leaf-2: 2.2.2.2:10**.
-
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -480,6 +410,117 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 
         Processed 1 prefixes, 2 paths
         RP/0/RP0/CPU0:Leaf-2#
+</code>
+</pre>
+</div>
+
+When a host is discovered through ARP, the MAC and IP Route Type 2 is advertised with both Bridge-Domain label and IP VRF label and their respective route-targets. The VRF route-targets and IP VPN labels are associated with Route Type-2 to achieve Leaf-Leaf IP routing similar to traditional L3VPNs. For Layer-2 forwarding between Leaf-Leaf, the Bridge-Domain route-targets and Bridge-Domain labels associated with the Route Type 2 are used.  
+In the below output on Leaf-1 for the prefix learnt from Leaf-5, we can see the highlighted route-target and label values.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+    Leaf-1
+      RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 5.5.5.5:20 [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136 detail
+      BGP routing table entry for [2][0][48][a03d.6f3d.5447][32][20.0.0.50]/136, Route Distinguisher: 5.5.5.5:20
+      Versions:
+        Process           bRIB/RIB  SendTblVer
+        Speaker               3760        3760
+          Flags: 0x00040001+0x00010000; 
+      Last Modified: Jul 25 17:12:41.605 for 01:57:19
+      Paths: (2 available, best #1)
+        Not advertised to any peer
+        Path #1: Received by speaker 0
+        Flags: 0x4000000025060005, import: 0x1f, EVPN: 0x3
+        Not advertised to any peer
+        Local
+          5.5.5.5 (metric 20) from 6.6.6.6 (5.5.5.5)
+            Received Label 24001, Second Label 24000
+            Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+            Received Path ID 0, Local Path ID 1, version 3760
+            Extended community: Flags 0x1e: SoO:5.5.5.5:20 RT:10:10 RT:1001:22 
+            Originator: 5.5.5.5, Cluster list: 6.6.6.6
+            EVPN ESI: 0000.0000.0000.0000.0000
+        Path #2: Received by speaker 0
+        Flags: 0x4000000020020005, import: 0x20, EVPN: 0x3
+        Not advertised to any peer
+        Local
+          5.5.5.5 (metric 20) from 7.7.7.7 (5.5.5.5)
+            Received Label 24001, Second Label 24000
+            Origin IGP, localpref 100, valid, internal, not-in-vrf
+            Received Path ID 0, Local Path ID 0, version 0
+            Extended community: Flags 0x1e: SoO:5.5.5.5:20 RT:10:10 RT:1001:22 
+            Originator: 5.5.5.5, Cluster list: 7.7.7.7
+            EVPN ESI: 0000.0000.0000.0000.0000
+      RP/0/RP0/CPU0:Leaf-1#
+</code>
+</pre>
+</div>
+
+Lets check the routing table of VRF 10 on the Leafs. In below output we can see that 10.0.0.10/32 and 20.0.0.50/32 prefixes are being learnt on the Leafs.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+      Leaf-1:
+          RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+          Gateway of last resort is not set
+
+          C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
+          L    10.0.0.1/32 is directly connected, 02:47:36, BVI10
+          B    10.0.0.10/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:24
+          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:26:54</mark>
+          RP/0/RP0/CPU0:Leaf-1#
+
+      Leaf-2:
+          RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
+          Gateway of last resort is not set
+
+          C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
+          L    10.0.0.1/32 is directly connected, 02:48:31, BVI10
+          B    10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:56:15
+          B    <mark>20.0.0.50/32 [200/0] via 5.5.5.5 (nexthop in vrf default), 00:27:45</mark>
+          RP/0/RP0/CPU0:Leaf-2#
+
+      Leaf-5:
+          RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+          Gateway of last resort is not set
+
+          B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32</mark>
+                            <mark>[200/0] via 2.2.2.2 (nexthop in vrf default), 00:39:32</mark>
+          C    20.0.0.0/24 is directly connected, 1d19h, BVI20
+          L    20.0.0.1/32 is directly connected, 1d19h, BVI20
+          RP/0/RP0/CPU0:Leaf-5#
+</code>
+</pre>
+</div>
+
+Below output shows the cef programming for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can observe that we have ECMP paths available to reach to Host-1 and bgp multipathing is operational.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+    Leaf-5
+
+      RP/0/RP0/CPU0:Leaf-5#sh cef vrf 10 10.0.0.10/32
+      10.0.0.10/32, version 16, internal 0x5000001 0x0 (ptr 0x97d2f7fc) [1], 0x0 (0x0), 0x208 (0x98aa3138)
+       Updated Jul 25 17:45:29.253
+       Prefix Len 32, traffic index 0, precedence n/a, priority 3
+         via <mark>1.1.1.1/32</mark>, 3 dependencies, recursive, <mark>bgp-multipath</mark> [flags 0x6080]
+          path-idx 0 NHID 0x0 [0x96e3ba50 0x0]
+          recursion-via-/32
+          next hop VRF - 'default', table - 0xe0000000
+          next hop 1.1.1.1/32 via 16001/0/21
+           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16001 24004}
+           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16001 24004}
+         via <mark>2.2.2.2/32</mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+          path-idx 1 NHID 0x0 [0x96e3bbf0 0x0]
+          recursion-via-/32
+          next hop VRF - 'default', table - 0xe0000000
+          next hop 2.2.2.2/32 via 16002/0/21
+           next hop <mark>192.5.6.1/32 BE56</mark>         labels imposed {16002 24004}
+           next hop <mark>192.5.7.1/32 BE57</mark>         labels imposed {16002 24004}
+      RP/0/RP0/CPU0:Leaf-5#
 </code>
 </pre>
 </div>
