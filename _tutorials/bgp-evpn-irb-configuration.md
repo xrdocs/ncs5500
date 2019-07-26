@@ -21,12 +21,13 @@ In [last post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-55
 ## Reference Topology:
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/reference-topology-evpn-post-4.png?raw=true)
 
-### Task 1: Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1 and Leaf-2
-BGP EVPN provides Distributed anycast gateway feature that enables any Leaf in the fabric to serve as the active default gateway for a host in a subnet. Same virtual gateway IP address and virtual MAC address is configured on the BVI for each subnet across the Leafs enabling them to act as gateway for their locally connected hosts. Distributed anycast gateway also brings the advantage of seamless workload mobility. We will configure the GW BVI on the Leafs inside the VRF for this post, however we can also configure the BVI in the global routing table.
-
+### Task 1: Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1 and Leaf-2  
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-irb-full-topology.png?raw=true)
-
+BGP EVPN provides Distributed anycast gateway feature that enables any Leaf in the fabric to serve as the active default gateway for a host in a subnet. Same virtual gateway IP address and virtual MAC address is configured on the BVI for each subnet across the Leafs enabling them to act as gateway for their locally connected hosts. Distributed anycast gateway also brings the advantage of seamless workload mobility. We will configure the GW BVI on the Leafs inside the VRF for this post, however we can also configure the BVI in the global routing table.  
+  
 A virtual routing and forwarding instance VRF, represents a tenant. This VRF will have the routes that belong to the overlay network for that tenant. The route-target values should be configured for the VRF to define which prefixes are exported and imported on the Leafs. As we will configure BVI under VRF, the related show commands and troubleshooting should point to the VRF.
+
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/IRB-low-level-details.png?raw=true)
 
 <div class="highlighter-rouge">
 <pre class="highlight">
