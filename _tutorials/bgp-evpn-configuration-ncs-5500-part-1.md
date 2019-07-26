@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2018-09-04 10:45 -0700'
-title: BGP-EVPN Configuration on NCS 5500 part-1
+title: Configure BGP-EVPN Control-Plane & Segment Routing based MPLS Forwarding-Plane
 author: Ahmad Bilal Siddiqui
 position: top
 excerpt: >-
