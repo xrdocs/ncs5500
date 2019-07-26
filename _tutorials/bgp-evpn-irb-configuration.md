@@ -329,7 +329,7 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 
       Leaf-5:
       
-        RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn 
+        RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn 
         BGP router identifier 5.5.5.5, local AS number 65001
         BGP generic scan interval 60 secs
         Non-stop routing is enabled
@@ -365,7 +365,7 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 
       Leaf-1:
       
-        RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn EVpn rd 5.5.5.5:20
+        RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn EVpn rd 5.5.5.5:20
         BGP router identifier 1.1.1.1, local AS number 65001
         BGP generic scan interval 60 secs
         Non-stop routing is enabled
@@ -391,7 +391,7 @@ The route distinguisher value is comprised of **[BGP-Router-ID:EVI-ID] eg**. for
 
       Leaf-2:
       
-        RP/0/RP0/CPU0:Leaf-2#sh bgp l2vpn evpn rd 5.5.5.5:20
+        RP/0/RP0/CPU0:Leaf-2#show bgp l2vpn evpn rd 5.5.5.5:20
         BGP router identifier 2.2.2.2, local AS number 65001
         BGP generic scan interval 60 secs
         Non-stop routing is enabled
@@ -424,7 +424,7 @@ In the below output on Leaf-5 for the prefix learnt from Leaf-1 (RD 1.1.1.1:10),
 <pre class="highlight">
 <code>
     Leaf-5
-      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136 detail
+      RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136 detail
       <mark>BGP routing table entry for [2][0][48][6c9c.ed6d.1d8b][32][10.0.0.10]/136, Route Distinguisher: 1.1.1.1:10</mark>
       Versions:
         Process           bRIB/RIB  SendTblVer
@@ -467,7 +467,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
 <code>
 
       Leaf-1:
-          RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+          RP/0/RP0/CPU0:Leaf-1#show route vrf 10
           Gateway of last resort is not set
 
           C    10.0.0.0/24 is directly connected, 02:47:36, BVI10
@@ -477,7 +477,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
           RP/0/RP0/CPU0:Leaf-1#
 
       Leaf-2:
-          RP/0/RP0/CPU0:Leaf-2#sh route vrf 10                 
+          RP/0/RP0/CPU0:Leaf-2#show route vrf 10                 
           Gateway of last resort is not set
 
           C    10.0.0.0/24 is directly connected, 02:48:31, BVI10
@@ -487,7 +487,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
           RP/0/RP0/CPU0:Leaf-2#
 
       Leaf-5:
-          RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+          RP/0/RP0/CPU0:Leaf-5#show route vrf 10
           Gateway of last resort is not set
 
           B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:39:32</mark>
@@ -505,7 +505,7 @@ Lastly, we verify the CEF table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We
 <code>
     Leaf-5
 
-      RP/0/RP0/CPU0:Leaf-5#sh cef vrf 10 10.0.0.10/32
+      RP/0/RP0/CPU0:Leaf-5#show cef vrf 10 10.0.0.10/32
       10.0.0.10/32, version 16, internal 0x5000001 0x0 (ptr 0x97d2f7fc) [1], 0x0 (0x0), 0x208 (0x98aa3138)
        Updated Jul 25 17:45:29.253
        Prefix Len 32, traffic index 0, precedence n/a, priority 3
