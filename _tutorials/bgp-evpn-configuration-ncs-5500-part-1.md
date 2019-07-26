@@ -36,7 +36,7 @@ In this and next few posts we will cover BGP-EVPN configuration, implementation 
 - [Configuring BGP EVPN control-plane and Segment Routing based forwarding plane](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/)
 - [Configure EVPN based Multi-homing to the Hosts](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-2/)
 - [EVPN based Layer-2 VPN Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)
-- EVPN-IRB between Leafs in the network
+- [EVPN-IRB between Leafs in the network](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)
 
 
 
