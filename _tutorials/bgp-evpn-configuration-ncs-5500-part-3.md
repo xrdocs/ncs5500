@@ -478,6 +478,50 @@ CLI command “show evpn evi vpn-id 10 mac” can be used to verify the MAC addr
 </div>
 
 
-We are only seeing MAC address and not IP address of the Host in the below out. This is because we configured only Layer-2 service between the Leafs. Once we configure IRB with Host-routing, we will start advertising MAC + IP of the host via EVPN Route-Type-2 and will be able to see IP address in the below table as well as in Leaf’s routing table.  
+We are only seeing MAC address and not IP address of the Host in the above output. This is because we configured only Layer-2 service between the Leafs. Once we configure EVPN IRB, we will start advertising MAC + IP of the host via EVPN Route-Type-2 and will be able to see IP address in the above show command as well as in Leaf’s routing table.  
 
-In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/), we will cover EVPN IRB and Host-Routing configuration in detail.
+Since only MAC address is advertised, the advertisement will only have Bridge-Domain/EVI label and its respective route-target. In below output on Leaf-5 for route type 2 learnt from Leaf-1 (RD 1.1.1.1:10), we can see the highlighted route-target and Bridge-Domain/EVI label value.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+     Leaf-5
+     
+      RP/0/RP0/CPU0:Leaf-5#sh bgp l2vpn evpn rd 1.1.1.1:10 [2][0][48][6c9c.ed6d.1d8b][0]/104 detail
+      <mark>BGP routing table entry for [2][0][48][6c9c.ed6d.1d8b][0]/104, Route Distinguisher: 1.1.1.1:10</mark>
+      Versions:
+        Process           bRIB/RIB  SendTblVer
+        Speaker                 44          44
+          Flags: 0x00040001+0x00010000; 
+      Last Modified: Jul 26 01:34:57.072 for 00:00:03
+      Paths: (2 available, best #1)
+        Not advertised to any peer
+        Path #1: Received by speaker 0
+        Flags: 0x4000000025060005, import: 0x1f, EVPN: 0x1
+        Not advertised to any peer
+        Local
+          1.1.1.1 (metric 20) from 6.6.6.6 (1.1.1.1)
+            <mark>Received Label 24060</mark> 
+            Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+            Received Path ID 0, Local Path ID 1, version 44
+            Extended community: Flags 0x10: SoO:1.1.1.1:10 <mark>RT:1001:11</mark> 
+            Originator: 1.1.1.1, Cluster list: 6.6.6.6
+            EVPN ESI: 0011.1111.1111.1111.1111
+        Path #2: Received by speaker 0
+        Flags: 0x4000000020020005, import: 0x20, EVPN: 0x1
+        Not advertised to any peer
+        Local
+          1.1.1.1 (metric 20) from 7.7.7.7 (1.1.1.1)
+            <mark>Received Label 24060</mark> 
+            Origin IGP, localpref 100, valid, internal, not-in-vrf
+            Received Path ID 0, Local Path ID 0, version 0
+            Extended community: Flags 0x10: SoO:1.1.1.1:10 <mark>RT:1001:11</mark> 
+            Originator: 1.1.1.1, Cluster list: 7.7.7.7
+            EVPN ESI: 0011.1111.1111.1111.1111
+      RP/0/RP0/CPU0:Leaf-5#
+</code>
+</pre>
+</div>
+
+
+In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/), we are covering EVPN IRB and Host-Routing configuration in detail.
