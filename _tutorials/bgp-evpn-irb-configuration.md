@@ -496,7 +496,7 @@ Lets check the routing table of VRF 10 on the Leafs. In below output we can see 
 </pre>
 </div>
 
-Lastly, we can verify the CEF table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can ssee that we have ECMP paths available to reach to Host-1 and BGP multipathing is operational.  
+Lastly, we verify the CEF table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We can see that we have ECMP paths available to reach to Host-1 and BGP multipathing is operational.  
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
