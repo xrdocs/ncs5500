@@ -12,7 +12,6 @@ tags:
 position: top
 ---
 {% include toc %}
-# Topic: Configure BGP-EVPN Integrated Routing and Bridging (IRB) for inter-subnet routing
 
 EVPN Integrated Routing and Bridging (IRB) feature allows end hosts across the overlay to communicate with each other within or across the subnets in the VPN. In this post we will cover the implementation of EVPN IRB to route between Host-1 and Host-9. Distributed Anycast Gateway will be configured on Leaf-1 and Leaf-2 for subnet 10.0.0.0/24 and on Leaf-5 for subnet 20.0.0.0/24. 
 After configuring IRB we will ping between the Host-1 and Host-9 to verify the reachability and observe the routes are learnt vie BGP EVPN. 
@@ -525,4 +524,4 @@ Lastly, we verify the CEF table for Host-1's prefix (10.0.0.10/32) on Leaf-5. We
 </pre>
 </div>
 
-After the configuration and verifcation we are able to perform inter-subnet routing between Host-1 and Host-5. This was achieved with BGP EVPN Integrated Routing and Bridging (IRB) feature along with Distributed Anycast Gateway. For deep dive details of BGP EVPN, refer to our **[e-vpn.io](https://e-vpn.io/)** webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details. 
+After the configuration and verifcation we are able to perform inter-subnet routing between Host-1 and Host-5. This was achieved with BGP EVPN Integrated Routing and Bridging (IRB) feature along with Distributed Anycast Gateway. For deep dive details of BGP EVPN, refer to our **[e-vpn.io](https://e-vpn.io/)** webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details.
