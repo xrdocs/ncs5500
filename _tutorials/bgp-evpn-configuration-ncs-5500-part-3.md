@@ -353,7 +353,18 @@ Ping from Host-1 to Host-5 and verify that the Hosts are reachable. We can see i
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-    Leaf-1
+
+   Host-1
+   
+    RP/0/RSP0/CPU0:Host-1#ping 10.0.0.50            
+    Type escape sequence to abort.
+    Sending 5, 100-byte ICMP Echos to 10.0.0.50, timeout is 2 seconds:
+    !!!!!
+    Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+    RP/0/RSP0/CPU0:Host-1#
+
+
+   Leaf-1
     
     RP/0/RP0/CPU0:Leaf-1#show l2route evpn mac all 
     Sat Sep  1 22:53:57.880 UTC
@@ -363,7 +374,8 @@ Ping from Host-1 to Host-5 and verify that the Hosts are reachable. We can see i
     0        a03d.6f3d.5443 L2VPN       5.5.5.5/64004/ME                        
     RP/0/RP0/CPU0:Leaf-1#
 
-    Leaf-2
+
+   Leaf-2
 
     RP/0/RP0/CPU0:Leaf-2#show l2route evpn mac all 
     Sat Sep  1 23:00:03.487 UTC
