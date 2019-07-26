@@ -144,9 +144,9 @@ The layer-2 service/stretch across the Leafs is offered by configuring EVPN EVI 
 
 For Layer-2 VPN use case, we are stretching the layer-2 between Leaf-1, Leaf-2 and Leaf-5. Therefore, we will provision Layer-2 VPN service by configure EVI on all three leafs.
 
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/L2VPN-low-level.png?raw=true)
 
 ### Task 3: Configure EVPN EVI on Leaf-1, Leaf-2 for VLAN 10
-![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/L2VPN-low-level.png?raw=true)
 
 First we will configure the EVI on Leaf-1 and Leaf-2, then we will verify that the Ethernet Segment for vlan 10 tagged data is up. 
 
