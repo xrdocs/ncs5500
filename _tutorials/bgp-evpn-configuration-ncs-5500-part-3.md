@@ -522,4 +522,4 @@ Since only MAC address is advertised, the advertisement will only have Bridge-Do
 </div>
 
 
-In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/), we are covering EVPN IRB and Host-Routing configuration in detail.
+In the [next post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/), we are covering EVPN Integrated Routing and Bridging (IRB) configuration in detail.
