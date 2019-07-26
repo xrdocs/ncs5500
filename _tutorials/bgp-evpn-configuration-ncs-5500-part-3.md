@@ -146,7 +146,7 @@ For Layer-2 VPN use case, we are stretching the layer-2 between Leaf-1, Leaf-2 a
 
 
 ### Task 3: Configure EVPN EVI on Leaf-1, Leaf-2 for VLAN 10
-![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/L2-VPN-low-level.png?raw=true)
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/L2VPN-low-level.png?raw=true)
 
 First we will configure the EVI on Leaf-1 and Leaf-2, then we will verify that the Ethernet Segment for vlan 10 tagged data is up. 
 
