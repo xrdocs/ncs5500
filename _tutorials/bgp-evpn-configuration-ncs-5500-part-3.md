@@ -228,9 +228,9 @@ Observe in the below output that for Ethernet-segment bundle interface ‘BE1’
       Peering timer     : 3 sec [not running]
       Recovery timer    : 30 sec [not running]
       Carving timer     : 0 sec [not running]
-      Local SHG label   : 64007
+      Local SHG label   : 24061
       Remote SHG labels : 1
-                  64008 : nexthop 2.2.2.2
+                  24043 : nexthop 2.2.2.2
 
     RP/0/RP0/CPU0:Leaf-1#
 </code>
@@ -245,7 +245,6 @@ With the following CLI command we can verify that the MAC address of Host-1 is b
 	Leaf-1 
 
     RP/0/RP0/CPU0:Leaf-1#show l2route evpn mac all 
-    Sat Sep  1 22:45:53.336 UTC
     Topo ID  Mac Address    Producer    Next Hop(s)                             
     -------- -------------- ----------- ----------------------------------------
     0        <mark>6c9c.ed6d.1d8b</mark> LOCAL       Bundle-Ether1.10
@@ -308,14 +307,13 @@ We have configured the Layer-2 stretch between Leaf-1, Leaf-2 and Leaf-5 using E
 <pre class="highlight">
 <code>
     RP/0/RP0/CPU0:Leaf-1#show evpn evi detail
-    Sat Sep  1 23:13:01.611 UTC
 
     VPN-ID     Encap  Bridge Domain                Type               
     ---------- ------ ---------------------------- -------------------
     10         MPLS   bd-10                        EVPN               
        Stitching: Regular
-       Unicast Label  : 64004
-       Multicast Label: 64120
+       Unicast Label  : 24060
+       Multicast Label: 24121
        Flow Label: N
        Control-Word: Enabled
        Forward-class: 0
@@ -371,7 +369,7 @@ Ping from Host-1 to Host-5 and verify that the Hosts are reachable. We can see i
     Topo ID  Mac Address    Producer    Next Hop(s)                             
     -------- -------------- ----------- ----------------------------------------
     0        <mark>6c9c.ed6d.1d8b</mark> LOCAL       Bundle-Ether1.10                        
-    0        a03d.6f3d.5443 L2VPN       5.5.5.5/64004/ME                        
+    0        a03d.6f3d.5443 L2VPN       5.5.5.5/24002/ME                        
     RP/0/RP0/CPU0:Leaf-1#
 
 
@@ -382,7 +380,7 @@ Ping from Host-1 to Host-5 and verify that the Hosts are reachable. We can see i
     Topo ID  Mac Address    Producer    Next Hop(s)                             
     -------- -------------- ----------- ----------------------------------------
     0        <mark>6c9c.ed6d.1d8b</mark> L2VPN       Bundle-Ether1.10                        
-    0        a03d.6f3d.5443 L2VPN       5.5.5.5/64004/ME                        
+    0        a03d.6f3d.5443 L2VPN       5.5.5.5/24002/ME                        
     RP/0/RP0/CPU0:Leaf-2#
 
     Leaf-5
@@ -391,7 +389,7 @@ Ping from Host-1 to Host-5 and verify that the Hosts are reachable. We can see i
     Sat Sep  1 23:00:03.785 UTC
     Topo ID  Mac Address    Producer    Next Hop(s)                             
     -------- -------------- ----------- ----------------------------------------
-    0        <mark>6c9c.ed6d.1d8b</mark> L2VPN       64005/I/ME                              
+    0        <mark>6c9c.ed6d.1d8b</mark> L2VPN       24007/I/ME                              
     0        a03d.6f3d.5443 LOCAL       TenGigE0/0/0/47.10                      
     RP/0/RP0/CPU0:Leaf-5#
 </code>
@@ -469,9 +467,9 @@ CLI command “show evpn evi vpn-id 10 mac” can be used to verify the MAC addr
 
     VPN-ID     Encap  MAC address    IP address       Nexthop                                 Label   
     ---------- ------ -------------- ---------------------------------------- -----------------------------
-    10         MPLS   <mark>6c9c.ed6d.1d8b ::               1.1.1.1</mark>                                64004   
-    10         MPLS   <mark>6c9c.ed6d.1d8b ::               2.2.2.2</mark>                                64004   
-    10         MPLS   a03d.6f3d.5443 ::               TenGigE0/0/0/47.10                      64004   
+    10         MPLS   <mark>6c9c.ed6d.1d8b ::               1.1.1.1</mark>                                24060   
+    10         MPLS   <mark>6c9c.ed6d.1d8b ::               2.2.2.2</mark>                                24042   
+    10         MPLS   a03d.6f3d.5443 ::               TenGigE0/0/0/47.10                      24002   
     RP/0/RP0/CPU0:Leaf-5#
 </code>
 </pre>
