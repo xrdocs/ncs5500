@@ -9,7 +9,7 @@ tags:
   - ncs 5500
   - evpn
   - NCS5500
-position: hidden
+position: top
 ---
 {% include toc %}
 # Topic: Configure BGP-EVPN Integrated Routing and Bridging (IRB) for inter-subnet routing
