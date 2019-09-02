@@ -1163,43 +1163,15 @@ The programming rate in this external TCAM bank is around 250 rules per second, 
 
 ## Conclusion/Acknowledgements
 
+
+
 ------- Template -------
-
-
-Blablabla
 
 **Update**: blablabla
 {: .notice--info}
-
-![Base vs Scale]({{site.baseurl}}/images/base-scale.jpg){: .align-center}
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>RP/0/RP0/CPU0:Router#sh platform | i XR RUN <mark>NCS-5501</mark>
-RP/0/RP0/CPU0:Router#</code>
-</pre>
-</div>
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code></code>
 </pre>
 </div>
-
-__500k IPv4 /24 routes__
-
-In this second example, we announce 500,000 IPv4/24 prefixes.
-With both **host-optimized** and **internet-optimized** profiles on base line cards, we will see these prefixes moved into LEM.
-
-| CDN / Content Providers | Ingress Avg | Egress Avg |
-|:------:|:------:|:-------:|
-| Cust 1 Google GGC | 1277 | 329 |
-| Cust 2 Google GGC | 1370 | 350 |
-| Cust 3 Google GGC | 1393 | 284 |
-
-We recommend to start watching this short Youtube video first:  
-[https://www.youtube.com/watch?v=1qXD70_cLK8](https://www.youtube.com/watch?v=1qXD70_cLK8)
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1qXD70_cLK8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-
-http://wwwin-routem.cisco.com/doc/routem-bgp-guide.html#bgp_flowspec_networks
