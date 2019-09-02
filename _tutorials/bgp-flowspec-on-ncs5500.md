@@ -18,13 +18,6 @@ Yosef already publish around BGP FlowSpec and more particular its implementation
 
 Today, we will dig a bit deeper in the subtleties of this implementation, presenting the memory spaces used to store the rules information and the statistics, and running a couple of tests to identify the limits.
 
-First reminder: the support is limited today (September 2019) to the platforms based on Jericho+ NPU and External TCAM.  
-Namely:  
-- NCS55A1-36H-SE-S
-- NCS55A2-MOD-SE-S (the one we are using for these tests)
-- NC55-36X100G-A-SE line card (36x100G -SE)
-- NC55-MOD-A-SE-S line card (MOD -SE)
-
 Here are three videos on Youtube that could answer most of your questions on the topic:
 
 The first one covers all the principles and details the configuration steps:  
@@ -39,16 +32,42 @@ Finally, the CiscoLive session dedicated to BGP FlowSpec. A deepdive in the tech
 [https://www.youtube.com/watch?v=dbsNf8DcNRQ](https://www.youtube.com/watch?v=dbsNf8DcNRQ)  
 [BRKSPG 3012 - Leveraging BGP Flowspec to protect your infrastructure](https://www.youtube.com/watch?v=dbsNf8DcNRQ)  
 
-
-
-
-
 ## Specific NCS5500 implementation
 
-Recirculation
+First reminder: the support is limited today (September 2019) to the platforms based on Jericho+ NPU and External TCAM. BGP FlowSpec being implemented in ingress only, the distinction between line card is important only where the packets are received. What is used to egress the traffic is not relevant.  
+We support BGP FS on the following products:  
+- NCS55A1-36H-SE-S
+- NCS55A2-MOD-SE-S (the one we are using for these tests)
+- NC55-36X100G-A-SE line card (36x100G -SE)
+- NC55-MOD-A-SE-S line card (MOD -SE)
 
-IPv6 requires a specific mode, with lower PPS
+For the most part, the implementation is identical to what has been done on the ASR9000, CRS and NCS-6000 platforms.  
+You can refer to the configuration guide on the ASR9000 and use the examples available from multiple sources. We are list 
 
+### Recirculation
+
+When packets are matched by a BGP FS rule, they will be recirculated. It's required in this implementation to permit the accounting of the packets.  
+
+### IPv6 specific mode
+
+For IPv6, we need to enable a specific hardware profile.  
+It will impact the overall performance of the IPv6 datapath. That means all IPv6 packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.  
+You need to enable the following profile as described below:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE(config)#hw-module profile flowspec ?
+  v6-enable  Configure support for v6 flowspec
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module profile flowspec v6-enable ?
+  location  Location of flowspec config
+RP/0/RP0/CPU0:Peyto-SE(config)#hw-module profile flowspec v6-enable
+RP/0/RP0/CPU0:Peyto-SE(config)#commit
+RP/0/RP0/CPU0:Peyto-SE(config)#</code>
+</pre>
+</div>
+
+It does not require a reload of the line card or the chassis.  
+It does not impact, L2, IPv4 or MPLS datapath / performance.
 
 ## Test setup
 
@@ -114,10 +133,11 @@ router bgp 100
 </pre>
 </div>
 
-
 ## Tests
 
-### Advertisement 4000 rules and verification of the resources consumed
+### Advertisement 3000 rules and verification of the resources consumed
+
+We verify the advertisement at the BGP peer level first:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -127,8 +147,8 @@ BGP router identifier 1.1.1.111, local AS number 100
 BGP generic scan interval 60 secs
 Non-stop routing is enabled
 BGP table state: Active
-Table ID: 0x0   RD version: 6004
-BGP main routing table version 6004
+Table ID: 0x0   RD version: 97804
+BGP main routing table version 97804
 BGP NSR Initial initsync version 0 (Reached)
 BGP NSR/ISSU Sync-Group versions 0/0
 BGP scan interval 60 secs
@@ -137,16 +157,16 @@ BGP is operating in STANDALONE mode.
 
 
 Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
-Speaker            6004       6004       6004       6004        6004           0
+Speaker           97804      97804      97804      97804       97804           0
 
 Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
-192.168.100.151   0   100      68      34     6004    0    0 00:00:15       4000
+192.168.100.151   0   100     802     463    97804    0    0 00:00:11       <mark>3000</mark>
 
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-
+We also verify that the rules are properly received and counted:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -177,8 +197,7 @@ AFI: IPv4
       Matched             :                   0/0
       Transmitted         :                   0/0
       Dropped             :                   0/0
-
---SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--SNIP--
+...
 </code>
 </pre>
 </div>
@@ -192,13 +211,13 @@ To be passed from IOS XR to the hardware, we are using the DPA/OFA table "ippbr"
 "ippbr" OFA Table (Id: 137, Scope: Global)
 --------------------------------------------------
                           NPU ID: NPU-0
-                          In Use: <mark>4000</mark>
+                          In Use: <mark>3000</mark>
                  Create Requests
-                           Total: 9000
-                         Success: 9000
+                           Total: 3000
+                         Success: 3000
                  Delete Requests
-                           Total: 5000
-                         Success: 5000
+                           Total: 1000
+                         Success: 1000
                  Update Requests
                            Total: 0
                          Success: 0
@@ -241,19 +260,19 @@ NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
 0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
 0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
 0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
-0    11     320b   FLP         96       <mark>4000</mark>    126  <mark>INGRESS_FLOWSPEC_IPV4</mark>
+0    11     320b   FLP         1096       <mark>3000</mark>    126  <mark>INGRESS_FLOWSPEC_IPV4</mark>
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-Nothing is used in the other most common resources: LPM, LEM, IPv4 eTCAM, EEDB, FEC/ECMPFEC or iTCAM
+Nothing should be used in the other most common resources: LPM, LEM, IPv4 eTCAM, EEDB, FEC/ECMPFEC or iTCAM, that's what we can see in the following:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources all loc 0/0/CPU0
-Sun Jul 14 15:04:36.090 UTC
+
 HW Resource Information
-    Name                            : lem
+    Name                            : <mark>lem</mark>
 
 OOR Information
     NPU-0
@@ -271,7 +290,7 @@ Current Usage
         l2brmac                     : 0        (0 %)
 
 HW Resource Information
-    Name                            : lpm
+    Name                            : <mark>lpm</mark>
 
 OOR Information
     NPU-0
@@ -290,7 +309,7 @@ Current Usage
         ip6mc_comp_grp              : 0        (0 %)
 
 HW Resource Information
-    Name                            : encap
+    Name                            : <mark>encap</mark>
 
 OOR Information
     NPU-0
@@ -307,7 +326,7 @@ Current Usage
         mplsnh                      : 0        (0 %)
 
 HW Resource Information
-    Name                            : ext_tcam_ipv4
+    Name                            : <mark>ext_tcam_ipv4</mark>
 
 OOR Information
     NPU-0
@@ -322,7 +341,7 @@ Current Usage
         iproute                     : 9        (0 %)
 
 HW Resource Information
-    Name                            : fec
+    Name                            : <mark>fec</mark>
 
 OOR Information
     NPU-0
@@ -351,7 +370,7 @@ Current Usage
         erp                         : 0        (0 %)
 
 HW Resource Information
-    Name                            : ecmp_fec
+    Name                            : <mark>ecmp_fec</mark>
 
 OOR Information
     NPU-0
@@ -367,7 +386,7 @@ Current Usage
         ip6nhgroup                  : 0        (0 %)
 
 HW Resource Information
-    Name                            : ext_tcam_ipv6
+    Name                            : <mark>ext_tcam_ipv6</mark>
 
 OOR Information
     NPU-0
@@ -420,11 +439,12 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 On the statistics side:
 
+Before the advertisement of the rules:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 location all
-
-HW Stats Information For Location: 0/0/CPU0
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 loc 0/0/CPU0
+Sun Jul 14 18:29:08.298 UTC
 
 System information for NPU 0:
   Counter processor configuration profile: Default
@@ -436,7 +456,7 @@ Counter processor: 0                        | Counter processor: 1
   Application:              In use   Total  |   Application:              In use   Total
     Trap                       113     300  |     Trap                       110     300
     Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
-    ACL RX, LPTS               <mark>915</mark>     915  |     ACL RX, LPTS               915     915
+    ACL RX, LPTS               202     915  |     ACL RX, LPTS               202     915
                                             |
                                             |
 Counter processor: 2                        | Counter processor: 3
@@ -447,10 +467,7 @@ Counter processor: 2                        | Counter processor: 3
                                             |
                                             |
 Counter processor: 4                        | Counter processor: 5
-  State: In use                             |   State: In use
-                                            |
-  Application:              In use   Total  |   Application:              In use   Total
-    ACL RX, LPTS              <mark>3288</mark>    8192  |     ACL RX, LPTS              3288    8192
+  State: Free                               |   State: Free
                                             |
                                             |
 Counter processor: 6                        | Counter processor: 7
@@ -487,8 +504,217 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-### Check behavior with more than 4096 rules
+And now after the learning of the 3000 rules:
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 location all
+Sun Jul 14 21:28:32.917 UTC
+HW Stats Information For Location: 0/0/CPU0
+
+System information for NPU 0:
+  Counter processor configuration profile: Default
+  Next available counter processor:        6
+
+Counter processor: 0                        | Counter processor: 1
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Trap                       113     300  |     Trap                       110     300
+    Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
+    ACL RX, LPTS               <mark>914</mark>     915  |     ACL RX, LPTS               <mark>914</mark>     915
+                                            |
+                                            |
+Counter processor: 2                        | Counter processor: 3
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    VOQ                         67    8191  |     VOQ                         67    8191
+                                            |
+                                            |
+Counter processor: 4                        | Counter processor: 5
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    ACL RX, LPTS              <mark>2288</mark>    8192  |     ACL RX, LPTS              <mark>2288</mark>    8192
+                                            |
+                                            |
+Counter processor: 6                        | Counter processor: 7
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 8                        | Counter processor: 9
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 10                       | Counter processor: 11
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    L3 RX                        0    1638  |     L3 RX                        0    1638
+    L2 RX                        0    8192  |     L2 RX                        0    8192
+                                            |
+                                            |
+Counter processor: 12                       | Counter processor: 13
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16383  |     Interface TX                 0   16383
+                                            |
+                                            |
+Counter processor: 14                       | Counter processor: 15
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16384  |     Interface TX                 0   16384
+                                            |
+                                            |
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+In Counter Processor 0: we used to consume 202 entries before the BGP FS rules and we have now 914, so 712 entries have allocated to Flowspec.  
+In Counter Processor 4: we allocated 2288 new entries.  
+So in total, we have 2288+712=2000 entries which is in-line with the expectation.
+
+**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 is guaranteed.
+{: .notice--info}
+
+So that happens if we go to 4000, 6000 or 8000 rules?  
+One more time, and as indicated in the note box above, we only support officially 3000. The purpose of the following tests is to answer questions customers asked in the past for their CPOC or for the production.
+
+### Test with 4000 rules
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         96       <mark>4000</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+RP/0/RP0/CPU0:Peyto-SE#sh dpa resources ippbr loc 0/0/CPU0
+
+"ippbr" OFA Table (Id: 137, Scope: Global)
+--------------------------------------------------
+                          NPU ID: NPU-0
+                          In Use: <mark>4000</mark>
+                 Create Requests
+                           Total: 7000
+                         Success: 7000
+                 Delete Requests
+                           Total: 4118
+                         Success: 4118
+                 Update Requests
+                           Total: 0
+                         Success: 0
+                    EOD Requests
+                           Total: 0
+                         Success: 0
+                          Errors
+                     <mark>HW Failures: 0</mark>
+                Resolve Failures: 0
+                 No memory in DB: 0
+                 Not found in DB: 0
+                    Exists in DB: 0
+      Reserve Resources Failures: 0
+      Release Resources Failures: 0
+       Update Resources Failures: 0
+
+RP/0/RP0/CPU0:Peyto-SE#
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 location all
+
+HW Stats Information For Location: 0/0/CPU0
+
+System information for NPU 0:
+  Counter processor configuration profile: Default
+  Next available counter processor:        6
+
+Counter processor: 0                        | Counter processor: 1
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Trap                       113     300  |     Trap                       110     300
+    Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
+    ACL RX, LPTS               <mark>912</mark>     915  |     ACL RX, LPTS               <mark>912</mark>     915
+                                            |
+                                            |
+Counter processor: 2                        | Counter processor: 3
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    VOQ                         67    8191  |     VOQ                         67    8191
+                                            |
+                                            |
+Counter processor: 4                        | Counter processor: 5
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    ACL RX, LPTS              <mark>3287</mark>    8192  |     ACL RX, LPTS              <mark>3287</mark>    8192
+                                            |
+                                            |
+Counter processor: 6                        | Counter processor: 7
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 8                        | Counter processor: 9
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 10                       | Counter processor: 11
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    L3 RX                        0    1638  |     L3 RX                        0    1638
+    L2 RX                        0    8192  |     L2 RX                        0    8192
+                                            |
+                                            |
+Counter processor: 12                       | Counter processor: 13
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16383  |     Interface TX                 0   16383
+                                            |
+                                            |
+Counter processor: 14                       | Counter processor: 15
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16384  |     Interface TX                 0   16384
+                                            |
+                                            |
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+It looks like 4000 entries were received quickly and didn't trigger any error.
+
+### Test with 6000 rules
+
+sh contr npu externaltcam location 0/0/CPU0
+sh contr npu resources stats instance 0 location all
+sh dpa resources ippbr loc 0/0/CPU0
+
+
+### Test with 8000 rules
+
+sh contr npu externaltcam location 0/0/CPU0
+sh contr npu resources stats instance 0 location all
+sh dpa resources ippbr loc 0/0/CPU0
 
 
 ### Session limit configuration
