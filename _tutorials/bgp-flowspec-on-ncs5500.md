@@ -1,12 +1,12 @@
 ---
 published: false
 date: '2019-09-02 10:29 +0200'
-title: BGP FlowSpec on NCS5500
+title: 'BGP FlowSpec on NCS5500: A Few Tests'
 position: hidden
 author: Nicolas Fevrier
 excerpt: BGP Flowspec implementation and resource management on NCS5500 Series
 ---
-{% include toc icon="table" title="BGP FlowSpec on NCS5500" %} 
+{% include toc icon="table" title="BGP FlowSpec on NCS5500: A Few Tests" %} 
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
@@ -947,34 +947,133 @@ The DPA/OFA is showing error messages which proves it was not able to program th
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         4406     8906    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh dpa resources ippbr loc 0/0/CPU0
+
+"ippbr" OFA Table (Id: 137, Scope: Global)
+--------------------------------------------------
+                          NPU ID: NPU-0
+                          In Use: 8906
+                 Create Requests
+                           Total: 867909
+                         Success: 867374
+                 Delete Requests
+                           Total: 858909
+                         Success: 858468
+                 Update Requests
+                           Total: 0
+                         Success: 0
+                    EOD Requests
+                           Total: 0
+                         Success: 0
+                          Errors
+                     HW Failures: 535
+                Resolve Failures: 0
+                 No memory in DB: 0
+                 Not found in DB: 441
+                    Exists in DB: 0
+      Reserve Resources Failures: 0
+      Release Resources Failures: 0
+       Update Resources Failures: 0
+
+RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
+We are seeing the router is not behaving erratically (crash or memory dumps), it just refuses to program more entries in the memory and increments the DPA Hw errors counters.
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-We are seeing the router is not behaving weirdly (crash or memory dumps), it just refuses to program more entries in the memory and increments the DPA Hw errors counters.
-
-sh contr npu externaltcam location 0/0/CPU0
-sh contr npu resources stats instance 0 location all
-sh dpa resources ippbr loc 0/0/CPU0
-
-I have to repeat it one more time, the officially tested, therefor, supported scale for BGP Flowspec is 3000 rules. We were able to go to 4000 with this platform with no proble, to 6000 with a low programming rate in the last part and not to 9000. But it doesn't prove anything, just that it doesn't badly impair the router.  
+I have to re-iterate: the officially tested, it means, supported scale for BGP Flowspec is 3000 rules. We were able to push to 4000 with this platform with no noticeable problem, to 6000 with a very low programming rate in the last part but not to 9000. But it doesn't prove anything, just that it doesn't badly impair the router.  
 The results may be different on a different NCS5500 platform or a different IOS XR version. So, please take all this with a grain of salt.
 
 ### Session limit configuration
 
+_Is it possible to limit the number of rules received per session or globally?_ 
+We can configure the "maximum-prefix" under the neighbor statement to limit the number of advertised (received) rules for a given session. But it's not possible to globally limit the number of rules to a specific value (aside limiting to a single BGP FS session, from a route-reflector for example).  
 
+The max-prefix feature is directly inherited from the BGP world and benefits Flowspec without specific adaptation.  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE(config)#router bgp 100
+RP/0/RP0/CPU0:Peyto-SE(config-bgp)# neighbor 192.168.100.151
+RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr)#  address-family ipv4 flowspec
+RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#maximum-prefix 1010 75
+RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#commit</code>
+</pre>
+</div>
+
+We advertise 1000 rules, it only generates a warning message:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Jul 15 00:56:58.887 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : neighbor 192.168.100.151 Up (VRF: default) (AS: 100)
+RP/0/RP0/CPU0:Jul 15 00:56:58.888 UTC: bgp[1084]: %ROUTING-BGP-5-NSR_STATE_CHANGE : Changed state to Not NSR-Ready
+RP/0/RP0/CPU0:Jul 15 00:56:59.147 UTC: bgp[1084]: %ROUTING-BGP-5-MAXPFX : No. of IPv4 Flowspec prefixes received from 192.168.100.151 has reached 758, max 1010</code>
+</pre>
+</div>
+
+If we push to 1020 rules:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-4-MAXPFXEXCEED : No. of IPv4 Flowspec prefixes received from 192.168.100.151: <mark>1011 exceed limit 1010</mark>
+RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : neighbor 192.168.100.151 Down - <mark>Peer exceeding maximum prefix limit (CEASE notification sent - maximum number of prefixes reached)</mark> (VRF: default) (AS: 100)
+
+RP/0/RP0/CPU0:Peyto-SE#sh bgp ipv4 flowspec sum
+
+BGP router identifier 1.1.1.111, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 176824
+BGP main routing table version 176824
+BGP NSR Initial initsync version 0 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker          176824     176824     176824     176824      176824           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100    1243     649        0    0    0 00:00:33 <mark>Idle (PfxCt)</mark>
+
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+Note that by default, it will be necessary to clear the bgp session to "unstuck" it from idle state.  
+Also, other options exists to restart it automatically after a few minutes, to ignore the extra rules or to simply generate a warning message:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#maximum-prefix 1010 75 ?
+  discard-extra-paths  Discard extra paths when limit is exceeded
+  restart              Restart time interval
+  warning-only         Only give warning message when limit is exceeded
+RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#</code>
+</pre>
+</div>
 
 ### Verification of the resource used with complex rules (with ranges)
 
@@ -1040,7 +1139,7 @@ I can extract the following chart and diagram:
 
 ![BGPFS-eTCAM-Rate.png]({{site.baseurl}}/images/BGPFS-eTCAM-Rate.png){: .align-center}
 
-The programming rate in this external TCAM bank is around 250 rules per second.
+The programming rate in this external TCAM bank is around 250 rules per second, at least in the boundaries of the supported scale (up to 3000).
 
 
 ## References
