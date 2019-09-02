@@ -580,10 +580,12 @@ So in total, we have 2288+712=2000 entries which is in-line with the expectation
 **Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 is guaranteed.
 {: .notice--info}
 
-So that happens if we go to 4000, 6000 or 8000 rules?  
+So that happens if we go to 4000, 6000 or 9000 rules?  
 One more time, and as indicated in the note box above, we only support officially 3000. The purpose of the following tests is to answer questions customers asked in the past for their CPOC or for the production.
 
 ### Test with 4000 rules
+
+Let's see what will happen if we push further. We start with 4000 rules of the same kind than used in the former test.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -705,17 +707,270 @@ It looks like 4000 entries were received quickly and didn't trigger any error.
 
 ### Test with 6000 rules
 
+Moving the cursor to 6000 rules now.
+
+The BGP part is learnt also instantly.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh bgp ipv4 flowspec  sum
+
+BGP router identifier 1.1.1.111, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 132804
+BGP main routing table version 132804
+BGP NSR Initial initsync version 0 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker          132804     126804     132804     132804      126804           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100     989     523   126804    0    0 00:00:33       6000
+
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+On the hardware side, the first 4200 rules are programmed in a few seconds then it progresses much more slowly:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         4940     4276    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+It will take several minutes to program the remaining 2000ish rules.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+Eventually, rules will be programmed and the DPA part doesn't show errors.  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         4240     6000    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 location all
+
+HW Stats Information For Location: 0/0/CPU0
+
+System information for NPU 0:
+  Counter processor configuration profile: Default
+  Next available counter processor:        4
+
+Counter processor: 0                        | Counter processor: 1
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Trap                       113     300  |     Trap                       110     300
+    Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
+    ACL RX, LPTS               915     915  |     ACL RX, LPTS               915     915
+                                            |
+                                            |
+Counter processor: 2                        | Counter processor: 3
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    VOQ                         67    8191  |     VOQ                         67    8191
+                                            |
+                                            |
+Counter processor: 4                        | Counter processor: 5
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 6                        | Counter processor: 7
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    ACL RX, LPTS              5287    8192  |     ACL RX, LPTS              5287    8192
+                                            |
+                                            |
+Counter processor: 8                        | Counter processor: 9
+  State: Free                               |   State: Free
+                                            |
+                                            |
+Counter processor: 10                       | Counter processor: 11
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    L3 RX                        0    1638  |     L3 RX                        0    1638
+    L2 RX                        0    8192  |     L2 RX                        0    8192
+                                            |
+                                            |
+Counter processor: 12                       | Counter processor: 13
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16383  |     Interface TX                 0   16383
+                                            |
+                                            |
+Counter processor: 14                       | Counter processor: 15
+  State: In use                             |   State: In use
+                                            |
+  Application:              In use   Total  |   Application:              In use   Total
+    Interface TX                 0   16384  |     Interface TX                 0   16384
+                                            |
+                                            |
+RP/0/RP0/CPU0:Peyto-SE#sh dpa resources ippbr loc 0/0/CPU0
+
+"ippbr" OFA Table (Id: 137, Scope: Global)
+--------------------------------------------------
+                          NPU ID: NPU-0
+                          In Use: 6000
+                 Create Requests
+                           Total: 179286
+                         Success: 179286
+                 Delete Requests
+                           Total: 173286
+                         Success: 173286
+                 Update Requests
+                           Total: 0
+                         Success: 0
+                    EOD Requests
+                           Total: 0
+                         Success: 0
+                          Errors
+                     HW Failures: 0
+                Resolve Failures: 0
+                 No memory in DB: 0
+                 Not found in DB: 0
+                    Exists in DB: 0
+      Reserve Resources Failures: 0
+      Release Resources Failures: 0
+       Update Resources Failures: 0
+
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+### Test with 9000 rules
+
+Ok, one last try... This time with 9000 rules. Three times the officially supported scale.
+
+Like we noticed for the former test with 6000 rules, the BGP part is going pretty fast, then the programming goes to 4200 rules quickly and then learns the routes slowly.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh bgp ipv4 flowspec sum
+
+BGP router identifier 1.1.1.111, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 163804
+BGP main routing table version 163804
+BGP NSR Initial initsync version 0 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker          163804     154804     163804     163804      154804           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100    1174     593   154804    0    0 00:02:45       9000
+
+RP/0/RP0/CPU0:Peyto-SE#
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         4997     4219    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+This time, we pushed too far and exceeded the memory allocations.  
+The DPA/OFA is showing error messages which proves it was not able to program the entry in hardware.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+We are seeing the router is not behaving weirdly (crash or memory dumps), it just refuses to program more entries in the memory and increments the DPA Hw errors counters.
+
 sh contr npu externaltcam location 0/0/CPU0
 sh contr npu resources stats instance 0 location all
 sh dpa resources ippbr loc 0/0/CPU0
 
-
-### Test with 8000 rules
-
-sh contr npu externaltcam location 0/0/CPU0
-sh contr npu resources stats instance 0 location all
-sh dpa resources ippbr loc 0/0/CPU0
-
+I have to repeat it one more time, the officially tested, therefor, supported scale for BGP Flowspec is 3000 rules. We were able to go to 4000 with this platform with no proble, to 6000 with a low programming rate in the last part and not to 9000. But it doesn't prove anything, just that it doesn't badly impair the router.  
+The results may be different on a different NCS5500 platform or a different IOS XR version. So, please take all this with a grain of salt.
 
 ### Session limit configuration
 
@@ -727,6 +982,65 @@ sh dpa resources ippbr loc 0/0/CPU0
 
 ### Programming rate
 
+To measure the number of rules we can program per second, we are using a very rudimentary method based on show command timestamps.  
+After establishing the flowspec session, I will type "sh contr npu externaltcam location 0/0/CPU0" regularly and collect the number of entries in the bank ID 11, I will also note down the timing of the session, and convert it in milliseconds.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam location 0/0/CPU0
+<mark>Sun Jul 14 23:35:44.252 UTC</mark>
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         4351     <mark>4865</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+I can extract the following chart and diagram:
+
+| Timing (ms) | eTCAM Entries |
+|:------:|:------:|
+| 38610 | 549 |
+| 39551 | 774 |
+| 40320 | 950 |
+| 41128 | 1150 |
+| 41979 | 1352 |
+| 42680 | 1532 |
+| 43384 | 1700 |
+| 44039 | 1850 |
+| 44673 | 2003 |
+| 45312 | 2159 |
+| 45943 | 2320 |
+| 46584 | 2474 |
+| 47240 | 2640 |
+| 47849 | 2785 |
+| 48488 | 2944 |
+| 49193 | 3100 |
+| 49823 | 3200 |
+| 50481 | 3360 |
+| 51150 | 3525 |
+| 51799 | 3676 |
+| 52393 | 3806 |
+| 52976 | 3950 |
+| 53667 | 4097 |
+
+![BGPFS-eTCAM-Rate.png]({{site.baseurl}}/images/BGPFS-eTCAM-Rate.png){: .align-center}
+
+The programming rate in this external TCAM bank is around 250 rules per second.
 
 
 ## References
