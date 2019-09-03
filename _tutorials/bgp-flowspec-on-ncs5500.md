@@ -133,6 +133,9 @@ router bgp 100
    route-policy PERMIT-ANY out
   !
  !
+!
+flowspec
+ local-install interface-all
 !</code>
 </pre>
 </div>
@@ -170,7 +173,34 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-We also verify that the rules are properly received and counted:
+We also verify that the rules are properly received:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#show policy-map transient type pbr pmap-name __bgpfs_default_IPv4
+policy-map type pbr __bgpfs_default_IPv4
+ handle:0x36000002
+ table description: L3 IPv4 and IPv6
+ class handle:0x76004f03  sequence 1024
+   match destination-address ipv4 2.2.2.0 255.255.255.0
+   match source-address ipv4 3.3.0.0 255.255.0.0
+   match protocol tcp
+   match destination-port 8080
+  drop
+ !
+ class handle:0x76004f04  sequence 2048
+   match destination-address ipv4 2.2.3.0 255.255.255.0
+   match source-address ipv4 3.3.0.0 255.255.0.0
+   match protocol tcp
+   match destination-port 8080
+  drop
+ !
+ ...
+</code>
+</pre>
+</div>
+
+On the flowspec side too:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
