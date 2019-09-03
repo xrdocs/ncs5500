@@ -71,8 +71,7 @@ RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </pre>
 </div>
 
-It does not require a reload of the line card or the chassis.  
-It does not impact, L2, IPv4 or MPLS datapath / performance.
+It does not require a reload of the line card or the chassis and it does not impact, L2, IPv4 or MPLS datapath / performance.
 
 ## Test setup
 
