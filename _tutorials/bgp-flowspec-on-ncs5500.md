@@ -159,9 +159,11 @@ flowspec
 </pre>
 </div>
 
-## Tests
+## Scale Tests
 
-### Advertisement 3000 rules and verification of the resources consumed
+### 3000 rules 
+
+From the controller, we advertise 3000 simple rules (which is the level of support on the IOS XR routers) and we will use this opportunity to check the resources consumed. The following commands can be used for normal operation and troubleshooting.
 
 We verify the advertisement at the BGP peer level first:
 
@@ -1060,9 +1062,12 @@ The results may be different on a different NCS5500 platform or a different IOS 
 
 _Is it possible to limit the number of rules received per session or globally?_ 
 
-We can configure the "maximum-prefix" under the neighbor statement to limit the number of advertised (received) rules for a given session. But it's not possible to globally limit the number of rules to a specific value (aside limiting to a single BGP FS session, from a route-reflector for example).  
+We can configure the "maximum-prefix" under the neighbor statement to limit the number of advertised (received) rules for a given session. But it's not possible to globally limit the number of rules to a specific value.
 
-The max-prefix feature is directly inherited from the BGP world and benefits Flowspec without specific adaptation.  
+The only workaround will consist in using a single BGP FS session from the client to a route-reflector.  
+{: .notice--info}
+
+The max-prefix feature is directly inherited from the BGP world and benefits to Flowspec without specific adaptation.  
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1078,9 +1083,12 @@ We advertise 1000 rules, it only generates a warning message:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:Jul 15 00:56:58.887 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : neighbor 192.168.100.151 Up (VRF: default) (AS: 100)
-RP/0/RP0/CPU0:Jul 15 00:56:58.888 UTC: bgp[1084]: %ROUTING-BGP-5-NSR_STATE_CHANGE : Changed state to Not NSR-Ready
-RP/0/RP0/CPU0:Jul 15 00:56:59.147 UTC: bgp[1084]: %ROUTING-BGP-5-MAXPFX : No. of IPv4 Flowspec prefixes received from 192.168.100.151 has reached 758, max 1010</code>
+<code>RP/0/RP0/CPU0:Jul 15 00:56:58.887 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : 
+neighbor 192.168.100.151 Up (VRF: default) (AS: 100)
+RP/0/RP0/CPU0:Jul 15 00:56:58.888 UTC: bgp[1084]: %ROUTING-BGP-5-NSR_STATE_CHANGE : 
+Changed state to Not NSR-Ready
+RP/0/RP0/CPU0:Jul 15 00:56:59.147 UTC: bgp[1084]: %ROUTING-BGP-5-MAXPFX : 
+No. of IPv4 Flowspec prefixes received from 192.168.100.151 has reached 758, max 1010</code>
 </pre>
 </div>
 
@@ -1088,8 +1096,10 @@ If we push to 1020 rules:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-4-MAXPFXEXCEED : No. of IPv4 Flowspec prefixes received from 192.168.100.151: <mark>1011 exceed limit 1010</mark>
-RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : neighbor 192.168.100.151 Down - <mark>Peer exceeding maximum prefix limit (CEASE notification sent - maximum number of prefixes reached)</mark> (VRF: default) (AS: 100)
+<code>RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-4-MAXPFXEXCEED : 
+No. of IPv4 Flowspec prefixes received from 192.168.100.151: <mark>1011 exceed limit 1010</mark>
+RP/0/RP0/CPU0:Jul 15 00:59:55.549 UTC: bgp[1084]: %ROUTING-BGP-5-ADJCHANGE : 
+neighbor 192.168.100.151 Down - <mark>Peer exceeding maximum prefix limit (CEASE notification sent - maximum number of prefixes reached)</mark> (VRF: default) (AS: 100)
 
 RP/0/RP0/CPU0:Peyto-SE#sh bgp ipv4 flowspec sum
 
@@ -1129,15 +1139,15 @@ RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#</code>
 </pre>
 </div>
 
-### Verification of the resource used with complex rules (with ranges)
+## Verification of the resource used with complex rules
 
-In the tests described so far, we always used a simple rule made of:
+In the tests above, we  used a simple rule made of:
 - source prefix
 - destination prefix
 - protocol UDP
 - port 8080
 
-From the generator:
+From the generator, it's represented as:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1145,7 +1155,7 @@ From the generator:
 </pre>
 </div>
 
-Which is received on the client as:
+Which is received on the client:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1186,35 +1196,16 @@ AFI: IPv4
   Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,ICMPType:=3,ICMPCode:=16
     Actions      :Traffic-rate: 0 bps  (bgp.1)
     ...
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0
-
-External TCAM Resource Information
-=============================================================
-NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
-     Id     Size               Entries  Entry   ID   Name
-=============================================================
-0    0      80b    FLP         6481603  6       0    IPv4 UC
-0    1      80b    FLP         0        0       1    IPv4 RPF
-0    2      160b   FLP         2389864  3       3    IPv6 UC
-0    3      160b   FLP         0        0       4    IPv6 RPF
-0    4      320b   FLP         4067     29      5    IPv6 MC
-0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
-0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
-0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
-0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
-0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
-0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | FLOWSPEC
 0    11     320b   FLP         3996     <mark>100</mark>     126  INGRESS_FLOWSPEC_IPV4
 RP/0/RP0/CPU0:Peyto-SE#
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
-    ACL RX, LPTS               <mark>201</mark>     915  |     ACL RX, LPTS               <mark>201</mark>     915
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
     ACL RX, LPTS               <mark>301</mark>     915  |     ACL RX, LPTS               <mark>301</mark>     915
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-Hundred rules occupies hundred entries in the eTCAM and in the stats DB.  
+100 rules occupies 100 entries in the eTCAM and in the stats DB.  
 So one for one.
 
 ### Packet size
@@ -1242,24 +1233,7 @@ AFI: IPv4
   Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=6,DPort:=123,Length:>=400
     Actions      :Traffic-rate: 0 bps  (bgp.1)
     ...
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0
-
-External TCAM Resource Information
-=============================================================
-NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
-     Id     Size               Entries  Entry   ID   Name
-=============================================================
-0    0      80b    FLP         6481603  6       0    IPv4 UC
-0    1      80b    FLP         0        0       1    IPv4 RPF
-0    2      160b   FLP         2389864  3       3    IPv6 UC
-0    3      160b   FLP         0        0       4    IPv6 RPF
-0    4      320b   FLP         4067     29      5    IPv6 MC
-0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
-0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
-0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
-0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
-0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
-0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOWSPEC
 0    11     320b   FLP         3096     <mark>1000</mark>    126  INGRESS_FLOWSPEC_IPV4
 RP/0/RP0/CPU0:Peyto-SE#
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
@@ -1271,13 +1245,11 @@ RP/0/RP0/CPU0:Peyto-SE#
 
 On the statistic side, one rule occupies one entry. But on the eTCAM, each rule will consume 10 entries.
 
-Let's try to see if different packet size will show different occupation.
+Let's try to see if different packet sizes will show different memory occupation.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-
-**network 1 packet-len >=255**
+<code>**network 1 packet-len >=255**
 
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
 0    11     320b   FLP         3196     <mark>900</mark>     126  INGRESS_FLOWSPEC_IPV4
@@ -1298,14 +1270,14 @@ RP/0/RP0/CPU0:Peyto-SE#
 **network 1 packet-len >=512**
 
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
-0    11     320b   FLP         3396     700     126  INGRESS_FLOWSPEC_IPV4
+0    11     320b   FLP         3396     <mark>700</mark>     126  INGRESS_FLOWSPEC_IPV4
 RP/0/RP0/CPU0:Peyto-SE#
 
 </code>
 </pre>
 </div>
 
-Clearly, (packet) size matters.
+Clearly, (packet) size matters:
 
 | <= X Bytes | eTCAM Entries for one rule | <= X Bytes | eTCAM Entries for one rule |
 |:------:|:------:|:------:|:------:|
@@ -1325,7 +1297,7 @@ Clearly, (packet) size matters.
 | 133 | 14 | 258 | 14 |
 | 134 | 13 | 259 | 14 |
 
-Based on these couples of examples, to optimize the memory utilization, it's advised to use power of twos or numbers following the power of twos but not before.
+Based on these couples of examples, to optimize the memory utilization, it's advised to use power of twos.
 
 ### Fragmented
 
@@ -1352,15 +1324,15 @@ AFI: IPv4
     Actions      :Traffic-rate: 0 bps  (bgp.1)
     ...
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
-0    11     320b   FLP         3896     200     126  INGRESS_FLOWSPEC_IPV4
+0    11     320b   FLP         3896     <mark>200</mark>     126  INGRESS_FLOWSPEC_IPV4
 RP/0/RP0/CPU0:Peyto-SE#s
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
-    ACL RX, LPTS               300     915  |     ACL RX, LPTS               300     915
+    ACL RX, LPTS               <mark>300</mark>     915  |     ACL RX, LPTS               <mark>300</mark>     915
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-It uses one stats entry and two eTCAM entries per rule.
+So a simple rule with source and destination address and fragment identication will use one stats entry and two eTCAM entries.
 
 ### TCP SYN
 
@@ -1590,6 +1562,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 ## Programming rate
 
 To measure the number of rules we can program per second, we are using a very rudimentary method based on show command timestamps.  
+
 After establishing the flowspec session, I will type "sh contr npu externaltcam location 0/0/CPU0" regularly and collect the number of entries in the bank ID 11, I will also note down the timing of the session, and convert it in milliseconds.
 
 <div class="highlighter-rouge">
@@ -1672,10 +1645,10 @@ The programming rate in this external TCAM bank is around 250 rules per second, 
 
 This post aimed at clarifying some specific aspects of the NCS550 BGP Flowspec implementation.  
 - the space used by Flowspec rules is variable and dependant on the complexity
-- ranges can use different memory size and it's usually the best to use power of twos or values just higher, the worst case being values just below the power of twos
+- ranges can use different memory sizes and it's usually the best to use power of twos
 - the officially supported scale is 3000 "simple" rules
 - the NCS55A2-MOD-SE-S based on Jericho+ with OP eTCAM can program up to 250 rules per second
 - exceeding the scale won't have much consequences
+
 We will update it with new content and corrections in the future if required.  
 As usual, use the comment section below for your questions.
-
