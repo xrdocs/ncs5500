@@ -1,10 +1,15 @@
 ---
-published: false
+published: true
 date: '2019-09-02 10:29 +0200'
 title: 'BGP FlowSpec on NCS5500: A Few Tests'
 position: hidden
 author: Nicolas Fevrier
 excerpt: BGP Flowspec implementation and resource management on NCS5500 Series
+tags:
+  - ncs5500
+  - flowspec
+  - iosxr
+  - bgpfs
 ---
 {% include toc icon="table" title="BGP FlowSpec on NCS5500: A Few Tests" %} 
 
@@ -1603,18 +1608,9 @@ The programming rate in this external TCAM bank is around 250 rules per second, 
 [https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443)
 
 
-
 ## Conclusion/Acknowledgements
 
+This post aimed at clarifying some specific aspects of the NCS550 BGP Flowspec implementation.  
+We will update it with new content and corrections in the future if required.  
+As usual, use the comment section below for your questions.
 
-
-------- Template -------
-
-**Update**: blablabla
-{: .notice--info}
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
