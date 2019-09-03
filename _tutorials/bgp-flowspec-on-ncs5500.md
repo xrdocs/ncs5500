@@ -1077,6 +1077,276 @@ RP/0/RP0/CPU0:Peyto-SE(config-bgp-nbr-af)#</code>
 
 ### Verification of the resource used with complex rules (with ranges)
 
+In the tests described so far, we always used a simple rule made of:
+- source prefix
+- destination prefix
+- protocol UDP
+- port 8080
+
+From the generator:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 6 dest-port 8080</code>
+</pre>
+</div>
+
+Which is received on the client as:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=6,DPort:=8080
+    Actions      :Traffic-rate: 0 bps  (bgp.1)</code>
+</pre>
+</div>
+
+This simple rule will use a single entry in our external TCAM bank 11.
+
+Now, let's try to identify how much space other rules will consume.
+
+### ICMP type / code
+
+On the controller, we advertise 100 rules with source, destination, ICMP type and code, and an increase of the destination.
+
+On the Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 ipv4 flowspec
+network 1 dest 2.2.2.0/24 source 3.3.0.0/16
+network 1 icmp-type 3 icmp-code 16
+network 1 count 100 dest-incr</code>
+</pre>
+</div>
+
+On the Client/Router:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,ICMPType:=3,ICMPCode:=16
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,ICMPType:=3,ICMPCode:=16
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+    ...
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         3996     <mark>100</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>201</mark>     915  |     ACL RX, LPTS               <mark>201</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>301</mark>     915  |     ACL RX, LPTS               <mark>301</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+Hundred rules occupies hundred entries in the eTCAM and in the stats DB.  
+So one for one.
+
+### Packet size
+
+We define on the controller a set of 100 rules with address source and destination, protocol UDP, destination port 123 and larger than 400 bytes:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 ipv4 flowspec
+network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 6 dest-port 123
+network 1 packet-len >=400
+network 1 count 100 dest-incr</code>
+</pre>
+</div>
+
+On the client side:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=6,DPort:=123,Length:>=400
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=6,DPort:=123,Length:>=400
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+    ...
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0
+Mon Jul 15 15:48:09.585 UTC
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         6481603  6       0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         2389864  3       3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      320b   FLP         4067     29      5    IPv6 MC
+0    5      80b    FLP         4096     0       82   INGRESS_IPV4_SRC_IP_EXT
+0    6      80b    FLP         4096     0       83   INGRESS_IPV4_DST_IP_EXT
+0    7      160b   FLP         4096     0       84   INGRESS_IPV6_SRC_IP_EXT
+0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
+0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
+0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
+0    11     320b   FLP         3096     <mark>1000</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>300</mark>     915  |     ACL RX, LPTS               <mark>300</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#
+</code>
+</pre>
+</div>
+
+On the statistic side, one rule occupies one entry. But on the eTCAM, each rule will consume 10 entries.
+
+Let's try to see if different packet size will show different occupation.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+**network 1 packet-len >=255**
+
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+0    11     320b   FLP         3196     <mark>900</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+
+**network 1 packet-len >=256**
+
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+0    11     320b   FLP         3296     <mark>800</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+
+**network 1 packet-len >=257**
+
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+0    11     320b   FLP         2596     <mark>1500</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+
+**network 1 packet-len >=512**
+
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+Mon Jul 15 16:29:56.432 UTC
+0    11     320b   FLP         3396     700     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#
+
+</code>
+</pre>
+</div>
+
+Clearly, (packet) size matters.
+
+| <= X Bytes | eTCAM Entries for one rule | <= X Bytes | eTCAM Entries for one rule |
+|:------:|:------:|:------:|:------:|
+| 120 | 10 | 245 | 11 |
+| 121 | 12 | 246 | 10 |
+| 122 | 11 | 247 | 10 |
+| 123 | 11 | 248 | 9 |
+| 124 | 10 | 249 | 11 |
+| 125 | 11 | 250 | 10 |
+| 126 | 10 | 251 | 10 |
+| 127 | 10 | 252 | 9 |
+| 128 | 9 | 253 | 10 |
+| 129 | 15 | 254 | 9 |
+| 130 | 14 | 255 | 9 |
+| 131 | 14 | 256 | 8 |
+| 132 | 13 | 257 | 15 |
+| 133 | 14 | 258 | 14 |
+| 134 | 13 | 259 | 14 |
+
+Based on these couples of examples, to optimize the memory utilization, it's advised to use power of twos or numbers following the power of twos but not before.
+
+
+
+
+
+### 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+### 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+### 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+### 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+### 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
 
 
 ### Programming rate
