@@ -489,7 +489,7 @@ Counter processor: 0                        | Counter processor: 1
   Application:              In use   Total  |   Application:              In use   Total
     Trap                       113     300  |     Trap                       110     300
     Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
-    ACL RX, LPTS               202     915  |     ACL RX, LPTS               202     915
+    ACL RX, LPTS               <mark>202</mark>     915  |     ACL RX, LPTS               <mark>202</mark>     915
                                             |
                                             |
 Counter processor: 2                        | Counter processor: 3
@@ -608,13 +608,12 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 In Counter Processor 0: we used to consume 202 entries before the BGP FS rules and we have now 914, so 712 entries have allocated to Flowspec.  
 In Counter Processor 4: we allocated 2288 new entries.  
-So in total, we have 2288+712=2000 entries which is in-line with the expectation.
+So in total, we have 2288 + 712 = 3000 entries which is in-line with the expectation.
 
-**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 is guaranteed.
+**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 is guaranteed. The rest of the tests performed below are just to answer specific questions from customers asked in the past during CPOC or for production, but it's only for information. Results may vary depending on the platform and the software release.
 {: .notice--info}
 
-So that happens if we go to 4000, 6000 or 9000 rules?  
-One more time, and as indicated in the note box above, we only support officially 3000. The purpose of the following tests is to answer questions customers asked in the past for their CPOC or for the production.
+So what happens if we go to 4000, 6000 or 9000 rules?  
 
 ### Test with 4000 rules
 
