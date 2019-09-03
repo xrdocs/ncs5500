@@ -1274,21 +1274,35 @@ Clearly, (packet) size matters.
 
 Based on these couples of examples, to optimize the memory utilization, it's advised to use power of twos or numbers following the power of twos but not before.
 
-
-
-
-
-### 
+### Fragemented
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>network 1 ipv4 flowspec
+network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 6 fragment (isf)
+network 1 count 100 dest-incr</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+Mon Jul 15 16:47:48.210 UTC
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=6,Frag:~IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=6,Frag:~IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+    ...
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+Mon Jul 15 16:48:02.189 UTC
+0    11     320b   FLP         3896     200     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#s
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+Mon Jul 15 16:48:34.683 UTC
+    ACL RX, LPTS               300     915  |     ACL RX, LPTS               300     915
+RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
