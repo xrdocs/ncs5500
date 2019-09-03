@@ -1272,6 +1272,71 @@ Clearly, (packet) size matters.
 
 Based on these couples of examples, to optimize the memory utilization, it's advised to use power of twos or numbers following the power of twos but not before.
 
+### Fragmented
+
+In this example, we only use source and destination, and the indication the packets are fragmented.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 ipv4 flowspec
+network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 17 fragment (isf)
+network 1 count 100 dest-incr</code>
+</pre>
+</div>
+
+On the router:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=17,Frag:~IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=17,Frag:~IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+    ...
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+0    11     320b   FLP         3896     200     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#s
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               300     915  |     ACL RX, LPTS               300     915
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+It uses one stats entry and two eTCAM entries per rule.
+
+### TCP SYN
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 ipv4 flowspec
+network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 6 tcp-flags *(syn)
+network 1 count 100 dest-incr</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=6,TCPFlags:=0x02
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=6,TCPFlags:=0x02
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
+0    11     320b   FLP         3996     <mark>100</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>302</mark>     915  |     ACL RX, LPTS               <mark>302</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#</code>
+</pre>
+</div>
+
+For TCP SYNs, one stats and one eTCAM entry per rule.
+
 ### Arbor auto-mitigation
 
 When Netscout / Arbor SP is used as a Flowspec controller, it can generate auto-mitigation rules such as:  
@@ -1352,35 +1417,65 @@ RP/0/RP0/CPU0:Peyto-SE#
 --> these cases are consuming one stats entry and two eTCAM entries per rule.
 
 - dns: dest 7.7.7.7/32 protocol 17 source-port 53 packet-len {>=768}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>network 1 ipv4 flowspec
+network 1 dest 7.7.7.7/32 protocol 17 source-port 53 packet-len {>=768}
+network 1 count 100 dest-incr</code>
+</pre>
+</div>
+
+On the router/client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.8/32,Proto:=17,SPort:=53,Length:>=768
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+    ...
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
+0    11     320b   FLP         3396     <mark>700</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resource stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>302</mark>     915  |     ACL RX, LPTS               <mark>302</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#
+</code>
+</pre>
+</div>
+
+--> with this range (larger than 768), it consumes one stats entry and 7 eTCAM entries per rule.
+
 - l2tp: dest 7.7.7.7/32 protocol 17 source-port 1701 packet-len {>=500}
 
-
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
+We check if the "larger than 500" makes a significant difference:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
+0    11     320b   FLP         3196     <mark>900</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
+
+--> yes, each rule will consume 9 eTCAM entries here. Some optimization is possible but it will not change fundamentally the scale.
 
 - ntp: dest 7.7.7.7/32 protocol 17 source-port 123 packet-len {>=1 and<=35 >=37 and<=45 >=47 and<=75 >=77 and<=219 >=221 and<=65535}
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
+0    11     320b   FLP         796      <mark>3300</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resource stats instance all loc 0/0/CPU0 | i ACL
+    ACL RX, LPTS               <mark>302</mark>     915  |     ACL RX, LPTS               <mark>302</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
+--> each rule here will consume one stats entry and 33 eTCAM entries.
 
 - udp-frag: dest 7.7.7.7/32 protocol 17 fragment (isf)
 
@@ -1392,119 +1487,40 @@ RP/0/RP0/CPU0:Peyto-SE#
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-
-
-### Fragmented
-
-In this example, we only use source and destination, and the indication the packets are fragmented.
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>network 1 ipv4 flowspec
-network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 17 fragment (isf)
-network 1 count 100 dest-incr</code>
-</pre>
-</div>
-
-On the router:
-
-<div class="highlighter-rouge">
-<pre class="highlight">
 <code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
 
 AFI: IPv4
-  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=17,Frag:~IsF
+  Flow           :Dest:7.7.7.7/32,Proto:=17,Frag:~IsF
     Actions      :Traffic-rate: 0 bps  (bgp.1)
-  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=17,Frag:~IsF
+  Flow           :Dest:7.7.7.8/32,Proto:=17,Frag:~IsF
     Actions      :Traffic-rate: 0 bps  (bgp.1)
     ...
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
-0    11     320b   FLP         3896     200     126  INGRESS_FLOWSPEC_IPV4
-RP/0/RP0/CPU0:Peyto-SE#s
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
-    ACL RX, LPTS               300     915  |     ACL RX, LPTS               300     915
-RP/0/RP0/CPU0:Peyto-SE#</code>
-</pre>
-</div>
-
-It uses one stats entry and two eTCAM entries per rule.
-
-### TCP SYN
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>network 1 ipv4 flowspec
-network 1 dest 2.2.2.0/24 source 3.3.0.0/16 protocol 6 tcp-flags *(syn)
-network 1 count 100 dest-incr</code>
-</pre>
-</div>
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
-
-AFI: IPv4
-  Flow           :Dest:2.2.2.0/24,Source:3.3.0.0/16,Proto:=6,TCPFlags:=0x02
-    Actions      :Traffic-rate: 0 bps  (bgp.1)
-  Flow           :Dest:2.2.3.0/24,Source:3.3.0.0/16,Proto:=6,TCPFlags:=0x02
-    Actions      :Traffic-rate: 0 bps  (bgp.1)
-
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/cpu0 | i FLOW
-0    11     320b   FLP         3996     <mark>100</mark>     126  INGRESS_FLOWSPEC_IPV4
-RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance all loc 0/0/CPU0 | i ACL
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
+0    11     320b   FLP         3896     <mark>200</mark>     126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resource stats instance all loc 0/0/CPU0 | i ACL
     ACL RX, LPTS               <mark>302</mark>     915  |     ACL RX, LPTS               <mark>302</mark>     915
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-For TCP SYNs, one stats and one eTCAM entry per rule.
+To summarize:
 
-### 
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-### 
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-### 
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
+| Auto-Mitigation | eTCAM Entries |
+|:------:|:------:|
+| chargen | 1 |
+| cldap | 1 |
+| mdns | 1 |
+| memcached | 1 |
+| mssql | 1 |
+| ripv1 | 1 |
+| rpcbind | 1 |
+| ssdp | 1 |
+| netbios | 2 |
+| snmp | 2 |
+| dns | 7 |
+| l2tp | 9 |
+| ntp | 33 |
+| UDP frag | 2 |
 
 ### Programming rate
 
