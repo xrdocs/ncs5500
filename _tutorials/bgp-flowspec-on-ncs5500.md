@@ -2,7 +2,7 @@
 published: true
 date: '2019-09-02 10:29 +0200'
 title: 'BGP FlowSpec on NCS5500: A Few Tests'
-position: hidden
+position: top
 author: Nicolas Fevrier
 excerpt: BGP Flowspec implementation and resource management on NCS5500 Series
 tags:
