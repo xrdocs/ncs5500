@@ -41,7 +41,9 @@ Finally, the CiscoLive session dedicated to BGP FlowSpec. A deepdive in the tech
 
 ## Specific NCS5500 implementation
 
-First reminder: the support is limited today (September 2019) to the platforms based on Jericho+ NPU and External TCAM. BGP FlowSpec being implemented in ingress only, the distinction between line card is important only where the packets are received. What is used to egress the traffic is not relevant.  
+First reminder: the support is limited today (September 2019) to the platforms based on Jericho+ NPU and External TCAM (OP: Optimus Prime).
+
+BGP FlowSpec being implemented in ingress only, the distinction between line card is important only where the packets are received. What is used to egress the traffic is not relevant.  
 We support BGP FS on the following products:  
 - NCS55A1-36H-SE-S
 - NCS55A2-MOD-SE-S (the one we are using for these tests)
@@ -74,6 +76,10 @@ RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </div>
 
 It does not require a reload of the line card or the chassis and it does not impact, L2, IPv4 or MPLS datapath / performance.
+
+### Interface support
+
+Yosef covered it in the supportforum blog but it's important to remind that BGP flowspec is activate on L3 interface but will NOT process packets when it's received from GRE tunnel, or on BVI interface. Also, BGP flowspec is NOT supported with multicast traffic.
 
 ## Test setup
 
