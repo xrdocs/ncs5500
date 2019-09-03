@@ -61,11 +61,11 @@ In the next parts, you'll find aspect that are specific to the NCS5500:
 
 ### Recirculation
 
-When packets are matched by a BGP FS rule, they will be recirculated. It's required in this implementation to permit the accounting of the packets.  
+When packets are matched by a BGP FS rule, they will be recirculated. It's required to permit the accounting of the matched packets.  
 
 ### IPv6 specific mode
 
-For IPv6, we need to enable a specific hardware profile.
+BGP FS for IPv6 requires a specific hardware profile.
 
 It will impact the overall performance of the IPv6 datapath. That means all IPv6 packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.
 
@@ -87,7 +87,7 @@ It does not require a reload of the line card or the chassis and it does not imp
 
 ### Interface support
 
-Yosef covered it in the supportforum blog but it's important to remind that BGP flowspec is activate on L3 interface but will NOT process packets when it's received from GRE tunnel, or on BVI interface. Also, BGP flowspec is NOT supported with multicast traffic.
+Yosef covered it in the supportforum blog but it's important to remind that BGP flowspec is activate on L3 interface but will NOT process packets when received from GRE tunnel, or on BVI interface. Also, BGP flowspec is NOT supported with multicast traffic.
 
 ## Test setup
 
@@ -109,6 +109,8 @@ ext_community 1 traffic-rate:1:0</code>
 </div>
 
 __Config Router / Client__ :
+
+We are using an NCS55A2MOD router with External TCAM:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -134,6 +136,8 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
+And the configuration:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -149,7 +153,6 @@ router bgp 100
    route-policy PERMIT-ANY out
   !
  !
-!
 flowspec
  local-install interface-all
 !</code>
@@ -288,7 +291,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-The BGP FlowSpec rules are stored in external TCAM:
+The BGP FlowSpec rules are stored in external TCAM in a specific zone, different from the one used for IPv4 and IPv6 prefixes:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -315,7 +318,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-Nothing should be used in the other most common resources: LPM, LEM, IPv4 eTCAM, EEDB, FEC/ECMPFEC or iTCAM, that's what we can see in the following:
+Nothing will be used in the other most common resources: LPM, LEM, IPv4/IPv6 eTCAM or iTCAM. You can verify it with "sh contr npu resources all loc 0/0/CPU0"
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -333,7 +336,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>0</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 0        (0 %)
         iproute                     : 0        (0 %)
         ip6route                    : 0        (0 %)
         mplslabel                   : 0        (0 %)
@@ -351,7 +354,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>4</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 4        (0 %)
         iproute                     : 0        (0 %)
         ip6route                    : 0        (0 %)
         ipmcroute                   : 1        (0 %)
@@ -370,7 +373,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>0</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 0        (0 %)
         ipnh                        : 0        (0 %)
         ip6nh                       : 0        (0 %)
         mplsnh                      : 0        (0 %)
@@ -387,7 +390,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>6</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 6        (0 %)
         iproute                     : 9        (0 %)
 
 HW Resource Information
@@ -402,7 +405,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>15</mark>       <mark>(0 %)</mark>
+        Total In-Use                : 15       (0 %)
         ipnhgroup                   : 7        (0 %)
         ip6nhgroup                  : 2        (0 %)
         edpl                        : 0        (0 %)
@@ -431,7 +434,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>0</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 0        (0 %)
         ipnhgroup                   : 0        (0 %)
         ip6nhgroup                  : 0        (0 %)
 
@@ -447,7 +450,7 @@ OOR Information
 
 Current Usage
     NPU-0
-        Total In-Use                : <mark>3</mark>        <mark>(0 %)</mark>
+        Total In-Use                : 3        (0 %)
         ip6route                    : 9        (0 %)
 
 RP/0/RP0/CPU0:Peyto-SE#
@@ -487,7 +490,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-On the statistics side:
+The BGP Flowspec rules will consume statistic entries.
 
 Before the advertisement of the rules:
 
@@ -553,7 +556,10 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-And now after the learning of the 3000 rules:
+We highlighted the "ACL RX, LPTS" which will contain the counters for Flowspec.  
+Before injecting the rules, we are already consuming 202 entries. It will be our reference point.
+
+And now after the learning of 3000 rules:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -623,15 +629,17 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </div>
 
 In Counter Processor 0: we used to consume 202 entries before the BGP FS rules and we have now 914, so 712 entries have allocated to Flowspec.  
+
 In Counter Processor 4: we allocated 2288 new entries.  
+
 So in total, we have 2288 + 712 = 3000 entries which is in-line with the expectation.
 
-**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 is guaranteed. The rest of the tests performed below are just to answer specific questions from customers asked in the past during CPOC or for production, but it's only for information. Results may vary depending on the platform and the software release.
+**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 simple rules are guaranteed. The rest of the tests performed below will try to answer specific questions from customers (during CPOC or for production), but it's only for information. Results may vary depending on platform and software release.
 {: .notice--info}
 
-So what happens if we go to 4000, 6000 or 9000 rules?  
+So what happens if we inject 4000, 6000 or 9000 rules?  
 
-### Test with 4000 rules
+### 4000 rules
 
 Let's see what will happen if we push further. We start with 4000 rules of the same kind than used in the former test.
 
@@ -753,9 +761,9 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 It looks like 4000 entries were received quickly and didn't trigger any error.
 
-### Test with 6000 rules
+### 6000 rules
 
-Moving the cursor to 6000 rules now.
+Moving the cursor to 6000 rules now, twice the supported level.
 
 The BGP part is learnt almost instantly.
 
@@ -780,7 +788,7 @@ Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
 Speaker          132804     126804     132804     132804      126804           0
 
 Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
-192.168.100.151   0   100     989     523   126804    0    0 00:00:33       6000
+192.168.100.151   0   100     989     523   126804    0    0 00:00:33       <mark>6000</mark>
 
 RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
@@ -837,7 +845,7 @@ NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
 0    8      160b   FLP         4096     0       85   INGRESS_IPV6_DST_IP_EXT
 0    9      80b    FLP         4096     0       86   INGRESS_IP_SRC_PORT_EXT
 0    10     80b    FLP         4096     0       87   INGRESS_IPV6_SRC_PORT_EXT
-0    11     320b   FLP         4240     6000    126  INGRESS_FLOWSPEC_IPV4
+0    11     320b   FLP         4240     <mark>6000</mark>    126  INGRESS_FLOWSPEC_IPV4
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu resources stats instance 0 location all
 
 HW Stats Information For Location: 0/0/CPU0
@@ -852,7 +860,7 @@ Counter processor: 0                        | Counter processor: 1
   Application:              In use   Total  |   Application:              In use   Total
     Trap                       113     300  |     Trap                       110     300
     Policer (QoS)               32    6976  |     Policer (QoS)                0    6976
-    ACL RX, LPTS               915     915  |     ACL RX, LPTS               915     915
+    ACL RX, LPTS               <mark>915</mark>     915  |     ACL RX, LPTS               <mark>915</mark>     915
                                             |
                                             |
 Counter processor: 2                        | Counter processor: 3
@@ -870,7 +878,7 @@ Counter processor: 6                        | Counter processor: 7
   State: In use                             |   State: In use
                                             |
   Application:              In use   Total  |   Application:              In use   Total
-    ACL RX, LPTS              5287    8192  |     ACL RX, LPTS              5287    8192
+    ACL RX, LPTS              <mark>5287</mark>    8192  |     ACL RX, LPTS              <mark>5287</mark>    8192
                                             |
                                             |
 Counter processor: 8                        | Counter processor: 9
@@ -904,7 +912,7 @@ RP/0/RP0/CPU0:Peyto-SE#sh dpa resources ippbr loc 0/0/CPU0
 "ippbr" OFA Table (Id: 137, Scope: Global)
 --------------------------------------------------
                           NPU ID: NPU-0
-                          In Use: 6000
+                          In Use: <mark>6000</mark>
                  Create Requests
                            Total: 179286
                          Success: 179286
@@ -918,7 +926,7 @@ RP/0/RP0/CPU0:Peyto-SE#sh dpa resources ippbr loc 0/0/CPU0
                            Total: 0
                          Success: 0
                           Errors
-                     HW Failures: 0
+                     HW Failures: <mark>0</mark>
                 Resolve Failures: 0
                  No memory in DB: 0
                  Not found in DB: 0
@@ -931,11 +939,11 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-### Test with 9000 rules
+### 9000 rules
 
 Ok, one last try... This time with 9000 rules. Three times the officially supported scale.
 
-Like we noticed for the former test with 6000 rules, the BGP part is going pretty fast, then the programming goes to 4200 rules quickly and then learns the routes slowly.
+Like we noticed for the former test with 6000 rules, the BGP part is going pretty fast, the programming goes to 4200 rules quickly and then learns the routes slowly.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1048,7 +1056,7 @@ We were able to push to 4000 with this platform with no noticeable problem, to 6
 
 The results may be different on a different NCS5500 platform or a different IOS XR version. So, please take all this with a grain of salt.
 
-### Session limit configuration
+## Session limit configuration
 
 _Is it possible to limit the number of rules received per session or globally?_ 
 
