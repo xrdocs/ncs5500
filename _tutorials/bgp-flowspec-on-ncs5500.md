@@ -1035,6 +1035,7 @@ The results may be different on a different NCS5500 platform or a different IOS 
 ### Session limit configuration
 
 _Is it possible to limit the number of rules received per session or globally?_ 
+
 We can configure the "maximum-prefix" under the neighbor statement to limit the number of advertised (received) rules for a given session. But it's not possible to globally limit the number of rules to a specific value (aside limiting to a single BGP FS session, from a route-reflector for example).  
 
 The max-prefix feature is directly inherited from the BGP world and benefits Flowspec without specific adaptation.  
@@ -1367,10 +1368,14 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 For TCP SYNs, one stats and one eTCAM entry per rule.
 
-### Arbor auto-mitigation
+## Arbor auto-mitigation
 
 When Netscout / Arbor SP is used as a Flowspec controller, it can generate auto-mitigation rules such as:  
 chargen, cldap, mdns, memcached, mssql, ripv1, rpcbind, ssdp, netbios, snmp, dns, l2tp, ntp and frags.
+
+![arbor.png]({{site.baseurl}}/images/arbor.png){: .align-center}
+
+### First group: unique source-port
 
 - chargen: dest 7.7.7.7/32 protocol 17 source-port 19
 - cldap: dest 7.7.7.7/32 protocol 17 source-port 389
@@ -1414,6 +1419,8 @@ RP/0/RP0/CPU0:Peyto-SE#
 
 --> For all these cases, it will consume one stats entry and one eTCAM per rule.
 
+### Second group: dual source-port
+
 - netbios: dest 7.7.7.7/32 protocol 17 source-port {53 54}
 - snmp: dest 7.7.7.7/32 protocol 17 source-port {161 162}
 
@@ -1445,6 +1452,8 @@ RP/0/RP0/CPU0:Peyto-SE#
 </div>
 
 --> these cases are consuming one stats entry and two eTCAM entries per rule.
+
+### Third group: packet length
 
 - dns: dest 7.7.7.7/32 protocol 17 source-port 53 packet-len {>=768}
 
@@ -1507,6 +1516,8 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 --> each rule here will consume one stats entry and 33 eTCAM entries.
 
+### Last group: frag
+
 - udp-frag: dest 7.7.7.7/32 protocol 17 fragment (isf)
 
 <div class="highlighter-rouge">
@@ -1533,7 +1544,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-To summarize:
+### To summarize
 
 | Auto-Mitigation | eTCAM Entries |
 |:------:|:------:|
@@ -1552,7 +1563,7 @@ To summarize:
 | ntp | 33 |
 | UDP frag | 2 |
 
-### Programming rate
+## Programming rate
 
 To measure the number of rules we can program per second, we are using a very rudimentary method based on show command timestamps.  
 After establishing the flowspec session, I will type "sh contr npu externaltcam location 0/0/CPU0" regularly and collect the number of entries in the bank ID 11, I will also note down the timing of the session, and convert it in milliseconds.
@@ -1636,6 +1647,11 @@ The programming rate in this external TCAM bank is around 250 rules per second, 
 ## Conclusion/Acknowledgements
 
 This post aimed at clarifying some specific aspects of the NCS550 BGP Flowspec implementation.  
+- the space used by Flowspec rules is variable and dependant on the complexity
+- ranges can use different memory size and it's usually the best to use power of twos or values just higher, the worst case being values just below the power of twos
+- the officially supported scale is 3000 "simple" rules
+- the NCS55A2-MOD-SE-S based on Jericho+ with OP eTCAM can program up to 250 rules per second
+- exceeding the scale won't have much consequences
 We will update it with new content and corrections in the future if required.  
 As usual, use the comment section below for your questions.
 
