@@ -34,8 +34,8 @@ Then a simple example of interoperability demo between Arbor SP products and NCS
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iRPob7Ws2v8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
 Finally, the CiscoLive session dedicated to BGP FlowSpec. A deepdive in the technology:  
-[https://www.youtube.com/watch?v=dbsNf8DcNRQ](https://www.youtube.com/watch?v=dbsNf8DcNRQ)  
 [BRKSPG 3012 - Leveraging BGP Flowspec to protect your infrastructure](https://www.youtube.com/watch?v=dbsNf8DcNRQ)  
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dbsNf8DcNRQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
 ## Specific NCS5500 implementation
 
