@@ -47,15 +47,17 @@ Finally, the CiscoLive session dedicated to BGP FlowSpec. A deepdive in the tech
 
 First reminder: the support is limited today (September 2019) to the platforms based on Jericho+ NPU and External TCAM (OP: Optimus Prime).
 
-BGP FlowSpec being implemented in ingress only, the distinction between line card is important only where the packets are received. What is used to egress the traffic is not relevant.  
+BGP FlowSpec being implemented in ingress, the distinction between line card is important only where the packets are received. What is used to egress the traffic is not relevant.  
 We support BGP FS on the following products:  
 - NCS55A1-36H-SE-S
 - NCS55A2-MOD-SE-S (the one we are using for these tests)
-- NC55-36X100G-A-SE line card (36x100G -SE)
-- NC55-MOD-A-SE-S line card (MOD -SE)
+- NC55-36X100G-A-SE line card
+- NC55-MOD-A-SE-S line card
 
-For the most part, the implementation is identical to what has been done on the ASR9000, CRS and NCS-6000 platforms.  
-You can refer to the configuration guide on the ASR9000 and use the examples available from multiple sources. We are list 
+For the most part, the implementation is identical to what has been done on the ASR9000, CRS and NCS6000 platforms.  
+You can refer to the configuration guide on the ASR9000 and use the examples available from multiple sources. 
+
+In the next parts, you'll find aspect that are specific to the NCS5500:
 
 ### Recirculation
 
@@ -63,8 +65,10 @@ When packets are matched by a BGP FS rule, they will be recirculated. It's requi
 
 ### IPv6 specific mode
 
-For IPv6, we need to enable a specific hardware profile.  
-It will impact the overall performance of the IPv6 datapath. That means all IPv6 packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.  
+For IPv6, we need to enable a specific hardware profile.
+
+It will impact the overall performance of the IPv6 datapath. That means all IPv6 packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.
+
 You need to enable the following profile as described below:
 
 <div class="highlighter-rouge">
@@ -79,7 +83,7 @@ RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </pre>
 </div>
 
-It does not require a reload of the line card or the chassis and it does not impact, L2, IPv4 or MPLS datapath / performance.
+It does not require a reload of the line card or the chassis and it does not impact L2, IPv4 or MPLS datapath / performance.
 
 ### Interface support
 
