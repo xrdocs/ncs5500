@@ -28,17 +28,19 @@ Today, we will gather several questions from customers and will use this opportu
 As a starter, I suggest three videos on Youtube that could answer most of your questions on the topic. The first two are relatively short, the last one will require a couple of hours of your time.
 
 All the principles and details of the configuration:  
-[Cisco NCS5500 Flowspec (Principles and Configuration) Part1](https://www.youtube.com/watch?v=dTgh0p9Vyns)  
+[Cisco NCS5500 Flowspec (Principles and Configuration) Part1](https://www.youtube.com/watch?v=dTgh0p9Vyns)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dTgh0p9Vyns" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
   
 
 A simple demo of interoperability between Netscout / Arbor SP and NCS5500 to automitigate an MemCacheD amplification attack:  
-[Cisco NCS5500 Flowspec (Auto-Mitigation of a Memcached Attack) Part2](https://www.youtube.com/watch?v=iRPob7Ws2v8)  
+[Cisco NCS5500 Flowspec (Auto-Mitigation of a Memcached Attack) Part2](https://www.youtube.com/watch?v=iRPob7Ws2v8)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iRPob7Ws2v8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
-  
 
 Finally, the CiscoLive session dedicated to BGP FlowSpec. A deepdive in the technology:  
-[BRKSPG 3012 - Leveraging BGP Flowspec to protect your infrastructure](https://www.youtube.com/watch?v=dbsNf8DcNRQ)  
+[BRKSPG 3012 - Leveraging BGP Flowspec to protect your infrastructure](https://www.youtube.com/watch?v=dbsNf8DcNRQ)
+
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dbsNf8DcNRQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
 ## Specific NCS5500 implementation
