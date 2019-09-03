@@ -741,7 +741,7 @@ It looks like 4000 entries were received quickly and didn't trigger any error.
 
 Moving the cursor to 6000 rules now.
 
-The BGP part is learnt also instantly.
+The BGP part is learnt almost instantly.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -799,13 +799,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 It will take several minutes to program the remaining 2000ish rules.
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
-
-Eventually, rules will be programmed and the DPA part doesn't show errors.  
+Eventually, rules will be programmed and the DPA part doesn't show any error despite the very long time it takes.  
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1032,7 +1026,10 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 
 We are seeing the router is not behaving erratically (crash or memory dumps), it just refuses to program more entries in the memory and increments the DPA Hw errors counters.
 
-I have to re-iterate: the officially tested, it means, supported scale for BGP Flowspec is 3000 rules. We were able to push to 4000 with this platform with no noticeable problem, to 6000 with a very low programming rate in the last part but not to 9000. But it doesn't prove anything, just that it doesn't badly impair the router.  
+I have to re-iterate: the officially tested, it means, supported scale for BGP Flowspec is 3000 rules. 
+
+We were able to push to 4000 with this platform with no noticeable problem, to 6000 with a very low programming rate in the last part but not to 9000. But it doesn't prove anything, just that it doesn't badly impair the router.
+
 The results may be different on a different NCS5500 platform or a different IOS XR version. So, please take all this with a grain of salt.
 
 ### Session limit configuration
