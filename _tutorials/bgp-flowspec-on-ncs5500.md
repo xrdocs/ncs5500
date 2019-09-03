@@ -17,19 +17,21 @@ You can find more content related to NCS5500 including routing memory management
 
 ## Introduction
 
-Yosef already publish around BGP FlowSpec and more particular its implementation on the NCS5500 routers on Cisco's SupportForum:  
+Yosef already publish a couple of articles related to BGP FlowSpec implementation on the NCS5500 routers on Cisco's SupportForum:  
 - [SupportForum: BGP Flowspec implementation on NCS5500 platforms](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443): [https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443)
 - [SupportForum: NCS5500 BGP flowspec packet matching criteria](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443): [https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443)
 
-Today, we will dig a bit deeper in the subtleties of this implementation, presenting the memory spaces used to store the rules information and the statistics, and running a couple of tests to identify the limits.
+Today, we will gather several questions from customers and will use this opportunity to dig a bit deeper in the subtleties of this implementation:  
+- presenting the memory spaces used to store the rules information and the statistics
+- and running a couple of tests to identify the limits.
 
-Here are three videos on Youtube that could answer most of your questions on the topic:
+As a starter, I suggest three videos on Youtube that could answer most of your questions on the topic. The first two are relatively short, the last one will require a couple of hours of your time.
 
-The first one covers all the principles and details the configuration steps:  
+All the principles and details of the configuration:  
 [Cisco NCS5500 Flowspec (Principles and Configuration) Part1](https://www.youtube.com/watch?v=dTgh0p9Vyns)  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dTgh0p9Vyns" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
-Then a simple example of interoperability demo between Arbor SP products and NCS5500 to automitigate a common attack vector such as an MemCacheD amplification attack:  
+A simple demo of interoperability between Netscout / Arbor SP and NCS5500 to automitigate an MemCacheD amplification attack:  
 [Cisco NCS5500 Flowspec (Auto-Mitigation of a Memcached Attack) Part2](https://www.youtube.com/watch?v=iRPob7Ws2v8)  
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iRPob7Ws2v8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
