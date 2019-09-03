@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2019-09-02 10:29 +0200'
-title: 'BGP FlowSpec on NCS5500: Few Tests on Scale, Programming Rate and Memory Usage'
+title: 'BGP FlowSpec on NCS5500: A few tests on scale, rate and memory usage'
 position: top
 author: Nicolas Fevrier
 excerpt: BGP Flowspec implementation and resource management on NCS5500 Series
