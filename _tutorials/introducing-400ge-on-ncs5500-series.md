@@ -3,8 +3,16 @@ published: true
 date: '2019-09-04 14:52 +0200'
 title: Introducing 400GE on NCS5500 Series
 author: Nicolas Fevrier
-excerpt: '-'
+excerpt: >-
+  Introducing two new 400GE capable line cards in the NCS5500 portfolio:
+  NC55-24DD and NC55-18DD-SE
 position: hidden
+tags:
+  - ncs5500
+  - ncs 5500
+  - 400GE
+  - 400G
+  - really fast ethernet
 ---
 {% include toc icon="table" title="Introducing 400GE on NCS5500" %} 
 
