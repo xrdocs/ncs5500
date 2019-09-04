@@ -33,7 +33,7 @@ All the principles and details of the configuration:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/dTgh0p9Vyns" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
   
 
-A simple demo of interoperability between Netscout / Arbor SP and NCS5500 to automitigate an MemCacheD amplification attack:  
+A simple demo of interoperability between Netscout / Arbor SP and NCS5500 to auto-mitigate an MemCacheD amplification attack:  
 [Cisco NCS5500 Flowspec (Auto-Mitigation of a Memcached Attack) Part2](https://www.youtube.com/watch?v=iRPob7Ws2v8)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/iRPob7Ws2v8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
@@ -630,16 +630,16 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-In Counter Processor 0: we used to consume 202 entries before the BGP FS rules and we have now 914, so 712 entries have allocated to Flowspec.  
+In Counter Processor 0: we used to consume 202 entries before the BGP FS rules and we have now 914, so, 712 entries have allocated to Flowspec.  
 
 In Counter Processor 4: we allocated 2288 new entries.  
 
-So in total, we have 2288 + 712 = 3000 entries which is in-line with the expectation.
+So, in total, we have 2288 + 712 = 3000 entries which is in-line with the expectation.
 
-**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depends on the platforms and the software releases. But 3000 simple rules are guaranteed. The rest of the tests performed below will try to answer specific questions from customers (during CPOC or for production), but it's only for information. Results may vary depending on platform and software release.
+**Note**: This number 3000 is the validated scale on all the IOS XR platforms. It does not mean that some systems couldn't go higher. It will depend on the platforms and the software releases. But 3000 simple rules are guaranteed. The rest of the tests performed below will try to answer specific questions from customers (during CPOC or for production), but it's only for information. Results may vary depending on platform and software release.
 {: .notice--info}
 
-So what happens if we inject 4000, 6000 or 9000 rules?  
+So, what happens if we inject 4000, 6000 or 9000 rules?  
 
 ### 4000 rules
 
@@ -1127,7 +1127,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </div>
 
 Note that by default, it will be necessary to clear the bgp session to "unstuck" it from idle state.  
-Also, other options exists to restart it automatically after a few minutes, to ignore the extra rules or to simply generate a warning message:
+Also, other options exist to restart it automatically after a few minutes, to ignore the extra rules or to simply generate a warning message:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1205,7 +1205,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-100 rules occupies 100 entries in the eTCAM and in the stats DB.  
+100 rules occupy 100 entries in the eTCAM and in the stats DB.  
 So one for one.
 
 ### Packet size
@@ -1332,7 +1332,7 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </pre>
 </div>
 
-So a simple rule with source and destination address and fragment identication will use one stats entry and two eTCAM entries.
+So, a simple rule with source and destination address and fragment flag will use one stats entry and two eTCAM entries.
 
 ### TCP SYN
 
@@ -1644,7 +1644,7 @@ The programming rate in this external TCAM bank is around 250 rules per second, 
 ## Conclusion/Acknowledgements
 
 This post aimed at clarifying some specific aspects of the NCS550 BGP Flowspec implementation.  
-- the space used by Flowspec rules is variable and dependant on the complexity
+- the space used by Flowspec rules is variable and dependent on the complexity
 - ranges can use different memory sizes and it's usually the best to use power of twos
 - the officially supported scale is 3000 "simple" rules
 - the NCS55A2-MOD-SE-S based on Jericho+ with OP eTCAM can program up to 250 rules per second
