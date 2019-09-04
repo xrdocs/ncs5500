@@ -33,6 +33,8 @@ We will cover the following in this blog post:
 - Pre-requisites before inserting the new line cards
 - Description of the NC55-24DD and NC55-18DD-SE line cards
 - Interoperability with former generation line cards
+- New fabric bandwidth, speed-up and redundancy
+- Features at FCS
 - 400GE and QSFP-DD (with breakout to 100G)
 
 We plan to add other sections to this article in the future. It will be a living document.
@@ -122,7 +124,7 @@ The front view of the card:
 **Reminder**: the chassis must have been upgraded to IOS XR 7.0.2 minimum and must operate v2 Fabric Cards and Fan Trays before inserting these line cards.
 {: .notice--info}
 
-The current estimated power consumption will be around 1050W typical and 1350W max.
+The currently estimated power consumption will be around 1050W typical and 1350W max.
 
 The line card is slightly longer than former generations as shown here:
 
@@ -169,6 +171,8 @@ If you use only QSFP56-DD, only 18 ports can be populated, hence the line card n
 
 We will add more details on these subtleties in the next months while we are getting closer to IOS XR 7.0.2 release date.
 
+The currently estimated power consumption will be around 1000W typical and 1400W max.
+
 For reference, here is the block diagram on the 18DD-SE line card:
 
 ![VigorSE-block-diagram.jpg]({{site.baseurl}}/images/VigorSE-block-diagram.jpg){: .align-center}
@@ -205,6 +209,40 @@ To calculate the bandwidth available per Jericho2, we will use the following mat
 If we lose one fabric card, the NC55-24DD can not be line rate (around 86%) while the NC55-18DD-SE will still be.  
 It's important to state the obvious here, we are talking about lab corner cases since the situation where 12 ports 400GE will be used at an average level exceeding 86% at the exact moment we lose a fabric card is virtually impossible.
 
-## Features at FCS
+## 400GE and QSFP-DD
+
+Cisco invested in QSFP-DD for all the 400 Gigabit Ethernet plans.  
+For more details on the technology, the best place is certainly this CiscoLive session: [https://www.youtube.com/watch?v=46D4zs_TlrM&list=PLWgSsi4SkfuaJaY6GeCE7wG52dKn-NOir](https://www.youtube.com/watch?v=46D4zs_TlrM&list=PLWgSsi4SkfuaJaY6GeCE7wG52dKn-NOir)
+
+I want to bring to the reader's attention that breakout of 400GE to 4 ports 100GE will not interoperate with most currently deployed technologies (based on SR4, LR4 and CWDM4).  
+It may sound obvious, but it is still worth mentioning that 400GE is based on 4 lambdas of 100G each encoded in PAM4 while the technologies above are using 4 lanes of 25G encoded in NRZ. That makes the interconnection impossible.  
+Breakout of 400GE is still possible, but it will imply to use 100G "one-lambda PAM4" optics on the other side:
+
+![breakout.jpg]({{site.baseurl}}/images/breakout.jpg){: .align-center}
+
+In the other hand, QSFP28-DD will be perfect to breakout in two SR4/LR4/CWDM4. A perfect use case for the NC55-18DD-SE ports operating in pairs, it will allow a smooth transition from existing 100G backbones to 400G.
+
+## Mixing Line Card Generations and Features at FCS
+
+At FCS, in IOS XR 7.0.2, we will support the "compatibility mode" where Jericho/Jericho+ line cards will co-exist with Jericho2-based line cards.  
+In this specific mode, the features and scales are aligned to:
+- features for peering and core (including multicast and L3VPN)
+- same scales than supported in XR 6.5.1
+
+The following list is still susceptible to change before the FCS date, but we will not support:  
+- ERSPAN
+- Lawful Intercept
+- mLDP/P2MP Edge
+- Timing
+- 400G Auto-Negotiation
+- EVPN
+- L2 / BVI or L2 OAM
+- Features in 6.6.X onward
+
+Features will be added to the support list release after release in the usual iterative process.  
+Also, in the future, we will add the "J2 Native Mode" where all the line cards inserted in the chassis are only J2-based. It will "unleash" the full capability of the ASIC. In the compatibility mode the features and scale are often limited by the lower common denominator, being the Jericho/Jericho+ NPUs.
 
 ## Conclusion
+
+We are happy to introduce these two new line cards, boosting the NCS5500 chassis to 9.6Tbps per slot. More details will be added to this post or in new ones.  
+As usual, use the section below for comments and questions.
