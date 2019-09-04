@@ -1,7 +1,10 @@
 ---
-published: false
+published: true
 date: '2019-09-04 14:52 +0200'
 title: Introducing 400GE on NCS5500 Series
+author: Nicolas Fevrier
+excerpt: '-'
+position: hidden
 ---
 {% include toc icon="table" title="Introducing 400GE on NCS5500" %} 
 
