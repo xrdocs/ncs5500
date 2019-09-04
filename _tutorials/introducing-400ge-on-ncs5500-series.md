@@ -20,7 +20,7 @@ You can find more content related to NCS5500 including routing memory management
 
 ## Introduction
 
-They have been announced in June 2019 on this blog post: [https://blogs.cisco.com/sp/cisco-ncs-5500-welcomes-400ge-and-doubles-installed-base](https://blogs.cisco.com/sp/cisco-ncs-5500-welcomes-400ge-and-doubles-installed-base), it's now time to present in details the two new line cards with 400 Gigabit Ethernet (400GE) capabilities.
+They have been announced in June 2019 on this blog post: [https://blogs.cisco.com/sp/cisco-ncs-5500-welcomes-400ge-and-doubles-installed-base](https://blogs.cisco.com/sp/cisco-ncs-5500-welcomes-400ge-and-doubles-installed-base), it's now time to present in detail the two new line cards with 400 Gigabit Ethernet (400GE) capabilities.
 
 And we will start with 8-min of videos to introduce the topic:
 
@@ -97,7 +97,7 @@ They are interconnected themselves through Ramon ASICs located in the fabric car
 The SERDES between Ramon and J2 are around 53 Gbps each (between the v2 Fabric cards and the 400G line cards).  
 Since they are backward compatible with former line card generations, they are still able to use 25Gbps SERDES between Ramon and Jericho/Jericho+ ASICs too.
 
-The Jericho2 uses a High Bandwidth Memory (HBM) instead of a GDDR5. We have double the amount of packet buffers (8GB) and double the speed to access it (1.8Tbps). The benefits of this HBM is also it does not consume "links" to connect to the NPU, offering more to the interfaces and fabric.  
+The Jericho2 uses a High Bandwidth Memory (HBM) instead of a GDDR5. We have double the amount of packet buffers (8GB) and double the speed to access it (1.8Tbps). One of the benefits of this HBM is it does not consume "links" to connect to the NPU, offering more to the interfaces and fabric.  
 Keep in mind that this HBM is only used to store packets in case of congestion (micro-burst or longer-term link saturation). Most of the time, the packets will transit only through the on-chip buffer (OCB) which is now twice the size of former generation (32MB) and they will not be stored in the HBM.  
 You can check the studies done on J+ on this topic in other xrdocs.io articles:  
 [https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-2-verifying-buffering/](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-2-verifying-buffering/)
@@ -167,7 +167,7 @@ The other ports (highlighted in yellow in the diagram below) should be treated i
 | 200G | Can’t be 2x 100G |
 | 100G | 100G / 40G |
 
-If you use only QSFP56-DD, only 18 ports can be populated, hence the line card name: 18DD-SE. Also on the front plate, you can see in blue the ports that can be used with 400GE optics.
+If you use only QSFP56-DD, only 18 ports can be populated, hence the line card name: 18DD-SE. Also, on the front plate, you can see in blue the ports that can be used with 400GE optics.
 
 We will add more details on these subtleties in the next months while we are getting closer to IOS XR 7.0.2 release date.
 
