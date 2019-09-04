@@ -6,7 +6,7 @@ author: Nicolas Fevrier
 excerpt: >-
   Introducing two new 400GE capable line cards in the NCS5500 portfolio:
   NC55-24DD and NC55-18DD-SE
-position: hidden
+position: top
 tags:
   - ncs5500
   - ncs 5500
