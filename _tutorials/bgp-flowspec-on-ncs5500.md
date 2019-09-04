@@ -17,11 +17,11 @@ You can find more content related to NCS5500 including routing memory management
 
 ## Introduction
 
-Yosef already publish a couple of articles related to BGP FlowSpec implementation on the NCS5500 routers on Cisco's SupportForum:  
+Yosef published a couple of articles related to BGP FlowSpec implementation on the NCS5500 routers here:  
 - [SupportForum: BGP Flowspec implementation on NCS5500 platforms](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443): [https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443)
 - [SupportForum: NCS5500 BGP flowspec packet matching criteria](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443): [https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443](https://community.cisco.com/t5/service-providers-blogs/bgp-flowspec-implementation-on-ncs5500-platforms/ba-p/3387443)
 
-Today, we will gather several questions from customers and will use this opportunity to dig a bit deeper in the subtleties of this implementation:  
+Today, we will gather several questions from customers and we will use this opportunity to dig a bit deeper in the subtleties of this implementation:  
 - presenting the memory spaces used to store the rules information and the statistics
 - and running a couple of tests to identify the limits.
 
@@ -1420,6 +1420,8 @@ RP/0/RP0/CPU0:Peyto-SE#
 - netbios: dest 7.7.7.7/32 protocol 17 source-port {53 54}
 - snmp: dest 7.7.7.7/32 protocol 17 source-port {161 162}
 
+Controller config: 
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>network 1 ipv4 flowspec
@@ -1427,6 +1429,8 @@ network 1 dest 7.7.7.7/32 protocol 17 source-port {53 54}
 network 1 count 100 dest-incr</code>
 </pre>
 </div>
+
+On the router/client:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1452,6 +1456,8 @@ RP/0/RP0/CPU0:Peyto-SE#
 ### Third group: packet length
 
 - dns: dest 7.7.7.7/32 protocol 17 source-port 53 packet-len {>=768}
+
+On the controller side: 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1515,12 +1521,6 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 ### Last group: frag
 
 - udp-frag: dest 7.7.7.7/32 protocol 17 fragment (isf)
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
 
 <div class="highlighter-rouge">
 <pre class="highlight">
