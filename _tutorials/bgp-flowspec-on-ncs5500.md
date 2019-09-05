@@ -15,6 +15,8 @@ tags:
 
 **Update 1**: Correction on the hw-module profile ipv6-flowspec section 
 
+**Update 2**: Netscout simplified the ntp auto-mitigation, we ran the test with this new rule. Also, error on the Netbios ports has been fixed.
+
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## Introduction
@@ -1419,7 +1421,7 @@ RP/0/RP0/CPU0:Peyto-SE#
 
 ### Second group: dual source-port
 
-- netbios: dest 7.7.7.7/32 protocol 17 source-port {53 54}
+- netbios: dest 7.7.7.7/32 protocol 17 source-port {137 138}
 - snmp: dest 7.7.7.7/32 protocol 17 source-port {161 162}
 
 Controller config: 
@@ -1427,7 +1429,7 @@ Controller config:
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>network 1 ipv4 flowspec
-network 1 dest 7.7.7.7/32 protocol 17 source-port {53 54}
+network 1 dest 7.7.7.7/32 protocol 17 source-port {137 138}
 network 1 count 100 dest-incr</code>
 </pre>
 </div>
@@ -1439,9 +1441,9 @@ On the router/client:
 <code>RP/0/RP0/CPU0:Peyto-SE#sh flowspec ipv4
 
 AFI: IPv4
-  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53|=54
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=137|=138
     Actions      :Traffic-rate: 0 bps  (bgp.1)
-  Flow           :Dest:7.7.7.8/32,Proto:=17,SPort:=53|=54
+  Flow           :Dest:7.7.7.8/32,Proto:=17,SPort:=137|=138
     Actions      :Traffic-rate: 0 bps  (bgp.1)
     ...
 RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
@@ -1519,6 +1521,22 @@ RP/0/RP0/CPU0:Peyto-SE#</code>
 </div>
 
 --> each rule here will consume one stats entry and 33 eTCAM entries.
+
+**Update**: In latest version, NetScout modified the NTP auto-mitigation rule to use only the ranges 1-75,77-550
+{: .notice--info}
+
+- ntp: dest 7.7.7.7/32 protocol 17 source-port 123 packet-len {>=1 and<=75 >=77 and<=550}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Peyto-SE#sh contr npu externaltcam loc 0/0/CPU0 | i FLOWSPEC
+0    11     320b   FLP         3096     <mark>1000</mark>    126  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:Peyto-SE#sh contr npu resource stats instance all loc 0/0/CPU0 |$
+    ACL RX, LPTS               <mark>301</mark>     915  |     ACL RX, LPTS               <mark>301</mark>     915
+RP/0/RP0/CPU0:Peyto-SE#
+</code>
+</pre>
+</div>
 
 ### Last group: frag
 
@@ -1654,3 +1672,5 @@ This post aimed at clarifying some specific aspects of the NCS550 BGP Flowspec i
 
 We will update it with new content and corrections in the future if required.  
 As usual, use the comment section below for your questions.
+
+Thanks to Kirill Kasavchenko, Didier Urie and Ashok Kumar for their help and feedback.
