@@ -13,6 +13,8 @@ tags:
 ---
 {% include toc icon="table" title="BGP FlowSpec on NCS5500: Few Tests" %} 
 
+**Update 1**: Correction on the hw-module profile ipv6-flowspec section 
+
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
 ## Introduction
@@ -67,7 +69,7 @@ When packets are matched by a BGP FS rule, they will be recirculated. It's requi
 
 BGP FS for IPv6 requires a specific hardware profile.
 
-It will impact the overall performance of the IPv6 datapath. That means all IPv6 packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.
+It will impact the overall performance. That means all packets, handled or not by the BGP FlowSpec rules, will be treated at a maximum of 700MPPS instead of the nominal 835MPPS.
 
 You need to enable the following profile as described below:
 
@@ -83,7 +85,7 @@ RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </pre>
 </div>
 
-It does not require a reload of the line card or the chassis and it does not impact L2, IPv4 or MPLS datapath / performance.
+To be enabled, the profile needs a reload of the line cards or the entire system.
 
 ### Interface support
 
