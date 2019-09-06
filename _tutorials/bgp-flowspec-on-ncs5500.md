@@ -1540,6 +1540,8 @@ RP/0/RP0/CPU0:Peyto-SE#
 </pre>
 </div>
 
+With these two ranges, each rule will consume 10 entries in the eTCAM (and still one in the stats).
+
 ### Last group: frag
 
 - udp-frag: dest 7.7.7.7/32 protocol 17 fragment (isf)
