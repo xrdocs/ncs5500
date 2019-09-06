@@ -14,8 +14,10 @@ tags:
 {% include toc icon="table" title="BGP FlowSpec on NCS5500: Few Tests" %} 
 
 **Update 1**: Correction on the hw-module profile ipv6-flowspec section 
+{: .notice--info}
 
 **Update 2**: Netscout simplified the ntp auto-mitigation, we ran the test with this new rule. Also, error on the Netbios ports has been fixed.
+{: .notice--info}
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
