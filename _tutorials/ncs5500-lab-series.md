@@ -23,8 +23,6 @@ You can find more content related to NCS5500 including routing memory management
 
 ## Introduction
 
-<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/rWmXXsQeV38?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}  
-
 We are trying something new today, and we hope it will really help speeding up the validation process for our customers and partners.
 
 In these videos and blog posts, we will present tests performed in our labs in different situations. The purpose is to:
@@ -33,6 +31,10 @@ In these videos and blog posts, we will present tests performed in our labs in d
 - comment the results and provide more internal details to explain the behavior experienced during the tests
 
 We open the books.
+
+## Video
+
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/rWmXXsQeV38?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
 
 ## Lab Tests
 
