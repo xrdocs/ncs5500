@@ -95,7 +95,7 @@ Validation of the capability to store a full routing table first then to push th
 
 ### Buffers
 
-**Buffer and burst test**  
+**Buffer and Burst Test**  
 Two parts in this demo:
 - Data collected in hundreds of production routers to identify the amount of traffic handled in On-Chip Buffer compared to traffic evicted to DRAM. Also the number of packets dropped because of DRAM bandwidth exhaustion (spoiler alert: zero)
 - Burst test in a large lab setup with 27x 100G tester interfaces. We run 80% of background traffic and we generate 20% and more of bursty traffic.  
