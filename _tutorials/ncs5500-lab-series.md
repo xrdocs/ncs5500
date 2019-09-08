@@ -4,8 +4,8 @@ date: '2019-09-07 13:19 +0200'
 title: 'Testing the NCS5500: The Lab Series'
 author: Nicolas Fevrier
 excerpt: >-
-  A list of test cases and demos of the NCS5500 products to speed up your own
-  validation process
+  Test cases and demos of the NCS5500 products to speed up your own validation
+  process
 position: hidden
 tags:
   - ncs5500
