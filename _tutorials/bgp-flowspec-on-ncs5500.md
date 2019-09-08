@@ -36,7 +36,7 @@ As a starter, I suggest three videos on Youtube that could answer most of your q
 All the principles and details of the configuration:  
 [Cisco NCS5500 Flowspec (Principles and Configuration) Part1](https://www.youtube.com/watch?v=dTgh0p9Vyns)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/dTgh0p9Vyns" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/dTgh0p9Vyns?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
   
 
 A simple demo of interoperability between Netscout / Arbor SP and NCS5500 to auto-mitigate an MemCacheD amplification attack:  
