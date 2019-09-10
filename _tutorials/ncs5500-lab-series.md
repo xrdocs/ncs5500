@@ -6,7 +6,7 @@ author: Nicolas Fevrier
 excerpt: >-
   Test cases and demos of the NCS5500 products to speed up your own validation
   process
-position: hidden
+position: top
 tags:
   - ncs5500
   - lab
