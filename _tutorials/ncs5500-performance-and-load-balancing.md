@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2019-09-17 10:04 +0200'
 title: 'NCS5500 Performance and Load-Balancing at Scale [Lab Series 01]'
 author: Nicolas Fevrier
