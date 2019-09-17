@@ -17,7 +17,7 @@ tags:
   - load balacing
   - ecmp
   - link aggregation
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS5500 Performance and Load-Balancing" %} 
 
@@ -31,14 +31,15 @@ This test is the first episode coming with a video on our new Lab Series.
 You can find a detailed explanation on the purpose and also a link to all other tests in this xrdocs.io post:  [https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/](https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/)  
 
 We see regular requests from customer to demonstrate the scale we claim and particularly regarding the port density.  
-The NCS5500 chassis exist in 4-slot, 8-slot and 16-slot version and it's fairly complicated to create a setup large enough in a lab when we talk about 36x 100GE interfaces per slot.  
-Due to the orthogonal architecture of the chassis, it's not really necessary to have fully wired chassis at least to demonstrate that performance aspect, which is directly related to the NPU capabilities. Having the ports of two NPUs wired should be enough. But we understand the customer concern when investing in such large systems, that's why we had to create testbeds specifically to clarify these doubts.
+The NCS5500 chassis exist in 4-slot, 8-slot and 16-slot version and it's fairly complicated to create a setup large enough in a lab when we talk about 36x 100GE interfaces per slot.
+
+Due to the orthogonal architecture of the chassis, it's not really necessary to have fully wired chassis at least to demonstrate that performance aspect, which is directly related to the NPU capabilities. Having the ports of two NPUs wired should be enough. But we understand the customers' concern when investing in such large systems, that's why we had to create testbeds specifically to clarify these doubts.
 
 ![NCS5516-snake.JPG]({{site.baseurl}}/images/NCS5516-snake.JPG){: .align-center}
 
-These topologies permit to test fabric load, ASIC limits, and power consumption. Considering the cost of traffic generator ports, the snake architecture allows the re-injection of the traffic and hop-by-hop it will load the chassis.
+These topologies permit to test fabric load, ASIC limits, and power consumption. Considering the cost of traffic generator ports, the snake architecture is a good approach the re-inject of the traffic hop-by-hop and load the chassis with minimal (but still significant) investment.
 
-For this episode, we built a test bed where two NC5508s equipped with 36x100GE-SE line cards (the ones with Jericho+ NPUs and external TCAM) are fully wired back-to-back. That means we have twice 288 interfaces at 100GE and we will push bi-directional line rate traffic through it.  
+For this article, we built a test bed where two NC5508s equipped with 36x100GE-SE line cards (the ones with Jericho+ NPUs and external TCAM) are fully wired back-to-back. That means we have twice 288 interfaces at 100GE and we will push bi-directional line rate traffic through it.  
 
 ![fibers.jpg]({{site.baseurl}}/images/fibers.jpg){: .align-center}
 
@@ -63,9 +64,9 @@ Pratyusha Aluri, software engineer in Cisco's Service Provider business unit bui
 ### Disclaimers
 
 It's important to understand the limits when using snake topologies:  
-- the NDR performance is reflecting the more loaded NPUs (particularly in situation where we have an odd number of ports per NPU and therefor an uneven allocation. Ex: Jericho+, where 5 ports are assigned to a core and 4 ports are allocated to the other core)
-- the latency can't be trusted
-- the need to use configuration tricks to overcome the natural limitation of max 255 hops in IP routing
+- the NDR performance is reflecting the more loaded Cores in the NPU (particularly in situation where we have an odd number of ports per NPU and therefor an uneven allocation. Ex: Jericho+, where 5 ports are assigned to a core and 4 ports are allocated to the other core)
+- the latency measured can't be trusted
+- configuration tricks are required to overcome the natural limitation of max 255 hops in IP routing
 - once the NDR is identified, tests on performance below that level can not be trusted to identify the drop rates (a drop on the first link will be cascaded on the following ports, making the overall drop rate amplified artificially)
 
 Definition: NDR stands for Non Drop rate. It represents the minimum packet size the router can forward on all ports, both directions, 100% line rate, without any drops.
@@ -102,7 +103,7 @@ In the tests above, we will be able to demonstrate:
 - IPv4 and IPv6 performance are identical
 - Features applied on interface are not impacting the PPS performance
 
-Also we performed a longevity test to verify we don't lose any packet on a long period:
+Also we performed a longevity test to verify we don't lose any packet on a long period (9h+):
 
 ![longevity.png]({{site.baseurl}}/images/longevity.png){: .align-center}
 
