@@ -108,13 +108,14 @@ Also we performed a longevity test to verify we don't lose any packet on a long 
 
 And during this test we also measured power consumption and CPU usage:
 
+![power.png]({{site.baseurl}}/images/power.png){: .align-center}
 
+![cpu.png]({{site.baseurl}}/images/cpu.png){: .align-center}
 
 ### Link Aggregation and ECMP
 
 The second part of the testing starts at:
 - LAG and ECMP tests: [https://youtu.be/s6qSt6C2D5U?t=599](https://youtu.be/s6qSt6C2D5U?t=599)
 
-ADD IMAGE BUNDLES
-
+![bundles.png]({{site.baseurl}}/images/bundles.png){: .align-center}
 
