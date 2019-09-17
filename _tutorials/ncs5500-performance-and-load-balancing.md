@@ -83,11 +83,11 @@ The video is 13-minute long, you can directly reach the different sections with 
 
 For these tests we are using an Layer 3 snake, that means we will use basic static routing and VRF-lite (only locally significant VRFs). Since all the ports are directly to connect to their counterpart on the facing NCS5500, the configuration is easy to understand. Only ports 0/0/0/0 are used to connected to the traffic generator.  
 
-![vrf.png]({{site.baseurl}}/images/vrf.png)
+![vrf.png]({{site.baseurl}}/images/vrf.png){: .align-center}
 
 The configuration is made such as traffic received in a port is not locally routed or switched but will always "travel" through the fabric (under the form of cells).
 
-AJOUTER IMAGE FABRIC SWITCHED
+![fabric-switched.png]({{site.baseurl}}/images/fabric-switched.png){: .align-center}
 
 We have 288 ports, twice. So it's much more than the max TTL count, even if we set up the traffic generator to mark the packets with TTL=255. We need to use the following trick:
 
@@ -104,7 +104,11 @@ In the tests above, we will be able to demonstrate:
 
 Also we performed a longevity test to verify we don't lose any packet on a long period:
 
-ADD IMAGE LONGEVITY
+![longevity.png]({{site.baseurl}}/images/longevity.png){: .align-center}
+
+And during this test we also measured power consumption and CPU usage:
+
+
 
 ### Link Aggregation and ECMP
 
