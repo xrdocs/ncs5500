@@ -54,7 +54,7 @@ But also, the setup is perfect to demonstrate link bundling and load balancing a
 - load balancing inside each bundle
 - load balancing between multiple large bundles
 
-Patryusha Aluri, software engineer in Cisco's Service Provider business unit built and configured this setup. She will run all these tests as recorded in the video:
+Pratyusha Aluri, software engineer in Cisco's Service Provider business unit built and configured this setup. She will run all these tests as recorded in the video:
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/s6qSt6C2D5U?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
 
@@ -112,10 +112,37 @@ And during this test we also measured power consumption and CPU usage:
 
 ![cpu.png]({{site.baseurl}}/images/cpu.png){: .align-center}
 
+CLI used during the test:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>monitor interface *
+show controller fia diagshell 0 "diag counters g" location 0/0/CPU0
+(admin) show controller fabric plane all statistics
+show processes cpu
+show interfaces hu0/0/0/0 accounting</code>
+</pre>
+</div>
+
 ### Link Aggregation and ECMP
 
 The second part of the testing starts at:
 - LAG and ECMP tests: [https://youtu.be/s6qSt6C2D5U?t=599](https://youtu.be/s6qSt6C2D5U?t=599)
 
+We define 4 bundles with 64x 100GE interfaces each and a fifth one made of the remaining 31x 100GE ports.  
+
 ![bundles.png]({{site.baseurl}}/images/bundles.png){: .align-center}
 
+In this test we are able to measure that ECMP is properly load balancing the traffic between the different bundles but also that traffic is evenly spread inside the bundles themselves.
+
+CLI used during the test:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>show bundle br
+monitor interface bundle-ether *
+show interface be1
+monitor interface hu 0/1/0/*
+show cef ipv6 131::</code>
+</pre>
+</div>
