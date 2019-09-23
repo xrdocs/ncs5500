@@ -62,6 +62,11 @@ But this methodology comes with a lot of limitations:
 - if numbers of ports are not consistent per NPU or per Core, it will affect the results
 - a drop on a link or an NPU will be reflected on all the remaining ports: you can measure NDR with such topology but you can not trust any measurement below that level due to multiple cascading effects.
 
+**Do I need a fully loaded chassis or even a fully loaded line card?**
+
+Since we are testing the NPU capability, we just need to make sure the traffic is not locally routed/switched. That means we need to use at minimum two different NPUs and they to be all wired. So, with the line card we are using today, 9x2=18 ports would have been enough to run this test.  
+Having more ports is impressive (and I admit, fun), but it doesn't not bring anything aside, may be, the power consumption measurement.
+
 ## Test results
 
 In this test we were able to measure NDR at 130 bytes per packets. But also, we identified drops above this limit in some particular ranges.
