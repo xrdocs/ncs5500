@@ -71,11 +71,16 @@ Having more ports is impressive (and I admit, fun), but it doesn't not bring any
 
 In this test we were able to measure NDR at 130 bytes per packets. But also, we identified drops above this limit in some particular ranges.
 
+![Diagram perf.png]({{site.baseurl}}/images/Diagram perf.png){: .align-center}
+
 ### Under and above 130B/pkt
 
-
+Below 130 bytes per packet, we are exceeding the number of PPS the NPU can handle. At 130, we finally cross the 835MPPS boundary and we can push packet line rate on all interfaces.  
+So it's expected that all packet size above that limit will be able to be transmitted also line rate, but we see in the diagram above that it's not the case for a specific range.
 
 ### Between 230B/pkt and 278B/pkt
+
+
 
 ### Performance per 100G ports
 
