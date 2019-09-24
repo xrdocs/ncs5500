@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2019-09-23 17:22 +0200'
 title: 'Testing NDR on NCS5500 36x 100GE Line Cards [Lab Series 02]'
 author: Nicolas Fevrier
@@ -83,6 +83,14 @@ In the case of the Jericho+ ASIC, the ports allocation is unbalanced. Simply bec
 
 ![core-0-1-.png]({{site.baseurl}}/images/core-0-1-.png){: .align-center}
 
+You can verify the port allocation per NPU and core with:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>show controller npu voq-usage interface all instance all location 0/x/CPU0</code>
+</pre>
+</div>
+
 So what we actually measure with a snake topology is the performance of the most loaded core:  
 5x100G on core 0.
 
@@ -109,6 +117,8 @@ Below, we are exceeding the number of PPS the NPU can handle. At 130, we finally
 
 ### Between 230B/pkt and 278B/pkt
 
+![]({{site.baseurl}}/images/Diagram%20perf%202.png){: .align-center}
+
 It's frequent that customer ask to test specific packet size during the validation / CPOC. They want to see 64 bytes, 128 bytes, 256 bytes, ...  
 Not reaching line rate with the first two is expected, as explained above. But it's surprising that we still see packet drops at 256 bytes.  
 It's because we have a specific behavior in the range 230 bytes to 278 bytes.
@@ -116,41 +126,50 @@ It's because we have a specific behavior in the range 230 bytes to 278 bytes.
 Internally, packets are split in cells before being sent to the egress pipeline (could be locally routed/switched or transmitted via the fabric). These cells could be of variable length, from 64B to 256B.  
 Also, when it's transmitted internally, each packet is appended a couple of headers and 230 bytes is the point where you "jump" from one cell to two cells.  
 
-![packets-header2.png]({{site.baseurl}}/images/packets-header2.png){: .align-center}
+![packets-header3.png]({{site.baseurl}}/images/packets-header3.png){: .align-center}
 
-![packets-header1.png]({{site.baseurl}}/images/packets-header1.png){: .align-center}
+At that point, we hit a different bottleneck: the fabric capacity. With the packet size growing, it reduces the amount ot cells to the Fabric Engines and the symptoms disappears after 278 bytes per packet.  
+In the video, we executed the test with different packet sizes to illutrate that point.
 
+If, during the test, you maintain the line rate traffic in both drop cases described above, you will see the percentage of drops moving from 8% to 20%. It can be explained by a cascading effect illustrated by the two diagrams below:
 
+![fabric-back-pressure.png]({{site.baseurl}}/images/fabric-back-pressure.png){: .align-center}
 
+A token is granted to transmit the packet by the egress scheduler, the fabric is saturated and it issues a backpressure messages to the ingress scheduler.
 
+![fabric-back-pressure2.png]({{site.baseurl}}/images/fabric-back-pressure2.png){: .align-center}
 
-
-![]({{site.baseurl}}/images/Diagram%20perf%202.png){: .align-center}
-
-### Performance per 100G ports
-
-Test with 9 ports, asymmetrical port allocation
-
-Test with just 2 ports at 64B and 256B
-
-## Conclusion
-
-
-----
-
-CLI used during the test:
+Since more and more packets are received from the same VOQ, the queue is evicted and the packets are stored in the GDDR5 DRAM. We are in a lab environment, so all the packets are now going through the DRAM, which eventually saturates the link to this memory (900Gbps unidirectional that becomes 450Gbps read / 450Gbps write in the memory). We triggered a third type of bottleneck now. It's possible to monitor all these with the following CLI.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>monitor interface *
-show controller fia diagshell 0 "diag counters g" location 0/0/CPU0
-(admin) show controller fabric plane all statistics
-show processes cpu
-show interfaces hu0/0/0/0 accounting</code>
+<code>show controller npu diag counters graphical instance 0 location 0/x/CPU0</code>
 </pre>
 </div>
 
-![cpu.png]({{site.baseurl}}/images/cpu.png){: .align-center}
+![showcontr.png]({{site.baseurl}}/images/showcontr.png){: .align-center}
+
+In the ENQ_DISCARDED_PACKET_COUNTER, we will get details on the reasons of the drop.  
+First it will show VOQ_FADT_STATUS. FADT stands for Fair Adaptive Tail Drop. It's an internal mechanism optimizing the buffer management in case of congestion in the NPU core. The purpose being to reduce the drop threshold for congested queue if the level of congestion increases, in order to leave enough buffer for the non-congested queues.  
+In second step, if we maintain the congestion, we will see other kinds of ENQ_DISCARDED like IDR_DRAM_REJECT_STATUS (when we saturate the bandwidth to the DRAM).
+
+### Do we have always drops with packets in this 230B-278B range?
+
+It's a legitimate question we got from customers.  
+In the video, we demonstrate that reducing the bandwidth to 90% line rate makes the drop symptoms disappear.
+
+### Performance per 100G ports
+
+Another frequent question we have during validation and CPOCs is the following: "is it a per port limitation or per NPU limitation"?  
+All these performance tests and NDR measurements are only reflecting the NPU capability (or in the case of snake topology, at least the core capability).  
+If the NPU is not reaching its PPS limit you can push packets, through the fabric or locally routed, at 64 bytes per packet between two ports.  
+That's what we demonstrate in the video in the last part with ports 0 and 35 configured in the same VRFs and 64B packets transmitted line rate between the two ports.  
+And just for the sake of demo, we prove it with 256B packets too (in the 230B-278B range).
+
+## Conclusion
+
+We hope this video and few explanations have been useful and will guide you if you need to run these kind of tests yourself. The snake topology is useful to reduce the amount of traffic generator ports but it comes with some limitations, so it's important to understand the internal mechanisms at play to explain all the results.  
+Finally, it's something we repeated several times in the video: these demos should be taken for what they are, lab demo. And it's dangerous to compare the results with production since the nature of this last one is very different.
 
 
 
