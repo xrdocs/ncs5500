@@ -73,14 +73,59 @@ In this test we were able to measure NDR at 130 bytes per packets. But also, we 
 
 ![Diagram perf.png]({{site.baseurl}}/images/Diagram perf.png){: .align-center}
 
+### What are we measuring actually
+
+The first mistake would be to think we can measure the ASIC performance, dividing it by the number of ports.  
+835MPPS / 9x 100GE giving 92.77MPPS per port. That's not how it works internally.  
+In the case of the Jericho+ ASIC, the ports allocation is unbalanced. Simply because we have an odd number of them:  
+- 5x 100GE interfaces on core 0
+- 4x 100GE interfaces on core 1  
+
+![core-0-1-.png]({{site.baseurl}}/images/core-0-1-.png){: .align-center}
+
+So what we actually measure with a snake topology is the performance of the most loaded core:  
+5x100G on core 0.
+
+![core-0-1-b.png]({{site.baseurl}}/images/core-0-1-b.png){: .align-center}
+
+Instead of the 92.77MPPS calculated above, the reality of the test matches this number: 83.5MPPS per 100GE port.  
+Since the packets handled by core 0 will flow through core 1 too, we take the lowest denominator.  
+Consequence: this kind of snake test can only show a maximum of 751.5MPPS per NPU.
+
+Note that if you test only the 4 other ports allocated to core 1, we get 104.4MPPS per 100GE.
+{: .notice--info}
+
 ### Under and above 130B/pkt
 
-Below 130 bytes per packet, we are exceeding the number of PPS the NPU can handle. At 130, we finally cross the 835MPPS boundary and we can push packet line rate on all interfaces.  
-So it's expected that all packet size above that limit will be able to be transmitted also line rate, but we see in the diagram above that it's not the case for a specific range.
+![]({{site.baseurl}}/images/Diagram%20perf.png){: .align-center}
+
+We have seen above that each core can handle 417.5MPPS.  
+In the worst case (core 0), we have 5 ports 100GE. Total 500Gbps.  
+To calculate the larger packet size we can push, we will run this simple math:  
+NDR + Header (20 bytes) = ROUNDUP ( 500,000,000,000 / 417,500,00 /8 )  
+That gives us an NDR of 130 bytes per packet.
+
+Below, we are exceeding the number of PPS the NPU can handle. At 130, we finally cross the 835MPPS boundary and we can push packet line rate on all interfaces.  
 
 ### Between 230B/pkt and 278B/pkt
 
+It's frequent that customer ask to test specific packet size during the validation / CPOC. They want to see 64 bytes, 128 bytes, 256 bytes, ...  
+Not reaching line rate with the first two is expected, as explained above. But it's surprising that we still see packet drops at 256 bytes.  
+It's because we have a specific behavior in the range 230 bytes to 278 bytes.
 
+Internally, packets are split in cells before being sent to the egress pipeline (could be locally routed/switched or transmitted via the fabric). These cells could be of variable length, from 64B to 256B.  
+Also, when it's transmitted internally, each packet is appended a couple of headers and 230 bytes is the point where you "jump" from one cell to two cells.  
+
+![packets-header2.png]({{site.baseurl}}/images/packets-header2.png){: .align-center}
+
+![packets-header1.png]({{site.baseurl}}/images/packets-header1.png){: .align-center}
+
+
+
+
+
+
+![]({{site.baseurl}}/images/Diagram%20perf%202.png){: .align-center}
 
 ### Performance per 100G ports
 
