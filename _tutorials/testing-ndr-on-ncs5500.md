@@ -4,7 +4,7 @@ date: '2019-09-23 17:22 +0200'
 title: 'Testing NDR on NCS5500 36x 100GE Line Cards [Lab Series 02]'
 author: Nicolas Fevrier
 excerpt: Test to measure and explain the NDR on NCS5500 36x100G-SE line cards
-position: hidden
+position: top
 tags:
   - ncs5500
   - lab series
@@ -19,10 +19,11 @@ You can find more content related to NCS5500 including routing memory management
 
 ## Introduction
 
-This test is the second episode of our new Lab Series.  
-You can find a detailed explanation on the purpose and also a link to all other tests in this xrdocs.io post:  [https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/](https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/)  
-Last week, we run multiple tests in a very large test bed. Among the topics covered, we measured the NDR with a very long snake.  
-The concept of Non Drop Rate deserves dedicated explanations.  
+This test is the second episode of our new Lab Series. You can find a detailed explanation on the purpose and also a link to all other tests in this xrdocs.io post:  [https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/](https://xrdocs.io/ncs5500/tutorials/ncs5500-lab-series/)
+
+Last week, we ran multiple tests in very heavily wired systems. Among the topics covered, we measured the NDR with a very long snake.  
+The concept of Non Drop Rate deserves dedicated explanations.
+
 In this article and video, we will explain what it represents. We will demonstrate why the snake topology is not the best to reach the full capability of the ASIC and what happens when you push the system to its limit.
 
 ## Video
@@ -31,7 +32,7 @@ In this article and video, we will explain what it represents. We will demonstra
 
 ## What is NDR?
 
-The concept of Non Drop Rate, or NDR, is often used in system validation to qualify the NPU capability. It represents the minimum possible packet size you can transmit:
+The concept of Non Drop Rate, or NDR, is often used in system validation to qualify the NPU capabilities. It represents the minimum possible packet size you can transmit:
 - on all ports of the NPU
 - with 100% line rate on each port
 - bi-directionally
@@ -40,16 +41,17 @@ Often times, it's something that can be derived with simple math starting from t
 
 We will see in these tests that a good understanding of the internal architecture may be necessary to interpret correctly the numbers measured in lab.
 
-As useful it is to compare different devices, it's also very important to understand the limit of this number. NDR, like many other topics covered in this series of videos, is mostly a lab thing.  
-In the example we are using today, the NDR for Jericho+ used in the 36x100G-SE line card, is 130 bytes per packet. For Jericho2, it will be around 230 or 280 bytes per packet depending on the line card. But it's virtually impossible to get 9 ports 100G (assigned to a same NPU) or worse, 12 ports 400G, running sustained line rate traffic directional and simultaneously.  
-It's possible to imagine a couple of ports being saturated following a network outage, with a lot of traffic redirected via a specific path. But having the 9 ports in such situation reflects in a very poorly designed network, or... a lab situation.
+As useful as it is to compare different devices, it's also very important to understand the limit of this number. NDR, like many other topics covered in these videos, is mostly a "lab thing".  
+In the example we are using today, the NDR for Jericho+ used in the 36x100G-SE line card, is 130 bytes per packet. For Jericho2, it will be around 230 or 280 bytes per packet depending on the line card. But it's virtually impossible to get 9 ports 100G (assigned to a same NPU) or worse, 12 ports 400G, running sustained line rate bidirectional traffic simultaneously.  
+It's possible to imagine a couple of ports being saturated following a network outage, with a lot of traffic redirected via a specific path. But having the 9 ports in such situation would reflect a very poorly designed network, or... a lab situation.
 
 **What about a DDoS attack trying to saturate the Jericho+ NPU?**
 
-The question would have make sense 5 or 10 years ago, but it's not something that can be expected in current production network with such ASICs.  
-We are talking about 900Gbps and 835MPPS here.
+The question would have make sense 5 or 10 years ago, but it's not something that can be expected in current production networks based on such ASICs.  
+We are talking about 900Gbps and 835MPPS of forwarding capacity here.
 A DDoS attack larger than 900Gbps have been seen in the past, but the very nature of a DDoS is to be distributed (the first D in DDoS), that means the attack packets will come from everywhere on the internet and it will be virtually impossible to concentrate it on 9 ports of an NPU specifically. Attack packets will land naturally on many sites, many routers, many NPUs.  
-With the same logic, if we can imagine attacks exceeding 835MPPS (with SYN flood, it has been seen in the past), the coordination of this attack on a specific NPU is extremely complex. And attackers with such compute power at their disposal will leverage other tools to attack their targets.
+With the same logic, if we can imagine attacks exceeding 835MPPS (with SYN flood, it has been seen in the past), the coordination of this attack on a specific NPU is extremely complex. And attackers with such compute power at their disposal will leverage other tools to attack their targets, in a much efficient way.  
+So, a DDoS attack leveraging this "bottleneck" is extremely unlikely (in this world, never say never, but today it should not be a matter of concern).
 
 **Can we use a snake test for NDR measurement?**
 
@@ -64,19 +66,17 @@ But this methodology comes with a lot of limitations:
 
 **Do I need a fully loaded chassis or even a fully loaded line card?**
 
-Since we are testing the NPU capability, we just need to make sure the traffic is not locally routed/switched. That means we need to use at minimum two different NPUs and they to be all wired. So, with the line card we are using today, 9x2=18 ports would have been enough to run this test.  
+Since we are testing the NPU capability, we just need to make sure the traffic is not locally routed/switched. That means we need to use at minimum two different NPUs, all wired. So, with the line card we are using today, 9x2=18 ports would have been enough to run this test.  
 Having more ports is impressive (and I admit, fun), but it doesn't not bring anything aside, may be, the power consumption measurement.
 
 ## Test results
 
 In this test we were able to measure NDR at 130 bytes per packets. But also, we identified drops above this limit in some particular ranges.
 
-![Diagram perf.png]({{site.baseurl}}/images/Diagram perf.png){: .align-center}
-
-### What are we measuring actually
+### What are we measuring actually?
 
 The first mistake would be to think we can measure the ASIC performance, dividing it by the number of ports.  
-835MPPS / 9x 100GE giving 92.77MPPS per port. That's not how it works internally.  
+835MPPS / 9x 100GE gives us 92.77MPPS per port. That's not how it works internally.  
 In the case of the Jericho+ ASIC, the ports allocation is unbalanced. Simply because we have an odd number of them:  
 - 5x 100GE interfaces on core 0
 - 4x 100GE interfaces on core 1  
@@ -128,18 +128,18 @@ Also, when it's transmitted internally, each packet is appended a couple of head
 
 ![packets-header3.png]({{site.baseurl}}/images/packets-header3.png){: .align-center}
 
-At that point, we hit a different bottleneck: the fabric capacity. With the packet size growing, it reduces the amount ot cells to the Fabric Engines and the symptoms disappears after 278 bytes per packet.  
+At that point, we hit a different bottleneck: the fabric capacity. With the packet size growing, it reduces the amount ot cells to the Fabric Engines and the symptoms disappear after 278 bytes per packet.  
 In the video, we executed the test with different packet sizes to illutrate that point.
 
 If, during the test, you maintain the line rate traffic in both drop cases described above, you will see the percentage of drops moving from 8% to 20%. It can be explained by a cascading effect illustrated by the two diagrams below:
 
 ![fabric-back-pressure.png]({{site.baseurl}}/images/fabric-back-pressure.png){: .align-center}
 
-A token is granted to transmit the packet by the egress scheduler, the fabric is saturated and it issues a backpressure messages to the ingress scheduler.
+A token is granted to transmit the packet by the egress scheduler, the fabric is saturated and it issues a backpressure message to the ingress scheduler.
 
 ![fabric-back-pressure2.png]({{site.baseurl}}/images/fabric-back-pressure2.png){: .align-center}
 
-Since more and more packets are received from the same VOQ, the queue is evicted and the packets are stored in the GDDR5 DRAM. We are in a lab environment, so all the packets are now going through the DRAM, which eventually saturates the link to this memory (900Gbps unidirectional that becomes 450Gbps read / 450Gbps write in the memory). We triggered a third type of bottleneck now. It's possible to monitor all these with the following CLI.
+Since more and more packets are received from the same VOQ, the queue is evicted and the packets are stored in the GDDR5 DRAM. All packets are now going through the DRAM, which eventually saturates the link to this memory (900Gbps unidirectional that becomes 450Gbps read / 450Gbps write). We triggered a third type of bottleneck now. It's possible to monitor all these drops with the following CLI.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -168,8 +168,8 @@ And just for the sake of demo, we prove it with 256B packets too (in the 230B-27
 
 ## Conclusion
 
-We hope this video and few explanations have been useful and will guide you if you need to run these kind of tests yourself. The snake topology is useful to reduce the amount of traffic generator ports but it comes with some limitations, so it's important to understand the internal mechanisms at play to explain all the results.  
-Finally, it's something we repeated several times in the video: these demos should be taken for what they are, lab demo. And it's dangerous to compare the results with production since the nature of this last one is very different.
+We hope this video and few explanations have been useful and will guide you if you need to run these kind of tests yourself. The snake topology is good to reduce the amount of traffic generator ports but it comes with some limitations, so it's important to understand the internal mechanisms at play to explain all the results.  
+Finally, it's something we repeated several times in the video: these tests should be taken for what they are, lab demo. And it's dangerous to compare the results with production since the nature of this last one is very different.
 
 
 
