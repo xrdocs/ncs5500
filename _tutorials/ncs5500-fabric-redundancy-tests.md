@@ -70,11 +70,15 @@ Now, let's present the math used to identify the bandwidth available when losing
 
 Each Jericho NPU connects to each Fabric Module with 6 SERDES at 25Gbps raw: after cell tax, encoding and correction, we can actually use 20.8Gbps. Each Jericho+ NPU connects to each Fabric Module with 8 SERDES links, with the same useable bandwidth.
 
-### 4-slot Chassis with FE3600 fabric and Jericho Line Cards
+### 4-slot and 8-slot Chassis with FE3600 fabric and Jericho Line Cards
 
-All 6 links from each Jericho NPU are connected to a single FE3600 per fabric card:
+4-slot: all 6 links from each Jericho NPU are connected to a single FE3600 per fabric card:
 
 ![4slot-Jericho.png]({{site.baseurl}}/images/4slot-Jericho.png){: .align-center}
+
+8-slot: the 6 links from each Jericho NPU are split in 3+3 to the two FE3600s.
+
+![8slot-Jericho.png]({{site.baseurl}}/images/8slot-Jericho.png){: .align-center}
 
 In nominal state, with 6 Fabric Modules:
 - 6x 25Gbps x 6FM = 900Gbps (raw)
@@ -84,13 +88,26 @@ With only 5 Fabric Modules:
 - 6x 25Gbps x 5FM = 750Gbps (raw)
 - 6x 20.8Gbps x 5FM = 624Gbps 
 
-(>600Gbps but 87% of 720Gbps)
+Now, if we consider the bandwidth used per NPU for the different Jericho line cards:
 
-### 4-slot Chassis with FE3600 fabric and Jericho+ Line Cards
+| Line Card | Ports per NPU (Gbps) | <624G? |
+|:-----:|:-----:|:-----:|
+| 36x100G | 600 | Yes |
+| 36x100G-S | 600 | Yes |
+| 24x100G-SE | 600 | Yes |
+| 24H12F | 720 | No |
+| 18H12F | 840 (but ASIC allows 720) | No |
+| 6x200G-COH | 600 | Yes |
 
-Similarly, all 8 links from each Jericho NPU are connected to a single FE3600 per fabric card:
+### 4-slot and 8-slot Chassis with FE3600 fabric and Jericho+ Line Cards
+
+4-slot: all 8 links from each Jericho+ NPU are connected to a single FE3600 per fabric card:
 
 ![4slot-Jplus.png]({{site.baseurl}}/images/4slot-Jplus.png){: .align-center}
+
+8-slot: the 8 links from each Jericho+ NPU are split in 4+4 to the two FE3600s.
+
+![8slot-Jplus.png]({{site.baseurl}}/images/8slot-Jplus.png){: .align-center}
 
 In nominal state, with 6 Fabric Modules:
 - 8x 25Gbps x 6FM = 1200Gbps (raw)
@@ -100,16 +117,13 @@ With only 5 Fabric Modules:
 - 8x 25Gbps x 5FM = 900Gbps (raw)
 - 8x 20.8Gbps x 5FM = 832Gbps 
 
-(92% of 900Gbps)
+Here again, let's check the bandwidth necessary for line rate with Jericho+ line cards:
 
-### 8-slot Chassis with FE3600 fabric and Jericho Line Cards
-
-The 6 links from each Jericho NPU are split in 3+3 to the two FE3600s.
-
-- 8-slot: 3 links to each FE3600
-
-### 8-slot Chassis with FE3600 fabric and Jericho+ Line Cards
-
+| Line Card | Ports per NPU (Gbps) | <832G? |
+|:-----:|:-----:|:-----:|
+| 36x100G-SE | 900 | No |
+| MOD-A | 1,000 (but ASIC allows 900) | No |
+| MOD-A-SE | 1,000 (but ASIC allows 900) | No |
 
 ### 16-slot Chassis with FE3600 fabric and Jericho Line Cards
 
