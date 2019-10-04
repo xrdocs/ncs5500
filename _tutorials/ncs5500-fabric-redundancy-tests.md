@@ -68,9 +68,9 @@ Regardless of the generation, each router is using 6 fabric cards. They can oper
 
 Now, let's present the math used to identify the bandwidth available when losing one fabric card and how it affects each type of line cards in our portfolio.
 
-Each Jericho NPU connects to each Fabric Module with 6 SERDES at 25Gbps raw: after cell tax, encoding and correction, we can actually use 20.8Gbps
+Each Jericho NPU connects to each Fabric Module with 6 SERDES at 25Gbps raw: after cell tax, encoding and correction, we can actually use 20.8Gbps. Each Jericho+ NPU connects to each Fabric Module with 8 SERDES links, with the same useable bandwidth.
 
-### 4-slot Chassis with Jericho Line Cards
+### 4-slot Chassis with FE3600 fabric and Jericho Line Cards
 
 All 6 links from each Jericho NPU are connected to a single FE3600 per fabric card:
 
@@ -86,7 +86,7 @@ With only 5 Fabric Modules:
 
 (>600Gbps but 87% of 720Gbps)
 
-### 4-slot Chassis with Jericho+ Line Cards
+### 4-slot Chassis with FE3600 fabric and Jericho+ Line Cards
 
 Similarly, all 8 links from each Jericho NPU are connected to a single FE3600 per fabric card:
 
@@ -102,12 +102,31 @@ With only 5 Fabric Modules:
 
 (92% of 900Gbps)
 
-### 8-slot Chassis with Jericho Line Cards
+### 8-slot Chassis with FE3600 fabric and Jericho Line Cards
 
 The 6 links from each Jericho NPU are split in 3+3 to the two FE3600s.
 
 - 8-slot: 3 links to each FE3600
 
+### 8-slot Chassis with FE3600 fabric and Jericho+ Line Cards
+
+
+### 16-slot Chassis with FE3600 fabric and Jericho Line Cards
+
+
+### 16-slot Chassis with FE3600 fabric and Jericho+ Line Cards
+
+
+### 8-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
+
+
+### 8-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
+
+
+### 16-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
+
+
+### 16-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
 
 
 ## Test results
