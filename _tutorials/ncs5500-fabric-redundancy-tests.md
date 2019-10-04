@@ -54,9 +54,9 @@ In the second generation, we will use a new fabric engine named "Ramon" (or FE96
 
 ![SFE-v2.png]({{site.baseurl}}/images/SFE-v2.png){: .align-center}
 
-In summary:
+In summary, per Fabric Card:
 
-|  | v1 | v2 |
+| Fabric Engines | v1 | v2 |
 |:-----:|:-----:|:-----:|
 | NCS5504 | 1 | 1 |
 | NCS5508 | 2 | 2 |
@@ -67,6 +67,48 @@ Regardless of the generation, each router is using 6 fabric cards. They can oper
 ## Theory
 
 Now, let's present the math used to identify the bandwidth available when losing one fabric card and how it affects each type of line cards in our portfolio.
+
+Each Jericho NPU connects to each Fabric Module with 6 SERDES at 25Gbps raw: after cell tax, encoding and correction, we can actually use 20.8Gbps
+
+### 4-slot Chassis with Jericho Line Cards
+
+All 6 links from each Jericho NPU are connected to a single FE3600 per fabric card:
+
+![4slot-Jericho.png]({{site.baseurl}}/images/4slot-Jericho.png){: .align-center}
+
+In nominal state, with 6 Fabric Modules:
+- 6x 25Gbps x 6FM = 900Gbps (raw)
+- 6x 20.8Gbps x 6FM = 748Gbps
+
+With only 5 Fabric Modules:
+- 6x 25Gbps x 5FM = 750Gbps (raw)
+- 6x 20.8Gbps x 5FM = 624Gbps 
+
+(>600Gbps but 87% of 720Gbps)
+
+### 4-slot Chassis with Jericho+ Line Cards
+
+Similarly, all 8 links from each Jericho NPU are connected to a single FE3600 per fabric card:
+
+![4slot-Jplus.png]({{site.baseurl}}/images/4slot-Jplus.png){: .align-center}
+
+In nominal state, with 6 Fabric Modules:
+- 8x 25Gbps x 6FM = 1200Gbps (raw)
+- 8x 20.8Gbps x 6FM = 998Gbps
+
+With only 5 Fabric Modules:
+- 8x 25Gbps x 5FM = 900Gbps (raw)
+- 8x 20.8Gbps x 5FM = 832Gbps 
+
+(92% of 900Gbps)
+
+### 8-slot Chassis with Jericho Line Cards
+
+The 6 links from each Jericho NPU are split in 3+3 to the two FE3600s.
+
+- 8-slot: 3 links to each FE3600
+
+
 
 ## Test results
 
