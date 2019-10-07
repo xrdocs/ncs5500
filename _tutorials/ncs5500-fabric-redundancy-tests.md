@@ -215,8 +215,6 @@ At the moment of this blog publication, the 4-slot chassis doesn't support the n
 
 ![8-slot-Ramon-J.png]({{site.baseurl}}/images/8-slot-Ramon-J.png){: .align-center}
 
-
-
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
 
 ![8-slot-Ramon-Jplus.png]({{site.baseurl}}/images/8-slot-Ramon-Jplus.png){: .align-center}
@@ -243,3 +241,9 @@ At the moment of this blog publication, the 4-slot chassis doesn't support the n
 
 
 ## Test results
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>BLA</code>
+</pre>
+</div>
