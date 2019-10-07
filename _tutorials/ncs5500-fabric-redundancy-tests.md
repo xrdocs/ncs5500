@@ -382,16 +382,34 @@ For 1500B:
 
 ![1500B.png]({{site.baseurl}}/images/1500B.png){: .align-center}
 
+We measure a bit more than 11% loss.
+
 For 500B:
 
 ![500B.png]({{site.baseurl}}/images/500B.png){: .align-center}
+
+We measure 8 to 10% loss.
 
 For 130B:
 
 ![130B.png]({{site.baseurl}}/images/130B.png){: .align-center}
 
+We measure 12% to 16% loss.
+
+**How can we explain this deviation from the theory?**
+
+It's actually exactly the same behavior than what we explain in the previous blog about NDR.  
+[https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/](https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/)  
+In this blog post, we described a case of fabric saturation, generating a backpressure message for the particular VOQ, triggering the eviction of the queue to the DRAM and eventually saturating the DRAM bandwidth (because the saturation was maintained along multiple seconds).  
+In the lab, we verify that indeed we have counters pointing in this direction.
+
 ![shcontr.png]({{site.baseurl}}/images/shcontr.png){: .align-center}
 
+So we are no longer measuring the impact of the fabric loss, but we are also forcing so much traffic that it exceeds the bandwidth to the deep buffer.
+
+## Next one ?
+
+We will demonstrate the FIB scale on the large external TCAM systems. If you are interested in any other test case, don't hesitate to let us know in the blog notes.
 
 
 
