@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2019-10-03 08:52 +0200'
-title: NCS5500 Fabric Redundancy Tests
+title: 'NCS5500 Fabric Redundancy Tests [Lab Series 03] '
 author: Nicolas Fevrier
 excerpt: How an NCS5500 modular chassis behaves with 5 out of 6 fabric cards?
 tags:
