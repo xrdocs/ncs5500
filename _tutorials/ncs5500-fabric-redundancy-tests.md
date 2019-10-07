@@ -335,8 +335,58 @@ Same behavior and results than 8-slot.
 
 ## Test results
 
+Now that we have all the theory clarified, let's see what has been tested and measured in this video.  
+We are using:
+- an 8-slot chassis
+- FE3600 fabric cards (first generation)
+- 36x100G-SE line cards (based on 4x Jericho+ NPUs)
+
+To simplify the process (and not remove the fan trays), we shut down the fabric cards electrically from the admin config level:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>BLA</code>
+<code>RP/0/RP0/CPU0:NCS5508-2#admin
+root connected from 127.0.0.1 using console on NCS5508-2
+sysadmin-vm:0_RP0# hw-module location 0/fc0 ?
+Possible completions:
+  offline    Take a hardware module offline for diagnostics
+  online     Take a hardware module online for normal operation
+  reload     Reload a hardware module
+  shutdown   Shut down a hardware module
+sysadmin-vm:0_RP0# hw-module location 0/fc0 shut
+Shutdown hardware module ? [no,yes] yes
+result Card graceful shutdown request on 0/FC0 succeeded.
+sysadmin-vm:0_RP0# sh platfo
+Location  Card Type               HW State      SW State      Config State
+----------------------------------------------------------------------------
+0/0       NC55-36X100G            OPERATIONAL   OPERATIONAL   NSHUT
+0/6       NC55-36X100G-A-SE       OPERATIONAL   OPERATIONAL   NSHUT
+0/RP0     NC55-RP-E               OPERATIONAL   OPERATIONAL   NSHUT
+0/RP1     NC55-RP-E               OPERATIONAL   OPERATIONAL   NSHUT
+0/FC0     NC55-5508-FC            <mark>POWERED_OFF</mark>   <mark>SW_INACTIVE</mark>   NSHUT
+0/FC1     NC55-5508-FC            OPERATIONAL   OPERATIONAL   NSHUT
+0/FC2     NC55-5508-FC            OPERATIONAL   OPERATIONAL   NSHUT
+0/FC3     NC55-5508-FC            OPERATIONAL   OPERATIONAL   NSHUT
+0/FC4     NC55-5508-FC            OPERATIONAL   OPERATIONAL   NSHUT
+0/FC5     NC55-5508-FC            OPERATIONAL   OPERATIONAL   NSHUT
+0/FT0     NC55-5508-FAN           OPERATIONAL   N/A           NSHUT
+0/FT1     NC55-5508-FAN           OPERATIONAL   N/A           NSHUT</code>
 </pre>
 </div>
+
+We use a snake topology (with the limits described in the former posts), but limited to a single line card, 36 ports 100GE.
+
+Based on the math above, we should get around 830Gbps of forwarding capacity when running on five fabric cards, that's 92% of the nominal mode. Logically, we could expect to see 8% loss on the traffic generator.
+
+For 1500B:
+
+![1500B.png]({{site.baseurl}}/images/1500B.png){: .align-center}
+
+For 500B:
+
+
+
+For 130B:
+
+
+
