@@ -407,6 +407,8 @@ In the lab, we verify that indeed we have counters pointing in this direction.
 
 So we are no longer measuring the impact of the fabric loss, but we are also forcing so much traffic that it exceeds the bandwidth to the deep buffer.
 
+It's illustrated by the "Rejects" reasons in the ENQ_DISCARDED_PACKET_COUNTER above.
+
 ## Next one ?
 
 We will demonstrate the FIB scale on the large external TCAM systems. If you are interested in any other test case, don't hesitate to let us know in the blog notes.
