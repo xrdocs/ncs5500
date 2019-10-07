@@ -184,7 +184,7 @@ In nominal state, with 6 Fabric Modules:
 - 40x 20.8Gbps = 832Gbps
 
 That's indeed below the 900Gbps of bandwidth capability of a Jericho+ ASIC, in nominal state (note it's a worst case situation, remember that the traffic targeted to the same ASICs are not transiting through the fabric and that aligned NPUs (NPU X to NPU X in a different line card) have full bandwidth available).
-
+{: .notice-info}
 
 With only 5 Fabric Modules:
 - 657Gbps
@@ -197,16 +197,49 @@ The bandwidth necessary for line rate with Jericho+ line cards:
 | MOD-A | 1,000 (but ASIC allows 900) | No |
 | MOD-A-SE | 1,000 (but ASIC allows 900) | No |
 
+Note: this bandwidth problem is addressed with the second generation fabric cards on the 16-slot chassis.
+{: .notice-info}
+
+Finally, mixing Jericho and Jericho+ in the same chassis:
+
+|  |  | 6 Fabrics | 5 Fabrics |
+|:-----:|:-----:|:-----:|:-----:|
+| J | J | 100% 600G | 100% 600G |
+| J | J+ | 100% 600G | 100% 600G |
+| J+ | J | 82% 738G | 69% 621G |
+| J+ | J+ | 92% 828G | 73% 657G |
+
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
+
+At the moment of this blog publication, the 4-slot chassis doesn't support the next generation fabric cards, it's still in the roadmap. But all the principles and results shared below can also be used for the 4-slot.
+
+![8-slot-Ramon-J.png]({{site.baseurl}}/images/8-slot-Ramon-J.png){: .align-center}
+
 
 
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
 
+![8-slot-Ramon-Jplus.png]({{site.baseurl}}/images/8-slot-Ramon-Jplus.png){: .align-center}
+
+
+### 8-slot Chassis with Ramon/FE9600 fabric and Jericho2 Line Cards
+
+![8-slot-Ramon-J2.png]({{site.baseurl}}/images/8-slot-Ramon-J2.png){: .align-center}
+
 
 ### 16-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
 
+![16-slot-Ramon-J.png]({{site.baseurl}}/images/16-slot-Ramon-J.png){: .align-center}
+
 
 ### 16-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
+
+![16-slot-Ramon-Jplus.png]({{site.baseurl}}/images/16-slot-Ramon-Jplus.png){: .align-center}
+
+
+### 16-slot Chassis with Ramon/FE9600 fabric and Jericho2 Line Cards
+
+![16-slot-Ramon-J2.png]({{site.baseurl}}/images/16-slot-Ramon-J2.png){: .align-center}
 
 
 ## Test results
