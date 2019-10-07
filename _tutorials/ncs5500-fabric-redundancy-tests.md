@@ -72,11 +72,11 @@ Each Jericho NPU connects to each Fabric Module with 6 SERDES at 25Gbps raw: aft
 
 ### 4-slot and 8-slot Chassis with FE3600 fabric and Jericho Line Cards
 
-4-slot: all 6 links from each Jericho NPU are connected to a single FE3600 per fabric card:
+4-slot: From a Jericho NPU's perspective, all 6 links are connected to a single FE3600 per fabric card:
 
 ![4slot-Jericho.png]({{site.baseurl}}/images/4slot-Jericho.png){: .align-center}
 
-8-slot: the 6 links from each Jericho NPU are split in 3+3 to the two FE3600s.
+8-slot: Similarly, the 6 links from each Jericho NPU are split in 3+3 to the two FE3600s:
 
 ![8slot-Jericho.png]({{site.baseurl}}/images/8slot-Jericho.png){: .align-center}
 
@@ -88,9 +88,9 @@ With only 5 Fabric Modules:
 - 6x 25Gbps x 5FM = 750Gbps (raw)
 - 6x 20.8Gbps x 5FM = 624Gbps 
 
-Now, if we consider the bandwidth used per NPU for the different Jericho line cards:
+Now, if we consider the bandwidth required per NPU for the different Jericho line cards, we can see how much the fabric will be able to accomodate in case of fabric loss:
 
-| Line Card | Ports per NPU (Gbps) | <624G? |
+| Line Card | Ports per Jericho NPU (Gbps) | <624G? |
 |:-----:|:-----:|:-----:|
 | 36x100G | 600 | Yes |
 | 36x100G-S | 600 | Yes |
@@ -101,11 +101,11 @@ Now, if we consider the bandwidth used per NPU for the different Jericho line ca
 
 ### 4-slot and 8-slot Chassis with FE3600 fabric and Jericho+ Line Cards
 
-4-slot: all 8 links from each Jericho+ NPU are connected to a single FE3600 per fabric card:
+4-slot: from the Jericho+ NPU's perspective, all 8 links are connected to a single FE3600 per fabric card:
 
 ![4slot-Jplus.png]({{site.baseurl}}/images/4slot-Jplus.png){: .align-center}
 
-8-slot: the 8 links from each Jericho+ NPU are split in 4+4 to the two FE3600s.
+8-slot: the 8 links from each Jericho+ NPU are split in 4+4 to the two FE3600s:
 
 ![8slot-Jplus.png]({{site.baseurl}}/images/8slot-Jplus.png){: .align-center}
 
@@ -119,16 +119,60 @@ With only 5 Fabric Modules:
 
 Here again, let's check the bandwidth necessary for line rate with Jericho+ line cards:
 
-| Line Card | Ports per NPU (Gbps) | <832G? |
+| Line Card | Ports per J+ NPU (Gbps) | <832G? |
 |:-----:|:-----:|:-----:|
 | 36x100G-SE | 900 | No |
 | MOD-A | 1,000 (but ASIC allows 900) | No |
 | MOD-A-SE | 1,000 (but ASIC allows 900) | No |
 
+Now mixing Jericho and Jericho+ in the same chassis:
+
+|  |  | 6 Fabrics | 5 Fabrics |
+|:-----:|:-----:|:-----:|:-----:|
+| J@600G | J@600G | 100% 600G | 100% 600G |
+| J@720G | J@720G | 100% 720G | 87% 624G |
+| J | J+ | 100% 600G | 100% 600G |
+| J+ | J+ | 100% 900G | 92% 828G |
+
 ### 16-slot Chassis with FE3600 fabric and Jericho Line Cards
 
+Each Jericho ASIC has 6 links at 25Gbps, that are equally distributed to the 6 FE3600 of each fabric card:
+
+![16slot-J.png]({{site.baseurl}}/images/16slot-J.png){: .align-center}
+
+In nominal state, with 6 Fabric Modules:
+- 6x 25Gbps x 6FM = 900Gbps (raw)
+- 6x 20.8Gbps x 6FM = 748Gbps
+
+With only 5 Fabric Modules:
+- 6x 25Gbps x 5FM = 750Gbps (raw)
+- 6x 20.8Gbps x 5FM = 624Gbps 
+
+Same logic and results than 4-slot and 8-slot chassis.  
+How much the fabric will be able to accomodate in case of fabric loss?
+
+| Line Card | Ports per Jericho NPU (Gbps) | <624G? |
+|:-----:|:-----:|:-----:|
+| 36x100G | 600 | Yes |
+| 36x100G-S | 600 | Yes |
+| 24x100G-SE | 600 | Yes |
+| 24H12F | 720 | No |
+| 18H12F | 840 (but ASIC allows 720) | No |
+| 6x200G-COH | 600 | Yes |
 
 ### 16-slot Chassis with FE3600 fabric and Jericho+ Line Cards
+
+Things are getting a bit more complex when we use Jericho+ NPUs in 16-slot chassis. Indeed, each NPU has 8 SERDES (links at 25Gbps raw bw) and they need to connect to fabric cards made of 6 FE3600, we need to address an unequal distribution:
+
+![16-slot-Jplus-1.png]({{site.baseurl}}/images/16-slot-Jplus-1.png){: .align-center}
+
+We will have some two FE3600 connected with 2 SERDES links while the rest will have only one connection.
+
+So as long as we have a flow transiting from NPU X of line A to NPU X of line B, we don't have issues (example: Jericho+ instance 0 of LC0 pushing traffic to J+ instance 0 in LC1):
+
+![16-slot-Jplus-2.png]({{site.baseurl}}/images/16-slot-Jplus-2.png){: .align-center}
+
+
 
 
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
@@ -144,5 +188,3 @@ Here again, let's check the bandwidth necessary for line rate with Jericho+ line
 
 
 ## Test results
-
-
