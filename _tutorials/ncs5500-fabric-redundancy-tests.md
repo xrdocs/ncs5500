@@ -10,7 +10,7 @@ tags:
   - redundancy
   - lab
   - test
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS5500 Fabric Redundancy Tests" %} 
 
