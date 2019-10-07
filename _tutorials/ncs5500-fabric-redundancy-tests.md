@@ -213,32 +213,125 @@ Finally, mixing Jericho and Jericho+ in the same chassis:
 
 At the moment of this blog publication, the 4-slot chassis doesn't support the next generation fabric cards, it's still in the roadmap. But all the principles and results shared below can also be used for the 4-slot.
 
+All 6 links from the Jericho ASICs are split in 3+3 on the two Ramon Fabric Engines in each fabric card.
+
 ![8-slot-Ramon-J.png]({{site.baseurl}}/images/8-slot-Ramon-J.png){: .align-center}
+
+In nominal state, with 6 Fabric Modules:
+- 6x 25Gbps x 6FM = 900Gbps (raw)
+- 6x 20.8Gbps x 6FM = 748Gbps
+
+With only 5 Fabric Modules:
+- 6x 25Gbps x 5FM = 750Gbps (raw)
+- 6x 20.8Gbps x 5FM = 624Gbps 
+
+How much the fabric will be able to accomodate in case of fabric loss?
+
+| Line Card | Ports per Jericho NPU (Gbps) | <624G? |
+|:-----:|:-----:|:-----:|
+| 36x100G | 600 | Yes |
+| 36x100G-S | 600 | Yes |
+| 24x100G-SE | 600 | Yes |
+| 24H12F | 720 | No |
+| 18H12F | 840 (but ASIC allows 720) | No |
+| 6x200G-COH | 600 | Yes |
+
+Note: these results are the same with the FE3600. It's expected since new fabric cards don't change the way the NPUs are attached to them.
+{: .notice-info}
 
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
 
+The 8 links from the Jericho+ NPUs are split in 4+4 on the two Ramon Fabric Engines in each fabric card.
+
 ![8-slot-Ramon-Jplus.png]({{site.baseurl}}/images/8-slot-Ramon-Jplus.png){: .align-center}
 
+In nominal state, with 6 Fabric Modules:
+- 8x 25Gbps x 6FM = 1,200Gbps (raw)
+- 8x 20.8Gbps x 6FM = 998Gbps
+
+With only 5 Fabric Modules:
+- 8x 25Gbps x 5FM = 1,000Gbps (raw)
+- 8x 20.8Gbps x 5FM = 832Gbps 
+
+The bandwidth necessary for line rate with Jericho+ line cards:
+
+| Line Card | Ports per J+ NPU (Gbps) | <657G or 832G? |
+|:-----:|:-----:|:-----:|
+| 36x100G-SE | 900 | No |
+| MOD-A | 1,000 (but ASIC allows 900) | No |
+| MOD-A-SE | 1,000 (but ASIC allows 900) | No |
+
+Here again, no difference for the 8-slot chassis.
+{: .notice-info}
 
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho2 Line Cards
 
 ![8-slot-Ramon-J2.png]({{site.baseurl}}/images/8-slot-Ramon-J2.png){: .align-center}
 
+In nominal state, with 6 Fabric Modules:
+- 18x 53.125Gbps x 6FM = 5,737Gbps (raw)
+- 18x 45.8Gbps x 6FM = 4,946Gbps
+
+With only 5 Fabric Modules:
+- 18x 53.125Gbps x 5FM = 4781Gbps (raw)
+- 18x 45.8Gbps x 5FM = 4122Gbps (85.8% of 4800Gbps)
+
+At the moment of this publication, we have two line cards based on Jericho-2:  
+NC55-24DD where each J2 services 4.8Tbps  
+and NC55-18DD-SE where each J2 services 3.6Tbps.
+
+| Line Card | Ports per J2 NPU (Gbps) | <4,946G |
+|:-----:|:-----:|:-----:|
+| 24x400G | 4,800 | No |
+| 18x400G-SE | 3,600 | Yes |
 
 ### 16-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
 
 ![16-slot-Ramon-J.png]({{site.baseurl}}/images/16-slot-Ramon-J.png){: .align-center}
 
+Same math and behavior than Jericho line cards with 8-slot
+
+| Line Card | Ports per Jericho NPU (Gbps) | <624G? |
+|:-----:|:-----:|:-----:|
+| 36x100G | 600 | Yes |
+| 36x100G-S | 600 | Yes |
+| 24x100G-SE | 600 | Yes |
+| 24H12F | 720 | No |
+| 18H12F | 840 (but ASIC allows 720) | No |
+| 6x200G-COH | 600 | Yes |
 
 ### 16-slot Chassis with Ramon/FE9600 fabric and Jericho+ Line Cards
 
 ![16-slot-Ramon-Jplus.png]({{site.baseurl}}/images/16-slot-Ramon-Jplus.png){: .align-center}
+
+The limitation encountered on the FE3600-based fabric cards on the 16-slot disappears with the new generation fabric cards.  
+The support of line cards and impact of a fabric card loss is the same than 8-slot:
+
+In nominal state, with 6 Fabric Modules:
+- 8x 25Gbps x 6FM = 1,200Gbps (raw)
+- 8x 20.8Gbps x 6FM = 998Gbps
+
+With only 5 Fabric Modules:
+- 8x 25Gbps x 5FM = 1,000Gbps (raw)
+- 8x 20.8Gbps x 5FM = 832Gbps 
+
+| Line Card | Ports per J+ NPU (Gbps) | <998G? | <832G? |
+|:-----:|:-----:|:-----:|:-----:|
+| 36x100G-SE | 900 | Yes | No |
+| MOD-A | 1,000 (but ASIC allows 900) | Yes | No |
+| MOD-A-SE | 1,000 (but ASIC allows 900) | Yes | No |
 
 
 ### 16-slot Chassis with Ramon/FE9600 fabric and Jericho2 Line Cards
 
 ![16-slot-Ramon-J2.png]({{site.baseurl}}/images/16-slot-Ramon-J2.png){: .align-center}
 
+Same behavior and results than 8-slot.
+
+| Line Card | Ports per J2 NPU (Gbps) | <4,946G |
+|:-----:|:-----:|:-----:|
+| 24x400G | 4,800 | No |
+| 18x400G-SE | 3,600 | Yes |
 
 ## Test results
 
