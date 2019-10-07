@@ -384,9 +384,14 @@ For 1500B:
 
 For 500B:
 
-
+![500B.png]({{site.baseurl}}/images/500B.png){: .align-center}
 
 For 130B:
+
+![130B.png]({{site.baseurl}}/images/130B.png){: .align-center}
+
+![shcontr.png]({{site.baseurl}}/images/shcontr.png){: .align-center}
+
 
 
 
