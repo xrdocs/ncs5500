@@ -172,8 +172,30 @@ So as long as we have a flow transiting from NPU X of line A to NPU X of line B,
 
 ![16-slot-Jplus-2.png]({{site.baseurl}}/images/16-slot-Jplus-2.png){: .align-center}
 
+The situation is less ideal when the communication is from NPU X of line A to NPU Y of line B, we have paths where two links can only be used at the bandwidth of one:
+
+![16-slot-Jplus-3.png]({{site.baseurl}}/images/16-slot-Jplus-3.png){: .align-center}
+
+In this example above (Jericho+ 0 on LC0 pushing traffic to NPU 1 on LC1), we can't get line rate traffic because we have only 40 SERDES links.  
+Let's take this example for the math below:
+
+In nominal state, with 6 Fabric Modules:
+- 40x 25Gbps = 1000Gbps (raw)
+- 40x 20.8Gbps = 832Gbps
+
+That's indeed below the 900Gbps of bandwidth capability of a Jericho+ ASIC, in nominal state (note it's a worst case situation, remember that the traffic targeted to the same ASICs are not transiting through the fabric and that aligned NPUs (NPU X to NPU X in a different line card) have full bandwidth available).
 
 
+With only 5 Fabric Modules:
+- 657Gbps
+
+The bandwidth necessary for line rate with Jericho+ line cards:
+
+| Line Card | Ports per J+ NPU (Gbps) | <657G or 832G? |
+|:-----:|:-----:|:-----:|
+| 36x100G-SE | 900 | No |
+| MOD-A | 1,000 (but ASIC allows 900) | No |
+| MOD-A-SE | 1,000 (but ASIC allows 900) | No |
 
 ### 8-slot Chassis with Ramon/FE9600 fabric and Jericho Line Cards
 
