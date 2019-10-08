@@ -59,8 +59,9 @@ Test of various aspects around NCS5500 Flowspec implementation:
 
 ### Hardware High Availability and Redundancy
 
-**Fabric Redundancy** (coming soon)  
-Test performed with a snake topology on a single line card. The purpose is to identify the impact on performance and bandwidth, per NPU, when removing a fabric cards. It will also point the limit of using a snake for performance testing
+**Fabric Redundancy**  
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-fabric-redundancy-tests/](https://xrdocs.io/ncs5500/tutorials/ncs5500-fabric-redundancy-tests/)  
+Test performed with a snake topology on a single line card. The purpose is to identify the impact on performance and bandwidth, per NPU, when removing a fabric cards. It will also point the limit of using a snake for performance testing.
 
 **Route Processor, System Controller and Power Modules Redundancy** (coming soon)
 Demonstration of the impact (or lack of impact for instance) when ejecting Active or Standby RP and System Controller of an NCS5508. Then, the test is focusing on the power supply modules.
@@ -109,16 +110,20 @@ Second part, lab demo with Sai Venka: [https://youtu.be/1qXD70_cLK8?t=291](https
 
 ### Performance / Snake
 
-**IPv4 and IPv6 VRF Snake** (coming soon)  
+**IPv4 and IPv6 VRF Snake**  
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-performance-and-load-balancing/](https://xrdocs.io/ncs5500/tutorials/ncs5500-performance-and-load-balancing/)  
 Pratyusha Aluri set up a very large testbed with two NCS5508 back to back, interconnected through 288x 100GE interfaces. Tests performed on 36x100G-SE line cards (Jericho+ with eTCAM)  
 - snake IPv4 with 129B, 130B and IMIX traffic distribution
 - snake IPv6 with same packet sizes
 - performed with and without configuration on interfaces (ACL ingress+egress and QoS: classification and remarking)
 
-**ECMP and Link Aggregation** (coming soon)  
+**ECMP and Link Aggregation**  
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-performance-and-load-balancing/](https://xrdocs.io/ncs5500/tutorials/ncs5500-performance-and-load-balancing/)  
+[https://youtu.be/s6qSt6C2D5U?t=598](https://youtu.be/s6qSt6C2D5U?t=598)  
 Same testbed then above, reconfigured to validate ECMP and LAG load balancing with multiple bundles of 64x 100GE interfaces each.
 
-**Non-Drop Rate** (coming soon)  
+**Non-Drop Rate**  
+[https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/](https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/)  
 Test performed on Jericho+ systems. Identification and explanation of the different packet size performances.
 
 ## Conclusion: What's next?
