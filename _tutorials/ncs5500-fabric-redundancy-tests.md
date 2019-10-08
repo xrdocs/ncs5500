@@ -62,7 +62,7 @@ In summary, per Fabric Card:
 | NCS5508 | 2 | 2 |
 | NCS5516 | 6 | 3 |
 
-Regardless of the generation, each router is using 6 fabric cards. They can operate with less than 6 but it could be at the expend of the bandwidth of some line cards. That's what we will detail in this blog post.
+Regardless of the generation, each router is using 6 fabric cards. They can operate with less than 6 but it could be at the expense of the bandwidth of some line cards. That's what we will detail in this blog post.
 
 ## Theory
 
@@ -280,7 +280,7 @@ At the moment of this publication, we have two line cards based on Jericho-2:
 NC55-24DD where each J2 services 4.8Tbps  
 and NC55-18DD-SE where each J2 services 3.6Tbps.
 
-| Line Card | Ports per J2 NPU (Gbps) | <4,946G |
+| Line Card | Ports per J2 NPU (Gbps) | <4,122G |
 |:-----:|:-----:|:-----:|
 | 24x400G | 4,800 | No |
 | 18x400G-SE | 3,600 | Yes |
@@ -412,6 +412,3 @@ It's illustrated by the "Rejects" reasons in the ENQ_DISCARDED_PACKET_COUNTER ab
 ## Next one ?
 
 We will demonstrate the FIB scale on the large external TCAM systems. If you are interested in any other test case, don't hesitate to let us know in the blog notes.
-
-
-
