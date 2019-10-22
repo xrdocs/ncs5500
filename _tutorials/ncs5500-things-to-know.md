@@ -22,6 +22,7 @@ We will keep this one updated regularly.
 - 2018-07-26: Add section on PIDs + section on the scale per LC / systems
 - 2019-04-18: Add RSFEC/ER4L section
 - 2019-06-03: Clarification on the Quad concept in NCS55A2-MOD systems
+- 2019-10-23: BGP Flowspec support
 {: .notice--info}
 
 
@@ -401,4 +402,10 @@ Changing quad 0 for 10G:
          TF0/0/0/39  admin-down  admin-down               ARPA  1514   25000000</code>
 </pre>
 </div>
+
+### BGP Flowspec
+  
+Contrary to the ASR9000 or CRS implementation, the for-us packets are not filtered by BGP FS rules.  
+This behavior will be changed in a future release and will affect all J+ and J2 line cards and products (post 7.0.2, to be confirmed).
+
 
