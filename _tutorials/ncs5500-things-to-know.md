@@ -196,7 +196,7 @@ Line cards count starts from 0, from top to bottom.
 
 With Qumran-MX, Jericho, Jericho+ with Jericho-scale, Jericho+ with large LPM, with or without eTCAM, it's not easy to remember which ASIC is used in the various LC and systems and what is the routing scale they can reach.
 
-The following chart will help clarifying it:
+The following chart will help clarifying it (scale for IPv4 prefixes specifically):  
 
 | PID | ASIC type | # of ASICs | Route Scale |
 |:-----:|:-----:|:-----:|:-----:|
@@ -208,7 +208,7 @@ The following chart will help clarifying it:
 | NC55-36X100G-A-SE | Jericho+ with NG eTCAM | 4 | 4M in eTCAM |
 | NC55-6x200-DWDM-S | Jericho w/o eTCAM | 2 | 786k in LEM + 256-350k in LPM |
 | NC55-MOD-A-S | Jericho+ w/o eTCAM | 1 | 786k in LEM + 256-350k in LPM |
-| NC55-MOD-A-SE-S | Jericho+ w/ eTCAM | 1 | 786k in LEM + 256-350k in LPM + 4M in eTCAM |
+| NC55-MOD-A-SE-S | Jericho+ w/ eTCAM | 1 | 4M in eTCAM |
 | NCS-5501 | Q-MX w/o eTCAM | 1 | 786k in LEM + 256-350k in LPM |
 | NCS-5501-SE | Jericho with eTCAM | 1 | 786k in LEM + 256-350k in LPM + 2M in eTCAM |
 | NCS-5502 | Jericho w/o eTCAM | 8 | 786k in LEM + 256-350k in LPM |
@@ -407,5 +407,3 @@ Changing quad 0 for 10G:
   
 Contrary to the ASR9000 or CRS implementation, the for-us packets are not filtered by BGP FS rules.  
 This behavior will be changed in a future release and will affect all J+ and J2 line cards and products (post 7.0.2, to be confirmed).
-
-
