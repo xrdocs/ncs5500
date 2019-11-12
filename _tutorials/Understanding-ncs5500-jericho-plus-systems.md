@@ -24,6 +24,11 @@ You can find more content related to NCS5500 including routing memory management
 **Update2**: In August 2018, we added information on the MOD systems and line cards.
 {: .notice--info}
 
+**Update3**: In Nov 2019, clarification on the lack of MACsec support on 1G interfaces.
+{: .notice--info}
+
+
+
 ### Previously on "Understanding NCS5500 Resources"
 
 In previous posts, we presented:
@@ -117,7 +122,7 @@ In 6.5.1, we offer two flavors of the chassis: base and hardened. The second bei
 
 ![55a2-mod.jpg]({{site.baseurl}}/images/55a2-mod.jpg){: .align-center}
 
-The system is powered by a single Jericho+ and is capable of MACsec on the 16 first ports and on MPAs.
+The system is powered by a single Jericho+ and is capable of MACsec on the 16 first ports and on MPAs. Note that MACsec is not supported with 1G optics.
 
 ![ncs55a2-mod-block-diagram.jpg]({{site.baseurl}}/images/ncs55a2-mod-block-diagram.jpg){: .align-center}
 
