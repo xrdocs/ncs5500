@@ -347,6 +347,8 @@ RP/0/RP0/CPU0:Peyto-SE(config)#</code>
 </div>
 
 Note that the 10G mode allows the 1G operation too.  
+  
+Example with NCS55A2-MOD routers (but it applies to other 25G-capable platforms too, like the NCS55A1-48Q6H or NCS55A1-24Q6H-S):  
 
 ![quad-ncs55a2.jpg]({{site.baseurl}}/images/quad-ncs55a2.jpg){: .align-center}
 
