@@ -292,3 +292,9 @@ Ianik Semco:
   email       : "isemco@cisco.com"
   bio         : "Product Manager, Cisco."
   avatar      : "isemco_latest.jpg"
+
+Tejas Lad:
+  name        : "Tejas Lad"
+  email       : "telad@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco."
+  avatar      : "telad.jpg"   
