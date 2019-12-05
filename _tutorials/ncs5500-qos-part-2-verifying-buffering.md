@@ -239,7 +239,7 @@ LAPTOP: nicolas$
 
 In this chart, we sort by numbers of ENQUEUE_PKT_CNT: it represents the most active ASICs in term of packets handled.  
 
-| Rank | ENQUEUE_PKT_CNT | MMU_IDR	ENQ_DISC | RjctDram | Ratio DRAM % | Ratio drops % | Network roles |
+| Rank | ENQUEUE_PKT_CNT | MMU_IDR | ENQ_DISC | RjctDram | Ratio DRAM % | Ratio drops % | Network roles |
 |:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
 | 1 | 527 787 533 239 280 | 7 369 339 005 | 1 705 600 246 | 0 | 0,001396 | 0,000323 | IP Core |
 | 2 | 527 731 939 299 538 | 7 637 629 256 | 1 692 666 188 | 0 | 0,001447 | 0,000321 | IP Core |
