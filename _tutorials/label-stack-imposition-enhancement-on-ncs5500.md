@@ -10,7 +10,11 @@ position: hidden
 ---
 {% include toc icon="table" title="Label Stack Imposition Enhancement on NCS5500" %}
 
+You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
+
 ## Introduction
+
+INTRO
 
 ## Demo/Video
 
@@ -22,45 +26,61 @@ Shortcut in the video: [https://youtu.be/nkL301rckL4?t=75](https://youtu.be/nkL3
 
 ## Details on the enhancement
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=229
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=229](https://youtu.be/nkL301rckL4?t=229)
 
 ## Demo
 
 ### Test topology
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=428
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=428](https://youtu.be/nkL301rckL4?t=428)
 
 ### Service deployment with NSO
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=707
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=707](https://youtu.be/nkL301rckL4?t=707)
 
 ### SR ODN
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=1030
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1030](https://youtu.be/nkL301rckL4?t=1030)
 
 ### Monitoring with Cisco Crossworks Optimization Engine (Optima)
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=1372
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1372](https://youtu.be/nkL301rckL4?t=1372)
 
 ### Link failure before enhancement
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=1551
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1551](https://youtu.be/nkL301rckL4?t=1551)
 
 
 ### Test with the improvement
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=1936
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
 ### Service removal with NSO
 
-Shortcut in the video: https://youtu.be/nkL301rckL4?t=2178
+Shortcut in the video: [https://youtu.be/nkL301rckL4?t=2178](https://youtu.be/nkL301rckL4?t=2178)
 
 ## Recirculation impact
 
 
+## Conclusion
+
+
+
+
+
+
+## to delete / templates / examples
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>CONFIG / SHOW COMMANDS / ETC EXAMPLE</code>
+<code>CONFIG / SHOW COMMANDS / <mark>HIGHLIGHT</mark> / ETC EXAMPLE</code>
 </pre>
 </div>
+
+Note to highlight: 
+
+**Update**: blablabla
+{: .notice--info}
+
+Aligned image:  
+![core-0-1-.png]({{site.baseurl}}/images/core-0-1-.png){: .align-center}
