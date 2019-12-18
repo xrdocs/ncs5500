@@ -31,6 +31,14 @@ Tuesday, January 28 | 02:30 PM - 04:30 PM
 Advanced Troubleshooting of the NCS5500 (IOS-XR) made easy - **BRKSPG-2165**, by Andrzej Mieczkowski  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2165#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2165#/)
 
+Tuesday, January 28 | 02:30 PM - 04:30 PM  
+Service Provider Programmable SDN solution for the Metro Fabric, powered by Segment Routing and EVPN - **BRKSPG-2518**, by Phil Bedard  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2518#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2518#/)  
+
+Tuesday, January 28 | 05:00 PM - 06:30 PM  
+Next Generation SP Network Architectures: A Practical Path to Network Transformation - **BRKSPG-2535**, by Rob Piasecki  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2535#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2535#/)  
+
 Wednesday, January 29 | 08:30 AM - 10:00 AM  
 Introduction to the Next Generation IOS-XR architecture - **BRKSPG-2069**, by Akshat Sharma  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2069#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2069#/)
@@ -51,6 +59,22 @@ Wednesday, January 29 | 04:45 PM - 06:15 PM
 IOS-XR Runtime - Turst me? Trust me not? - **BRKSPG-1768**, by Dan Backman  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-1768#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-1768#/)
 
+Wednesday, January 29 | 04:45 PM - 06:15 PM  
+EVPN troubleshooting and debugging - **BRKSPG-2798**, by Nikolay Karpyshev  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2798#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2798#/)  
+
+Wednesday, January 29 | 04:45 PM - 06:15 PM  
+Cisco 8000 Series and Silicon One ASIC Architecture - **BRKSPG-2280** -, by Lane Wigley  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2280#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2280#/)  
+
+Wednesday, January 29 | 04:45 PM - 06:15 PM  
+How to design networks for Transport-optimized platforms (NCS5500/NCS5xx) leveraging new advanced technologies - **BRKSPG-3292**, by Guillermo Trueba  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-3292#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-3292#/)  
+
+Wednesday, January 29 | 04:45 PM - 06:15 PM  
+Introduction to Segment Routing - **BRPRST-2124**, by Alberto Donzelli  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRPRST-2124#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRPRST-2124#/)  
+
 Thursday, January 30 | 08:30 AM - 10:30 AM  
 NCS5500: Deepdive in the Merchant Silicon High-end SP Routers - **BRKSPG-2900**, by Nicolas Fevrier  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2900#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2900#/)  
@@ -58,6 +82,10 @@ NCS5500: Deepdive in the Merchant Silicon High-end SP Routers - **BRKSPG-2900**,
 Thursday, January 30 | 11:15 AM - 12:45 PM  
 Unprecedented Visibility and Forensics: Analyze system integrity and trustworthiness of network devices - **BRKSPG-2415**, by Deepak Bhargava  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2415#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2415#/)
+
+Thursday, January 30 | 11:15 AM - 12:45 PM  
+Internet Peering Concepts and Emerging Trends - **BRKSPG-2003**, by Phil Bedard  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2003#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2003#/)  
 
 Thursday, January 30 | 02:45 PM - 04:15 PM  
 Advanced Topics in XR Telemetry - **BRKSPG-2503**, by Brian Wallace  
@@ -67,15 +95,35 @@ Friday, January 31 | 09:00 AM - 10:30 AM
 Model-Driven Programmability for Cisco IOS XR - **BRKSPG-2303**, by Santiago Alvarez  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2303#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2303#/)  
 
+Friday, January 31 | 09:00 AM - 11:00 AM  
+Segment Routing: Technology deep-dive and advanced use cases - **BRKRST-3122**, by Clarence Filsfils  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKRST-3122#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKRST-3122#/)  
+
 Friday, January 31 | 11:30 AM - 01:00 PM  
 Programmability with IOS-XR Platforms - **BRKOPS-2285**, by Shambhu Mishra  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKOPS-2285#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKOPS-2285#/)
 
+Friday, January 31 | 11:30 AM - 01:00 PM  
+Service Provider Network Fabric: How to bring Access Services using EVPN - **BRKSPG-2322**, by Thierry Courture and Patrice Brissette  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2322#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2322#/)
+
 ## Instructor Led Labs
+
+Tuesday, January 28 | 02:30 PM - 06:30 PM  
+SP SDN - Segment Routing in Action - **LTRMPL-2201**, by Jose Liste, Thomas Wang, Fung Lim  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRMPL-2201#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRMPL-2201#/)  
+
+Wednesday, January 29 | 02:00 PM - 06:00 PM  
+SRv6 Lab - **LTRSPG-3087**, by Riggs Goodman and Jakub Horn  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-3087#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-3087#/)
 
 Thursday, January 30 | 09:00 AM - 01:00 PM  
 Cisco IOS XR Progammability - **LTRSPG-2601**, by Santiago Alvarez and David Smith
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2601#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2601#/)
+
+Thursday, January 30 | 09:00 AM - 01:00 PM  
+Transport SDN with Cisco SR-PCE, Crosswork Optimization Engine and NSO - **LTRSPG-2736**, by Jose Liste, Fung Lim, Thomas Wang  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2736#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2736#/)
 
 Thursday, January 30 | 09:00 AM - 01:00 PM  
 Machine Learning for Routers and Switches - **LTRRST-2548**, by Luc De Ghein and Dmitry Goloubew  
