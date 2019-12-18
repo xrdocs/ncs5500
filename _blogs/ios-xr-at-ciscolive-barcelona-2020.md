@@ -39,6 +39,10 @@ Wednesday, January 29 | 08:30 AM - 10:30 AM
 EVPN Deep Dive with IOS-XR Configuration examples for Service Provider Metro and Data Center - **BRKSPG-3965**, by Jiri Chaloupka    
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-3965#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-3965#/)  
 
+Wednesday, January 29 | 08:30 AM - 10:00 AM  
+Understanding Packet Forwarding and QoS Behaviour of New Access Platforms - **BRKSPG-2012**, by Paban Sarma  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2012#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2012#/)  
+
 Wednesday, January 29 | 11:00 AM - 01:00 PM  
 Cisco ASR 9000 Architecture - **BRKARC-2003**, by Yongzhong Peng  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKARC-2003#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKARC-2003#/)  
@@ -50,6 +54,10 @@ IOS-XR Runtime - Turst me? Trust me not? - **BRKSPG-1768**, by Dan Backman
 Thursday, January 30 | 08:30 AM - 10:30 AM  
 NCS5500: Deepdive in the Merchant Silicon High-end SP Routers - **BRKSPG-2900**, by Nicolas Fevrier  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2900#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2900#/)  
+
+Thursday, January 30 | 11:15 AM - 12:45 PM  
+Unprecedented Visibility and Forensics: Analyze system integrity and trustworthiness of network devices - **BRKSPG-2415**, by Deepak Bhargava  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2415#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=BRKSPG-2415#/)
 
 Thursday, January 30 | 02:45 PM - 04:15 PM  
 Advanced Topics in XR Telemetry - **BRKSPG-2503**, by Brian Wallace  
@@ -69,9 +77,17 @@ Thursday, January 30 | 09:00 AM - 01:00 PM
 Cisco IOS XR Progammability - **LTRSPG-2601**, by Santiago Alvarez and David Smith
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2601#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2601#/)
 
+Thursday, January 30 | 09:00 AM - 01:00 PM  
+Machine Learning for Routers and Switches - **LTRRST-2548**, by Luc De Ghein and Dmitry Goloubew  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRRST-2548#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRRST-2548#/)  
+
 Thursday, January 30 | 02:00 PM - 06:00 PM  
 IOS-XR EVPN Hands-on Lab - **LTRSPG-2968**, by David Jakl and Jiri Chaloupka
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2968#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2968#/)
+
+Thursday, January 30 | 02:00 PM - 06:00 PM  
+Policy based Traffic Engineering with Segment Routing - **LTRSPG-2452**, by Leonix Hoxha and Alvaro Arriola Diaz  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2452#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2452#/)  
 
 Thursday, January 30 | 09:00 AM - 01:00 PM and Friday, January 31 | 09:00 AM - 01:00 PM  
 IOS-XR Overview and Hands-on Configuration - LTRARC-2002, by Mohammad Ali and Rajesh Patki  
@@ -81,15 +97,35 @@ Friday, January 31 | 09:00 AM - 01:00 PM
 Introduction to Multicast Routing on IOS-XR - **LTRSPG-1071**, by Luc de Ghein and Jean-Christophe Rode  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-1071#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-1071#/)
 
+Friday, January 31 | 09:00 AM - 01:00 PM  
+A hands-on programmable approach to Segment Routing Traffic Engineering (SRTE) use cases - **LTRSPG-2840**, by Angshuman Banerjee and Mac Carr  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2840#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LTRSPG-2840#/)  
+
 ## DevNet Labs
 
 Monday, January 27 | 04:00 PM - 04:45 PM and Wednesday, January 29 | 03:00 PM - 03:45 PM  
 Introduction to Using gRPC-based Protocol for Model-Driven Management of IOS-XR - **DEVWKS-1381**, S Suprita and Michael Cho  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-1381#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-1381#/)
 
+Monday, January 27 | 06:00 PM - 06:45 PM and Wednesday, January 29 | 01:00 PM - 01:45 PM  
+Using network programmability and streaming telemetry with Segment Routing Traffic Engineering (SRTE) - **DEVWKS-2906**, by Angshuman Banerjee and Mac Carr  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2906#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2906#/)  
+
+Monday, January 27 | 06:00 PM - 06:45 PM and Wednesday, January 29 | 01:00 PM - 01:45 PM  
+Automating Services with Cisco NSO and Model-Driven Telemetry - **DEVWKS-2312**, by Bartosz Luraniec  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2312#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2312#/)
+
 Tuesday, January 28 | 03:00 PM - 03:45 PM  
 Understand gNMI and how to build your first gNMI client with Python to interwork with IOS-XR - **DEVWKS-2332**, by Steveb Barth  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2332#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-2332#/)  
+
+Tuesday, January 28 | 04:00 PM - 04:45 PM  
+Get Salty! Start with one of the most popular config management tool - Salt. - **DEVNET-2043**, by Mikhail Korshunov  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVNET-2043#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVNET-2043#/)
+
+Tuesday, January 28 | 06:00 PM - 06:45 PM and Thursday, January 30 | 01:00 PM - 01:45 PM  
+Building IP Core Network with OpenConfig - **DEVWKS-1644**, by S Suprita  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-1644#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=DEVWKS-1644#/)  
 
 Wednesday, January 29 | 11:00 AM - 11:45 AM  
 Understand NETCONF/YANG and build your first NETCONF client with Python to interwork with IOS-XR - **DEVWKS-2336**, by Cristina Precup and Guillaume Ladhuie  
@@ -114,3 +150,10 @@ Hands-on Model Driven Telemetry on IOS-XR - **LABOPS-1985**, by Radhakrishna Rao
 Configure and Implement BGP-EVPN with Segment Routing using IOS-XR - **LABSPG-2068** by Ahmad Bilal Siddiqui and Thirumavalavan Periyannan  
 [https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LABSPG-2068#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=LABSPG-2068#/)  
 
+## Technical Seminar
+
+Note: Technical Seminars are priced in addition to your Main Conference pass or IT Management Program pass fee. 
+
+Monday, January 27 | 02:30 PM - 06:45 PM  
+YANG > Telemetry > Visualization > Machine Learning or From YANG to Machine Learning in 4 hours! - **TECDEV-2765**, by Kevin Kuhls, Mike Mikhail and Einar Nilsen-Nygaard  
+[https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=TECDEV-2765#/](https://www.ciscolive.com/emea/learn/sessions/content-catalog.html?search=TECDEV-2765#/)  
