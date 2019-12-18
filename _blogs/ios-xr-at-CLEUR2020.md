@@ -16,7 +16,7 @@ position: hidden
 ![CLEUR2020.png]({{site.baseurl}}/images/CLEUR2020.png){: .align-center}
 
 
-CiscoLive San Diego will welcome thousands of visitors from Jan 27th to 31st, 2019.  
+CiscoLive Europe will welcome thousands of visitors from Jan 27th to 31st, 2019 in Barcelona.   
 It's a unique opportunity to hear about IOS XR innovations and the platforms powered by our beloved operating system.  
 
 We sorted out Break-out Sessions, Technical Seminars, Walk in Self Paced labs, Instructor-Led Labs, to help you make your choice.
