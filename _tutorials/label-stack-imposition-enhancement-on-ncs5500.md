@@ -43,6 +43,8 @@ Shortcut in the video: [https://youtu.be/nkL301rckL4?t=229](https://youtu.be/nkL
 
 ### Test topology
 
+![LLS-ncs5500-test-components-fig.png]({{site.baseurl}}/images/LLS-ncs5500-test-components-fig.png){: .align-center}
+
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=428](https://youtu.be/nkL301rckL4?t=428)
 
 ### Service deployment with NSO
