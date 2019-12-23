@@ -53,6 +53,45 @@ Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1551](https://youtu.be/nk
 
 ### Test with the improvement
 
+```
+RP/0/RP0/CPU0:Node-10#show segment-routing traffic-eng forwarding policy color 10000
+Sun Nov 17 16:04:04.683 PST
+
+SR-TE Policy Forwarding database
+--------------------------------
+
+Color: 10000, End-point: 1.1.1.2
+  Name: srte_c_10000_ep_1.1.1.2
+  Binding SID: 80010
+  Active LSP:
+    Candidate path:
+      Preference: 100 (BGP)
+    Local label: 80013
+    Segment lists:
+      SL[0]:
+        Name: dynamic
+        Packets/Bytes Switched: 298994357/302582289284
+        Paths:
+          Path[0]:
+            Outgoing Label: 16007
+            Outgoing Interface: GigabitEthernet0/0/0/2
+            Next Hop: 11.8.10.8
+            Switched Packets/Bytes: 298994357/302582289284
+            FRR Pure Backup: No
+            ECMP/LFA Backup: No
+            Label Stack (Top -> Bottom): { 16007, 16001, 80005 }
+          Path[1]:
+            Outgoing Label: 16008
+            Outgoing Interface: TenGigE0/0/0/3
+            Next Hop: 10.6.10.6
+            Switched Packets/Bytes: 0/0
+            FRR Pure Backup: Yes
+            ECMP/LFA Backup: No
+            Label Stack (Top -> Bottom): { 16008, 16007, 16001, 80005 }
+
+  Policy Packets/Bytes Switched: 299131510/302720539484
+```
+
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
 ### Service removal with NSO
