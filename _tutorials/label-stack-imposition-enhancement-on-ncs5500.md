@@ -55,7 +55,6 @@ Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1551](https://youtu.be/nk
 
 ```
 RP/0/RP0/CPU0:Node-10#show segment-routing traffic-eng forwarding policy color 10000
-Sun Nov 17 16:04:04.683 PST
 
 SR-TE Policy Forwarding database
 --------------------------------
