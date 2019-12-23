@@ -109,7 +109,8 @@ pce
   threshold 20
  !
 !
-
+```
+```
 RP/0/0/CPU0:XTC-7#show pce association group-id 776
 Mon Nov 18 01:04:48.236 UTC
 
@@ -140,7 +141,8 @@ Tunnel Name: bgp_c_10000_ep_1.1.1.2_discr_100
    Maximum SID Depth: 5
    Absolute Metric Margin: 0
    Relative Metric Margin: 0%
-
+```
+```
 RP/0/0/CPU0:XTC-7#show pce lsp name bgp_c_10000_ep_1.1.1.2_discr_100 detail
 Mon Nov 18 01:05:29.935 UTC
 
@@ -183,8 +185,8 @@ Tunnel Name: bgp_c_10000_ep_1.1.1.2_discr_100
      None
    Disjoint Group Information:
      Type SRLG-Disjoint, Group 776
-
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show segment-routing traffic-eng policy color 10000
 Sun Nov 17 16:03:59.996 PST
 
@@ -222,7 +224,8 @@ Color: 10000, End-point: 1.1.1.2
     Steering labeled-services disabled: no
     Steering BGP disabled: no
     IPv6 caps enable: yes
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show isis adjacency gigabitEthernet 0/0/0/2
 Sun Nov 17 16:15:11.803 PST
 
@@ -236,7 +239,8 @@ System Id      Interface                SNPA           State Hold Changed  NSF I
 Node-8         Gi0/0/0/2                *PtoP*         Up    24   3d11h    Yes None None
 
 Total adjacency count: 1
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show isis adjacency gigabitEthernet 0/0/0/2 detail
 Sun Nov 17 16:15:17.418 PST
 
@@ -263,8 +267,8 @@ Node-8         Gi0/0/0/2                *PtoP*         Up    28   3d11h    Yes N
   BFD Status:             BFD Not Required, Neighbor Useable
 
 Total adjacency count: 1
-
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show mpls forwarding labels 80011 detail
 Sun Nov 17 16:14:51.170 PST
 Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
@@ -290,8 +294,8 @@ Label  Label       or ID              Interface                    Switched
      Outgoing Interface: TenGigE0/0/0/3 (ifhandle 0x00000190)
      Packets Switched: 0
      (!): FRR pure backup
-
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show segment-routing traffic-eng forwarding policy color 10000
 Sun Nov 17 16:04:04.683 PST
 
@@ -328,7 +332,8 @@ Color: 10000, End-point: 1.1.1.2
             Label Stack (Top -> Bottom): { 16008, 16007, 16001, 80005 }
 
   Policy Packets/Bytes Switched: 299131510/302720539484
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show mpls forwarding labels 80013 detail
 Sun Nov 17 16:05:52.195 PST
 Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
@@ -354,7 +359,8 @@ Label  Label       or ID              Interface                    Switched
      Outgoing Interface: TenGigE0/0/0/3 (ifhandle 0x00000190)
      Packets Switched: 0
      (!): FRR pure backup
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show mpls forwarding labels 80013 private detail hardware ingress location 0/0/CPU0
 Sun Nov 17 16:10:08.889 PST
 Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
@@ -416,9 +422,8 @@ LEAF:
                   PROT-FRRNH:
                   PI:0x308b088bc0 PD:0x308b088c90 Rev: 221479 Prot_eng dpa-rev: 4730679 dpa-rev: 4730679
                   FRR Active: 0, FRR Protect Handle: 0x308ce8c100, Id 0x4000005c(0x4000005c), Status 1
-
-
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show mpls forwarding labels 80014 detail
 Sun Nov 17 16:06:08.456 PST
 Local  Outgoing    Prefix             Outgoing     Next Hop        Bytes
@@ -432,7 +437,8 @@ Label  Label       or ID              Interface                    Switched
      MAC/Encaps: 14/22, MTU: 1500
      Outgoing Interface: TenGigE0/0/0/3 (ifhandle 0x00000190)
      Packets Switched: 0
-
+```
+```
 RP/0/RP0/CPU0:Node-10#show install active
 Sun Nov 17 16:03:53.156 PST
 Node 0/RP0/CPU0 [RP]
@@ -460,10 +466,7 @@ Node 0/0/CPU0 [LC]
         ncs5500-mgbl-3.0.0.0-r701
         ncs5500-mcast-3.0.0.0-r701
         ncs5500-k9sec-3.1.0.0-r701
-
 ```
-
-
 ```
 RP/0/RP0/CPU0:Node-10#show segment-routing traffic-eng forwarding policy color 10000
 
@@ -502,7 +505,6 @@ Color: 10000, End-point: 1.1.1.2
   Policy Packets/Bytes Switched: 299131510/302720539484
 ```
  
-
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
 ### Service removal with NSO
