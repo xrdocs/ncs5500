@@ -22,7 +22,7 @@ INTRO
 
 ## Default ASIC capabilities
 
-Shortcut in the video: [https://youtu.be/nkL301rckL4?t=75](https://youtu.be/nkL301rckL4?t=75)
+Shortcut in the video123: [https://youtu.be/nkL301rckL4?t=75](https://youtu.be/nkL301rckL4?t=75)
 
 ## Details on the enhancement
 
