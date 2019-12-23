@@ -51,11 +51,20 @@ Shortcut in the video: [https://youtu.be/nkL301rckL4?t=428](https://youtu.be/nkL
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=707](https://youtu.be/nkL301rckL4?t=707)
 
-### SR ODN
+### SR On-Demand Next Hop (ODN)
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1030](https://youtu.be/nkL301rckL4?t=1030)
 
-### Monitoring with Cisco Crossworks Optimization Engine (Optima)
+### Monitoring with Cisco Crossworks Optimization Engine
+
+![LLS-ncs5500-coe-topo-fig.png]({{site.baseurl}}/images/LLS-ncs5500-coe-topo-fig.png){: .align-center}
+
+![LLS-ncs5500-coe-disj-1-fig.png]({{site.baseurl}}/images/LLS-ncs5500-coe-disj-1-fig.png){: .align-center}
+
+![LLS-ncs5500-coe-disj-2-fig.png]({{site.baseurl}}/images/LLS-ncs5500-coe-disj-2-fig.png){: .align-center}
+
+![LLS-ncs5500-coe-disj-1-details-fig.png]({{site.baseurl}}/images/LLS-ncs5500-coe-disj-1-details-fig.png){: .align-center}
+
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1372](https://youtu.be/nkL301rckL4?t=1372)
 
@@ -103,8 +112,7 @@ Color: 10000, End-point: 1.1.1.2
 
   Policy Packets/Bytes Switched: 299131510/302720539484
 ```
-
-![ncs5500-LLS-fig-1.png]({{site.baseurl}}/images/ncs5500-LLS-fig-1.png){: .align-center} 
+ 
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
