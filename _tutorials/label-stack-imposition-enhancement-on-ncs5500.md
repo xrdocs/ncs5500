@@ -4,7 +4,7 @@ date: '2019-12-12 16:37 +0100'
 title: Label Stack Imposition Enhancement on NCS5500
 author: Jose Liste
 excerpt: >-
-  Presentation and demonstration of the label stack imposition enhancement
+  Presentation and demonstration of the label stack imposition enhancements
   brought with IOS XR 7.0.1 on NCS5500
 position: hidden
 ---
