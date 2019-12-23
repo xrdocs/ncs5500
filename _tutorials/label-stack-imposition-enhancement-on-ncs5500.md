@@ -22,9 +22,20 @@ INTRO
 
 ## Default ASIC capabilities
 
+
+![LLS-ncs5500-before-transport-fig.png]({{site.baseurl}}/images/LLS-ncs5500-before-transport-fig.png){: .align-center}
+
+![LLS-ncs5500-before-trans_service-fig.png]({{site.baseurl}}/images/LLS-ncs5500-before-trans_service-fig.png){: .align-center}
+
+
 Shortcut in the video123: [https://youtu.be/nkL301rckL4?t=75](https://youtu.be/nkL301rckL4?t=75)
 
 ## Details on the enhancement
+
+
+![LLS-ncs5500-after-transport-fig.png]({{site.baseurl}}/images/LLS-ncs5500-after-transport-fig.png){: .align-center}
+
+![LLS-ncs5500-after-trans_service-fig.png]({{site.baseurl}}/images/LLS-ncs5500-after-trans_service-fig.png){: .align-center}
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=229](https://youtu.be/nkL301rckL4?t=229)
 
