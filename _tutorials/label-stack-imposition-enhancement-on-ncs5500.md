@@ -91,7 +91,7 @@ Color: 10000, End-point: 1.1.1.2
   Policy Packets/Bytes Switched: 299131510/302720539484
 ```
 
-![11-Buffers.jpg]({{site.baseurl}}/images/11-Buffers.jpg){: .align-center} 
+![ncs5500-LLS-fig-1.jpg]({{site.baseurl}}/images/ncs5500-LLS-fig-1.jpg){: .align-center} 
 
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
