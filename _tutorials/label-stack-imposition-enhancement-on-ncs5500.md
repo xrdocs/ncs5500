@@ -91,6 +91,8 @@ Color: 10000, End-point: 1.1.1.2
   Policy Packets/Bytes Switched: 299131510/302720539484
 ```
 
+<iframe src="https://cisco.app.box.com/embed/s/ir7iwqdzu07uqh4quh57y63r8imk13vd?sortColumn=date&view=list" width="800" height="550" frameborder="0" allowfullscreen webkitallowfullscreen msallowfullscreen></iframe>
+
 Shortcut in the video: [https://youtu.be/nkL301rckL4?t=1936](https://youtu.be/nkL301rckL4?t=1936)
 
 ### Service removal with NSO
