@@ -18,7 +18,7 @@ INTRO
 
 ## Demo/Video
 
-<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/watch?v=nkL301rckL4" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/nkL301rckL4?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
 
 ## Default ASIC capabilities
 
