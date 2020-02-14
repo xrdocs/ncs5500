@@ -7,12 +7,12 @@ excerpt: WIP document describing the various options behind the NCS5500 hw-modul
 tags:
   - iosxr
   - dnx
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS5500 Hw Profiles" %} 
 
 |   |   |
-|:-----:|:-----:|
+|:-----|:-----|
 | 2020-Feb-14 | Document Creation |
 
 You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
@@ -45,7 +45,7 @@ Many thanks to:
 
 ## Hardware Module CLI hierarchy
 
-For this article, we use IOS XR 6.6.3 and 7.0.2. The document will be updated with new entries with new releases.  
+For this article, we use IOS XR 6.6.3 and 7.0.2. The document will be updated regularly.  
 
 ### Graphical view of the 6.6.3 structure
 
@@ -310,8 +310,7 @@ On NC57-18DD-SE line cards, the ports from 0 to 17 and 24-29 should be configure
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:NCS5500-702(config)#do sh int brief | i "(0/3/0/28|0/3/0/29)"
+<code>RP/0/RP0/CPU0:NCS5500-702(config)#do sh int brief | i "(0/3/0/28|0/3/0/29)"
          Hu0/3/0/28  admin-down  admin-down               ARPA  1514  100000000
          Hu0/3/0/29  admin-down  admin-down               ARPA  1514  100000000
 RP/0/RP0/CPU0:NCS5500-702(config)#hw-module port-range 28 29 loc 0/3/CPU0 mode 400
@@ -326,8 +325,7 @@ LC/0/3/CPU0:Feb  2 22:37:56 : ifmgr[163]: %PKT_INFRA-LINEPROTO-5-UPDOWN : Line p
 RP/0/RP0/CPU0:Feb  2 22:37:57 : config[67778]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'root'. Use 'show configuration commit changes 1000000037' to view the changes.
 RP/0/RP0/CPU0:NCS5500-702(config)#do sh int brief | i "(0/3/0/28|0/3/0/29)"
          FH0/3/0/28        down        down               ARPA  1514  400000000
-RP/0/RP0/CPU0:NCS5500-702(config)#
-</code>
+RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
@@ -1299,4 +1297,4 @@ Note that several profiles are orthogonal and can not be used simultaneously, li
 | hw-module fib mpls label lsr-optimized | hw-module fib ipv4 scale internet-optimized |
 | hw-module fib mpls ldp lsr-optimized | No EVPN Services |
 
-Bookmark this link and check regularly for updates.
+Bookmark this link and check it regularly for updates.
