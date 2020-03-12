@@ -14,6 +14,7 @@ position: top
 |   |   |
 |:-----|:-----|
 | 2020-Feb-14 | Document Creation |
+| 2020-Mar-12 | Correction of the max-classmap-size description |
 
 You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
@@ -42,6 +43,7 @@ Many thanks to:
 - Rajeev Mishra
 - Aleksandar Vidakovic
 - Neeraj Garg
+- Riadh Habibi
 
 ## Hardware Module CLI hierarchy
 
@@ -623,7 +625,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 
 ![05.png]({{site.baseurl}}/images/05.png){: .align-center}
 
-The size of the classmap represents the number of match statements it contains. It has a direct impact on the  number of L2 interfaces where you can apply QoS.
+The max-classmap-size represents the maximum number of class-map we can use in policy-map. It has a direct impact on the  number of L2 interfaces where you can apply QoS.
 
 By default, class-maps are are configured to contain 32 match statements. With the 4096 available counters, it translates into a maximum of 256 L2 interfaces per NPU, 128 if used on bundle interfaces (with the default 2-counter mode we will detail below).
 
