@@ -111,7 +111,7 @@ EVPN All Active Multi-Homing Config: (Used in this tutorial)
      interface Bundle-Ether 1
       ethernet-segment
        <mark>identifier type 0 11.11.11.11.11.11.11.11.11</mark>
-       <mark>bgp route-target 1111.1111.1111</mark>>
+       <mark>bgp route-target 1111.1111.1111</mark>
       !
      !
 </code>
