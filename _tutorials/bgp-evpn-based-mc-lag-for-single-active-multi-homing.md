@@ -211,10 +211,11 @@ RP/0/RP0/CPU0:Leaf-2#
 </pre>
 </div>
 
-Above output shows that the bundle interfaces are up. Next, lets provision the EVPN layer-2 service between Leaf-1, Leaf-2 and Leaf-5 and then check the status of ethernet segment. 
+Above output shows that the bundle interfaces are up. Next, lets provision the EVPN layer-2 service. 
+
 
 ### Task 3: Configure BGP EVPN based layer-2 multipoint service
-For detailed explanation of configuring BGP EVPN based layer-2 service, refer to this [post.](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)  
+Configure the EVPN layer-2 service between Leaf-1, Leaf-2 and Leaf-5 and then check the status of ethernet segment. For detailed explanation of configuring BGP EVPN based layer-2 service, refer to this [post.](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)  
   
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/single-active-layer2-stretch.png?raw=true)
 
