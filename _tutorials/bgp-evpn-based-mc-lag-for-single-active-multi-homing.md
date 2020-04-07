@@ -434,7 +434,7 @@ Ping from Host-1 to Host-5 shows that the hosts are reachable.
 <pre class="highlight">
 <code>
 
-Host-1
+Host-1:
 
 RP/0/RSP0/CPU0:Host-1#ping 10.0.0.50
 Type escape sequence to abort.
@@ -455,7 +455,7 @@ In the below output from Leaf-5 we can see the MAC address of Host-1 is learnt f
 <pre class="highlight">
 <code>
 Leaf-5 – Route advertisement from Leaf-1
-RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn rd 1.1.1.1:10
+RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn <mark>rd 1.1.1.1:10</mark>
 
 Status codes: s suppressed, d damped, h history, * valid, > best
               i - internal, r RIB-failure, S stale, N Nexthop-discard
@@ -465,7 +465,7 @@ Route Distinguisher: 1.1.1.1:10
 *>i[1][0011.1111.1111.1111.1111][0]/120
                       1.1.1.1                       100      0 i
 * i                   1.1.1.1                       100      0 i
-*>i[2][0][48][6c9c.ed6d.1d90][0]/104
+*>i<mark>[2][0][48][6c9c.ed6d.1d90][0]/104</mark>
                       1.1.1.1                       100      0 i
 * i                   1.1.1.1                       100      0 i
 *>i[3][0][32][1.1.1.1]/80
@@ -478,16 +478,7 @@ RP/0/RP0/CPU0:Leaf-5#
 
 Leaf-5 – Route advertisement from Leaf-2
 
-RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn rd 2.2.2.2:10
-BGP router identifier 5.5.5.5, local AS number 65001
-BGP generic scan interval 60 secs
-Non-stop routing is enabled
-BGP table state: Active
-Table ID: 0x0   RD version: 0
-BGP main routing table version 55
-BGP NSR Initial initsync version 1 (Reached)
-BGP NSR/ISSU Sync-Group versions 0/0
-BGP scan interval 60 secs
+RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn <mark>rd 2.2.2.2:10</mark>
 
 Status codes: s suppressed, d damped, h history, * valid, > best
               i - internal, r RIB-failure, S stale, N Nexthop-discard
@@ -519,7 +510,7 @@ RP/0/RP0/CPU0:Leaf-1#show evpn evi vpn-id 10 mac
 VPN-ID     Encap  MAC address    IP address      Nexthop                    Label   
 ---------- ------ -------------- --------------- -------------------------- --------
 10         MPLS   6c9c.ed6d.1d90 ::              Bundle-Ether11.10          24004   
-10         MPLS   a03d.6f3d.5447 ::              5.5.5.5                    24010   
+10         MPLS   <mark>a03d.6f3d.5447 ::              5.5.5.5</mark>                    24010   
 RP/0/RP0/CPU0:Leaf-1#
 
 Leaf-2
@@ -528,7 +519,7 @@ RP/0/RP0/CPU0:Leaf-2#show evpn evi vpn-id 10 mac
 VPN-ID     Encap  MAC address    IP address      Nexthop                    Label   
 ---------- ------ -------------- --------------- -------------------------- --------
 10         MPLS   6c9c.ed6d.1d90 ::              1.1.1.1                    24004   
-10         MPLS   a03d.6f3d.5447 ::              5.5.5.5                    24010   
+10         MPLS   <mark>a03d.6f3d.5447 ::              5.5.5.5</mark>                    24010   
 RP/0/RP0/CPU0:Leaf-2#
 
 
@@ -537,7 +528,7 @@ RP/0/RP0/CPU0:Leaf-5#show evpn evi vpn-id 10 mac
 
 VPN-ID     Encap  MAC address    IP addres       Nexthop                    Label   
 ---------- ------ -------------- --------------- -------------------------- --------
-10         MPLS   6c9c.ed6d.1d90 ::              1.1.1.1                    24004   
+10         MPLS   <mark>6c9c.ed6d.1d90 ::              1.1.1.1</mark>                    24004   
 10         MPLS   a03d.6f3d.5447 ::              TenGigE0/0/0/45.10         24010   
 RP/0/RP0/CPU0:Leaf-5#
 
