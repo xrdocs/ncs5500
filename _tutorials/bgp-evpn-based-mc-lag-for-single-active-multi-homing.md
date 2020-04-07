@@ -640,5 +640,5 @@ RP/0/RP0/CPU0:Leaf-2#
 </pre>
 </div>
 
-Also we can observe in the ARP table output of Leaf-1 and Leaf-2 that the ARP entry for Host-1 is only programmed on Leaf-1. This is becuase of the single-active behavior of ethernet-segment and that Leaf-1 is designated-forwarder for that ethernet-segment. This verifies that single-active dual-homing is operational and at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
+Finally we can observe in the ARP table output of Leaf-1 and Leaf-2 that the ARP entry for Host-1 is only programmed on Leaf-1. This is becuase of the single-active behavior of ethernet-segment and Leaf-1 being the designated-forwarder. This concludes the BGP-EVPN single-active implementation, for further technical details refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
 
