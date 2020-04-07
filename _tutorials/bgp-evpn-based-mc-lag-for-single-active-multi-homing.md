@@ -603,22 +603,42 @@ Configure the static route on Host-1 and Host-5 to reach to the default gateway 
 </div>
 
 
-As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, lets observe the routing table of Leaf-5. The below output shows that Host-1's IP 10.0.0.10/32 is reachable via only Leaf-1, as Leaf-1 is the designated-forwarder for ethernet-segment for Host-1. 
+As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, lets observe the routing table of Leaf-5. The below output shows that Host-1's IP 10.0.0.10/32 is reachable via only Leaf-1. 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+Leaf-5:
+RP/0/RP0/CPU0:Leaf-5#show route vrf 10
 Gateway of last resort is not set
 
 C    10.0.0.0/24 is directly connected, 00:41:23, BVI10
 L    10.0.0.1/32 is directly connected, 00:41:23, BVI10
 B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1</mark> (nexthop in vrf default), 00:46:13
 RP/0/RP0/CPU0:Leaf-5#
+
+Leaf-1:
+RP/0/RP0/CPU0:Leaf-1#show arp vrf 10
+
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
+10.0.0.10       00:04:16   6c9c.ed6d.1d91  Dynamic    ARPA  BVI10
+RP/0/RP0/CPU0:Leaf-1#
+
+Leaf-2:
+RP/0/RP0/CPU0:Leaf-2#show arp vrf 10
+
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
+RP/0/RP0/CPU0:Leaf-2#
 </code>
 </pre>
 </div>
 
-Also we can observe in the ARP table on Leaf-1 and Leaf-2, that ARP entry for Host-1 is only programmed on Leaf-1.
-
-This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
+Also we can observe in the ARP table output of Leaf-1 and Leaf-2 that the ARP entry for Host-1 is only programmed on Leaf-1. This is becuase of the single-active behavior of ethernet-segment and that Leaf-1 is designated-forwarder for that ethernet-segment. This verifies that single-active dual-homing is operational and at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
 
