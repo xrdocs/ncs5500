@@ -320,6 +320,245 @@ l2vpn
 </pre>
 </div>
 
+Host-5 is single-homed to Leaf-5, below is the Host-5 configuration. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+Host-5
+
+interface TenGigE0/0/1/3.10
+ description "Link to Leaf-5"
+ ipv4 address 10.0.0.50 255.255.255.0
+ encapsulation dot1q 10
+
+</code>
+</pre>
+</div>
+
+### Task 4: Verify that EVPN based single-active multi-homing is operational
+
+As we have configured the BGP EVPN layer-2 service as well as the ethernet segment, lets verify the ethernet segment status by “show evpn ethernet-segment detail”. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-1
+
+RP/0/RP0/CPU0:Leaf-1#show evpn ethernet-segment detail
+Legend:
+
+Ethernet Segment Id      Interface                          Nexthops            
+------------------------ ---------------------------------- --------------------
+0011.1111.1111.1111.1111 BE11                               1.1.1.1
+                                                            2.2.2.2
+  ES to BGP Gates   : Ready
+  ES to L2FIB Gates : Ready
+  Main port         :
+     Interface name : Bundle-Ether11
+     Interface MAC  : 00bc.601c.d0db
+     IfHandle       : 0x08000144
+     State          : Up
+     Redundancy     : Not Defined
+  ESI type          : 0
+     Value          : 11.1111.1111.1111.1111
+  ES Import RT      : 1111.1111.1111 (Local)
+  Source MAC        : 0000.0000.0000 (N/A)
+  Topology          :
+     Operational    : MH, Single-active
+     Configured     : Single-active (AApS)
+  Service Carving   : Auto-selection
+     Multicast      : Disabled
+  Peering Details   :
+     1.1.1.1 [MOD:P:00]
+     2.2.2.2 [MOD:P:00]
+
+  Service Carving Results:
+     Forwarders     : 1
+     Permanent      : 0
+     Elected        : 1
+     Not Elected    : 0
+  MAC Flushing mode : STP-TCN
+  Peering timer     : 3 sec [not running]
+  Recovery timer    : 30 sec [not running]
+  Carving timer     : 0 sec [not running]
+  Local SHG label   : 24005
+  Remote SHG labels : 1
+              24005 : nexthop 2.2.2.2
+
+
+Leaf-2
+
+RP/0/RP0/CPU0:Leaf-2#sh evpn ethernet-segment detail 
+Legend:
+
+Ethernet Segment Id      Interface                          Nexthops            
+------------------------ ---------------------------------- --------------------
+0011.1111.1111.1111.1111 BE12                               1.1.1.1
+                                                            2.2.2.2
+  ES to BGP Gates   : Ready
+  ES to L2FIB Gates : O
+  Main port         :
+     Interface name : Bundle-Ether12
+     Interface MAC  : 00bc.600e.40db
+     IfHandle       : 0x0800011c
+     State          : Up
+     Redundancy     : Not Defined
+  ESI type          : 0
+     Value          : 11.1111.1111.1111.1111
+  ES Import RT      : 1111.1111.1111 (Local)
+  Source MAC        : 0000.0000.0000 (N/A)
+  Topology          :
+     Operational    : MH, Single-active
+     Configured     : Single-active (AApS)
+  Service Carving   : Auto-selection
+     Multicast      : Disabled
+  Peering Details   :
+     1.1.1.1 [MOD:P:00]
+     2.2.2.2 [MOD:P:00]
+
+  Service Carving Results:
+     Forwarders     : 1
+     Permanent      : 0
+     Elected        : 0
+     Not Elected    : 1
+  MAC Flushing mode : STP-TCN
+  Peering timer     : 3 sec [not running]
+  Recovery timer    : 30 sec [not running]
+  Carving timer     : 0 sec [not running]
+  Local SHG label   : 24005
+  Remote SHG labels : 1
+              24005 : nexthop 1.1.1.1
+
+
+</code>
+</pre>
+</div>
+
+In the above output we can observe that Leaf-1 has bundle-ethernet 11 and Leaf-2 has bundle-ethernet 12 in ‘Up’ state. Both have two next-hops, one being the Leaf itself and the second next-hop is the peer-leaf/PE. Operational state of the ethernet-segment is multi-homed with single-active load-balancing. 
+
+The output of both the Leafs show that both are forwarders of 1 subnet (10.0.0.x/24 in our case), while Leaf-1 is elected as Designated Forwarder (DF) and Leaf-2 is the non-DF. This means that any BUM traffic that comes to Leaf-2 will not be forwarded and only Leaf-1 being the DF will forward it. 
+
+Ping from Host-1 to Host-5 shows that the hosts are reachable.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+Host-1
+
+RP/0/RSP0/CPU0:Host-1#ping 10.0.0.50
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.50, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+RP/0/RSP0/CPU0:Host-1#
+
+</code>
+</pre>
+</div>
+
+Let’s take a look at the BGP EVPN control-plane to verify that only Leaf-1 being the designated-forwarder for EVI 10 is advertising itself the next-hop and Leaf-2 is not announcing any MAC addresses related to EVI 10. This is due to the fact that for single-active load-balancing only one Leaf-1 should advertise the reachability. 
+
+In the below output from Leaf-5 we can see the MAC address of Host-1 is learnt from Leaf-1 (rd 1.1.1.1:10) in a route-type 2 advertisement. As we look at Leaf-2’s route distinguishers (rd 2.2.2.2:10) we see that no MAC address is advertised for EVI 10. This verifies that only Leaf-1 will be programmed in Leaf-5 as the next-hop to reach to Host-1.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-5 – Route advertisement from Leaf-1
+RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn rd 1.1.1.1:10
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 1.1.1.1:10
+*>i[1][0011.1111.1111.1111.1111][0]/120
+                      1.1.1.1                       100      0 i
+* i                   1.1.1.1                       100      0 i
+*>i[2][0][48][6c9c.ed6d.1d90][0]/104
+                      1.1.1.1                       100      0 i
+* i                   1.1.1.1                       100      0 i
+*>i[3][0][32][1.1.1.1]/80
+                      1.1.1.1                       100      0 i
+* i                   1.1.1.1                       100      0 i
+
+Processed 3 prefixes, 6 paths
+RP/0/RP0/CPU0:Leaf-5#
+
+
+Leaf-5 – Route advertisement from Leaf-2
+
+RP/0/RP0/CPU0:Leaf-5#show bgp l2vpn evpn rd 2.2.2.2:10
+BGP router identifier 5.5.5.5, local AS number 65001
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 0
+BGP main routing table version 55
+BGP NSR Initial initsync version 1 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 2.2.2.2:10
+*>i[1][0011.1111.1111.1111.1111][0]/120
+                      2.2.2.2                       100      0 i
+* i                   2.2.2.2                       100      0 i
+*>i[3][0][32][2.2.2.2]/80
+                      2.2.2.2                       100      0 i
+* i                   2.2.2.2                       100      0 i
+
+Processed 2 prefixes, 4 paths
+RP/0/RP0/CPU0:Leaf-5#
+
+</code>
+</pre>
+</div>
+
+Lastly, run “show evpn evi vpn-id 10 mac” command to verify the MAC address learnt for EVI 10. We see that Leaf-1 and Leaf-2 have learnt Host-5’s MAC address with Leaf-5 as the next-hop.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-1
+RP/0/RP0/CPU0:Leaf-1#show evpn evi vpn-id 10 mac
+
+VPN-ID     Encap  MAC address    IP address      Nexthop                    Label   
+---------- ------ -------------- --------------- -------------------------- --------
+10         MPLS   6c9c.ed6d.1d90 ::              Bundle-Ether11.10          24004   
+10         MPLS   a03d.6f3d.5447 ::              5.5.5.5                    24010   
+RP/0/RP0/CPU0:Leaf-1#
+
+Leaf-2
+RP/0/RP0/CPU0:Leaf-2#show evpn evi vpn-id 10 mac
+
+VPN-ID     Encap  MAC address    IP address      Nexthop                    Label   
+---------- ------ -------------- --------------- -------------------------- --------
+10         MPLS   6c9c.ed6d.1d90 ::              1.1.1.1                    24004   
+10         MPLS   a03d.6f3d.5447 ::              5.5.5.5                    24010   
+RP/0/RP0/CPU0:Leaf-2#
+
+
+Leaf-5
+RP/0/RP0/CPU0:Leaf-5#show evpn evi vpn-id 10 mac
+
+VPN-ID     Encap  MAC address    IP addres       Nexthop                    Label   
+---------- ------ -------------- --------------- -------------------------- --------
+10         MPLS   6c9c.ed6d.1d90 ::              1.1.1.1                    24004   
+10         MPLS   a03d.6f3d.5447 ::              TenGigE0/0/0/45.10         24010   
+RP/0/RP0/CPU0:Leaf-5#
+
+</code>
+</pre>
+</div>
+
+As we observe Leaf-5’s output, we see that the Leaf-5 has programmed Leaf-1 as the only next-hop for Host-1’s MAC address reachability, although Host-1 is multi-homed to both Leaf-1 and Leaf-2. This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
+
 
 
   
