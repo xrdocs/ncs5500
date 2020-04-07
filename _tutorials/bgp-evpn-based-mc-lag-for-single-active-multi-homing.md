@@ -549,7 +549,7 @@ Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1, Leaf-2 and Leaf-5.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-BGP-EVPN Distributed anycast gateway configuration.
+BGP-EVPN distributed anycast gateway configuration.
 
 Configure VRFs on Leaf-1, Leaf-2 and Leaf-5.
 
@@ -597,6 +597,16 @@ Configure the static route on Host-1 and Host-5 to reach to the default gateway 
        address-family ipv4 unicast
         0.0.0.0/0 10.0.0.1
        !
+
+</code>
+</pre>
+</div>
+
+
+As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, lets observe the routing table of Leaf-5.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 
 </code>
 </pre>
