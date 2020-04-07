@@ -221,34 +221,34 @@ For detailed explanation of configuring BGP EVPN based layer-2 service, refer to
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-Leaf-1
+Leaf-1:
 
 interface Bundle-Ether 11.10 l2transport
-     encapsulation dot1q 10
-     rewrite ingress tag pop 1 symmetric
-    !
+  encapsulation dot1q 10
+  rewrite ingress tag pop 1 symmetric
+  !
 l2vpn
-     bridge group bg-1
-      bridge-domain bd-10
-       interface Bundle-Ether 11.10
-       !
-    !
+  bridge group bg-1
+   bridge-domain bd-10
+    interface Bundle-Ether 11.10
+   !
+ !
 evpn
-     evi 10
-      bgp
-       route-target import 1001:11
-       route-target export 1001:11
-      !
-      advertise-mac
-      !
-     source interface loopback 0
-     !
+  evi 10
+    bgp
+     route-target import 1001:11
+     route-target export 1001:11
+    !
+    advertise-mac
+    !
+  source interface loopback 0
+ !
 l2vpn
-     bridge group bg-1
-      bridge-domain bd-10
-       evi 10
-       !
-      !
+  bridge group bg-1
+   bridge-domain bd-10
+    evi 10
+    !
+   !
 
 Leaf-2
 
