@@ -39,7 +39,7 @@ As per the reference topology Host-1 is multi-homed to Leaf-1 and Leaf-2 via LAC
 <pre class="highlight">
 <code>
 
-Host-1
+Host-1:
 
 interface Bundle-Ether 11
  description "Bundle to Leaf-1"
@@ -83,13 +83,12 @@ Configure Leaf-1 and Leaf-2 to provision single-active multi-homing to host-1. T
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/ethernet-segment-single-active-multi-homing.png?raw=true)
 
 Configure the bundles on the Leaf-1 and Leaf-2. Use below configuration for the Leafs.
+**Note:** For single-active multi-homing, the LACP System MAC address should not be configured on ethernet bundle interface.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-**Note:** For single-active multi-homing, the LACP System MAC address should not be configured on ethernet bundle interface.
-
-Leaf-1
+Leaf-1:
 
 interface TenGigE0/0/0/47
  description "Link to Host-1" 
@@ -117,7 +116,7 @@ Configure Ethernet Segment id (ESI) for the bundle interface to enable multi-hom
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-Leaf-1
+Leaf-1:
 
 evpn
  interface Bundle-Ether 11
@@ -128,7 +127,7 @@ evpn
   !
 
 
-Leaf-2
+Leaf-2:
 
 evpn
  interface Bundle-Ether 12
