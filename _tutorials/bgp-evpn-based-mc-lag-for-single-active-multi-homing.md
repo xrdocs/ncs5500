@@ -546,6 +546,60 @@ Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1, Leaf-2 and Leaf-5.
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/single-active-layer3-irb.png?raw=true)
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+Configure VRFs on Leaf-1, Leaf-2 and Leaf-5.
+
+      vrf 10
+       address-family ipv4 unicast
+        import route-target
+         10:10
+        !
+        export route-target
+         10:10
+       !
+
+
+      router bgp 65001
+       address-family vpnv4 unicast
+       !
+       vrf 10
+        rd auto
+        address-family ipv4 unicast
+         additional-paths receive
+         maximum-paths ibgp 10
+         redistribute connected
+      !
+
+Configure BVI as disstributed anycast gateway
+
+      interface BVI 10
+       host-routing
+       vrf 10
+       ipv4 address 10.0.0.1 255.255.255.0
+       mac-address 1001.1001.1001
+      !
+
+      l2vpn
+       bridge group bg-1
+        bridge-domain bd-10
+        !
+        routed interface BVI 10
+        evi 10
+     !
+
+Configure the static route on Host-1 and Host-5 to reach to the default gateway on Leafs.
+
+      router static
+       address-family ipv4 unicast
+        0.0.0.0/0 10.0.0.1
+       !
+
+</code>
+</pre>
+</div>
 
 
 
