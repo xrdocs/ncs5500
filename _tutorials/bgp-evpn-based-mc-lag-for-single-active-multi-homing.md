@@ -145,12 +145,12 @@ Use “show bundle bundle-ether <bundle-id>” CLI command to verify the state o
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-Leaf-1
+Leaf-1:
 
-RP/0/RP0/CPU0:Leaf-1#sh bundle bundle-ether 11
+RP/0/RP0/CPU0:Leaf-1#show bundle bundle-ether 11
 
 Bundle-Ether11
-  Status:                                    Up
+  Status:                                    <mark>Up</mark>
   Local links <active/standby/configured>:   1 / 0 / 1
   Local bandwidth <effective/available>:     10000000 (10000000) kbps
   MAC address (source):                      00bc.601c.d0da (Chassis pool)
@@ -162,7 +162,7 @@ Bundle-Ether11
     Link order signaling:                    Not configured
     Hash type:                               Default
     Locality threshold:                      None
-  LACP:                                      Operational
+  LACP:                                      <mark>Operational</mark>
     Flap suppression timer:                  Off
     Cisco extensions:                        Disabled
     Non-revertive:                           Disabled
@@ -182,7 +182,7 @@ Leaf-2
 RP/0/RP0/CPU0:Leaf-2#sh bundle bundle-ether 12
 
 Bundle-Ether12
-  Status:                                    Up
+  Status:                                    <mark>Up</mark>
   Local links <active/standby/configured>:   1 / 0 / 1
   Local bandwidth <effective/available>:     10000000 (10000000) kbps
   MAC address (source):                      00bc.600e.40da (Chassis pool)
@@ -194,7 +194,7 @@ Bundle-Ether12
     Link order signaling:                    Not configured
     Hash type:                               Default
     Locality threshold:                      None
-  LACP:                                      Operational
+  LACP:                                      <mark>Operational</mark>
     Flap suppression timer:                  Off
     Cisco extensions:                        Disabled
     Non-revertive:                           Disabled
@@ -207,7 +207,6 @@ Bundle-Ether12
   Te0/0/0/47            Local            Active       0x8000, 0x0003    10000000
       Link is Active
 RP/0/RP0/CPU0:Leaf-2#
-
 </code>
 </pre>
 </div>
