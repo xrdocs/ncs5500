@@ -84,3 +84,242 @@ l2vpn
 </code>
 </pre>
 </div>
+
+### Task 2: Configure EVPN based single-active multi-homing
+
+Configure Leaf-1 and Leaf-2 to provision single-active multi-homing to host-1. The set of links from Host-1 to the Leafs will be configured as Ethernet Segment on the Leafs. NCS 5500 platform supports static LAG as well as LACP, however in this guide we are using LACP for link aggregation.
+
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/ethernet-segment-single-active-multi-homing.png?raw=true)
+
+Configure the bundles on the Leaf-1 and Leaf-2. Use below configuration for the Leafs.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+**Note:** For single-active multi-homing, the LACP System MAC address should not be configured on ethernet bundle interface.
+
+Leaf-1
+
+interface TenGigE0/0/0/47
+ description "Link to Host-1" 
+ bundle id 11 mode active
+!
+interface Bundle-Ether 11
+ description "Bundle to Host-1"
+!
+
+Leaf-2
+
+interface TenGigE0/0/0/47
+ description "Link to Host-1" 
+ bundle id 12 mode active
+!
+interface Bundle-Ether 12
+ description "Bundle to Host-1"
+!
+</code>
+</pre>
+</div>
+
+Configure Ethernet Segment id (ESI) for the bundle interface to enable multi-homing of the host. Use the identical ethernet-segment configuration on both the Leafs, though the ethernet-bundle interface is different for both Leafs. Configure load-balancing mode to single-active using “single-active” keyword for ethernet-segment.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-1
+
+evpn
+ interface Bundle-Ether 11
+  ethernet-segment
+   identifier type 0 11.11.11.11.11.11.11.11.11
+   load-balancing-mode single-active
+   bgp route-target 1111.1111.1111
+  !
+
+
+Leaf-2
+
+evpn
+ interface Bundle-Ether 12
+  ethernet-segment
+   identifier type 0 11.11.11.11.11.11.11.11.11
+   load-balancing-mode single-active
+   bgp route-target 1111.1111.1111
+  !
+</code>
+</pre>
+</div>
+
+Use “show bundle bundle-ether <bundle-id>” CLI command to verify the state of the bundle interface on Leafs and Host-1.
+  
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-1
+
+RP/0/RP0/CPU0:Leaf-1#sh bundle bundle-ether 11
+
+Bundle-Ether11
+  Status:                                    Up
+  Local links <active/standby/configured>:   1 / 0 / 1
+  Local bandwidth <effective/available>:     10000000 (10000000) kbps
+  MAC address (source):                      00bc.601c.d0da (Chassis pool)
+  Inter-chassis link:                        No
+  Minimum active links / bandwidth:          1 / 1 kbps
+  Maximum active links:                      64
+  Wait while timer:                          2000 ms
+  Load balancing:                            
+    Link order signaling:                    Not configured
+    Hash type:                               Default
+    Locality threshold:                      None
+  LACP:                                      Operational
+    Flap suppression timer:                  Off
+    Cisco extensions:                        Disabled
+    Non-revertive:                           Disabled
+  mLACP:                                     Not configured
+  IPv4 BFD:                                  Not configured
+  IPv6 BFD:                                  Not configured
+
+  Port                  Device           State        Port ID         B/W, kbps
+  --------------------  ---------------  -----------  --------------  ----------
+  Te0/0/0/47            Local            Active       0x8000, 0x0003    10000000
+      Link is Active
+RP/0/RP0/CPU0:Leaf-1#
+
+
+Leaf-2
+
+RP/0/RP0/CPU0:Leaf-2#sh bundle bundle-ether 12
+
+Bundle-Ether12
+  Status:                                    Up
+  Local links <active/standby/configured>:   1 / 0 / 1
+  Local bandwidth <effective/available>:     10000000 (10000000) kbps
+  MAC address (source):                      00bc.600e.40da (Chassis pool)
+  Inter-chassis link:                        No
+  Minimum active links / bandwidth:          1 / 1 kbps
+  Maximum active links:                      64
+  Wait while timer:                          2000 ms
+  Load balancing:                            
+    Link order signaling:                    Not configured
+    Hash type:                               Default
+    Locality threshold:                      None
+  LACP:                                      Operational
+    Flap suppression timer:                  Off
+    Cisco extensions:                        Disabled
+    Non-revertive:                           Disabled
+  mLACP:                                     Not configured
+  IPv4 BFD:                                  Not configured
+  IPv6 BFD:                                  Not configured
+
+  Port                  Device           State        Port ID         B/W, kbps
+  --------------------  ---------------  -----------  --------------  ----------
+  Te0/0/0/47            Local            Active       0x8000, 0x0003    10000000
+      Link is Active
+RP/0/RP0/CPU0:Leaf-2#
+
+</code>
+</pre>
+</div>
+
+Above output shows that the bundle interfaces are up. Next, lets provision the EVPN layer-2 service between Leaf-1, Leaf-2 and Leaf-5 and then check the status of ethernet segment. 
+
+### Task 3: Configure BGP EVPN based layer-2 multipoint service
+For detailed explanation of configuring BGP EVPN based layer-2 service, refer to this [post.](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)  
+  
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/single-active-layer2-stretch.png?raw=true)
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+Leaf-1
+
+interface Bundle-Ether 11.10 l2transport
+     encapsulation dot1q 10
+     rewrite ingress tag pop 1 symmetric
+    !
+l2vpn
+     bridge group bg-1
+      bridge-domain bd-10
+       interface Bundle-Ether 11.10
+       !
+    !
+evpn
+     evi 10
+      bgp
+       route-target import 1001:11
+       route-target export 1001:11
+      !
+      advertise-mac
+      !
+     source interface loopback 0
+     !
+l2vpn
+     bridge group bg-1
+      bridge-domain bd-10
+       evi 10
+       !
+      !
+
+Leaf-2
+
+interface Bundle-Ether 12.10 l2transport
+     encapsulation dot1q 10
+     rewrite ingress tag pop 1 symmetric
+    !
+l2vpn
+     bridge group bg-1
+      bridge-domain bd-10
+       interface Bundle-Ether 12.10
+       !
+    !
+evpn
+     evi 10
+      bgp
+       route-target import 1001:11
+       route-target export 1001:11
+      !
+      advertise-mac
+      !
+     source interface loopback 0
+     !
+l2vpn
+     bridge group bg-1
+      bridge-domain bd-10
+       evi 10
+       !
+      !
+
+
+Leaf-5
+
+interface TenGigE0/0/0/45.10 l2transport
+ encapsulation dot1q 10
+ rewrite ingress tag pop 1 symmetric
+!
+evpn
+ evi 10
+  bgp
+   route-target import 1001:11
+   route-target export 1001:11
+  !
+  advertise-mac
+  !
+ !
+ source interface Loopback0
+!
+l2vpn
+ bridge group bg-1
+  bridge-domain bd-10
+   interface TenGigE0/0/0/45.10
+   !
+   evi 10
+   !
+  !
+</code>
+</pre>
+</div>
+
+
+
+  
