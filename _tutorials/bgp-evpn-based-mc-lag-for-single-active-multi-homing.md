@@ -333,15 +333,15 @@ As we have configured the BGP EVPN layer-2 service as well as the ethernet segme
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-Leaf-1
+Leaf-1:
 
 RP/0/RP0/CPU0:Leaf-1#show evpn ethernet-segment detail
 Legend:
 
 Ethernet Segment Id      Interface                          Nexthops            
 ------------------------ ---------------------------------- --------------------
-0011.1111.1111.1111.1111 BE11                               1.1.1.1
-                                                            2.2.2.2
+0011.1111.1111.1111.1111 BE11                               <mark>1.1.1.1</mark>
+                                                            <mark>2.2.2.2</mark>
   ES to BGP Gates   : Ready
   ES to L2FIB Gates : Ready
   Main port         :
@@ -355,8 +355,8 @@ Ethernet Segment Id      Interface                          Nexthops
   ES Import RT      : 1111.1111.1111 (Local)
   Source MAC        : 0000.0000.0000 (N/A)
   Topology          :
-     Operational    : MH, Single-active
-     Configured     : Single-active (AApS)
+     Operational    : <mark>MH, Single-active</mark>
+     Configured     : <mark>Single-active (AApS)</mark>
   Service Carving   : Auto-selection
      Multicast      : Disabled
   Peering Details   :
@@ -364,9 +364,9 @@ Ethernet Segment Id      Interface                          Nexthops
      2.2.2.2 [MOD:P:00]
 
   Service Carving Results:
-     Forwarders     : 1
+     Forwarders     : <mark>1</mark>
      Permanent      : 0
-     Elected        : 1
+     Elected        : <mark>1</mark>
      Not Elected    : 0
   MAC Flushing mode : STP-TCN
   Peering timer     : 3 sec [not running]
@@ -384,8 +384,8 @@ Legend:
 
 Ethernet Segment Id      Interface                          Nexthops            
 ------------------------ ---------------------------------- --------------------
-0011.1111.1111.1111.1111 BE12                               1.1.1.1
-                                                            2.2.2.2
+0011.1111.1111.1111.1111 BE12                               <mark>1.1.1.1</mark>
+                                                            <mark>2.2.2.2</mark>
   ES to BGP Gates   : Ready
   ES to L2FIB Gates : O
   Main port         :
@@ -399,8 +399,8 @@ Ethernet Segment Id      Interface                          Nexthops
   ES Import RT      : 1111.1111.1111 (Local)
   Source MAC        : 0000.0000.0000 (N/A)
   Topology          :
-     Operational    : MH, Single-active
-     Configured     : Single-active (AApS)
+     Operational    : <mark>MH, Single-active</mark>
+     Configured     : <mark>Single-active (AApS)</mark>
   Service Carving   : Auto-selection
      Multicast      : Disabled
   Peering Details   :
@@ -408,10 +408,10 @@ Ethernet Segment Id      Interface                          Nexthops
      2.2.2.2 [MOD:P:00]
 
   Service Carving Results:
-     Forwarders     : 1
+     Forwarders     : <mark>1</mark>
      Permanent      : 0
      Elected        : 0
-     Not Elected    : 1
+     Not Elected    : <mark>1</mark>
   MAC Flushing mode : STP-TCN
   Peering timer     : 3 sec [not running]
   Recovery timer    : 30 sec [not running]
@@ -419,7 +419,6 @@ Ethernet Segment Id      Interface                          Nexthops
   Local SHG label   : 24005
   Remote SHG labels : 1
               24005 : nexthop 1.1.1.1
-
 
 </code>
 </pre>
