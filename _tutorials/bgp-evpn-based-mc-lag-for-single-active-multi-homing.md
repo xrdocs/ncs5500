@@ -603,7 +603,7 @@ Configure the static route on Host-1 and Host-5 to reach to the default gateway 
 </div>
 
 
-As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, lets observe the routing table of Leaf-5.
+As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, lets observe the routing table of Leaf-5. The below output shows that Host-1's IP 10.0.0.10/32 is reachable via only Leaf-1, as Leaf-1 is the designated-forwarder for ethernet-segment for Host-1. 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -618,6 +618,7 @@ RP/0/RP0/CPU0:Leaf-5#
 </pre>
 </div>
 
+Also we can observe in the ARP table on Leaf-1 and Leaf-2, that ARP entry for Host-1 is only programmed on Leaf-1.
 
-As we observe Leaf-5’s output, we see that the Leaf-5 has programmed Leaf-1 as the only next-hop for Host-1’s MAC address reachability, although Host-1 is multi-homed to both Leaf-1 and Leaf-2. This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
+This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
 
