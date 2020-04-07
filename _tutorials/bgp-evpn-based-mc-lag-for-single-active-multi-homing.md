@@ -538,3 +538,8 @@ RP/0/RP0/CPU0:Leaf-5#
 </div>
 
 As we observe Leaf-5’s output, we see that the Leaf-5 has programmed Leaf-1 as the only next-hop for Host-1’s MAC address reachability, although Host-1 is multi-homed to both Leaf-1 and Leaf-2. This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
+
+### Task 5: Configure the BGP-EVPN Distributed Anycast Gateway for inter-subnet routing
+For Layer-3 inter-subnet routing use case; similar to Host-1’s layer-2 reachability, Host-1’s IP will also only be reachable via Leaf-1 as next-hop. As we configure BGP-EVPN distributed anycast gateway for inter-subnet routing, we will observe the routing table of Leaf-5.
+
+Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1, Leaf-2 and Leaf-5. For detailed explanation of distributed anycast gateway, refer to this [post.]( https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)  
