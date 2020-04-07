@@ -4,8 +4,8 @@ date: '2020-04-06 21:24 -0700'
 title: BGP-EVPN based MC-LAG for Single-Active Multi-Homing
 author: Ahmad Bilal
 excerpt: >-
-  Details of implementation and configuration of BGP-EVPN based MC-LAG for
-  Single-Active Multi-Homing of devices on NCS 5500.
+  Implementation and configuration of BGP-EVPN based MC-LAG for Single-Active
+  Multi-Homing on NCS 5500.
 tags:
   - iosxr
   - cisco
