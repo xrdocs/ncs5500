@@ -315,7 +315,7 @@ Host-5 is single-homed to Leaf-5, below is the Host-5 configuration.
 <pre class="highlight">
 <code>
 
-Host-5
+Host-5:
 
 interface TenGigE0/0/1/3.10
  description "Link to Leaf-5"
