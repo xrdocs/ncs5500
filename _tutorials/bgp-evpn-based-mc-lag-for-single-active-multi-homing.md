@@ -624,7 +624,7 @@ RP/0/RP0/CPU0:Leaf-1#show arp vrf 10
 -------------------------------------------------------------------------------
 Address         Age        Hardware Addr   State      Type  Interface
 10.0.0.1        -          1001.1001.1001  Interface  ARPA  BVI10
-10.0.0.10       00:04:16   6c9c.ed6d.1d91  Dynamic    ARPA  BVI10
+<mark>10.0.0.10       00:04:16   6c9c.ed6d.1d91  Dynamic    ARPA  BVI10</mark>
 RP/0/RP0/CPU0:Leaf-1#
 
 Leaf-2:
