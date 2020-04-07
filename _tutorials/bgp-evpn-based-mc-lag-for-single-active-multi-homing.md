@@ -549,6 +549,8 @@ Configure the BGP-EVPN Distributed Anycast Gateway on Leaf-1, Leaf-2 and Leaf-5.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+BGP-EVPN Distributed anycast gateway configuration.
+
 Configure VRFs on Leaf-1, Leaf-2 and Leaf-5.
 
       vrf 10
