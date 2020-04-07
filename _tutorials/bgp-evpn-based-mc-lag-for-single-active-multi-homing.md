@@ -23,3 +23,4 @@ In this post we will cover the BGP-EVPN based Single-Active Multi-Homing of CE/H
 ## Reference Topology:
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/reference-topology-evpn-single-active.png?raw=true)
 
+For this post, we will leverage EVPN control-plane and ISIS Segment Routing based forwarding that we configured in the previous [post.](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/)
