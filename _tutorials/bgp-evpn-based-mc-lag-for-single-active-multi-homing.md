@@ -607,7 +607,13 @@ As we have now configured the BGP-EVPN distributed anycast gateway on Leafs, let
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+RP/0/RP0/CPU0:Leaf-5#sh route vrf 10
+Gateway of last resort is not set
 
+C    10.0.0.0/24 is directly connected, 00:41:23, BVI10
+L    10.0.0.1/32 is directly connected, 00:41:23, BVI10
+B    <mark>10.0.0.10/32 [200/0] via 1.1.1.1</mark> (nexthop in vrf default), 00:46:13
+RP/0/RP0/CPU0:Leaf-5#
 </code>
 </pre>
 </div>
