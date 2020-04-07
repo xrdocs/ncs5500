@@ -63,22 +63,13 @@ interface Bundle-Ether12.10 l2transport
  encapsulation dot1q 10
  rewrite ingress tag pop 1 symmetric
 !
-interface BVI10
- ipv4 address 10.0.0.10 255.255.255.0
-!
-router static
- address-family ipv4 unicast
-  0.0.0.0/0 10.0.0.1
- !
-!
 l2vpn
  bridge group bg1
   bridge-domain bd-10
-   interface Bundle-Ether11.10
+   interface Bundle-Ether<mark>11.10</mark>
    !
-   interface Bundle-Ether12.10
+   interface Bundle-Ether<mark>12.10</mark>
    !
-   routed interface BVI10
  !
 !
 </code>
@@ -131,8 +122,8 @@ Leaf-1
 evpn
  interface Bundle-Ether 11
   ethernet-segment
-   identifier type 0 11.11.11.11.11.11.11.11.11
-   load-balancing-mode single-active
+   identifier type 0 <mark>11.11.11.11.11.11.11.11.11</mark>
+   <mark>load-balancing-mode single-active</mark>
    bgp route-target 1111.1111.1111
   !
 
@@ -142,8 +133,8 @@ Leaf-2
 evpn
  interface Bundle-Ether 12
   ethernet-segment
-   identifier type 0 11.11.11.11.11.11.11.11.11
-   load-balancing-mode single-active
+   identifier type 0 <mark>11.11.11.11.11.11.11.11.11</mark>
+   <mark>load-balancing-mode single-active</mark>
    bgp route-target 1111.1111.1111
   !
 </code>
@@ -558,7 +549,3 @@ RP/0/RP0/CPU0:Leaf-5#
 </div>
 
 As we observe Leaf-5’s output, we see that the Leaf-5 has programmed Leaf-1 as the only next-hop for Host-1’s MAC address reachability, although Host-1 is multi-homed to both Leaf-1 and Leaf-2. This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI. For further technical details, refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
-
-
-
-  
