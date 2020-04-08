@@ -15,6 +15,7 @@ position: top
 |:-----|:-----|
 | 2020-Feb-14 | Document Creation |
 | 2020-Mar-12 | Correction of the max-classmap-size description |
+| 2020-Apr-08 | Correction: HQoS not needed for ingress policer on sub-if |
 
 You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
@@ -44,6 +45,7 @@ Many thanks to:
 - Aleksandar Vidakovic
 - Neeraj Garg
 - Riadh Habibi
+- Richard Poll
 
 ## Hardware Module CLI hierarchy
 
@@ -591,7 +593,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-If you need to apply any kind of QoS policy on a sub-interface, it's mandatory to enable this hardware profile. Even for simple policer in ingress L3 sub-if or shaper in egress L3 sub-if.  
+If you need to apply any kind of QoS policy on a sub-interface, it's mandatory to enable this hardware profile. Even for simple shaper in egress L3 sub-if (note: you don't need it for ingress shaper).  
 Of course, it's also necessary if you need to apply hierarchical quality of service with parent/children structure.
 
 _Restrictions_  
