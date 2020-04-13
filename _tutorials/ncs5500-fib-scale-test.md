@@ -824,6 +824,23 @@ RP/0/RP0/CPU0:OCSE-653#</code>
 
 Now we advertise 3000 simple rules.
 
+On the testing tool:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>router bgp 100
+bgp_id 192.168.100.151
+neighbor 192.168.100.202 remote-as 100
+neighbor 192.168.100.202 update-source 192.168.100.151
+capability ipv4 flowspec
+network 1 ipv4 flowspec
+network 1 dest 7.7.7.7/32 protocol 17 source-port 123
+network 1 count 3000 dest-incr</code>
+</pre>
+</div>
+
+On the router:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>RP/0/RP0/CPU0:OCSE-653#sh bgp ipv4 flowspec sum
@@ -960,6 +977,9 @@ RP/0/RP0/CPU0:OCSE-653#</code>
 BGP Flowspec entries are stored in a different zone in the external TCAM then the part used for routing information.  
 
 **Conclusion: BGP Flowspec doesn't impact the routing scale**
+
+It would be an interesting study to quantify the impact of the complexity of the flowspec rule on the number of entries we can store in eTCAM. For the example above, we used simple rules, but other parameters like packet length ranges can consume more entries.
+{: .notice-info}
 
 ### Other features impact: URPF
 
