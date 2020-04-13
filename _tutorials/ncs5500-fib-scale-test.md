@@ -462,3 +462,7 @@ RP/0/RP0/CPU0:OCSE-653#</code>
 </pre>
 </div>
 
+We reached an OOR (out of resource) state "Red" since we exceeded 95% of the "Estimated Max Entries" capacity, but the routes are programmed successfully in hardware.  
+You can verify it with the "HW Failures:" counters in the "show dpa resource" output.  
+
+
