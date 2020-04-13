@@ -95,8 +95,11 @@ Video recording of the demo described in the blog post above:
 Follow up of the previous test but this time, in the LPM / LEM of an NCS55A1-24H:  
 [https://www.youtube.com/watch?v=nT31rHqFm-o](https://www.youtube.com/watch?v=nT31rHqFm-o)
 
-**FIB Scale on Jericho+ w/ eTCAM** (coming soon)  
-Validation of the capability to store a full routing table first then to push the cursor to 4M IPv4 entries in the hardware (for instance, the eTCAM of a Jericho+ system).
+**FIB Scale on Jericho+ w/ eTCAM**  
+Validation of the capability to store a full routing table first then to push the cursor to 4M IPv4 entries in the hardware (for instance, the eTCAM of a Jericho+ system).  
+Verification of the impact of enabling URPF on the interfaces and activating 3000 BGP Flowspec rules with the 4M IPv4 routes.  
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-scale-test/](https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-scale-test/)  
+[https://www.youtube.com/watch?v=oglYEDpKsLY](https://www.youtube.com/watch?v=oglYEDpKsLY)  
 
 ### Buffers
 
