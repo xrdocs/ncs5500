@@ -719,4 +719,249 @@ RP/0/RP0/CPU0:OCSE-653#</code>
 </pre>
 </div>
 
+### Other features impact: BGP Flowspec
+
+Let's start with the 4M IPv4 routes.
+Flowspec is configured but we don't receive any rule at the moment (session is not active).
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:OCSE-653#sh run router bgp 100 neighbor 192.168.100.151
+router bgp 100
+ neighbor 192.168.100.151
+  remote-as 100
+  address-family ipv4 flowspec
+   route-policy PERMIT-ANY in
+   maximum-prefix 8000000 75
+   route-policy PERMIT-ANY out
+  !
+ !
+!
+
+RP/0/RP0/CPU0:OCSE-653#sh run flowspec
+flowspec
+ local-install interface-all
+ address-family ipv4
+  service-policy type pbr scale_ipv4
+ !
+!
+
+RP/0/RP0/CPU0:OCSE-653#sh bgp ipv4 flowspec sum
+
+BGP router identifier 1.3.5.99, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 202
+BGP main routing table version 202
+BGP NSR Initial initsync version 0 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker             202        202        202        202         202           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100       5       5        0    0    0 00:11:57 <mark>Active</mark>
+
+RP/0/RP0/CPU0:OCSE-653#sh contr npu externaltcam loc 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         2871968  <mark>4000086</mark>  0    <mark>IPv4 UC</mark>
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         713193   39      3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+0    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+0    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+0    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+0    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+0    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+0    10     320b   FLP         4094     <mark>2</mark>       118  <mark>INGRESS_FLOWSPEC_IPV4</mark>
+1    0      80b    FLP         2871968  4000086  0    IPv4 UC
+1    1      80b    FLP         0        0       1    IPv4 RPF
+1    2      160b   FLP         713193   39      3    IPv6 UC
+1    3      160b   FLP         0        0       4    IPv6 RPF
+1    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+1    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+1    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+1    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+1    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+1    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+1    10     320b   FLP         4094     2       118  INGRESS_FLOWSPEC_IPV4
+2    0      80b    FLP         2871968  4000086  0    IPv4 UC
+2    1      80b    FLP         0        0       1    IPv4 RPF
+2    2      160b   FLP         713193   39      3    IPv6 UC
+2    3      160b   FLP         0        0       4    IPv6 RPF
+2    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+2    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+2    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+2    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+2    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+2    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+2    10     320b   FLP         4094     2       118  INGRESS_FLOWSPEC_IPV4
+3    0      80b    FLP         2871968  4000086  0    IPv4 UC
+3    1      80b    FLP         0        0       1    IPv4 RPF
+3    2      160b   FLP         713193   39      3    IPv6 UC
+3    3      160b   FLP         0        0       4    IPv6 RPF
+3    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+3    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+3    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+3    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+3    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+3    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+3    10     320b   FLP         4094     2       118  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:OCSE-653#</code>
+</pre>
+</div>
+
+Now we advertise 3000 simple rules.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:OCSE-653#sh bgp ipv4 flowspec sum
+BGP router identifier 1.3.5.99, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 3402
+BGP main routing table version 3402
+BGP NSR Initial initsync version 0 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker            3402        402       3402       3402         402           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100      28      13      402    0    0 00:00:06       <mark>3000</mark>
+
+RP/0/RP0/CPU0:OCSE-653#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.8/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.9/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.10/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.11/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.12/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.13/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.14/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.15/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.16/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+  Flow           :Dest:7.7.7.17/32,Proto:=17,SPort:=123
+    Actions      :transmit  (bgp.1)
+
+///-- SNIP SNIP SNIP --//
+
+RP/0/RP0/CPU0:OCSE-653#sh dpa resources ippbr loc 0/0/CPU0
+
+"ippbr" OFA Table (Id: 137, Scope: Global)
+--------------------------------------------------
+                          NPU ID: NPU-0           NPU-1           NPU-2           NPU-3
+                          In Use: <mark>3001</mark>            3001            3001            3001
+                 Create Requests
+                           Total: 3202            3202            3202            3202
+                         Success: 3202            3202            3202            3202
+                 Delete Requests
+                           Total: 201             201             201             201
+                         Success: 201             201             201             201
+                 Update Requests
+                           Total: 0               0               0               0
+                         Success: 0               0               0               0
+                    EOD Requests
+                           Total: 0               0               0               0
+                         Success: 0               0               0               0
+                          Errors
+                     HW Failures: 0               0               0               0
+                Resolve Failures: 0               0               0               0
+                 No memory in DB: 0               0               0               0
+                 Not found in DB: 0               0               0               0
+                    Exists in DB: 0               0               0               0
+      Reserve Resources Failures: 0               0               0               0
+      Release Resources Failures: 0               0               0               0
+       Update Resources Failures: 0               0               0               0
+
+RP/0/RP0/CPU0:OCSE-653#sh contr npu externaltcam loc 0/0/CPU0
+
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      80b    FLP         2871968  4000086  0    IPv4 UC
+0    1      80b    FLP         0        0       1    IPv4 RPF
+0    2      160b   FLP         713193   39      3    IPv6 UC
+0    3      160b   FLP         0        0       4    IPv6 RPF
+0    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+0    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+0    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+0    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+0    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+0    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+0    10     320b   FLP         1094     <mark>3002</mark>    118  <mark>INGRESS_FLOWSPEC_IPV4</mark>
+1    0      80b    FLP         2871968  4000086  0    IPv4 UC
+1    1      80b    FLP         0        0       1    IPv4 RPF
+1    2      160b   FLP         713193   39      3    IPv6 UC
+1    3      160b   FLP         0        0       4    IPv6 RPF
+1    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+1    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+1    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+1    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+1    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+1    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+1    10     320b   FLP         1094     3002    118  INGRESS_FLOWSPEC_IPV4
+2    0      80b    FLP         2871968  4000086  0    IPv4 UC
+2    1      80b    FLP         0        0       1    IPv4 RPF
+2    2      160b   FLP         713193   39      3    IPv6 UC
+2    3      160b   FLP         0        0       4    IPv6 RPF
+2    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+2    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+2    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+2    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+2    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+2    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+2    10     320b   FLP         1094     3002    118  INGRESS_FLOWSPEC_IPV4
+3    0      80b    FLP         2871968  4000086  0    IPv4 UC
+3    1      80b    FLP         0        0       1    IPv4 RPF
+3    2      160b   FLP         713193   39      3    IPv6 UC
+3    3      160b   FLP         0        0       4    IPv6 RPF
+3    4      80b    FLP         4096     0       75   INGRESS_IPV4_SRC_IP_EXT
+3    5      80b    FLP         4096     0       76   INGRESS_IPV4_DST_IP_EXT
+3    6      160b   FLP         4096     0       77   INGRESS_IPV6_SRC_IP_EXT
+3    7      160b   FLP         4096     0       78   INGRESS_IPV6_DST_IP_EXT
+3    8      80b    FLP         4096     0       79   INGRESS_IP_SRC_PORT_EXT
+3    9      80b    FLP         4096     0       80   INGRESS_IPV6_SRC_PORT_EXT
+3    10     320b   FLP         1094     3002    118  INGRESS_FLOWSPEC_IPV4
+RP/0/RP0/CPU0:OCSE-653#</code>
+</pre>
+</div>
+
+BGP Flowspec entries are stored in a different zone in the external TCAM then the part used for routing information.  
+
+**Conclusion: BGP Flowspec doesn't impact the routing scale**
+
+### Other features impact: URPF
+
+
 
