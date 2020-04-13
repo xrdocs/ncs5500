@@ -3,7 +3,7 @@ published: true
 date: '2020-04-13 00:05 +0200'
 title: 'NCS5500 FIB Scale Test [Lab Series 04] '
 author: Nicolas Fevrier
-excerpt: Testing full internet views and up to 4M prefixes
+excerpt: Testing full internet views and up to 4M prefixes in J+/eTCAM NCS5500 systems
 position: top
 tags:
   - lab series
