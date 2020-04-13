@@ -1,10 +1,14 @@
 ---
-published: false
+published: true
 date: '2020-04-13 00:05 +0200'
 title: 'NCS5500 FIB Scale Test [Lab Series 04] '
 author: Nicolas Fevrier
 excerpt: Testing full internet views and up to 4M prefixes
 position: hidden
+tags:
+  - lab series
+  - ncs5500
+  - ios xr
 ---
 {% include toc icon="table" title="NCS5500 FIB Scale Tests" %} 
 
