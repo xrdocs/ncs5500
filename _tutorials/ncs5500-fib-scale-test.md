@@ -465,4 +465,254 @@ RP/0/RP0/CPU0:OCSE-653#</code>
 We reached an OOR (out of resource) state "Red" since we exceeded 95% of the "Estimated Max Entries" capacity, but the routes are programmed successfully in hardware.  
 You can verify it with the "HW Failures:" counters in the "show dpa resource" output.  
 
+### 2M IPv6 routes
+
+Let's see if we can push a lot of IPv6 routes too.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:OCSE-653#sh bgp ipv6 un sum
+
+BGP router identifier 1.3.5.99, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 26437690
+BGP main routing table version 26437690
+BGP NSR Initial initsync version 72950 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker        26437690   26437690   26437690   26437690    26437690           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100  279980   24234 26437690    0    0 00:03:05    <mark>2000000</mark>
+2001:111::152     0   100   30725   25124        0    0    0     4w2d Idle (Admin)
+
+RP/0/RP0/CPU0:OCSE-653#sh contr npu resources exttcamipv6 loc 0/0/CPU0
+
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 2000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:35:32 PDT
+    NPU-1
+        Estimated Max Entries       : 2000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:35:32 PDT
+    NPU-2
+        Estimated Max Entries       : 2000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:35:32 PDT
+    NPU-3
+        Estimated Max Entries       : 2000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:35:32 PDT
+
+Current Usage
+    NPU-0
+        Total In-Use                : <mark>2000040</mark>  <mark>(100 %)</mark>
+        ip6route                    : 2000064  (100 %)
+    NPU-1
+        Total In-Use                : 2000040  (100 %)
+        ip6route                    : 2000064  (100 %)
+    NPU-2
+        Total In-Use                : 2000040  (100 %)
+        ip6route                    : 2000064  (100 %)
+    NPU-3
+        Total In-Use                : 2000040  (100 %)
+        ip6route                    : 2000064  (100 %)
+
+RP/0/RP0/CPU0:OCSE-653#</code>
+</pre>
+</div>
+
+As advertised, tested and officially supported, no problem pushing 2M IPv6 routes in the external TCAM.  
+Of course, we are in Red OOR state but this limit of 2M is actually not hard coded in the system. We can potentially go further if needed. But as mentioned, it's not tested officially.  
+
+Example with 3M IPv6/64 routes:  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:OCSE-653#sh bgp ipv6 un sum
+
+BGP router identifier 1.3.5.99, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 31437690
+BGP main routing table version 31437690
+BGP NSR Initial initsync version 72950 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker        31437690   31437690   31437690   31437690    31437690           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100  290819   24242 31437690    0    0 00:01:37    <mark>3000000</mark>
+2001:111::152     0   100   30725   25124        0    0    0     4w2d Idle (Admin)
+
+RP/0/RP0/CPU0:OCSE-653#sh dpa resources ip6route loc 0/0/CPU0
+
+"ip6route" OFA Table (Id: 26, Scope: Global)
+--------------------------------------------------
+IPv6 Prefix len distribution
+Prefix   Actual            Capacity    Prefix   Actual            Capacity
+ /0       4                 0            /1       0                 0
+ /2       0                 0            /3       0                 0
+ /4       0                 0            /5       0                 0
+ /6       0                 0            /7       0                 0
+ /8       0                 0            /9       0                 0
+ /10      4                 0            /11      0                 0
+ /12      0                 0            /13      0                 0
+ /14      0                 0            /15      0                 0
+ /16      12                0            /17      0                 0
+ /18      0                 0            /19      0                 0
+ /20      0                 0            /21      0                 0
+ /22      0                 0            /23      0                 0
+ /24      0                 0            /25      0                 0
+ /26      0                 0            /27      0                 0
+ /28      0                 0            /29      0                 0
+ /30      0                 0            /31      0                 0
+ /32      0                 0            /33      0                 0
+ /34      0                 0            /35      0                 0
+ /36      0                 0            /37      0                 0
+ /38      0                 0            /39      0                 0
+ /40      0                 0            /41      0                 0
+ /42      0                 0            /43      0                 0
+ /44      0                 0            /45      0                 0
+ /46      0                 0            /47      0                 0
+ /48      0                 0            /49      0                 0
+ /50      0                 0            /51      0                 0
+ /52      0                 0            /53      0                 0
+ /54      0                 0            /55      0                 0
+ /56      0                 0            /57      0                 0
+ /58      0                 0            /59      0                 0
+ /60      0                 0            /61      0                 0
+ /62      0                 0            /63      0                 0
+ <mark>/64      3000018</mark>           0            /65      0                 0
+ /66      0                 0            /67      0                 0
+ /68      0                 0            /69      0                 0
+ /70      0                 0            /71      0                 0
+ /72      0                 0            /73      0                 0
+ /74      0                 0            /75      0                 0
+ /76      0                 0            /77      0                 0
+ /78      0                 0            /79      0                 0
+ /80      0                 0            /81      0                 0
+ /82      0                 0            /83      0                 0
+ /84      0                 0            /85      0                 0
+ /86      0                 0            /87      0                 0
+ /88      0                 0            /89      0                 0
+ /90      0                 0            /91      0                 0
+ /92      0                 0            /93      0                 0
+ /94      0                 0            /95      0                 0
+ /96      0                 0            /97      0                 0
+ /98      0                 0            /99      0                 0
+ /100     0                 0            /101     0                 0
+ /102     0                 0            /103     0                 0
+ /104     4                 0            /105     0                 0
+ /106     0                 0            /107     0                 0
+ /108     0                 0            /109     0                 0
+ /110     0                 0            /111     0                 0
+ /112     0                 0            /113     0                 0
+ /114     0                 0            /115     0                 0
+ /116     0                 0            /117     0                 0
+ /118     0                 0            /119     0                 0
+ /120     0                 0            /121     0                 0
+ /122     0                 0            /123     0                 0
+ /124     0                 0            /125     0                 0
+ /126     0                 0            /127     0                 0
+ /128     22                0
+                          NPU ID: NPU-0           NPU-1           NPU-2           NPU-3
+                          In Use: <mark>3000064</mark>         3000064         3000064         3000064
+                 Create Requests
+                           Total: 9958976         9958976         9958976         9958976
+                         Success: 9958976         9958976         9958976         9958976
+                 Delete Requests
+                           Total: 6958912         6958912         6958912         6958912
+                         Success: 6958912         6958912         6958912         6958912
+                 Update Requests
+                           Total: 0               0               0               0
+                         Success: 0               0               0               0
+                    EOD Requests
+                           Total: 0               0               0               0
+                         Success: 0               0               0               0
+                          Errors
+                     HW Failures: 0               0               0               0
+                Resolve Failures: 0               0               0               0
+                 No memory in DB: 0               0               0               0
+                 Not found in DB: 0               0               0               0
+                    Exists in DB: 0               0               0               0
+      Reserve Resources Failures: 0               0               0               0
+      Release Resources Failures: 0               0               0               0
+       Update Resources Failures: 0               0               0               0
+
+RP/0/RP0/CPU0:OCSE-653#sh contr npu resources exttcamipv6 loc 0/0/CPU0
+
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : <mark>3000040</mark>
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:42:21 PDT
+    NPU-1
+        Estimated Max Entries       : 3000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:42:21 PDT
+    NPU-2
+        Estimated Max Entries       : 3000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:42:21 PDT
+    NPU-3
+        Estimated Max Entries       : 3000040
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Apr.13 08:42:21 PDT
+
+Current Usage
+    NPU-0
+        Total In-Use                : <mark>3000040</mark>  <mark>(100 %)</mark>
+        ip6route                    : 3000064  (100 %)
+    NPU-1
+        Total In-Use                : 3000040  (100 %)
+        ip6route                    : 3000064  (100 %)
+    NPU-2
+        Total In-Use                : 3000040  (100 %)
+        ip6route                    : 3000064  (100 %)
+    NPU-3
+        Total In-Use                : 3000040  (100 %)
+        ip6route                    : 3000064  (100 %)
+
+RP/0/RP0/CPU0:OCSE-653#</code>
+</pre>
+</div>
+
 
