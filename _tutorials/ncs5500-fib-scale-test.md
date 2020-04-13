@@ -983,5 +983,45 @@ It would be an interesting study to quantify the impact of the complexity of the
 
 ### Other features impact: URPF
 
+Let's try another feature and identify the impact on routing scale: Unicast Reverse Path Forwarding.  
+To configure it on systems with Jericho+ and eTCAM, you don't need to enable any specific hw-module profile, which is not the case for other types of NCS5500. More details in:  
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/](https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/)
 
+We apply URPF on two interfaces and it does have any impact.
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:OCSE-653#sh run int hu0/0/0/0
+interface HundredGigE0/0/0/0
+ description OCSE H0/0/0/0 to 5508 H0/0/0/1
+ cdp
+ mtu 9646
+ ipv4 address 25.1.11.2 255.255.255.0
+ ipv4 verify unicast source reachable-via any
+ ipv6 address 2001:25:1:11::2/64
+ load-interval 30
+!
+RP/0/RP0/CPU0:OCSE-653#sh run int hu0/0/0/4
+interface HundredGigE0/0/0/4
+ description OCSE H0/0/0/4 to 24H H0/0/0/4
+ cdp
+ ipv4 address 25.1.110.2 255.255.255.0
+ ipv4 verify unicast source reachable-via any
+ ipv6 address 2001:25:1:110::2/64
+ load-interval 30
+!
+RP/0/RP0/CPU0:OCSE-653#</code>
+</pre>
+</div>
+
+No impact on the 4M routes.
+
+## Conclusion
+
+Very basic tests but regularly requested in the Customer Proof of Concept.  
+We demonstrated that we can store a full internet feed IPv4 and IPv6 with a lot of growth margin, but also that we could store 4M IPv4 entries in the eTCAM while enabling other features like BGP Flowspec and URPF (loose mode) without any issue.
+
+## What's next?
+
+Next blog post, we still test the performance of the new line cards based on Jericho2 ASICs.  
+If you would like specific tests executed in this series, please let us know in the comments below.
