@@ -987,7 +987,7 @@ Let's try another feature and identify the impact on routing scale: Unicast Reve
 To configure it on systems with Jericho+ and eTCAM, you don't need to enable any specific hw-module profile, which is not the case for other types of NCS5500. More details in:  
 [https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/](https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/)
 
-We apply URPF on two interfaces and it does have any impact.
+We apply URPF on two interfaces and it does not have any impact.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
