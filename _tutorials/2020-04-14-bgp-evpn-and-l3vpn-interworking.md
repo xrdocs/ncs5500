@@ -29,68 +29,49 @@ Segment routing configuration is covered in earlier post. For this we will show 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
 | **DCI-1** | **DCI-2** |
-| router isis 1
- is-type level-2-only
- net 49.0001.0000.0000.0008.00
- nsr
- log adjacency changes
- address-family ipv4 unicast
-  metric-style wide
-  segment-routing mpls
- !
- interface Bundle-Ether68
-  point-to-point
-  address-family ipv4 unicast
- !
- interface Bundle-Ether78
-  point-to-point
-  address-family ipv4 unicast
- !
- interface Loopback0
-  passive
-  address-family ipv4 unicast
-   prefix-sid absolute 16008
-!
-router isis 2
- is-type level-2-only
- net 49.0002.0000.0000.0008.00
- nsr
- log adjacency changes
- address-family ipv4 unicast
-  metric-style wide
-  segment-routing mpls
- !
- interface Bundle-Ether81
-  point-to-point
-  address-family ipv4 unicast
- !
- interface Loopback0
-  passive
-  address-family ipv4 unicast
-   prefix-sid absolute 16008
-!      
- | router isis 1
- is-type level-2-only
- net 49.0001.0000.0000.0009.00
- nsr
- log adjacency changes
- address-family ipv4 unicast
-  metric-style wide
-  segment-routing mpls
- !
- interface Bundle-Ether69
-  point-to-point
-  address-family ipv4 unicast
- !
- interface Bundle-Ether79
-  point-to-point
-  address-family ipv4 unicast
- !
- interface Loopback0
-  passive
-  address-family ipv4 unicast
-   prefix-sid absolute 16009
-!
+| router isis 1 | router isis 1 |
+| is-type level-2-only | is-type level-2-only |
+| net 49.0001.0000.0000.0008.00 | net 49.0001.0000.0000.0009.00 |
+| nsr | nsr |
+| log adjacency changes | log adjacency changes |
+| address-family ipv4 unicast | address-family ipv4 unicast |
+|  metric-style wide | metric-style wide |
+|  segment-routing mpls | segment-routing mpls |
+| ! | ! |
+| interface Bundle-Ether68 | interface Bundle-Ether69 |
+|  point-to-point | point-to-point |
+|  address-family ipv4 unicast | address-family ipv4 unicast |
+| ! | ! |
+| interface Bundle-Ether78 | interface Bundle-Ether79 |
+|  point-to-point | point-to-point |
+|  address-family ipv4 unicast | address-family ipv4 unicast |
+| ! | ! |
+| interface Loopback0 | interface Loopback0 |
+|  passive | passive |
+|  address-family ipv4 unicast | address-family ipv4 unicast |
+|   prefix-sid absolute 16008 | prefix-sid absolute 16009 |
+| ! | ! |
+| router isis 2 |
+| is-type level-2-only |
+| net 49.0002.0000.0000.0008.00 |
+| nsr |
+| log adjacency changes |
+| address-family ipv4 unicast |
+|  metric-style wide |
+|  segment-routing mpls |
+| ! |
+| interface Bundle-Ether81 |
+|  point-to-point |
+|  address-family ipv4 unicast |
+| ! |
+| interface Loopback0 |
+|  passive |
+|  address-family ipv4 unicast |
+|   prefix-sid absolute 16008 |
+|! |     
+ 
+ 
+
 router isis 2
  is-type level-2-only
  net 49.0002.0000.0000.0009.00
