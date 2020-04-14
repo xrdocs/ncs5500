@@ -27,3 +27,137 @@ As we look at the setup, there are four major tasks we have to implement to achi
 Segment routing configuration is covered in earlier post. For this we will show segment routing configuration of DCI as DCI is part of two segment routing domains. One segment routing domain is providing forwarding to EVPN fabric and the other to L3VPN domain.
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
+
+| **DCI-1** | **DCI-2** |
+| router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0008.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether68
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Bundle-Ether78
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16008
+!
+router isis 2
+ is-type level-2-only
+ net 49.0002.0000.0000.0008.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether81
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16008
+!      
+ | router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0009.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether69
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Bundle-Ether79
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16009
+!
+router isis 2
+ is-type level-2-only
+ net 49.0002.0000.0000.0009.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether91
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16009
+!
+ |  
+  
+| **DCI-1** | **DCI-2** |  
+| DCI-1#show isis segment-routing label table 
+
+IS-IS 1 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16001         1.1.1.1/32
+16002         2.2.2.2/32
+16006         6.6.6.6/32
+16007         7.7.7.7/32
+16008         Loopback0
+16009         9.9.9.9/32
+
+IS-IS 2 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16008         Loopback0
+16009         9.9.9.9/32
+16010         10.10.10.10/32 
+ | DCI-2#show isis segment-routing label table 
+
+IS-IS 1 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16001         1.1.1.1/32
+16002         2.2.2.2/32
+16006         6.6.6.6/32
+16007         7.7.7.7/32
+16008         8.8.8.8/32
+16009         Loopback0
+
+IS-IS 2 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16008         8.8.8.8/32
+16009         Loopback0
+16010         10.10.10.10/32
+ |  
+
+
+
+
+
+
+| **Loopback 0** | **Prefix-SID** | **ISIS Net** |
+| Spine-1 6.6.6.6/32 | 16006 | 49.0001.0000.0000.0006.0 |
+| Spine-2 7.7.7.7/32 | 16007 | 49.0001.0000.0000.0007.0 |
+| Leaf-1  1.1.1.1/32 | 16001 | 49.0001.0000.0000.0001.0 |
+| Leaf-2  2.2.2.2/32 | 16002 | 49.0001.0000.0000.0002.0 |
+| Leaf-5  5.5.5.5/32 | 16005 | 49.0001.0000.0000.0005.0 |
