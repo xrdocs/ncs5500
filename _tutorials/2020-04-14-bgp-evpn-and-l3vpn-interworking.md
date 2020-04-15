@@ -332,3 +332,74 @@ router bgp 65001
     </th>
   </tr>
 </table>
+
+
+
+Check routing table of DCIs for VRF 10 to verify that PE-1 prefix is learnt via vpnv4 address family.
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+RP/0/RP0/CPU0:DCI-1#show route vrf 10   
+Gateway of last resort is not set
+
+B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 01:07:05
+RP/0/RP0/CPU0:DCI-1#
+
+RP/0/RP0/CPU0:DCI-1#sh cef vrf 10 111.1.1.1/32
+111.1.1.1/32, version 1, internal 0x5000001 0x0 (ptr 0x97c1d714) [1], 0x0 (0x0), 0x208 (0x98422d28)
+ Updated Apr 14 11:39:51.099
+ Prefix Len 32, traffic index 0, precedence n/a, priority 3
+   via 10.10.10.10/32, 3 dependencies, recursive [flags 0x6000]
+    path-idx 0 NHID 0x0 [0x972aef08 0x0]
+    recursion-via-/32
+    next hop VRF - 'default', table - 0xe0000000
+    next hop 10.10.10.10/32 via 16010/0/21
+     next hop 192.8.10.2/32 BE81         labels imposed {ImplNull 24017}
+
+RP/0/RP0/CPU0:DCI-1#sh bgp vpnv4 unicast 
+BGP router identifier 8.8.8.8, local AS number 65001
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 0
+BGP main routing table version 4
+BGP NSR Initial initsync version 4 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 8.8.8.8:0 (default for vrf 10)
+*>i111.1.1.1/32       10.10.10.10              0    100      0 ?
+Route Distinguisher: 10.10.10.10:0
+*>i111.1.1.1/32       10.10.10.10              0    100      0 ?
+
+Processed 2 prefixes, 2 paths
+RP/0/RP0/CPU0:DCI-1#
+
+RP/0/RP0/CPU0:DCI-1#show bgp vpnv4 unicast rd 10.10.10.10:0 111.1.1.1/32 detai$
+BGP routing table entry for 111.1.1.1/32, Route Distinguisher: 10.10.10.10:0
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                  3           3
+    Flags: 0x00040001+0x00000000; 
+Last Modified: Apr 14 11:39:50.740 for 00:02:05
+Paths: (1 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Flags: 0x4000000025060005, import: 0x1f
+  Not advertised to any peer
+  Local
+    10.10.10.10 (metric 10) from 10.10.10.10 (10.10.10.10)
+      Received Label 24017 
+      Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+      Received Path ID 0, Local Path ID 1, version 3
+      Extended community: RT:110:110 
+RP/0/RP0/CPU0:DCI-1#
+      </code>
+      </pre>
+      </div>
+
+Based on above output we can see the route is learnt and programming in the forwarding table for vrf 10.      
