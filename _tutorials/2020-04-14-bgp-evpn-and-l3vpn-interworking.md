@@ -223,10 +223,6 @@ vrf 10
 Configure BGP L3VPN
 <table border="0">
   <tr>
-    <th>DCI-1</th>
-    <th>DCI-2</th>
-  </tr>
-  <tr>
     <th>
       <div class="highlighter-rouge">
       <pre class="highlight">
