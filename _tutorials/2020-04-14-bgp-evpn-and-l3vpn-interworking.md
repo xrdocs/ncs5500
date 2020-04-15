@@ -30,7 +30,7 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 
 
-<table border="0">
+<table style="border-collapse: collapse; border: none;">
   <tr>
     <th>DCI-1</th>
     <th>DCI-2</th>
@@ -40,7 +40,7 @@ Segment routing configuration is covered in earlier post. For this we will show 
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      router isis 1
+router isis 1
  is-type level-2-only
  net 49.0001.0000.0000.0008.00
  nsr
@@ -88,7 +88,7 @@ router isis 2
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      router isis 1
+router isis 1
  is-type level-2-only
  net 49.0001.0000.0000.0009.00
  nsr
