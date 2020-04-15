@@ -299,6 +299,8 @@ router bgp 65001
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
+DCI-2:
+
 router bgp 65001
  bgp router-id 9.9.9.9
  address-family vpnv4 unicast
