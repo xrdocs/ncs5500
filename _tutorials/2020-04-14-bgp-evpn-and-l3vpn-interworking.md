@@ -221,9 +221,14 @@ vrf 10
 
 
 Configure BGP L3VPN
-<table border="0">
-  <tr>
-    <th>
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <th style="border: none;">PE-1</th>
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
+  </tr>
+  <tr style="border: none;">
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -256,7 +261,7 @@ router bgp 65001
       </pre>
       </div>
     </th>
-    <th>
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -291,7 +296,7 @@ router bgp 65001
       </pre>
       </div>
     </th>
-    <th>
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
