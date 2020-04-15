@@ -72,7 +72,7 @@ Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
 Speaker         1512155    1512155    1512155    1512155     1512155           0
 
 Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
-192.168.100.151   0   100 1719113      12  1512155    0    0 00:09:20     790771
+192.168.100.151   0   100 1719113      12  1512155    0    0 00:09:20     <mark>790771</mark>
 
 RP/0/RP0/CPU0:24H-1-701#sh bgp ipv6 un sum
 
@@ -93,7 +93,7 @@ Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
 Speaker           72957      72957      72957      72957       72957           0
 
 Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
-2001:111::151     0   100   72961      12    72957    0    0 00:09:34      72949
+2001:111::151     0   100   72961      12    72957    0    0 00:09:34      <mark>72949</mark>
 
 RP/0/RP0/CPU0:24H-1-701#sh dpa resources iproute loc 0/0/CPU0
 
@@ -322,10 +322,14 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
 
-| LEM | LPM |
-|:-----|:-----|
-| xxx | xxx |
+| LEM Used | LPM Used | LPM Estimated Max |
+|:-----|:-----:|:-----:|
+| 490272 | 373479 | 1565853 |
+| 62% | 24% | - |
 
+In default mode, IPv4/24, IPv4/32 and IPv6/48 are stored in LEM, the rest will go in LPM.
+
+![Screen Shot 2020-04-15 at 9.24.48 PM.png]({{site.baseurl}}/images/Screen Shot 2020-04-15 at 9.24.48 PM.png){: .align-center}
 
 ### host-optimized-disable
 
@@ -413,10 +417,16 @@ Current Usage
         ip6mcroute                  : 0        (0 %)
         ip6mc_comp_grp              : 0        (0 %)
 
-<SNIP>
+// SNIP //
 
 RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
 
-------
+| LEM Used | LPM Used | LPM Estimated Max |
+|:-----|:-----:|:-----:|
+| 44495 | 712073 | 1495107 |
+| 6% | 48% | - |
+
+In this host-disable mode, only IPv4/32 and IPv6/48 are going to LEM.
+
