@@ -28,57 +28,9 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
-<table border="1">
-  <tr>	<th><b>DCI-1</b>	</th>	<th><b>	DCI-2	</b></th>	</tr>
-<tr border="0">	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
-<tr border="0">	<th>		</th>	<th>		</th>	</tr>
-<tr>	<th>	IS-IS 1 IS Label Table	</th>	<th>	IS-IS 1 IS Label Table	</th>	</tr>
-<tr>	<th>	Label         Prefix/Interface	</th>	<th>	Label         Prefix/Interface	</th>	</tr>
-<tr>	<th>	----------    ----------------	</th>	<th>	----------    ----------------	</th>	</tr>
-<tr>	<th>	16001         1.1.1.1/32	</th>	<th>	16001         1.1.1.1/32	</th>	</tr>
-<tr>	<th>	16002         2.2.2.2/32	</th>	<th>	16002         2.2.2.2/32	</th>	</tr>
-<tr>	<th>	16006         6.6.6.6/32	</th>	<th>	16006         6.6.6.6/32	</th>	</tr>
-<tr>	<th>	16007         7.7.7.7/32	</th>	<th>	16007         7.7.7.7/32	</th>	</tr>
-<tr>	<th>	16008         Loopback0	</th>	<th>	16008         8.8.8.8/32	</th>	</tr>
-<tr>	<th>	16009         9.9.9.9/32	</th>	<th>	16009         Loopback0	</th>	</tr>
-<tr>	<th>		</th>	<th>		</th>	</tr>
-<tr>	<th>	IS-IS 2 IS Label Table	</th>	<th>	IS-IS 2 IS Label Table	</th>	</tr>
-<tr>	<th>	Label         Prefix/Interface	</th>	<th>	Label         Prefix/Interface	</th>	</tr>
-<tr>	<th>	----------    ----------------	</th>	<th>	----------    ----------------	</th>	</tr>
-<tr>	<th>	16008         Loopback0	</th>	<th>	16008         8.8.8.8/32	</th>	</tr>
-<tr>	<th>	16009         9.9.9.9/32	</th>	<th>	16009         Loopback0	</th>	</tr>
-<tr>	<th>	16010         10.10.10.10/32 	</th>	<th>	16010         10.10.10.10/32	</th>	</tr>
-<tr>	<th>		</th>	<th>		</th>	</tr>
-</table>
 
 
-
-
-
-<table border="1">
-  <tr>
-    <th>Month</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td>January</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td>February</td>
-    <td>$80</td>
-  </tr>
-</table>
-
-
-| **Loopback 0** | **Prefix-SID** | **ISIS Net** |
-| Spine-1 6.6.6.6/32 | 16006 | 49.0001.0000.0000.0006.0 |
-| Spine-2 7.7.7.7/32 | 16007 | 49.0001.0000.0000.0007.0 |
-| Leaf-1  1.1.1.1/32 | 16001 | 49.0001.0000.0000.0001.0 |
-| Leaf-2  2.2.2.2/32 | 16002 | 49.0001.0000.0000.0002.0 |
-| Leaf-5  5.5.5.5/32 | 16005 | 49.0001.0000.0000.0005.0 |
-
-<table border="1">
+<table border="0">
   <tr>
     <th>DCI-1</th>
     <th>DCI-2</th>
@@ -176,6 +128,67 @@ router isis 2
   address-family ipv4 unicast
    prefix-sid absolute 16009
 !
+      </code>
+      </pre>
+      </div>
+    </th>
+  </tr>
+</table>
+
+<table border="0">
+  <tr>
+    <th>DCI-1</th>
+    <th>DCI-2</th>
+  </tr>
+  <tr>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+DCI-1#show isis segment-routing label table 
+
+IS-IS 1 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16001         1.1.1.1/32
+16002         2.2.2.2/32
+16006         6.6.6.6/32
+16007         7.7.7.7/32
+16008         Loopback0
+16009         9.9.9.9/32
+
+IS-IS 2 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16008         Loopback0
+16009         9.9.9.9/32
+16010         10.10.10.10/32 
+      </code>
+      </pre>
+      </div>
+    </th>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+DCI-2#show isis segment-routing label table 
+
+IS-IS 1 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16001         1.1.1.1/32
+16002         2.2.2.2/32
+16006         6.6.6.6/32
+16007         7.7.7.7/32
+16008         8.8.8.8/32
+16009         Loopback0
+
+IS-IS 2 IS Label Table
+Label         Prefix/Interface
+----------    ----------------
+16008         8.8.8.8/32
+16009         Loopback0
+16010         10.10.10.10/32
       </code>
       </pre>
       </div>
