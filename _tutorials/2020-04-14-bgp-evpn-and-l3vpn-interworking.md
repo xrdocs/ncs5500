@@ -135,13 +135,13 @@ router isis 2
   </tr>
 </table>
 
-<table border="0">
-  <tr>
-    <th>DCI-1</th>
-    <th>DCI-2</th>
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
   </tr>
-  <tr>
-    <th>
+  <tr style="border: none;">
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -167,7 +167,7 @@ Label         Prefix/Interface
       </pre>
       </div>
     </th>
-    <th>
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
