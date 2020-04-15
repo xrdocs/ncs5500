@@ -23,7 +23,7 @@ As we look at the setup, there are four major tasks we have to implement to achi
 •	Configure DCI and Leafs to support EVPN and L3VPN interworking
 
 
-### Task:1 Configuration of Segment Routing on DCI.
+### Task 1: Configuration of Segment Routing on DCI.
 Segment routing configuration is covered in earlier post. For this we will show segment routing configuration of DCI as DCI is part of two segment routing domains. One segment routing domain is providing forwarding to EVPN fabric and the other to L3VPN domain.
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
@@ -196,3 +196,137 @@ Label         Prefix/Interface
   </tr>
 </table>
   
+  
+### Task 2: Configuration of L3VPN on DCIs and PE-1
+
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-vpnv4-topology.png?raw=true)
+As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. This route-target is different from the one we will configure for BGP-EVPN routes.  
+
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+Configure VPN VRF on PE-1, DCI-1 and DCI-2
+
+vrf 10
+ address-family ipv4 unicast
+  import route-target
+   110:110
+  !
+  export route-target
+   110:110
+  !
+</code>
+</pre>
+</div>
+
+
+Configure BGP L3VPN
+<table border="0">
+  <tr>
+    <th>DCI-1</th>
+    <th>DCI-2</th>
+  </tr>
+  <tr>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+PE-1:
+
+router bgp 65001
+ bgp router-id 10.10.10.10
+ address-family vpnv4 unicast
+ !
+ neighbor 8.8.8.8
+  remote-as 65001
+  description "vonv4 session to DCI-1"
+  update-source Loopback0
+  address-family vpnv4 unicast
+ !
+ neighbor 9.9.9.9
+  remote-as 65001
+  description "vpnv4 session to DCI-2"
+  update-source Loopback0
+  address-family vpnv4 unicast
+ !
+ vrf 10
+  rd auto
+  address-family ipv4 unicast
+   maximum-paths ibgp 10
+   redistribute connected
+!
+ 
+      </code>
+      </pre>
+      </div>
+    </th>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+DCI-1:
+
+router bgp 65001
+ bgp router-id 8.8.8.8
+ address-family vpnv4 unicast
+ !
+ neighbor 9.9.9.9
+  remote-as 65001
+  description "vpnv4 session to DCI-2"
+  update-source Loopback0
+  address-family vpnv4 unicast
+   next-hop-self
+ !
+ neighbor 10.10.10.10
+  remote-as 65001
+  description "vpnv4 session to PE-1"
+  update-source Loopback0
+  address-family vpnv4 unicast
+   next-hop-self
+ !        
+ vrf 10
+  rd auto
+  address-family ipv4 unicast
+   maximum-paths ibgp 10
+   redistribute connected
+!
+
+      </code>
+      </pre>
+      </div>
+    </th>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+router bgp 65001
+ bgp router-id 9.9.9.9
+ address-family vpnv4 unicast
+ !
+ neighbor 8.8.8.8
+  remote-as 65001
+  description "vpnv4 session to DCI-1"
+  update-source Loopback0
+  address-family vpnv4 unicast
+   next-hop-self
+ !
+ neighbor 10.10.10.10
+  remote-as 65001
+  description "vpnv4 session to PE-1"
+  update-source Loopback0
+  address-family vpnv4 unicast
+   next-hop-self
+ !        
+ vrf 10
+  rd auto
+  address-family ipv4 unicast
+   maximum-paths ibgp 10
+   redistribute connected
+ !
+
+      </code>
+      </pre>
+      </div>
+    </th>
+  </tr>
+</table>
