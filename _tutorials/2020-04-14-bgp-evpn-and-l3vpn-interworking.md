@@ -88,7 +88,46 @@ Segment routing configuration is covered in earlier post. For this we will show 
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      show ip int br
+      router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0008.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether68
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Bundle-Ether78
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16008
+!
+router isis 2
+ is-type level-2-only
+ net 49.0002.0000.0000.0008.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether81
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16008
+!      
       </code>
       </pre>
       </div>
@@ -97,7 +136,46 @@ Segment routing configuration is covered in earlier post. For this we will show 
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      show ip int br
+      router isis 1
+ is-type level-2-only
+ net 49.0001.0000.0000.0009.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether69
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Bundle-Ether79
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16009
+!
+router isis 2
+ is-type level-2-only
+ net 49.0002.0000.0000.0009.00
+ nsr
+ log adjacency changes
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+ !
+ interface Bundle-Ether91
+  point-to-point
+  address-family ipv4 unicast
+ !
+ interface Loopback0
+  passive
+  address-family ipv4 unicast
+   prefix-sid absolute 16009
+!
       </code>
       </pre>
       </div>
