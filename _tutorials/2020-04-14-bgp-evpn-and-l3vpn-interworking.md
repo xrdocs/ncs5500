@@ -232,7 +232,6 @@ Configure BGP L3VPN
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-PE-1:
 
 router bgp 65001
  bgp router-id 10.10.10.10
@@ -268,7 +267,6 @@ router bgp 65001
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-DCI-1:
 
 router bgp 65001
  bgp router-id 8.8.8.8
@@ -303,7 +301,6 @@ router bgp 65001
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-DCI-2:
 
 router bgp 65001
  bgp router-id 9.9.9.9
