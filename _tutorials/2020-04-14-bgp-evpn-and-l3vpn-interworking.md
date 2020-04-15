@@ -30,8 +30,8 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 <table border="1">
   <tr>	<th><b>DCI-1</b>	</th>	<th><b>	DCI-2	</b></th>	</tr>
-<tr>	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
-<tr>	<th>		</th>	<th>		</th>	</tr>
+<tr border="0">	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
+<tr border="0">	<th>		</th>	<th>		</th>	</tr>
 <tr>	<th>	IS-IS 1 IS Label Table	</th>	<th>	IS-IS 1 IS Label Table	</th>	</tr>
 <tr>	<th>	Label         Prefix/Interface	</th>	<th>	Label         Prefix/Interface	</th>	</tr>
 <tr>	<th>	----------    ----------------	</th>	<th>	----------    ----------------	</th>	</tr>
