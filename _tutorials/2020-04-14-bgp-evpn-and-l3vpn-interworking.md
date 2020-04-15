@@ -29,20 +29,20 @@ Segment routing configuration is covered in earlier post. For this we will show 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
 
-<table style="border-collapse: collapse; border: none;">
-        <tr style="border: none;">
-            <td style="border: none;">
+<table style="border-collapse: collapse; border: 1px;">
+        <tr style="border: 1px;">
+            <td style="border: 1px;">
 DCI-1 
             </td>
-            <td style="border: none;">
+            <td style="border: 1px;">
 DCI-2
             </td>
         </tr>
-        <tr style="border: none;">
-            <td style="border: none;">
+        <tr style="border: 1px;">
+            <td style="border: 1px;">
 input1 
             </td>
-            <td style="border: none;">
+            <td style="border: 1px;">
 input2
             </td>
         </tr>
