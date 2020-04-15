@@ -29,7 +29,11 @@ Segment routing configuration is covered in earlier post. For this we will show 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
 | **DCI-1** | **DCI-2** |
-| router isis 1 | router isis 1 |
+| router isis 1
+tesst only
+test only | router isis 1
+tesst only
+test only |
 | is-type level-2-only | is-type level-2-only |
 | net 49.0001.0000.0000.0008.00 | net 49.0001.0000.0000.0009.00 |
 | nsr | nsr |
