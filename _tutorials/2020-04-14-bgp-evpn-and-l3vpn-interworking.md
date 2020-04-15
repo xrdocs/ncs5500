@@ -28,48 +28,6 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
-
-<table style="border-collapse: collapse; border: 1px;">
-        <tr style="border: 1px;">
-            <td style="border: 1px;">
-DCI-1 
-            </td>
-            <td style="border: 1px;">
-DCI-2
-            </td>
-        </tr>
-        <tr style="border: 1px;">
-            <td style="border: 1px;">
-input1
-              input3  
-              input 8
-            </td>
-            <td style="border: 1px;">
-input2  
-              inout4
-              input6
-            </td>
-        </tr>
-    </table> 
-
-
-
-<table border="1">
-  <tr>
-    <th>Month</th>
-    <th>Savings</th>
-  </tr>
-  <tr>
-    <td>January</td>
-    <td>$100</td>
-  </tr>
-  <tr>
-    <td>February</td>
-    <td>$80</td>
-  </tr>
-</table>
- 
-
 <table border="1">
 <tr>	<th>	**DCI-1**	</th>	<th>	**DCI-2**	</th>	</tr>
 <tr>	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
@@ -94,6 +52,23 @@ input2
 </table>
 
 
+
+
+
+<table border="1">
+  <tr>
+    <th>Month</th>
+    <th>Savings</th>
+  </tr>
+  <tr>
+    <td>January</td>
+    <td>$100</td>
+  </tr>
+  <tr>
+    <td>February</td>
+    <td>$80</td>
+  </tr>
+</table>
 
 
 | **Loopback 0** | **Prefix-SID** | **ISIS Net** |
