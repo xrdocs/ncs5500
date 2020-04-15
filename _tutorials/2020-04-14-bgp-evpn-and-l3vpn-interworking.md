@@ -257,6 +257,9 @@ router bgp 65001
    redistribute connected
 !
  
+ 
+ 
+ 
       </code>
       </pre>
       </div>
