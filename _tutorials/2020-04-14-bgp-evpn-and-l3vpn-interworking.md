@@ -334,6 +334,20 @@ router bgp 65001
 </table>
 
 
+Configure Loopback 100 on PE-1. This will be advertised as vpnv4 prefix.
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+PE-1:
+
+interface Loopback100
+ vrf 10
+ ipv4 address 111.1.1.1 255.255.255.255
+!
+      </code>
+      </pre>
+      </div>
+
 
 Check routing table of DCIs for VRF 10 to verify that PE-1 prefix is learnt via vpnv4 address family.
 <div class="highlighter-rouge">
