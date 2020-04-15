@@ -70,7 +70,7 @@ input2
 </table>
  
 
-
+<table border="1">
 <tr>	<th>	**DCI-1**	</th>	<th>	**DCI-2**	</th>	</tr>
 <tr>	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
 <tr>	<th>		</th>	<th>		</th>	</tr>
@@ -91,7 +91,7 @@ input2
 <tr>	<th>	16009         9.9.9.9/32	</th>	<th>	16009         Loopback0	</th>	</tr>
 <tr>	<th>	16010         10.10.10.10/32 	</th>	<th>	16010         10.10.10.10/32	</th>	</tr>
 <tr>	<th>		</th>	<th>		</th>	</tr>
-
+</table>
 
 
 
