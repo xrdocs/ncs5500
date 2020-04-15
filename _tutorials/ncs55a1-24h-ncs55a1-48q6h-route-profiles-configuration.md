@@ -12,7 +12,48 @@ tags:
   - ios xr
 position: hidden
 ---
-RP/0/RP0/CPU0:24H-1-701#sh bgp sum
+{% include toc icon="table" title="NCS5500 Route Profiles for -24H and -48Q6H" %} 
+
+You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow, eVPN, scale and other features following this [link](https://xrdocs.io/ncs5500/tutorials/).
+
+## Introduction
+
+The NCS5500 portfolio is based on different DNX forwarding ASICs:  
+- Jericho
+- Qumran-MX
+- Jericho+
+	- BCM88683
+    - BCM88680
+- Jericho2
+
+You notice we use different flavors of the Jericho+ NPU. One of the main difference between the two, the size of the LPM (Longest Prefix Match Database, sometimes referred to as KAPS for KBP Assisted Prefix Search, KBP being itself Knowledge Based Processor) allows to offer an intermediate routing scale between systems with and systems without external TCAM.  
+
+![Screen Shot 2020-04-15 at 6.44.45 PM.png]({{site.baseurl}}/images/Screen Shot 2020-04-15 at 6.44.45 PM.png){: .align-center}
+
+The platforms based on 88680 are the specific focus of this blog post:  
+- NCS55A1-24H
+- NCS55A1-48Q6H
+
+![]({{site.baseurl}}/images/Screen%20Shot%202020-04-15%20at%206.44.56%20PM.png){: .align-center}
+
+## hw-module profiles
+
+We created a specific blog post on the many hardware profiles used to carve all the resources: 
+[https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/](https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/)
+
+And we already mentioned in another one ([https://xrdocs.io/ncs5500/tutorials/ncs5500-things-to-know/](https://xrdocs.io/ncs5500/tutorials/ncs5500-things-to-know/)) that we don't recommend to use the internet-optimized profile for the platforms based on Jericho+ with large LPM.
+
+Now the question we want to address with this blog post is the following: should we keep the default "host-optimized" profile enabled, or will it be recommended in the longer run to disable this default mode via configuration to address the internet growth.
+
+Before doing some projection on the growth, let's take a quick look at the current resource utilization with the two options, and also present a quick refresher on the way these profiles impact the route distribution between LEM and LPM.
+
+### Internet feed used for the test
+
+We recorded this internet full tables, v4 and v6, from a live network in Asia, in end of 2019.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh bgp sum
 
 BGP router identifier 1.3.5.9, local AS number 100
 BGP generic scan interval 60 secs
@@ -188,11 +229,15 @@ OFA Infra Stats Summary
            Update Server API Err: 0                      0
            Delete Server API Err: 0                      0
 
-RP/0/RP0/CPU0:24H-1-701#
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
 
----
+### host-optimized mode enabled (default)
 
-RP/0/RP0/CPU0:24H-1-701#sh run | i hw
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh run | i hw
 
 Building configuration...
 RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
@@ -210,9 +255,9 @@ OOR Summary
 
 
 Current Usage
-        Total In-Use                : 490272   (62 %)
-        iproute                     : 455268   (58 %)
-        ip6route                    : 35009    (4 %)
+        Total In-Use                : <mark>490272</mark>   <mark>(62 %)</mark>
+        iproute                     : <mark>455268</mark>   <mark>(58 %)</mark>
+        ip6route                    : <mark>35009</mark>    <mark>(4 %)</mark>
         mplslabel                   : 0        (0 %)
         l2brmac                     : 0        (0 %)
 
@@ -234,7 +279,7 @@ Current Usage
 
 
 RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lpm loc 0/0/CPU0
-Mon Apr 13 16:01:16.656 PDT
+
 HW Resource Information
     Name                            : lpm
     Asic Type                       : Jericho Plus
@@ -248,9 +293,9 @@ OOR Summary
 
 
 Current Usage
-        Total In-Use                : 373479   (24 %)
-        iproute                     : 335526   (21 %)
-        ip6route                    : 37957    (2 %)
+        Total In-Use                : <mark>373479</mark>   <mark>(24 %)</mark>
+        iproute                     : <mark>335526</mark>   <mark>(21 %)</mark>
+        ip6route                    : <mark>37957</mark>    <mark>(2 %)</mark>
         ipmcroute                   : 1        (0 %)
         ip6mcroute                  : 0        (0 %)
         ip6mc_comp_grp              : 0        (0 %)
@@ -273,14 +318,18 @@ Current Usage
         ip6mc_comp_grp              : 0        (0 %)
 
 
-RP/0/RP0/CPU0:24H-1-701#
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
 
 
 
 
 ----
 
-RP/0/RP0/CPU0:24H-1-701#sh run | i hw
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh run | i hw
 
 Building configuration...
 hw-module fib ipv4 scale host-optimized-disable
@@ -300,9 +349,9 @@ OOR Summary
 
 
 Current Usage
-        Total In-Use                : 44495    (6 %)
-        iproute                     : 9495     (1 %)
-        ip6route                    : 35009    (4 %)
+        Total In-Use                : <mark>44495</mark>    <mark>(6 %)</mark>
+        iproute                     : <mark>9495</mark>     <mark>(1 %)</mark>
+        ip6route                    : <mark>35009</mark>    <mark>(4 %)</mark>
         mplslabel                   : 0        (0 %)
         l2brmac                     : 0        (0 %)
 
@@ -336,9 +385,9 @@ OOR Summary
 
 
 Current Usage
-        Total In-Use                : 712073   (48 %)
-        iproute                     : 674122   (45 %)
-        ip6route                    : 37956    (3 %)
+        Total In-Use                : <mark>712073</mark>   <mark>(48 %)</mark>
+        iproute                     : <mark>674122</mark>   <mark>(45 %)</mark>
+        ip6route                    : <mark>37956</mark>    <mark>(3 %)</mark>
         ipmcroute                   : 1        (0 %)
         ip6mcroute                  : 0        (0 %)
         ip6mc_comp_grp              : 0        (0 %)
@@ -362,8 +411,8 @@ Current Usage
 
 <SNIP>
 
-RP/0/RP0/CPU0:24H-1-701#
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
 
 ------
-  
-  
