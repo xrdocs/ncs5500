@@ -322,10 +322,14 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
 
+| LEM | LPM |
+|:-----|:-----|
+| xxx | xxx |
 
 
+### host-optimized-disable
 
-----
+This mode needs to be configured (and a reload of the chassis is necessary to enable it).
 
 <div class="highlighter-rouge">
 <pre class="highlight">
