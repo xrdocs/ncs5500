@@ -28,6 +28,27 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
+
+    <table style="border-collapse: collapse; border: none;">
+        <tr style="border: none;">
+            <td style="border: none;">
+DCI-1 
+            </td>
+            <td style="border: none;">
+DCI-2
+            </td>
+        </tr>
+        <tr style="border: none;">
+            <td style="border: none;">
+input1 
+            </td>
+            <td style="border: none;">
+input2
+            </td>
+        </tr>
+    </table> 
+
+
 | **DCI-1** | **DCI-2** |
 | router isis 1 | router isis 1 |
 | is-type level-2-only | is-type level-2-only |
