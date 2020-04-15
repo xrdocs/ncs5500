@@ -355,9 +355,9 @@ Check routing table of DCIs for VRF 10 to verify that PE-1 prefix is learnt via 
       <code>
 RP/0/RP0/CPU0:DCI-1#show route vrf 10   
 Gateway of last resort is not set
-
 B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 01:07:05
 RP/0/RP0/CPU0:DCI-1#
+
 
 RP/0/RP0/CPU0:DCI-1#sh cef vrf 10 111.1.1.1/32
 111.1.1.1/32, version 1, internal 0x5000001 0x0 (ptr 0x97c1d714) [1], 0x0 (0x0), 0x208 (0x98422d28)
@@ -370,30 +370,8 @@ RP/0/RP0/CPU0:DCI-1#sh cef vrf 10 111.1.1.1/32
     next hop 10.10.10.10/32 via 16010/0/21
      next hop 192.8.10.2/32 BE81         labels imposed {ImplNull 24017}
 
-RP/0/RP0/CPU0:DCI-1#sh bgp vpnv4 unicast 
-BGP router identifier 8.8.8.8, local AS number 65001
-BGP generic scan interval 60 secs
-Non-stop routing is enabled
-BGP table state: Active
-Table ID: 0x0   RD version: 0
-BGP main routing table version 4
-BGP NSR Initial initsync version 4 (Reached)
-BGP NSR/ISSU Sync-Group versions 0/0
-BGP scan interval 60 secs
 
-Status codes: s suppressed, d damped, h history, * valid, > best
-              i - internal, r RIB-failure, S stale, N Nexthop-discard
-Origin codes: i - IGP, e - EGP, ? - incomplete
-   Network            Next Hop            Metric LocPrf Weight Path
-Route Distinguisher: 8.8.8.8:0 (default for vrf 10)
-*>i111.1.1.1/32       10.10.10.10              0    100      0 ?
-Route Distinguisher: 10.10.10.10:0
-*>i111.1.1.1/32       10.10.10.10              0    100      0 ?
-
-Processed 2 prefixes, 2 paths
-RP/0/RP0/CPU0:DCI-1#
-
-RP/0/RP0/CPU0:DCI-1#show bgp vpnv4 unicast rd 10.10.10.10:0 111.1.1.1/32 detai$
+RP/0/RP0/CPU0:DCI-1#show bgp vpnv4 unicast rd 10.10.10.10:0 111.1.1.1/32 detail
 BGP routing table entry for 111.1.1.1/32, Route Distinguisher: 10.10.10.10:0
 Versions:
   Process           bRIB/RIB  SendTblVer
