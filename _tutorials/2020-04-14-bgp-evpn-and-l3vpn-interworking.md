@@ -31,11 +31,11 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 
 <table style="border-collapse: collapse; border: none;">
-  <tr>
+  <tr style="border: none;">
     <th>DCI-1</th>
     <th>DCI-2</th>
   </tr>
-  <tr>
+  <tr style="border: none;">
     <th>
       <div class="highlighter-rouge">
       <pre class="highlight">
