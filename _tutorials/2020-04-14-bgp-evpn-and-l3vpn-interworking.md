@@ -32,11 +32,11 @@ Segment routing configuration is covered in earlier post. For this we will show 
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
-    <th>DCI-1</th>
-    <th>DCI-2</th>
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
   </tr>
   <tr style="border: none;">
-    <th>
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -84,7 +84,7 @@ router isis 2
       </pre>
       </div>
     </th>
-    <th>
+    <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
