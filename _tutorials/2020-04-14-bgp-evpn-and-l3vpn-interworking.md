@@ -41,11 +41,11 @@ DCI-2
         <tr style="border: 1px;">
             <td style="border: 1px;">
 input1
-              input3
+              input3  
               input 8
             </td>
             <td style="border: 1px;">
-input2
+input2  
               inout4
               input6
             </td>
