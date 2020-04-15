@@ -29,7 +29,7 @@ Segment routing configuration is covered in earlier post. For this we will show 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
 <table border="1">
-<tr>	<th>	**DCI-1**	</th>	<th>	**DCI-2**	</th>	</tr>
+  <tr>	<th><b>DCI-1</b>	</th>	<th><b>	DCI-2	</b></th>	</tr>
 <tr>	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
 <tr>	<th>		</th>	<th>		</th>	</tr>
 <tr>	<th>	IS-IS 1 IS Label Table	</th>	<th>	IS-IS 1 IS Label Table	</th>	</tr>
@@ -77,3 +77,31 @@ Segment routing configuration is covered in earlier post. For this we will show 
 | Leaf-1  1.1.1.1/32 | 16001 | 49.0001.0000.0000.0001.0 |
 | Leaf-2  2.2.2.2/32 | 16002 | 49.0001.0000.0000.0002.0 |
 | Leaf-5  5.5.5.5/32 | 16005 | 49.0001.0000.0000.0005.0 |
+
+<table border="1">
+  <tr>
+    <th>DCI-1</th>
+    <th>DCI-2</th>
+  </tr>
+  <tr>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+      show ip int br
+      </code>
+      </pre>
+      </div>
+    </th>
+    <th>
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+      show ip int br
+      </code>
+      </pre>
+      </div>
+    </th>
+  </tr>
+</table>
+  
