@@ -29,7 +29,7 @@ Segment routing configuration is covered in earlier post. For this we will show 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
 
-    <table style="border-collapse: collapse; border: none;">
+<table style="border-collapse: collapse; border: none;">
         <tr style="border: none;">
             <td style="border: none;">
 DCI-1 
