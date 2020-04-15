@@ -71,6 +71,28 @@ input2
  
 
 
+<tr>	<th>	**DCI-1**	</th>	<th>	**DCI-2**	</th>	</tr>
+<tr>	<th>	DCI-1#show isis segment-routing label table 	</th>	<th>	DCI-2#show isis segment-routing label table 	</th>	</tr>
+<tr>	<th>		</th>	<th>		</th>	</tr>
+<tr>	<th>	IS-IS 1 IS Label Table	</th>	<th>	IS-IS 1 IS Label Table	</th>	</tr>
+<tr>	<th>	Label         Prefix/Interface	</th>	<th>	Label         Prefix/Interface	</th>	</tr>
+<tr>	<th>	----------    ----------------	</th>	<th>	----------    ----------------	</th>	</tr>
+<tr>	<th>	16001         1.1.1.1/32	</th>	<th>	16001         1.1.1.1/32	</th>	</tr>
+<tr>	<th>	16002         2.2.2.2/32	</th>	<th>	16002         2.2.2.2/32	</th>	</tr>
+<tr>	<th>	16006         6.6.6.6/32	</th>	<th>	16006         6.6.6.6/32	</th>	</tr>
+<tr>	<th>	16007         7.7.7.7/32	</th>	<th>	16007         7.7.7.7/32	</th>	</tr>
+<tr>	<th>	16008         Loopback0	</th>	<th>	16008         8.8.8.8/32	</th>	</tr>
+<tr>	<th>	16009         9.9.9.9/32	</th>	<th>	16009         Loopback0	</th>	</tr>
+<tr>	<th>		</th>	<th>		</th>	</tr>
+<tr>	<th>	IS-IS 2 IS Label Table	</th>	<th>	IS-IS 2 IS Label Table	</th>	</tr>
+<tr>	<th>	Label         Prefix/Interface	</th>	<th>	Label         Prefix/Interface	</th>	</tr>
+<tr>	<th>	----------    ----------------	</th>	<th>	----------    ----------------	</th>	</tr>
+<tr>	<th>	16008         Loopback0	</th>	<th>	16008         8.8.8.8/32	</th>	</tr>
+<tr>	<th>	16009         9.9.9.9/32	</th>	<th>	16009         Loopback0	</th>	</tr>
+<tr>	<th>	16010         10.10.10.10/32 	</th>	<th>	16010         10.10.10.10/32	</th>	</tr>
+<tr>	<th>		</th>	<th>		</th>	</tr>
+
+
 
 
 
