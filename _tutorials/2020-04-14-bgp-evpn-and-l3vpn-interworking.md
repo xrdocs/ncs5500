@@ -583,3 +583,5 @@ RP/0/RP0/CPU0:DCI-1#
       </code>
       </pre>
       </div>
+
+Above output verifies the evpn host routes are learnt for VRF 10 and control-plane verifies that these routes have route-target (RT) as 10:10 as advertised by Leafs. PE-1 was configured with RT 110:110. The routing table on DCI for vrf 10 also shows the route learnt from PE-1 that was advertised by vpnv4 address-family with route-target 110:110. As DCI has reachability to both the EVPN as well as the L3VPN domains, lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
