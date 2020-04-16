@@ -500,3 +500,86 @@ router bgp 65001
     </th>
   </tr>
 </table>
+
+As BGP-EVPN Layer-2 service and IRB on Leafs is already configured (refer to this post), with DCI connectivity we should be able to learn Host prefixes on DCI in VRF 10. Lets verify the routing table as well as the BGP-EVPN control-plane on DCIs.
+
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+      
+RP/0/RP0/CPU0:DCI-1#sh route vrf 10
+
+Gateway of last resort is not set
+
+B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:02:32
+B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:00:59
+B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 00:28:38
+RP/0/RP0/CPU0:DCI-1#
+
+
+
+RP/0/RP0/CPU0:DCI-1#show bgp l2vpn evpn 
+BGP router identifier 8.8.8.8, local AS number 65001
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 0
+BGP main routing table version 3
+BGP NSR Initial initsync version 1 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 1.1.1.1:10
+*>i[2][0][48][6c9c.ed6a.9504][32][10.0.0.20]/136
+                      1.1.1.1                       100      0 i
+* i                   1.1.1.1                       100      0 i
+Route Distinguisher: 2.2.2.2:10
+*>i[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136
+                      2.2.2.2                       100      0 i
+* i                   2.2.2.2                       100      0 i
+
+Processed 2 prefixes, 4 paths
+RP/0/RP0/CPU0:DCI-1#
+
+
+
+
+RP/0/RP0/CPU0:DCI-1#sh bgp l2vpn evpn rd 2.2.2.2:10 [2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136 detail
+BGP routing table entry for [2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136, Route Distinguisher: 2.2.2.2:10
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                  3           3
+    Flags: 0x00040001+0x00010000; 
+Last Modified: Apr 14 12:07:29.740 for 00:03:35
+Paths: (2 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Flags: 0x4000000025060005, import: 0x1f
+  Not advertised to any peer
+  Local
+    2.2.2.2 (metric 20) from 6.6.6.6 (2.2.2.2)
+      Received Label 24009, Second Label 24010
+      Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+      Received Path ID 0, Local Path ID 1, version 3
+      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a RT:10:10 RT:1001:11 
+      Originator: 2.2.2.2, Cluster list: 6.6.6.6
+      EVPN ESI: 0000.0000.0000.0000.0000
+  Path #2: Received by speaker 0
+  Flags: 0x4000000020020005, import: 0x20
+  Not advertised to any peer
+  Local
+    2.2.2.2 (metric 20) from 7.7.7.7 (2.2.2.2)
+      Received Label 24009, Second Label 24010
+      Origin IGP, localpref 100, valid, internal, not-in-vrf
+      Received Path ID 0, Local Path ID 0, version 0
+      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a RT:10:10 RT:1001:11 
+      Originator: 2.2.2.2, Cluster list: 7.7.7.7
+      EVPN ESI: 0000.0000.0000.0000.0000
+RP/0/RP0/CPU0:DCI-1#
+      </code>
+      </pre>
+      </div>
