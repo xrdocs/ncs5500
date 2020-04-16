@@ -430,3 +430,14 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 
 In this host-disable mode, only IPv4/32 and IPv6/48 are going to LEM.
 
+![Screen Shot 2020-04-16 at 12.40.52 AM.png]({{site.baseurl}}/images/Screen Shot 2020-04-16 at 12.40.52 AM.png){: .align-center}
+
+## Handling internet growth
+
+For this exercise, I'll use one more time the twitter feed created by Darren O'Connor (@mellowdrifter): 
+- [https://twitter.com/bgp4_table](https://twitter.com/bgp4_table)
+- [https://twitter.com/bgp6_table](https://twitter.com/bgp6_table)
+
+In 
+
+
