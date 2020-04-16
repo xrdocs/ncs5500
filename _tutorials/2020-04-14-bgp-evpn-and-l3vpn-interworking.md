@@ -394,4 +394,107 @@ RP/0/RP0/CPU0:DCI-1#
       </pre>
       </div>
 
-Based on above output we can see the route is learnt and programming in the forwarding table for vrf 10.
+Based on above output we can see the route is learnt and programming in the forwarding table for vrf 10. Next lets configure BGP-EVPN fabric.
+
+### Task 3: Configuration of BGP-EVPN on Leafs, Spines and DCIs
+The EVPN fabric configuration is done in previous post but that did not include DCIs. We will configure DCIs now and form BGP EVPN neighborship with Route-Reflectors/Spines.
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-evpn-topology.png?raw=true)
+
+Configure VPN VRF on DCIs.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+vrf 10
+ address-family ipv4 unicast
+  import route-target
+   10:10
+  !
+  export route-target
+   10:10
+  !
+pv4 address 111.1.1.1 255.255.255.255
+!
+</code>
+</pre>
+</div>
+
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
+  </tr>
+  <tr style="border: none;">
+    <th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+
+router bgp 65001
+ bgp router-id 8.8.8.8
+ address-family l2vpn evpn
+ !
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP-EVPN session to Spine-1"      
+  update-source Loopback0
+  address-family l2vpn evpn
+   next-hop-self
+  !
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP-EVPN session to Spine-2"      
+  update-source Loopback0
+  address-family l2vpn evpn
+   next-hop-self
+  !
+ !
+ vrf 10 ----- VRF is already configured under BGP, when we configured L3VPN on DCI -----
+  rd auto
+  address-family ipv4 unicast
+   maximum-paths ibgp 10
+   redistribute connected
+  !
+ ! 
+ </code>
+      </pre>
+      </div>
+    </th>
+    <th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+
+router bgp 65001
+ bgp router-id 9.9.9.9
+ address-family l2vpn evpn
+ !
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP-EVPN session to Spine-1"      
+  update-source Loopback0
+  address-family l2vpn evpn
+   next-hop-self
+  !
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP-EVPN session to Spine-2"      
+  update-source Loopback0
+  address-family l2vpn evpn
+   next-hop-self
+  !       
+ !
+ vrf 10 ----- VRF is already configured under BGP, when we configured L3VPN on DCI -----
+  rd auto 
+  address-family ipv4 unicast
+   maximum-paths ibgp 10
+   redistribute connected
+  !
+ !
+      </code>
+      </pre>
+      </div>
+    </th>
+  </tr>
+</table>
