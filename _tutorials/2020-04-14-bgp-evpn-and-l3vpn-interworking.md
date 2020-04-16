@@ -418,6 +418,8 @@ pv4 address 111.1.1.1 255.255.255.255
 </pre>
 </div>
 
+Configure BGP-EVPN neighborship with Route Reflectors.
+
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <th style="border: none;">DCI-1</th>
