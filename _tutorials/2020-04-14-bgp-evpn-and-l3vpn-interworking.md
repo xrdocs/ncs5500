@@ -365,7 +365,7 @@ B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 01:07:05
 RP/0/RP0/CPU0:DCI-1#
 
 
-RP/0/RP0/CPU0:DCI-1#sh cef vrf 10 111.1.1.1/32
+RP/0/RP0/CPU0:DCI-1#show cef vrf 10 111.1.1.1/32
 111.1.1.1/32, version 1, internal 0x5000001 0x0 (ptr 0x97c1d714) [1], 0x0 (0x0), 0x208 (0x98422d28)
  Updated Apr 14 11:39:51.099
  Prefix Len 32, traffic index 0, precedence n/a, priority 3
@@ -375,8 +375,15 @@ RP/0/RP0/CPU0:DCI-1#sh cef vrf 10 111.1.1.1/32
     next hop VRF - 'default', table - 0xe0000000
     next hop 10.10.10.10/32 via 16010/0/21
      next hop 192.8.10.2/32 BE81         labels imposed {ImplNull 24017}
+      </code>
+      </pre>
+      </div>
 
+The above output shows that PE-1's advertised prefix 111.1.1.1/32 is learnt on DCI in VRF 10. We can also verify the prefix advertisement using the L3VPN BGP control-plane. In the below output from DCI-1 we can see the deatils of prefix 111.1.1.1/32; that it is recieved from PE-1 (10.10.10.10), its label value and route-target (RT) information.  
 
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
 RP/0/RP0/CPU0:DCI-1#show bgp vpnv4 unicast rd 10.10.10.10:0 111.1.1.1/32 detail
 BGP routing table entry for 111.1.1.1/32, Route Distinguisher: 10.10.10.10:0
 Versions:
@@ -390,17 +397,18 @@ Paths: (1 available, best #1)
   Flags: 0x4000000025060005, import: 0x1f
   Not advertised to any peer
   Local
-    10.10.10.10 (metric 10) from 10.10.10.10 (10.10.10.10)
-      Received Label 24017 
+    <mark>10.10.10.10</mark> (metric 10) from 10.10.10.10 (10.10.10.10)
+      Received Label <mark>24017</mark> 
       Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
       Received Path ID 0, Local Path ID 1, version 3
-      Extended community: RT:110:110 
+      Extended community: <mark>RT:110:110</mark> 
 RP/0/RP0/CPU0:DCI-1#
       </code>
       </pre>
       </div>
 
-Based on above output we can see the route is learnt and programming in the forwarding table for vrf 10. Next lets configure BGP-EVPN fabric.
+Based on above output we can see the prefix from PE-1 learnt and programmed in the forwarding table for VRF 10 on DCI routers. This concludes the configuration and verifcation of BGP L3VPN (VPNv4) domain in the above setup. Next we will cover the remaning tasks of configuration BGP EVPN on DCI routers and implementing EVPN to L3VPN interworking.
+
 
 ### Task 3: Configuration of BGP-EVPN on Leafs, Spines and DCIs
 The EVPN fabric configuration is done in previous post but that did not include DCIs. We will configure DCIs now and form BGP EVPN neighborship with Route-Reflectors/Spines.
