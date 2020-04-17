@@ -524,11 +524,49 @@ vrf 10
 </pre>
 </div>
 
+We will import the evpn routes with stitching RT and then will re-originate these with vpnv4 towards PEs. For this we will need two knobs in BGP, “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
 
+**Import EVPN routes using “import stitching-rt re-originate”**
+In order to import evpn routes, we will have to import routes using “**stitching-rt**” keyword in evpn address-family. The “**re-originate**” keyword will enable the routes to be re-originated with vpnv4 normal RT (110:110).
+
+Configure below on DCI-1 and DCI-2:
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
+DCI:
 
+router bgp 65001
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP-EVPN session to Spine-1"        
+  address-family l2vpn evpn
+   <mark>import stitching-rt re-originate</mark>
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP-EVPN session to Spine-2"       
+  address-family l2vpn evpn
+   <mark>import stitching-rt re-originate</mark>
+!
  </code>
       </pre>
       </div>
+      
+As a result we can see the routes are programmed in the routing table of VRF 10 on DCI.
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+DCI-1:
+
+RP/0/RP0/CPU0:DCI-1#sh route vrf 10
+
+Gateway of last resort is not set
+
+B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:06:07
+B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:06:07
+B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 21:31:55
+RP/0/RP0/CPU0:DCI-1#
+ </code>
+      </pre>
+      </div>
+      
