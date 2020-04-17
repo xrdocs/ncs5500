@@ -140,6 +140,7 @@ router isis <mark>2</mark>
   </tr>
 </table>
 
+Below output shows the segment routing label table for both the ISIS processes on DCI routers. Routers in EVPN and L3VPN domains are reachable from DCI routers.
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <th style="border: none;">DCI-1</th>
