@@ -224,7 +224,7 @@ vrf 10
 </pre>
 </div>
 
-Configure BGP L3VPN neighborship via vpnv4 address-family. Also, configure the VRF under BGP to advertised the routes of the VRF to other PE routers. Initiate the VPNv4 address family to advertise VRF label. RD auto under VRF generates RD value automatically. However, configuring RD manually is also supported.
+Configure BGP L3VPN neighborship via vpnv4 address-family. Also, configure the VRF under BGP to advertised the routes of the VRF to other PE routers. Initiate the VPNv4 address family to advertise VRF label. Route-Distinguisher (RD) auto under VRF generates RD value automatically. However, configuring RD manually is also supported.
 We will use “redistribute connected” under VRF to advertise connected routes via BGP. In addition, we are configuring BGP multipathing for load balancing where multiple next-hops are available for a prefix.
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
