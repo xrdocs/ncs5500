@@ -407,6 +407,6 @@ RP/0/RP0/CPU0:DCI-1#
       </pre>
       </div>
 
-Based on above output we can see the prefix from PE-1 learnt and programmed in the forwarding table for VRF 10 on DCI routers. This concludes the configuration and verifcation of BGP L3VPN (VPNv4) domain in the above setup. Next we will cover the remaning tasks of configuration BGP EVPN on DCI routers and implementing EVPN to L3VPN interworking.
+Based on above output we can see the prefix from PE-1 learnt and programmed in the forwarding table for VRF 10 on DCI routers. This concludes the configuration and verification of BGP L3VPN (VPNv4) domain in the above setup. Next we will cover the remaining tasks of configuration BGP EVPN on DCI routers and implementing EVPN to L3VPN interworking.
 
 
