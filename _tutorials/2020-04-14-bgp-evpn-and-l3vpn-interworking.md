@@ -418,16 +418,19 @@ Leafs have VRF 10 with route-target 10:10 configured for inter-subnet routing. B
 
 Below configuration is used to configure VRF 10 on DCI routers. 
 A point to note: We already have configured VRF 10 on DCI when we configured L3VPN on DCI routers in Task 2. The route-targets (RT) we configured then were to import and export vpnv4 routes from L3VPN domain (RT:110:110). Now, since we are extending EVPN to DCI routers, we will also configure EVPN RT (RT:10:10) under VRF 10 to import and export EVPN routes.
+We will configure EVPN RT as stitching RT. Details of EVPN stitching RT is covered in next task, Task 4.
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
 vrf 10
  address-family ipv4 unicast
   import route-target
-   10:10
+   <mark>10:10 stitching</mark>
+   110:110
   !
   export route-target
-   10:10
+   <mark>10:10 stitching</mark>
+   110:110
   !
 !
 </code>
@@ -517,22 +520,11 @@ router bgp 65001
   </tr>
 </table>
 
-As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); now with DCI connectivity we should be able to learn Host routes on DCI in VRF 10. 
-![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-both-domains-configured.png?raw=true)
+As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); now with DCI connectivity we should be able to see the routes in EVPN control-plane on DCI routers. 
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      
-RP/0/RP0/CPU0:DCI-1#show route vrf 10
-
-Gateway of last resort is not set
-
-B    <mark>10.0.0.20/32 [200/0] via </mark>1.1.1.1 (nexthop in vrf default), 00:02:32
-B    <mark>10.0.0.40/32 [200/0] via </mark>2.2.2.2 (nexthop in vrf default), 00:00:59
-B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 00:28:38
-RP/0/RP0/CPU0:DCI-1#
-
-
+DCI-1:
 
 RP/0/RP0/CPU0:DCI-1#show bgp l2vpn evpn 
 
@@ -598,7 +590,7 @@ Above output verifies the EVPN host routes are learnt for VRF 10 and have route-
 **Configure route-target stitching for EVPN routes:**
 So far we have configured EVPN fabric and L3VPN domain. On DCI routers, VRF 10 is configured with two sets of import and export route-targets. One set is associated to L3VPN domain using VPNv4 to advertise layer-3 information; while the other set is for EVPN fabric using EVPN address-family for advertisement of routes. The separation of route-targets enables DCI routers to have two separate domains configured independently. In order for EVPN and L3VPN to interwork, “Stitching” keyword configuration under VRF is required to stitch the two set of route-targets. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN remain normal RTs.
 
-Configure EVPN route-target as stitching RT for VRF 10 on DCIs routers. 
+Configure EVPN route-target as stitching RT for VRF 10 on DCIs routers.  
 **Note:** As we configure evpn RT as stitching RT, the previously configure evpn normal RT 10:10 under VRF should be manually removed.
 <div class="highlighter-rouge">
       <pre class="highlight">
