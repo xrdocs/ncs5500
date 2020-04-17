@@ -517,7 +517,8 @@ router bgp 65001
   </tr>
 </table>
 
-As BGP-EVPN Layer-2 service and IRB on Leafs is already configured (refer to this post), with DCI connectivity we should be able to learn Host prefixes on DCI in VRF 10. Lets verify the routing table as well as the BGP-EVPN control-plane on DCIs.
+As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service(https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)] and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); now with DCI connectivity we should be able to learn Host routes on DCI in VRF 10. 
+Below output confirms the Host routes advertised by Leafs are learnt in VRF 10 on DCI router.  
 
 <div class="highlighter-rouge">
       <pre class="highlight">
