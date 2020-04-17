@@ -385,7 +385,7 @@ The above output shows that PE-1's advertised prefix 111.1.1.1/32 is learnt on D
       <pre class="highlight">
       <code>
 RP/0/RP0/CPU0:DCI-1#show bgp vpnv4 unicast rd 10.10.10.10:0 111.1.1.1/32 detail
-BGP routing table entry for 111.1.1.1/32, Route Distinguisher: 10.10.10.10:0
+BGP routing table entry for <mark>111.1.1.1/32</mark>, Route Distinguisher: 10.10.10.10:0
 Versions:
   Process           bRIB/RIB  SendTblVer
   Speaker                  3           3
