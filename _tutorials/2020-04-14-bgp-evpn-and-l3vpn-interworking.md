@@ -379,7 +379,7 @@ RP/0/RP0/CPU0:DCI-1#show cef vrf 10 111.1.1.1/32
       </pre>
       </div>
 
-The above output shows that PE-1's advertised prefix 111.1.1.1/32 is learnt on DCI in VRF 10. We can also verify the prefix advertisement using the L3VPN BGP control-plane. In the below output from DCI-1 we can see the deatils of prefix 111.1.1.1/32; that it is recieved from PE-1 (10.10.10.10), its label value and route-target (RT) information.  
+The above output shows that PE-1's advertised prefix 111.1.1.1/32 is learnt on DCI in VRF 10. We can also verify the prefix advertisement using the L3VPN BGP control-plane. In the below output from DCI-1 we can see the details of prefix 111.1.1.1/32; that it is received from PE-1 (10.10.10.10), its label value and route-target (RT) information.  
 
 <div class="highlighter-rouge">
       <pre class="highlight">
