@@ -211,7 +211,7 @@ As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is co
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-Configure VPN VRF on PE-1, DCI-1 and DCI-2
+Configure L3VPN VRF on PE-1, DCI-1 and DCI-2.
 
 vrf 10
  address-family ipv4 unicast
