@@ -672,35 +672,35 @@ Paths: (2 available, best #1)
   Flags: 0x4000000025060005, import: 0x3f
   Not advertised to any peer
   Local
-    8.8.8.8 (metric 10) from 8.8.8.8 (1.1.1.1)
+    <mark>8.8.8.8</mark> (metric 10) from 8.8.8.8 (1.1.1.1)
       Received Label 64000
       Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
       Received Path ID 0, Local Path ID 0, version 207
-      Extended community: SoO:1.1.1.1:10 0x060e:0000.0000.000a RT:110:110 
-      Originator: 1.1.1.1, Cluster list: 8.8.8.8, 6.6.6.6
+      Extended community: SoO:1.1.1.1:10 0x060e:0000.0000.000a <mark>RT:110:110</mark> 
+      <mark>Originator: 1.1.1.1</mark>, Cluster list: 8.8.8.8, 6.6.6.6
   Path #2: Received by speaker 0
   Flags: 0x4000000024020005, import: 0x16
   Not advertised to any peer
   Local
-    9.9.9.9 (metric 10) from 9.9.9.9 (1.1.1.1)
+    <mark>9.9.9.9</mark> (metric 10) from 9.9.9.9 (1.1.1.1)
       Received Label 64002
       Origin IGP, localpref 100, valid, internal, import-candidate, not-in-vrf
       Received Path ID 0, Local Path ID 0, version 0
-      Extended community: SoO:1.1.1.1:10 0x060e:0000.0000.000a RT:110:110 
-      Originator: 1.1.1.1, Cluster list: 9.9.9.9, 8.8.8.8, 6.6.6.6
+      Extended community: SoO:1.1.1.1:10 0x060e:0000.0000.000a <mark>RT:110:110</mark> 
+      Originator: <mark>1.1.1.1</mark>, Cluster list: 9.9.9.9, 8.8.8.8, 6.6.6.6
 RP/0/RP0/CPU0:PE-1#
 
 RP/0/RP0/CPU0:PE-1#sh cef vrf 10 10.0.0.20/32
 10.0.0.20/32, version 228, internal 0x5000001 0x0 (ptr 0x8d1ccacc) [1], 0x0 (0x0), 0x208 (0x8d9fe0e0)
  Updated Mar  8 14:46:37.085
  Prefix Len 32, traffic index 0, precedence n/a, priority 3
-   via 8.8.8.8/32, 5 dependencies, recursive, bgp-multipath [flags 0x6080]
+   via <mark>8.8.8.8/32</mark>, 5 dependencies, recursive, bgp-multipath [flags 0x6080]
     path-idx 0 NHID 0x0 [0x8cce6d08 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
     next hop 8.8.8.8/32 via 16008/0/21
      next hop 192.8.10.1/32 BE81         labels imposed {ImplNull 64000}
-   via 9.9.9.9/32, 5 dependencies, recursive, bgp-multipath [flags 0x6080]
+   via <mark>9.9.9.9/32</mark>, 5 dependencies, recursive, bgp-multipath [flags 0x6080]
     path-idx 1 NHID 0x0 [0x8cce8268 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
