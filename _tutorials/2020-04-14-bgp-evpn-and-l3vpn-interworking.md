@@ -28,8 +28,8 @@ To configure EVPN and L3VPN interworking and achieve end-to-end connectivity, be
 - Configure DCI routers to perform EVPN and L3VPN interworking 
 
 
-### Task 1: Configuration of Segment Routing on DCI.
-Segment routing configuration is covered in earlier post. For this we will show segment routing configuration of DCI as DCI is part of two segment routing domains. One segment routing domain is providing forwarding to EVPN fabric and the other to L3VPN domain.
+### Task 1: Configuration of Segment Routing on DCI routers
+Segment routing configuration for EVPN fabric is covered in earlier post but DCI routers were not part of that post. That is why we will only cover segment routing configuration for DCI and show it participating in two MPLS forwarding domains. One for providing forwarding to EVPN fabric and other to the L3VPN domain.
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-transport.png?raw=true)
 
