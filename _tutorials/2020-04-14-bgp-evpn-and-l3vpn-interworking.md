@@ -591,7 +591,6 @@ Above output verifies the EVPN host routes are learnt for VRF 10 and have route-
 So far we have configured EVPN fabric and L3VPN domain. On DCI routers, VRF 10 is configured with two sets of import and export route-targets. One set is associated to L3VPN domain using VPNv4 to advertise layer-3 information; while the other set is for EVPN fabric using EVPN address-family for advertisement of routes. The separation of route-targets enables DCI routers to have two separate domains configured independently. In order for EVPN and L3VPN to interwork, “Stitching” keyword configuration under VRF is required to stitch the two set of route-targets. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN remain normal RTs.
 
 Configure EVPN route-target as stitching RT for VRF 10 on DCIs routers.  
-**Note:** As we configure evpn RT as stitching RT, the previously configure evpn normal RT 10:10 under VRF should be manually removed.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
