@@ -500,7 +500,6 @@ router bgp 65001
 As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); in next task lets configure route-target for VRF 10 to import and export evpn routes. 
 
 
-
 ### Task 4: Configure BGP EVPN and L3VPN interworking on DCI routers
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-both-domains-configured.png?raw=true)
 **Configure route-target stitching for EVPN routes:**
