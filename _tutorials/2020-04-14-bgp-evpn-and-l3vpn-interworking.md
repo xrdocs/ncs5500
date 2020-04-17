@@ -501,6 +501,7 @@ As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in e
 
 
 ### Task 4: Configure BGP EVPN and L3VPN interworking on DCI routers
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-stitching-rt.png?raw=true)
 **Configure route-target stitching for EVPN routes:**  
 We already have configured VRF 10 on DCI when we configured L3VPN on DCI routers in Task 2. Now, since we are extending EVPN to DCI routers, we will configure EVPN RT (RT:10:10) under VRF 10.
 With this, DCI routers for VRF 10 are configured with two sets of import and export route-targets. One set is associated to L3VPN domain using VPNv4 to advertise layer-3 information; while the other set is for EVPN fabric using EVPN address-family for advertisement of routes. The separation of route-targets enables DCI routers to have two separate domains configured independently. In order for EVPN and L3VPN to interwork, “Stitching” keyword configuration under VRF is required to stitch the two set of route-targets. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN remain normal RTs.
