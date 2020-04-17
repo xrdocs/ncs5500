@@ -206,7 +206,7 @@ Label         Prefix/Interface
 ### Task 2: Configuration of BGP L3VPN on DCI and PE-1
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-topology.png?raw=true)
-As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. A Route-Reflector can be levergaed for iBGP connectivity in L3VPN domain. We are not using a Route-Reflector in L3VPN domain due to the limited number of routers we have in this setup.    
+As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. A Route-Reflector can be leveraged for iBGP connectivity in L3VPN domain. We are not using a Route-Reflector in L3VPN domain due to the limited number of routers we have available for this  setup.    
 
 <div class="highlighter-rouge">
       <pre class="highlight">
