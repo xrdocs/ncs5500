@@ -523,38 +523,29 @@ As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in e
       <pre class="highlight">
       <code>
       
-RP/0/RP0/CPU0:DCI-1#sh route vrf 10
+RP/0/RP0/CPU0:DCI-1#show route vrf 10
 
 Gateway of last resort is not set
 
-B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:02:32
-B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:00:59
+B    <mark>10.0.0.20/32 [200/0] via </mark>1.1.1.1 (nexthop in vrf default), 00:02:32
+B    <mark>10.0.0.40/32 [200/0] via </mark>2.2.2.2 (nexthop in vrf default), 00:00:59
 B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 00:28:38
 RP/0/RP0/CPU0:DCI-1#
 
 
 
 RP/0/RP0/CPU0:DCI-1#show bgp l2vpn evpn 
-BGP router identifier 8.8.8.8, local AS number 65001
-BGP generic scan interval 60 secs
-Non-stop routing is enabled
-BGP table state: Active
-Table ID: 0x0   RD version: 0
-BGP main routing table version 3
-BGP NSR Initial initsync version 1 (Reached)
-BGP NSR/ISSU Sync-Group versions 0/0
-BGP scan interval 60 secs
 
 Status codes: s suppressed, d damped, h history, * valid, > best
               i - internal, r RIB-failure, S stale, N Nexthop-discard
 Origin codes: i - IGP, e - EGP, ? - incomplete
    Network            Next Hop            Metric LocPrf Weight Path
 Route Distinguisher: 1.1.1.1:10
-*>i[2][0][48][6c9c.ed6a.9504][32][10.0.0.20]/136
+*>i<mark>[2][0][48][6c9c.ed6a.9504][32][10.0.0.20]/136</mark>
                       1.1.1.1                       100      0 i
 * i                   1.1.1.1                       100      0 i
 Route Distinguisher: 2.2.2.2:10
-*>i[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136
+*>i<mark>[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136</mark>
                       2.2.2.2                       100      0 i
 * i                   2.2.2.2                       100      0 i
 
