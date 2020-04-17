@@ -518,7 +518,7 @@ router bgp 65001
 </table>
 
 As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); now with DCI connectivity we should be able to learn Host routes on DCI in VRF 10. 
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-both-domains-configured.png?raw=true)
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
