@@ -482,7 +482,6 @@ router bgp 65001
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-
 router bgp 65001
  bgp router-id 9.9.9.9
  address-family l2vpn evpn
