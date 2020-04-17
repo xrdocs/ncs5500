@@ -554,9 +554,8 @@ RP/0/RP0/CPU0:DCI-1#
 
 
 
-
 RP/0/RP0/CPU0:DCI-1#sh bgp l2vpn evpn rd 2.2.2.2:10 [2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136 detail
-BGP routing table entry for [2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136, Route Distinguisher: 2.2.2.2:10
+BGP routing table entry for <mark>[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136, Route Distinguisher: 2.2.2.2:10</mark>
 Versions:
   Process           bRIB/RIB  SendTblVer
   Speaker                  3           3
@@ -572,8 +571,8 @@ Paths: (2 available, best #1)
       Received Label 24009, Second Label 24010
       Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
       Received Path ID 0, Local Path ID 1, version 3
-      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a RT:10:10 RT:1001:11 
-      Originator: 2.2.2.2, Cluster list: 6.6.6.6
+      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a <mark>RT:10:10</mark> RT:1001:11 
+      <mark>Originator: 2.2.2.2</mark>, Cluster list: 6.6.6.6
       EVPN ESI: 0000.0000.0000.0000.0000
   Path #2: Received by speaker 0
   Flags: 0x4000000020020005, import: 0x20
@@ -583,15 +582,15 @@ Paths: (2 available, best #1)
       Received Label 24009, Second Label 24010
       Origin IGP, localpref 100, valid, internal, not-in-vrf
       Received Path ID 0, Local Path ID 0, version 0
-      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a RT:10:10 RT:1001:11 
-      Originator: 2.2.2.2, Cluster list: 7.7.7.7
+      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a <mark>RT:10:10</mark> RT:1001:11 
+      <mark>Originator: 2.2.2.2</mark>, Cluster list: 7.7.7.7
       EVPN ESI: 0000.0000.0000.0000.0000
 RP/0/RP0/CPU0:DCI-1#
       </code>
       </pre>
       </div>
 
-Above output verifies the evpn host routes are learnt for VRF 10 and control-plane verifies that these routes have route-target (RT) as 10:10 as advertised by Leafs. PE-1 was configured with RT 110:110. The routing table on DCI for vrf 10 also shows the route learnt from PE-1 that was advertised by vpnv4 address-family with route-target 110:110. As DCI has reachability to both the EVPN as well as the L3VPN domains, lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
+Above output verifies the EVPN host routes are learnt for VRF 10 and control-plane verifies that these routes have route-target 10:10 as advertised by Leafs. PE-1 was configured with route-target 110:110. The routing table on DCI for VRF 10 also shows the route learnt from PE-1. This route is advertised by vpnv4 address-family with route-target 110:110. As DCI has reachability to both the EVPN as well as the L3VPN domains, lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
 
 
 ### Task 4: Configure BGP EVPN and L3VPN interworking
