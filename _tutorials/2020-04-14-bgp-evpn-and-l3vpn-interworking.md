@@ -711,5 +711,4 @@ RP/0/RP0/CPU0:PE-1#
       </pre>
       </div>
 
-
 The routing table on PE-1 shows the hosts routes of EVPN fabric are learnt in VRF 10. We have DCI-1 and DCI-2 as the next-hops to get to host prefixes in EVPN fabric. This accomplishes the reachability from PE-1 to host prefixes on Leafs. 
