@@ -357,7 +357,7 @@ interface Loopback100
       </div>
 
 
-Check routing table of DCIs for VRF 10 to verify that PE-1 prefix is learnt via vpnv4 address family.
+At this point we are done with BGP L3VPN (VPNv4) configuration on DCI routers and PE-1. We are advertising interface Loopback 100's prefix from PE-1 towards DCI routers with vpnv4 address-family and route-targets 110:110 for import and export of routes for VRF 10. Check routing table of DCIs for VRF 10 to verify that PE-1 prefix is learnt via vpnv4 address family.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
