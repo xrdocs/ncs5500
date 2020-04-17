@@ -45,9 +45,9 @@ Segment routing configuration for EVPN fabric is covered in earlier post but DCI
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-router isis 1
+router isis <mark>1</mark>
  is-type level-2-only
- net 49.0001.0000.0000.0008.00
+ net <mark>49.0001.0000.0000.0008.00</mark>
  nsr
  log adjacency changes
  address-family ipv4 unicast
@@ -65,11 +65,11 @@ router isis 1
  interface Loopback0
   passive
   address-family ipv4 unicast
-   prefix-sid absolute 16008
+   prefix-sid <mark>absolute 16008</mark>
 !
-router isis 2
+router isis <mark>2</mark>
  is-type level-2-only
- net 49.0002.0000.0000.0008.00
+ net <mark>49.0002.0000.0000.0008.00</mark>
  nsr
  log adjacency changes
  address-family ipv4 unicast
@@ -83,7 +83,7 @@ router isis 2
  interface Loopback0
   passive
   address-family ipv4 unicast
-   prefix-sid absolute 16008
+   prefix-sid <mark>absolute 16008</mark>
 !      
       </code>
       </pre>
@@ -93,9 +93,9 @@ router isis 2
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-router isis 1
+router isis <mark>1</mark>
  is-type level-2-only
- net 49.0001.0000.0000.0009.00
+ net <mark>49.0001.0000.0000.0009.00</mark>
  nsr
  log adjacency changes
  address-family ipv4 unicast
@@ -113,11 +113,11 @@ router isis 1
  interface Loopback0
   passive
   address-family ipv4 unicast
-   prefix-sid absolute 16009
+   prefix-sid <mark>absolute 16009</mark>
 !
-router isis 2
+router isis <mark>2</mark>
  is-type level-2-only
- net 49.0002.0000.0000.0009.00
+ net <mark>49.0002.0000.0000.0009.00</mark>
  nsr
  log adjacency changes
  address-family ipv4 unicast
@@ -131,7 +131,7 @@ router isis 2
  interface Loopback0
   passive
   address-family ipv4 unicast
-   prefix-sid absolute 16009
+   prefix-sid <mark>absolute 16009</mark>
 !
       </code>
       </pre>
@@ -152,7 +152,7 @@ router isis 2
       <code>
 DCI-1#show isis segment-routing label table 
 
-IS-IS 1 IS Label Table
+<mark>IS-IS 1 IS Label Table</mark>
 Label         Prefix/Interface
 ----------    ----------------
 16001         1.1.1.1/32
@@ -162,7 +162,7 @@ Label         Prefix/Interface
 16008         Loopback0
 16009         9.9.9.9/32
 
-IS-IS 2 IS Label Table
+<mark>IS-IS 2 IS Label Table</mark>
 Label         Prefix/Interface
 ----------    ----------------
 16008         Loopback0
@@ -178,7 +178,7 @@ Label         Prefix/Interface
       <code>
 DCI-2#show isis segment-routing label table 
 
-IS-IS 1 IS Label Table
+<mark>IS-IS 1 IS Label Table</mark>
 Label         Prefix/Interface
 ----------    ----------------
 16001         1.1.1.1/32
@@ -188,7 +188,7 @@ Label         Prefix/Interface
 16008         8.8.8.8/32
 16009         Loopback0
 
-IS-IS 2 IS Label Table
+<mark>IS-IS 2 IS Label Table</mark>
 Label         Prefix/Interface
 ----------    ----------------
 16008         8.8.8.8/32
