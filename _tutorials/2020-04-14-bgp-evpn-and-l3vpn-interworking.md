@@ -203,7 +203,7 @@ Label         Prefix/Interface
 </table>
   
   
-### Task 2: Configuration of L3VPN on DCI and PE-1
+### Task 2: Configuration of BGP L3VPN on DCI and PE-1
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-vpnv4-topology.png?raw=true)
 As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. This route-target is different from the one we will configure for BGP-EVPN routes.  
