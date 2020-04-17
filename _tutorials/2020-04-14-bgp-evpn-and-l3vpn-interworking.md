@@ -497,69 +497,8 @@ router bgp 65001
   </tr>
 </table>
 
-As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); now with DCI connectivity we should be able to see the routes in EVPN control-plane on DCI routers. 
-<div class="highlighter-rouge">
-      <pre class="highlight">
-      <code>
-DCI-1:
+As BGP-EVPN Layer-2 VPN service and EVPN-IRB on Leafs is already configured in earlier posts (refer to [EVPN Layer-2 Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) and [EVPN-IRB](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)); in next task lets configure route-target for VRF 10 to import and export evpn routes. 
 
-RP/0/RP0/CPU0:DCI-1#show bgp l2vpn evpn 
-
-Status codes: s suppressed, d damped, h history, * valid, > best
-              i - internal, r RIB-failure, S stale, N Nexthop-discard
-Origin codes: i - IGP, e - EGP, ? - incomplete
-   Network            Next Hop            Metric LocPrf Weight Path
-Route Distinguisher: 1.1.1.1:10
-*>i<mark>[2][0][48][6c9c.ed6a.9504][32][10.0.0.20]/136</mark>
-                      1.1.1.1                       100      0 i
-* i                   1.1.1.1                       100      0 i
-Route Distinguisher: 2.2.2.2:10
-*>i<mark>[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136</mark>
-                      2.2.2.2                       100      0 i
-* i                   2.2.2.2                       100      0 i
-
-Processed 2 prefixes, 4 paths
-RP/0/RP0/CPU0:DCI-1#
-
-
-
-RP/0/RP0/CPU0:DCI-1#sh bgp l2vpn evpn rd 2.2.2.2:10 [2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136 detail
-BGP routing table entry for <mark>[2][0][48][6c9c.ed6a.9505][32][10.0.0.40]/136, Route Distinguisher: 2.2.2.2:10</mark>
-Versions:
-  Process           bRIB/RIB  SendTblVer
-  Speaker                  3           3
-    Flags: 0x00040001+0x00010000; 
-Last Modified: Apr 14 12:07:29.740 for 00:03:35
-Paths: (2 available, best #1)
-  Not advertised to any peer
-  Path #1: Received by speaker 0
-  Flags: 0x4000000025060005, import: 0x1f
-  Not advertised to any peer
-  Local
-    2.2.2.2 (metric 20) from 6.6.6.6 (2.2.2.2)
-      Received Label 24009, Second Label 24010
-      Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
-      Received Path ID 0, Local Path ID 1, version 3
-      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a <mark>RT:10:10</mark> RT:1001:11 
-      <mark>Originator: 2.2.2.2</mark>, Cluster list: 6.6.6.6
-      EVPN ESI: 0000.0000.0000.0000.0000
-  Path #2: Received by speaker 0
-  Flags: 0x4000000020020005, import: 0x20
-  Not advertised to any peer
-  Local
-    2.2.2.2 (metric 20) from 7.7.7.7 (2.2.2.2)
-      Received Label 24009, Second Label 24010
-      Origin IGP, localpref 100, valid, internal, not-in-vrf
-      Received Path ID 0, Local Path ID 0, version 0
-      Extended community: Flags 0x1e: SoO:2.2.2.2:10 0x060e:0000.0000.000a <mark>RT:10:10</mark> RT:1001:11 
-      <mark>Originator: 2.2.2.2</mark>, Cluster list: 7.7.7.7
-      EVPN ESI: 0000.0000.0000.0000.0000
-RP/0/RP0/CPU0:DCI-1#
-      </code>
-      </pre>
-      </div>
-
-Above output verifies the EVPN host routes are learnt for VRF 10 and have route-target 10:10 as advertised by Leafs. PE-1 was configured with route-target 110:110. The routing table on DCI for VRF 10 also shows the route learnt from PE-1. Lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
 
 
 ### Task 4: Configure BGP EVPN and L3VPN interworking on DCI routers
