@@ -590,7 +590,7 @@ RP/0/RP0/CPU0:DCI-1#
       </pre>
       </div>
 
-Above output verifies the EVPN host routes are learnt for VRF 10 and control-plane verifies that these routes have route-target 10:10 as advertised by Leafs. PE-1 was configured with route-target 110:110. The routing table on DCI for VRF 10 also shows the route learnt from PE-1. This route is advertised by vpnv4 address-family with route-target 110:110. As DCI has reachability to both the EVPN as well as the L3VPN domains, lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
+Above output verifies the EVPN host routes are learnt for VRF 10 and have route-target 10:10 as advertised by Leafs. PE-1 was configured with route-target 110:110. The routing table on DCI for VRF 10 also shows the route learnt from PE-1. Lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
 
 
 ### Task 4: Configure BGP EVPN and L3VPN interworking on DCI routers
