@@ -589,5 +589,6 @@ Above output verifies the evpn host routes are learnt for VRF 10 and control-pla
 
 ### Task 4: Configure BGP EVPN and L3VPN interworking
 
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-evpn-topology.png?raw=true)
 
 So far we have configured EVPN fabric and L3VPN domain. PE-1’s prefix is advertised via vpnv4 address-family and Leafs’ prefixes are advertised via evpn address-family towards DCI. On DCI, VRF 10 is configured with two sets of import and export route-targets. One set is associated to L3VPN domain using vpnv4 to advertise layer-3 information; while the other set is for EVPN fabric using evpn address-family for advertisement of routes. The separation of route-targets enables DCI to have two separate domains configured independently and then stitching the two set of route-targets for interworking. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN are normal RTs.
