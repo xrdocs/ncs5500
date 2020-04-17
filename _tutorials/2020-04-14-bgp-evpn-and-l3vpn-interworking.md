@@ -411,7 +411,7 @@ Based on above output we can see the prefix from PE-1 learnt and programmed in t
   
    
 ### Task 3: Configuration of BGP-EVPN on Leafs, Spines and DCIs
-The EVPN fabric configuration was done in [this post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) but that did not include DCI router's configuration. We will configure DCI routers now and form BGP EVPN neighborship with Spines serving as Route-Reflectors.
+The EVPN fabric configuration was done in [another post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) but that did not include DCI router's configuration. We will configure DCI routers now and form BGP EVPN neighborship with Spines serving as Route-Reflectors.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-evpn-topology.png?raw=true)
 
 Host's are connected to Leafs, VRF 10 with route-target RT:10:10 is configured for inter-subnet routing. iBGP neighborship is formed using evpn address-family between Leafs, DCI routers and Route-Reflectors. In order to receive routes from Leafs for VRF 10, we will have to configure VRF 10 on DCI routers as well.
