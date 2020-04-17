@@ -722,3 +722,247 @@ This is configured under vpnv4 address-family to enable import of vpnv4 routes w
 **Advertise re-originated routes to EVPN “advertise vpnv4 unicast re-originated”:**
 Lastly, configure “advertise vpnv4 unicast re-originated” keyword under evpn address family. This keyword will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change to the stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
 
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
+  </tr>
+  <tr style="border: none;">
+    <th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+router bgp 65001
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP-EVPN session to Spine-1"              
+  update-source Loopback0
+  address-family l2vpn evpn
+   import stitching-rt re-originate
+   <mark>advertise vpnv4 unicast re-originated</mark>
+   next-hop-self
+  !
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP-EVPN session to Spine-2"             
+  update-source Loopback0
+  address-family l2vpn evpn
+   import stitching-rt re-originate
+   <mark>advertise vpnv4 unicast re-originated</mark>
+   next-hop-self
+  !
+ !
+ neighbor 9.9.9.9
+  remote-as 65001
+  description "vpnv4 session to DCI-1"    
+  update-source Loopback0
+  address-family vpnv4 unicast
+   <mark>import re-originate stitching-rt</mark>
+   route-reflector-client
+   advertise vpnv4 unicast re-originated
+   next-hop-self
+  !
+ !
+ neighbor 10.10.10.10
+  remote-as 65001
+  description "vpnv4 session to PE-1"      
+  update-source Loopback0
+  address-family vpnv4 unicast
+   <mark>import re-originate stitching-rt</mark>
+   route-reflector-client
+   advertise vpnv4 unicast re-originated
+   next-hop-self
+  !
+ !
+      </code>
+      </pre>
+      </div>
+    </th>
+    <th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+router bgp 65001
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP session to Spine-1"       
+  update-source Loopback0
+  address-family l2vpn evpn
+   import stitching-rt re-originate
+   <mark>advertise vpnv4 unicast re-originated</mark>
+   next-hop-self
+  !
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP session to Spine-2"       
+  update-source Loopback0
+  address-family l2vpn evpn
+   import stitching-rt re-originate
+   <mark>advertise vpnv4 unicast re-originated</mark> 
+   next-hop-self
+  !
+ !
+ neighbor 8.8.8.8
+  remote-as 65001
+  description "vpnv4 session to DCI-1"   
+  update-source Loopback0
+  address-family vpnv4 unicast
+   <mark>import re-originate stitching-rt</mark>
+   route-reflector-client
+   advertise vpnv4 unicast re-originated
+   next-hop-self
+  !
+ !
+ neighbor 10.10.10.10
+  remote-as 65001
+  description "vpnv4 session to PE-1"    
+  update-source Loopback0
+  address-family vpnv4 unicast
+   <mark>import re-originate stitching-rt</mark>
+   route-reflector-client
+   advertise vpnv4 unicast re-originated
+   next-hop-self
+  !
+ !
+      </code>
+      </pre>
+      </div>
+    </th>
+  </tr>
+</table>
+
+
+Finally lets observe the routing table and BGP-EVPN control-plane on Leafs to verify PE-1 prefix is reachable.
+
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+Leaf-1:
+
+RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+
+Gateway of last resort is not set
+
+C    10.0.0.0/24 is directly connected, 2d16h, BVI10
+L    10.0.0.1/32 is directly connected, 2d16h, BVI10
+B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 1d18h
+B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 1d16h
+                  [200/0] via 9.9.9.9 (nexthop in vrf default), 1d16h
+RP/0/RP0/CPU0:Leaf-1#
+
+Leaf-2
+
+RP/0/RP0/CPU0:Leaf-2#sh route vrf 10
+
+Gateway of last resort is not set
+
+C    10.0.0.0/24 is directly connected, 2d16h, BVI10
+L    10.0.0.1/32 is directly connected, 2d16h, BVI10
+B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 1d18h
+B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 1d16h
+                  [200/0] via 9.9.9.9 (nexthop in vrf default), 1d16h
+RP/0/RP0/CPU0:Leaf-2#
+
+
+Leaf-1
+
+RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 8.8.8.8:0
+BGP router identifier 1.1.1.1, local AS number 65001
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 0
+BGP main routing table version 2235
+BGP NSR Initial initsync version 2 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 8.8.8.8:0
+*>i[5][0][32][111.1.1.1]/80
+                      8.8.8.8                  0    100      0 ?
+* i                   8.8.8.8                  0    100      0 ?
+
+Processed 1 prefixes, 2 paths
+RP/0/RP0/CPU0:Leaf-1#
+
+RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 9.9.9.9:0
+BGP router identifier 1.1.1.1, local AS number 65001
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 0
+BGP main routing table version 2235
+BGP NSR Initial initsync version 2 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 9.9.9.9:0
+*>i[5][0][32][111.1.1.1]/80
+                      9.9.9.9                  0    100      0 ?
+* i                   9.9.9.9                  0    100      0 ?
+
+Processed 1 prefixes, 2 paths
+RP/0/RP0/CPU0:Leaf-1#
+
+
+RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 8.8.8.8:0 [5][0][32][111.1.1.1]/80 detail
+BGP routing table entry for [5][0][32][111.1.1.1]/80, Route Distinguisher: 8.8.8.8:0
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                704         704
+    Flags: 0x00040001+0x00010000; 
+Last Modified: Apr 15 04:23:51.766 for 1d16h
+Paths: (2 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Flags: 0x4000000025060005, import: 0x1f, EVPN: 0x1
+  Not advertised to any peer
+  Local
+    8.8.8.8 (metric 20) from 6.6.6.6 (10.10.10.10)
+      Received Label 64000 
+      Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+      Received Path ID 0, Local Path ID 1, version 704
+      Extended community: Flags 0x6: RT:10:10 
+      Originator: 10.10.10.10, Cluster list: 6.6.6.6, 8.8.8.8
+      EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
+  Path #2: Received by speaker 0
+  Flags: 0x4000000020020005, import: 0x20, EVPN: 0x1
+  Not advertised to any peer
+  Local
+    8.8.8.8 (metric 20) from 7.7.7.7 (10.10.10.10)
+      Received Label 64000 
+      Origin incomplete, metric 0, localpref 100, valid, internal, not-in-vrf
+      Received Path ID 0, Local Path ID 0, version 0
+      Extended community: Flags 0x6: RT:10:10 
+      Originator: 10.10.10.10, Cluster list: 7.7.7.7, 8.8.8.8
+      EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
+
+
+Reachability to Host prefixes from PE-1:
+RP/0/RP0/CPU0:PE-1#ping vrf 10 10.0.0.20 source 111.1.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.20, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/3 ms
+
+RP/0/RP0/CPU0:PE-1#ping vrf 10 10.0.0.40 source 111.1.1.1
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.40, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/3 ms
+RP/0/RP0/CPU0:PE-1#
+  </code>
+      </pre>
+      </div>
+The routing table on Leafs has the prefix 111.1.1.1/32 from PE-1. The evpn control-plane shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
+Successful Ping from PE-1 to Host prefixes shows that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability between Leafs and PE-1 is established. 
