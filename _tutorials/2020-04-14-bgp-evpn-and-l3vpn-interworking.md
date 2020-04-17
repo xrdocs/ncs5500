@@ -20,10 +20,11 @@ The configuration setup is based on single BGP AS 65001. There are two separate 
 
 To configure EVPN and L3VPN interworking and achieve end-to-end connectivity, below is the list of tasks we will implement. Some of these tasks are already covered in previous posts, their details will not be covered here. Click on the links below visit previous posts. 
    
-•	Configure Segment Routing  
-•	Configure EVPN Layer-2 Service and IRB  
-•	Configure L3VPN  
-•	Configure DCI and Leafs to support EVPN and L3VPN interworking  
+- [Configure BGP-EVPN control-plane & Segment Routing based MPLS forwarding](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/)
+- [Configure BGP EVPN based Layer-2 VPN Service](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/)
+- [Configure BGP EVPN IRB for Inter-subnet Routing](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-irb-configuration/)
+- Configure BGP L3VPN domain
+- Configure DCI routers to perform EVPN and L3VPN interworking 
 
 
 ### Task 1: Configuration of Segment Routing on DCI.
