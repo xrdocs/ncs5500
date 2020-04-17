@@ -1,13 +1,13 @@
 ---
 published: true
 date: '2020-04-14 16:35 -0700'
-title: BGP-EVPN and L3VPN Interworking
+title: BGP EVPN and L3VPN Interworking
 author: Ahmad Bilal
 excerpt: BGP-EVPN and L3VPN Interworking Support on NCS5500
 ---
 {% include toc %}
 
-## BGP-EVPN and L3VPN Interworking Support on NCS5500
+## BGP EVPN and L3VPN Interworking Support on NCS5500
 
 BGP EVPN and L3VPN interworking is a way to connect EVPN domain such as a DC or CO over an IPVPN Core/WAN network. This is a common use-case for end-to-end connectivity of Hosts/CEs in EVPN domain to other domains over an IPVPN network providing inter-subnet routing.
 Below topology shows an EVPN fabric connecting to L3VPN domain with the help of DCI/Boarder-Leaf routers. The DCI routers perform BGP EVPN to L3VPN interworking to provide the reachability between Host’s and PE’s prefixes. Boarder-Leaf/DCI routers are essential in these types of designs to keep prefixes local to each domain and send summarized advertisement out.
