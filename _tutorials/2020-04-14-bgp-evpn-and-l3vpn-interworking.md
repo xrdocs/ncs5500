@@ -18,7 +18,7 @@ In this post we will go over the configuration of EVPN and L3VPN interworking on
 
 The configuration setup is based on single BGP AS 65001. There are two separate ISIS routing domains for EVPN and L3VPN with Segment Routing enabled for MPLS based forwarding. DCI performs BGP EVPN and L3VPN interworking, hence it is participating in both ISIS domains. There is no route redistribute between ISIS domains.
 
-As we look at the setup, there are four major tasks we will implement to achieve end-to-end connectivity. Some of these tasks are already covered in previous posts, their details will not be covered here. Click on the links below visit previous posts. 
+To configure EVPN and L3VPN interworking and achieve end-to-end connectivity, below is the list of tasks we will implement. Some of these tasks are already covered in previous posts, their details will not be covered here. Click on the links below visit previous posts. 
    
 •	Configure Segment Routing  
 •	Configure EVPN Layer-2 Service and IRB  
