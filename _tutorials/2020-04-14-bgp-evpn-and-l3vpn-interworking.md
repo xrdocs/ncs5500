@@ -414,29 +414,6 @@ Based on above output we can see the prefix from PE-1 learnt and programmed in t
 The EVPN fabric configuration was done in [another post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/) but that did not include DCI router's configuration. We will configure DCI routers now and form BGP EVPN neighborship with Spines serving as Route-Reflectors.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-evpn-topology.png?raw=true)
 
-Leafs have VRF 10 with route-target 10:10 configured for inter-subnet routing. BGP neighborship is formed using evpn address-family between Leafs, DCI routers and Route-Reflectors. In order to receive routes from Leafs for VRF 10, we will have to configure VRF 10 on DCI routers as well.
-
-Below configuration is used to configure VRF 10 on DCI routers. 
-A point to note: We already have configured VRF 10 on DCI when we configured L3VPN on DCI routers in Task 2. The route-targets (RT) we configured then were to import and export vpnv4 routes from L3VPN domain (RT:110:110). Now, since we are extending EVPN to DCI routers, we will also configure EVPN RT (RT:10:10) under VRF 10 to import and export EVPN routes.
-We will configure EVPN RT as stitching RT. Details of EVPN stitching RT is covered in next task, Task 4.
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-vrf 10
- address-family ipv4 unicast
-  import route-target
-   <mark>10:10 stitching</mark>
-   110:110
-  !
-  export route-target
-   <mark>10:10 stitching</mark>
-   110:110
-  !
-!
-</code>
-</pre>
-</div>
-
 Configure BGP-EVPN neighborship with Route Reflectors.
 
 <table style="border-collapse: collapse; border: none;">
