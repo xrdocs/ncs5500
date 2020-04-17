@@ -593,8 +593,8 @@ RP/0/RP0/CPU0:DCI-1#
 Above output verifies the EVPN host routes are learnt for VRF 10 and control-plane verifies that these routes have route-target 10:10 as advertised by Leafs. PE-1 was configured with route-target 110:110. The routing table on DCI for VRF 10 also shows the route learnt from PE-1. This route is advertised by vpnv4 address-family with route-target 110:110. As DCI has reachability to both the EVPN as well as the L3VPN domains, lets now configure the EVPN and L3VPN interworking on DCI for end-to-end Leafs and PE-1 reachability. 
 
 
-### Task 4: Configure BGP EVPN and L3VPN interworking
+### Task 4: Configure BGP EVPN and L3VPN interworking on DCI routers
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-both-domains-configured.png?raw=true)
+**Configure route-target stitching for EVPN routes:**
+So far we have configured EVPN fabric and L3VPN domain. PE-1’s prefix is advertised via vpnv4 address-family and Leafs’ prefixes are advertised via evpn address-family towards DCI. On DCI, VRF 10 is configured with two sets of import and export route-targets. One set is associated to L3VPN domain using VPNv4 to advertise layer-3 information; while the other set is for EVPN fabric using EVPN address-family for advertisement of routes. The separation of route-targets enables DCI to have two separate domains configured independently. In order for EVPN and L3VPN to interwork, “Stitching” keyword configuration under VRF is required to stitch the two set of route-targets. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN are normal RTs.
 
-![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-evpn-topology.png?raw=true)
-
-So far we have configured EVPN fabric and L3VPN domain. PE-1’s prefix is advertised via vpnv4 address-family and Leafs’ prefixes are advertised via evpn address-family towards DCI. On DCI, VRF 10 is configured with two sets of import and export route-targets. One set is associated to L3VPN domain using vpnv4 to advertise layer-3 information; while the other set is for EVPN fabric using evpn address-family for advertisement of routes. The separation of route-targets enables DCI to have two separate domains configured independently and then stitching the two set of route-targets for interworking. Below configuration is making EVPN RTs as stitching RTs, while the L3VPN are normal RTs.
