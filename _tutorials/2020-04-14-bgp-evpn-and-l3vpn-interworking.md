@@ -224,7 +224,8 @@ vrf 10
 </pre>
 </div>
 
-Configure BGP L3VPN neighborship via vpnv4 address-family.
+Configure BGP L3VPN neighborship via vpnv4 address-family. Also, configure the VRF under BGP to advertised the routes of the VRF to other PE routers. Initiate the VPNv4 address family to advertise VRF label. RD auto under VRF generates RD value automatically. However, configuring RD manually is also supported.
+We will use “redistribute connected” under VRF to advertise connected routes via BGP. In addition, we are configuring BGP multipathing for load balancing where multiple next-hops are available for a prefix.
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <th style="border: none;">PE-1</th>
@@ -243,7 +244,7 @@ router bgp 65001
  !
  neighbor 8.8.8.8
   remote-as 65001
-  description "vonv4 session to DCI-1"
+  description "vpnv4 session to DCI-1"
   update-source Loopback0
   address-family vpnv4 unicast
  !
@@ -256,6 +257,7 @@ router bgp 65001
  vrf 10
   rd auto
   address-family ipv4 unicast
+   additional-paths receive
    maximum-paths ibgp 10
    redistribute connected
 !
@@ -292,6 +294,7 @@ router bgp 65001
  vrf 10
   rd auto
   address-family ipv4 unicast
+   additional-paths receive
    maximum-paths ibgp 10
    redistribute connected
 !
@@ -326,6 +329,7 @@ router bgp 65001
  vrf 10
   rd auto
   address-family ipv4 unicast
+   additional-paths receive
    maximum-paths ibgp 10
    redistribute connected
  !
@@ -338,7 +342,7 @@ router bgp 65001
 </table>
 
 
-Configure Loopback 100 on PE-1. This will be advertised as vpnv4 prefix.
+Configure Loopback 100 on PE-1. This will be advertised as vpnv4 prefix to DCI routers, the DCI routers will re-originate this prefix and advertise to Leafs in EVPN fabric for end-to-end reachability.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
