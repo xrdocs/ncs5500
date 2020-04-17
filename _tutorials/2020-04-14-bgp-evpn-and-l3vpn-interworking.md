@@ -446,7 +446,6 @@ Configure BGP-EVPN neighborship with Route Reflectors.
       <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-
 router bgp 65001
  bgp router-id 8.8.8.8
  address-family l2vpn evpn
@@ -467,9 +466,10 @@ router bgp 65001
    next-hop-self
   !
  !
- vrf 10 ----- VRF is already configured under BGP, when we configured L3VPN on DCI -----
+ vrf 10 --- <mark>VRF was already configured in L3VPN config task</mark>
   rd auto
   address-family ipv4 unicast
+   additional-paths receive
    maximum-paths ibgp 10
    redistribute connected
   !
@@ -503,9 +503,10 @@ router bgp 65001
    next-hop-self
   !       
  !
- vrf 10 ----- VRF is already configured under BGP, when we configured L3VPN on DCI -----
+ vrf 10 --- <mark>VRF was already configured in L3VPN config task</mark>
   rd auto 
   address-family ipv4 unicast
+   additional-paths receive
    maximum-paths ibgp 10
    redistribute connected
   !
