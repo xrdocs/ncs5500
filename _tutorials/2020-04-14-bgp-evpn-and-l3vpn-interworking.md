@@ -964,4 +964,4 @@ RP/0/RP0/CPU0:PE-1#
       </pre>
       </div>
 The routing table on Leafs has the prefix 111.1.1.1/32 from PE-1. The evpn control-plane shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
-Successful Ping from PE-1 to Host prefixes shows that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability between Leafs and PE-1 is established. 
+Successful Ping from PE-1 to Host prefixes shows that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability between Leafs and PE-1 is established.
