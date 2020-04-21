@@ -870,7 +870,6 @@ Finally lets observe the routing table and BGP-EVPN control-plane on Leafs to ve
       <pre class="highlight">
       <code>
 Leaf-1:
-
 RP/0/RP0/CPU0:Leaf-1#show route vrf 10
 
 Gateway of last resort is not set
@@ -882,8 +881,8 @@ B    <mark>111.1.1.1/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:
                   [200/0] via 9.9.9.9 (nexthop in vrf default), 00:05:26
 RP/0/RP0/CPU0:Leaf-1#
 
-Leaf-2
 
+Leaf-2:
 RP/0/RP0/CPU0:Leaf-2#show route vrf 10
 
 Gateway of last resort is not set
@@ -897,7 +896,6 @@ RP/0/RP0/CPU0:Leaf-2#
 
 
 Leaf-1:
-
 RP/0/RP0/CPU0:Leaf-1#show cef vrf 10 111.1.1.1/32
 111.1.1.1/32, version 17, internal 0x5000001 0x0 (ptr 0x97d58d24) [1], 0x0 (0x0), 0x208 (0x98f38180)
  Updated Apr 21 05:07:11.003
@@ -920,7 +918,6 @@ RP/0/RP0/CPU0:Leaf-1#
 
 
 Leaf-1:
-
 RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn route-type 5
 BGP router identifier 1.1.1.1, local AS number 65001
 BGP generic scan interval 60 secs
@@ -950,7 +947,6 @@ RP/0/RP0/CPU0:Leaf-1#
 
 
 Leaf-1:
-
 RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn rd 8.8.8.8:0 <mark>[5][0][32][111.1.1.1]/80 detail </mark>
 BGP routing table entry for [5][0][32][111.1.1.1]/80, Route Distinguisher: 8.8.8.8:0
 Versions:
