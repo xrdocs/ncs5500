@@ -373,8 +373,8 @@ RP/0/RP0/CPU0:DCI-1#show cef vrf 10 111.1.1.1/32
     path-idx 0 NHID 0x0 [0x972aef08 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
-    next hop 10.10.10.10/32 via 16010/0/21
-     next hop 192.8.10.2/32 BE81         labels imposed {ImplNull 24017}
+    next hop <mark>10.10.10.10/32</mark> via 16010/0/21
+     next hop 192.8.10.2/32 BE81         <mark>labels imposed {ImplNull 24017}</mark>
       </code>
       </pre>
       </div>
