@@ -871,53 +871,56 @@ Finally lets observe the routing table and BGP-EVPN control-plane on Leafs to ve
       <code>
 Leaf-1:
 
-RP/0/RP0/CPU0:Leaf-1#sh route vrf 10
+RP/0/RP0/CPU0:Leaf-1#show route vrf 10
 
 Gateway of last resort is not set
 
 C    10.0.0.0/24 is directly connected, 04:17:17, BVI10
 L    10.0.0.1/32 is directly connected, 04:17:17, BVI10
 B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:55:51
-B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 00:05:26
+B    <mark>111.1.1.1/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:05:26
                   [200/0] via 9.9.9.9 (nexthop in vrf default), 00:05:26
 RP/0/RP0/CPU0:Leaf-1#
 
 Leaf-2
 
-RP/0/RP0/CPU0:Leaf-2#sh route vrf 10
+RP/0/RP0/CPU0:Leaf-2#show route vrf 10
 
 Gateway of last resort is not set
 
 C    10.0.0.0/24 is directly connected, 04:26:59, BVI10
 L    10.0.0.1/32 is directly connected, 04:26:59, BVI10
 B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 01:05:14
-B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 00:10:48
+B    <mark>111.1.1.1/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:10:48
                   [200/0] via 9.9.9.9 (nexthop in vrf default), 00:10:48
 RP/0/RP0/CPU0:Leaf-2#
 
+
+Leaf-1:
 
 RP/0/RP0/CPU0:Leaf-1#show cef vrf 10 111.1.1.1/32
 111.1.1.1/32, version 17, internal 0x5000001 0x0 (ptr 0x97d58d24) [1], 0x0 (0x0), 0x208 (0x98f38180)
  Updated Apr 21 05:07:11.003
  Prefix Len 32, traffic index 0, precedence n/a, priority 3
-   via 8.8.8.8/32, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+   via <mark>8.8.8.8/32<mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
     path-idx 0 NHID 0x0 [0x97074eb8 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
     next hop 8.8.8.8/32 via 16008/0/21
-     next hop 192.1.6.1/32 BE16         labels imposed {16008 64000}
-     next hop 192.1.7.1/32 BE17         labels imposed {16008 64000}
-   via 9.9.9.9/32, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+     next hop 192.1.6.1/32 BE16         labels imposed <mark>{16008 64000}</mark>
+     next hop 192.1.7.1/32 BE17         labels imposed <mark>{16008 64000}</mark>
+   via <mark>9.9.9.9/32</mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
     path-idx 1 NHID 0x0 [0x970746e8 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
     next hop 9.9.9.9/32 via 16009/0/21
-     next hop 192.1.6.1/32 BE16         labels imposed {16009 64000}
-     next hop 192.1.7.1/32 BE17         labels imposed {16009 64000}
+     next hop 192.1.6.1/32 BE16         labels imposed <mark>{16009 64000}</mark>
+     next hop 192.1.7.1/32 BE17         labels imposed <mark>{16009 64000}</mark>
 RP/0/RP0/CPU0:Leaf-1#
 
 
-Leaf-1
+Leaf-1:
+
 RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn route-type 5
 BGP router identifier 1.1.1.1, local AS number 65001
 BGP generic scan interval 60 secs
@@ -934,11 +937,11 @@ Status codes: s suppressed, d damped, h history, * valid, > best
 Origin codes: i - IGP, e - EGP, ? - incomplete
    Network            Next Hop            Metric LocPrf Weight Path
 Route Distinguisher: 8.8.8.8:0
-*>i[5][0][32][111.1.1.1]/80
+*>i<mark>[5][0][32][111.1.1.1]/80</mark>
                       8.8.8.8                  0    100      0 ?
 * i                   8.8.8.8                  0    100      0 ?
 Route Distinguisher: 9.9.9.9:0
-*>i[5][0][32][111.1.1.1]/80
+*>i<mark>[5][0][32][111.1.1.1]/80</mark>
                       9.9.9.9                  0    100      0 ?
 * i                   9.9.9.9                  0    100      0 ?
 
@@ -946,8 +949,9 @@ Processed 2 prefixes, 4 paths
 RP/0/RP0/CPU0:Leaf-1#
 
 
+Leaf-1:
 
-RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn rd 8.8.8.8:0 [5][0][32][111.1.1.1]/80$
+RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn rd 8.8.8.8:0 <mark>[5][0][32][111.1.1.1]/80 detail </mark>
 BGP routing table entry for [5][0][32][111.1.1.1]/80, Route Distinguisher: 8.8.8.8:0
 Versions:
   Process           bRIB/RIB  SendTblVer
@@ -960,23 +964,23 @@ Paths: (2 available, best #1)
   Flags: 0x4000000025060005, import: 0x1f, EVPN: 0x1
   Not advertised to any peer
   Local
-    8.8.8.8 (metric 20) from 6.6.6.6 (10.10.10.10)
-      Received Label 64000 
+    <mark>8.8.8.8 (metric 20) from 6.6.6.6 (10.10.10.10)</mark>
+      <mark>Received Label 64000</mark> 
       Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
       Received Path ID 0, Local Path ID 1, version 192
-      Extended community: Flags 0x6: RT:10:10 
-      Originator: 10.10.10.10, Cluster list: 6.6.6.6, 8.8.8.8
+      Extended community: Flags 0x6: <mark>RT:10:10</mark> 
+      <mark>Originator: 10.10.10.10</mark>, Cluster list: 6.6.6.6, 8.8.8.8
       EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
   Path #2: Received by speaker 0
   Flags: 0x4000000020020005, import: 0x20, EVPN: 0x1
   Not advertised to any peer
   Local
-    8.8.8.8 (metric 20) from 7.7.7.7 (10.10.10.10)
-      Received Label 64000 
+    <mark>8.8.8.8 (metric 20) from 7.7.7.7 (10.10.10.10)</mark>
+      <mark>Received Label 64000</mark> 
       Origin incomplete, metric 0, localpref 100, valid, internal, not-in-vrf
       Received Path ID 0, Local Path ID 0, version 0
-      Extended community: Flags 0x6: RT:10:10 
-      Originator: 10.10.10.10, Cluster list: 7.7.7.7, 8.8.8.8
+      Extended community: Flags 0x6: <mark>RT:10:10</mark> 
+      <mark>Originator: 10.10.10.10</mark>, Cluster list: 7.7.7.7, 8.8.8.8
       EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
 RP/0/RP0/CPU0:Leaf-1#
 
