@@ -573,7 +573,7 @@ RP/0/RP0/CPU0:DCI-1#
       </pre>
       </div>
       
-"**show bgp vrf-db table vrf-table-id**" command is used to see the list of stitching-RT configured on DCI routers.
+"**show bgp vrf-db table vrf-table-id**" cli command can be used to see the list of stitching-RT configured on DCI routers.
 
 <div class="highlighter-rouge">
       <pre class="highlight">
