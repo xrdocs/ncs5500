@@ -897,15 +897,14 @@ RP/0/RP0/CPU0:Leaf-2#
 
 
 Leaf-1
-
-RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 8.8.8.8:0
+RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn route-type 5
 BGP router identifier 1.1.1.1, local AS number 65001
 BGP generic scan interval 60 secs
 Non-stop routing is enabled
 BGP table state: Active
 Table ID: 0x0   RD version: 0
-BGP main routing table version 2235
-BGP NSR Initial initsync version 2 (Reached)
+BGP main routing table version 194
+BGP NSR Initial initsync version 8 (Reached)
 BGP NSR/ISSU Sync-Group versions 0/0
 BGP scan interval 60 secs
 
@@ -917,41 +916,23 @@ Route Distinguisher: 8.8.8.8:0
 *>i[5][0][32][111.1.1.1]/80
                       8.8.8.8                  0    100      0 ?
 * i                   8.8.8.8                  0    100      0 ?
-
-Processed 1 prefixes, 2 paths
-RP/0/RP0/CPU0:Leaf-1#
-
-RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 9.9.9.9:0
-BGP router identifier 1.1.1.1, local AS number 65001
-BGP generic scan interval 60 secs
-Non-stop routing is enabled
-BGP table state: Active
-Table ID: 0x0   RD version: 0
-BGP main routing table version 2235
-BGP NSR Initial initsync version 2 (Reached)
-BGP NSR/ISSU Sync-Group versions 0/0
-BGP scan interval 60 secs
-
-Status codes: s suppressed, d damped, h history, * valid, > best
-              i - internal, r RIB-failure, S stale, N Nexthop-discard
-Origin codes: i - IGP, e - EGP, ? - incomplete
-   Network            Next Hop            Metric LocPrf Weight Path
 Route Distinguisher: 9.9.9.9:0
 *>i[5][0][32][111.1.1.1]/80
                       9.9.9.9                  0    100      0 ?
 * i                   9.9.9.9                  0    100      0 ?
 
-Processed 1 prefixes, 2 paths
+Processed 2 prefixes, 4 paths
 RP/0/RP0/CPU0:Leaf-1#
 
 
-RP/0/RP0/CPU0:Leaf-1#sh bgp l2vpn evpn rd 8.8.8.8:0 [5][0][32][111.1.1.1]/80 detail
+
+RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn rd 8.8.8.8:0 [5][0][32][111.1.1.1]/80$
 BGP routing table entry for [5][0][32][111.1.1.1]/80, Route Distinguisher: 8.8.8.8:0
 Versions:
   Process           bRIB/RIB  SendTblVer
-  Speaker                704         704
+  Speaker                192         192
     Flags: 0x00040001+0x00010000; 
-Last Modified: Apr 15 04:23:51.766 for 1d16h
+Last Modified: Apr 21 05:07:10.766 for 00:07:07
 Paths: (2 available, best #1)
   Not advertised to any peer
   Path #1: Received by speaker 0
@@ -961,7 +942,7 @@ Paths: (2 available, best #1)
     8.8.8.8 (metric 20) from 6.6.6.6 (10.10.10.10)
       Received Label 64000 
       Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
-      Received Path ID 0, Local Path ID 1, version 704
+      Received Path ID 0, Local Path ID 1, version 192
       Extended community: Flags 0x6: RT:10:10 
       Originator: 10.10.10.10, Cluster list: 6.6.6.6, 8.8.8.8
       EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
@@ -976,6 +957,7 @@ Paths: (2 available, best #1)
       Extended community: Flags 0x6: RT:10:10 
       Originator: 10.10.10.10, Cluster list: 7.7.7.7, 8.8.8.8
       EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
+RP/0/RP0/CPU0:Leaf-1#
 
 
 Reachability to Host prefixes from PE-1:
@@ -983,8 +965,7 @@ RP/0/RP0/CPU0:PE-1#ping vrf 10 10.0.0.20 source 111.1.1.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.0.0.20, timeout is 2 seconds:
 !!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/3 ms
-
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
 RP/0/RP0/CPU0:PE-1#ping vrf 10 10.0.0.40 source 111.1.1.1
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.0.0.40, timeout is 2 seconds:
@@ -994,5 +975,5 @@ RP/0/RP0/CPU0:PE-1#
   </code>
       </pre>
       </div>
-The routing table on Leafs has the prefix 111.1.1.1/32 from PE-1. The evpn control-plane shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
+The routing table on Leafs has the prefix 111.1.1.1/32 from PE-1. The evpn control-plane of Leaf-1 shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
 Successful Ping from PE-1 to Host prefixes shows that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability between Leafs and PE-1 is established.
