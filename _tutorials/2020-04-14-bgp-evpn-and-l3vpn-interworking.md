@@ -888,11 +888,11 @@ RP/0/RP0/CPU0:Leaf-2#sh route vrf 10
 
 Gateway of last resort is not set
 
-C    10.0.0.0/24 is directly connected, 04:19:27, BVI10
-L    10.0.0.1/32 is directly connected, 04:19:27, BVI10
-B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:57:42
-B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 00:05:53
-                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:05:53
+C    10.0.0.0/24 is directly connected, 04:26:59, BVI10
+L    10.0.0.1/32 is directly connected, 04:26:59, BVI10
+B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 01:05:14
+B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 00:10:48
+                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:10:48
 RP/0/RP0/CPU0:Leaf-2#
 
 
