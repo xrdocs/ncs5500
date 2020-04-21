@@ -743,7 +743,7 @@ RP/0/RP0/CPU0:PE-1#
 
 The routing table on PE-1 shows the hosts routes of EVPN fabric are learnt in VRF 10. We have DCI-1 and DCI-2 as the next-hops to get to host prefixes in EVPN fabric. This accomplishes the reachability from PE-1 to host prefixes on Leafs. 
 
-Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via vpnv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated stitching-rt**”.  
+Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via vpnv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated**”.  
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-to-evpn-advertisement.png?raw=true)
 
 **Re-originate VPNv4 routes using EVPN stitching RT “import re-originate stitching-rt”:**  
