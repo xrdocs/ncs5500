@@ -820,7 +820,7 @@ router bgp 65001
   update-source Loopback0
   address-family l2vpn evpn
    import stitching-rt re-originate
-   <mark>advertise vpnv4 unicast re-originated</mark>
+   <mark>advertise vpnv4 unicast re-originated stitching-rt</mark>
    next-hop-self
   !
  !
@@ -830,7 +830,7 @@ router bgp 65001
   update-source Loopback0
   address-family l2vpn evpn
    import stitching-rt re-originate
-   <mark>advertise vpnv4 unicast re-originated</mark> 
+   <mark>advertise vpnv4 unicast re-originated stitching-rt</mark> 
    next-hop-self
   !
  !
