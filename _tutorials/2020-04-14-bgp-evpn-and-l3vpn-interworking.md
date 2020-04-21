@@ -581,10 +581,10 @@ RP/0/RP0/CPU0:DCI-1#
 RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table all
 ID             REF      AF              VRF
 0xe0000000      2       IPv4 Unicast    default
-<mark>0xe000000f</mark>      13      IPv4 Unicast    10
+<mark>0xe000000f</mark>      13      IPv4 Unicast    <mark>10</mark>
 RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table <mark>0xe000000f</mark>
 
-VRF-TBL: 10 (IPv4 Unicast)
+<mark>VRF-TBL: 10</mark> (IPv4 Unicast)
   TBL ID: 0xe000000f
   RSI Handle: 0x43e5ca8 
   Refcount: 13
