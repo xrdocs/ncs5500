@@ -572,6 +572,32 @@ RP/0/RP0/CPU0:DCI-1#
  </code>
       </pre>
       </div>
+      
+"**show bgp vrf-db table vrf-table-id**" command is used to see the list of stitching-RT configured on DCI routers.
+
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>     
+RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table all
+ID             REF      AF              VRF
+0xe0000000      2       IPv4 Unicast    default
+<mark>0xe000000f</mark>      13      IPv4 Unicast    10
+RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table <mark>0xe000000f</mark>
+
+VRF-TBL: 10 (IPv4 Unicast)
+  TBL ID: 0xe000000f
+  RSI Handle: 0x43e5ca8 
+  Refcount: 13
+  Import:
+    RT-List: RT:110:110
+    <mark>Stitching RT-List: RT:10:10</mark>
+  Export:
+    RT-List: RT:110:110
+    <mark>Stitching RT-List: RT:10:10</mark>
+  </code>
+      </pre>
+      </div>   
+    
 
 **Re-originate evpn routes with vpnv4 RT “advertise vpnv4 unicast re-originated”:**  
 Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under vpnv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). Since, PE-1 does not have reachability to Leafs in EVPN fabric, DCI will act as inline-RR. DCI will change the next-hop to itself as it re-originates the routes and advertises to PE. We also need to configure “*ibgp policy out enforce-modifications*” to send the updated BGP route attributes to peers. 
