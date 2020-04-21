@@ -743,14 +743,14 @@ RP/0/RP0/CPU0:PE-1#
 
 The routing table on PE-1 shows the hosts routes of EVPN fabric are learnt in VRF 10. We have DCI-1 and DCI-2 as the next-hops to get to host prefixes in EVPN fabric. This accomplishes the reachability from PE-1 to host prefixes on Leafs. 
 
-Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via vpnv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated**”.  
+Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via vpnv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated stitching-rt**”.  
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-to-evpn-advertisement.png?raw=true)
 
 **Re-originate VPNv4 routes using EVPN stitching RT “import re-originate stitching-rt”:**  
-This is configured under vpnv4 address-family to enable import of vpnv4 routes with normal RT 100:100 and re-originate it with evpn stitching-rt. 
+This is configured under vpnv4 address-family to enable import of vpnv4 routes with normal RT 110:110 and re-originate it with evpn stitching-rt. 
 
 **Advertise re-originated routes to EVPN “advertise vpnv4 unicast re-originated”:**  
-Configure “advertise vpnv4 unicast re-originated” keyword under evpn address family. This keyword will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change to the stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
+Configure “advertise vpnv4 unicast re-originated stitching-rt” keyword under evpn address family. This will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change from vpnv4 RT 110:110 to evpn stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
