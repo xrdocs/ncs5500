@@ -902,7 +902,7 @@ RP/0/RP0/CPU0:Leaf-1#show cef vrf 10 111.1.1.1/32
 111.1.1.1/32, version 17, internal 0x5000001 0x0 (ptr 0x97d58d24) [1], 0x0 (0x0), 0x208 (0x98f38180)
  Updated Apr 21 05:07:11.003
  Prefix Len 32, traffic index 0, precedence n/a, priority 3
-   via <mark>8.8.8.8/32<mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+   via <mark>8.8.8.8/32</mark>, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
     path-idx 0 NHID 0x0 [0x97074eb8 0x0]
     recursion-via-/32
     next hop VRF - 'default', table - 0xe0000000
