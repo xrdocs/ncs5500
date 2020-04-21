@@ -510,6 +510,7 @@ With this, DCI routers for VRF 10 are configured with two sets of import and exp
 <pre class="highlight">
 <code>
 Configure VRF 10 on both DCI routers with EVPN route-target stitching.
+
 vrf 10
  address-family ipv4 unicast
   import route-target
