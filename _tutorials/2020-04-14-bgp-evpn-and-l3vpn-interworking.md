@@ -769,7 +769,7 @@ router bgp 65001
   update-source Loopback0
   address-family l2vpn evpn
    import stitching-rt re-originate
-   <mark>advertise vpnv4 unicast re-originated</mark>
+   advertise vpnv4 unicast re-originated stitching-rt
    next-hop-self
   !
  !
@@ -779,7 +779,7 @@ router bgp 65001
   update-source Loopback0
   address-family l2vpn evpn
    import stitching-rt re-originate
-   <mark>advertise vpnv4 unicast re-originated</mark>
+   advertise vpnv4 unicast re-originated stitching-rt
    next-hop-self
   !
  !
@@ -788,7 +788,7 @@ router bgp 65001
   description "vpnv4 session to DCI-1"    
   update-source Loopback0
   address-family vpnv4 unicast
-   <mark>import re-originate stitching-rt</mark>
+   import re-originate stitching-rt
    route-reflector-client
    advertise vpnv4 unicast re-originated
    next-hop-self
@@ -799,7 +799,7 @@ router bgp 65001
   description "vpnv4 session to PE-1"      
   update-source Loopback0
   address-family vpnv4 unicast
-   <mark>import re-originate stitching-rt</mark>
+   import re-originate stitching-rt
    route-reflector-client
    advertise vpnv4 unicast re-originated
    next-hop-self
