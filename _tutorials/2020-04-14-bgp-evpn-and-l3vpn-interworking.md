@@ -896,6 +896,27 @@ B    111.1.1.1/32 [200/0] via 8.8.8.8 (nexthop in vrf default), 00:10:48
 RP/0/RP0/CPU0:Leaf-2#
 
 
+RP/0/RP0/CPU0:Leaf-1#show cef vrf 10 111.1.1.1/32
+111.1.1.1/32, version 17, internal 0x5000001 0x0 (ptr 0x97d58d24) [1], 0x0 (0x0), 0x208 (0x98f38180)
+ Updated Apr 21 05:07:11.003
+ Prefix Len 32, traffic index 0, precedence n/a, priority 3
+   via 8.8.8.8/32, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+    path-idx 0 NHID 0x0 [0x97074eb8 0x0]
+    recursion-via-/32
+    next hop VRF - 'default', table - 0xe0000000
+    next hop 8.8.8.8/32 via 16008/0/21
+     next hop 192.1.6.1/32 BE16         labels imposed {16008 64000}
+     next hop 192.1.7.1/32 BE17         labels imposed {16008 64000}
+   via 9.9.9.9/32, 3 dependencies, recursive, bgp-multipath [flags 0x6080]
+    path-idx 1 NHID 0x0 [0x970746e8 0x0]
+    recursion-via-/32
+    next hop VRF - 'default', table - 0xe0000000
+    next hop 9.9.9.9/32 via 16009/0/21
+     next hop 192.1.6.1/32 BE16         labels imposed {16009 64000}
+     next hop 192.1.7.1/32 BE17         labels imposed {16009 64000}
+RP/0/RP0/CPU0:Leaf-1#
+
+
 Leaf-1
 RP/0/RP0/CPU0:Leaf-1#show bgp l2vpn evpn route-type 5
 BGP router identifier 1.1.1.1, local AS number 65001
@@ -975,5 +996,5 @@ RP/0/RP0/CPU0:PE-1#
   </code>
       </pre>
       </div>
-The routing table on Leafs has the prefix 111.1.1.1/32 from PE-1. The evpn control-plane of Leaf-1 shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
+The routing table on Leafs has reachability to the prefix 111.1.1.1/32 from PE-1. The evpn control-plane of Leaf-1 shows the route is received from DCI-1 (8.8.8.8) while PE-1 (10.10.10.10) is the originator. We have DCI-1 and DCI-2 as the next-hop to get to PE-1 prefix. 
 Successful Ping from PE-1 to Host prefixes shows that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability between Leafs and PE-1 is established.
