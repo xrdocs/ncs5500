@@ -555,7 +555,7 @@ router bgp 65001
       </pre>
       </div>
       
-As a result we can see the Host-1 and Host-2 routes programmed in the routing table of VRF 10 on DCI.
+As a result we can see Host-1 and Host-2 routes programmed in the routing table of VRF 10 on DCI.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
