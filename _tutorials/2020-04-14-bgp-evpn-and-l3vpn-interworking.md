@@ -342,7 +342,7 @@ router bgp 65001
 </table>
 
 
-Configure Loopback 100 on PE-1. This will be advertised as vpnv4 prefix to DCI routers, the DCI routers will re-originate this prefix and advertise to Leafs in EVPN fabric for end-to-end reachability.
+Configure Loopback 100 for VRF 10 on PE-1. This will be advertised as vpnv4 prefix to DCI routers, the DCI routers will re-originate this prefix and advertise to Leafs in EVPN fabric for end-to-end reachability.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
