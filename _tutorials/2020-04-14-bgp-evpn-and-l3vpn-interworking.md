@@ -555,7 +555,7 @@ router bgp 65001
       </pre>
       </div>
       
-As a result we can see the routes are programmed in the routing table of VRF 10 on DCI.
+As a result we can see the Host-1 and Host-2 routes programmed in the routing table of VRF 10 on DCI.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -565,8 +565,8 @@ RP/0/RP0/CPU0:DCI-1#sh route vrf 10
 
 Gateway of last resort is not set
 
-B    10.0.0.20/32 [200/0] via 1.1.1.1 (nexthop in vrf default), 00:06:07
-B    10.0.0.40/32 [200/0] via 2.2.2.2 (nexthop in vrf default), 00:06:07
+B    <mark>10.0.0.20/32</mark> [200/0] via 1.1.1.1 (nexthop in vrf default), 00:06:07
+B    <mark>10.0.0.40/32</mark> [200/0] via 2.2.2.2 (nexthop in vrf default), 00:06:07
 B    111.1.1.1/32 [200/0] via 10.10.10.10 (nexthop in vrf default), 21:31:55
 RP/0/RP0/CPU0:DCI-1#
  </code>
