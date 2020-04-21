@@ -681,10 +681,10 @@ RP/0/RP0/CPU0:PE-1#sh route vrf 10
 
 Gateway of last resort is not set
 
-B    <mark>10.0.0.20/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:00:00
-                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:00:00
-B    <mark>10.0.0.40/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:00:00
-                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:00:00
+B    <mark>10.0.0.20/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:02:50
+                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:02:50
+B    <mark>10.0.0.40/32</mark> [200/0] via 8.8.8.8 (nexthop in vrf default), 00:02:50
+                  [200/0] via 9.9.9.9 (nexthop in vrf default), 00:02:50
 L    111.1.1.1/32 is directly connected, 1d00h, Loopback100
 RP/0/RP0/CPU0:PE-1#
 
