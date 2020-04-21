@@ -526,7 +526,7 @@ vrf 10
 </pre>
 </div>
 
-We will import the evpn routes with stitching RT and then will re-originate these with vpnv4 towards PEs. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
+We will import the evpn routes with stitching RT and then will re-originate these with vpnv4 towards PE. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-evpn-to-vpnv4-advertisement.png?raw=true)
 
 **Import EVPN routes using “import stitching-rt re-originate”:**  
