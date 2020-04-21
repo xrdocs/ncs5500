@@ -600,7 +600,9 @@ VRF-TBL: 10 (IPv4 Unicast)
     
 
 **Re-originate evpn routes with vpnv4 RT “advertise vpnv4 unicast re-originated”:**  
-Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under vpnv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). Since, PE-1 does not have reachability to Leafs in EVPN fabric, DCI will act as inline-RR. DCI will change the next-hop to itself as it re-originates the routes and advertises to PE. We also need to configure “*ibgp policy out enforce-modifications*” to send the updated BGP route attributes to peers. 
+Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under vpnv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). 
+
+Since, PE-1 does not have reachability to Leafs in EVPN fabric, DCI will act as inline-RR. DCI will change the next-hop to itself as it re-originates the routes and advertises to PE. We also need to configure “*ibgp policy out enforce-modifications*” to send the updated BGP route attributes to peers. 
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
