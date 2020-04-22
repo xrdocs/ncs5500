@@ -1033,8 +1033,28 @@ router bgp 65001
  </pre>
 </div>
 
+Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to routes re-origination.
+<div class="highlighter-rouge">
+ <pre class="highlight">
+  <code>
+router bgp 65001
+ neighbor evpn-neighbors-Spines
+  address-family l2vpn evpn
+   route-policy vpnv4-filter in  ---<mark>filter routes with VPNv4 community</mark>
+   route-policy vpnv4-community-set out  ---<mark>Set VPNv4 community</mark>
+  !
+ !
+ neighbor vpnv4-neighbors
+  address-family vpnv4 unicast
+   route-policy evpn-filter in  ---<mark>filter routes with EVPN community</mark>
+   route-policy rt2-filter out  ---<mark>filter host-routes and set EVPN community</mark>
+  !
+ !
+  </code>
+ </pre>
+</div> 
 
-Configure Route-Policy for route filtering on DCI routers.
+Reference Route-Policy for route filtering on DCI routers.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -1082,75 +1102,8 @@ end
 </div>
 
 
-Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to routes re-origination.
-<table style="border-collapse: collapse; border: none;">
-  <tr style="border: none;">
-    <th style="border: none;">DCI-1</th>
-    <th style="border: none;">DCI-2</th>
-  </tr>
-  <tr style="border: none;">
-    <th style="border: none;">
-      <div class="highlighter-rouge">
-      <pre class="highlight">
-      <code>
-router bgp 65001
- neighbor <to-evpn-neighbors/>
-  address-family l2vpn evpn
-   route-policy vpnv4-filter in  ---filter routes with VPNv4 community
-   route-policy vpnv4-community-set out  ---Set VPNv4 community
-  !
- !
- neighbor <to-vpnv4-neighbors/>
-  description "vpnv4 session to DCI-1"     
-  address-family vpnv4 unicast
-   route-policy evpn-filter in  ---filter routes with EVPN community
-   route-policy rt2-filter out  ---filter host-routes and set EVPN community
-  !
- !
-  </code>
- </pre>
-</div> 
-    </th>
-<th style="border: none;">
-      <div class="highlighter-rouge">
-      <pre class="highlight">
-      <code>
-router bgp 65001
- neighbor 6.6.6.6
-  description "BGP-EVPN session to Spine-1"               
-  address-family l2vpn evpn
-   route-policy vpnv4-filter in
-   route-policy vpnv4-community-set out
-  !
- !
- neighbor 7.7.7.7
-  description "BGP-EVPN session to Spine-2"              
-  address-family l2vpn evpn
-   route-policy vpnv4-filter in
-   route-policy vpnv4-community-set out
-  !
- !
- neighbor 8.8.8.8
-  description "vpnv4 session to DCI-1"     
-  address-family vpnv4 unicast
-   route-policy evpn-filter in
-   route-policy rt2-filter out
-  !
- !
- neighbor 10.10.10.10
-  description "vpnv4 session to PE-1"       
-  update-source Loopback0
-  address-family vpnv4 unicast
-   route-policy evpn-filter in
-   route-policy rt2-filter out
-  !
- !      
-  </code>
- </pre>
-</div> 
-    </th>      
-  </tr>
-</table> 
+
+
 
 
 
