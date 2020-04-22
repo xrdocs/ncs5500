@@ -1006,7 +1006,7 @@ Successful Ping from PE-1 to Host prefixes verifies that the BGP EVPN and L3VPN 
 In this setup, Leafs are advertising host-routes "10.0.0.20/32 and 10.0.0.40/32" towards DCI routers and from DCI routers eventually to PE-1. Generally in a network, there are going to be a large number of host-routes advertised from evpn fabric. From scalability and optimization point of view it is not a good approach to advertise the host-routes outside of the EVPN fabric. Therefore, it is recommended to advertise summarized prefix routes outside of EVPN fabric and filter host-routes at DCI routers. 
 In this post, we will advertise the prefix-route (evpn route-type 5) from Leafs for subnet 10.0.0.0/24 and filter the host-routes (x.x.x.x/32) on DCI routers. 
 
-Note: EVPN uses route-type 2 to advertise host-routes x.x.x.x/32 and route-type 5 to advertise subnet x.x.x.0/24.
+**Note:** EVPN uses route-type 2 to advertise host-routes x.x.x.x/32 and route-type 5 to advertise subnet x.x.x.0/24.
 
 Below configuration is needed on the Leafs to advertise EVPN prefix-route.
 <div class="highlighter-rouge">
