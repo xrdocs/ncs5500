@@ -18,7 +18,7 @@ Below topology shows an EVPN fabric connecting to L3VPN domain with the help of 
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-topology.png?raw=true)
 
-In this post we will go over the configuration of EVPN and L3VPN interworking on NCS 5500 routers acting as DCI. When we complete the configuration, we will have Host subnet (10.0.0.0/24) learnt on PE-1, and PE-1’s vpnv4 prefix loopback-100 learnt on Leafs. We will verify the reachability between Hosts and PE-1’s prefixes, that are advertised by their respective address-families. 
+In this post we will go over the configuration of EVPN and L3VPN interworking on NCS 5500 routers acting as DCI. When we complete the configuration, we will have Host subnet (10.0.0.0/24) learnt on PE-1, and PE-1’s VPNv4 prefix loopback-100 learnt on Leafs. We will verify the reachability between Hosts and PE-1’s prefixes, that are advertised by their respective address-families. 
 
 The configuration setup is based on single BGP AS 65001. There are two separate ISIS routing domains for EVPN and L3VPN with Segment Routing enabled for MPLS based forwarding. DCI performs BGP EVPN and L3VPN interworking, hence it is participating in both ISIS domains. There is no route redistribute between ISIS domains.
 
@@ -210,7 +210,7 @@ Label         Prefix/Interface
 ### Task 2: Configuration of BGP L3VPN on DCI and PE-1
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-topology.png?raw=true)
-As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. iBGP neighborship is formed using vpnv4 address-family between DCI routers and PE-1. Though we are not using a Route-Reflector in L3VPN domain for this write-up; a Route-Reflector is supported and can be used for this design.   
+As per the topology we have L3VPN configured between DCIs and PE-1. VRF 10 is configured on DCIs and PE-1 with route-target 110:110. iBGP neighborship is formed using VPNv4 address-family between DCI routers and PE-1. Though we are not using a Route-Reflector in L3VPN domain for this write-up; a Route-Reflector is supported and can be used for this design.   
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -228,7 +228,7 @@ vrf 10
 </pre>
 </div>
 
-Configure BGP L3VPN neighborship via vpnv4 address-family. Also, configure the VRF under BGP to advertised the routes of the VRF to other PE routers. Initiate the VPNv4 address family to advertise VRF label. Route-Distinguisher (RD) auto under VRF generates RD value automatically. However, configuring RD manually is also supported.
+Configure BGP L3VPN neighborship via VPNv4 address-family. Also, configure the VRF under BGP to advertised the routes of the VRF to other PE routers. Initiate the VPNv4 address family to advertise VRF label. Route-Distinguisher (RD) auto under VRF generates RD value automatically. However, configuring RD manually is also supported.
 We will use “redistribute connected” under VRF to advertise connected routes via BGP. In addition, we are configuring BGP multipathing for load balancing where multiple next-hops are available for a prefix.
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
@@ -346,7 +346,7 @@ router bgp 65001
 </table>
 
 
-Configure Loopback 100 for VRF 10 on PE-1. This will be advertised as vpnv4 prefix to DCI routers, the DCI routers will re-originate this prefix and advertise to Leafs in EVPN fabric for end-to-end reachability.
+Configure Loopback 100 for VRF 10 on PE-1. This will be advertised as VPNv4 prefix to DCI routers, the DCI routers will re-originate this prefix and advertise to Leafs in EVPN fabric for end-to-end reachability.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -359,7 +359,7 @@ interface Loopback100
       </code>
       </pre>
       </div>
-At this point we are done with BGP L3VPN (VPNv4) configuration on DCI routers and PE-1. We are advertising interface Loopback 100's prefix from PE-1 towards DCI routers with vpnv4 address-family and route-targets 110:110 for import and export of routes for VRF 10. Check routing table of DCI routers for VRF 10 to verify that PE-1 prefix is learnt.
+At this point we are done with BGP L3VPN (VPNv4) configuration on DCI routers and PE-1. We are advertising interface Loopback 100's prefix from PE-1 towards DCI routers with VPNv4 address-family and route-targets 110:110 for import and export of routes for VRF 10. Check routing table of DCI routers for VRF 10 to verify that PE-1 prefix is learnt.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -530,11 +530,11 @@ vrf 10
 </pre>
 </div>
 
-We will import the evpn routes with stitching RT and then will re-originate these with vpnv4 towards PE. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
+We will import the evpn routes with stitching RT and then will re-originate these with VPNv4 towards PE. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-evpn-to-vpnv4-advertisement.png?raw=true)
 
 **Import EVPN routes using “import stitching-rt re-originate”:**  
-In order to import evpn routes, we will have to import routes using “**stitching-rt**” keyword in evpn address-family. The “**re-originate**” keyword will enable the routes to be re-originated with vpnv4 normal RT (110:110).
+In order to import evpn routes, we will have to import routes using “**stitching-rt**” keyword in evpn address-family. The “**re-originate**” keyword will enable the routes to be re-originated with VPNv4 normal RT (110:110).
 
 Configure below on DCI-1 and DCI-2:
 <div class="highlighter-rouge">
@@ -604,7 +604,7 @@ RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table <mark>0xe000000f</mark>
     
 
 **Re-originate evpn routes with vpnv4 RT “advertise vpnv4 unicast re-originated”:**  
-Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under vpnv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). 
+Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under VPNv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). 
 
 Since, PE-1 does not have reachability to Leafs in EVPN fabric, DCI will act as inline-RR. DCI will change the next-hop to itself as it re-originates the routes and advertises to PE. We also need to configure “*ibgp policy out enforce-modifications*” to send the updated BGP route attributes to peers. 
 
@@ -675,7 +675,7 @@ router bgp 65001
   </tr>
 </table>
 
-Lets verify the routing table and BGP vpnv4 control-plane on PE-1.
+Lets verify the routing table and BGP VPNv4 control-plane on PE-1.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -747,14 +747,14 @@ RP/0/RP0/CPU0:PE-1#
 
 The routing table on PE-1 shows the hosts routes of EVPN fabric are learnt in VRF 10. We have DCI-1 and DCI-2 as the next-hops to get to host prefixes in EVPN fabric. This accomplishes the reachability from PE-1 to host prefixes on Leafs. 
 
-Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via vpnv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated stitching-rt**”.  
+Next we will configure the DCI routers to re-originate the routes to its BGP EVPN neighbor that are received from PE-1 via VPNv4 address-family. This will need two knobs configured in BGP, “**import re-originate stitching-rt**” and “**advertise vpnv4 unicast re-originated stitching-rt**”.  
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-to-evpn-advertisement.png?raw=true)
 
 **Re-originate VPNv4 routes using EVPN stitching RT “import re-originate stitching-rt”:**  
-This is configured under vpnv4 address-family to enable import of vpnv4 routes with normal RT 110:110 and re-originate it with evpn stitching-rt. 
+This is configured under VPNv4 address-family to enable import of VPNv4 routes with normal RT 110:110 and re-originate it with evpn stitching-rt. 
 
 **Advertise re-originated routes to EVPN “advertise vpnv4 unicast re-originated stitching-rt”:**  
-Configure “advertise vpnv4 unicast re-originated stitching-rt” keyword under evpn address family. This will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change from vpnv4 RT 110:110 to evpn stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
+Configure “advertise vpnv4 unicast re-originated stitching-rt” keyword under EVPN address family. This will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change from vpnv4 RT 110:110 to evpn stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
@@ -1037,7 +1037,7 @@ router bgp 65001
  </pre>
 </div>
 
-Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to routes re-origination.
+Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as VPNv4 routes to avoid routing loops due to routes re-origination.
 <div class="highlighter-rouge">
  <pre class="highlight">
   <code>
