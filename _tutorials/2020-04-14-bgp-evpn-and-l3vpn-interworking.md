@@ -1101,10 +1101,76 @@ end
  </pre>
 </div>
 
+Lets have a look at the BGP EVPN control-plane on DCI router to verify the 10.0.0.0/24 prefix route (route-type 5) is learnt.
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+RP/0/RP0/CPU0:DCI-1#sh bgp l2vpn evpn rd 1.1.1.1:0 [5][0][24][10.0.0.0]/80  detail
+BGP routing table entry for <mark>[5][0][24][10.0.0.0]/80</mark>, Route Distinguisher: 1.1.1.1:0
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                 48          48
+    Flags: 0x00040001+0x00010000; 
+Last Modified: Apr 22 20:48:28.740 for 01:37:33
+Paths: (2 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Flags: 0x4000600025060005, import: 0x3f
+  Not advertised to any peer
+  Local
+    <mark>1.1.1.1</mark> (metric 20) from 6.6.6.6 (1.1.1.1)
+      Received Label 24014 
+      Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, reoriginate, not-in-vrf
+      Received Path ID 0, Local Path ID 1, version 48
+      Extended community: Flags 0x6: <mark>RT:10:10</mark> 
+      Originator: 1.1.1.1, Cluster list: 6.6.6.6
+      EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
+  Path #2: Received by speaker 0
+  Flags: 0x4000600020020005, import: 0x20
+  Not advertised to any peer
+  Local
+    <mark>1.1.1.1 (metric 20)</mark> from 7.7.7.7 (1.1.1.1)
+      Received Label 24014 
+      Origin incomplete, metric 0, localpref 100, valid, internal, reoriginate, not-in-vrf
+      Received Path ID 0, Local Path ID 0, version 0
+      Extended community: Flags 0x6: <mark>RT:10:10</mark> 
+      Originator: 1.1.1.1, Cluster list: 7.7.7.7
+      EVPN ESI: 0000.0000.0000.0000.0000, Gateway Address : 0.0.0.0
+RP/0/RP0/CPU0:DCI-1#
+  </code>
+ </pre>
+</div>
+The above output from DCI-1 shows that subnet 10.0.0.0/24 is learnt from Leaf-1 (RD:1.1.1.1:0) via route-type 5 with route-target 10:10. Lets, have a look at the PE-1's routing table to verify the subnet route is learnt.
+
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+RP/0/RP0/CPU0:PE-1#show route vrf 10          
+Gateway of last resort is not set
+
+B    10.0.0.0/24 [200/0] via 8.8.8.8 (nexthop in vrf default), 01:08:30
+                 [200/0] via 9.9.9.9 (nexthop in vrf default), 01:08:30
+L    111.1.1.1/32 is directly connected, 1d21h, Loopback100
+RP/0/RP0/CPU0:PE-1#
 
 
+RP/0/RP0/CPU0:PE-1#ping 10.0.0.20 vrf 10    
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.20, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 2/2/3 ms
+RP/0/RP0/CPU0:PE-1#ping 10.0.0.40 vrf 10    
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 10.0.0.40, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+RP/0/RP0/CPU0:PE-1#
 
+  </code>
+ </pre>
+</div>
 
+Verifying the output of PE-1's routing table shows that the Leafs host-routes (x.x.x.x/32) are filtered out and not learnt anymore. However the subnet route 10.0.0.0/24 is learnt and programmed. Successful ping from PE-1 to the host routes verifies the end-to-end reachability.
 
 
 
