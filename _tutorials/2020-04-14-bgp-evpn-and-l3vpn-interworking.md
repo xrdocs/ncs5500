@@ -1126,7 +1126,6 @@ router bgp 65001
  </pre>
 </div> 
     </th>
-    <th>
 <th style="border: none;">
       <div class="highlighter-rouge">
       <pre class="highlight">
