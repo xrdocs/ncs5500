@@ -1174,7 +1174,7 @@ Verifying the output of PE-1's routing table shows that the Leafs host-routes (x
 
 Successful Ping from PE-1 to Host prefixes confirms that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability from Hosts connected to Leaf-1/Leaf-2 to PE-1 is established. This concludes the configuration and implementation of BGP EVPN and L3VPN interworking on IOS-XR routers.
 
-For deep dive details of BGP EVPN, refer to our [e-vpn.io](e-vpn.io) webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details.
+For deep dive details of BGP EVPN, refer to our [e-vpn.io](http://e-vpn.io/) webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details.
 
 
 
