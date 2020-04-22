@@ -1094,13 +1094,13 @@ Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are
       <pre class="highlight">
       <code>
 router bgp 65001
- neighbor /<to-evpn-neighbors/>
+ neighbor <to-evpn-neighbors/>
   address-family l2vpn evpn
    route-policy vpnv4-filter in  ---filter routes with VPNv4 community
    route-policy vpnv4-community-set out  ---Set VPNv4 community
   !
  !
- neighbor /<to-vpnv4-neighbors/>
+ neighbor <to-vpnv4-neighbors/>
   description "vpnv4 session to DCI-1"     
   address-family vpnv4 unicast
    route-policy evpn-filter in  ---filter routes with EVPN community
