@@ -1082,7 +1082,7 @@ end
 </div>
 
 
-Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to re-originated routes.
+Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to routes re-origination.
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
     <th style="border: none;">DCI-1</th>
