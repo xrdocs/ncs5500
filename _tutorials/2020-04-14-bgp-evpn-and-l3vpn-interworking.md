@@ -1001,4 +1001,178 @@ The routing table on Leafs show reachability to PE-1's prefix (111.1.1.1/32) wit
 
 Successful Ping from PE-1 to Host prefixes verifies that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability from Hosts connected to Leaf-1/Leaf-2 to PE-1 is established.
 
+### Task 5: Advertise summarized routes and filter host routes on DCI
+In this setup, Leafs are advertising host-routes "10.0.0.20/32 and 10.0.0.40/32" towards DCI routers and from DCI routers eventually to PE-1. Generally in a network, there are going to be a large number of host-routes advertised from evpn fabric. From scalability and optimization point of view it is not a good approach to advertise the host-routes outside of the EVPN fabric. Therefore, it is recommended to advertise summarized prefix routes outside of EVPN fabric and filter host-routes at DCI routers. 
+In this post, we will advertise the prefix-route (evpn route-type 5) from Leafs for subnet 10.0.0.0/24 and filter the host-routes (x.x.x.x/32) on DCI routers. 
+
+Note: EVPN uses route-type 2 to advertise host-routes x.x.x.x/32 and route-type 5 to advertise subnet x.x.x.0/24.
+
+Below configuration is needed on the Leafs to advertise EVPN prefix-route.
+<div class="highlighter-rouge">
+ <pre class="highlight">
+  <code>
+router bgp 65001
+ neighbor 6.6.6.6
+  remote-as 65001
+  description "BGP session to Spine-1" 
+  update-source Loopback0
+  address-family l2vpn evpn
+   <mark>advertise vpnv4 unicast re-originated</mark>
+  !
+ !
+ neighbor 7.7.7.7
+  remote-as 65001
+  description "BGP session to Spine-2" 
+  update-source Loopback0
+  address-family l2vpn evpn
+   <mark>advertise vpnv4 unicast re-originated</mark>
+  !
+ !
+  </code>
+ </pre>
+</div>
+
+
+Configure Route-Policy for route filtering on DCI routers.
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+Route-Policy to filter routes:
+
+community-set evpn
+  1:111
+end-set
+!
+community-set vpnv4
+  1:222
+end-set
+!
+route-policy rt2-filter
+  if destination in (0.0.0.0/0 ge 32) then
+    drop
+  else
+    set community evpn
+  endif
+end-policy
+!
+route-policy evpn-filter
+  if community matches-any evpn then
+    drop
+  else
+    pass
+  endif   
+end-policy
+!
+route-policy vpnv4-filter
+  if community matches-any vpnv4 then
+    drop
+  else
+    pass
+  endif
+end-policy
+!
+route-policy vpnv4-community-set
+  set community vpnv4
+end-policy
+!
+end
+  </code>
+ </pre>
+</div>
+
+
+Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are filtering EVPN host-routes as well as vpnv4 routes to avoid routing loops due to re-originated routes.
+<table style="border-collapse: collapse; border: none;">
+  <tr style="border: none;">
+    <th style="border: none;">DCI-1</th>
+    <th style="border: none;">DCI-2</th>
+  </tr>
+  <tr style="border: none;">
+    <th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+router bgp 65001
+ neighbor 6.6.6.6
+  description "BGP-EVPN session to Spine-1"               
+  address-family l2vpn evpn
+   route-policy vpnv4-filter in
+   route-policy vpnv4-community-set out
+  !
+ !
+ neighbor 7.7.7.7
+  description "BGP-EVPN session to Spine-2"              
+  address-family l2vpn evpn
+   route-policy vpnv4-filter in
+   route-policy vpnv4-community-set out
+  !
+ !
+ neighbor 9.9.9.9
+  description "vpnv4 session to DCI-1"     
+  address-family vpnv4 unicast
+   route-policy evpn-filter in
+   route-policy rt2-filter out
+  !
+ !
+ neighbor 10.10.10.10
+  description "vpnv4 session to PE-1"       
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-policy evpn-filter in
+   route-policy rt2-filter out
+  !
+ !
+  </code>
+ </pre>
+</div> 
+    </th>
+    <th>
+<th style="border: none;">
+      <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+router bgp 65001
+ neighbor 6.6.6.6
+  description "BGP-EVPN session to Spine-1"               
+  address-family l2vpn evpn
+   route-policy vpnv4-filter in
+   route-policy vpnv4-community-set out
+  !
+ !
+ neighbor 7.7.7.7
+  description "BGP-EVPN session to Spine-2"              
+  address-family l2vpn evpn
+   route-policy vpnv4-filter in
+   route-policy vpnv4-community-set out
+  !
+ !
+ neighbor 8.8.8.8
+  description "vpnv4 session to DCI-1"     
+  address-family vpnv4 unicast
+   route-policy evpn-filter in
+   route-policy rt2-filter out
+  !
+ !
+ neighbor 10.10.10.10
+  description "vpnv4 session to PE-1"       
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-policy evpn-filter in
+   route-policy rt2-filter out
+  !
+ !      
+  </code>
+ </pre>
+</div> 
+    </th>      
+  </tr>
+</table> 
+
+
+
+
+
+
+
+
 
