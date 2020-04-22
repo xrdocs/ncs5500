@@ -565,7 +565,7 @@ As a result we can see Host-1 and Host-2 routes programmed in the routing table 
       <code>
 DCI-1:
 
-RP/0/RP0/CPU0:DCI-1#sh route vrf 10
+RP/0/RP0/CPU0:DCI-1#show route vrf 10
 
 Gateway of last resort is not set
 
@@ -681,7 +681,7 @@ Lets verify the routing table and BGP vpnv4 control-plane on PE-1.
       <code>
 PE-1:
 
-RP/0/RP0/CPU0:PE-1#sh route vrf 10
+RP/0/RP0/CPU0:PE-1#show route vrf 10
 
 Gateway of last resort is not set
 
@@ -693,7 +693,7 @@ L    111.1.1.1/32 is directly connected, 1d00h, Loopback100
 RP/0/RP0/CPU0:PE-1#
 
 
-RP/0/RP0/CPU0:PE-1#sh bgp vpnv4 unicast rd 8.8.8.8:0 10.0.0.20/32 detail 
+RP/0/RP0/CPU0:PE-1#show bgp vpnv4 unicast rd 8.8.8.8:0 10.0.0.20/32 detail 
 BGP routing table entry for 10.0.0.20/32, Route Distinguisher: 8.8.8.8:0
 Versions:
   Process           bRIB/RIB  SendTblVer
@@ -724,7 +724,7 @@ Paths: (2 available, best #1)
       Originator: <mark>1.1.1.1</mark>, Cluster list: 9.9.9.9, 8.8.8.8, 6.6.6.6
 RP/0/RP0/CPU0:PE-1#
 
-RP/0/RP0/CPU0:PE-1#sh cef vrf 10 10.0.0.20/32
+RP/0/RP0/CPU0:PE-1#show cef vrf 10 10.0.0.20/32
 10.0.0.20/32, version 228, internal 0x5000001 0x0 (ptr 0x8d1ccacc) [1], 0x0 (0x0), 0x208 (0x8d9fe0e0)
  Updated Mar  8 14:46:37.085
  Prefix Len 32, traffic index 0, precedence n/a, priority 3
@@ -1109,7 +1109,7 @@ Lets have a look at the BGP EVPN control-plane on DCI router to verify the 10.0.
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-RP/0/RP0/CPU0:DCI-1#sh bgp l2vpn evpn rd 1.1.1.1:0 [5][0][24][10.0.0.0]/80  detail
+RP/0/RP0/CPU0:DCI-1#show bgp l2vpn evpn rd 1.1.1.1:0 [5][0][24][10.0.0.0]/80  detail
 BGP routing table entry for <mark>[5][0][24][10.0.0.0]/80</mark>, Route Distinguisher: 1.1.1.1:0
 Versions:
   Process           bRIB/RIB  SendTblVer
@@ -1133,7 +1133,7 @@ Paths: (2 available, best #1)
   Flags: 0x4000600020020005, import: 0x20
   Not advertised to any peer
   Local
-    <mark>1.1.1.1 (metric 20)</mark> from 7.7.7.7 (1.1.1.1)
+    <mark>1.1.1.1</mark> (metric 20) from 7.7.7.7 (1.1.1.1)
       Received Label 24014 
       Origin incomplete, metric 0, localpref 100, valid, internal, reoriginate, not-in-vrf
       Received Path ID 0, Local Path ID 0, version 0
