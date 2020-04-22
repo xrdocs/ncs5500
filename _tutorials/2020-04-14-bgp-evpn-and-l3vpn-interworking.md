@@ -1008,7 +1008,7 @@ In this post, we will advertise the prefix-route (evpn route-type 5) from Leafs 
 
 **Note:** EVPN uses route-type 2 to advertise host-routes x.x.x.x/32 and route-type 5 to advertise subnet x.x.x.0/24.
 
-Below configuration is needed on the Leafs to advertise EVPN prefix-route.
+Below configuration is needed on the Leafs to advertise EVPN prefix-route (route-type 5).
 <div class="highlighter-rouge">
  <pre class="highlight">
   <code>
