@@ -530,11 +530,11 @@ vrf 10
 </pre>
 </div>
 
-We will import the evpn routes with stitching RT and then will re-originate these with VPNv4 towards PE. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
+We will import the EVPN routes with stitching RT and then will re-originate these with VPNv4 towards PE. For this we will need two knobs in BGP; “**import stitching-rt re-originate**” and “**advertise vpnv4 unicast re-originated**”.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-evpn-to-vpnv4-advertisement.png?raw=true)
 
 **Import EVPN routes using “import stitching-rt re-originate”:**  
-In order to import evpn routes, we will have to import routes using “**stitching-rt**” keyword in evpn address-family. The “**re-originate**” keyword will enable the routes to be re-originated with VPNv4 normal RT (110:110).
+In order to import evpn routes, we will have to import routes using “**stitching-rt**” keyword in EVPN address-family. The “**re-originate**” keyword will enable the routes to be re-originated with VPNv4 normal RT (110:110).
 
 Configure below on DCI-1 and DCI-2:
 <div class="highlighter-rouge">
@@ -604,7 +604,7 @@ RP/0/RP0/CPU0:DCI-1#show bgp vrf-db table <mark>0xe000000f</mark>
     
 
 **Re-originate evpn routes with vpnv4 RT “advertise vpnv4 unicast re-originated”:**  
-Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under VPNv4 address family to re-originate the evpn routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). 
+Next we will advertise the routes learnt from EVPN fabric to L3VPN PE. Configure “**advertise vpnv4 unicast re-originated**” keyword under VPNv4 address family to re-originate the EVPN routes matching stitching RT to vpnv4 using vpnv4 RT (110:110). 
 
 Since, PE-1 does not have reachability to Leafs in EVPN fabric, DCI will act as inline-RR. DCI will change the next-hop to itself as it re-originates the routes and advertises to PE. We also need to configure “*ibgp policy out enforce-modifications*” to send the updated BGP route attributes to peers. 
 
@@ -751,10 +751,10 @@ Next we will configure the DCI routers to re-originate the routes to its BGP EVP
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-vpnv4-to-evpn-advertisement.png?raw=true)
 
 **Re-originate VPNv4 routes using EVPN stitching RT “import re-originate stitching-rt”:**  
-This is configured under VPNv4 address-family to enable import of VPNv4 routes with normal RT 110:110 and re-originate it with evpn stitching-rt. 
+This is configured under VPNv4 address-family to enable import of VPNv4 routes with normal RT 110:110 and re-originate it with EVPN stitching-rt. 
 
 **Advertise re-originated routes to EVPN “advertise vpnv4 unicast re-originated stitching-rt”:**  
-Configure “advertise vpnv4 unicast re-originated stitching-rt” keyword under EVPN address family. This will configure advertisement of vpnv4 routes to BGP evpn neighbors. The route targets will change from vpnv4 RT 110:110 to evpn stitching route target before advertising to EVPN neighbors. DCI advertises this as evpn route type 5.
+Configure “advertise vpnv4 unicast re-originated stitching-rt” keyword under EVPN address family. This will configure advertisement of vpnv4 routes to BGP EVPN neighbors. The route targets will change from vpnv4 RT 110:110 to EVPN stitching route target before advertising to EVPN neighbors. DCI advertises this as EVPN route type 5.
 
 <table style="border-collapse: collapse; border: none;">
   <tr style="border: none;">
