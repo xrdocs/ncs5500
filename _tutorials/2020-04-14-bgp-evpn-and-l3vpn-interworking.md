@@ -1038,7 +1038,7 @@ Apply Route-Policies under BGP neighbors to filter routes on DCI routers. We are
  <pre class="highlight">
   <code>
 router bgp 65001
- neighbor evpn-neighbors-Spines
+ neighbor evpn-neighbor-Spines
   address-family l2vpn evpn
    route-policy vpnv4-filter in  ---<mark>filter routes with VPNv4 community</mark>
    route-policy vpnv4-community-set out  ---<mark>Set VPNv4 community</mark>
