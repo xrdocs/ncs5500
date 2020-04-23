@@ -78,7 +78,7 @@ l2vpn
 
 ### Task 2: Configure EVPN based single-active multi-homing
 
-Configure Leaf-1 and Leaf-2 to provision single-active multi-homing to host-1. The set of links from Host-1 to the Leafs will be configured as Ethernet Segment on the Leafs. NCS 5500 platform supports static LAG as well as LACP, however in this guide we are using LACP for link aggregation.
+Configure Leaf-1 and Leaf-2 to provision single-active multi-homing to host-1. The set of links from Host-1 to the Leafs will be configured as Ethernet Segment on the Leafs.
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/ethernet-segment-single-active-multi-homing.png?raw=true)
 
