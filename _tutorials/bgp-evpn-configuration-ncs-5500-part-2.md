@@ -5,8 +5,8 @@ title: BGP-EVPN based Active/Active Multi-Homing
 author: Ahmad Bilal Siddiqui
 position: top
 excerpt: >-
-  This post covers the configuration of BGP-EVPN based MC-LAG for Multi-Homing
-  of devices on NCS 5500.
+  This post covers the configuration of BGP-EVPN based Multi-Homing of devices
+  on NCS 5500.
 tags:
   - iosxr
   - ncs 5500
