@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2020-04-06 21:24 -0700'
-title: BGP-EVPN based MC-LAG for Single-Active Multi-Homing
+title: BGP-EVPN based Single-Active Multi-Homing
 author: Ahmad Bilal
 excerpt: >-
   Implementation and configuration of BGP-EVPN based MC-LAG for Single-Active
@@ -14,7 +14,7 @@ tags:
 ---
 {% include toc %}
 
-## Implementation of BGP-EVPN based MC-LAG for Single-Active Multi-Homing
+## Implementation of BGP-EVPN based Single-Active Multi-Homing
 
 In single-active multi-homing mode, only a single Leaf among a group of Leafs attached to a Host is allowed to forward the traffic to and from on a given VLAN.
 
@@ -641,4 +641,3 @@ RP/0/RP0/CPU0:Leaf-2#
 </div>
 
 Finally we can observe in the ARP table output of Leaf-1 and Leaf-2 that the ARP entry for Host-1 is only programmed on Leaf-1. This is becuase of the single-active behavior of ethernet-segment and Leaf-1 being the designated-forwarder. This concludes the BGP-EVPN single-active implementation, for further technical details refer to our [e-vpn.io](http://e-vpn.io/) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
-
