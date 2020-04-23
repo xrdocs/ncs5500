@@ -3,7 +3,11 @@ published: true
 date: '2020-04-14 16:35 -0700'
 title: BGP EVPN and L3VPN Interworking
 author: Ahmad Bilal
-excerpt: BGP-EVPN and L3VPN Interworking Support on NCS5500
+excerpt: >-
+  BGP EVPN and L3VPN interworking is a way to connect EVPN domain such as a DC
+  or CO over an IPVPN Core/WAN network. This post is going to cover
+  configuration and Implementation of BGP EVPN and L3VPN Interworking on IOS-XR
+  routers.
 tags:
   - iosxr
   - cisco
@@ -1179,10 +1183,3 @@ Verifying the output of PE-1's routing table shows that the Leafs host-routes (x
 Successful Ping from PE-1 to Host prefixes confirms that the BGP EVPN and L3VPN interworking is operational and end-to-end reachability from Hosts connected to Leaf-1/Leaf-2 to PE-1 is established. This concludes the configuration and implementation of BGP EVPN and L3VPN interworking on IOS-XR routers.
 
 For deep dive details of BGP EVPN, refer to our [e-vpn.io](http://e-vpn.io/) webpage, it has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting details.
-
-
-
-
-
-
-
