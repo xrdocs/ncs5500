@@ -16,7 +16,7 @@ Position: Top
 ---
 {% include toc %}
 
-## BGP EVPN and L3VPN Interworking Support in IOS-XR
+## BGP EVPN and L3VPN Interworking Support on IOS-XR Routers
 
 BGP EVPN and L3VPN interworking is a way to connect EVPN domain such as a DC or CO over an IPVPN Core/WAN network. This is a common use-case for end-to-end connectivity of Hosts/CEs in EVPN domain to other domains over an IPVPN network providing inter-subnet routing.
 Below topology shows an EVPN fabric connecting to L3VPN domain with the help of DCI/Boarder-Leaf routers. The DCI routers perform BGP EVPN to L3VPN interworking to provide the reachability between PE-1's and Host prefixes. Boarder-Leaf/DCI routers are essential in these types of designs to keep prefixes local to each domain and send summarized advertisement out.
