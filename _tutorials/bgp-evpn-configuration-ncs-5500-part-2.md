@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2018-09-16 15:21 -0700'
-title: BGP-EVPN based MC-LAG for Active/Active Multi-Homing
+title: BGP-EVPN based Active/Active Multi-Homing
 author: Ahmad Bilal Siddiqui
 position: top
 excerpt: >-
@@ -15,7 +15,7 @@ tags:
 ---
 {% include toc %}
 
-This post will cover BGP-EVPN based MC-LAG for Multi-Homing of devices. Multi-homing is achieved by EVPN Ethernet Segment feature; it offers redundant connectivity and utilizes all the links for active/active per-flow load balancing. For EVPN Multi-Homing tutorial, we will leverage EVPN control-plane and ISIS Segment Routing based forwarding that we configured in the [previous post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/).
+This post will cover BGP-EVPN based Multi-Homing of devices. Multi-homing is achieved by EVPN Ethernet Segment feature; it offers redundant connectivity and utilizes all the links for active/active per-flow load balancing. For EVPN Multi-Homing tutorial, we will leverage EVPN control-plane and ISIS Segment Routing based forwarding that we configured in the [previous post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-1/).
 
 EVPN Ethernet segment is a set of Ethernet links that connects a multi-homed device. If a multi-homed device or network is connected to two or more PEs through a set of Ethernet links, then that set of links is referred to as an Ethernet segment. Each device connected in the network is identified by a unique non-zero identifier called Ethernet-Segment Identifier (ESI).
 
@@ -46,7 +46,7 @@ Note: NCS 5500 platform supports only BGP-EVPN based multi-homing with 2-way red
 
 ### Task 1: Configure LACP bundle on Host-1
 
-As per the reference topology Host-1 is dual-homed to Leaf-1 and Leaf-2. ASR9K is acting as the host with IP address 10.0.0.10/24. Host-1 is configured with LACP bundle containing the interfaces connected to the Leaf-1 and Leaf-2. Following is the configuration of LAG on Host-1. The LAG on Host-1 will come up after we configure the MC-LAG using EVPN Ether-Segment on the Leaf-1 and Leaf-2.
+As per the reference topology Host-1 is dual-homed to Leaf-1 and Leaf-2. ASR9K is acting as the host with IP address 10.0.0.10/24. Host-1 is configured with LACP bundle containing the interfaces connected to the Leaf-1 and Leaf-2. Following is the configuration of LAG on Host-1. The LAG on Host-1 will come up after we configure the multi-homing using EVPN Ether-Segment on the Leaf-1 and Leaf-2.
 
 In this tutorial we are using ASR9K router as the host but we can use any server or other CE device dual-homed connected to the Leaf/PE via BGP-EVPN.
 
