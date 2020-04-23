@@ -22,7 +22,7 @@ Below topology shows an EVPN fabric connecting to L3VPN domain with the help of 
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/evpn-l3vpn-interworking-topology.png?raw=true)
 
-In this post we will go over the configuration of EVPN and L3VPN interworking on NCS 5500 routers acting as DCI. When we complete the configuration, we will have Host subnet (10.0.0.0/24) learnt on PE-1, and PE-1’s VPNv4 prefix loopback-100 learnt on Leafs. We will verify the reachability between Hosts and PE-1’s prefixes, that are advertised by their respective address-families. 
+In this post we will go over the configuration of EVPN and L3VPN interworking on IOS-XR routers acting as DCI. When we complete the configuration, we will have Host subnet (10.0.0.0/24) learnt on PE-1, and PE-1’s VPNv4 prefix loopback-100 learnt on Leafs. We will verify the reachability between Hosts and PE-1’s prefixes, that are advertised by their respective address-families. 
 
 The configuration setup is based on single BGP AS 65001. There are two separate ISIS routing domains for EVPN and L3VPN with Segment Routing enabled for MPLS based forwarding. DCI performs BGP EVPN and L3VPN interworking, hence it is participating in both ISIS domains. There is no route redistribute between ISIS domains.
 
