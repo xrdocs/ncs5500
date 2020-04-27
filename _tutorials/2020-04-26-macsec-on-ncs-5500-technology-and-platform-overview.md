@@ -18,10 +18,10 @@ This document is the first part of a series, and provides an overview of MACsec 
 MACsec is a Layer 2 IEEE 802.1AE standard for encrypting packets between two MACsec-capable routers. It supports IEEE 802.1AEbn 256bit encryption and uses Advanced Encryption Standard (AES) algorithm. MACsec secures data on physical media, making it impossible for data to be compromised at higher layers. Security breaches can occur in any layer and MACsec prevents from layer 2 security breaches, including Packet sniffing, Packet Eavesdropping, DOS attack, tampering, MAC address spoofing and ARP spoofing etc. 
 
 Some of the major MACsec benefits are,
-- Confidentiality: MACsec helps ensure confidentiality by providing strong encryption at layer 2
-- Integrity: MACsec provides integrity checking to help ensure that data cannot be modified in transit
-- Flexibility: You can selectively enable MACsec on per interface basis by attaching MACsec policy which gives flexibility for having both Secured (MACsec enabled) and Non secured ports to operate on same Router 
-- Network Intelligence: Unlike end-to-end, Layer 3 encryption techniques that hide the contents of packets from the network devices they cross, MACsec encrypts packets on a hop-by-hop basis at Layer 2, allowing the network to inspect, monitor, mark, and forward traffic according to your existing policies
+- **Confidentiality:** MACsec helps ensure confidentiality by providing strong encryption at layer 2
+- **Integrity:** MACsec provides integrity checking to help ensure that data cannot be modified in transit
+- **Flexibility:** You can selectively enable MACsec on per interface basis by attaching MACsec policy which gives flexibility for having both Secured (MACsec enabled) and Non secured ports to operate on same Router 
+- **Network Intelligence:** Unlike end-to-end, Layer 3 encryption techniques that hide the contents of packets from the network devices they cross, MACsec encrypts packets on a hop-by-hop basis at Layer 2, allowing the network to inspect, monitor, mark, and forward traffic according to your existing policies
 
 As MACsec is the hop-by-hop encryption technology, Frames gets encrypted as it leaves the wire (PHY or FPGA post NPU operation) and gets decrypted before it ingress to NPU. So NPU will have complete view of data and will be able to provide any services required to these packets. 
 
