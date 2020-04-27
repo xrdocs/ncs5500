@@ -73,6 +73,9 @@ MACsec can be configured in 3 simple steps:
 2.	Create MACsec policy (to configure encryption cipher & other policies etc.)
 3.	Attach created key chain and policy to an interface.
 
+<div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
 Create a MacSec Key chain
 key chain key_chain_name
  macsec
@@ -84,10 +87,12 @@ Create a MacSec policy
 macsec-policy policy_name
  !
 Apply the key chain and policy on the interface
-interface <Interface name>
+interface -Interface name-
 macsec psk-keychain key_chain_name policy policy_name
 !
-
+  </code>
+ </pre>
+</div>
   
 A basic MACsec configuration, with default policy GCM-AES-XPN-256:
 <div class="highlighter-rouge">
