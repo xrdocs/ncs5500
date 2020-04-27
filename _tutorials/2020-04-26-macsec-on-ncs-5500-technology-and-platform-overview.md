@@ -50,6 +50,7 @@ MACsec allows you to secure an Ethernet link including all control plane protoco
 ### MACsec Data Plane
 Once we enable MACsec on a link, Both Tx and Rx SCI (Secure Channel Identifier) and associated Tx & Rx SAs which is distributed by Key Server gets programmed in hardware. Any traffic leaving the interface will get encrypted using Tx SA policy programmed in hardware only with exception of EAPoL packets as this takes the different path inside MACsec core (Clear Path). And traffic getting ingress to the interface will gets decrypted using the programmed Rx SA policy. Once SCI gets programmed for that interface, MACsec policy gets pushed to the hardware which enables the interface to apply access-control policy (should / must secure) for all traffics leaving interface till SA gets programmed.  
 
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-tag-format.png?raw=true)
 
 MACsec inserts two tags for all data frames, which egress the interface. Which are SecTag and ICV. The value of these additional overheads can be from 16 to 32Byte maximum.  Both SecTag and ICV can vary from 8B to 16B depending upon the information it carries and cipher it uses. SecTag carry an 8 byte SCI that is optional. The authentication is provided to the complete frame except CRC and ICV part, which resides at end of the frame. And Encryption is provided starting from VLAN header (if used) till Payload.
 
@@ -58,12 +59,13 @@ Cisco’s implementation always uses 16B SecTag and 16B ICV, so the data plane o
 ### Use Cases
 One common use case of NCS-5500 can be link MACsec on all regular IP core / MPLS core devices which are generally part of service provider network. MACsec can simply be enabled on all back to back links over IP/MPLS core devices as an underlay protocols. This will still get you the high-speed lean core network with complete security provided by MACsec encryption as MACsec works on wire speed.
 
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-reference-topology.png?raw=true)
 
 As you can see in above figure, MACsec is enabled between each links connected between each core devices on your WAN from PE to PE. Take a look at below figure, which gives the comparison of different possible frames over IP/MPLS network in both clear and encrypted format. 
 As you can see, Encryption starts right after Source MAC address and ends just before FCS in all kinds frames gets into IP/MPLS core.  
 MACsec over bundle is supported on NCS55xx family of products. MACsec is enabled on all bundle member interfaces individually and we will have separate sessions for each member as MACsec works on MAC layer.  Since MACsec is enabled on per member interface basis, we can have bundle, which contains mixing of MACsec and Non MACsec enabled links as member of same bundle interface.
 
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-frame-format.png?raw=true)
 
 ### MACsec Basic Configuration
 MACsec can be configured in 3 simple steps:
@@ -129,35 +131,34 @@ MACsec is supported on both modular and fixed platforms. However, on some platfo
   
 **NC55-36x100G-S MACsec Modular Line Card**
 All 36x100G ports support MACsec
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-1.png?raw=true)
   
 **NC55-6x200-DWDM-S IPoDWDM Modular Line Card**
 All 6x100G/200G ports support MACsec
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-2.png?raw=true)
   
 **NC55-MOD-A(-SE)-S MOD Line Card with MPA**
 All 12x10G, 2x40G ports and both MPA support MACsec
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-3.png?raw=true)
   
 **NCS-55A1-36H(-SE)-S Fixed Chassis**
 All 36x100G ports support MACsec
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-4.png?raw=true)
   
 **NCS-55A2-MOD(-SE)-S MOD Fixed Chassis with MPA**
 The 16x25G ports and both MPA support MACsec, while the 24x10G ports do not.
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-5.png?raw=true)
   
 **NCS-55A1-24Q6H-S Fixed Chassis**
 The 6x100G and 16 out of 24x25G ports support MACsec, while the 24x10G and 8 out of 24x25G ports do not.
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-6.png?raw=true)
   
 **NCS-55A1-48Q6H Fixed Chassis**
 The 6x100G ports support MACsec, while the 48x25G ports do not.
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-7.png?raw=true)
   
 **NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S**
 All MPA ports, 10G, 100G and CFP2 support MACsec.
-
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png?raw=true)
   
 
-  
