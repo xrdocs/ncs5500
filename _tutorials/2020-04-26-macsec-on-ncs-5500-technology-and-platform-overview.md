@@ -30,13 +30,20 @@ MACsec allows you to secure an Ethernet link including all control plane protoco
 
 ### Commonly used MACsec Terminologies
 
-**MACsec Key Agreement (MKA)** is defined in IEEE 802.1X is a key agreement protocol for discovering MACsec peers and negotiating keys  
+**MACsec Key Agreement (MKA)** is defined in IEEE 802.1X is a key agreement protocol for discovering MACsec peers and negotiating keys  .
+
 **Secure Channel (SC)** is a security relationship used to provide security guarantees for frames transmitted from one member of a CA to the others. An SC is supported by a sequence of SAs thus allowing the periodic use of fresh keys without terminating the relationship.  
-**Secure Channel Identifier (SCI)** is a globally unique identifier for a secure channel, comprising a globally unique MAC Address and a Port Identifier, unique within the system allocated that address.
-**Connectivity Association Key (CAK)** is a long-lived master key used to generate all other keys used for MACsec. In our implementation, it is the Pre-Shared Key (PSK) configured through a key chain. CAK is of 16 byte or 32 byte length for AES 128bit cipher and 64 character for 256bit cipher.
-**CAK Key Name (CKN)** It is used to identify the CAK. Length is of 1 to 16 byte. CKN has to be same on both side to form session successfully.
-**Secure Association Key (SAK)** is derived by the elected Key Server from the CAK and SAK is used by the router/end devices to encrypt traffic and decrypt traffic for a given session.
-**Key Sever Priority** is the optional value, which can be configured in MACsec policy
+
+**Secure Channel Identifier (SCI)** is a globally unique identifier for a secure channel, comprising a globally unique MAC Address and a Port Identifier, unique within the system allocated that address.  
+
+**Connectivity Association Key (CAK)** is a long-lived master key used to generate all other keys used for MACsec. In our implementation, it is the Pre-Shared Key (PSK) configured through a key chain. CAK is of 16 byte or 32 byte length for AES 128bit cipher and 64 character for 256bit cipher.  
+
+**CAK Key Name (CKN)** It is used to identify the CAK. Length is of 1 to 16 byte. CKN has to be same on both side to form session successfully.  
+
+**Secure Association Key (SAK)** is derived by the elected Key Server from the CAK and SAK is used by the router/end devices to encrypt traffic and decrypt traffic for a given session.  
+
+**Key Sever Priority** is the optional value, which can be configured in MACsec policy.  
+
 **Key server (KS)** is the one, which controls key generation and distribution of SAK to clients (Non-KS). Device with lowest key server priority value preferred to win key server election. In case of tie, highest value of SCI wins.
 
 
