@@ -127,35 +127,35 @@ Total MACSec Sessions : 1
 ### MACsec Platform Support
 MACsec is supported on both modular and fixed platforms. However, on some platforms, not all ports will support MACsec. Below is a summary of the platforms with support ports highlighted.
   
-NC55-36x100G-S MACsec Modular Line Card
+**NC55-36x100G-S MACsec Modular Line Card**
 All 36x100G ports support MACsec
 
   
-NC55-6x200-DWDM-S IPoDWDM Modular Line Card
+**NC55-6x200-DWDM-S IPoDWDM Modular Line Card**
 All 6x100G/200G ports support MACsec
 
   
-NC55-MOD-A(-SE)-S MOD Line Card with MPA
+**NC55-MOD-A(-SE)-S MOD Line Card with MPA**
 All 12x10G, 2x40G ports and both MPA support MACsec
 
   
-NCS-55A1-36H(-SE)-S Fixed Chassis
+**NCS-55A1-36H(-SE)-S Fixed Chassis**
 All 36x100G ports support MACsec
 
   
-NCS-55A2-MOD(-SE)-S MOD Fixed Chassis with MPA
+**NCS-55A2-MOD(-SE)-S MOD Fixed Chassis with MPA**
 The 16x25G ports and both MPA support MACsec, while the 24x10G ports do not.
 
   
-NCS-55A1-24Q6H-S Fixed Chassis
+**NCS-55A1-24Q6H-S Fixed Chassis**
 The 6x100G and 16 out of 24x25G ports support MACsec, while the 24x10G and 8 out of 24x25G ports do not.
 
   
-NCS-55A1-48Q6H Fixed Chassis
+**NCS-55A1-48Q6H Fixed Chassis**
 The 6x100G ports support MACsec, while the 48x25G ports do not.
 
   
-NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S
+**NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S**
 All MPA ports, 10G, 100G and CFP2 support MACsec.
 
   
