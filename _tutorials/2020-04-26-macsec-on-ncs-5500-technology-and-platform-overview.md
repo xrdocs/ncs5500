@@ -98,7 +98,7 @@ A basic MACsec configuration, with default policy GCM-AES-XPN-256:
 <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-      key chain psk1
+key chain psk1
  macsec
   key 01
    key-string 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef cryptographic-algorithm aes-256-cmac
