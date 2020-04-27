@@ -138,29 +138,36 @@ MACsec is supported on both modular and fixed platforms. However, on some platfo
 All 36x100G ports support MACsec
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-1.png?raw=true)
   
+  
 **NC55-6x200-DWDM-S IPoDWDM Modular Line Card**
 All 6x100G/200G ports support MACsec
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-2.png?raw=true)
+  
   
 **NC55-MOD-A(-SE)-S MOD Line Card with MPA**
 All 12x10G, 2x40G ports and both MPA support MACsec
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-3.png?raw=true)
   
+  
 **NCS-55A1-36H(-SE)-S Fixed Chassis**
 All 36x100G ports support MACsec
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-4.png?raw=true)
+  
   
 **NCS-55A2-MOD(-SE)-S MOD Fixed Chassis with MPA**
 The 16x25G ports and both MPA support MACsec, while the 24x10G ports do not.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-5.png?raw=true)
   
+  
 **NCS-55A1-24Q6H-S Fixed Chassis**
 The 6x100G and 16 out of 24x25G ports support MACsec, while the 24x10G and 8 out of 24x25G ports do not.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-6.png?raw=true)
   
+  
 **NCS-55A1-48Q6H Fixed Chassis**
 The 6x100G ports support MACsec, while the 48x25G ports do not.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-7.png?raw=true)
+  
   
 **NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S**
 All MPA ports, 10G, 100G and CFP2 support MACsec.
