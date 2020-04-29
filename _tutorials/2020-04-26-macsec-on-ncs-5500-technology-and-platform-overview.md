@@ -175,6 +175,7 @@ All MPA ports, 10G, 100G and CFP2 support MACsec.
   
 
 |	Platform	|	SFP+	|	SFP28	|	QSFP+	|	QSFP28	|	CFP2	|
+|	:-----	|	:-----	|	:-----	|	:-----	|	:-----	|	:-----	|
 |	NC55-36x100G-S	|	-	|	-	|	-	|	10G/40G/4x10G/100G	|	-	|
 |	NC55-6x200-DWDM-S	|	-	|	-	|	-	|	-	|	Nx100G	|
 |	NC55-MOD-A(-SE)-S 	|	10G	|	-	|	4x10G/40G	|	-	|	-	|
