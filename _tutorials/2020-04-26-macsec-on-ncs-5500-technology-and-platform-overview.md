@@ -173,6 +173,7 @@ The 6x100G ports support MACsec, while the 48x25G ports do not.
 All MPA ports, 10G, 100G and CFP2 support MACsec.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png?raw=true)
   
+  
 **Platform Matrix for MACsec Support**  
 
 |	Platform	|	SFP+	|	SFP28	|	QSFP+	|	QSFP28	|	CFP2	|
