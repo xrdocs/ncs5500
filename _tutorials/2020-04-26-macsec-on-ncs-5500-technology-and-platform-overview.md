@@ -174,3 +174,13 @@ All MPA ports, 10G, 100G and CFP2 support MACsec.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png?raw=true)
   
 
+|	Platform	|	SFP+	|	SFP28	|	QSFP+	|	QSFP28	|	CFP2	|
+|	NC55-36x100G-S	|	-	|	-	|	-	|	10G/40G/4x10G/100G	|	-	|
+|	NC55-6x200-DWDM-S	|	-	|	-	|	-	|	-	|	Nx100G	|
+|	NC55-MOD-A(-SE)-S 	|	10G	|	-	|	4x10G/40G	|	-	|	-	|
+|	NCS-55A1-36H(-SE)-S 	|	-	|	-	|	-	|	10G/40G/4x10G/4x25G/100G	|	-	|
+|	NCS-55A2-MOD(-SE)-S 	|	-	|	10G/25G	|	-	|	-	|	-	|
+|	400G MPA’s	|	10G	|	-	|	-	|	40G/4x10G/4x25G/100G	|	Nx100G	|
+|	NCS-55A1-48Q6H 	|	-	|	-	|	-	|	40G/4x10G/4x25G/100G	|	-	|
+|	NCS-55A1-24Q6H-S 	|	-	|	10G/25G	|	-	|	40G/4x10G/4x25G/100G	|	-	|
+|	NCS-55A1-24Q6H-SS	|	10G	|	10G/25G	|	-	|	40G/4x10G/4x25G/100G	|	-	|
