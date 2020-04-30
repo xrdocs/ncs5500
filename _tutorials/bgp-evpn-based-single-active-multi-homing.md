@@ -2,7 +2,7 @@
 published: true
 date: '2020-04-06 21:24 -0700'
 title: BGP-EVPN based Single-Active Multi-Homing
-author: Ahmad Bilal
+author: Ahmad Bilal Siddiqui
 excerpt: >-
   Implementation and configuration of BGP-EVPN based Single-Active Multi-Homing
   on IOS-XR routers.
