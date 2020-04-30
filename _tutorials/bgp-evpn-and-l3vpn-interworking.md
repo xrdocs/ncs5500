@@ -2,7 +2,7 @@
 published: true
 date: '2020-04-14 16:35 -0700'
 title: BGP EVPN and L3VPN Interworking
-author: Ahmad Bilal
+author: Ahmad Bilal Siddiqui
 excerpt: >-
   BGP EVPN and L3VPN interworking is a way to connect EVPN domain such as a DC
   or CO over an IPVPN Core/WAN network. This post is going to cover
