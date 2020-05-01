@@ -109,7 +109,7 @@ macsec
    key-string 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef cryptographic-algorithm aes-256-cmac
    lifetime 00:00:00 january 01 2020 infinite
   !
-!
+ !
 !
 interface HundredGigE0/0/2/0
 macsec psk-keychain psk1
@@ -192,4 +192,3 @@ All MPA ports, 10G, 100G and CFP2 support MACsec.
 |          NCS-55A1-48Q6H   |          -           |          -           |          -           |            40G/4x10G/4x25G/100G |          -           |
 |          NCS-55A1-24Q6H-S           |          -           |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
 |          NCS-55A1-24Q6H-SS         |          10G    |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
-
