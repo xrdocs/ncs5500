@@ -104,7 +104,7 @@ A basic MACsec configuration, with default policy GCM-AES-XPN-256:
       <pre class="highlight">
       <code>
 key chain psk1
-macsec
+ macsec
   key 01
    key-string 0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef cryptographic-algorithm aes-256-cmac
    lifetime 00:00:00 january 01 2020 infinite
@@ -112,7 +112,7 @@ macsec
  !
 !
 interface HundredGigE0/0/2/0
-macsec psk-keychain psk1
+ macsec psk-keychain psk1
 !
       </code>
       </pre>
