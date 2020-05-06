@@ -32,7 +32,9 @@ As shown in the above topology, Host-1 is multi-homed to Leaf-1 and Leaf-2. For 
 
 ### Task 1: Configure Ethernet bundles on Host-1 for multi-homing
 
-As per the reference topology Host-1 is multi-homed to Leaf-1 and Leaf-2 via LACP bundle-ethernet 11 going to Leaf-1 and bundle-ethernet 12 going to Leaf-2. ASR9K is acting as the host/CE with IP address 10.0.0.10/24 configured on a BVI. Following is the configuration of LAG on Host-1, static route is configured to reach to EVPN-Anycast Gateway on the Leafs. The LAG on Host-1 will come up after we configure single-active multi-homing using EVPN Ether-Segment on the Leaf-1 and Leaf-2.
+As per the reference topology Host-1 is multi-homed to Leaf-1 and Leaf-2 via LACP bundle-ethernet 11 going to Leaf-1 and bundle-ethernet 12 going to Leaf-2. ASR9K is acting as the host/CE with IP address 10.0.0.10/24 configured on a BVI. Following is the configuration of LAG on Host-1.  
+
+The LAG on Host-1 will come up after we configure single-active multi-homing using EVPN Ether-Segment on the Leaf-1 and Leaf-2.
 
 **Note:** In this post we will configure VLAN 10 to show the single-active behavior. Configuration of VLAN 20 is out of scope for this post but follows the same procedure. 
 
@@ -64,6 +66,10 @@ interface Bundle-Ether12.10 l2transport
  encapsulation dot1q 10
  rewrite ingress tag pop 1 symmetric
 !
+interface BVI10
+ description "Host-1 IP"
+ ipv4 address 10.0.0.10 255.255.255.0
+!
 l2vpn
  bridge group bg1
   bridge-domain bd-10
@@ -71,6 +77,7 @@ l2vpn
    !
    interface Bundle-Ether<mark>12.10</mark>
    !
+   routed interface BVI10
  !
 !
 </code>
