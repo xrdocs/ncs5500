@@ -251,7 +251,6 @@ evpn
     !
     advertise-mac
     !
-  source interface loopback 0
  !
 
 
@@ -276,7 +275,6 @@ evpn
    !
    advertise-mac
    !
-  source interface loopback 0
   !
 
 
@@ -296,7 +294,6 @@ evpn
   advertise-mac
   !
  !
- source interface Loopback0
 !
 l2vpn
  bridge group bg-1
