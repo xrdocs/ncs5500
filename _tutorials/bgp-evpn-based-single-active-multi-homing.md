@@ -113,6 +113,7 @@ interface Bundle-Ether 12
 </div>
 
 Configure Ethernet Segment id (ESI) for the bundle interface to enable multi-homing of the host. Use the identical ethernet-segment configuration on both the Leafs, though the ethernet-bundle interface is different for both Leafs. Configure load-balancing mode to single-active using “single-active” keyword for ethernet-segment.  
+
 **Note:** Single-active mode is the default for Physical interfaces and no extra configuration to enable single-active is required.
 
 <div class="highlighter-rouge">
