@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2018-09-16 15:21 -0700'
-title: BGP-EVPN based Active/Active Multi-Homing
+title: BGP-EVPN based Active-Active Multi-Homing
 author: Ahmad Bilal Siddiqui
 position: top
 excerpt: >-
