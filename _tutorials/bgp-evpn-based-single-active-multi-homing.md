@@ -28,7 +28,7 @@ For this post, we will leverage EVPN control-plane and ISIS Segment Routing base
 
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/single-active-multi-homing.png?raw=true)
 
-As shown in the above topology, Host-1 is multi-homed to Leaf-1 and Leaf-2. For EVPN single-active multi-homing, each link towards the Leaf will be in a unique ethernet bundle interface. As both the links are in separate ethernet bundles, the host H-1 will flood traffic at first to both the Leafs but only the designated forwarder (DF) Leaf will forward the traffic. As a result, the host will have only one ethernet bundle interface in its forwarding table to forward the traffic and achieve per VLAN single-active multi-homing. 
+As shown in the above topology, Host-1 is multi-homed to Leaf-1 and Leaf-2. For EVPN single-active multi-homing, each link towards the Leaf will be in a unique ethernet bundle interface. VLAN 10 and 20 are configured on both the ethernet-bundles. As both the links are in separate ethernet bundles, the host H-1 will flood traffic at first to both the Leafs but only the designated forwarder (DF) Leaf will forward the traffic. As a result, the host will have only one ethernet bundle interface in its forwarding table to forward the traffic and achieve per VLAN single-active multi-homing. 
 
 ### Task 1: Configure Ethernet bundles on Host-1 for multi-homing
 
