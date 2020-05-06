@@ -165,7 +165,6 @@ Configure EVI in EVPN config on Leaf-1 and Leaf-2. Also assign the route-target 
       !
       <mark>advertise-mac</mark>
       !
-     source interface loopback 0
      !
 </code>
 </pre>
@@ -277,7 +276,6 @@ With the following CLI command we can verify that the MAC address of Host-1 is b
       !
       <mark>advertise-mac</mark>
       !
-     source interface loopback 0
      !
 </code>
 </pre>
