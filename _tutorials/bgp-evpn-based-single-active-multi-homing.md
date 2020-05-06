@@ -383,7 +383,7 @@ Ethernet Segment Id      Interface                          Nexthops
 0011.1111.1111.1111.1111 BE12                               <mark>1.1.1.1</mark>
                                                             <mark>2.2.2.2</mark>
   ES to BGP Gates   : Ready
-  ES to L2FIB Gates : O
+  ES to L2FIB Gates : Ready
   Main port         :
      Interface name : Bundle-Ether12
      Interface MAC  : 00bc.600e.40db
