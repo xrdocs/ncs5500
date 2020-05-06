@@ -259,7 +259,6 @@ In the below configuration route-target is manually configured, however route-ta
            route-target import <mark>1001:22</mark>
            route-target export <mark>1001:22</mark>
           !
-         source interface loopback 0
          !
 </code>
 </pre>
