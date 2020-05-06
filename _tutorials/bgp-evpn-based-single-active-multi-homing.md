@@ -133,7 +133,6 @@ evpn
   ethernet-segment
    identifier type 0 <mark>11.11.11.11.11.11.11.11.11</mark>
    <mark>load-balancing-mode single-active</mark>
-   bgp route-target 1111.1111.1111
   !
 
 
@@ -144,7 +143,6 @@ evpn
   ethernet-segment
    identifier type 0 <mark>11.11.11.11.11.11.11.11.11</mark>
    <mark>load-balancing-mode single-active</mark>
-   bgp route-target 1111.1111.1111
   !
 </code>
 </pre>
