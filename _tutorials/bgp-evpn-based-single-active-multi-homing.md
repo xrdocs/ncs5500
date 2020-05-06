@@ -539,7 +539,7 @@ RP/0/RP0/CPU0:Leaf-5#
 
 As we observe Leaf-5’s output, we see that the Leaf-5 has programmed Leaf-1 as the only next-hop for Host-1’s MAC address reachability, although Host-1 is multi-homed to both Leaf-1 and Leaf-2. This verifies that single-active dual-homing is operational and that at one time only one Leaf will forward the traffic to and from the Host for a given EVI.  
 
-**Note:** As Leaf-2 sees Host-1's MAC reachable via Leaf-1, if case of another Host/ESI connected to Leaf-2 wants to reach to Host-1 it will have to go over Leaf-1 to reach to Host-1.
+**Note:** As Leaf-2 sees Host-1's MAC reachable via Leaf-1, in case of another Host/ESI connected to Leaf-2 wants to reach to Host-1 it will have to go over Leaf-1 to reach to Host-1.
 
 ### Task 5: Configure the BGP-EVPN Distributed Anycast Gateway for inter-subnet routing
 For Layer-3 inter-subnet routing use case; similar to Host-1’s layer-2 reachability, Host-1’s IP will also only be reachable via Leaf-1 as next-hop. After we configure BGP-EVPN distributed anycast gateway for inter-subnet routing, we will observe the routing table of Leaf-5.
@@ -576,7 +576,7 @@ Configure VRFs on Leaf-1, Leaf-2 and Leaf-5.
          redistribute connected
       !
 
-Configure BVI as disstributed anycast gateway
+Configure BVI as distributed anycast gateway
 
       interface BVI 10
        host-routing
@@ -588,6 +588,9 @@ Configure BVI as disstributed anycast gateway
       l2vpn
        bridge group bg-1
         bridge-domain bd-10
+        interface Bundle-Ether11.10 ---- configure on Leaf-1
+        interface Bundle-Ether12.10 ---- configure on Leaf-2
+        interface TenGigE0/0/0/45.10 ---- configure on Leaf-5
         !
         routed interface BVI 10
         evi 10
