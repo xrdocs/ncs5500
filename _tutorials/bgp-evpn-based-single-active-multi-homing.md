@@ -235,6 +235,7 @@ l2vpn
   bridge group bg-1
    bridge-domain bd-10
     interface Bundle-Ether 11.10
+    evi 10
    !
  !
 evpn
@@ -247,12 +248,7 @@ evpn
     !
   source interface loopback 0
  !
-l2vpn
-  bridge group bg-1
-   bridge-domain bd-10
-    evi 10
-    !
-   !
+
 
 Leaf-2:
 
@@ -264,6 +260,7 @@ l2vpn
  bridge group bg-1
   bridge-domain bd-10
    interface Bundle-Ether 12.10
+   evi 10
    !
   !
 evpn
@@ -276,12 +273,7 @@ evpn
    !
   source interface loopback 0
   !
-l2vpn
- bridge group bg-1
-  bridge-domain bd-10
-   evi 10
-   !
-  !
+
 
 
 Leaf-5:
@@ -430,7 +422,7 @@ Ethernet Segment Id      Interface                          Nexthops
 
 In the above output we can observe that Leaf-1 has bundle-ethernet 11 and Leaf-2 has bundle-ethernet 12 in ‘Up’ state. Both have two next-hops, one being the Leaf itself and the second next-hop is the peer-leaf/PE. Operational state of the ethernet-segment is multi-homed with single-active load-balancing. 
 
-The output of both the Leafs show that both are forwarders of 1 subnet (10.0.0.x/24 in our case), while Leaf-1 is elected as Designated Forwarder (DF) and Leaf-2 is the non-DF. This means that any BUM traffic that comes to Leaf-2 will not be forwarded and only Leaf-1 being the DF will forward it. 
+The output of both the Leafs show that both are forwarders of 1 subnet (10.0.0.x/24 in our case), while Leaf-1 is elected as Designated Forwarder (DF) and Leaf-2 is the non-DF. This means that any Uniccast and BUM traffic that comes to Leaf-2 will not be forwarded and only Leaf-1 being the DF will forward it. 
 
 Ping from Host-1 to Host-5 shows that the hosts are reachable.
 
