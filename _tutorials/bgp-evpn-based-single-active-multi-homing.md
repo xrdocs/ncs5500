@@ -19,7 +19,7 @@ Position: top
 
 In single-active multi-homing mode, only a single Leaf among a group of Leafs attached to a Host is allowed to forward the traffic to and from on a given VLAN.
 
-In this post we will cover the BGP-EVPN based Single-Active Multi-Homing of CE/Hosts. Similar to Active/Active Multi-homing, Single-Active is also achieved by EVPN Ethernet Segment feature. Single-active offers redundant connectivity with forwarding for a VLAN on a single link at a time with failover to the second link in case of active link’s failure. This approach is very useful for network scenarios where policing, metering and billing are required. 
+In this post we will cover the BGP-EVPN based Single-Active Multi-Homing of CE/Hosts. Similar to Active/Active Multi-homing, Single-Active is also achieved by EVPN Ethernet Segment feature. Single-active offers redundant connectivity with forwarding for a VLAN on a single link at a time with failover to the second link in case of active link’s failure. Single-Active load balancing’s strengths arise from directing traffic to a single uplink as opposed to all-active's approach of ECMP-hashing. This approach is very useful for network scenarios where policing, metering and billing are required.  
 
 ## Reference Topology:
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/reference-topology-evpn-single-active.png?raw=true)
@@ -34,7 +34,7 @@ As shown in the above topology, Host-1 is multi-homed to Leaf-1 and Leaf-2. For 
 
 As per the reference topology Host-1 is multi-homed to Leaf-1 and Leaf-2 via LACP bundle-ethernet 11 going to Leaf-1 and bundle-ethernet 12 going to Leaf-2. ASR9K is acting as the host/CE with IP address 10.0.0.10/24 configured on a BVI. Following is the configuration of LAG on Host-1, static route is configured to reach to EVPN-Anycast Gateway on the Leafs. The LAG on Host-1 will come up after we configure single-active multi-homing using EVPN Ether-Segment on the Leaf-1 and Leaf-2.
 
-**Note:** In this post we will configure VLAN 10 to show the single-active behavior. Configuration of VLAN 20 is out of scope for this post. 
+**Note:** In this post we will configure VLAN 10 to show the single-active behavior. Configuration of VLAN 20 is out of scope for this post but follows the same procedure. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
