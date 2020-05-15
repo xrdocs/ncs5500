@@ -41,7 +41,7 @@ MACsec allows you to secure an Ethernet link including all control plane protoco
 
 **Secure Channel Identifier (SCI)** is a globally unique identifier for a secure channel, comprising a globally unique MAC Address and a Port Identifier, unique within the system allocated that address.  
 
-**Connectivity Association Key (CAK)** is a long-lived master key used to generate all other keys used for MACsec. In our implementation, it is the Pre-Shared Key (PSK) configured through a key chain. CAK is a hex string of 32 bytes for AES 128bit cipher and 64 bytes for 256bit cipher.  
+**Connectivity Association Key (CAK)** is a long-lived master key used to generate all other keys used for MACsec. In our implementation, it is the Pre-Shared Key (PSK) configured through a key chain. CAK is a hex string of 16 bytes for AES 128bit cipher and 32 bytes for 256bit cipher.  
 
 **CAK Key Name (CKN)** It is used to identify the CAK. It is a hex string of 1 to 32 bytes. CKN has to be same on both side to form session successfully.  
 
@@ -81,7 +81,7 @@ MACsec can be configured in 3 simple steps:
 **key chain** *psk_name*  
 &nbsp;**macsec**  
 &nbsp;&nbsp;**key** *ckn-2-to-64-hex-char*  
-&nbsp;&nbsp;&nbsp;**key-string** *cak-64-or-128-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}  
+&nbsp;&nbsp;&nbsp;**key-string** *cak-32-or-64-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}  
 &nbsp;&nbsp;&nbsp;&nbsp;**lifetime** *start-time start-date* {*end-time end-date*|**duration** *seconds*|**infinite**}  
 
 **macsec-policy** *policy_name*  
