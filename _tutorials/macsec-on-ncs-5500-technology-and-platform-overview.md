@@ -78,15 +78,15 @@ MACsec can be configured in 3 simple steps:
 2.         Create MACsec policy (to configure encryption cipher & other policies etc.)
 3.         Attach created key chain and policy to an interface.
 
-**key chain** *key_chain_name*
- **macsec**
-  **key** *ckn-2-to-64-hex-char*
-   **key-string** *cak-32|64-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}
-    **lifetime** *start-time start-date* {*end-time end-date*|**duration** *seconds*|**infinite**}
+**key chain** *key_chain_name*  
+ **macsec**  
+  **key** *ckn-2-to-64-hex-char*  
+   **key-string** *cak-32|64-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}  
+    **lifetime** *start-time start-date* {*end-time end-date*|**duration** *seconds*|**infinite**}  
 
 **macsec-policy** *policy_name*
 
-**interface** *Interface_name*
+**interface** *Interface_name*  
  **macsec psk-keychain** *key_chain_name* **policy** *policy_name*
 
   
