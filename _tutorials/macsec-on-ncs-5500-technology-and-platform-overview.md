@@ -81,7 +81,7 @@ MACsec can be configured in 3 simple steps:
 **key chain** *psk_name*  
 &nbsp;**macsec**  
 &nbsp;&nbsp;**key** *ckn-2-to-64-hex-char*  
-&nbsp;&nbsp;&nbsp;**key-string** *cak-32|64-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}  
+&nbsp;&nbsp;&nbsp;**key-string** *cak-64|128-hex-char* **cryptographic-algorithm** {**aes-128-cmac|aes-256-cmac**}  
 &nbsp;&nbsp;&nbsp;&nbsp;**lifetime** *start-time start-date* {*end-time end-date*|**duration** *seconds*|**infinite**}  
 
 **macsec-policy** *policy_name*  
