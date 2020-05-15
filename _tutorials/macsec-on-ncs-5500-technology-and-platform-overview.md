@@ -183,4 +183,4 @@ All MPA ports, 10G, 100G and CFP2 support MACsec.
 |          400G MPA’s |          10G    |          -           |          -           |          40G/4x10G/4x25G/100G |            Nx100G         |
 |          NCS-55A1-48Q6H   |          -           |          -           |          -           |            40G/4x10G/4x25G/100G |          -           |
 |          NCS-55A1-24Q6H-S           |          -           |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
-|          NCS-55A1-24Q6H-SS         |          10G    |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
+
