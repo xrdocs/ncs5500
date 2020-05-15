@@ -85,6 +85,7 @@ MACsec can be configured in 3 simple steps:
 &nbsp;&nbsp;&nbsp;&nbsp;**lifetime** *start-time start-date* {*end-time end-date*|**duration** *seconds*|**infinite**}  
 
 **macsec-policy** *policy_name*
+&nbsp;\[optional-policies\]
 
 **interface** *Interface_name*  
 &nbsp;**macsec psk-keychain** *key_chain_name* **policy** *policy_name*
