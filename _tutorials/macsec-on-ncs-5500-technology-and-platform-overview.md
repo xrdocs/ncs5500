@@ -88,7 +88,7 @@ MACsec can be configured in 3 simple steps:
 &nbsp;\[optional-policies\]
 
 **interface** *Interface_name*  
-&nbsp;**macsec psk-keychain** *key_chain_name* **policy** *policy_name*
+&nbsp;**macsec psk-keychain** *key_chain_name* \[**policy** *policy_name*\]
 
   
 A basic MACsec configuration, with default policy GCM-AES-XPN-256:
