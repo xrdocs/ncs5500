@@ -49,7 +49,7 @@ MACsec allows you to secure an Ethernet link including all control plane protoco
 
 **Key Sever Priority** is the optional value, which can be configured in MACsec policy.  
 
-**Key server (KS)** is the one, which controls key generation and distribution of SAK to clients (Non-KS). Device with lowest key server priority value preferred to win key server election. In case of tie, highest value of SCI wins.
+**Key server (KS)** is the one, which controls key generation and distribution of SAK to clients (Non-KS). Device with lowest key server priority value preferred to win key server election. In case of tie, lowest value of SCI wins.
 
 
 ### MACsec Data Plane
