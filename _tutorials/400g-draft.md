@@ -13,6 +13,7 @@ position: hidden
 ---
 ## Introduction
 
+NCS-5700 is the first platform in the NCS-5500 Series that 
 
 
 Updated: Jun 16, 2020, [Vincent Ng](mailto:vinng@cisco.com)
