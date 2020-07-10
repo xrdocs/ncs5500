@@ -98,7 +98,7 @@ Depending on the level of queue congestion, the packet will be stored inside the
 
 So the packets are buffered in different places along the path:  
 - (ingress) On-chip Buffer: 16MB or
-- (ingress) external DRAM: 4BG
+- (ingress) external DRAM: 4GB
 - (egress) Port Buffer: 6MB
 
 ![buffers.png]({{site.baseurl}}/images/buffers.png){: .align-center}  
