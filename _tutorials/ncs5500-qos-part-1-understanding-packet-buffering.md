@@ -99,9 +99,9 @@ Depending on the level of queue congestion, the packet will be stored inside the
 So the packets are buffered in different places along the path:  
 - (ingress) On-chip Buffer: 16MB or
 - (ingress) external DRAM: 4BG
-- (egress) Port Buffer: 16MB
+- (egress) Port Buffer: 6MB
 
-![11-Buffers.jpg]({{site.baseurl}}/images/11-Buffers.jpg){: .align-center}  
+![buffers.png]({{site.baseurl}}/images/buffers.png){: .align-center}  
 
 For a given queue, packets are stored in OCB **or** DRAM.  
 The decision to keep a queue in OCB or to evict it to the DRAM will depends on the numbers of packets buffered:  
