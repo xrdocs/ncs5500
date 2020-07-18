@@ -101,7 +101,8 @@ flowspec
 </pre>
 </div>
 
-Before the receiving the BGP FS rule on the client side:
+Before the receiving the BGP FS rule on the client side. The script is enabled and created a bgpfs2acl-ipv4 and applied it on the interface where no ACL was present (Te0/0/0/2). This ACL is empty at the moment with just a permit any any.  
+Another ACL test2 exists and is applied to Te0/0/0/1.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -112,29 +113,92 @@ Before the receiving the BGP FS rule on the client side:
 interface TenGigE0/0/0/2
  ipv4 address 55.66.77.88 255.255.255.0
  ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 permit ipv4 any any
 !</code>
 </pre>
 </div>
 
-These two ACLs are applied to two different interfaces.
+The BGP FS rule is received on the client. The script kicks in and change the configuration.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Cannonball# 
+RP/0/RP0/CPU0:Jul 16 13:07:36.861 UTC: config[68949]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000359' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#</code>
 </pre>
 </div>
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
+We can see how the ACLs have been modified by the script:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any eq 19 host 7.7.7.7
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
 </pre>
 </div>
+
+The ACE line 100501 represents the translation of our rule:  
+   match destination-address ipv4 7.7.7.7 255.255.255.255  
+   match protocol udp  
+   match source-port 19  
+
+Note the ACL entries created by the script are always "signaled" by two remarks "FLOWSPEC RULES BEGIN" and "FLOWSPEC RULES END".
+{: .notice—info}
+
+Now we verify the behavior of the script when the BGP FS rule is removed:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:06:37.126 UTC: config[67938]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000360' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+</code>
+</pre>
+</div>
+
+
+
 
 <div class="highlighter-rouge">
 <pre class="highlight">
