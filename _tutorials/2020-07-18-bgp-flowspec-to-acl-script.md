@@ -43,6 +43,7 @@ Code is available on Github: [https://github.com/ios-xr/bgpfs2acl](https://githu
 
 ### Description / Match
 
+The script checks the flowspec rules every 30 seconds.  
 In this release, it covers most description options with the following exceptions:  
 - no match on DSCP field
 - no match on TCP flag
@@ -72,12 +73,17 @@ If it receives such a rule and the config is not present, it will trigger a mess
 Note: enabling this command requires a reload of the line card or chassis.
 {: .notice—info}
 
+Note2: the NCS5500 is limited in the number of range IDs, the script is not aware of the limitation and will try to configure as many range than received in the rules.
+{: .notice—info}
+
 ### Support of fragments
 
 ACL match on fragment-type is only supported on systems with external TCAM because it requires to enable the compression feature. It goes against the main purpose of the script, which is to mimic the flowspec behavior on non-eTCAM routers.  
 But matching fragments (without going in deeper level of subtleties like First Fragment, Last Fragment, Is Fragmented, etc) is supported, that why all frag-types described in the flowspec rule will be translated into the same ACL line "fragments".  
 
-## Tests
+## Examples
+
+In the next 9 examples, we demonstrate the capabilities of the script in term of match and actions.
 
 ### Example1: Destination IP and UDP source port
 
@@ -197,7 +203,1536 @@ RP/0/RP0/CPU0:Cannonball#
 </pre>
 </div>
 
+### Example2: Destination IP and UDP destination port
 
+On the controler:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all SunRPC
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match protocol udp
+ match destination-port 111
+ end-class-map
+!
+policy-map type pbr Example2
+ class type traffic SunRPC
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example2
+ !
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:09:07.034 UTC: config[67321]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000361' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any host 7.7.7.7 eq sunrpc
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any host 7.7.7.7 eq sunrpc
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+</code>
+</pre>
+</div>
+
+### Example3: Source Prefix, Destination host, Source UDP Port
+
+On the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all CHARGEN2
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match source-address ipv4 80.2.1.0 255.255.255.0
+ match protocol udp
+ match source-port 19
+ end-class-map
+!
+policy-map type pbr Example3
+ class type traffic CHARGEN2
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example3
+ !
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+</code>
+</pre>
+</div>
+
+### Example4: Destination Host, UDP Source Port Range
+
+On the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all NETBIOS
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match protocol udp
+ match source-port 137-138
+ end-class-map
+!
+policy-map type pbr Example4
+ class type traffic NETBIOS
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example4
+ !
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:24:07.012 UTC: config[66986]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000365' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any range netbios-ns netbios-dgm host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any range netbios-ns netbios-dgm host 7.7.7.7
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+</code>
+</pre>
+</div>
+
+### Example5: Packet Length Range
+
+Note it's necessary to have the UDK hw-module configured (keep in mind it requires a reload).
+
+On the controller: 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all DNS
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match protocol udp
+ match source-port 53
+ match packet length 768-65535
+ end-class-map
+!
+policy-map type pbr Example5
+ class type traffic DNS
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example5
+ !
+!</code>
+</pre>
+</div>
+
+Nothing happens on the client.  
+Expected since the NCS5500 doesn’t support packet length range larger than 16k.  
+We change on the controller a range in the supported scope.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all DNS
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match protocol udp
+ match source-port 53
+ match packet length 768-1600
+ end-class-map
+!
+policy-map type pbr Example5
+ class type traffic DNS
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example5
+ !
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:33:07.092 UTC: config[67272]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000367' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq domain host 7.7.7.7 packet-length range 768 1600
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any eq domain host 7.7.7.7 packet-length range 768 1600
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#show controllers fia diagshell 0 "diag field Ranges" location 0/0/CPU0
+
+Node ID: 0/0/CPU0
+============================================================
+| Range Dump                                               |
+============================================================
+| Qualifier      | Range | Flags           | Min   | Max   |
+============================================================
+| RangeCheck(26) | 1     | TCP UDP SrcPort | 49152 | 65535 |
+============================================================
+RP/0/RP0/CPU0:Cannonball#
+</code>
+</pre>
+</div>
+
+### Example6: Multiple Packet-length Ranges
+
+On the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all NTP2
+ match destination-address ipv4 7.7.7.7 255.255.255.255
+ match protocol udp
+ match source-port 123
+ match packet length 1-35 37-45 47-75 77-219 221-65535
+ end-class-map
+!
+policy-map type pbr Example6
+ class type traffic NTP2
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example6
+ !
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35
+ 100502 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
+ 100503 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
+ 100504 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35
+ 100505 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
+ 100506 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
+ 100507 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
+ 100508 remark FLOWSPEC RULES END
+ 100509 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Note: the range 221-65535 has been refused but all other ranges have been configured.  
+
+On the controller again we remove one range:  
+(on the controller)
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#conf
+RP/0/RP0/CPU0:Macrocarpa(config)#class-map type traffic match-all NTP2
+RP/0/RP0/CPU0:Macrocarpa(config-cmap)#no  match packet length 1-35 37-45 47-75 77-219 221-65535
+RP/0/RP0/CPU0:Macrocarpa(config-cmap)# match packet length 1-35 37-45 47-75 221-65535
+RP/0/RP0/CPU0:Macrocarpa(config-cmap)#commit
+Thu Jul 16 15:42:10.899 UTC
+RP/0/RP0/CPU0:Macrocarpa(config-cmap)#end
+RP/0/RP0/CPU0:Macrocarpa#</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35
+ 100502 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
+ 100503 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
+ 100504 remark FLOWSPEC RULES END
+ 100505 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35
+ 100505 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
+ 100506 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
+ 100507 remark FLOWSPEC RULES END
+ 100508 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+### Example7: ICMP Type and Code
+
+On the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all ICMP
+match destination-address ipv4 2.2.2.0 255.255.255.0
+ match ipv4 icmp-code 2
+ match ipv4 icmp-type 2
+ end-class-map
+!
+policy-map type pbr Example7
+ class type traffic ICMP
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Example7
+!
+!</code>
+</pre>
+</div>
+
+On the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,ICMPType:=2,ICMPCode:=2
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list bgpfs2acl-ipv4
+Fri Jul 17 15:43:07.863 UTC
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny icmp any 2.2.2.0/24 2 2
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+### Example8: Fragments
+
+On the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>policy-map type pbr Example8a
+ class type traffic FRAG1
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+policy-map type pbr Example8b
+ class type traffic FRAG2
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+policy-map type pbr Example8c
+ class type traffic FRAG3
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+class-map type traffic match-all FRAG1
+ match destination-address ipv4 70.2.1.1 255.255.255.255
+ match fragment-type  is-fragment
+ end-class-map
+!
+class-map type traffic match-all FRAG2
+ match destination-address ipv4 70.2.1.2 255.255.255.255
+ match fragment-type  first-fragment
+ end-class-map
+!
+class-map type traffic match-all FRAG3
+ match destination-address ipv4 70.2.1.3 255.255.255.255
+ match fragment-type  last-fragment
+ end-class-map
+!
+</code>
+</pre>
+</div>
+
+We have 3 different rules for IsFrag, FirstFrag and LastFrag.
+
+Example8a: is-fragment
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any host 70.2.1.1 fragments
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny ipv4 any host 70.2.1.1 fragments
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Example8b: first-fragment
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any host 70.2.1.2 fragments
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny ipv4 any host 70.2.1.2 fragments
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Example8c: last-fragment
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any host 70.2.1.3 fragments
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 deny ipv4 any host 70.2.1.3 fragments
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+### Example9: Action Redirect-to-IP
+
+In this test, we will test 3 different / overlapping rules with 3 different next-hop addresses, and we will advertise them one by one and see where they appear in the order of operation / ACE numbering.
+
+Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all test9a
+ match destination-address ipv4 70.2.1.0 255.255.255.0
+ end-class-map
+!
+policy-map type pbr example9a
+ class type traffic test9a
+  redirect ipv4 nexthop 16.16.16.2
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+class-map type traffic match-all test9b
+ match destination-address ipv4 70.2.1.1 255.255.255.255
+ end-class-map
+!
+policy-map type pbr example9b
+ class type traffic test9b
+  redirect ipv4 nexthop 16.16.16.3
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+class-map type traffic match-all test9c
+ match destination-address ipv4 70.0.0.0 255.0.0.0
+ end-class-map
+!
+policy-map type pbr example9c
+ class type traffic test9c
+  redirect ipv4 nexthop 16.16.16.4
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+
+RP/0/RP0/CPU0:Macrocarpa(config)#flows
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#address-family ipv4
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#service-policy type pbr example9a
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#commit
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#</code>
+</pre>
+</div>
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:58:07.139 UTC: config[68582]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000381' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:70.2.1.0/24
+    Actions      :Nexthop: 16.16.16.2  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100505 remark FLOWSPEC RULES END
+ 100506 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Second rule:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#service-policy type pbr example9b
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#commit</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 15:59:07.151 UTC: config[69182]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000382' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:70.2.1.1/32
+    Actions      :Nexthop: 16.16.16.3  (bgp.1)
+  Flow           :Dest:70.2.1.0/24
+    Actions      :Nexthop: 16.16.16.2  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3
+ 100502 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100503 remark FLOWSPEC RULES END
+ 100504 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3
+ 100505 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100506 remark FLOWSPEC RULES END
+ 100507 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Third rule:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#service-policy type pbr example9c
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#commit
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#end
+RP/0/RP0/CPU0:Macrocarpa#</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 16 16:00:07.142 UTC: config[66018]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000383' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh flowspec ipv4
+
+AFI: IPv4
+  Flow           :Dest:70.2.1.1/32
+    Actions      :Nexthop: 16.16.16.3  (bgp.1)
+  Flow           :Dest:70.2.1.0/24
+    Actions      :Nexthop: 16.16.16.2  (bgp.1)
+  Flow           :Dest:70.0.0.0/8
+    Actions      :Nexthop: 16.16.16.4  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3
+ 100502 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100503 permit ipv4 any 70.0.0.0/8 nexthop1 ipv4 16.16.16.4
+ 100504 remark FLOWSPEC RULES END
+ 100505 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100503 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100504 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3
+ 100505 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
+ 100506 permit ipv4 any 70.0.0.0/8 nexthop1 ipv4 16.16.16.4
+ 100507 remark FLOWSPEC RULES END
+ 100508 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+## Validation / Tests
+
+In this section, we carried out test to validate the script behavior in various conditions.
+
+### Test 01: Starting the script with existing ACL config
+
+**Step 0**
+
+- interface A configured with IPv4 address, shut (down/down), no ACL applied
+- interface B configured with IPv4 address, no shut (up/up), no ACL applied
+- interface C configured with IPv4 address, no shut (up/up), ACL test2 applied in ingress
+- bgp flowspec configured on the client but session down (controller in "shutdown" state)
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh ru int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+interface TenGigE0/0/0/3
+ shutdown
+!
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#sh run router bgp
+router bgp 65000
+ bgp router-id 18.18.18.30
+ address-family ipv4 unicast
+  network 192.0.3.0/24
+  network 192.168.1.2/32
+  network 200.1.1.1/32
+ !
+ address-family ipv4 flowspec
+ !
+ neighbor 16.16.16.20
+  remote-as 65000
+  shutdown
+  address-family ipv4 unicast
+  !
+  address-family ipv4 flowspec
+   route-policy PASS-ALL in
+   route-policy PASS-ALL out
+  !
+ !
+RP/0/RP0/CPU0:Macrocarpa#sh run flows
+flowspec
+!
+
+RP/0/RP0/CPU0:Macrocarpa#</code>
+</pre>
+</div>
+
+**Step 1**
+
+- start script
+- check interfaces on the client
+- check access-lists
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#term mon
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 14:24:40.305 UTC: bash_cmd[67549]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$ docker start bgpfs2acl
+bgpfs2acl
+[Cannonball:~]$ exit
+logout
+
+RP/0/RP0/CPU0:Jul 17 14:24:49.906 UTC: bash_cmd[67549]: %INFRA-INFRA_MSG-5-RUN_LOGOUT : User cisco logged out of shell from vty0
+RP/0/RP0/CPU0:Cannonball#
+
+RP/0/RP0/CPU0:Cannonball#sh run int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+RP/0/RP0/CPU0:Cannonball#acc
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+So, clearly nothing happens.
+
+**Step 2**
+
+- no shut the flowspec on the controller but no rule advertised
+- check interfaces on the client,
+- check access-lists
+
+Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#conf
+RP/0/RP0/CPU0:Macrocarpa(config)#router bgp 65000
+RP/0/RP0/CPU0:Macrocarpa(config-bgp)# neighbor 16.16.16.20
+RP/0/RP0/CPU0:Macrocarpa(config-bgp-nbr)#no shut
+RP/0/RP0/CPU0:Macrocarpa(config-bgp-nbr)#commit
+RP/0/RP0/CPU0:Macrocarpa(config-bgp-nbr)#end
+RP/0/RP0/CPU0:Macrocarpa#</code>
+</pre>
+</div>
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 14:28:56.185 UTC: bgp[1080]: %ROUTING-BGP-5-ADJCHANGE : neighbor 16.16.16.30 Up (VRF: default) (AS: 65000)
+RP/0/RP0/CPU0:Jul 17 14:28:56.186 UTC: bgp[1080]: %ROUTING-BGP-5-NSR_STATE_CHANGE : Changed state to Not NSR-Ready
+
+RP/0/RP0/CPU0:Cannonball#sh bgp ipv4 flows sum
+BGP router identifier 16.16.16.20, local AS number 65000
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0   RD version: 42
+BGP main routing table version 42
+BGP NSR Initial initsync version 2 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker              42         42         42         42          42           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+16.16.16.30       0 65000    1712    1691       42    0    0 00:00:24          0
+
+RP/0/RP0/CPU0:Cannonball#sh run int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+
+!
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Here again, the script doesn’t kick in since no BGPFS rule are advertised
+
+**Step 3**
+
+- advertise basic rule on the controller
+- client receives BGP FS rule
+- client: script creates the ACL “bgpfs2acl” and adds ACE(s) for each match/action with the appropriate remark
+- client: script update existing ACL "test2" and add a second with the appropriate remark
+
+Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#conf
+RP/0/RP0/CPU0:Macrocarpa(config)#flowspec
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)# address-family ipv4
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#  service-policy type pbr Example1
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#commit
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec-af)#end
+RP/0/RP0/CPU0:Macrocarpa#</code>
+</pre>
+</div>
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 14:34:57.948 UTC: config[69179]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000399' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#show configuration commit changes 1000000399
+Building configuration...
+!! IOS XR Configuration 7.0.2
+ipv4 access-list test2
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+interface TenGigE0/0/0/1
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface HundredGigE0/0/1/2
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface HundredGigE0/0/1/4
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface HundredGigE0/0/1/5
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+end
+
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#sh run int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq 19 host 7.7.7.7
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+We see that Management and loopback interfaces are not modified.  
+Also, interfaces in shutdown state are not modified either.  
+ACL "bgpfs2acl-ipv4” is created and applied to interface TenGigE0/0/0/1  
+ACL “test2” is modified since it existed and was already applied to TenGigE0/0/0/2.
+
+**Step4**
+
+We stop the rule advertisement from the controller.  
+- remove the rule advertisement from the controller
+- client: check the impact on the access-lists 
+
+Controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#conf
+RP/0/RP0/CPU0:Macrocarpa(config)#flowspec
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#no address-family ipv4
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#commit
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#</code>
+</pre>
+</div>
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 14:56:27.929 UTC: config[66774]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000400' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#int
+RP/0/RP0/CPU0:Cannonball#sh run int
+Fri Jul 17 14:58:24.079 UTC
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+Fri Jul 17 14:58:26.525 UTC
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+The ACLs “test2” and “bgpfs2acl-ipv4” have been modified but they are still applied to the interfaces.
+
+### Test 02: Ignore rules not supported by the script 
+
+**Step 0**
+
+- interface A configured with IPv4 address, shut (down/down), no ACL applied
+- interface B configured with IPv4 address, no shut (up/up), bgpfs2acl-ipv4 ACL applied
+- interface C configured with IPv4 address, no shut (up/up), ACL test2 applied in ingress
+- bgp flowspec session configured and established but no rule advertised
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+interface TenGigE0/0/0/3
+ shutdown
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+Fri Jul 17 15:09:48.070 UTC
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+**Step 1**
+
+- advertise bad rules with multiple unsupported match statements or unsupported actions from the controller 
+- check the configuration of the ACL on the client
+
+Controller: Multiple icmp-code in the same rule
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>class-map type traffic match-all bflow
+ match destination-address ipv4 2.2.2.0 255.255.255.0
+ match ipv4 icmp-code 2 3
+ match ipv4 icmp-type 2
+ end-class-map
+!
+policy-map type pbr Bad-Rule
+class type traffic bflow
+  drop
+ !
+ class type traffic class-default
+ !
+ end-policy-map
+!
+flowspec
+ address-family ipv4
+  service-policy type pbr Bad-Rule
+!</code>
+</pre>
+</div>
+
+Client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,ICMPType:=2,ICMPCode:=2|=3
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#acc
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+Fri Jul 17 16:01:47.933 UTC
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#bash
+[Cannonball:~]$ docker logs bgpfs2acl
+…
+2020-07-17 15:45:23,135 - INFO - Failed to convert flow: Dest:2.2.2.0/24,ICMPType:=2,ICMPCode:=2|=3. Errors: ICMPCode: bgpfs2acl doesn't support icmp ranges: =2|=3
+[Cannonball:~]$</code>
+</pre>
+</div>
+
+Conclusion, create multiple rules. In this example, 2/2 and 2/3.
+
+Other example: Don't Fragement
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,Frag:=DF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 16:19:40.247 UTC: bash_cmd[67397]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$ docker logs bgpfs2acl
+...
+2020-07-17 16:19:23,125 - INFO - Failed to convert flow: Dest:2.2.2.0/24,Frag:=DF. Errors: Frag: Unsupported fragment type value: =DF
+[Cannonball:~]$</code>
+</pre>
+</div>
+
+Other example: TCP Flags
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,TCPFlags:=0x40
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 16:23:35.393 UTC: bash_cmd[69290]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$
+[Cannonball:~]$ docker logs bgpfs2acl
+…
+2020-07-17 16:23:23,142 - INFO - Failed to convert flow: Dest:2.2.2.0/24,TCPFlags:=0x40. Errors: TCPFlags: Unsupported keyword
+
+!</code>
+</pre>
+</div>
+
+Other example: match DSCP
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24,DSCP:=46
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 16:26:01.176 UTC: bash_cmd[66788]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$ docker logs bgpfs2acl
+…
+2020-07-17 16:25:23,158 - INFO - Failed to convert flow: Dest:2.2.2.0/24,DSCP:=46. Errors: DSCP: Unsupported keyword</code>
+</pre>
+</div>
+
+Other example: Rate-limiting action
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24
+    Actions      :Traffic-rate: 1000 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 16:36:35.751 UTC: bash_cmd[66763]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$ docker logs bgpfs2acl
+...
+2020-07-17 16:35:23,075 - INFO - Failed to convert flow: Dest:2.2.2.0/24. Errors: action: Usupported action: Traffic-rate: 1000 bps  (bgp.1)</code>
+</pre>
+</div>
+
+Other example: Set DSCP action
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:2.2.2.0/24
+    Actions      :DSCP: ef  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#bash
+RP/0/RP0/CPU0:Jul 17 16:40:01.670 UTC: bash_cmd[68494]: %INFRA-INFRA_MSG-5-RUN_LOGIN : User cisco logged into shell from vty0
+[Cannonball:~]$ docker logs bgpfs2acl
+…
+2020-07-17 16:39:53,141 - INFO - Failed to convert flow: Dest:2.2.2.0/24. Errors: action: Usupported action: DSCP: ef  (bgp.1)
+[Cannonball:~]$</code>
+</pre>
+</div>
+
+### Test 03: Creation of a new IPv4 interface
+
+**Step 0**
+
+- interface A configured with IPv4 address, shut (down/down), no ACL applied
+- interface B configured with IPv4 address, no shut (up/up), bgpfs2acl-ipv4 ACL applied
+- interface C configured with IPv4 address, no shut (up/up), ACL test2 applied in ingress
+- bgp flowspec session configured and established but a simple rule is advertised
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list test2
+ 10 deny ipv4 any host 1.2.3.4
+ 20 permit ipv4 any host 2.3.4.5
+ 30 remark end test2
+ 40 deny ipv4 any any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any 2.2.2.0/24
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any 2.2.2.0/24
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#sh run int
+interface Loopback0
+ ipv4 address 11.11.11.11 255.255.255.255
+!
+interface MgmtEth0/RP0/CPU0/0
+ ipv4 address 10.30.111.177 255.255.255.224
+ lldp
+  enable
+ !
+!
+interface TenGigE0/0/0/0
+ ipv4 address 33.44.77.88 255.255.255.0
+ shutdown
+!
+interface TenGigE0/0/0/1
+ ipv4 address 44.55.66.77 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+interface TenGigE0/0/0/2
+ ipv4 address 55.66.77.88 255.255.255.0
+ ipv4 access-group test2 ingress
+!
+interface TenGigE0/0/0/3
+ shutdown
+!</code>
+</pre>
+</div>
+
+**Step 1**
+
+- no shut of interface Te0/0/0/3 but still no IPv4 addresses
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball(config)#interface TenGigE0/0/0/3
+RP/0/RP0/CPU0:Cannonball(config-if)#no shut
+RP/0/RP0/CPU0:Cannonball(config-if)#commit
+LC/0/0/CPU0:Jul 17 16:46:18.959 UTC: ifmgr[259]: %PKT_INFRA-LINK-3-UPDOWN : Interface TenGigE0/0/0/3, changed state to Down
+LC/0/0/CPU0:Jul 17 16:46:18.959 UTC: ifmgr[259]: %PKT_INFRA-LINEPROTO-5-UPDOWN : Line protocol on Interface TenGigE0/0/0/3, changed state to Down
+RP/0/RP0/CPU0:Jul 17 16:46:19.733 UTC: config[67444]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'cisco'. Use 'show configuration commit changes 1000000410' to view the changes.
+RP/0/RP0/CPU0:Cannonball(config-if)#
+RP/0/RP0/CPU0:Cannonball(config-if)#end
+RP/0/RP0/CPU0:Jul 17 16:46:21.568 UTC: config[67444]: %MGBL-SYS-5-CONFIG_I : Configured from console by cisco on vty0 (10.209.200.69)
+RP/0/RP0/CPU0:Cannonball#sh run int TenGigE0/0/0/3
+% No such configuration item(s)
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+As expected no modification has been applied, the script needs an L3 interface and for instance an IPv4 configured.
+
+**Step 3**
+
+- we add IPv4 address to this interface
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#conf
+RP/0/RP0/CPU0:Cannonball(config)#int TenGigE0/0/0/3
+RP/0/RP0/CPU0:Cannonball(config-if)#ipv4 add 11.44.22.33/24
+RP/0/RP0/CPU0:Cannonball(config-if)#commit
+RP/0/RP0/CPU0:Jul 17 16:47:41.512 UTC: config[68122]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'cisco'. Use 'show configuration commit changes 1000000411' to view the changes.
+RP/0/RP0/CPU0:Cannonball(config-if)#end
+RP/0/RP0/CPU0:Jul 17 16:47:44.599 UTC: config[68122]: %MGBL-SYS-5-CONFIG_I : Configured from console by cisco on vty0 (10.209.200.69)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#sh run int RP/0/RP0/CPU0:Jul 17 16:47:58.056 UTC: config[68408]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000412' to view the changes.
+RP/0/RP0/CPU0:Cannonball#sh run int TenGigE0/0/0/3
+interface TenGigE0/0/0/3
+ ipv4 address 11.44.22.33 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+As soon as interface is up/up AND an address is configured, the script will add the bgpfs2acl-ipv4 ACL in ingress
+
+**Step 3**
+
+- We use an existing ACL "test3" no applied yet
+- We replace the bgpfs2acl-ipv4 ACL on this interface by the "test3" one
+- We verify the modification of the "test3" ACL with the addition of the flowspec entries
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball(config-ipv4-acl)#exit
+RP/0/RP0/CPU0:Cannonball(config)#do sh run ipv4 access-list test3
+ 10 permit ipv4 1.2.3.0 0.0.0.24 any
+ 20 deny icmp any any
+ 30 permit ipv4 host 3.4.5.6 any
+!
+
+RP/0/RP0/CPU0:Cannonball(config)#do sh run int te 0/0/0/3
+interface TenGigE0/0/0/3
+ ipv4 address 11.44.22.33 255.255.255.0
+ ipv4 access-group bgpfs2acl-ipv4 ingress
+!
+
+RP/0/RP0/CPU0:Cannonball(config)#interface TenGigE0/0/0/3
+RP/0/RP0/CPU0:Cannonball(config-if)# ipv4 access-group test3 ingress
+RP/0/RP0/CPU0:Cannonball(config-if)#commit
+RP/0/RP0/CPU0:Jul 17 16:53:35.668 UTC: config[69624]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'cisco'. Use 'show configuration commit changes 1000000414' to view the changes.
+RP/0/RP0/CPU0:Cannonball(config-if)#end
+RP/0/RP0/CPU0:Jul 17 16:53:37.711 UTC: config[69624]: %MGBL-SYS-5-CONFIG_I : Configured from console by cisco on vty0 (10.209.200.69)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 16:53:58.083 UTC: config[67380]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000415' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run int te 0/0/0/3
+interface TenGigE0/0/0/3
+ ipv4 address 11.44.22.33 255.255.255.0
+ ipv4 access-group test3 ingress
+!
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list test3
+ipv4 access-list test3
+ 10 permit ipv4 1.2.3.0 0.0.0.24 any
+ 20 deny icmp any any
+ 30 permit ipv4 host 3.4.5.6 any
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny ipv4 any 2.2.2.0/24
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+The script detected the association of this ACL test3 to an interface and changed the content, adding the translated BGPFS rule
+
+
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
 
 
 <div class="highlighter-rouge">
@@ -229,6 +1764,191 @@ RP/0/RP0/CPU0:Cannonball#
 <code></code>
 </pre>
 </div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
+
 
 <div class="highlighter-rouge">
 <pre class="highlight">
