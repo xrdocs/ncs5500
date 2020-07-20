@@ -2066,12 +2066,12 @@ RP/0/RP0/CPU0:Cannonball#show flows ipv4
 Fri Jul 17 18:03:00.691 UTC
 
 AFI: IPv4
-  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
-    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)<m/ark>
 RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
- 100501 deny udp any eq 19 host 7.7.7.7
+ <mark>100501 deny udp any eq 19 host 7.7.7.7</mark>
  100502 remark FLOWSPEC RULES END
  100503 permit ipv4 any any
 !
@@ -2087,8 +2087,8 @@ Let's add the second rule:
 <code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
 
 AFI: IPv4
-  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
-    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
   Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
     Actions      :Traffic-rate: 0 bps  (bgp.1)
 RP/0/RP0/CPU0:Cannonball#
@@ -2099,7 +2099,7 @@ RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 
 ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
- 100501 deny udp any host 7.7.7.7 eq sunrpc
+ <mark>100501 deny udp any host 7.7.7.7 eq sunrpc</mark>
  100502 deny udp any eq 19 host 7.7.7.7
  100503 remark FLOWSPEC RULES END
  100504 permit ipv4 any any
@@ -2120,8 +2120,8 @@ Third example:
 <code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
 
 AFI: IPv4
-  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
-    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
   Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
     Actions      :Traffic-rate: 0 bps  (bgp.1)
   Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
@@ -2131,7 +2131,7 @@ RP/0/RP0/CPU0:Cannonball#fl RP/0/RP0/CPU0:Jul 17 18:04:58.161 UTC: config[68662]
 RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
- 100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
+ <mark>100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7</mark>
  100502 deny udp any host 7.7.7.7 eq sunrpc
  100503 deny udp any eq 19 host 7.7.7.7
  100504 remark FLOWSPEC RULES END
@@ -2146,15 +2146,28 @@ Example 4:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 18:05:28.192 UTC: config[69101]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000436' to view the changes.
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+Fri Jul 17 18:05:15.319 UTC
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:05:28.192 UTC: config[69101]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000436' to view the changes.
 
 RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
- 100503 deny udp any range netbios-ns netbios-dgm host 7.7.7.7
+ <mark>100503 deny udp any range netbios-ns netbios-dgm host 7.7.7.7</mark>
  100504 deny udp any eq 19 host 7.7.7.7
  100505 remark FLOWSPEC RULES END
  100506 permit ipv4 any any
@@ -2168,13 +2181,30 @@ Example 5:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:06:28.106 UTC: config[65605]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000437' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
  100503 deny udp any range netbios-ns netbios-dgm host 7.7.7.7
  100504 deny udp any eq 19 host 7.7.7.7
- 100505 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601
+ <mark>100505 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601</mark>
  100506 remark FLOWSPEC RULES END
  100507 permit ipv4 any any
 </code>
@@ -2185,17 +2215,36 @@ Example 6:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:07:28.275 UTC: config[66206]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000438' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
  100503 deny udp any range netbios-ns netbios-dgm host 7.7.7.7
  100504 deny udp any eq 19 host 7.7.7.7
  100505 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601
- 100506 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35
- 100507 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
- 100508 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
- 100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
+ <mark>100506 deny udp any eq ntp host 7.7.7.7 packet-length range 1 35</mark>
+ <mark>100507 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45</mark>
+ <mark>100508 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75</mark>
+ <mark>100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219</mark>
  100510 remark FLOWSPEC RULES END
  100511 permit ipv4 any any
 </code>
@@ -2206,7 +2255,29 @@ Example 7:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.1/32,ICMPType:=3,ICMPCode:=2</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:07:58.230 UTC: config[66597]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000439' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
@@ -2217,7 +2288,7 @@ Example 7:
  100507 deny udp any eq ntp host 7.7.7.7 packet-length range 37 45
  100508 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
  100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
- 100510 deny icmp any host 70.2.1.1 protocol-unreachable
+ <mark>100510 deny icmp any host 70.2.1.1 protocol-unreachable</mark>
  100511 remark FLOWSPEC RULES END
  100512 permit ipv4 any any
 </code>
@@ -2228,7 +2299,31 @@ Example 8:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,ICMPType:=3,ICMPCode:=2
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.1/32,Frag:=IsF</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:09:28.187 UTC: config[67422]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000440' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
@@ -2240,16 +2335,40 @@ Example 8:
  100508 deny udp any eq ntp host 7.7.7.7 packet-length range 47 75
  100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
  100510 deny icmp any host 70.2.1.1 protocol-unreachable
- 100511 deny ipv4 any host 70.2.1.1 fragments
+ <mark>100511 deny ipv4 any host 70.2.1.1 fragments</mark>
  100512 remark FLOWSPEC RULES END
- 100513 permit ipv4 any any
-</code>
+ 100513 permit ipv4 any any</code>
 </pre>
 </div>
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,ICMPType:=3,ICMPCode:=2
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,Frag:=IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.2/32,Frag:=FF</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:10:28.259 UTC: config[68054]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000441' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
@@ -2262,7 +2381,7 @@ Example 8:
  100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
  100510 deny icmp any host 70.2.1.1 protocol-unreachable
  100511 deny ipv4 any host 70.2.1.1 fragments
- 100512 deny ipv4 any host 70.2.1.2 fragments
+ <mark>100512 deny ipv4 any host 70.2.1.2 fragments</mark>
  100513 remark FLOWSPEC RULES END
  100514 permit ipv4 any any
 </code>
@@ -2271,7 +2390,34 @@ Example 8:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,ICMPType:=3,ICMPCode:=2
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,Frag:=IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.2/32,Frag:=FF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.3/32,Frag:=LF</mark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:11:28.245 UTC: config[68658]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000442' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
@@ -2285,7 +2431,7 @@ Example 8:
  100510 deny icmp any host 70.2.1.1 protocol-unreachable
  100511 deny ipv4 any host 70.2.1.1 fragments
  100512 deny ipv4 any host 70.2.1.2 fragments
- 100513 deny ipv4 any host 70.2.1.3 fragments
+ <mark>100513 deny ipv4 any host 70.2.1.3 fragments</mark>
  100514 remark FLOWSPEC RULES END
  100515 permit ipv4 any any
 </code>
@@ -2294,7 +2440,36 @@ Example 8:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ipv4 access-list bgpfs2acl-ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
+
+AFI: IPv4
+  Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,DPort:=111
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:>=137&<=138
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=53,Length:>=768&<=65535|>=768&<=1601
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=123,Length:>=1&<=35|>=37&<=45|>=47&<=75|>=77&<=219|>=221&<=65535
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,ICMPType:=3,ICMPCode:=2
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.1/32,Frag:=IsF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.2/32,Frag:=FF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  Flow           :Dest:70.2.1.3/32,Frag:=LF
+    Actions      :Traffic-rate: 0 bps  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.0/24</mark>
+    <mark>Actions      :Nexthop: 16.16.16.2  (bgp.1)</mark>
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:12:58.245 UTC: config[69474]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000443' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
+ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
  100501 deny udp 80.2.1.0/24 eq 19 host 7.7.7.7
  100502 deny udp any host 7.7.7.7 eq sunrpc
@@ -2309,9 +2484,9 @@ Example 8:
  100511 deny ipv4 any host 70.2.1.1 fragments
  100512 deny ipv4 any host 70.2.1.2 fragments
  100513 deny ipv4 any host 70.2.1.3 fragments
- 100514 remark FLOWSPEC RULES END
- 100515 permit ipv4 any any
-</code>
+ <mark>100514 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2</mark>
+ 100515 remark FLOWSPEC RULES END
+ 100516 permit ipv4 any any</code>
 </pre>
 </div>
 
@@ -2337,8 +2512,8 @@ AFI: IPv4
     Actions      :Traffic-rate: 0 bps  (bgp.1)
   Flow           :Dest:70.2.1.1/32,Frag:=IsF
     Actions      :Traffic-rate: 0 bps  (bgp.1)
-  Flow           :Dest:70.2.1.1/32
-    Actions      :Nexthop: 16.16.16.3  (bgp.1)
+  <mark>Flow           :Dest:70.2.1.1/32</mark>
+    <mark>Actions      :Nexthop: 16.16.16.3  (bgp.1)</mark>
   Flow           :Dest:70.2.1.2/32,Frag:=FF
     Actions      :Traffic-rate: 0 bps  (bgp.1)
   Flow           :Dest:70.2.1.3/32,Frag:=LF
@@ -2346,8 +2521,8 @@ AFI: IPv4
   Flow           :Dest:70.2.1.0/24
     Actions      :Nexthop: 16.16.16.2  (bgp.1)
 RP/0/RP0/CPU0:Cannonball#
-
-RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 17 18:14:58.169 UTC: config[66405]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000444' to view the changes.
+RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 17 18:14:58.169 UTC: config[66405]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000444' to view the changes.
 
 RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 ipv4 access-list bgpfs2acl-ipv4
@@ -2363,7 +2538,7 @@ ipv4 access-list bgpfs2acl-ipv4
  100509 deny udp any eq ntp host 7.7.7.7 packet-length range 77 219
  100510 deny icmp any host 70.2.1.1 protocol-unreachable
  100511 deny ipv4 any host 70.2.1.1 fragments
- 100512 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3
+ <mark>100512 permit ipv4 any host 70.2.1.1 nexthop1 ipv4 16.16.16.3</mark>
  100513 deny ipv4 any host 70.2.1.2 fragments
  100514 deny ipv4 any host 70.2.1.3 fragments
  100515 permit ipv4 any 70.2.1.0/24 nexthop1 ipv4 16.16.16.2
