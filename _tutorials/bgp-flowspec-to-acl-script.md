@@ -2599,8 +2599,7 @@ ipv4 access-list bgpfs2acl-ipv4
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
-RP/0/RP0/CPU0:Cannonball#show flows ipv4
+<code>RP/0/RP0/CPU0:Cannonball#show flows ipv4
 
 AFI: IPv4
   Flow           :Dest:7.7.7.7/32,Source:80.2.1.0/24,Proto:=17,SPort:=19
@@ -2655,13 +2654,34 @@ ipv4 access-list bgpfs2acl-ipv4
 </pre>
 </div>
 
+## Misc
+
+The script triggers logging messages related to EDM callback function from sysdb
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#RP/0/RP0/CPU0:Jul 20 09:38:56.696 UTC: nvgen[69429]: %MGBL-CONFIG_HIST_UPDATE-3-SYSDB_GET : Error 'sysdb' detected the 'warning' condition 'A verifier or EDM callback function returned: 'not found'' getting host address from  sysdb
+RP/0/RP0/CPU0:Jul 20 09:38:57.864 UTC: nvgen[69500]: %MGBL-CONFIG_HIST_UPDATE-3-SYSDB_GET : Error 'sysdb' detected the 'warning' condition 'A verifier or EDM callback function returned: 'not found'' getting host address from  sysdb
+RP/0/RP0/CPU0:Jul 20 09:39:26.646 UTC: nvgen[65542]: %MGBL-CONFIG_HIST_UPDATE-3-SYSDB_GET : Error 'sysdb' detected the 'warning' condition 'A verifier or EDM callback function returned: 'not found'' getting host address from  sysdb
+RP/0/RP0/CPU0:Jul 20 09:39:27.809 UTC: nvgen[65620]: %MGBL-CONFIG_HIST_UPDATE-3-SYSDB_GET : Error 'sysdb' detected the 'warning' condition 'A verifier or EDM callback function returned: 'not found'' getting host address from  sysdb
+</code>
+</pre>
+</div>
+
+Until this is fixed from the script, you can safely ignore them and the easiest way is to suppress them with the following configuration.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>logging suppress rule EDM
+ alarm MGBL CONFIG_HIST_UPDATE SYSDB_GET
+!
+logging suppress apply rule EDM
+ all-of-router
+!</code>
+</pre>
+</div>
+
 ## Conclusion
 
 Other features are "work in progress", particularly a syslog module providing information at the user level (and not only the script logs) of the different actions, errors, etc.  
 We really hope this script will help the community, give it a try and provide us your feedback.
-
-
-
-
-
-
