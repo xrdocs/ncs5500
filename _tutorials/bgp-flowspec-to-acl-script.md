@@ -2067,7 +2067,7 @@ Fri Jul 17 18:03:00.691 UTC
 
 AFI: IPv4
   <mark>Flow           :Dest:7.7.7.7/32,Proto:=17,SPort:=19</mark>
-    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)<m/ark>
+    <mark>Actions      :Traffic-rate: 0 bps  (bgp.1)</mark>
 RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-l
 ipv4 access-list bgpfs2acl-ipv4
  100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
@@ -2387,6 +2387,10 @@ ipv4 access-list bgpfs2acl-ipv4
 </code>
 </pre>
 </div>
+
+The Three different rules are translated with "fragments" as explain in the beginning of the post.
+
+Example9:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
