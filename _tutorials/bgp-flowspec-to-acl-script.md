@@ -4,7 +4,12 @@ date: '2020-07-18 15:14 +0200'
 title: BGP FlowSpec to ACL Script
 author: Nicolas Fevrier
 excerpt: Introduction and validation of the BGPFS2ACL script
-position: hidden
+position: top
+tags:
+  - iosxr
+  - script
+  - flowspec
+  - ncs5500
 ---
 {% include toc icon="table" title="BGPFS2ACL" %} 
 
@@ -62,7 +67,7 @@ In term of action, it supports drop and redirect-to-IP but not:
 
 ### Support of packet-length ranges
 
-To support the range in packet length, it's necessary to enable a specific UDK configuration:
+To support the match in packet length (including ranges), it's necessary to enable a specific UDK configuration. We recommend to configure it if you plan to use the script, even before 7.0.1.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1855,7 +1860,105 @@ RP/0/RP0/CPU0:Cannonball#</code>
 </pre>
 </div>
 
-### Test 05: add up multiple FS rules
+### Test 05: manipulation of the created ACL
+
+The script will modify existing ACLs if they are already applied but will not change ACLs configured but not associated to interfaces.  
+Also, it will create a specific ACL for interfaces up/up with an IPv4 address configured. This ACL bgpfs2acl-ipv4 can be also edited by user as long as nothing if modified in between the two remarks.
+
+- a rule is advertised and translated in the client
+- check existing bgpfs2acl-ipv4 access-list
+- add ACE / entries in this ACL
+- withdraw the rule advertisement from the controller
+- check the ACL bgpfs2acl-ipv4
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list bgpfs2acl-ipv4
+ipv4 access-list bgpfs2acl-ipv4
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+We add a line in this ACL
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#conf
+RP/0/RP0/CPU0:Cannonball(config)#ipv4 access-list bgpfs2acl-ipv4
+RP/0/RP0/CPU0:Cannonball(config-ipv4-acl)#10 permit udp any 1.2.3.0/24 eq 80
+RP/0/RP0/CPU0:Cannonball(config-ipv4-acl)#commit
+RP/0/RP0/CPU0:Cannonball(config-ipv4-acl)#end
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list bgpfs2acl-ipv4
+ipv4 access-list bgpfs2acl-ipv4
+ 10 permit udp any 1.2.3.0/24 eq 80
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+We stop the advertisement on the controller:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Macrocarpa#conf
+RP/0/RP0/CPU0:Macrocarpa(config)#flowspec
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#no address-family ipv4
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#commit
+Mon Jul 20 09:08:18.309 UTC
+RP/0/RP0/CPU0:Macrocarpa(config-flowspec)#</code>
+</pre>
+</div>
+
+On the client, the ACL bgpfs2acl-ipv4 only contains the entry we manually contain and (it's important) the permit any any at the end.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 20 09:08:32.835 UTC: config[68089]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000449' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list bgpfs2acl-ipv4
+ipv4 access-list bgpfs2acl-ipv4
+ 10 permit udp any 1.2.3.0/24 eq 80
+ 100500 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+Finally, we re-advertise the rule from the controller and check the ACL one last time on the client:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Cannonball#
+RP/0/RP0/CPU0:Jul 20 09:14:02.886 UTC: config[66542]: %MGBL-CONFIG-6-DB_COMMIT : Configuration committed by user 'ZTP'. Use 'show configuration commit changes 1000000450' to view the changes.
+
+RP/0/RP0/CPU0:Cannonball#sh run ipv4 access-list bgpfs2acl-ipv4
+ipv4 access-list bgpfs2acl-ipv4
+ 10 permit udp any 1.2.3.0/24 eq 80
+ 100500 remark FLOWSPEC RULES BEGIN. Do not add statements below this. Added automatically.
+ 100501 deny udp any eq domain host 7.7.7.7 packet-length range 768 1601
+ 100502 remark FLOWSPEC RULES END
+ 100503 permit ipv4 any any
+!
+
+RP/0/RP0/CPU0:Cannonball#</code>
+</pre>
+</div>
+
+
+### Test 06: add up multiple FS rules
 
 We will apply examples 1 to 9, one by one.
 
@@ -2552,12 +2655,13 @@ ipv4 access-list bgpfs2acl-ipv4
 </pre>
 </div>
 
+## Conclusion
+
+Other features are "work in progress", particularly a syslog module providing information at the user level (and not only the script logs) of the different actions, errors, etc.  
+We really hope this script will help the community, give it a try and provide us your feedback.
 
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code></code>
-</pre>
-</div>
+
+
 
 
