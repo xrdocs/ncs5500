@@ -2683,5 +2683,7 @@ logging suppress apply rule EDM
 
 ## Conclusion
 
+Kudos to Mike ([github](https://github.com/Maikor)) for the initial framework and to Dmitrii ([github](https://github.com/rudneff) / linkedin) for the great work delivered during the last weeks on this program.
+
 Other features are "work in progress", particularly a syslog module providing information at the user level (and not only the script logs) of the different actions, errors, etc.  
 We really hope this script will help the community, give it a try and provide us your feedback.
