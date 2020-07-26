@@ -174,6 +174,14 @@ In summary, we project the following distribution:
 
 ## Products and ASICs
 
+In summary:
+
+| Jericho / Qumran-MX with NL eTCAM | Jericho+ with OP eTCAM | Jericho+ with large LPM (and no eTCAM) |
+|:---:|:---:|:---:|
+| NCS5501-SE | NCS55A1-36H-SE-S | NCS55A1-24H |
+| NCS5502-SE | NCS55A2-MOD-SE-S | NCS55A1-48Q6H |
+| NC55-24X100G-SE | NC55-A-36X100-SE-S | NCS55A1-24H6H-SS |
+
 ### Jericho / Qumran-MX with NL eTCAM
 
 Products:
@@ -182,6 +190,8 @@ Products:
 - NC55-24X100G-SE
 
 ![JerichoNL12k.png]({{site.baseurl}}/images/JerichoNL12k.png){: .align-center}
+
+
 
 ### Jericho+ with OP eTCAM
 
