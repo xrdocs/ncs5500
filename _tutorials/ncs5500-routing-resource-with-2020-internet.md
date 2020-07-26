@@ -13,7 +13,7 @@ position: hidden
 ---
 {% include toc icon="table" title="NCS5500 and the 2020 Internet" %} 
 
-![LabSeries-banner-thin.png]({{site.baseurl}}/images/LabSeries-banner-thin.png){: .align-center}
+![NCS 5500 INTERNAL RESOURCES.png]({{site.baseurl}}/images/NCS 5500 INTERNAL RESOURCES.png){: .align-center}
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN, Flowspec implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
@@ -31,7 +31,7 @@ We have now three remaining options:
 - Jericho+ with OP eTCAM
 - Jericho+ with large LPM
 
-## Let’s try to predict the future (and do really bad science)
+## Let’s try to predict the future (with some really bad science)
 
 Based on the routing table growth during the last 6 years, we can try to “project” the evolution of the table in the near future (let’s say, 9 years).  
 From a pure scientific perspective, it is not worth much. I admit it. So let’s take it for what it is, a wet finger estimation.  
