@@ -87,9 +87,11 @@ Let’s focus on the IPv4 part first, and more particularly to the /24 populatio
 
 The “Growth" is showing the difference between two sub-sequent years and the "Growth Increase" shows the difference between two sub-sequent growth rates. The second number should help identifying a linear or an algorithmic progression.
 
-IPv4/24 growth trend: I doesn’t seem we have a clear trend here, between the different year we see various numbers scattered from -6,845 to +9,938. We will consider it’s a linear growth and we will estimate the number of new IPv4/24 per year: +42,000 prefixes.
+IPv4/24 growth trend: it doesn’t seem we have a clear trend here, between the different years we see various numbers scattered from -6,845 to +9,938.  
+Conclusion: we will consider it’s a linear growth and we will estimate the number of new IPv4/24 per year: +42,000 prefixes.
 
-non-IPv4 growth: except in 2017, it shows the growth is progressively slowing down. Here it will be a totally arbitrary decision to continue this trend with lower and lower numbers (starting from -2,000 in 2021 to -200 in 2029).
+Non-IPv4 growth: except in 2017, it shows the growth is progressively slowing down.  
+Conclusion: here it will be a totally arbitrary decision to continue this trend with lower and lower numbers (starting from -2,000 in 2021 to -200 in 2029).
 
 The results of this projection are the following:
 
@@ -113,7 +115,7 @@ They predict 1,079,000 routes for Jan 2025, so it matches our “model”, predi
 
 Let’s study the IPv6 internet table evolution. Due to the smallest size of this table, it’s more hazardous to create projection, but it won’t prevent me from making the wildest guess to b
 
-| Year | IPv6 total | Growth | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase | 
+| Year | IPv6 total | Growth | Growth Increase | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase | 
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 2014 | 19,025 | - | - | 7,978 | - | - | 11,047 | - | - |
 | 2015 | 24,651 | 5,626 | - | 10,607 | 2,629 | - |  14,044 | 2,997 | - | 
@@ -123,10 +125,13 @@ Let’s study the IPv6 internet table evolution. Due to the smallest size of thi
 | 2019 | 74,613 | 15,283 | -798 | 34,508 | 9,125 | 2,469 | 40,105 | 6,158 | -3,267 | 
 | 2020 | 91,133 | 16,520 | 1,237 | 4,4876 | 10,368 | 1,243 | 46,257 | 6,152 | -6 | 
 
-More particularly, we will pay attention to the /48 prefixes and their progression.  
-IPv6/48 growth trend: The "growth increase" varies from +458 to +2,469 during the last 5 years. Let’s take the highest number for the projection, rounded to +2500.
+More particularly, we will pay attention to the /48 prefixes and their progression.
 
-non IPv6/48 growth trend: The “growth” varies from 2,997 to 9,425 but with a majority of the years around 6,000. For this one, we will take a totaly arbitrary growth of 6,000 new IPv6 prefixes (non /48) per year.
+IPv6/48 growth trend: The "growth increase" varies from +458 to +2,469 during the last 5 years.  
+Conclusion: Let’s take the highest number for the projection, rounded to +2500.
+
+Non IPv6/48 growth trend: The “growth” varies from 2,997 to 9,425 but with a majority of the years around 6,000.  
+Conclusion: For this one, we will take a totaly arbitrary growth of 6,000 new IPv6 prefixes (non /48) per year.
 
 The results of this projection are the following:
 
@@ -155,7 +160,7 @@ Let’s take these numbers nevertheless and see where these routes will be store
 In summary, we project the following distribution:  
 
 | Date (10th of July of each year) | IPv4 total | v4/24 | v4 non/24 | IPv6 total | v6/48 | v6 non/48 |
-|:---:|:---:|:---:|:---:|:---:|:---:|:—:|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 2020 | 865,274 | 500,530 | 364,744 | 91,133 | 44,876 | 46,257 |
 | 2021 | 919,274 | 542,530 | 376,744 | 110,001 | 57,744 | 52,257 |
 | 2022 | 969,152 | 584,530| 384,622 | 131,369 | 73,112 | 58,257 |
