@@ -231,7 +231,195 @@ We use a public v4/v6 view collected in 2019. It shows:
 	- 35,009 /48s
     - 37,940 non-/48s
 
-That places us somewhere between 2018 and 2019 on the estimation with built from the potaroo info. We will start from 2019 and calculate what needs to be advertised on top of our full views:
+Jericho / Qumran-MX with NL eTCAM
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508-2-702#sh bgp sum
+BGP router identifier 1.3.5.8, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0000000   RD version: 4539177
+BGP main routing table version 4539177
+BGP NSR Initial initsync version 4 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         4539177    4539177    4539177    4539177     4539177           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.153   0   100 1719117      16  4539177    0    0 00:13:25     <mark>790771</mark>
+
+RP/0/RP0/CPU0:5508-2-702#
+RP/0/RP0/CPU0:5508-2-702#sh bgp ipv6 un sum
+BGP router identifier 1.3.5.8, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 72953
+BGP main routing table version 72953
+BGP NSR Initial initsync version 4 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker           72953      72953      72953      72953       72953           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100   72965      16    72953    0    0 00:14:01      <mark>72948</mark>
+
+RP/0/RP0/CPU0:5508-2-702#
+RP/0/RP0/CPU0:5508-2-702#sh dpa resources iproute loc 0/7/CPU0
+
+"iproute" OFA Table (Id: 41, Scope: Global)
+--------------------------------------------------
+IPv4 Prefix len distribution
+Prefix   Actual            Capacity    Prefix   Actual            Capacity
+ /0       26                20           /1       0                 20
+ /2       4                 20           /3       7                 20
+ /4       26                20           /5       0                 20
+ /6       0                 20           /7       0                 20
+ /8       11                20           /9       12                20
+ /10      36                204          /11      97                409
+ /12      285               818          /13      571               1636
+ /14      1143              3275         /15      1913              5732
+ /16      13184             42381        /17      7901              25387
+ /18      13534             42585        /19      25210             86603
+ /20      39182             127348       /21      47039             141679
+ /22      100821            231968       /23      78898             207173
+ <mark>/24      445838</mark>            1105590      /25      144               4299
+ /26      211               4504         /27      383               3275
+ /28      537               2866         /29      721               6961
+ /30      3241              2866         /31      440               204
+ /32      9657              20
+
+OFA Infra Stats Summary
+                 Create Requests: 1846483
+                 Delete Requests: 1055411
+                 Update Requests: 241726
+                    Get Requests: 0
+
+                          Errors
+                Resolve Failures: 0
+                 Not Found in DB: 0
+                    Exists in DB: 0
+                 No Memory in DB: 0
+               Reserve Resources: 0
+               Release Resources: 0
+                Update Resources: 0
+
+                          NPU ID: NPU-0                  NPU-1                  NPU-2                  NPU-3
+           Create Server API Err: 0                      0                      0                      0
+           Update Server API Err: 0                      0                      0                      0
+           Delete Server API Err: 0                      0                      0                      0
+
+RP/0/RP0/CPU0:5508-2-702#sh dpa resources ip6route loc 0/7/CPU0
+
+"ip6route" OFA Table (Id: 42, Scope: Global)
+--------------------------------------------------
+IPv6 Prefix len distribution
+Prefix   Actual       Prefix   Actual
+ /0       25           /1       0
+ /2       0            /3       0
+ /4       0            /5       0
+ /6       0            /7       0
+ /8       0            /9       0
+ /10      25           /11      0
+ /12      0            /13      0
+ /14      0            /15      0
+ /16      76           /17      0
+ /18      0            /19      2
+ /20      12           /21      4
+ /22      7            /23      5
+ /24      23           /25      7
+ /26      13           /27      18
+ /28      94           /29      2696
+ /30      418          /31      179
+ /32      12686        /33      1060
+ /34      814          /35      517
+ /36      2887         /37      501
+ /38      908          /39      282
+ /40      3689         /41      544
+ /42      888          /43      144
+ /44      4720         /45      465
+ /46      2223         /47      1352
+ <mark>/48      35009</mark>        /49      0
+ /50      0            /51      1
+ /52      0            /53      0
+ /54      0            /55      0
+ /56      219          /57      2
+ /58      0            /59      0
+ /60      16           /61      0
+ /62      0            /63      3
+ /64      87           /65      0
+ /66      0            /67      0
+ /68      0            /69      0
+ /70      0            /71      0
+ /72      0            /73      0
+ /74      0            /75      0
+ /76      0            /77      0
+ /78      0            /79      0
+ /80      0            /81      0
+ /82      0            /83      0
+ /84      0            /85      0
+ /86      0            /87      0
+ /88      0            /89      0
+ /90      0            /91      0
+ /92      0            /93      0
+ /94      0            /95      0
+ /96      0            /97      0
+ /98      0            /99      0
+ /100     0            /101     0
+ /102     0            /103     0
+ /104     25           /105     0
+ /106     0            /107     0
+ /108     0            /109     0
+ /110     0            /111     0
+ /112     0            /113     0
+ /114     0            /115     0
+ /116     0            /117     0
+ /118     0            /119     0
+ /120     2            /121     0
+ /122     0            /123     0
+ /124     1            /125     8
+ /126     432          /127     16
+ /128     97
+
+OFA Infra Stats Summary
+                 Create Requests: 73268
+                 Delete Requests: 66
+                 Update Requests: 0
+                    Get Requests: 0
+
+                          Errors
+                Resolve Failures: 0
+                 Not Found in DB: 0
+                    Exists in DB: 0
+                 No Memory in DB: 0
+               Reserve Resources: 0
+               Release Resources: 0
+                Update Resources: 0
+
+                          NPU ID: NPU-0                  NPU-1                  NPU-2                  NPU-3
+           Create Server API Err: 0                      0                      0                      0
+           Update Server API Err: 0                      0                      0                      0
+           Delete Server API Err: 0                      0                      0                      0
+
+RP/0/RP0/CPU0:5508-2-702#</code>
+</pre>
+</div>
+
+That places us somewhere between 2018 and 2019 on the estimation with built from the potaroo info. We will start from 2019 and calculate what needs to be advertised on top of our full views.
+
+A simple substraction will tell us how many routes "extra" we need to advertise to simulate the growth along the years:
 
 | Year | v4/24 | Extra /24 | v4 non/24 | Extra others | v6/48 | Extra /48 | v6 non/48 | Extra others |
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -247,7 +435,190 @@ That places us somewhere between 2018 and 2019 on the estimation with built from
 | 2029 | 878,530 | 432,757 | 420,968 | 75,961 | 250,688 | 215,679 | 100,257 | 62,317 |
 
 
-### 2020
+At the starting point we use:
+
+**Jericho with NL eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5501-SE-6625#sh platf
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/RP0/CPU0        NCS-5501-SE(Active)        IOS XR RUN        NSHUT
+0/RP0/NPU0        Slice                      UP
+0/FT0             NCS-1RU-FAN-FW             OPERATIONAL       NSHUT
+0/PM1             NCS-1100W-ACFW             OPERATIONAL       NSHUT
+RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 45013    (6 %)
+        iproute                     : 10006    (1 %)
+        ip6route                    : 35009    (4 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#
+RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 534746
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 38969    (7 %)
+        iproute                     : 0        (0 %)
+        ip6route                    : 39733    (7 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#
+RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources exttcamipv4 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 2048000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 781297   (38 %)
+        iproute                     : 782062   (38 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#</code>
+</pre>
+</div>
+
+**Jericho+ with OP eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508-2-702#sh platf 0/0
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/0/CPU0          NC55-36X100G-A-SE          IOS XR RUN        NSHUT
+RP/0/RP0/CPU0:5508-2-702#sh contr npu resources exttcamipv4 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 4000000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 790992   (20 %)
+        iproute                     : 791072   (20 %)
+
+...
+RP/0/RP0/CPU0:5508-2-702#sh contr npu resources exttcamipv6 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2000000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 73052    (4 %)
+        ip6route                    : 73202    (4 %)
+
+...
+RP/0/RP0/CPU0:5508-2-702#</code>
+</pre>
+</div>
+
+**Jericho+ with Large LPM and no eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh platf
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/RP0/CPU0        NCS-55A1-24H(Active)       IOS XR RUN        NSHUT
+0/RP0/NPU0        Slice                      UP
+0/RP0/NPU1        Slice                      UP
+0/FT0             NC55-A1-FAN-FW             OPERATIONAL       NSHUT
+0/FT1             NC55-A1-FAN-FW             OPERATIONAL       NSHUT
+0/PM0             NCS-1100W-ACFW             FAILED            NSHUT
+0/PM1             NCS-1100W-ACFW             OPERATIONAL       NSHUT
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 490276   (62 %)
+        iproute                     : 455268   (58 %)
+        ip6route                    : 35009    (4 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+...
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 1563508
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 373486   (24 %)
+        iproute                     : 335526   (21 %)
+        ip6route                    : 37956    (2 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+...
+RP/0/RP0/CPU0:24H-1-701#
+
+</code>
+</pre>
+</div>
+
+### Year 2020
 
 
 
