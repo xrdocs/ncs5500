@@ -99,7 +99,7 @@ The results of this projection are the following:
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 2019 | 817,799 | 56,629 | 464,433 | 41,979 | 9,938 | 353,366 | 14,650 | -3,503 |
 | 2020 | 865,274 | 47,475 | 500,530 | 36,097 | -5,882 | 364,744 | 11,378 | -3,272 |
-| 2021 | 91,9274 | 54,000 | 542,530 | 4,2000 | 5,903 | 376,744 | 9,378 | -2,000 | 
+| 2021 | 919,274 | 54,000 | 542,530 | 42,000 | 5,903 | 376,744 | 9,378 | -2,000 | 
 | 2022 | 969,152 | 49,878 | 584,530 | 42,000 | 0 | 384,622 | 7,878 | -1,500 | 
 | 2023 | 1,018,030 | 48,878 | 626,530 | 42,000 | 0 | 391,500 | 6,878 | -1,000 | 
 | 2024 | 1,066,108 | 48,078 | 668,530 | 42,000 | 0 | 397,578 | 6,078 | -800 | 
@@ -191,8 +191,6 @@ Products:
 
 ![JerichoNL12k.png]({{site.baseurl}}/images/JerichoNL12k.png){: .align-center}
 
-
-
 ### Jericho+ with OP eTCAM
 
 Products:
@@ -216,4 +214,36 @@ Case 1: Default configuration is Host Optimized
 Case 2: user changed to host-optimized-disable
 
 ![LargeLPM-host-disable.png]({{site.baseurl}}/images/LargeLPM-host-disable.png){: .align-center}
+
+## Lab and Test
+
+In this section, we will inject a real table in the routers and collect utilization statistics for the different resources (LEM, LPM and potentially external TCAM). Then, we will inject random v4/24, v6/48 and other routes following the estimated progression described above, and we will see the impact on resources, year after year.  
+
+It certainly very fun (is it?) but we want to be able to extract valuable and actionable information out of these tests. For example, on the hw-module profile to use in the future depending on the ASIC type.
+
+### Starting point
+
+We use a public v4/v6 view collected in 2019. It shows:  
+- 790,780 IPv4 prefixes
+	- 445,773 /24s
+    - 345,007 non-/24s
+- 72,949 IPv6 prefixes
+	- 35,009 /48s
+    - 37,940 non-/48s
+
+Taking the first chart above:
+
+| Year | IPv4 total | IPv6 total | v4/24 | v6/48 |
+|:---:|:---:|:---:|:---:|:---:|
+| 2018 | 761,170 | 59,330 | 422,454 | 25,383 |
+| 2019 | 817,799 | 74,613 | 464,433 | 34,508 |
+
+That places us somewhere between 2018 and 2019 for IPv4 and just after 2019 for IPv6.
+
+
+
+### 2020
+
+
+
 
