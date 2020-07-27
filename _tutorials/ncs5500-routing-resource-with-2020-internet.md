@@ -113,7 +113,7 @@ Checking other sources on the web, like this APNIC article from Geoff Huston:
 [https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/](https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/)  
 They predict 1,079,000 routes for Jan 2025, so it matches our “model”, predicting something between 1,066,108 and 1,113,586 IPv4 prefixes between July 2024 and July 2025.
 
-Let’s study the IPv6 internet table evolution. Due to the smallest size of this table, it’s more hazardous to create projection, but it won’t prevent me from making the wildest guess to b
+Let’s study the IPv6 internet table evolution. Due to the smallest size of this table, it’s more hazardous to create projection, but it won’t prevent me from making arbitrary asumptions to build my model ;)
 
 | Year | IPv6 total | Growth | Growth Increase | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase | 
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -130,13 +130,13 @@ More particularly, we will pay attention to the /48 prefixes and their progressi
 IPv6/48 growth trend: The "growth increase" varies from +458 to +2,469 during the last 5 years.  
 Conclusion: Let’s take the highest number for the projection, rounded to +2500.
 
-Non IPv6/48 growth trend: The “growth” varies from 2,997 to 9,425 but with a majority of the years around 6,000.  
+Non-IPv6/48 growth trend: The “growth” varies from 2,997 to 9,425 but with a majority of the years around 6,000.  
 Conclusion: For this one, we will take a totaly arbitrary growth of 6,000 new IPv6 prefixes (non /48) per year.
 
 The results of this projection are the following:
 
-| Year | IPv6 total | Growth | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase | 
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Year | IPv6 total | Growth | Growth Increase | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | 2019 | 74,613 | 15,283 | -798 | 34,508 | 9,125 | 2,469 | 40,105 | 6,158 | -3,267 | 
 | 2020 | 91,133 | 16,520 | 1,237 | 44,876 | 10,368 | 1,243 | 46,257 | 6,152 | -6 | 
 | 2021 | 110,001 | 18,868 | 2,348 | 57,744 | 12,868 | 2,500 | 52,257 | 6,000 | -152 | 
@@ -1236,10 +1236,11 @@ Conclusion: it's advisable to disable the default profile "host-optimized", it w
   
 # Conclusion
   
-In this post, we created a prevision model for the internet size progression. No doubt it can be refined. Particularly considering that we only considered the "non-IPv4/24 routes" and "non-IPv6/48 routes" as a block. Also because we advertised only subsequent /23s and /47s to create the "extra prefixes".  
+In this post, we created a prevision model for the internet size progression.  
+No doubt it can be refined. Particularly considering that we only considered the "non-IPv4/24 routes" and "non-IPv6/48 routes" as a block. Also because we advertised only subsequent /23s and /47s to create the "extra prefixes".  
 So, it's important to take all this with a grain of salt. Also, if you are aware of more precise prediction models (with an evolution for individual prefix length), please let us know.
 In the lab, we simulated internet routing from 2020 to 2028 and we examined the use of each memory (LEM, LPM and when present, eTCAM).  
 The systems with external TCAM are clearly showing a ton of free space for internet and nothing specific should be done with them.  
-The systems based on Jericho+ with large LPM can also be used for internet peering, but it's interesting to notice it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverge the large size of the LPM and offer 4+ more years of growth.
+The systems based on Jericho+ with large LPM can also be used for internet peering, but it's interesting to notice it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverage the large size of the LPM and offer 4+ more years of growth.
   
 
