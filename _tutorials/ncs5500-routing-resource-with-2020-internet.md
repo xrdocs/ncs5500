@@ -872,22 +872,207 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 
 
 
+### Year 2021 to year 2029
 
-5501-SE-6625
-sh contr npu resources lem loc 0/0/CPU0
-sh contr npu resources lpm loc 0/0/CPU0
-sh contr npu resources exttcamipv4 loc 0/0/CPU0
+We continue to increase the quantity of "extra" routes step by step and we populate the following charts.
 
-5508-2-702
-sh contr npu resources exttcamipv4 loc 0/0/CPU0
-sh contr npu resources exttcamipv6 loc 0/0/CPU0
-
-24H-1-701
-sh contr npu resources lem loc 0/0/CPU0
-sh contr npu resources lpm loc 0/0/CPU0
+When simulating year 2024, we hit the first bottleneck: the J+ with large LPM systems:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code></code>
+<code>RP/0/RP0/CPU0:24H-1-701#sh bgp sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0000000   RD version: 3153690
+BGP main routing table version 3153690
+BGP NSR Initial initsync version 6 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         3153690    3153690    3153690    3153690     3153690           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100 1721534   12191  3153690    0    0    1d16h     790771
+192.168.100.152   0   100    1118     155  3153690    0    0 00:00:14     <mark>275328</mark>
+
+RP/0/RP0/CPU0:24H-1-701#
+RP/0/RP0/CPU0:24H-1-701#sh bgp ipv6 un sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 755765
+BGP main routing table version 755765
+BGP NSR Initial initsync version 6 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker          755765     755765     755765     755765      755765           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100  148333   14655   755765    0    0    1d00h      72948
+2001:111::152     0   152    1063     764   755765    0    0 00:00:33     <mark>108656</mark>
+
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Jul.27 08:23:12 PDT
+
+
+Current Usage
+        Total In-Use                : <mark>781632</mark>   <mark>(99 %)</mark>
+        iproute                     : 670293   (85 %)
+        ip6route                    : 111348   (14 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+
+NPU-1
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Jul.27 08:23:12 PDT
+
+
+Current Usage
+        Total In-Use                : 781632   (99 %)
+        iproute                     : 670293   (85 %)
+        ip6route                    : 111348   (14 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 1570948
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 458084   (29 %)
+        iproute                     : 387806   (25 %)
+        ip6route                    : 70274    (4 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+
+NPU-1
+OOR Summary
+        Estimated Max Entries       : 1570948
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 458084   (29 %)
+        iproute                     : 387806   (25 %)
+        ip6route                    : 70274    (4 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+
+RP/0/RP0/CPU0:24H-1-701#
+RP/0/RP0/CPU0:24H-1-701#sh dpa resources iproute loc 0/0/CPU0
+
+"iproute" OFA Table (Id: 37, Scope: Global)
+--------------------------------------------------
+IPv4 Prefix len distribution
+Prefix   Actual       Prefix   Actual
+ /0       1            /1       0
+ /2       4            /3       7
+ /4       1            /5       0
+ /6       0            /7       0
+ /8       10           /9       12
+ /10      36           /11      97
+ /12      285          /13      571
+ /14      1143         /15      1913
+ /16      13184        /17      7901
+ /18      13534        /19      25210
+ /20      39182        /21      47039
+ /22      100821       /23      131178
+ /24      665574       /25      144
+ /26      211          /27      383
+ /28      537          /29      721
+ /30      3241         /31      440
+ /32      9496
+
+OFA Infra Stats Summary
+                 Create Requests: 1740765
+                 Delete Requests: 677889
+                 Update Requests: 13819
+
+                          Errors
+                Resolve Failures: 0
+                 Not Found in DB: 0
+                    Exists in DB: 0
+                 No Memory in DB: 0
+               Reserve Resources: 0
+               Release Resources: 0
+                Update Resources: 0
+
+                          NPU ID: NPU-0                  NPU-1
+          <mark> Create Server API Err: 4777                   4777</mark>
+           Update Server API Err: 0                      0
+           Delete Server API Err: 0                      0
+
+RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
+
+Starting from this point, the LEM is saturated while LPM is only used 29%.  
+It would be profitable to disable the default "host-optimized" mode to move the IPv4/24 routes in LPM.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#conf
+RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ?
+  dlb   Destination Based Load balancing
+  ipv4  Configure ipv4 protocol
+  ipv6  Configure ipv6 protocol
+  mpls  Configure mpls protocol
+RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 ?
+  scale  Configure scale mode for no-TCAM card
+RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale ?
+  host-optimized-disable  Configure Host optimization by default
+  internet-optimized      Configure Intetrnet optimized
+RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale host-optimized-disable ?
+  <cr>
+RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale host-optimized-disable
+In order to activate this new scale, you must manually reload the chassis/all line cards
+RP/0/RP0/CPU0:24H-1-701(config)#commit
+RP/0/RP0/CPU0:24H-1-701(config)#end
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
+
+
