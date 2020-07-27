@@ -622,7 +622,6 @@ We advertise the extra routes through a new peer (/24 + /23 for IPv4 and /48 + /
 
 On the route generator:
 
-
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>pxe@pxe-ubuntu:~/routem$ more extra-v4-24H.2020
@@ -876,6 +875,71 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 
 We continue to increase the quantity of "extra" routes step by step and we populate the following charts.
 
+**Jericho w/ NL12K eTCAM**
+
+| Year | LEM Max | LEM in-use | LPM Max | LPM in-use | eTCAM Max | eTCAM in-use |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| Starting Point | 786432 | 45013 | 534746 | 38969 | 2048000 | 781297 |
+| 2020 | 786432 | 54881 | 549919 | 47287 | 2048000 | 855743 |
+| 2021 | 786432 | 67749 | 554073 | 53287 | 2048000 | 908919 |
+| 2022 | 786432 | 83113 | 558189 | 59287 | 2048000 | 957666 |
+| 2023 | 786432 | 100985 | 562075 | 65287 | 2048000 | 1006238 |
+| 2024 | 786432 | 121353 | 566489 | 71287 | 2048000 | 1053379 |
+| 2025 | 786432 | 144221 | 564116 | 77287 | 2048000 | 1099520 |
+| 2026 | 786432 | 169581 | 568307 | 83287 | 2048000 | 1146447 |
+| 2027 | 786432 | 197449 | 565508 | 89287 | 2048000 | 1193007 |
+| 2028 | 786432 | 227817 | 569891 | 95287 | 2048000 | 1239282 |
+
+Conclusion: these devices can handle the internet growth with concern or limitation.
+
+**Jericho+ w/ OP eTCAM**
+
+| Year | eTCAM Max | v4 in-use | v6 in-use |
+|:---:|:---:|:---:|:---:|
+| Starting Point | 4M+2M | 790992 | 73052 |
+| 2020 | 4M+2M | 865438 | 91237 |
+| 2021 | 4M+2M | 918614 | 110105 |
+| 2022 | 4M+2M | 967361 | 131473 |
+| 2023 | 4M+2M | 1015933 | 155341 |
+| 2024 | 4M+2M | 1063074 | 181709 |
+| 2025 | 4M+2M | 1109215 | 210577 |
+| 2026 | 4M+2M | 1156142 | 241945 |
+| 2027 | 4M+2M | 1202702 | 275813 |
+| 2028 | 4M+2M | 1248977 | 312181 |
+
+Conclusion: these devices can handle the internet growth with concern or limitation.
+
+**Jericho+ with Large LPM and host-optimized (default mode)**
+
+| Year | LEM Max | LEM in-use | LPM Max | LPM in-use |
+|:---:|:---:|:---:|:---:|:---:|
+| Starting Point | 786432 | 490276 | 1563508 | 373486 |
+| 2020 | 786432 | 554898 | 1559724 | 401492 |
+| 2021 | 786432 | 608960 | 1575645 | 419475 |
+| 2022 | 786432 | 665324 | 1573918 | 433222 |
+| 2023 | 786432 | 724944 | 1572299 | 446038 |
+| 2024 | 786432 | 781632 | 1570948 | 458084 |
+| 2025 | - | - | - | - |
+
+We will cover what's happening in 2024 in the next section.
+
+**Jericho+ with Large LPM and host-optimized-disable**
+
+| Year | LEM Max | LEM in-use | LPM Max | LPM in-use |
+|:---:|:---:|:---:|:---:|:---:|
+| Starting Point | 786432 | 44509 | 1349849 | 819259 |
+| 2020 | 786432 | 54373 | 1355608 | 902022 |
+| 2021 | 786432 | 67241 | 1386730 | 961198 |
+| 2022 | 786432 | 82609 | 1418157 | 1015945 |
+| 2023 | 786432 | 100473 | 1422956 | 1070517 |
+| 2024 | 786432 | 120841 | 1423107 | 1123656 |
+| 2025 | 786432 | 143705 | 1412551 | 1175799 |
+| 2026 | 786432 | 169077 | 1400564 | 1228726 |
+| 2027 | 786432 | 196945 | 1388103 | 1281286 |
+| 2028 | 786432 | 227313 | 1373880 | 1333561 |
+
+### Special case of the Jericho+ with Large LPM
+
 When simulating year 2024, we hit the first bottleneck: the J+ with large LPM systems:
 
 <div class="highlighter-rouge">
@@ -1075,4 +1139,109 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
 
+We continue advertising more and more routes and in 2028, we are getting very close to the limit for this chipset:
+  
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh bgp sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0000000   RD version: 5960575
+BGP main routing table version 5960575
+BGP NSR Initial initsync version 629974 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         5960575    5960575    5960575    5960575     5960575           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100 1719200      99  5960575    0    0 01:36:51     790771
+192.168.100.152   0   100    2525      63  5960575    0    0 00:00:14     <mark>462640</mark>
+
+RP/0/RP0/CPU0:24H-1-701#sh bgp ipv6 un sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 1939637
+BGP main routing table version 1939637
+BGP NSR Initial initsync version 181612 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         1939637    1939637    1939637    1939637     1939637           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100   73048    8961  1939637    0    0 01:37:08      72949
+2001:111::152     0   152    3031    1169  1939637    0    0 00:00:41     <mark>239128</mark>
+
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 227313   (29 %)
+        iproute                     : 9496     (1 %)
+        ip6route                    : 217820   (28 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+...
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 1373880
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Red
+        OOR State Change Time       : 2020.Jul.27 10:16:25 PDT
+
+
+Current Usage
+        Total In-Use                : <mark>1333561</mark>  <mark>(97 %)</mark>
+        iproute                     : 1239283  (90 %)
+        ip6route                    : 94275    (7 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+
+...
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
+
+Conclusion: it's advisable to disable the default profile "host-optimized", it will extend significatively the router capability when used with full internet view.
+  
+# Conclusion
+  
+In this post, we created a prevision model for the internet size progression. No doubt it can be refined. Particularly considering that we only considered the "non-IPv4/24 routes" and "non-IPv6/48 routes" as a block. Also because we advertised only subsequent /23s and /47s to create the "extra prefixes".  
+So, it's important to take all this with a grain of salt. Also, if you are aware of more precise prediction models (with an evolution for individual prefix length), please let us know.
+In the lab, we simulated internet routing from 2020 to 2028 and we examined the use of each memory (LEM, LPM and when present, eTCAM).  
+The systems with external TCAM are clearly showing a ton of free space for internet and nothing specific should be done with them.  
+The systems based on Jericho+ with large LPM can also be used for internet peering, but it's interesting to notice it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverge the large size of the LPM and offer 4+ more years of growth.
+  
 
