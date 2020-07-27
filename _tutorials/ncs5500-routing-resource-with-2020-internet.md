@@ -618,6 +618,276 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 
 ### Year 2020
 
+We advertise the extra routes through a new peer (/24 + /23 for IPv4 and /48 + /47 for IPv6).  
+
+On the route generator:
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>pxe@pxe-ubuntu:~/routem$ more extra-v4-24H.2020
+router bgp 100
+bgp_id 192.168.100.153
+neighbor 192.168.100.200 remote-as 100
+neighbor 192.168.100.200 update-source 192.168.100.152
+capability ipv4 unicast
+capability refresh
+<mark>network 1 11.1.1.0/24 54757</mark>
+aspath 1 random 5
+locpref 1 120
+metric 1 5
+<mark>network 2 51.1.1.0/23 19737</mark>
+aspath 2 random 5
+locpref 2 110
+metric 2 10
+sendall
+
+pxe@pxe-ubuntu:~/routem$ more extra-v6-24H.2020
+router bgp 152
+bgp_id 192.168.100.11
+neighbor 2001:111::200 remote-as 100
+neighbor 2001:111::200 update-source 2001:111::152
+capability ipv6 unicast
+capability refresh
+<mark>network 1 100:1:1:1/48 9867</mark>
+aspath 1 random 5
+locpref 1 120
+metric 1 5
+<mark>network 2 102:1:1:1/47 8317</mark>
+aspath 2 random 5
+locpref 2 110
+metric 2 15
+sendall
+pxe@pxe-ubuntu:~/routem</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh bgp sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0000000   RD version: 1735636
+BGP main routing table version 1735636
+BGP NSR Initial initsync version 6 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         1735636    1735636    1735636    1735636     1735636           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+192.168.100.151   0   100 1721352   12009  1735636    0    0    1d13h     790771
+192.168.100.152   0   100     163      12  1735636    0    0 00:01:28      <mark>74494</mark>
+
+RP/0/RP0/CPU0:24H-1-701#sh bgp ipv6 un sum
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 273405
+BGP main routing table version 273405
+BGP NSR Initial initsync version 6 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker          273405     273405     273405     273405      273405           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:111::151     0   100  148151   12245   273405    0    0 21:04:39      72948
+2001:111::152     0   152     110     128   273405    0    0 00:00:07      <mark>18184</mark>
+
+RP/0/RP0/CPU0:24H-1-701#sh dpa resources iproute loc 0/0/CPU0 | i /24
+ /24      500530       /25      144
+RP/0/RP0/CPU0:24H-1-701#sh dpa resources ip6route loc 0/0/CPU0 | i /48
+ /48      44876        /49      0
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
+
+**Jericho with NL eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 54881    (7 %)
+        iproute                     : 10007    (1 %)
+        ip6route                    : 44876    (6 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 549919
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 47287    (9 %)
+        iproute                     : 0        (0 %)
+        ip6route                    : 48051    (9 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#sh contr npu resources exttcamipv4 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+
+OOR Information
+    NPU-0
+        Estimated Max Entries       : 2048000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+Current Usage
+    NPU-0
+        Total In-Use                : 855743   (42 %)
+        iproute                     : 856508   (42 %)
+
+RP/0/RP0/CPU0:5501-SE-6625#</code>
+</pre>
+</div>
+
+**Jericho+ with OP eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508-2-702#sh contr npu resources exttcamipv4 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 4000000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 865438   (22 %)
+        iproute                     : 865518   (22 %)
+...
+RP/0/RP0/CPU0:5508-2-702#sh contr npu resources exttcamipv6 loc 0/0/CPU0
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2000000
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 91237    (5 %)
+        ip6route                    : 91387    (5 %)
+
+...</code>
+</pre>
+</div>
+
+**Jericho+ with Large LPM and no eTCAM**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
+HW Resource Information
+    Name                            : lem
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 554898   (71 %)
+        iproute                     : 510026   (65 %)
+        ip6route                    : 44876    (6 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+...
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lpm loc 0/0/CPU0
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 1559724
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 401492   (26 %)
+        iproute                     : 355214   (23 %)
+        ip6route                    : 46274    (3 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+...
+RP/0/RP0/CPU0:24H-1-701#</code>
+</pre>
+</div>
 
 
 
+
+5501-SE-6625
+sh contr npu resources lem loc 0/0/CPU0
+sh contr npu resources lpm loc 0/0/CPU0
+sh contr npu resources exttcamipv4 loc 0/0/CPU0
+
+5508-2-702
+sh contr npu resources exttcamipv4 loc 0/0/CPU0
+sh contr npu resources exttcamipv6 loc 0/0/CPU0
+
+24H-1-701
+sh contr npu resources lem loc 0/0/CPU0
+sh contr npu resources lpm loc 0/0/CPU0
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code></code>
+</pre>
+</div>
