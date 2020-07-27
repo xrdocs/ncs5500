@@ -9,7 +9,7 @@ tags:
   - internet
   - bgp
   - ncs5500
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS5500 and the 2020 Internet" %} 
 
