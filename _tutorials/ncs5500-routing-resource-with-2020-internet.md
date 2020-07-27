@@ -1129,8 +1129,6 @@ RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 ?
 RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale ?
   host-optimized-disable  Configure Host optimization by default
   internet-optimized      Configure Intetrnet optimized
-RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale host-optimized-disable ?
-  <cr>
 RP/0/RP0/CPU0:24H-1-701(config)#hw-module fib ipv4 scale host-optimized-disable
 In order to activate this new scale, you must manually reload the chassis/all line cards
 RP/0/RP0/CPU0:24H-1-701(config)#commit
