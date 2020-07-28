@@ -109,6 +109,8 @@ The results of this projection are the following:
 | 2028 | 1,253,420 | 46,278 | 836,530 | 42,000 | 0 | 416,890 | 4,278 | -300 | 
 | 2029 | 1,299,498 | 46,078 | 878,530 | 42,000 | 0 | 420,968 | 4,078 | -200 | 
 
+![IPv4-projection.png]({{site.baseurl}}/images/IPv4-projection.png){: .align-center}
+
 Checking other sources on the web, like this APNIC article from Geoff Huston:  
 [https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/](https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/)  
 They predict 1,079,000 routes for Jan 2025, so it matches our “model”, predicting something between 1,066,108 and 1,113,586 IPv4 prefixes between July 2024 and July 2025.
@@ -148,6 +150,8 @@ The results of this projection are the following:
 | 2027 | 275,709 | 33,868 | 2,500 | 187,452 | 27,868 | 2,500 | 88,257 | 6,000 | 0 | 
 | 2028 | 312,077 | 36,368 | 2,500 | 217,820 | 30,368 | 2,500 | 94,257 | 6,000 | 0 | 
 | 2029 | 350,945 | 38,868 | 2,500 | 250,688 | 32,868  | 2,500 | 100,257 | 6,000 | 0 | 
+
+![IPv6-projection.png]({{site.baseurl}}/images/IPv6-projection.png){: .align-center}
 
 Here again we can compare this guesstimation with Geoff’s projection  
 [https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/](https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/)  
@@ -950,11 +954,9 @@ We will cover what's happening in 2024 in the next section.
 | 2027 | 786432 | 196945 | 1388103 | 1281286 |
 | 2028 | 786432 | 227313 | 1373880 | 1333561 |
 
-![LPM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LPM-LargeLPM-hostOptDisable.png)
-{: .align-center}
+![LPM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LPM-LargeLPM-hostOptDisable.png){: .align-center}
 
-![LEM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LEM-LargeLPM-hostOptDisable.png)
-{: .align-center}
+![LEM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LEM-LargeLPM-hostOptDisable.png){: .align-center}
 
 ### Special case of the Jericho+ with Large LPM
 
