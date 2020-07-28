@@ -900,7 +900,7 @@ We continue to increase the quantity of "extra" routes step by step and we popul
 
 ![eTCAM-Jericho-NL12k.png]({{site.baseurl}}/images/eTCAM-Jericho-NL12k.png){: .align-center}
 
-Conclusion: these devices can handle the internet growth with concern or limitation.
+Conclusion: these devices can handle the internet growth with no concern or limitation.
 
 **Jericho+ w/ OP eTCAM**
 
