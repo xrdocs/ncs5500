@@ -890,6 +890,12 @@ We continue to increase the quantity of "extra" routes step by step and we popul
 | 2027 | 786432 | 197449 | 565508 | 89287 | 2048000 | 1193007 |
 | 2028 | 786432 | 227817 | 569891 | 95287 | 2048000 | 1239282 |
 
+![LPM-Jericho-NL12k.png]({{site.baseurl}}/images/LPM-Jericho-NL12k.png){: .align-center}
+
+![LEM-Jericho-NL12k.png]({{site.baseurl}}/images/LEM-Jericho-NL12k.png){: .align-center}
+
+![eTCAM-Jericho-NL12k.png]({{site.baseurl}}/images/eTCAM-Jericho-NL12k.png){: .align-center}
+
 Conclusion: these devices can handle the internet growth with concern or limitation.
 
 **Jericho+ w/ OP eTCAM**
@@ -907,6 +913,8 @@ Conclusion: these devices can handle the internet growth with concern or limitat
 | 2027 | 4M+2M | 1202702 | 275813 |
 | 2028 | 4M+2M | 1248977 | 312181 |
 
+![Jplus OP.png]({{site.baseurl}}/images/Jplus OP.png){: .align-center}
+
 Conclusion: these devices can handle the internet growth with concern or limitation.
 
 **Jericho+ with Large LPM and host-optimized (default mode)**
@@ -920,6 +928,10 @@ Conclusion: these devices can handle the internet growth with concern or limitat
 | 2023 | 786432 | 724944 | 1572299 | 446038 |
 | 2024 | 786432 | 781632 | 1570948 | 458084 |
 | 2025 | - | - | - | - |
+
+![LPM-LargeLPM-hostOptEnable.png]({{site.baseurl}}/images/LPM-LargeLPM-hostOptEnable.png){: .align-center}
+
+![LEM-LargeLPM-hostOptEnable.png]({{site.baseurl}}/images/LEM-LargeLPM-hostOptEnable.png){: .align-center}
 
 We will cover what's happening in 2024 in the next section.
 
@@ -937,6 +949,12 @@ We will cover what's happening in 2024 in the next section.
 | 2026 | 786432 | 169077 | 1400564 | 1228726 |
 | 2027 | 786432 | 196945 | 1388103 | 1281286 |
 | 2028 | 786432 | 227313 | 1373880 | 1333561 |
+
+![LPM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LPM-LargeLPM-hostOptDisable.png)
+{: .align-center}
+
+![LEM-LargeLPM-hostOptDisable.png]({{site.baseurl}}/images/LEM-LargeLPM-hostOptDisable.png)
+{: .align-center}
 
 ### Special case of the Jericho+ with Large LPM
 
