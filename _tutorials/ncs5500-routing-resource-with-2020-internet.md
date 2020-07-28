@@ -88,10 +88,15 @@ Let’s focus on the IPv4 part first, and more particularly to the /24 populatio
 The “Growth" is showing the difference between two sub-sequent years and the "Growth Increase" shows the difference between two sub-sequent growth rates. The second number should help identifying a linear or an algorithmic progression.
 
 IPv4/24 growth trend: it doesn’t seem we have a clear trend here, between the different years we see various numbers scattered from -6,845 to +9,938.  
+
 Conclusion: we will consider it’s a linear growth and we will estimate the number of new IPv4/24 per year: +42,000 prefixes.
+{: .notice—info}
+
 
 Non-IPv4 growth: except in 2017, it shows the growth is progressively slowing down.  
+
 Conclusion: here it will be a totally arbitrary decision to continue this trend with lower and lower numbers (starting from -2,000 in 2021 to -200 in 2029).
+{: .notice—info}
 
 The results of this projection are the following:
 
@@ -115,7 +120,7 @@ Checking other sources on the web, like this APNIC article from Geoff Huston:
 [https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/](https://blog.apnic.net/2020/01/14/bgp-in-2019-the-bgp-table/)  
 They predict 1,079,000 routes for Jan 2025, so it matches our “model”, predicting something between 1,066,108 and 1,113,586 IPv4 prefixes between July 2024 and July 2025.
 
-Let’s study the IPv6 internet table evolution. Due to the smallest size of this table, it’s more hazardous to create projection, but it won’t prevent me from making arbitrary asumptions to build my model ;)
+Let’s study the IPv6 internet table evolution. Due to the smallest size of this table, it’s more hazardous to create a projection, but it won’t prevent me from making arbitrary asumptions to build my model ;)
 
 | Year | IPv6 total | Growth | Growth Increase | v6/48 | Growth | Growth Increase | non v6/48 | Growth | Growth Increase | 
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -130,10 +135,14 @@ Let’s study the IPv6 internet table evolution. Due to the smallest size of thi
 More particularly, we will pay attention to the /48 prefixes and their progression.
 
 IPv6/48 growth trend: The "growth increase" varies from +458 to +2,469 during the last 5 years.  
+
 Conclusion: Let’s take the highest number for the projection, rounded to +2500.
+{: .notice—info}
 
 Non-IPv6/48 growth trend: The “growth” varies from 2,997 to 9,425 but with a majority of the years around 6,000.  
+
 Conclusion: For this one, we will take a totaly arbitrary growth of 6,000 new IPv6 prefixes (non /48) per year.
+{: .notice—info}
 
 The results of this projection are the following:
 
@@ -221,9 +230,9 @@ Case 2: user changed to host-optimized-disable
 
 ## Lab and Test
 
-In this section, we will inject a real table in the routers and collect utilization statistics for the different resources (LEM, LPM and potentially external TCAM). Then, we will inject random v4/24, v6/48 and other routes following the estimated progression described above, and we will see the impact on resources, year after year.  
+In this section, we will inject a real table in the routers and collect utilization statistics for the different resources (LEM, LPM and potentially external TCAM). Then, we will inject v4/24s, v6/48s and other routes following the estimated progression described above, and we will see the impact on resources, year after year.  
 
-It certainly very fun (is it?) but we want to be able to extract valuable and actionable information out of these tests. For example, on the hw-module profile to use in the future depending on the ASIC type.
+It certainly very fun (is it?) but the real purpose of this exercice is to extract valuable and actionable information out of these tests. For example, what hw-module profile we should use in the future depending on the ASIC type.
 
 ### Starting point
 
@@ -421,7 +430,7 @@ RP/0/RP0/CPU0:5508-2-702#</code>
 </pre>
 </div>
 
-That places us somewhere between 2018 and 2019 on the estimation with built from the potaroo info. We will start from 2019 and calculate what needs to be advertised on top of our full views.
+That places us somewhere between 2018 and 2019 on the estimation we built from the potaroo info.  We will start from 2019 and calculate what needs to be advertised on top of our full views.
 
 A simple substraction will tell us how many routes "extra" we need to advertise to simulate the growth along the years:
 
@@ -438,8 +447,7 @@ A simple substraction will tell us how many routes "extra" we need to advertise 
 | 2028 | 836,530 | 390,757 | 416,890 | 71,883 | 217,820 | 182,811 | 94,257 | 56,317 |
 | 2029 | 878,530 | 432,757 | 420,968 | 75,961 | 250,688 | 215,679 | 100,257 | 62,317 |
 
-
-At the starting point we use:
+At the starting point we have:
 
 **Jericho with NL eTCAM**
 
@@ -665,6 +673,8 @@ pxe@pxe-ubuntu:~/routem</code>
 </pre>
 </div>
 
+And on the IOS XR router:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>RP/0/RP0/CPU0:24H-1-701#sh bgp sum
@@ -873,11 +883,9 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
 
-
-
 ### Year 2021 to year 2029
 
-We continue to increase the quantity of "extra" routes step by step and we populate the following charts.
+We continue to increase the amount of "extra" routes step by step and we gather the results in following charts.
 
 **Jericho w/ NL12K eTCAM**
 
@@ -901,6 +909,7 @@ We continue to increase the quantity of "extra" routes step by step and we popul
 ![eTCAM-Jericho-NL12k.png]({{site.baseurl}}/images/eTCAM-Jericho-NL12k.png){: .align-center}
 
 Conclusion: these devices can handle the internet growth with no concern or limitation.
+{: .notice—info}
 
 **Jericho+ w/ OP eTCAM**
 
@@ -919,7 +928,8 @@ Conclusion: these devices can handle the internet growth with no concern or limi
 
 ![Jplus OP.png]({{site.baseurl}}/images/Jplus OP.png){: .align-center}
 
-Conclusion: these devices can handle the internet growth with concern or limitation.
+Conclusion: these devices can handle the internet growth with zero concern or limitation, we have a lot of available space in the OP eTCAM.
+{: .notice—info}
 
 **Jericho+ with Large LPM and host-optimized (default mode)**
 
@@ -960,7 +970,7 @@ We will cover what's happening in 2024 in the next section.
 
 ### Special case of the Jericho+ with Large LPM
 
-When simulating year 2024, we hit the first bottleneck: the J+ with large LPM systems:
+When simulating year 2024, we hit the first bottleneck with the J+ with large LPM systems:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1134,7 +1144,7 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </div>
 
 Starting from this point, the LEM is saturated while LPM is only used 29%.  
-It would be profitable to disable the default "host-optimized" mode to move the IPv4/24 routes in LPM.
+It would be profitable to disable the default "host-optimized" mode. With this configuration (requiring a reload of the product), we store the IPv4/24 routes in LPM, which is the largest memory of the system.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1156,6 +1166,58 @@ RP/0/RP0/CPU0:24H-1-701(config)#end
 RP/0/RP0/CPU0:24H-1-701#</code>
 </pre>
 </div>
+
+After reloading the router, we verify LEM and LPM:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lem loc 0/0/CPU0
+
+HW Resource Information
+    Name                            : lem
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 786432
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 120841   (15 %)
+        iproute                     : 9496     (1 %)
+        ip6route                    : 111348   (14 %)
+        mplslabel                   : 0        (0 %)
+        l2brmac                     : 0        (0 %)
+
+...
+RP/0/RP0/CPU0:24H-1-701#sh contr npu resources lp
+
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho Plus
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 1423107
+        Red Threshold               : 95
+        Yellow Threshold            : 80
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 1123656  (79 %)
+        iproute                     : 1053378  (74 %)
+        ip6route                    : 70275    (5 %)
+        ipmcroute                   : 1        (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)</code>
+</pre>
+</div>
+
+LEM is now very lightly used (15%) and we will use massively the LPM for most of our prefixes. That's why it's now loaded at 79% but keep in mind it's the largest memory of the system.
 
 We continue advertising more and more routes and in 2028, we are getting very close to the limit for this chipset:
   
@@ -1253,6 +1315,7 @@ RP/0/RP0/CPU0:24H-1-701#</code>
 </div>
 
 Conclusion: it's advisable to disable the default profile "host-optimized", it will extend significatively the router capability when used with full internet view.
+{: .notice—info}
   
 # Conclusion
   
@@ -1263,4 +1326,4 @@ In the lab, we simulated internet routing from 2020 to 2028 and we examined each
 The systems with external TCAM are clearly showing a ton of free space for internet, even in 8 years.  
 The systems based on Jericho+ with large LPM can also be used for internet peering, but it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverage the large size of the LPM and offer 4+ more years of growth.
 
-Next episode: Jericho2.
+Next episode: Jericho2. Stay tuned.
