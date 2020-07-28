@@ -1257,10 +1257,10 @@ Conclusion: it's advisable to disable the default profile "host-optimized", it w
 # Conclusion
   
 In this post, we created a prevision model for the internet size progression.  
-No doubt it can be refined. Particularly considering that we only considered the "non-IPv4/24 routes" and "non-IPv6/48 routes" as a block. Also because we advertised only subsequent /23s and /47s to create the "extra prefixes".  
-So, it's important to take all this with a grain of salt. Also, if you are aware of more precise prediction models (with an evolution for individual prefix length), please let us know.
-In the lab, we simulated internet routing from 2020 to 2028 and we examined the use of each memory (LEM, LPM and when present, eTCAM).  
-The systems with external TCAM are clearly showing a ton of free space for internet and nothing specific should be done with them.  
-The systems based on Jericho+ with large LPM can also be used for internet peering, but it's interesting to notice it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverage the large size of the LPM and offer 4+ more years of growth.
-  
+No doubt it can be refined. For example, we only considered the "non-IPv4/24 routes" and "non-IPv6/48 routes" as a block. Also because we advertised only subsequent /23s and /47s to create the "extra prefixes". Much better can be done here (hopefully by someone else ;)).  
+Take all this with a grain of salt. Also, if you are aware of more precise prediction models (with an evolution for individual prefix length), please let us know.
+In the lab, we simulated internet routing from 2020 to 2028 and we examined each memory consumption (LEM, LPM and when present, eTCAM).  
+The systems with external TCAM are clearly showing a ton of free space for internet, even in 8 years.  
+The systems based on Jericho+ with large LPM can also be used for internet peering, but it may be required to disable the "host-optimized" mode in a couple of years (around 2024) to leverage the large size of the LPM and offer 4+ more years of growth.
 
+Next episode: Jericho2.
