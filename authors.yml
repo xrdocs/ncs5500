@@ -305,3 +305,30 @@ Vincent Ng:
   email       : "vinng@cisco.com"
   bio         : "Technical Marketing Engineer, Cisco."
   avatar      : "vinng.jpg"
+
+Sonia Ben Ayed:
+  name        : "Sonia Ben Ayed"
+  email       : "sbenayed@cisco.com"
+  bio         : "Collge Intern, Cisco."
+  avatar      : "sbenayed.jpg"
+  
+  
+Frederic Cuiller:
+  name        : "Frederic Cuiller"
+  email       : "fcuiller@cisco.com"
+  bio         : "Architect, Cisco."
+  avatar      : "fcuiller.jpg"
+ 
+Aleksandar Vidakovic:
+  name        : "Aleksandar Vidakovic"
+  email       : "avidakov@cisco.com"
+  bio         : "Tech Lead, Cisco."
+  avatar      : "avidakov.jpg"
+  
+  
+Nikolay Karpyshev:
+  name        : "Nikolay Karpyshev"
+  email       : "nkarpysh@cisco.com"
+  bio         : "Software Engineer, Cisco."
+  avatar      : "nkarpysh.jpg"
+  
