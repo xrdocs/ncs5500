@@ -450,6 +450,16 @@ _External documentation_:
 
 ### bw-threshold
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508-2-702(config)#hw-module profile bw-threshold ?
+  WORD  value in percent: 0-100,in increments of 10
+RP/0/RP0/CPU0:5508-2-702(config)#hw-module profile bw-threshold 20 ?
+  cr
+RP/0/RP0/CPU0:5508-2-702(config)</code>
+</pre>
+</div>
+
 ![02.png]({{site.baseurl}}/images/02.png){: .align-center}
 
 This feature allows the NPU to monitor of the number of fabric interfaces "up".  
