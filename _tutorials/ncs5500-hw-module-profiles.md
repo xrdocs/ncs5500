@@ -16,6 +16,8 @@ position: top
 | 2020-Feb-14 | Document Creation |
 | 2020-Mar-12 | Correction of the max-classmap-size description |
 | 2020-Apr-08 | Correction: HQoS not needed for ingress policer on sub-if |
+| 2020-Jul-31 | Add: hw-mod profile bw-threshold |
+
 
 You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
@@ -445,6 +447,20 @@ Note: "hw-module profile qos max-trunks <256/512/1024>" is replaced by "hw-modul
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html#wp3930832296](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html#wp3930832296)
+
+### bw-threshold
+
+![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+This feature allows the NPU to monitor of the number of fabric interfaces "up".  
+When the fabric bandwidth falls below the configured bandwidth threshold on any one ASIC, the front panel interfaces on the line card are forced down, triggering a network re-convergence (through routing protocols). If we cross the threshold in the other direction, the front panel interfaces are brought back up again.  
+The "bring down threshold" is kept 2 fabric links per ASIC below the "bring up threshold".
+
+This algorithm does not apply to fixed systems where the fabric links are not connected.  
+
+Check "Set Fabric Bandwidth Threshold" in the installation guide:  
+[https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5500-hardware-installation-guide/b-ncs5500-hardware-installation-guide_chapter_011.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5500-hardware-installation-guide/b-ncs5500-hardware-installation-guide_chapter_011.html)
+
 
 ### flowspec
 
