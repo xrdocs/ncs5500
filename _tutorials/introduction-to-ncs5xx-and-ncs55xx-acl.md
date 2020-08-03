@@ -17,7 +17,7 @@ position: hidden
 
 ## Introduction
 
-This documents aims to introduce the ACL support on NCS500 and NCS product family. It will cover the overview of ACL, ACL Protcols, Types and Support Matrix. Later documents will deepdive into the ACL features and their use cases.
+This documents aims to introduce the ACL support on NCS5xx and NCS55xx product family. It will cover the overview of ACL, ACL Protcols, Types and Support Matrix. We will have series of documents to deep dive into ACL features.
 
 ## Overview
 
@@ -96,30 +96,30 @@ Note:
 | L2        | Egress         | All interfaces                                          | No      |
 
 
-This document gives the release wise feature matrix for important ACL Features 
+## Feature matrix for important ACL Features 
 
 
-| Feature                                                   | Direction      | Details                                                          | Release                                              |
-|-----------------------------------------------------------|----------------|------------------------------------------------------------------|------------------------------------------------------|
-| IPv4 ACL                                                  | Ingress        | IPv4 Ingress ACL                                                 | 6.0.1                                                |
-| IPv6 ACL                                                  | Ingress        | IPv4 Ingress ACL                                                 | 6.0.1                                                |
-| IPV4 ACL                                                  | Egress         | IPv4 Egress ACL                                                  | 6.1.1                                                |
-| IPv6 ACL                                                  | Egress         | IPv6 Egress ACL                                                  | 6.3.2                                                |
-| L2 ACL                                                    | Ingress        | L2 ACL                                                           | 6.1.1                                                |
-| Tunnel v4                                                 | Ingress        | Tunnel (IPv4oIPv4, IPv4oIPv4GRE, IPv6oIPv4GRE)                   | Full support from 7.0.2 Before 7.0.2 partial support |
-| ABF V4/V6                                                 | Ingress        | ACL based forwarding                                             | 6.1.1                                                |
-| ABF VRF Aware                                             | Ingress        | IPv4 ABF with VRF + IPv4/v6 address                              | 6.1.1                                                |
-| ABF Object Tracking V4/V6                                 | Ingress        | IPv4/IPv6 ABF with object-tracking                               | 6.3.15                                               |
-| ABF v4/v6 NH over physical, subint, bundle, bundle subint | Ingress        | IPv4/IPv6 NH(s) reachable over physical interface                | 6.1.1                                                |
-| ABF v4/v6 NH over tunnel                                  | Ingress        | IPv4/IPv6 NH(s) over tunnels                                     | 6.1.2  v4 6.3.15 v6                                  |
-| Permit Stats                                              | Ingress        | Permit Statistics                                                | 6.2.1                                                |
-| UDK V4/V6                                                 | Ingress        | User Defined TCAM Key                                            | 6.1.3                                                |
-| UDF V4/V6                                                 | Ingress        | User Defined Field                                               | 6.1.3                                                |
-| IPv4/v6/L2                                                | Ingress/Egress | ACL MIB                                                          | 6.2.1                                                |
-| Hybrid/Compressed ACL V4/V6                               | Ingress        | Support for v4/v6 ingress ACL compression Level 3 only           | 6.2.1                                                |
-| TTL Support V4/V6                                         | Ingress        | TTL match and TTL set support over ACL                           | 6.3.15                                               |
-| Fragmentation Permit/Deny ACE Support                     | Ingress        | Fragmentation Permit/Deny ACE Support                            | 6.3.2                                                |
-| Span V4/V6                                                | Ingress        | SPAN w/ACL-based filtering to choose which traffic gets mirrored | 6.1.3                                                |
+| Feature                                                   | Direction      | Details                                                          |
+|-----------------------------------------------------------|----------------|-------------------------------------|
+| IPv4 ACL                                                  | Ingress        | IPv4 Ingress ACL                                                 |
+| IPv6 ACL                                                  | Ingress        | IPv4 Ingress ACL                                                 |
+| IPV4 ACL                                                  | Egress         | IPv4 Egress ACL                                                  | 
+| IPv6 ACL                                                  | Egress         | IPv6 Egress ACL                                                  |
+| L2 ACL                                                    | Ingress        | L2 ACL                                                           |
+| Tunnel v4                                                 | Ingress        | Tunnel (IPv4oIPv4, IPv4oIPv4GRE, IPv6oIPv4GRE) |
+| ABF V4/V6                                                 | Ingress        | ACL based forwarding                                             | 
+| ABF VRF Aware                                             | Ingress        | IPv4 ABF with VRF + IPv4/v6 address                              |
+| ABF Object Tracking V4/V6                                 | Ingress        | IPv4/IPv6 ABF with object-tracking                               | 
+| ABF v4/v6 NH over physical, subint, bundle, bundle subint | Ingress        | IPv4/IPv6 NH(s) reachable over physical interface                | 
+| ABF v4/v6 NH over tunnel                                  | Ingress        | IPv4/IPv6 NH(s) over tunnels                                     |
+| Permit Stats                                              | Ingress        | Permit Statistics                                                |
+| UDK V4/V6                                                 | Ingress        | User Defined TCAM Key                                            |
+| UDF V4/V6                                                 | Ingress        | User Defined Field                                               | 
+| IPv4/v6/L2                                                | Ingress/Egress | ACL MIB                                                          |          
+| Hybrid/Compressed ACL V4/V6                               | Ingress        | Support for v4/v6 ingress ACL compression Level 3 only           |
+| TTL Support V4/V6                                         | Ingress        | TTL match and TTL set support over ACL                           |
+| Fragmentation Permit/Deny ACE Support                     | Ingress        | Fragmentation Permit/Deny ACE Support                            |
+| Span V4/V6                                                | Ingress        | SPAN w/ACL-based filtering to choose which traffic gets mirrored |
 
 
 ## ACL Specific hw-module profiles
@@ -225,6 +225,13 @@ This document gives the release wise feature matrix for important ACL Features
 - Not using UDK to enable interface based option
 
 
+## Reference
+
+- [Security ACLs NCS5500](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Security ACLs NCS5500")
+- [CCO Documentation](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/71x/b-ip-addresses-cg-ncs5500-71x/b-ip-addresses-cg-ncs5500-71x_chapter_0111.html "CCO Documentation")
+
 ## Summary
+
+
 
 
