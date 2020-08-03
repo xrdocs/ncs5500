@@ -232,6 +232,8 @@ Note:
 
 ## Summary
 
+This document covers the overview of support matrix for the ACL features on NCS5xx and NCS55xx. For high level feature understanding please follow the first link in reference section. Detailed feature implementation will be covered in upcoming documents. Stay tuned !!!
+
 
 
 
