@@ -19,21 +19,21 @@ tags:
 
 ## Introduction
 
-Access Control Lists have been implemented for a long time now and has been integral part of data plane security for several organizations.
+Access Control Lists have been implemented for a long time now and has been integral part of data plane security for almost every organization.
 
 ![Screenshot 2020-08-04 at 11.03.21 AM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 11.03.21 AM.png)
 
-Though everyone would be aware of what an access control list is, I would like to brush up some basics before deepdiving into complex functionalities
+Though everyone would be aware of what an access control list is, I would like to brush up some basics before deepdiving into complex functionalities.
 
-ACL’s can be considered as a ordered list of conditions used to test the network traffic that traverses through the router interfaces. On the basis of the defined lists, the router decides which packets to accept and which to drop. ACL’s help in managing the traffic and secure the acsess to and from the network.
+ACL’s can be considered as an ordered list of conditions used to test the network traffic that traverses through the router interfaces. On the basis of the defined lists, the router decides which packets to accept and which to drop. ACL’s help in managing the traffic and secure the acsess to and from the network.
 
 ACL’s can make permit/deny decisions based on source/destination address, source/destination ports, L3 protocols, L4 port numbers and many others.
 
 ## Overview
 
-Secuirty ACL's introduction and the feature support is covered at high level in the [Link](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Link")
+Security ACL's introduction, feature support and statistics is covered at high level in the [Link](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Link")
 
-In this document, we will deepdive how the NCS55xx and NCS5xx program the packet length in the TCAM and use to filter the packets.   
+In this document, we will deepdive how the NCS55xx and NCS5xx program the packet length in the TCAM and use to filter the packets. The main use case of this matching criteria is to identify malicious packet ranges entering the network and denying them.  
 
 ACL’s on NCS55xx and NCS5xx, uses the Programmable Mapping and Filtering (PMF) functionality and TCAM (internal/exertnal) in both the Ingress Receive Packet Processing (IRPP) blocks and Egress Receive Packet Processing (ERPP) blocks. The line cards in these platforms are based on the Broadcom family of chipsets. These chipsets uses a pipeline architecture which has dedicated hardware blocks for performing various functions.
 
@@ -254,7 +254,7 @@ Similarly we have to take into consideration the bits in the mask with 0's and a
 
 ## Summary
 
-Hope this document helps to understand the matching criteria on the basis of packet length. This can be particularly useful in mitigating packets with sizes which are known for malicious behaviour. Those can be detected and prevented from creating data plane security. 
+Hope this document helps to understand the matching criteria on the basis of packet length. This can be particularly useful in mitigating packets with sizes which are known for malicious behaviour. Those can be detected and prevented from causing data plane security issues. 
 
 Stay tuned for the next matching criteria and its interpretation at the hardware level.
 
