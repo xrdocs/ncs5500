@@ -126,6 +126,34 @@ After 6.5.2 and later the packet length is not supported by default TCAM key and
   
 ![Screenshot 2020-08-04 at 12.24.17 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 12.24.17 PM.png)
 
+The above output shows the TCAM programming of the packet length configured in Hexadecimal
+
+| Hexadecimal | Decimal |
+|-------------|---------|
+| 320         | 800     |
+| 3E8         | 1000    |
+| 5DC         | 1500    |
+
+
+**Traffic Test**
+
+Below is the traffic stream which is used. It has a packet length of 822 bytes. (800 bytes plus 18 bytes of the Ethernet header + 4 bytes VLAN header)
+
+The traffic is matching the first ACE with packet length of 800 bytes. As its mentioned earlier that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. In real production network the ACE has to be configured accordingly so we can permit or deny legitimate packets. 
+
+Permit ACL stats are not enabled by default. We need to enable the below hw-module profile to enable the same 
+
+```
+hw-module profile stats acl-permit
+
+```
+
+This can be done by configuring range command. It will be explained in the later section
+
+
+
+
+
 
 
 
