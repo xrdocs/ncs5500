@@ -33,13 +33,13 @@ ACL’s can make permit/deny decisions based on source/destination address, sour
 
 Security ACL's introduction, feature support and statistics is covered at high level in the [Link](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Link")
 
-In this document, we will deepdive how the NCS55xx and NCS5xx program the packet length in the TCAM and use to filter the packets. The main use case of this matching criteria is to identify malicious packet ranges entering the network and denying them.  
+In this document, we will deepdive how the NCS55xx and NCS5xx program the packet length in the TCAM and use it to filter the packets. The main use case of this matching criteria is to identify malicious packet ranges entering the network and denying them.  
 
 ACL’s on NCS55xx and NCS5xx, uses the Programmable Mapping and Filtering (PMF) functionality and TCAM (internal/exertnal) in both the Ingress Receive Packet Processing (IRPP) blocks and Egress Receive Packet Processing (ERPP) blocks. The line cards in these platforms are based on the Broadcom family of chipsets. These chipsets uses a pipeline architecture which has dedicated hardware blocks for performing various functions.
 
 ACL’s contains one or more ACEs which are used to match packets and perform an action on those packets. Typical action of the ACE is to either Permit or Deny. The TCAM is programmed with tables, may be like a database on which the match criteria and action criteria are performed.
 
-In hardware has TCAM databases that are unique to each feature. For ACL, we have further defined unique databases based on these fields:
+In hardware, we databases that are unique to each feature. For ACL, we have further defined unique databases based on these fields:
 
   - Protocol (IPv4, IPv6, L2)
   - Direction (ingress/egress)
@@ -136,15 +136,21 @@ The above output shows the TCAM programming of the packet length configured in H
 | 5DC         | 1500    |
 
 
+
 **Traffic Test**
 
 Below is the traffic stream which is used. It has a packet length of 822 bytes. (800 bytes plus 18 bytes of the Ethernet header + 4 bytes VLAN header)
 
 ![Packetview.png]({{site.baseurl}}/images/Packetview.png)
 
-The traffic is matching the first ACE with packet length of 800 bytes. As its mentioned earlier that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. In real production network, the ACE has to be configured accordingly so we can permit or deny legitimate packets. This can be done by configuring range command. It will be explained in the later section
+  - The traffic is matching the first ACE with packet length of 800 bytes. 
+  - As its mentioned earlier that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. 
+  - In real production network, the ACE has to be configured accordingly so we can permit or deny legitimate packets. 
+  - This can be done by configuring range command. It will be explained in the later section
+
 
 ![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
+
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -160,7 +166,8 @@ RP/0/RP0/CPU0:N55-24#
 </pre>
 </div>
 
-Permit ACL stats are not enabled by default. We need to enable the below hw-module profile to enable the same 
+
+Note: Permit ACL stats are not enabled by default. We need to configure the below hw-module profile to enable the same 
 
 ```
 hw-module profile stats acl-permit
@@ -171,8 +178,8 @@ hw-module profile stats acl-permit
 
 **Packets doesnt match any ACE resulting in traffic drop**
 
-Modified the frame size to 800 and could see the traffic is getting dropped and it doesnt match any of the ACE's 
-For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes
+  - Modified the frame size to 800 and could see the traffic is getting dropped and it doesnt match any of the ACE's 
+  - For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes
 
 ![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
 
