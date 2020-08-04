@@ -245,7 +245,7 @@ Similarly we have to take into consideration the bits in the mask with 0's and a
   - The IPv6 header is really not a fixed size, because there can be one or more extension headers.  
   - Currently, the hardware does not take this into consideration and simply assumes the IPv6 header is a fixed 40 bytes.
   - We can similarly apply a IPv6 ACL and check the programming using the same commands.
-  - We will dedicate the a separate post for IPv6 Extension Header
+  - _We will dedicate the a separate post for IPv6 Extension Header_
 
 ## References
 
