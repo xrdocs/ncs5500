@@ -25,7 +25,7 @@ Access Control Lists have been implemented for a long time now and has been inte
 
 Though everyone would be aware of what an access control list is, I would like to brush up some basics before deepdiving into complex functionalities.
 
-ACL’s can be considered as an ordered list of conditions used to test the network traffic that traverses through the router interfaces. On the basis of the defined lists, the router decides which packets to accept and which to drop. ACL’s help in managing the traffic and secure the acsess to and from the network.
+ACL’s can be considered as an ordered list of conditions used to test the network traffic that traverses through the router interfaces. On the basis of the defined lists, the router decides which packets to accept and which to drop. ACL’s help in managing the traffic and secure the access to and from the network.
 
 ACL’s can make permit/deny decisions based on source/destination address, source/destination ports, L3 protocols, L4 port numbers and many others.
 
