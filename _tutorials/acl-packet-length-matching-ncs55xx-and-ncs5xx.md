@@ -130,14 +130,17 @@ hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-po
 
 Other show commands are extensively covered in the [Link](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Link")
 
-**Hardware or TCAM programming of the ACL**
+### Hardware or TCAM programming of the ACL
 
-![Screenshot 2020-08-04 at 12.17.34 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 12.17.34 PM.png)
+![Screenshot 2020-08-05 at 2.44.28 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 2.44.28 PM.png)
 
-![Screenshot 2020-08-04 at 12.18.14 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 12.18.14 PM.png)
+![Screenshot 2020-08-05 at 2.46.09 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 2.46.09 PM.png)
+
 
   - The above 2 output shows us that the IPv4 L3 ACL is programmed and a Database ID is created for it.
   - NPU details can be retrieved dedicated to interface where the ACL is applied
+  - We can see the bank_ID with the entry size as 320 bits
+  - For more information on memory banks please [Refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Refer")
   - This data/values will help us in understanding the values configured in the hardware.
   
 ![Screenshot 2020-08-04 at 12.24.17 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 12.24.17 PM.png)
@@ -152,19 +155,21 @@ The above output shows the TCAM programming of the packet length configured in H
 
 
 
-**Traffic Test**
+### Traffic Tests
 
-Below is the traffic stream which is used. It has a packet length of 822 bytes. (800 bytes plus 18 bytes of the Ethernet header + 4 bytes VLAN header)
+  - Below is the traffic stream which is used. 
+  - It has a packet length of 822 bytes. (800 bytes plus 18 bytes of the Ethernet header + 4 bytes VLAN header)
+  
 
 ![Packetview.png]({{site.baseurl}}/images/Packetview.png)
 
+![Traffic Flow.png]({{site.baseurl}}/images/Traffic Flow.png)
+
+
   - The traffic is matching the first ACE with packet length of 800 bytes. 
-  - As its mentioned earlier that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. 
+  - As mentioned earlier, that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. 
   - In real production network, the ACE has to be configured accordingly so we can permit or deny legitimate packets. 
   - This can be done by configuring range command. It will be explained in the later section
-
-
-![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
 
 
 <div class="highlighter-rouge">
@@ -189,11 +194,11 @@ hw-module profile stats acl-permit
 
 ```
 
-**Changing the frame size to 800: traffic drops**
+### Changing the frame size 
 
-**Packets doesnt match any ACE resulting in traffic drop**
-
-  - Modified the frame size to 800 and could see the traffic is getting dropped and it doesnt match any of the ACE's 
+  - Changing the packet length to 800: traffic drops
+  - Packets doesnt match any ACE resulting in traffic drop
+  - Modifying the frame size to 800 doesnt match any of the ACE's 
   - For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes
 
 ![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
@@ -211,7 +216,9 @@ RP/0/RP0/CPU0:N55-24#
 
 ## Packet Length range 
 
-For scenarios, where we are not sure on the absolute packet length, we have the option to configure range
+  - For scenarios, where we are not sure on the absolute packet length, we have the option to configure range
+  - In the below ACL, we have confgured 2 ACE's
+  - Sequence 10 is a range and sequence 20 is an absolute value
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -222,6 +229,13 @@ ipv4 access-list test-acl-v4-pkt-length
 </code>
 </pre>
 </div>
+
+![Screenshot 2020-08-05 at 3.53.42 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 3.53.42 PM.png)
+
+  - We can see that with range command only 8 (7+ 1 internal usage) entries are consumed in the TCAM
+  - If we configure different values that would utilize one entry each
+
+![Screenshot 2020-08-05 at 4.05.30 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.05.30 PM.png)
 
 ![Screenshot 2020-08-04 at 1.47.37 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 1.47.37 PM.png)
 
@@ -240,11 +254,8 @@ ipv4 access-list test-acl-v4-pkt-length
 
 - When configuring the range command the algorithm takes into account the mask as well the value.
 - For example, 3E0/FFF8 has 3E0 as value and FFF8 is mask.
-- Accordingly it programs all the values in the given range into the TCAM.
-- The ACL has 2 ACE's
-- ACE 10 is configuring the range and ACE 20 is configuring the absolute value of 1500
-
-- Let us understand, how the range is configured in the TCAM w.r.t value and mask and how to interpret it
+- Accordingly it programs all the values in batches of entries for the given range into the TCAM.
+- Let us understand, how the range is configured in the TCAM w.r.t value/mask pair and how to interpret it
 
 ```
 3E0/FFF8
@@ -257,7 +268,7 @@ So we can program 2^3 = 8 values. Which means 3E0 to 3E7
 3E7 = 999
 
 ```
-Hence, the key here is the bits in the mask with 0's, according to which the values are programmed in the TCAM
+  - Hence, the key here is the bits in the mask with 0's, according to which the values are programmed in the TCAM
 
 
 
@@ -272,7 +283,11 @@ Hence, the key here is the bits in the mask with 0's, according to which the val
   - We can similarly apply a IPv6 ACL and check the programming using the same commands.
   - _We will dedicate the a separate post for IPv6 Extension Header_
 
+
 ## Memory Usage
+
+  - As we have seen, above for 
+
 
 
 ## References
