@@ -6,7 +6,7 @@ author: Tejas Lad
 excerpt: >-
   This document describes the implementation of ACL packet length matching on
   NCS55xx and NCS5xx
-position: top
+position: hidden
 tags:
   - cisco
   - NCS5500
@@ -264,9 +264,3 @@ Similarly we have to take into consideration the bits in the mask with 0's and a
 Hope this document helps to understand the matching criteria on the basis of packet length. This can be particularly useful in mitigating packets with sizes which are known for malicious behaviour. Those can be detected and prevented from causing data plane security issues. 
 
 Stay tuned for the next matching criteria and its interpretation at the hardware level.
-
-
-
-
-
-
