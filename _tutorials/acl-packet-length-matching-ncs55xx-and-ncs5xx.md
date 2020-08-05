@@ -284,10 +284,19 @@ So we can program 2^3 = 8 values. Which means 3E0 to 3E7
   - _We will dedicate the a separate post for IPv6 Extension Header_
 
 
-## Memory Usage
+## Optimizing Memory usage
 
-  - As we have seen, above for 
+  - Sometimes in real production networks, we are not sure what packet length we will receive on the interface. Whether it have a VLAN header or not, or what will be the size of the packet.
+  - In this scenarios, it is recommended to use range option
+  - This will help in optimum resource utilization with lesser TCAM entries
+  - For example, if we want to permit packets only with length 800 to 810 bytes while denying others.
+  - This will consume 13 entries in the TCAM
+  
+![Screenshot 2020-08-05 at 4.35.02 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.35.02 PM.png)
 
+  - Instead of using the individual ace's if we use range option, we will use only 5 entries
+  
+![Screenshot 2020-08-05 at 4.40.14 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.40.14 PM.png)
 
 
 ## References
@@ -297,6 +306,8 @@ So we can program 2^3 = 8 values. Which means 3E0 to 3E7
 
 ## Summary
 
-Hope this document helps to understand the matching criteria on the basis of packet length. This can be particularly useful in mitigating packets with sizes which are known for malicious behaviour. Those can be detected and prevented from causing data plane security issues. 
+Hope this document helps to understand the matching criteria on the basis of packet length. This can be particularly useful in mitigating packets with sizes which are known for malicious behaviour. Those can be detected and prevented from causing data plane security issues.
+
+We also saw how to utilize the internal tcam resources optimally by using range command. This is particularly useful when we have many ACE's in traditional ACL's. Configuring higher or lower packet length doesnt cause the TCAM entries to increase.
 
 Stay tuned for the next matching criteria and its interpretation at the hardware level.
