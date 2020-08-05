@@ -59,12 +59,18 @@ Note: We will have dedicated posts for explaining each matching criterias.
 
 ## Header Definition - IPv4
 
-  - In NCS55xx and NCS5xx, when we configure an ACE through CLI, the total IP packet includes only IPv4 header 
-  - It does not include any L2 headers, including ethernet/vlan.  
-  - So when matching the packets on the router, this needs to be taken into consideration.
-  - Let us see an example of ACL configuration and see the TCAM programming and match the same via sending traffic
+![Screenshot 2020-08-05 at 1.48.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 1.48.26 PM.png)
 
-**We have different criterias for the matching** 
+  - In NCS55xx and NCS5xx, when we configure an ACE through CLI, the total IP packet includes only IPv4 header 
+  - So if you consider the above figure, only IP payload is taken into the consideration when you define the packet length in an ACE.
+  - It does not include any L2 headers, including ethernet/vlan. 
+  - So when matching the packets on the router, the layer 2 headers needs to be taken into consideration and the packet length value should be configured accordingly. 
+  - We will see this with an example in later section.
+  
+
+### Packet matching criterias
+
+We have different criterias for the matching
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -80,7 +86,9 @@ RP/0/RP0/CPU0:N55-24(config-ipv4-acl)#40 permit ipv4 any any packet-length
 </pre>
 </div>
 
-**Lets configure a simple ACL for matching packet length and attaching it to the interface**
+### ACL configuration
+
+Lets us configure a simple ACL for matching packet length and attaching it to the interface
 
 ```
 RP/0/RP0/CPU0:N55-24#show access-lists ipv4 test-acl-v4-pkt-length 
@@ -90,7 +98,11 @@ ipv4 access-list test-acl-v4-pkt-length
  20 permit ipv4 any any packet-length eq 1000
  30 permit ipv4 any any packet-length eq 1500
 RP/0/RP0/CPU0:N55-24#
+```
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:N55-24#show running-config interface tenGigE 0/0/0/0.10
 Thu Jul 23 06:46:34.378 UTC
 interface TenGigE0/0/0/0.10
@@ -98,17 +110,25 @@ interface TenGigE0/0/0/0.10
  ipv4 address 60.1.1.1 255.255.255.0
  load-interval 30
  encapsulation dot1q 10
- ipv4 access-group test-acl-v4-pkt-length ingress
+ <mark>ipv4 access-group test-acl-v4-pkt-length ingress</mark>
 !
+</code>
+</pre>
+</div>
 
-RP/0/RP0/CPU0:N55-24#
 
-```
-
-
-Note: After 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. For example:
+Note: After IOS-XR release, 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. For example:
 hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto packet-length frag-bit port-range
 {: .notice--info}
+
+
+### ACL Verification
+
+![Screenshot 2020-08-05 at 2.22.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 2.22.26 PM.png)
+
+![Screenshot 2020-08-05 at 2.23.29 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 2.23.29 PM.png)
+
+Other show commands are extensively covered in the [Link](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Link")
 
 **Hardware or TCAM programming of the ACL**
 
@@ -251,6 +271,9 @@ Hence, the key here is the bits in the mask with 0's, according to which the val
   - Currently, the hardware does not take this into consideration and simply assumes the IPv6 header is a fixed 40 bytes.
   - We can similarly apply a IPv6 ACL and check the programming using the same commands.
   - _We will dedicate the a separate post for IPv6 Extension Header_
+
+## Memory Usage
+
 
 ## References
 
