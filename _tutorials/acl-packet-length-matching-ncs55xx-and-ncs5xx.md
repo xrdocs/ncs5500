@@ -39,7 +39,7 @@ ACL’s on NCS55xx and NCS5xx, uses the Programmable Mapping and Filtering (PMF)
 
 ACL’s contains one or more ACEs which are used to match packets and perform an action on those packets. Typical action of the ACE is to either Permit or Deny. The TCAM is programmed with tables, may be like a database on which the match criteria and action criteria are performed.
 
-In hardware, we databases that are unique to each feature. For ACL, we have further defined unique databases based on these fields:
+In hardware, we have databases that are unique to each feature. For ACL, we have further defined unique databases based on these fields:
 
   - Protocol (IPv4, IPv6, L2)
   - Direction (ingress/egress)
@@ -59,7 +59,8 @@ Note: We will have dedicated posts for explaining each matching criterias.
 
 ## Header Definition - IPv4
 
-![Screenshot 2020-08-05 at 1.48.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 1.48.26 PM.png)
+![Screenshot 2020-08-05 at 10.31.55 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 10.31.55 PM.png)
+
 
 In NCS55xx and NCS5xx, when we configure an ACE through CLI, the total IP packet includes only IPv4 header. As per the above figure, only IP payload is taken into the consideration when you define the packet length in an ACE. It does not include any L2 headers, including ethernet/vlan. Therefore, when matching the packets on the router, the layer 2 headers needs to be taken into consideration and the packet length value should be configured accordingly. We will see this with an example in later section.
   
