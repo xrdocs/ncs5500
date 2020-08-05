@@ -235,8 +235,11 @@ The last 3 bits are 0
 So we can program 2^3 = 8 values. Which means 3E0 to 3E7
 3E0 = 992
 3E7 = 999
-Similarly we have to take into consideration the bits in the mask with 0's and accordingly the values are programmed
+
 ```
+Hence, the key here is the bits in the mask with 0's, according to which the values are programmed in the TCAM
+
+
 
 ## Header Definition - IPv6
 
