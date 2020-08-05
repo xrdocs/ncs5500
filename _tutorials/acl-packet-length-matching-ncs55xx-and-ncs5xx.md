@@ -61,11 +61,7 @@ Note: We will have dedicated posts for explaining each matching criterias.
 
 ![Screenshot 2020-08-05 at 1.48.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 1.48.26 PM.png)
 
-  - In NCS55xx and NCS5xx, when we configure an ACE through CLI, the total IP packet includes only IPv4 header 
-  - So if you consider the above figure, only IP payload is taken into the consideration when you define the packet length in an ACE.
-  - It does not include any L2 headers, including ethernet/vlan. 
-  - So when matching the packets on the router, the layer 2 headers needs to be taken into consideration and the packet length value should be configured accordingly. 
-  - We will see this with an example in later section.
+In NCS55xx and NCS5xx, when we configure an ACE through CLI, the total IP packet includes only IPv4 header. As per the above figure, only IP payload is taken into the consideration when you define the packet length in an ACE. It does not include any L2 headers, including ethernet/vlan. Therefore, when matching the packets on the router, the layer 2 headers needs to be taken into consideration and the packet length value should be configured accordingly. We will see this with an example in later section.
   
 
 ### Packet matching criterias
@@ -139,12 +135,7 @@ Other show commands are extensively covered in the [Link](https://xrdocs.io/ncs5
 
 ![Screenshot 2020-08-05 at 2.46.09 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 2.46.09 PM.png)
 
-
-  - The above 2 output shows us that the IPv4 L3 ACL is programmed and a Database ID is created for it.
-  - NPU details can be retrieved dedicated to interface where the ACL is applied
-  - We can see the bank_ID with the entry size as 320 bits
-  - For more information on memory banks please [Refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Refer")
-  - This data/values will help us in understanding the values configured in the hardware.
+The above 2 output shows us that the IPv4 L3 ACL database is programmed and a Database ID is created for it. NPU details is extracted, dedicated to interface where the ACL is applied. We can see the bank_ID with the entry size as 320 bits. For more information on memory banks please [Refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "Refer"). This data/values will help us in understanding the values configured in the hardware.
   
 ![Screenshot 2020-08-04 at 12.24.17 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 12.24.17 PM.png)
 
@@ -160,7 +151,7 @@ The above output shows the TCAM programming of the packet length configured in H
 
 ### Traffic Tests
 
-  - Below is the traffic stream which is used. 
+  - Below is the snapshot of the traffic stream used. 
   - It has a packet length of 822 bytes. (800 bytes plus 18 bytes of the Ethernet header + 4 bytes VLAN header)
   
 
@@ -169,10 +160,7 @@ The above output shows the TCAM programming of the packet length configured in H
 ![Traffic Flow.png]({{site.baseurl}}/images/Traffic Flow.png)
 
 
-  - The traffic is matching the first ACE with packet length of 800 bytes. 
-  - As mentioned earlier, that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. 
-  - In real production network, the ACE has to be configured accordingly so we can permit or deny legitimate packets. 
-  - This can be done by configuring range command. It will be explained in the later section
+The traffic is matching the first ACE with packet length of 800 bytes. As mentioned earlier, that the TCAM doesnt consider L2 headers. So the traffic stream has to be sent accordingly. In real production network, the ACE has to be configured accordingly so we can permit or deny legitimate packets. This can be done by configuring range command. It will be explained in the later section
 
 
 <div class="highlighter-rouge">
@@ -200,9 +188,7 @@ hw-module profile stats acl-permit
 
 ### Changing the frame size 
 
-  - Changing the packet length to 800: traffic drops
-  - Modifying the frame size to 800 doesnt match any of the ACE's 
-  - For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes, due to the reason stated above.
+Modifying the packet length to 800: traffic drops as the packet does not match any ACE. For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes, due to the reason stated above.
 
 ![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
 
@@ -219,9 +205,7 @@ RP/0/RP0/CPU0:N55-24#
 
 ## Packet Length range 
 
-  - For scenarios, where we are not sure on the absolute packet length, we have the option to configure range
-  - In the below ACL, we have confgured 2 ACE's
-  - Sequence 10 is a range and sequence 20 is an absolute value
+For scenarios, where we are not sure on the absolute packet length, we have the option to configure range. In the below ACL, we have confgured 2 ACE's. Sequence 10 is a range and sequence 20 is an absolute value.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -235,17 +219,17 @@ ipv4 access-list test-acl-v4-pkt-length
 
 ![Screenshot 2020-08-05 at 3.53.42 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 3.53.42 PM.png)
 
-  - We can see that with range command only 8 (7+ 1 internal usage) entries are consumed in the TCAM
-  - If we configure different values that would utilize one entry each
+We can see that with range command only 8 (7+ 1 internal usage) entries are consumed in the TCAM. If we configure different values that would utilize one entry each.
 
 ![Screenshot 2020-08-05 at 4.05.30 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.05.30 PM.png)
+
 
 ### Hardware Programming of the range
 
 ![Screenshot 2020-08-04 at 1.47.37 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 1.47.37 PM.png)
 
 
-  - As per the above ACL, TCAM programmed values
+As per the above ACL, TCAM programmed values
 
 | Hexadecimal | Decimal    | Value                     |
 |-------------|------------|---------------------------|
@@ -258,10 +242,7 @@ ipv4 access-list test-acl-v4-pkt-length
 | 5DC         | 1500       | Absolute Value programmed |
 
 
-- When configuring the range command the algorithm takes into account the mask as well the value.
-- For example, 3E0/FFF8 has 3E0 as value and FFF8 is mask.
-- Accordingly it programs all the values in batches of entries for the given range into the TCAM.
-- Let us understand, how the range is configured in the TCAM w.r.t value/mask pair and how to interpret it
+When configuring the range command the algorithm takes into account the mask as well the value. For example, 3E0/FFF8 has 3E0 as value and FFF8 is mask. Accordingly it programs all the values in batches of entries for the given range into the TCAM. Let us understand, how the range is configured in the TCAM w.r.t value/mask pair and how to interpret it.
 
 ```
 3E0/FFF8
@@ -280,23 +261,16 @@ So we can program 2^3 = 8 values. Which means 3E0 to 3E7
 
 ## Header Definition - IPv6
 
-  - For IPv6 the "payload length" field in the packet does not include the IPv6 headers 
-  - It only covers the payload length (the data following this headers). 
-  - The IPv6 header is assumed to be 40 bytes; so the configured ACE's packet length is reduced by 40 bytes and this value is configured into the TCAM as the match criteria for the IPv6 header   
-  - For example, if the ACE is configured for the packet length of 200, the TCAM will configure it as 160 
-  - The IPv6 header is really not a fixed size, because there can be one or more extension headers.  
-  - Currently, the hardware does not take this into consideration and simply assumes the IPv6 header is a fixed 40 bytes.
-  - We can similarly apply a IPv6 ACL and check the programming using the same commands.
-  - _We will dedicate the a separate post for IPv6 Extension Header_
+For IPv6 the "payload length" field in the packet does not include the IPv6 headers. It only covers the payload length (the data following this headers).The IPv6 header is assumed to be 40 bytes; so the configured ACE's packet length is reduced by 40 bytes and this value is configured into the TCAM as the match criteria for the IPv6 header. For example, if the ACE is configured for the packet length of 200, the TCAM will configure it as 160 
+
+The IPv6 header is really not a fixed size, because there can be one or more extension headers. Currently, the hardware does not take this into consideration and simply assumes the IPv6 header is a fixed 40 bytes.
+We can similarly apply a IPv6 ACL and check the programming using the same commands._We will dedicate the a separate post for IPv6 Extension Header_
 
 
 ## Optimizing Memory usage
 
-  - Sometimes in real production networks, we are not sure what packet length we will receive on the interface. Whether it have a VLAN header or not, or what will be the size of the packet.
-  - In this scenarios, it is recommended to use range option
-  - This will help in optimizing resource utilization with lesser TCAM entries
-  - For example, if we want to permit packets only with length 800 to 810 bytes while denying others.
-  - This will consume 13 entries in the TCAM
+Sometimes in real production networks, we are not sure what packet length we will receive on the interface. Whether it have a VLAN header or not, or what will be the size of the packet. In this scenarios, it is recommended to use range option. This will help in optimizing resource utilization with lesser TCAM entries. For example, if we want to permit packets only with length 800 to 810 bytes while denying others.
+This will consume 13 entries in the TCAM
   
 ![Screenshot 2020-08-05 at 4.35.02 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.35.02 PM.png)
 
