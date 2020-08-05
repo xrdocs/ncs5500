@@ -117,9 +117,12 @@ interface TenGigE0/0/0/0.10
 </div>
 
 
-Note: After IOS-XR release, 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. For example:
-hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto packet-length frag-bit port-range
+Note: After IOS-XR release, 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. 
 {: .notice--info}
+
+```
+hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto packet-length frag-bit port-range
+```
 
 
 ### ACL Verification
@@ -188,6 +191,7 @@ RP/0/RP0/CPU0:N55-24#
 
 
 Note: Permit ACL stats are not enabled by default. We need to configure the below hw-module profile to enable the same 
+{: .notice--info}
 
 ```
 hw-module profile stats acl-permit
@@ -197,9 +201,8 @@ hw-module profile stats acl-permit
 ### Changing the frame size 
 
   - Changing the packet length to 800: traffic drops
-  - Packets doesnt match any ACE resulting in traffic drop
   - Modifying the frame size to 800 doesnt match any of the ACE's 
-  - For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes
+  - For the traffic to match we need to configure an ACE with packet length 800-22 = 778 bytes, due to the reason stated above.
 
 ![TrafficDrop.png]({{site.baseurl}}/images/TrafficDrop.png)
 
@@ -237,9 +240,12 @@ ipv4 access-list test-acl-v4-pkt-length
 
 ![Screenshot 2020-08-05 at 4.05.30 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-05 at 4.05.30 PM.png)
 
+### Hardware Programming of the range
+
 ![Screenshot 2020-08-04 at 1.47.37 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-04 at 1.47.37 PM.png)
 
-**As per the above ACL, TCAM programmed values**
+
+  - As per the above ACL, TCAM programmed values
 
 | Hexadecimal | Decimal    | Value                     |
 |-------------|------------|---------------------------|
@@ -288,7 +294,7 @@ So we can program 2^3 = 8 values. Which means 3E0 to 3E7
 
   - Sometimes in real production networks, we are not sure what packet length we will receive on the interface. Whether it have a VLAN header or not, or what will be the size of the packet.
   - In this scenarios, it is recommended to use range option
-  - This will help in optimum resource utilization with lesser TCAM entries
+  - This will help in optimizing resource utilization with lesser TCAM entries
   - For example, if we want to permit packets only with length 800 to 810 bytes while denying others.
   - This will consume 13 entries in the TCAM
   
