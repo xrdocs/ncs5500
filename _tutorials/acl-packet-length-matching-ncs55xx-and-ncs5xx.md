@@ -54,9 +54,8 @@ In hardware, we databases that are unique to each feature. For ACL, we have furt
   - User Defined Keys - UDK
   - User Defined Field - UDF
 
-```
 Note: We will have dedicated posts for explaining each matching criterias.
-```
+{: .notice--info}
 
 ## Header Definition - IPv4
 
@@ -106,14 +105,10 @@ RP/0/RP0/CPU0:N55-24#
 
 ```
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-After 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. For example:
-<mark>hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto packet-length frag-bit port-range</mark>
-</code>
-</pre>
-</div>
+
+Note: After 6.5.2 and later the packet length is not supported by default TCAM key and we need to configure a UDK to have it in the key. For example:
+hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto packet-length frag-bit port-range
+{: .notice--info}
 
 **Hardware or TCAM programming of the ACL**
 
