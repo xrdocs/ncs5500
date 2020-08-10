@@ -17,6 +17,8 @@ position: top
 | 2020-Mar-12 | Correction of the max-classmap-size description |
 | 2020-Apr-08 | Correction: HQoS not needed for ingress policer on sub-if |
 | 2020-Jul-31 | Add: hw-mod profile bw-threshold |
+| 2020-Aug-10 | Add: comment on the need to use UDK profile for packet-length match in ACL |
+
 
 
 You can find more content related to NCS5500 including routing memory management, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
@@ -1119,6 +1121,9 @@ These hardware profiles are necessary to enable the UDK/UDF (User-Defined TCAM K
 
 Indeed, the default behavior of an ingress access-list is to be re-usable: that means ACE lines of an ingress ACL applied on multiple ports of the same NPU are only counted twice (it's not the case with egress ACLs).  
 This hardware profile when used with the keyword "interface-based" will disable the re-usability and move to the unique-ACL mode.
+
+Starting from 6.5.2, we don't support ACL match on packet-lenth (and ranges) by default, it's mandatory to use a specific UDK as described in this blog post:  
+[https://xrdocs.io/ncs5500/tutorials/acl-packet-length-matching-ncs55xx-and-ncs5xx/](https://xrdocs.io/ncs5500/tutorials/acl-packet-length-matching-ncs55xx-and-ncs5xx/)
 
 An example for configuring unique ACL for both IPv4 and IPv6 with the following fields (SRC_IP, DST_IP, SRC_PORT, DST_PORT) available for ACE matching is:  
 
