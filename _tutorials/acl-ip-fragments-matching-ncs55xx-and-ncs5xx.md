@@ -62,7 +62,7 @@ IPv4 Packets fall into the below category.
 | Non-Initial Fragment | 1              | Non-Zero        | No        |
 | Non-Initial Fragment | 0              | Non-Zero        | No        |
 
-As per the following [Documentation](https://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/8014-acl-wp.html#fragkeyscenes "Documentation"), non-fragments and the initial fragment of an IP packet can contain both Layer 3 and 4 information that the ACLs can match against for a permit or deny decision. Non-initial fragments are typically allowed through the ACL, because they can be blocked based only Layer 3 information in the packets. However, because these packets do not contain Layer 4 information, they do not match the Layer 4 information in the ACL entry, if it exists. Allowing the non-initial fragments of an IP datagram through is acceptable because the host receiving the fragments is not able to reassemble the original IP datagram without receiving all the fragments. These initial fragments, may always not be, legitimate packets.
+As per the following [Documentation](https://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/8014-acl-wp.html#fragkeyscenes "Documentation"), non-fragments and the initial fragment of an IP packet can contain both Layer 3 and 4 information that the ACLs can match against, for a permit or deny decision. Non-initial fragments are typically allowed through the ACL, because they can be blocked based only Layer 3 information in the packets. However, because these packets do not contain Layer 4 information, they do not match the Layer 4 information in the ACL entry, if it exists. Allowing the non-initial fragments of an IP datagram through is acceptable because the host receiving the fragments is not able to reassemble the original IP datagram without receiving all the fragments. These initial or non-initial fragments, may always not be, legitimate packets.
 
 ## Understanding the keyword: Fragments
 
@@ -157,9 +157,9 @@ ipv4 access-list fragment
 
 From the above, we could see the that Fragmented packets are also making their way through the network, which is against what the network administrator had intented. It permits these packets because non-initial fragments do not contain Layer 4 information, and the ACL logic assumes that if the Layer 3 information matches, then the Layer 4 information would also match, if it was available. This could lead to data plane security issues. 
 
-Now how to stop this ? Lets see the use of the keyword Fragments and how we can use the same to drop the fragmented packets and allow only legitimate traffic.
+Now how to stop this ? Lets see the use of the keyword Fragments and how we can use the same to drop the fragmented packets and allow only non-fragmented traffic.
 
-Let us modify the ACL as below 
+Modifying the ACL as below 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -210,7 +210,7 @@ RP/0/RP0/CPU0:N55-24#
 </pre>
 </div>
 
-We can use the below command to check the node counters to see the reason behind the packet drops. Here we can see the counter is getting increased due to deny ACL
+We can use the below command, to check the node counters to see the reason behind the packet drops. Here we can see the counter is getting increased due to deny ACL
 
 ```
 RP/0/RP0/CPU0:N55-24#show spp node-counters location 0/0/CPU0 | in ACL
@@ -221,7 +221,7 @@ RP/0/RP0/CPU0:N55-24#
 
 ### Limitation with Keyword: Fragments
 
-In the above section, we saw how a fragmented packet with a non zero offset value is filtered out. The limitation of the keyword Fragments is it can be used only for offset values greater than 0. If we want to filter out all the initial fragments we will not be able to do by this keyword. For example consider the below packet 
+In the above section, we saw how a fragmented packet with a non zero offset value is filtered out. The limitation of the keyword Fragments is, it can be used only for offset values greater than 0. If we want to filter out the initial fragments (FO=0), we will not be able to do by this keyword. For example consider the below packet 
 
 It has More Fragment = 1 and Fragment Offset = 0. Therefore this is the initial fragment.
 
@@ -260,7 +260,7 @@ Below are the options available for matching the fragments
 
 ### Configuring ACL with fragment-type
 
-Let us consider a scenario, where we want to allow only non-fragmented packets and any packet which is fragmented is denied. We will take into consideration packet type which is first-fragment. This will have MF bit set and have a fragment offset of 0 (this is the packet which escaped the keyword - fragments)
+We will take into consideration packet type which is first-fragment. MF=1 & FO=0 (this is the packet which escaped the keyword - fragments)
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -275,7 +275,7 @@ ipv4 access-list fragment-type
 </pre>
 </div>
 
-Note: Below hw-module profile which needs to be configured along with UDK
+Note: Below hw-module profile needs to be configured along with a UDK
 {: .notice—info}
 
 ```
@@ -296,10 +296,10 @@ hw-module profile tcam acl-prefix percent 20</mark>
 </pre>
 </div>
 
-Keyword fragment-type is not supported with default TCAM keys. We need to define a UDK with frag-bit. When configuring it to an interface it needs to be applied along with compression level.
-There are multiple levels of ACL compression supported,however, the NCS5xx and NCS55xx only supports certain levels, protocols and directions. Uncompressed or compression level 0 ACLs utilize only one TCAM lookup in hardware. Compressed ACLs utilize two TCAM lookups in hardware : Stage 1: External TCAM & Stage 2: Internal TCAM. Only compress level 3 is supported. 
+Keyword _fragment-type_ is not supported with default TCAM keys. We need to define a UDK with frag-bit. When configuring it to an interface it needs to be applied along with compression level.
+There are multiple levels of ACL compression supported,however the NCS5xx and NCS55xx only supports certain levels, protocols and directions. Uncompressed or compression level 0 ACLs utilize only one TCAM lookup in hardware. Compressed ACLs utilize two TCAM lookups in hardware : Stage 1: External TCAM & Stage 2: Internal TCAM. Only compress level 3 is supported. 
 
-Because compression requires two TCAM lookups, the keyword fragment-type can only be supported on systems with an external TCAM. Compression is only supported for IPv4/IPv6 in the ingress direction
+Because compression requires two TCAM lookups, the keyword fragment-type can only be supported on systems with an external TCAM. Compression is only supported for IPv4/IPv6 in the ingress direction.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -315,7 +315,7 @@ interface GigabitEthernet0/0/0/2.10
 </pre>
 </div>
 
-The above 2 profiles are only applicable for systems having Jericho and Q-MX with NetLogic (NL12k) eTCAM. For systems having Jericho+ and Optimus Prime (OP) eTCAM it works by default due to larger space available.
+The above 2 profiles are only applicable for systems having Jericho and Q-MX with NetLogic (NL12k) eTCAM. For systems having Jericho+ and Optimus Prime (OP) eTCAM it works by default due to larger space available. (We will dedicate a separate post for Jericho2 and its properties.)
 
 | Hardware             | ASIC | eTCAM |
 |----------------------|------|-------|
@@ -435,7 +435,7 @@ Considering Packet-Fragment has MF=1 and FO=0
 | is-fragment    | Dropped    | Matches Any fragments|
 | last-fragment  | Permitted  | Expects MF=0 FO>0    |
 
-You can use all the available options as per the scenarios and filter the fragments accordingly. Fragment-type keyword gives user granular level of filtering the packets.
+You can use the available options for fragment-type, to filter the fragments as per different scenarios. Fragment-type keyword gives user granular level of filtering the packets.
 
 ## References
 
