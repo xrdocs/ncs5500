@@ -439,10 +439,10 @@ You can use all the available options as per the scenarios and filter the fragme
 
 ## References
 
-[CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/71x/b-ip-addresses-cg-ncs5500-71x/b-ip-addresses-cg-ncs5500-71x_chapter_0111.html "CCO Config Guide")
-[Fragmentation White Paper](https://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/8014-acl-wp.html "Fragmentation White Paper")
-[Security ACL Part 2](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part2-hybrid-acl/ "Security ACL Part 2")
-[NCS5500 HW-Module Profiles](https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/ "NCS5500 HW-Module Profiles")
+- [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/71x/b-ip-addresses-cg-ncs5500-71x/b-ip-addresses-cg-ncs5500-71x_chapter_0111.html "CCO Config Guide")
+- [Fragmentation White Paper](https://www.cisco.com/c/en/us/support/docs/ip/generic-routing-encapsulation-gre/8014-acl-wp.html "Fragmentation White Paper")
+- [Security ACL Part 2](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part2-hybrid-acl/ "Security ACL Part 2")
+- [NCS5500 HW-Module Profiles](https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/ "NCS5500 HW-Module Profiles")
 
 
 ## Summary
