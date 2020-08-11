@@ -34,10 +34,10 @@ The packet is reassembled later with various fields of the IP packet.
 ![Screenshot 2020-08-10 at 7.22.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-10 at 7.22.16 PM.png)
 
 Below are the important fields during fragmentation and reassembling of the original packet.
-	- Identification
-	- Flags
-	- Offset
-    - Source and Destination Addresses
+  - Identification
+  - Flags
+  - Offset
+  - Source and Destination Addresses
  
 
 Let us take a simple example.
