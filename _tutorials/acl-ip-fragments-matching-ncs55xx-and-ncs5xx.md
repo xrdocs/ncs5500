@@ -117,7 +117,7 @@ RP/0/RP0/CPU0:N55-24#
 ```
 
 Note: The fragment keyword is available in the default key and this can be applied to all the systems including Q-MX,Jericho,Jericho+ with and without external TCAM.
-{: .notice—info}
+{: .notice--info}
 
 
 ### Traffic Tests and Validation
@@ -276,7 +276,7 @@ ipv4 access-list fragment-type
 </div>
 
 Note: Below hw-module profile needs to be configured along with a UDK
-{: .notice—info}
+{: .notice--info}
 
 ```
 hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port proto frag-bit
@@ -377,6 +377,7 @@ RP/0/RP0/CPU0:N55-20#
 </pre>
 </div>
 
+We can also use is-fragment in place of first-fragment.
 
 ```
 RP/0/RP0/CPU0:N55-20#show spp node-counters location 0/0/CPU0 | in ACL
