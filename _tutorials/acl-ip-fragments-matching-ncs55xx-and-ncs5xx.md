@@ -343,7 +343,6 @@ First we send non fragmented packets with TCP destination port 80 and could ACE 
 
 ![Screenshot 2020-08-10 at 7.47.06 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-10 at 7.47.06 PM.png)
 
-![Screenshot 2020-08-07 at 9.04.59 PM.png]({{site.baseurl}}/images/Screenshot 2020-08-07 at 9.04.59 PM.png)
 
 <div class="highlighter-rouge">
 <pre class="highlight">
