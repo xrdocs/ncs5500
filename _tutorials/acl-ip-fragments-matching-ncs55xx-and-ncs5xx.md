@@ -159,7 +159,7 @@ From the above, we could see the that Fragmented packets are also making their w
 
 Now how to stop this ? Lets see the use of the keyword Fragments and how we can use the same to drop the fragmented packets and allow only non-fragmented traffic.
 
-Modifying the ACL as below 
+**Modifying the ACL as below** 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -327,7 +327,7 @@ The above 2 profiles are only applicable for systems having Jericho and Q-MX wit
 | NC55-36X100G-A (-SE) | J+   | OP    |
 | NCS55A2-MOD-SE-S     | J+   | OP    |
 
-To understand in detail regarding the profile and compression support, please refer couple of excellent articles ([Hybrid ACL's](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part2-hybrid-acl/ "Hybrid ACL's"), [HW-Module Profiles](https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/ "HW-Module Profiles")
+To understand in detail regarding the profile and compression support, please refer couple of excellent articles ([Hybrid ACL's](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part2-hybrid-acl/ "Hybrid ACL's"), [HW-Module Profiles](https://xrdocs.io/ncs5500/tutorials/ncs5500-hw-module-profiles/ "HW-Module Profiles"))
 
 ### ACL Verification
 
