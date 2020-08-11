@@ -446,6 +446,6 @@ You can use the available options for fragment-type, to filter the fragments as 
 
 ## Summary
 
-Fragmentation is a process of breaking bigger packet into smaller packets and reassembling it. We saw how malicious fragments can make their way in and cause security issues. NCS5xx and NCS55xx is equipped with the capabilities to provide that extra security to the data plane. The platforms support different keywords - Fragments and Fragment-type to filter out fragments which are not expected at the ingress of the network, before reaching the target. Hope this helps to clear the filtering criteria for fragmented packets. 
+Fragmentation is a process of breaking bigger packet into smaller packets and reassembling it. We saw how malicious fragments can make their way in and cause security issues. NCS5xx and NCS55xx is equipped with the capabilities to provide that extra security to the data plane. The platforms support different keywords - Fragments and Fragment-type to filter out fragments which are not expected to enter the network. They can be filtered before reaching the target. Hope this helps to clear the filtering criteria for fragmented packets. 
 
 Stay tuned for next article, where we will explore another ACL matching capabilities of the portfolio.
