@@ -19,7 +19,7 @@ position: top
 
 ## Introduction
 
-In the previous technotes, ([ACL Packet Length Match](https://xrdocs.io/ncs5500/tutorials/acl-packet-length-matching-ncs55xx-and-ncs5xx/ "ACL Packet Length Match"),[ACL Fragment Match](https://xrdocs.io/ncs5500/tutorials/acl-ip-fragments-matching-ncs55xx-and-ncs5xx/ "ACL Fragment Match")) we have used the term User Defined Key - UDK many times and also saw it was compulsory to configure it for certain match criteria. In this technote, we will deep dive into the UDK concept and explore in details regarding the feature support.
+In the previous technotes, ([ACL Packet Length Match](https://xrdocs.io/ncs5500/tutorials/acl-packet-length-matching-ncs55xx-and-ncs5xx/ "ACL Packet Length Match"), [ACL Fragment Match](https://xrdocs.io/ncs5500/tutorials/acl-ip-fragments-matching-ncs55xx-and-ncs5xx/ "ACL Fragment Match")) we have used the term User Defined Key - UDK many times and also saw it was compulsory to configure it for certain match criteria. In this technote, we will deep dive into the UDK concept and explore in details regarding the feature support.
 
 ## User-Defined Key - UDK
 
@@ -472,7 +472,7 @@ payload-length  16 bits
 
 Total = 312 + ACL_ID (8 bits) and copy engines in TCAM
 ```
-The above shows no space left for copy engines and TCAM space is almost gone with the defined keys itself. So the users need to define the UDK carefully, one for the ACL to be configurable and second to utilize the TCAM resources wisely.
+As we can see there is no space left for copy engines and TCAM space is almost full with the defined keys itself. So the users need to define the UDK carefully, one for the ACL to be configurable and second to utilize the TCAM resources wisely.
 
 ### How many UDK you can configure ?
 
