@@ -26,10 +26,15 @@ A follow on tutorial will discuss the 400G optics and breakout options supported
 
 QSFP-DD is the leading form factor for 400G optics, promoted by QSFP-DD [MSA](http://www.qsfp-dd.com/). Members include Cisco and other major suppliers.
 
-QSFP+ and QSFP28 is the de-facto standard for high density 40G and 100G optics.
+QSFP+ and QSFP28 are the de-facto standard for high density 40G and 100G optics.
 
 QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same port density.
 
+![qdd-q28]({{site.baseurl}}/images/400G/qdd-q28.png)
+
+
 ### Number of Serdes
+
+tesst spellling 
 
 
