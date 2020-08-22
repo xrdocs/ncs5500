@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2020-06-16 19:18 -0700'
-title: 400G Draft
+title: NCS-5700 400G Optics Technology and Roadmap
 author: Vincent Ng
 excerpt: NCS-5700 400G Optics Support
 tags:
@@ -11,7 +11,7 @@ tags:
   - Optics
 position: hidden
 ---
-## NCS-5700 400G optics support
+## NCS-5700 400G Optics Technology and Roadmap
 
 NCS-5700 is the first platform in the NCS-5500 Series that supports 400G optics, which is introduced in a previous tutorial:
 
@@ -22,6 +22,6 @@ This tutorial will discuss in more details the 400G optics technology and roadma
 A follow on tutorial will discuss the 400G optics and breakout options supported for each port type on the NCS-5700 series linecards, NC57-24DD and NC57-18DD-SE.
 
 
+## Introducing QSFP-DD MSA
 
 
-Updated: Jun 16, 2020, [Vincent Ng](mailto:vinng@cisco.com)
