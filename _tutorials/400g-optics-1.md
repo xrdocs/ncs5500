@@ -32,15 +32,11 @@ QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same por
 
 ![]({{site.baseurl}}/images/400G/qdd-q28.png)
 
-<img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="200" />
-
-![]({{site.baseurl}}/images/400G/qdd-2-row.png)
-![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-center}
-![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
-
-
 ### Number of Serdes
 
-tesst spellling 
+![]({{site.baseurl}}/images/400G/qdd-2-row.png)
+![]({{site.baseurl}}/images/400G/qdd-2-row-small.png){: .align-center}
+![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
+
 
 
