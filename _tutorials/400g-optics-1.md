@@ -35,6 +35,7 @@ QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same por
 <img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="200" />
 
 ![]({{site.baseurl}}/images/400G/qdd-2-row.png)
+![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-center}
 ![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
 
 
