@@ -47,6 +47,17 @@ For backward compatibility, it also supports 10G and 25G serdes speed, thus allo
 
 Optics of all form factors, such as QSFP+, QSFP28, QSFP56, QSFP28-DD and QSFP56-DD are supported by QSFP-DD.
 
-##
+### PAM4 Encoding Support
+
+QSFP-DD supports PAM4 encoding which is used by 50G serdes, while maintaining the use of NRZ encoding for 10G/25G serdes.
+
+### RS-FEC RS(544,514) Support
+
+QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintaining the use of RS(528,514) for 25G serdes.
+
+### High Power Support
+
+
+
 
 
