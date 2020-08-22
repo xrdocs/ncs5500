@@ -35,6 +35,10 @@ QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same por
 ### Number of Serdes
 
 ![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
+QSFP-DD adds a second row of pins and increases the number of serdes from 4 to 8.
+
+Therefore it supports optics from 1 to 8 electrical lanes.
+
 
 
 
