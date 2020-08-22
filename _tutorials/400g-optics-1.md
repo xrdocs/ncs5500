@@ -57,6 +57,16 @@ QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintainin
 
 ### High Power Support
 
+QSFP-DD supports high power optics over 20W, therefore ready for coherent optics such as 400G-ZR and 400G-ZR+.
+
+### Flexible Breakout Support
+
+The wide range of combination of serdes number and speeds provides very flexible breakout options:
+
+
+
+
+
 
 
 
