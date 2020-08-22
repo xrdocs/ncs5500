@@ -63,15 +63,12 @@ QSFP-DD supports high power optics over 20W, therefore ready for coherent optics
 
 The wide range of combination of serdes number and speeds provides very flexible breakout options:
 
-| QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ ||||||
-|:---------:|:---------:|:------:|:------:|:-----:||||||
-| 400G      | 200G      | 200G   | 100G   | 40G   ||||||
-|-----------+-----------+--------+--------|:------||||||
-| 2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G ||||||
-|-----------+-----------+--------+--------|:------||||||
-| 4x100G    | 8x25G     | 4x50G  |        |       ||||||
-|-----------+-----------+--------+--------|:------||||||
-| 8x5 0G    |           |        |        |       ||||||
+ QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
+:---------:|:---------:|:------:|:------:|:-----:
+ 400G      | 200G      | 200G   | 100G   | 40G   
+ 2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
+ 4x100G    | 8x25G     | 4x50G  |        |       
+ 8x5 0G    |           |        |        |       
 
 | QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ |
 |:---------:|:---------:|:------:|:------:|:-----:|
