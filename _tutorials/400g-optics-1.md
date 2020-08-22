@@ -35,10 +35,18 @@ QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same por
 ### Number of Serdes
 
 ![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
-QSFP-DD adds a second row of pins and increases the number of serdes from 4 to 8.
+QSFP-DD adds a second row of pins and increases the number of serdes from 4 to 8, hence the name double-density.
 
-Therefore it supports optics from 1 to 8 electrical lanes.
+Therefore it supports optics up to 8 electrical lanes.
 
+### 50G Serdes Support
 
+QSFP-DD increases the maximum serdes speed from 25G to 50G, therefore supporting a maximum aggregate speed of 8x50G = 400G aggregate.
+
+For backward compatibility, it also supports 10G and 25G serdes speed, thus allowsing all possible aggregate speeds of 40G, 100G, 200G and 400G.
+
+Optics of all form factors, such as QSFP+, QSFP28, QSFP56, QSFP28-DD and QSFP56-DD are supported by QSFP-DD.
+
+##
 
 
