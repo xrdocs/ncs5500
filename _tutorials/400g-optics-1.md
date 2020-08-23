@@ -82,7 +82,7 @@ The wide range of combination of serdes number and speeds provides very flexible
 
 </div>
 
-table.foo {
+table foo {
   width: 80%;
 }
 
