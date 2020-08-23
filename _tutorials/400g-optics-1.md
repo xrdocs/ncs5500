@@ -32,7 +32,7 @@ QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same por
 
 The QSFP-DD MSA published its Revision 1.0 specifications in Sep 2016, and it is at its Revision 5.0 as of Jul 2019.
 
-<img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="400" />
+<img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="450" />
 
 ### Number of Serdes
 
