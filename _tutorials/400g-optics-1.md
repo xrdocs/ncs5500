@@ -73,7 +73,7 @@ At OFC 2019, Cisco Demonstrate 20W+ power dissipation of QSFP-DD.
 The wide range of combination of serdes number and speeds provides very flexible breakout options:
 
 <style>
-.foo table {
+.foo {
   width: auto;
 }
 
