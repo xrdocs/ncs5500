@@ -43,7 +43,7 @@ Therefore it supports optics up to 8 electrical lanes.
 
 ### 50G Serdes Support
 
-QSFP-DD increases the maximum serdes speed from 25G to 50G, therefore supporting a maximum aggregate speed of 8x50G = 400G aggregate.
+QSFP-DD increases the maximum serdes speed from 25G to 50G, therefore supporting a maximum speed of 8x50G = 400G aggregate.
 
 For backward compatibility, it also supports 10G and 25G serdes speed, thus allowsing all possible aggregate speeds of 40G, 100G, 200G and 400G.
 
