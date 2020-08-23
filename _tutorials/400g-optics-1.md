@@ -59,7 +59,14 @@ QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintainin
 
 ### High Power Support
 
-QSFP-DD supports high power optics over 20W, therefore ready for coherent optics such as 400G-ZR and 400G-ZR+.
+QSFP-DD supports high power optics, therefore ready for coherent optics such as 400G-ZR and 400G-ZR+.
+
+At OFC 2019, Cisco Demonstrate 20W+ power dissipation of QSFP-DD.
+
+[https://blogs.cisco.com/sp/cisco-demonstrates-20w-power-dissipation-of-qsfp-dd-at-ofc-2019](https://blogs.cisco.com/sp/cisco-demonstrates-20w-power-dissipation-of-qsfp-dd-at-ofc-2019)
+
+[https://www.lightwaveonline.com/optical-tech/transmission/article/14036073/qsfpdd-msa-releases-common-management-interface-40-and-hardware-specification-50](https://www.lightwaveonline.com/optical-tech/transmission/article/14036073/qsfpdd-msa-releases-common-management-interface-40-and-hardware-specification-50)
+
 
 ### Flexible Breakout Support
 
