@@ -91,7 +91,7 @@ The wide range of combination of serdes number and speeds provides very flexible
 
 <style>
 .bar table {
-  width: 80;
+  width: 80%;
 }
 </style>
 
