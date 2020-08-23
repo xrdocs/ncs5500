@@ -78,6 +78,7 @@ The wide range of combination of serdes number and speeds provides very flexible
 }
 
 <div class="foo">
+<div></div>
 
  QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
 :---------:|:---------:|:------:|:------:|:-----:
