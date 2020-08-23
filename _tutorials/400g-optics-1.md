@@ -89,6 +89,30 @@ The wide range of combination of serdes number and speeds provides very flexible
 
 </div>
 
-## 400G Technology Brief
+<style>
+.bar table {
+  width: 80;
+}
+</style>
+
+<div class="bar" markdown="1">
+
+ &nbsp; &nbsp; QSFP56-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP+ &nbsp; &nbsp;
+:---------:|:---------:|:------:|:------:|:-----:
+ 400G      | 200G      | 200G   | 100G   | 40G   
+ 2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
+ 4x100G    | 8x25G     | 4x50G  |        |       
+ 8x50G     |           |        |        |       
+
+</div>
+
+
+## 400G Optics Technology Evolution
+
+For early QSFP28 100G optics, majority are using four 25G wavelengths with NRZ encoding.
+
+With evolution to 200G/400G optics, there is a need for higher speed wavelengths in order to reduce lasers cost and complexity.
+
+
 
 
