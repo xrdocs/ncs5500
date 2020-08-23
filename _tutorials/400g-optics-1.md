@@ -30,6 +30,8 @@ QSFP+ and QSFP28 are the de-facto standard for high density 40G and 100G optics.
 
 QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same port density.
 
+The QSFP-DD MSA published its Revision 1.0 specifications in Sep 2016, and it is at its Revision 5.0 as of Jul 2019.
+
 <img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="400" />
 
 ### Number of Serdes
