@@ -65,28 +65,15 @@ The wide range of combination of serdes number and speeds provides very flexible
 
 <style>
 table {
-  width: 80%;
+  width: auto;
 }
 </style>
 
- QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
+ QSFP56-DD | QSFP28-DD | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | QSFP28 | QSFP+ 
 :---------:|:---------:|:------:|:------:|:-----:
  400G      | 200G      | 200G   | 100G   | 40G   
  2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
  4x100G    | 8x25G     | 4x50G  |        |       
- 8x50G     |           |        |        |
-
-<style>
-table {
-  width: 100%;
-}
-</style>
-
- QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
-:---------:|:---------:|:------:|:------:|:-----:
- 400G      | 200G      | 200G   | 100G   | 40G   
- 2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
- 4x100G    | 8x25G     | 4x50G  |        |       
- 8x50G     |           |        |        |
+ 8x50G     |           |        |        |       
 
 
