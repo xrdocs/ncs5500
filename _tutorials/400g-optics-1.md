@@ -77,7 +77,7 @@ The wide range of combination of serdes number and speeds provides very flexible
   width: auto;
 }
 
-<div class="foo">
+<div class="ox-hugo-table foo">
 <div></div>
 
  QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
