@@ -71,8 +71,6 @@ The wide range of combination of serdes number and speeds provides very flexible
  8x50G     |           |        |        |
 
 
-<div class="foo">
-
  QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
 :---------:|:---------:|:------:|:------:|:-----:
  400G      | 200G      | 200G   | 100G   | 40G   
@@ -80,9 +78,7 @@ The wide range of combination of serdes number and speeds provides very flexible
  4x100G    | 8x25G     | 4x50G  |        |       
  8x50G     |           |        |        |
 
-</div>
-
-table foo {
-  width: 80%;
+table {
+  width: auto;
 }
 
