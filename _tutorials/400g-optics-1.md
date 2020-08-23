@@ -30,7 +30,7 @@ QSFP+ and QSFP28 are the de-facto standard for high density 40G and 100G optics.
 
 QSFP-DD is fully compatible with QSFP+ and QSFP28, and so maintains the same port density.
 
-![]({{site.baseurl}}/images/400G/qdd-q28.png)
+<img src="{{site.baseurl}}/images/400G/qdd-q28.png" width="500" />
 
 ### Number of Serdes
 
@@ -69,11 +69,10 @@ table {
 }
 </style>
 
- QSFP56-DD | QSFP28-DD | &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | QSFP28 | QSFP+ 
+ &nbsp; &nbsp; QSFP56-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP+ &nbsp; &nbsp;
 :---------:|:---------:|:------:|:------:|:-----:
  400G      | 200G      | 200G   | 100G   | 40G   
  2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
  4x100G    | 8x25G     | 4x50G  |        |       
  8x50G     |           |        |        |       
-
 
