@@ -70,7 +70,7 @@ The wide range of combination of serdes number and speeds provides very flexible
  4x100G    | 8x25G     | 4x50G  |        |       
  8x50G     |           |        |        |
 
-.foo table {
+table.foo {
   width: 80%;
 }
 
