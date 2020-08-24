@@ -123,7 +123,6 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 100GBase-DR    | 100G  | 100G | 500m     | SMF       | Duplex   | N        |         
 2019 Nov | IEEE 802.3cn  | 400GBase-ER8   | 400G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM    
          |               | 200GBase-ER4   | 200G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM    
-         |               | 50Gbase-ER     | 50G   | 50G  | 40km     | SMF       | Duplex   | N        |         
 2020 Jan | IEEE 802.3cm  | 400GBase-SR8   | 400G  | 50G  | 100m     | MMF OM4   | Parallel | Y        |         
          |               | 400GBase-SR4.2 | 400G  | 50G  | 100m     | MMF OM4   | Parallel | Y        | Bidi    
 2020 Mar | MSA [OIF](https://www.oiforum.com/technical-work/hot-topics/400zr-2/) | 400ZR          | 400G  | 400G | <120km   | SMF       | Duplex   | N        | Coherent
