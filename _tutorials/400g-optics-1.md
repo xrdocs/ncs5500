@@ -95,7 +95,7 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 
 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514).
 
-To reach longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and with single wavelength at speeds 100G and 400G.
+To reach longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and with single tunable wavelength at speed 100G and 400G.
 
 This is a brief summary of the latest Optics standards with 50G, 100G or 400G wavelengths:
 
