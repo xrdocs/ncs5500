@@ -87,7 +87,7 @@ table {
 
 For early QSFP28 100G optics, majority are using four 25G wavelengths with NRZ encoding.
 
-With evolution to 200G/400G optics, there is a need for higher speed wavelengths in order to reduce lasers cost and complexity.
+With evolution to 200G/400G optics, there is a need for higher speed wavelengths such as 50G/100G in order to reduce lasers cost and complexity.
 
 25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514).
 
