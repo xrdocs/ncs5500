@@ -67,40 +67,21 @@ At OFC 2019, Cisco Demonstrate 20W+ power dissipation of QSFP-DD.
 
 [https://www.lightwaveonline.com/optical-tech/transmission/article/14036073/qsfpdd-msa-releases-common-management-interface-40-and-hardware-specification-50](https://www.lightwaveonline.com/optical-tech/transmission/article/14036073/qsfpdd-msa-releases-common-management-interface-40-and-hardware-specification-50)
 
-
 ### Flexible Breakout Support
 
 The wide range of combination of serdes number and speeds provides very flexible breakout options:
 
 <style>
-.bar table th:first-of-type {
-    width: 10%;
-}
-.bar table th:nth-of-type(2) {
-    width: 10%;
-}
-.bar table th:nth-of-type(3) {
-    width: 30%;
-}
-.bar table th:nth-of-type(4) {
-    width: 20%;
-}
-.bar table th:nth-of-type(5) {
-    width: 10%;
+table {
+  width: auto;
 }
 </style>
-
-<div class="bar" markdown="1">
-
- QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
+ &nbsp; &nbsp; QSFP56-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP+ &nbsp; &nbsp;
 :---------:|:---------:|:------:|:------:|:-----:
  400G      | 200G      | 200G   | 100G   | 40G   
  2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
  4x100G    | 8x25G     | 4x50G  |        |       
  8x50G     |           |        |        |       
-
-</div>
-
 
 ## 400G Optics Technology Evolution
 
