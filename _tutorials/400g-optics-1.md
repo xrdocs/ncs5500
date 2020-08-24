@@ -160,8 +160,6 @@ The whole new generation of 400G optics support will be introduced in phases for
 
 ### NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
 
-The whole new generation of 400G optics support will be introduced in phases for NCS-5700.
-
 This section will cover all 400G optics with new generation 50G and 100G wavelengths, and using QSFP-DD form factor, that is available or under roadmap. More optics will be planned as and when they become available.
 
 For ease of visualizing the use case of each optics, we have organized the optics into three major categories, each with varying distances and breakout capabilities.
