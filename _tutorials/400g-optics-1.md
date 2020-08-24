@@ -242,7 +242,7 @@ This is a comprehensive table for 400G and related 100G optics availability and 
 
 <div class="roadmap" markdown="1">
 
-PID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description | Distance | Target FCS
+PID | Description | Distance | Target FCS
 ------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
 QDD-400-CUxM      | 400G   QSFP-DD to QSFP-DD Passive Copper Cable 1/2 m                                                                                      | x m                 | 7.0.2
 QDD-400G-DR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-DR4, MPO-12, SMF                                                                                     | 500 m               | 7.0.2
