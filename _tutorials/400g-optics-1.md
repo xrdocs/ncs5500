@@ -153,6 +153,11 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 200GBase-SR2   | 200G  | 100G | 50m      | MMF OM4   | Parallel | y        |
          |               | 100GBase-SR    | 100G  | 100G | 50m      | MMF OM4   | Duplex   | N        |
 
+
+## NCS-5700 400G Optics Support and Roadmap
+
+The whole new generation of 400G optics support will be introduced in phases for NCS-5700.
+
 ### NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
 
 The whole new generation of 400G optics support will be introduced in phases for NCS-5700.
@@ -229,7 +234,7 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
 ![]({{site.baseurl}}/images/400G/optics-100g-smf.PNG)
   
   
-## Summary of NCS-5700 400G Optics Support and Roadmap
+## Summary of Optics PIDs and Roadmap
 
 This is a comprehensive table for 400G and related 100G optics availability and roadmap for NCS-5700 Linecards, NC55-24DD and NC57-18DD-SE for your reference, valid as of currently available IOS XR 7.0.2 release.
 
@@ -276,8 +281,3 @@ QDD-400G-ZRP-S    | 100G/200G/300G/400G   QSFP-DD Transceiver, 400G-ZR+, Tunable
 QDD-100G-ZR       | 100G QSFP-DD   Transceiver, Tunable Coherent, Duplex LC, SMF                                                                              | 80 km+ (120 km max) | Roadmap
 
 </div>
-
-
-
-
-
