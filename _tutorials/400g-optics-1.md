@@ -101,7 +101,6 @@ This is a brief summary of the latest Optics standards with 50G, 100G or 400G wa
 
 Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     | Type     | Breakout | WDM
 ---------|---------------|----------------|-------|------|----------|-----------|----------|----------|---
-2017 Nov | MSA [SWDM](http://www.swdm.org/)     | 100G-SWDM2     | 100G  | 50G  | 100m     | MMF OM4   | Duplex   | N        | Bidi
 2017 Dec | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m     | MMF OM4   | Parallel | Y        |
          |               | 400GBase-DR4   | 400G  | 100G | 500m     | SMF       | Parallel | Y        |
          |               | 400GBase-FR8   | 400G  | 50G  | 2km      | SMF       | Duplex   | N        | LWDM
@@ -122,6 +121,7 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 100GBase-CR2   | 100G  | 50G  | 5m       | Copper    | Parallel | Y        |
          |               | 100GBase-SR2   | 100G  | 50G  | 100m     | MMF OM4   | Parallel | Y        |
          |               | 100GBase-DR    | 100G  | 100G | 500m     | SMF       | Duplex   | N        |
+2019 Mar | MSA [SWDM](http://www.swdm.org/)     | 100G-SWDM2     | 100G  | 50G  | 100m     | MMF OM4   | Duplex   | N        | Bidi
 2019 Nov | IEEE 802.3cn  | 400GBase-ER8   | 400G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM
          |               | 200GBase-ER4   | 200G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM
 2020 Jan | IEEE 802.3cm  | 400GBase-SR8   | 400G  | 50G  | 100m     | MMF OM4   | Parallel | Y        |
