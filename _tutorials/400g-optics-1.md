@@ -149,7 +149,7 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
 
 ### NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
 
-400G optics support will be introduced in phases for NCS-5700.
+The whole new generation of 400G optics support will be introduced in phases for NCS-5700.
 
 This section will cover all 400G optics with new gneration 50G and 100G wavelengths, and using QSFP-DD form factor.
 
@@ -165,10 +165,12 @@ For ease of visualising the use case of each optics, we have organized the optic
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
   
   
-&nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
+&nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
+  
+&nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
-&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
+### NCS-5700 QSFP28-DD 2x100G Optics Support and Roadmap
 
 
 
