@@ -230,10 +230,10 @@ This is a comprehensive table for 400G and related 100G optics availability and 
     width: 20%;
 }
 .roadmap table th:nth-of-type(2) {
-    width: 55%;
+    width: 58%;
 }
 .roadmap table th:nth-of-type(3) {
-    width: 15%;
+    width: 12%;
 }
 .roadmap table th:nth-of-type(4) {
     width: 10%;
