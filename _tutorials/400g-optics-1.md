@@ -101,6 +101,7 @@ This is a brief summary of the latest Optics standards with 50G, 100G or 400G wa
 
 Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     | Type     | Breakout | WDM     
 ---------|---------------|----------------|-------|------|----------|-----------|----------|----------|---------
+2017 Nov | MSA [SWDM](http://www.swdm.org/)     | 100G-SWDM2     | 100G  | 50G  | 100m     | MMF OM4   | Duplex   | N        | Bidi    
 2017 Dec | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m     | MMF OM4   | Parallel | Y        |         
          |               | 400GBase-DR4   | 400G  | 100G | 500m     | SMF       | Parallel | Y        |         
          |               | 400GBase-FR8   | 400G  | 50G  | 2km      | SMF       | Duplex   | N        | LWDM    
