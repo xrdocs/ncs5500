@@ -162,11 +162,14 @@ For ease of visualising the use case of each optics, we have organized the optic
 - Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
-
+  
+  
 ![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG){: .align-left}
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
   
+  
 ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG){: .align-left}
+  
   
 ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG){: .align-left}
 
@@ -186,17 +189,21 @@ For ease of visualising the use case of each optics, we have organized the optic
 - Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
-
+  
+  
 ![]({{site.baseurl}}/images/400G/optics-2x100g-mmf.PNG)
+  
   
 ![]({{site.baseurl}}/images/400G/optics-2x100g-smf.PNG)
   
+  
 As there is limited face plate space on the QSFP-DD package, the 2x100G dual optics will require higher density connectors, such as MPO-24 for parallel optics, and Dual Duplex CS Connectors for duplex optics.
-
+  
+  
 ![]({{site.baseurl}}/images/400G/mpo-24.PNG)
 ![]({{site.baseurl}}/images/400G/dual-cs.PNG){: .align-right}
-
-
+  
+  
 ### NCS-5700 QSFP28 100G Optics with New Generation 50G/100G Wavelengths Support and Roadmap
 
 As we gradually migrate to 400G optics, with new genration 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
@@ -206,11 +213,16 @@ This section will cover all 100G optics with new generation 50G and 100G wavelen
 Exception will be 100G-ZR coherent optics, which requires higher power, so will only be supported on QSFP-DD form factor.
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
-
+  
+  
 ![]({{site.baseurl}}/images/400G/optics-100g-mmf.PNG)
+  
   
 ![]({{site.baseurl}}/images/400G/optics-100g-smf.PNG)
   
+  
+## Summary of NCS-5700 400G Optics Support and Roadmap
+
 
 
 
