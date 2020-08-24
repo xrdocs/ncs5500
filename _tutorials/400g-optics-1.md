@@ -190,6 +190,8 @@ For ease of visualizing the use case of each optics, we have organized the optic
 
 - Single mode Fibers: Could be parallel SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
+Please note for the supported 4x100G breakout, the remote end need to be a new generation 100G optics supporting 100G PAM4 wavelength.
+
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
   
   
