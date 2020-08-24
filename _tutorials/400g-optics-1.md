@@ -166,11 +166,9 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
 ![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
   
+![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
   
-&nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
-  
-  
-&nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
+![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 ### NCS-5700 QSFP28-DD 2x100G Optics with 24G NRZ Wavelengths Support and Roadmap
@@ -187,15 +185,15 @@ For ease of visualising the use case of each optics, we have organized the optic
 
 - Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
-As there is limited face plate space on the QSFP-DD package, the 2x100G dual optics will require higher density connectors, such as MPO-24 for parallel optics, and Dual Duplex CS Connectors for duplex optics.
-
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
 
 ![]({{site.baseurl}}/images/400G/optics-2x100g-mmf.PNG)
-![]({{site.baseurl}}/images/400G/mpo-24.PNG){: .align-right}
-  
   
 ![]({{site.baseurl}}/images/400G/optics-2x100g-smf.PNG)
+  
+As there is limited face plate space on the QSFP-DD package, the 2x100G dual optics will require higher density connectors, such as MPO-24 for parallel optics, and Dual Duplex CS Connectors for duplex optics.
+
+![]({{site.baseurl}}/images/400G/mpo-24.PNG)
 ![]({{site.baseurl}}/images/400G/dual-cs.PNG){: .align-right}
 
 
