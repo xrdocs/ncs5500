@@ -163,10 +163,11 @@ For ease of visualising the use case of each optics, we have organized the optic
 
 ![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
+  
+  
+&nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
 
-![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
-
-![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 
