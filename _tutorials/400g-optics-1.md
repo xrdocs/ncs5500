@@ -225,6 +225,26 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
 
 This is a comprehensive table for 400G and related 100G optics availability and roadmap for NCS-5700 Linecards, NC55-24DD and NC57-18DD-SE for your reference, valid as of currently available IOS XR 7.0.2 release.
 
+<style>
+.roadmap table th:first-of-type {
+    width: 15%;
+}
+.roadmap table th:nth-of-type(2) {
+    width: 70%;
+}
+.roadmap table th:nth-of-type(3) {
+    width: 15%;
+}
+.roadmap table th:nth-of-type(4) {
+    width: 10%;
+}
+.roadmap table th:nth-of-type(5) {
+    width: 10%;
+}
+</style>
+
+<div class="roadmap" markdown="1">
+
 PID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description | Distance | Target FCS
 ------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
 QDD-400-CUxM      | 400G   QSFP-DD to QSFP-DD Passive Copper Cable 1/2 m                                                                                      | x m                 | 7.0.2
@@ -249,6 +269,8 @@ QDD-400G-LR4-S    | 400G QSFP-DD   Transceiver, 400G-LR4, SMF, Duplex LC, SMF   
 QDD-400G-ZR-S     | 400G QSFP-DD   Transceiver, OIF 400ZR, Tunable Coherent, Duplex LC, SMF (requires EDFA   for links in excess of 40km)                     | 80 km+ (120 km max) | Roadmap
 QDD-400G-ZRP-S    | 100G/200G/300G/400G   QSFP-DD Transceiver, 400G-ZR+, Tunable Coherent Duplex LC, SMF (requires   EDFA for links in excess of 40km - 400G) | 1200 km+            | Roadmap
 QDD-100G-ZR       | 100G QSFP-DD   Transceiver, Tunable Coherent, Duplex LC, SMF                                                                              | 80 km+ (120 km max) | Roadmap
+
+</div>
 
 
 
