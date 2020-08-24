@@ -97,15 +97,19 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 
 - 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
 
-For short distances up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
+Generally the 400G optics distance support will be dependent on the type of cables or fibers used.
 
-Parallel MMF has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
+- For very short distances up to a few meters, usually copper cables or active optical cables will be most cost effective.
 
-For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
+- For short distances up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
 
-For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+- Parallel MMF has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
 
-To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
+- For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
+
+- For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+
+- To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
 
 This is a brief summary of the latest optics standards with 50G, 100G or 400G wavelengths:
 
