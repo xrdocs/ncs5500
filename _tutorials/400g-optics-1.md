@@ -161,12 +161,12 @@ For ease of visualising the use case of each optics, we have organized the optic
 
 - Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is cable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
-![]({{site.baseurl}}/images/400G/optics-400g-cables.png)
-![]({{site.baseurl}}/images/400G/optics-legend.png){: .align-right}
+![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
+![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
 
-![]({{site.baseurl}}/images/400G/optics-400g-mmf.png)
+![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
 
-![]({{site.baseurl}}/images/400G/optics-400g-smf.png)
+![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 
