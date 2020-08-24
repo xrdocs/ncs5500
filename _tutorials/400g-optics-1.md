@@ -164,16 +164,16 @@ For ease of visualising the use case of each optics, we have organized the optic
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
   
   
-![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG){: .align-left}
+![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
   
   
-![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG){: .align-left}
+![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
   
   
-![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG){: .align-left}
-
-
+![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
+  
+  
 ### NCS-5700 QSFP28-DD 2x100G Optics with 24G NRZ Wavelengths Support and Roadmap
 
 In current deployments, there are a lot of current generation QSFP28 optics with 4x 25G NRZ wavelengths.
