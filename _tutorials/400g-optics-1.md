@@ -223,7 +223,7 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
   
 ## Summary of NCS-5700 400G Optics Support and Roadmap
 
-This is a comprehensive table for 400G and related 100G optics roadmap for NCS-5700 Linecards, NC55-24DD and NC57-18DD-SE for your reference, valid as of currently available IOS XR 7.0.2 release.
+This is a comprehensive table for 400G and related 100G optics availability and roadmap for NCS-5700 Linecards, NC55-24DD and NC57-18DD-SE for your reference, valid as of currently available IOS XR 7.0.2 release.
 
 PID               | Description                                                                                                                               | Distance            | Target FCS
 ------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
