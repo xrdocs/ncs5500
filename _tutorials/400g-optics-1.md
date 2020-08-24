@@ -204,7 +204,7 @@ As there is limited face plate space on the QSFP-DD package, the 2x100G dual opt
 ![]({{site.baseurl}}/images/400G/dual-cs.PNG){: .align-right}
   
   
-### NCS-5700 QSFP28 100G Optics with New Generation 50G/100G Wavelengths Support and Roadmap
+### NCS-5700 QSFP28 100G Optics with New Generation 50G/100G PAM4 Wavelengths Support and Roadmap
 
 As we gradually migrate to 400G optics, with new generation 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
 
