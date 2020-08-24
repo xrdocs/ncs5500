@@ -89,11 +89,11 @@ For early QSFP28 100G optics, majority are using 4x 25G wavelengths with NRZ enc
 
 With evolution to 200G/400G optics, there is a need for higher speed wavelengths such as 50G/100G in order to reduce lasers cost and complexity.
 
-25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
+- 25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
 
-50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
+- 50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
 
-100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
+- 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
 
 For short distances up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
 
