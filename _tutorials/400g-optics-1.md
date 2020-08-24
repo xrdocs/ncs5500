@@ -206,7 +206,7 @@ As there is limited face plate space on the QSFP-DD package, the 2x100G dual opt
   
 ### NCS-5700 QSFP28 100G Optics with New Generation 50G/100G Wavelengths Support and Roadmap
 
-As we gradually migrate to 400G optics, with new genration 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
+As we gradually migrate to 400G optics, with new generation 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
 
 This section will cover all 100G optics with new generation 50G and 100G wavelengths, and using QSFP28 form factor.
 
@@ -223,6 +223,31 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
   
 ## Summary of NCS-5700 400G Optics Support and Roadmap
 
+
+PID               | Description                                                                                                                               | Distance            | Target FCS
+------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
+QDD-400-CUxM      | 400G   QSFP-DD to QSFP-DD Passive Copper Cable 1/2 m                                                                                      | x m                 | 7.0.2
+QDD-400G-DR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-DR4, MPO-12, SMF                                                                                     | 500 m               | 7.0.2
+                  | Can be used as 4x100G   breakout to QSFP-100G-FR-S                                                                                        | 500 m               | Roadmap
+QDD-400G-FR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-FR4, Duplex LC, SMF                                                                                  | 2 km                | 7.0.2
+QDD-400G-LR8-S    | 400G QSFP-DD   Transceiver, 400GBASE-LR8, Duplex LC, SMF                                                                                  | 10 km               | 7.0.2
+QDD-2X100-LR4-S   | 2x100G QSFP-DD   Transceiver, 2x100GBASE-LR4, Dual Duplex CS, SMF                                                                         | 10 km               | 7.0.2
+QDD-2X100-CWDM4-S | 2x100G QSFP-DD   Transceiver, 2x100G-CWDM4, Dual Duplex CS, SMF                                                                           | 2 km                | Roadmap
+QDD-2X100-SR4-S   | 2x100G QSFP-DD   Transceiver, 2x100GBASE-SR4, MPO-24, MMF, OM4                                                                            | 100 m               | Roadmap
+QDD-2x100-PSM4-S  | 2x100G QSFP-DD   Transceiver, 2x100G-PSM4, MPO-24, SMF                                                                                    | 500 m               | Roadmap
+QSFP-40/100-SRBD  | Dual Rate QSFP28   Transceiver, 100G-SWDM2 Bidi , Duplex LC, MMF, OM4                                                                     | 100 m               | Roadmap
+QSFP-100G-FR-S    | 100G QSFP28 Transceiver,   100GBASAE-FR, SMF, Duplex LC, SMF                                                                              | 2 km                | Roadmap
+QSFP-100G-LR-S    | 100G QSFP28 Transceiver,   100GBASAE-LR, SMF, Duplex LC, SMF                                                                              | 10 km               | Roadmap
+QDD-4x100G-FR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-FR, MPO-12, SMF                                                                                  | 2 km                | Roadmap
+QDD-4x100G-LR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-LR, MPO-12, SMF                                                                                  | 10 km               | Roadmap
+QDD-400G-SR4-BD   | 400G QSFP-DD   Transceiver, 400GBASE-SR4.2, MPO-12, MMF, OM4                                                                              | 100  m              | Roadmap
+                  | Can be used as 4x100G   breakout to 100G-BiDi                                                                                             | 100  m              | Roadmap
+QDD-400G-SR8-S    | 400G QSFP-DD   Transceiver, 400GBASE-SR8, MPO-16, MMF, OM4                                                                                | 100 m               | Roadmap
+                  | Can be used as 8x50G   breakout to 50GBASE-SR                                                                                             | 100 m               | Roadmap
+QDD-400G-LR4-S    | 400G QSFP-DD   Transceiver, 400G-LR4, SMF, Duplex LC, SMF                                                                                 | 10 km               | Roadmap
+QDD-400G-ZR-S     | 400G QSFP-DD   Transceiver, OIF 400ZR, Tunable Coherent, Duplex LC, SMF (requires EDFA   for links in excess of 40km)                     | 80 km+ (120 km max) | Roadmap
+QDD-400G-ZRP-S    | 100G/200G/300G/400G   QSFP-DD Transceiver, 400G-ZR+, Tunable Coherent Duplex LC, SMF (requires   EDFA for links in excess of 40km - 400G) | 1200 km+            | Roadmap
+QDD-100G-ZR       | 100G QSFP-DD   Transceiver, Tunable Coherent, Duplex LC, SMF                                                                              | 80 km+ (120 km max) | Roadmap
 
 
 
