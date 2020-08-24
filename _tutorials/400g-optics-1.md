@@ -151,7 +151,7 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
 
 The whole new generation of 400G optics support will be introduced in phases for NCS-5700.
 
-This section will cover all 400G optics with new gneration 50G and 100G wavelengths, and using QSFP-DD form factor.
+This section will cover all 400G optics with new generation 50G and 100G wavelengths, and using QSFP-DD form factor.
 
 For ease of visualising the use case of each optics, we have organized the optics into three major catagories, each with varying distances and breakout capabilities.
 
@@ -160,6 +160,8 @@ For ease of visualising the use case of each optics, we have organized the optic
 - Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
 
 - Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+
+Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
 
 ![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
@@ -171,7 +173,7 @@ For ease of visualising the use case of each optics, we have organized the optic
 &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
-### NCS-5700 QSFP28-DD 2x100G Optics Support and Roadmap
+### NCS-5700 QSFP28-DD 2x100G Optics with 24G NRZ Wavelengths Support and Roadmap
 
 In current deployments, there are a lot of current generation QSFP28 optics with 4x 25G NRZ wavelengths.
 
@@ -187,12 +189,23 @@ For ease of visualising the use case of each optics, we have organized the optic
 
 As there is limited face plate space on the QSFP-DD package, the 2x100G dual optics will require higher density connectors, such as MPO-24 for parallel optics, and Dual Duplex CS Connectors for duplex optics.
 
+Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
+
 ![]({{site.baseurl}}/images/400G/optics-2x100g-mmf.PNG)
 ![]({{site.baseurl}}/images/400G/mpo-24.PNG){: .align-right}
   
   
 ![]({{site.baseurl}}/images/400G/optics-2x100g-smf.PNG)
 ![]({{site.baseurl}}/images/400G/dual-cs.PNG){: .align-right}
+
+
+### NCS-5700 QSFP28 100G Optics with New Generation 50G/100G Wavelengths Support and Roadmap
+
+As we gradually migrate to 400G optics, with new genration 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
+
+This section will cover all 100G optics with new generation 50G and 100G wavelengths, and using QSFP28 form factor.
+
+Exception will be 100G-ZR coherent optics, which requires higher power, so will only be supported on QSFP-DD form factor.
 
 
 
