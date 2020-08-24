@@ -19,7 +19,7 @@ NCS-5700 is the first platform in the NCS-5500 Series that supports 400G optics,
 
 This tutorial will discuss in more details the 400G optics technology and roadmap for the NCS-5700 series.
 
-A follow on tutorial will discuss the 400G optics and breakout options supported for each port type on the NCS-5700 series linecards, NC57-24DD and NC57-18DD-SE.
+A follow up tutorial will discuss the 400G optics and breakout options supported for each port type on the NCS-5700 series linecards, NC57-24DD and NC57-18DD-SE.
 
 
 ## Introducing QSFP-DD MSA
@@ -39,13 +39,13 @@ The QSFP-DD MSA published its Revision 1.0 specifications in Sep 2016, and it is
 ![]({{site.baseurl}}/images/400G/qdd-2-row.png){: .align-right}
 QSFP-DD adds a second row of pins and increases the number of serdes from 4 to 8, hence the name double-density.
 
-Therefore it supports optics up to 8 electrical lanes.
+It therefore supports optics up to 8 electrical lanes.
 
 ### 50G Serdes Support
 
 QSFP-DD increases the maximum serdes speed from 25G to 50G, therefore supporting a maximum speed of 8x50G = 400G aggregate.
 
-For backward compatibility, it also supports 10G and 25G serdes speed, thus allowsing all possible aggregate speeds of 40G, 100G, 200G and 400G.
+For backward compatibility, it also supports 10G and 25G serdes speed, thus allowing all possible aggregate speeds of 40G, 100G, 200G and 400G.
 
 Optics of all form factors, such as QSFP+, QSFP28, QSFP56, QSFP28-DD and QSFP56-DD are supported by QSFP-DD.
 
@@ -95,17 +95,17 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 
 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
 
-For short distnaces up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
+For short distances up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
 
 Parallel MMF has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
 
 For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
 
-For longer distances 2km and beyong, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
 
 To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
 
-This is a brief summary of the latest Optics standards with 50G, 100G or 400G wavelengths:
+This is a brief summary of the latest optics standards with 50G, 100G or 400G wavelengths:
 
 Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     | Type     | Breakout | WDM
 ---------|---------------|----------------|-------|------|----------|-----------|----------|----------|---
@@ -153,13 +153,13 @@ The whole new generation of 400G optics support will be introduced in phases for
 
 This section will cover all 400G optics with new generation 50G and 100G wavelengths, and using QSFP-DD form factor, that is available or under roadmap. More optics will be planned as and when they become available.
 
-For ease of visualising the use case of each optics, we have organized the optics into three major catagories, each with varying distances and breakout capabilities.
+For ease of visualizing the use case of each optics, we have organized the optics into three major categories, each with varying distances and breakout capabilities.
 
 - Cables: Usually comes in passive copper Direct Attach Cables (DAC) for a few meters, or active optical cables (AOC) up to 30m. It could be direct, or breakout like 8x50 or 4x100.
 
 - Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
 
-- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+- Single mode Fibers: Could be parallel SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
   
@@ -178,15 +178,15 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
 
 In current deployments, there are a lot of current generation QSFP28 optics with 4x 25G NRZ wavelengths.
 
-Therefore there is a need for higher density support of these optics on the new NCS-5700 linecards, in order to be backward compatible with currently deployed QSFP28 optics.
+There is therefore a need for higher density support of these optics on the new NCS-5700 linecards, in order to be backward compatible with currently deployed QSFP28 optics.
 
-Current technology could support packaging 2 current generation QSFP28 optics in a single QSFP-DD form factor, therefore we will support a new generation of high density 2x100G optics with QSFP28-DD form factor on the NCS-5700.
+Current technology could support packaging 2 current generation QSFP28 optics in a single QSFP-DD form factor, therefore we will support a new generation of high density 2x100G optics with QSFP28-DD on the NCS-5700.
 
-For ease of visualising the use case of each optics, we have organized the optics into two major catagories, each with varying distances and breakout capabilities.
+For ease of visualizing the use case of each optics, we have organized the optics into two major categories, each with varying distances and breakout capabilities.
 
 - Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
 
-- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+- Single mode Fibers: Could be parallel SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
   
@@ -208,7 +208,7 @@ As there is limited face plate space on the QSFP-DD package, the 2x100G dual opt
 
 As we gradually migrate to 400G optics, with new generation 50G/100G wavelengths, we also need the currently deployed 100GE ports to migrate to new generation optics with 50G/100G wavelengths.
 
-This section will cover all 100G optics with new generation 50G and 100G wavelengths, and using QSFP28 form factor.
+This section will cover all 100G optics with new generation 50G and 100G wavelengths using QSFP28 form factor.
 
 Exception will be 100G-ZR coherent optics, which requires higher power, so will only be supported on QSFP-DD form factor.
 
