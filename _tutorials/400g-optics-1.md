@@ -97,49 +97,50 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 
 This is a brief summary of the 50G/100G/200G/400G standards with 50G or 100G wavelengths:
 
-| Date        | Specifications | Stardard       | Speed | Wavelength | Distance | Cable     | Type     | Breakout | WDM      |
-|-------------|----------------|----------------|-------|------------|----------|-----------|----------|----------|----------|
-| 2017    Dec | IEEE 802.3bs   | 400GBase-SR16  | 400G  | 25G        | 100m     | MMF OM4   | Parallel | Y        |          |
-|             |                | 400GBase-DR4   | 400G  | 100G       | 500m     | SMF       | Parallel | Y        |          |
-|             |                | 400GBase-FR8   | 400G  | 50G        | 2km      | SMF       | Duplex   | N        | LWDM     |
-|             |                | 400GBase-LR8   | 400G  | 50G        | 10km     | SMF       | Duplex   | N        | LWDM     |
-|             |                | 200GBase-DR4   | 200G  | 50G        | 500m     | SMF       | Parallel | Y        |          |
-|             |                | 200GBase-FR4   | 200G  | 50G        | 2km      | SMF       | Duplex   | N        | CWDM     |
-|             |                | 200GBase-LR4   | 200G  | 50G        | 10km     | SMF       | Duplex   | N        | LWDM     |
-| 2018 Jun    | MSA ETC        | 400GBase-KR8   | 400G  | 50G        | 1m       | Backplane | Parallel | Y        |          |
-|             |                | 400GBase-CR8   | 400G  | 50G        | 5m       | Copper    | Parallel | Y        |          |
-| 2018 Sep    | MSA 100G LD    | 100G-FR        | 100G  | 100G       | 2km      | SMF       | Duplex   | N        |          |
-|             |                | 100G-LR        | 100G  | 100G       | 10km     | SMF       | Duplex   | N        |          |
-|             |                | 400G-FR4       | 400G  | 100G       | 2km      | SMF       | Duplex   | N        | CWDM     |
-|             |                | 400G-LR4-10    | 400G  | 100G       | 10km     | SMF       | Duplex   | N        | CWDM     |
-| 2018 Dec    | IEEE 802.3cd   | 200GBase-KR4   | 200G  | 50G        | 1m       | Backplane | Parallel | Y        |          |
-|             |                | 200GBase-CR4   | 200G  | 50G        | 5m       | Copper    | Parallel | Y        |          |
-|             |                | 200GBase-SR4   | 200G  | 50G        | 100m     | MMF OM4   | Parallel | Y        |          |
-|             |                | 100GBase-KR2   | 100G  | 50G        | 1m       | Backplane | Parallel | Y        |          |
-|             |                | 100GBase-CR2   | 100G  | 50G        | 5m       | Copper    | Parallel | Y        |          |
-|             |                | 100GBase-SR2   | 100G  | 50G        | 100m     | MMF OM4   | Parallel | Y        |          |
-|             |                | 100GBase-DR    | 100G  | 100G       | 500m     | SMF       | Duplex   | N        |          |
-|             |                | 50GBase-KR     | 50G   | 50G        | 1m       | Backplane | Duplex   | N        |          |
-|             |                | 50GBase-CR     | 50G   | 50G        | 5m       | Copper    | Duplex   | N        |          |
-|             |                | 50GBase-SR     | 50G   | 50G        | 100m     | MMF OM4   | Duplex   | N        |          |
-|             |                | 50GBase-FR     | 50G   | 50G        | 2km      | SMF       | Duplex   | N        |          |
-|             |                | 50GBase-LR     | 50G   | 50G        | 10km     | SMF       | Duplex   | N        |          |
-| 2019 Nov    | IEEE 802.3cn   | 400GBase-ER8   | 400G  | 50G        | 40km     | SMF       | Duplex   | N        | LWDM     |
-|             |                | 200GBase-ER4   | 200G  | 50G        | 40km     | SMF       | Duplex   | N        | LWDM     |
-|             |                | 50Gbase-ER     | 50G   | 50G        | 40km     | SMF       | Duplex   | N        |          |
-| 2020 Jan    | IEEE 802.3cm   | 400GBase-SR8   | 400G  | 50G        | 100m     | MMF OM4   | Parallel | Y        |          |
-|             |                | 400GBase-SR4.2 | 400G  | 50G        | 100m     | MMF OM4   | Parallel | Y        | Bidi     |
-| 2020 Mar    | MSA OIF        | 400ZR          | 400G  | 400G       | <120km   | SMF       | Duplex   | N        | Coherent |
-| 2020 End    | IEEE P802.3cu  | 400GBase-FR4   | 400G  | 100G       | 2km      | SMF       | Duplex   | N        | CWDM     |
-|             |                | 400GBase-LR4-6 | 400G  | 100G       | 6km      | SMF       | Duplex   | N        | CWDM     |
-| 2020 End    | MSA OpenZR+    | 400G-ZR+       | 400G  | 400G       | >120km   | SMF       | Duplex   | N        | Coherent |
-| 2021 End    | IEEE P802.3ck  | 400GBase-CR4   | 400G  | 100G       | 5m       | Copper    | Parallel | Y        |          |
-|             |                | 200GBase-CR2   | 200G  | 100G       | 5m       | Copper    | Parallel | Y        |          |
-|             |                | 100GBase-CR    | 100G  | 100G       | 5m       | Copper    | Duplex   | N        |          |
-| 2021 End    | IEEE P802.3ct  | 100GBase-ZR    | 100G  | 100G       | 80km     | SMF       | Duplex   | N        | Coherent |
-| 2022 Mid    | IEEE P802.3cw  | 400GBase-ZR    | 400G  | 400G       | 80km     | SMF       | Duplex   | N        | Coherent |
-| 2022 Mid    | IEEE P802.3db  | 400GBase-SR4   | 400G  | 100G       | 50m      | MMF OM4   | Parallel | Y        |          |
-|             |                | 200GBase-SR2   | 200G  | 100G       | 50m      | MMF OM4   | Parallel | y        |          |
-|             |                | 100GBase-SR    | 100G  | 100G       | 50m      | MMF OM4   | Duplex   | N        |          |
+ Date        | Specs         | Stardard       | Speed | W/L  | Dist.  | Cable     | Type     | B/O | WDM      
+-------------|---------------|----------------|-------|------|--------|-----------|----------|-----|----------
+ 2017    Dec | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m   | MMF OM4   | Parallel | Y   |          
+             |               | 400GBase-DR4   | 400G  | 100G | 500m   | SMF       | Parallel | Y   |          
+             |               | 400GBase-FR8   | 400G  | 50G  | 2km    | SMF       | Duplex   | N   | LWDM     
+             |               | 400GBase-LR8   | 400G  | 50G  | 10km   | SMF       | Duplex   | N   | LWDM     
+             |               | 200GBase-DR4   | 200G  | 50G  | 500m   | SMF       | Parallel | Y   |          
+             |               | 200GBase-FR4   | 200G  | 50G  | 2km    | SMF       | Duplex   | N   | CWDM     
+             |               | 200GBase-LR4   | 200G  | 50G  | 10km   | SMF       | Duplex   | N   | LWDM     
+ 2018 Jun    | MSA ETC       | 400GBase-KR8   | 400G  | 50G  | 1m     | Backplane | Parallel | Y   |          
+             |               | 400GBase-CR8   | 400G  | 50G  | 5m     | Copper    | Parallel | Y   |          
+ 2018 Sep    | MSA 100G LD   | 100G-FR        | 100G  | 100G | 2km    | SMF       | Duplex   | N   |          
+             |               | 100G-LR        | 100G  | 100G | 10km   | SMF       | Duplex   | N   |          
+             |               | 400G-FR4       | 400G  | 100G | 2km    | SMF       | Duplex   | N   | CWDM     
+             |               | 400G-LR4-10    | 400G  | 100G | 10km   | SMF       | Duplex   | N   | CWDM     
+ 2018 Dec    | IEEE 802.3cd  | 200GBase-KR4   | 200G  | 50G  | 1m     | Backplane | Parallel | Y   |          
+             |               | 200GBase-CR4   | 200G  | 50G  | 5m     | Copper    | Parallel | Y   |          
+             |               | 200GBase-SR4   | 200G  | 50G  | 100m   | MMF OM4   | Parallel | Y   |          
+             |               | 100GBase-KR2   | 100G  | 50G  | 1m     | Backplane | Parallel | Y   |          
+             |               | 100GBase-CR2   | 100G  | 50G  | 5m     | Copper    | Parallel | Y   |          
+             |               | 100GBase-SR2   | 100G  | 50G  | 100m   | MMF OM4   | Parallel | Y   |          
+             |               | 100GBase-DR    | 100G  | 100G | 500m   | SMF       | Duplex   | N   |          
+             |               | 50GBase-KR     | 50G   | 50G  | 1m     | Backplane | Duplex   | N   |          
+             |               | 50GBase-CR     | 50G   | 50G  | 5m     | Copper    | Duplex   | N   |          
+             |               | 50GBase-SR     | 50G   | 50G  | 100m   | MMF OM4   | Duplex   | N   |          
+             |               | 50GBase-FR     | 50G   | 50G  | 2km    | SMF       | Duplex   | N   |          
+             |               | 50GBase-LR     | 50G   | 50G  | 10km   | SMF       | Duplex   | N   |          
+ 2019 Nov    | IEEE 802.3cn  | 400GBase-ER8   | 400G  | 50G  | 40km   | SMF       | Duplex   | N   | LWDM     
+             |               | 200GBase-ER4   | 200G  | 50G  | 40km   | SMF       | Duplex   | N   | LWDM     
+             |               | 50Gbase-ER     | 50G   | 50G  | 40km   | SMF       | Duplex   | N   |          
+ 2020 Jan    | IEEE 802.3cm  | 400GBase-SR8   | 400G  | 50G  | 100m   | MMF OM4   | Parallel | Y   |          
+             |               | 400GBase-SR4.2 | 400G  | 50G  | 100m   | MMF OM4   | Parallel | Y   | Bidi     
+ 2020 Mar    | MSA OIF       | 400ZR          | 400G  | 400G | <120km | SMF       | Duplex   | N   | Coherent 
+ 2020 End    | IEEE P802.3cu | 400GBase-FR4   | 400G  | 100G | 2km    | SMF       | Duplex   | N   | CWDM     
+             |               | 400GBase-LR4-6 | 400G  | 100G | 6km    | SMF       | Duplex   | N   | CWDM     
+ 2020 End    | MSA OpenZR+   | 400G-ZR+       | 400G  | 400G | >120km | SMF       | Duplex   | N   | Coherent 
+ 2021 End    | IEEE P802.3ck | 400GBase-CR4   | 400G  | 100G | 5m     | Copper    | Parallel | Y   |          
+             |               | 200GBase-CR2   | 200G  | 100G | 5m     | Copper    | Parallel | Y   |          
+             |               | 100GBase-CR    | 100G  | 100G | 5m     | Copper    | Duplex   | N   |          
+ 2021 End    | IEEE P802.3ct | 100GBase-ZR    | 100G  | 100G | 80km   | SMF       | Duplex   | N   | Coherent 
+ 2022 Mid    | IEEE P802.3cw | 400GBase-ZR    | 400G  | 400G | 80km   | SMF       | Duplex   | N   | Coherent 
+ 2022 Mid    | IEEE P802.3db | 400GBase-SR4   | 400G  | 100G | 50m    | MMF OM4   | Parallel | Y   |          
+             |               | 200GBase-SR2   | 200G  | 100G | 50m    | MMF OM4   | Parallel | y   |          
+             |               | 100GBase-SR    | 100G  | 100G | 50m    | MMF OM4   | Duplex   | N   |          
+
 
 
