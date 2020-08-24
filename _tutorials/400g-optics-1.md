@@ -167,10 +167,16 @@ For ease of visualising the use case of each optics, we have organized the optic
   
 &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
   
+  
 &nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 ### NCS-5700 QSFP28-DD 2x100G Optics Support and Roadmap
+
+In current deployments, there are a lot of current generation QSFP28 optics with 4x 25G NRZ wavelengths.
+
+Therefore there is a need for higher density support of these optics on the new NCS-5700 linecards, in order to be backward compatible with currently deployed QSFP28 optics.
+
 
 
 
