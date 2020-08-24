@@ -168,7 +168,7 @@ For ease of visualising the use case of each optics, we have organized the optic
 &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
   
   
-&nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
+&nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 ### NCS-5700 QSFP28-DD 2x100G Optics Support and Roadmap
@@ -195,7 +195,7 @@ As there is limited face plate space on the QSFP-DD package, the 2x100G dual opt
   
   
 &nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
-
+  
 
 
 
