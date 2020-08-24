@@ -121,11 +121,6 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 100GBase-CR2   | 100G  | 50G  | 5m       | Copper    | Parallel | Y        |         
          |               | 100GBase-SR2   | 100G  | 50G  | 100m     | MMF OM4   | Parallel | Y        |         
          |               | 100GBase-DR    | 100G  | 100G | 500m     | SMF       | Duplex   | N        |         
-         |               | 50GBase-KR     | 50G   | 50G  | 1m       | Backplane | Duplex   | N        |         
-         |               | 50GBase-CR     | 50G   | 50G  | 5m       | Copper    | Duplex   | N        |         
-         |               | 50GBase-SR     | 50G   | 50G  | 100m     | MMF OM4   | Duplex   | N        |         
-         |               | 50GBase-FR     | 50G   | 50G  | 2km      | SMF       | Duplex   | N        |         
-         |               | 50GBase-LR     | 50G   | 50G  | 10km     | SMF       | Duplex   | N        |         
 2019 Nov | IEEE 802.3cn  | 400GBase-ER8   | 400G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM    
          |               | 200GBase-ER4   | 200G  | 50G  | 40km     | SMF       | Duplex   | N        | LWDM    
          |               | 50Gbase-ER     | 50G   | 50G  | 40km     | SMF       | Duplex   | N        |         
