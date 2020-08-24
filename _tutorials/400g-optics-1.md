@@ -207,9 +207,9 @@ Exception will be 100G-ZR coherent optics, which requires higher power, so will 
 
 Below charts will show currently available optics as of IOS XR 7.0.2. Releases for optics in roadmap will be announced when they become available.
 
-![]({{site.baseurl}}/images/400G/optics-2x100g-mmf.PNG)
+![]({{site.baseurl}}/images/400G/optics-100g-mmf.PNG)
   
-![]({{site.baseurl}}/images/400G/optics-2x100g-smf.PNG)
+![]({{site.baseurl}}/images/400G/optics-100g-smf.PNG)
   
 
 
