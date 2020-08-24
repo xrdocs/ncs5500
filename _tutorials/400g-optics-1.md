@@ -159,7 +159,7 @@ For ease of visualising the use case of each optics, we have organized the optic
 
 - Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
 
-- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is cable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
 
 ![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
 ![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
@@ -177,7 +177,24 @@ In current deployments, there are a lot of current generation QSFP28 optics with
 
 Therefore there is a need for higher density support of these optics on the new NCS-5700 linecards, in order to be backward compatible with currently deployed QSFP28 optics.
 
+Current technology could support packaging 2 current generation QSFP28 optics in a single QSFP-DD form factor, therefore we will support a new generation of 2x100G optics on the NCS-5700.
 
+For ease of visualising the use case of each optics, we have organized the optics into two major catagories, each with varying distances and breakout capabilities.
+
+- Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
+
+- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is capable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+
+As there is limited face plate space on the QSFP-DD package, the 2x100G dual optics will require higher density connectors, such as MPO-24 for parallel optics, and Dual Duplex CS Connectors for duplex optics.
+
+![]({{site.baseurl}}/images/400G/optics-400g-cables.PNG)
+![]({{site.baseurl}}/images/400G/optics-legend.PNG){: .align-right}
+  
+  
+&nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-mmf.PNG)
+  
+  
+&nbsp; &nbsp; &nbsp; ![]({{site.baseurl}}/images/400G/optics-400g-smf.PNG)
 
 
 
