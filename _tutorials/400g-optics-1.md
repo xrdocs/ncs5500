@@ -177,7 +177,7 @@ In current deployments, there are a lot of current generation QSFP28 optics with
 
 Therefore there is a need for higher density support of these optics on the new NCS-5700 linecards, in order to be backward compatible with currently deployed QSFP28 optics.
 
-Current technology could support packaging 2 current generation QSFP28 optics in a single QSFP-DD form factor, therefore we will support a new generation of 2x100G optics on the NCS-5700.
+Current technology could support packaging 2 current generation QSFP28 optics in a single QSFP-DD form factor, therefore we will support a new generation of high density 2x100G optics with QSFP28-DD form factor on the NCS-5700.
 
 For ease of visualising the use case of each optics, we have organized the optics into two major catagories, each with varying distances and breakout capabilities.
 
