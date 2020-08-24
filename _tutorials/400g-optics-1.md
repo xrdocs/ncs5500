@@ -147,6 +147,18 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 200GBase-SR2   | 200G  | 100G | 50m      | MMF OM4   | Parallel | y        |
          |               | 100GBase-SR    | 100G  | 100G | 50m      | MMF OM4   | Duplex   | N        |
 
+## NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
+
+400G optics support will be introduced in phases for NCS-5700.
+
+For ease of visualising the use case of each optics, we have organized the optics into three major catagories:
+
+- Cables: Usually comes in passive copper Direct Attach Cables (DAC), or active optical cables (AOC). It could be direct, or breakout like 8x50 or 4x100.
+
+
+
+
+
 
 
 
