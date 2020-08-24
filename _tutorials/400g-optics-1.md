@@ -225,7 +225,7 @@ Below charts will show currently available optics as of IOS XR 7.0.2. Releases f
 
 This is a comprehensive table for 400G and related 100G optics availability and roadmap for NCS-5700 Linecards, NC55-24DD and NC57-18DD-SE for your reference, valid as of currently available IOS XR 7.0.2 release.
 
-PID               | Description                                                                                                                               | Distance            | Target FCS
+PID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description                                                                                                                               | Distance            | Target FCS
 ------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
 QDD-400-CUxM      | 400G   QSFP-DD to QSFP-DD Passive Copper Cable 1/2 m                                                                                      | x m                 | 7.0.2
 QDD-400G-DR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-DR4, MPO-12, SMF                                                                                     | 500 m               | 7.0.2
