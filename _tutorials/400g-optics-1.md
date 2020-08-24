@@ -73,29 +73,24 @@ At OFC 2019, Cisco Demonstrate 20W+ power dissipation of QSFP-DD.
 The wide range of combination of serdes number and speeds provides very flexible breakout options:
 
 <style>
-.foo table {
-  width: auto;
+.bar table th:first-of-type {
+    width: 10%;
+}
+.bar table th:nth-of-type(2) {
+    width: 10%;
+}
+.bar table th:nth-of-type(3) {
+    width: 50%;
+}
+.bar table th:nth-of-type(4) {
+    width: 20%;
+}
+.bar table th:nth-of-type(5) {
+    width: 10%;
 }
 </style>
 
-<div class="foo" markdown="1">
-
- &nbsp; &nbsp; QSFP56-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28-DD &nbsp; &nbsp; | &nbsp; &nbsp; QSFP56 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP28 &nbsp; &nbsp; | &nbsp; &nbsp; QSFP+ &nbsp; &nbsp;
-:---------:|:---------:|:------:|:------:|:-----:
- 400G      | 200G      | 200G   | 100G   | 40G   
- 2x200G    | 2x100G    | 2x100G | 4x25G  | 4x10G 
- 4x100G    | 8x25G     | 4x50G  |        |       
- 8x50G     |           |        |        |       
-
-</div>
-
-<style>
-.bar table {
-  width: 80%;
-}
-</style>
-
-<div class="bar">
+<div class="bar" markdown="1">
 
  QSFP56-DD | QSFP28-DD | QSFP56 | QSFP28 | QSFP+ 
 :---------:|:---------:|:------:|:------:|:-----:
@@ -112,6 +107,12 @@ The wide range of combination of serdes number and speeds provides very flexible
 For early QSFP28 100G optics, majority are using four 25G wavelengths with NRZ encoding.
 
 With evolution to 200G/400G optics, there is a need for higher speed wavelengths in order to reduce lasers cost and complexity.
+
+25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514).
+
+50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514).
+
+100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514).
 
 
 
