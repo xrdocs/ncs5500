@@ -80,7 +80,7 @@ The wide range of combination of serdes number and speeds provides very flexible
     width: 10%;
 }
 .bar table th:nth-of-type(3) {
-    width: 50%;
+    width: 30%;
 }
 .bar table th:nth-of-type(4) {
     width: 20%;
@@ -113,6 +113,8 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514).
 
 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514).
+
+This is a brief summary of the 50G/100G/200G/400G standards with 50G or 100G wavelengths:
 
 
 
