@@ -85,17 +85,25 @@ table {
 
 ## 400G Optics Technology Evolution
 
-For early QSFP28 100G optics, majority are using four 25G wavelengths with NRZ encoding.
+For early QSFP28 100G optics, majority are using 4x 25G wavelengths with NRZ encoding.
 
 With evolution to 200G/400G optics, there is a need for higher speed wavelengths such as 50G/100G in order to reduce lasers cost and complexity.
 
-25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514).
+25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
 
-50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514).
+50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
 
-100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514).
+100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
 
-To reach longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and with single tunable wavelength at speed 100G and 400G.
+For short distnaces up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
+
+Parallel MMF has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
+
+For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
+
+For longer distances 2km and beyong, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+
+To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
 
 This is a brief summary of the latest Optics standards with 50G, 100G or 400G wavelengths:
 
