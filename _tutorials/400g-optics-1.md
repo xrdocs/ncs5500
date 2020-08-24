@@ -97,7 +97,7 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 
 This is a brief summary of the 50G/100G/200G/400G standards with 50G or 100G wavelengths:
 
- Date        | Specs         | Stardard       | Speed | W/L  | Dist.  | Cable     | Type     | B/O | WDM      
+ Date        | Specs         | Stardard       | Speed | W/L  | Distance | Cable   | Type     | Breakout | WDM      
 -------------|---------------|----------------|-------|------|--------|-----------|----------|-----|----------
  2017 Dec    | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m   | MMF OM4   | Parallel | Y   |          
              |               | 400GBase-DR4   | 400G  | 100G | 500m   | SMF       | Parallel | Y   |          
