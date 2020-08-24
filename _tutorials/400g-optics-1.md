@@ -147,13 +147,20 @@ Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     
          |               | 200GBase-SR2   | 200G  | 100G | 50m      | MMF OM4   | Parallel | y        |
          |               | 100GBase-SR    | 100G  | 100G | 50m      | MMF OM4   | Duplex   | N        |
 
-## NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
+### NCS-5700 QSFP-DD 400G Optics with 50G/100G PAM4 Wavelengths Support and Roadmap
 
 400G optics support will be introduced in phases for NCS-5700.
 
-For ease of visualising the use case of each optics, we have organized the optics into three major catagories:
+This section will cover all 400G optics with new gneration 50G and 100G wavelengths, and using QSFP-DD form factor.
 
-- Cables: Usually comes in passive copper Direct Attach Cables (DAC), or active optical cables (AOC). It could be direct, or breakout like 8x50 or 4x100.
+For ease of visualising the use case of each optics, we have organized the optics into three major catagories, each with varying distances and breakout capabilities.
+
+- Cables: Usually comes in passive copper Direct Attach Cables (DAC) for a few meters, or active optical cables (AOC) up to 30m. It could be direct, or breakout like 8x50 or 4x100.
+
+- Multimode Fibers: Usually Parallel MMF up to about 100m for OM4, and capable of breakout.
+
+- Single mode Fibers: Could be parallsl SMF or duplex SMF. Parallel SMF is cable of breakout, and Duplex SMF will need WDM for multiplexing multiple wavelengths into a single SMF.
+
 
 
 
