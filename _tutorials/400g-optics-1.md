@@ -99,7 +99,7 @@ This is a brief summary of the 50G/100G/200G/400G standards with 50G or 100G wav
 
  Date        | Specs         | Stardard       | Speed | W/L  | Dist.  | Cable     | Type     | B/O | WDM      
 -------------|---------------|----------------|-------|------|--------|-----------|----------|-----|----------
- 2017    Dec | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m   | MMF OM4   | Parallel | Y   |          
+ 2017 Dec    | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m   | MMF OM4   | Parallel | Y   |          
              |               | 400GBase-DR4   | 400G  | 100G | 500m   | SMF       | Parallel | Y   |          
              |               | 400GBase-FR8   | 400G  | 50G  | 2km    | SMF       | Duplex   | N   | LWDM     
              |               | 400GBase-LR8   | 400G  | 50G  | 10km   | SMF       | Duplex   | N   | LWDM     
