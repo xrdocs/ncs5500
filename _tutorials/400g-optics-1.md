@@ -89,6 +89,8 @@ table {
 
 For early QSFP28 100G optics, majority are using 4x 25G wavelengths with NRZ encoding.
 
+### 50G and 100G Wavelengths Evolutoin
+
 With evolution to 200G/400G optics, there is a need for higher speed wavelengths such as 50G/100G in order to reduce lasers cost and complexity.
 
 - 25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
@@ -96,6 +98,8 @@ With evolution to 200G/400G optics, there is a need for higher speed wavelengths
 - 50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
 
 - 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
+
+### Distance and Fiber Types
 
 Generally the 400G optics distance support will be dependent on the type of cables or fibers used.
 
@@ -111,7 +115,13 @@ Generally the 400G optics distance support will be dependent on the type of cabl
 
 - To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
 
-This is a brief summary of the latest optics standards with 50G, 100G or 400G wavelengths:
+### Timeline for 400G Optics Standards Development
+
+This is a brief summary of the latest optics standards with 50G, 100G or 400G wavelengths.
+
+Mosts optics standards are from IEEE 802.3 Ethernet Standards Committee.
+
+However, in some areas, various MSA Stanards will also provide important supplement to the IEEE standrads, and we have included some of them below.
 
 Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     | Type     | Breakout | WDM
 ---------|---------------|----------------|-------|------|----------|-----------|----------|----------|---
