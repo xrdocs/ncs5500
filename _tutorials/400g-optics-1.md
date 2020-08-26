@@ -111,21 +111,31 @@ Generally the 400G optics distance support will be dependent on the type of cabl
 
 - For very short distances up to a few meters, usually copper cables or active optical cables will be most cost effective.
 
-- For short distances up to about 100m, usually multimode fibers (MMF) are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
+- For short distances up to about 100m, usually multimode fibers (MMF) with 850nm wavelength are deployed for lower cost. Furthermore, parallel fibers, each with single wavelength, are used to reduce optics complexity. 
 
-- For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
+- For medium distances to about 500m, usually parallel single mode fibers (SMF) with 1310nm wavelength are deployed.
 
-- For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+- For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed with 1310nm wavelenghs to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
 
-- To reach even longer distances like 80km and above, usually Coherent Detection optics are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
+- To reach even longer distances like 80km and above, usually Coherent Detection optics with 1550nm wavelength are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
+
+### Bidirectional Optics Support
+
+Bidirectional optics can save half the number of fibers, as each fiber supports 2 wavelengths, one in each direction.
+
+For example, 400GBase-SR8 requires 8 pairs of MMF, total 16 fibers. Each fiber supports one wavelength in one direction, total 16 wavelengths.
+
+In case of bidirectional 400GBase-SR4.2, it only requires 4 pairs of MMF, total 8 fibers. Each fiber run 2 wavelengths, one in each direction, total also 16 wavelengths.
+
+WDM technology is required for the multiplexing, such as SWDM in the case of 400GBase-SR4.2.
 
 ### Parallel Fiber and Breakout Support
 
 Generally, parallel fibers has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
 
-- For medium distances to about 500m, usually parallel single mode fibers (SMF) are deployed. This could also support breakout.
+Any types of parallel cables, MMF or SMF can support breakout, and usually each piece of fiber will support one wavelength.
 
-
+For example, 400GBase-DR4 have 4 MMF fibers, each with one 100G wavelength, therefore it could support 4x100G breakout.
 
 ### Timeline for 400G Optics Standards Development
 
