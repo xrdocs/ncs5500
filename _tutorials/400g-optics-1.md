@@ -53,11 +53,17 @@ Optics of all form factors, such as QSFP+, QSFP28, QSFP56, QSFP28-DD and QSFP56-
 
 ### PAM4 Encoding Support
 
-QSFP-DD supports PAM4 encoding which is used by 50G serdes, while maintaining the use of NRZ encoding for 10G/25G serdes.
+QSFP-DD supports PAM4 encoding for 50G serdes, while maintaining the use of NRZ encoding for 10G/25G serdes.
+
+PAM4 allows 2 bits per baud, so will double the serdes speed from 25G to 50G, while maintaining the same 25 GBaud rate.
 
 ### RS-FEC RS(544,514) Support
 
 QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintaining the use of RS(528,514) for 25G serdes.
+
+RS(528,514) is sometimes called the KR4 FEC, and RS(544,514) KP4 FEC.
+
+RS(544,154) will provide a stronger FEC for use with higher speed serdes.
 
 ### High Power Support
 
@@ -91,13 +97,13 @@ For early QSFP28 100G optics, majority are using 4x 25G wavelengths with NRZ enc
 
 ### 50G and 100G Wavelengths Evolutoin
 
-With evolution to 200G/400G optics, there is a need for higher speed wavelengths such as 50G/100G in order to reduce lasers cost and complexity.
+With evolution to 200G/400G optics, there is a need for higher speed wavelengths in the optical domain, such as 50G/100G in order to reduce lasers cost and complexity.
 
-- 25G wavelengths are supported using NRZ encoding with 25GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
+- 25G wavelengths are supported using NRZ encoding with 25 GBaud and RS-FEC RS(528,514). 16x 25G wavelengths are required for an aggregate 400G speed.
 
-- 50G wavelengths are supported using PAM4 encoding with 25GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
+- 50G wavelengths are supported using PAM4 encoding with 25 GBaud and RS-FEC RS(544,514). 8x 50G wavelengths are required for an aggregate 400G speed.
 
-- 100G wavelengths are supported using PAM4 encoding with 50GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
+- 100G wavelengths are supported using PAM4 encoding with 50 GBaud and RS-FEC RS(544,514). An even lower number of wavelengths, 4x, are required for an aggregate 400G speed.
 
 ### Distance and Fiber Types
 
