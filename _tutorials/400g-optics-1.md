@@ -95,7 +95,7 @@ table {
 
 For early QSFP28 100G optics, majority are using 4x 25G wavelengths with NRZ encoding.
 
-### 50G and 100G Wavelengths Evolutoin
+### 50G and 100G Wavelengths Evolution
 
 With evolution to 200G/400G optics, there is a need for higher speed wavelengths in the optical domain, such as 50G/100G in order to reduce lasers cost and complexity.
 
@@ -115,7 +115,7 @@ Generally the 400G optics distance support will be dependent on the type of cabl
 
 - For medium distances to about 500m, usually parallel single mode fibers (SMF) with 1310nm wavelength are deployed.
 
-- For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed with 1310nm wavelenghs to minimize fiber numbers and cost. Multiple wavelengths will be multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
+- For longer distances 2km and beyond, usually a single duplex SMF fiber pair is deployed with 1310nm wavelengths to minimize fiber numbers and cost. Multiple wavelengths are multiplexed into a single SMF using WDM technologies, such as CWDM or LWDM. LWDM is higher cost and usually for longer distances.
 
 - To reach even longer distances like 80km and above, usually Coherent Detection optics with 1550nm wavelength are used, which have their own specific encoding and FEC, and have single tunable wavelength at speed 100G or 400G. These wavelengths may even be transported over long haul DWDM systems and reach 1000's of km's.
 
@@ -131,7 +131,7 @@ WDM technology is required for the multiplexing, such as SWDM in the case of 400
 
 ### Parallel Fiber and Breakout Support
 
-Generally, parallel fibers has additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
+Generally, parallel fibers have additional advantage of supporting breakout from 400G to multiple lower speed optics for more flexible deployment.
 
 Any types of parallel cables, MMF or SMF can support breakout, and usually each piece of fiber will support one wavelength.
 
@@ -141,11 +141,11 @@ For example, 400GBase-DR4 have 4 MMF fibers, each with one 100G wavelength, ther
 
 This is a brief summary of the latest optics standards with 50G, 100G or 400G wavelengths.
 
-Mosts optics standards are from IEEE 802.3 Ethernet Standards Committee.
+Most optics standards are from IEEE 802.3 Ethernet Standards Committee.
 
-However, in some areas, various MSA Stanards will also provide important supplement to the IEEE standrads, and we have included some of them below.
+However, in some areas, various MSA standards will also provide important supplement to the IEEE standards, and we have included some of them below.
 
-Date     | Specs         | Stardard       | Speed | W/L  | Distance | Cable     | Freq   | Type     | Breakout | WDM
+Date     | Specs         | Standard       | Speed | W/L  | Distance | Cable     | Freq   | Type     | Breakout | WDM
 ---------|---------------|----------------|-------|------|----------|-----------|--------|----------|----------|----------
 2017 Dec | IEEE 802.3bs  | 400GBase-SR16  | 400G  | 25G  | 100m     | MMF OM4   | 850nm  | Parallel | Y        |
          |               | 400GBase-DR4   | 400G  | 100G | 500m     | SMF       | 1310nm | Parallel | Y        |
