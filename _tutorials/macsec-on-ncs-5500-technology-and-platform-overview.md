@@ -173,7 +173,7 @@ All 6x100G ports, 24x25G ports and 24x10G ports support MACsec.
   
 **NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S**
 All MPA ports, 10G, 100G and CFP2 support MACsec.
-![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png?raw=true)
+<img src="https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png" width="400" />
   
   
 **Platform Matrix for MACsec Support**  
