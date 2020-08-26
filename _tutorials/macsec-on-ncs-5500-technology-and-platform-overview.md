@@ -166,6 +166,11 @@ The 6x100G ports support MACsec, while the 48x25G ports do not.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-7.png?raw=true)
   
   
+**NCS-55A1-24Q6H-SS Fixed Chassis**
+All 6x100G ports, 24x25G ports and 24x10G ports support MACsec.
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-9.png?raw=true)
+  
+  
 **NC55-MPA-2TH-S NC55-MPA-1TH2H-S NC55-MPA-4H-S NC55-MPA-12T-S**
 All MPA ports, 10G, 100G and CFP2 support MACsec.
 ![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/MACsec-platform-8.png?raw=true)
@@ -183,5 +188,6 @@ All MPA ports, 10G, 100G and CFP2 support MACsec.
 |          400G MPA’s |          10G    |          -           |          -           |          40G/4x10G/4x25G/100G |            Nx100G         |
 |          NCS-55A1-48Q6H   |          -           |          -           |          -           |            40G/4x10G/4x25G/100G |          -           |
 |          NCS-55A1-24Q6H-S           |          -           |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
+|          NCS-55A1-24Q6H-SS          |          10G         |          10G/25G       |          -           |            40G/4x10G/4x25G/100G |          -           |
 
 Please note there is no 1G or 100M support for MACsec.
