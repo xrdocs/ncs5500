@@ -288,7 +288,7 @@ PID | Description | Distance | Target FCS
 ------------------|-------------------------------------------------------------------------------------------------------------------------------------------|---------------------|---
 QDD-400-CUxM      | 400G   QSFP-DD to QSFP-DD Passive Copper Cable 1/2 m                                                                                      | x m                 | 7.0.2
 QDD-400G-DR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-DR4, MPO-12, SMF                                                                                     | 500 m               | 7.0.2
-                  | Can be used as 4x100G   breakout to QSFP-100G-FR-S                                                                                        | 500 m               | Roadmap
+                  | Can be used as 4x100G   breakout to QSFP-100G-FR/LR-S                                                                                     | 500 m               | Roadmap
 QDD-400G-FR4-S    | 400G QSFP-DD   Transceiver, 400GBASE-FR4, Duplex LC, SMF                                                                                  | 2 km                | 7.0.2
 QDD-400G-LR8-S    | 400G QSFP-DD   Transceiver, 400GBASE-LR8, Duplex LC, SMF                                                                                  | 10 km               | 7.0.2
 QDD-2X100-LR4-S   | 2x100G QSFP-DD   Transceiver, 2x100GBASE-LR4, Dual Duplex CS, SMF                                                                         | 10 km               | 7.0.2
@@ -299,7 +299,9 @@ QSFP-40/100-SRBD  | Dual Rate QSFP28   Transceiver, 100G-SWDM2 Bidi , Duplex LC,
 QSFP-100G-FR-S    | 100G QSFP28 Transceiver,   100GBASAE-FR, SMF, Duplex LC, SMF                                                                              | 2 km                | Roadmap
 QSFP-100G-LR-S    | 100G QSFP28 Transceiver,   100GBASAE-LR, SMF, Duplex LC, SMF                                                                              | 10 km               | Roadmap
 QDD-4x100G-FR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-FR, MPO-12, SMF                                                                                  | 2 km                | Roadmap
+                  | Can be used as 4x100G   breakout to QSFP-100G-FR/LR-S                                                                                     | 2 km                | Roadmap
 QDD-4x100G-LR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-LR, MPO-12, SMF                                                                                  | 10 km               | Roadmap
+                  | Can be used as 4x100G   breakout to QSFP-100G-LR-S                                                                                        | 10 km               | Roadmap
 QDD-400G-SR4-BD   | 400G QSFP-DD   Transceiver, 400GBASE-SR4.2, MPO-12, MMF, OM4                                                                              | 100  m              | Roadmap
                   | Can be used as 4x100G   breakout to 100G-BiDi                                                                                             | 100  m              | Roadmap
 QDD-400G-SR8-S    | 400G QSFP-DD   Transceiver, 400GBASE-SR8, MPO-16, MMF, OM4                                                                                | 100 m               | Roadmap
