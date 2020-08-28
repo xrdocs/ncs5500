@@ -5,6 +5,11 @@ title: NCS-5700 400G Optics Technology and Roadmap
 author: Vincent Ng
 excerpt: NCS-5700 400G Optics Technology and Roadmap
 position: hidden
+tags:
+  - iosxr
+  - NCS-5700
+  - 400G
+  - Optics
 ---
 {% include toc %}
 
