@@ -6,10 +6,10 @@ author: Vincent Ng
 excerpt: NCS-5700 400G Optics Technology and Roadmap
 position: hidden
 tags:
-  - iosxr
   - NCS-5700
   - 400G
   - Optics
+  - IOS-XR
 ---
 {% include toc %}
 
