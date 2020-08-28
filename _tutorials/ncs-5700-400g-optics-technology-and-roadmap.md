@@ -10,6 +10,7 @@ tags:
   - 400G
   - Optics
   - IOS-XR
+  - NCS-5500
 ---
 {% include toc %}
 
