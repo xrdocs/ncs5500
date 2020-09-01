@@ -1,7 +1,7 @@
 ---
-published: true
+published: false
 date: '2020-09-01 10:16 +0530'
-title: BGP EVPN based Port ACtive MultiHoming
+title: BGP EVPN based Port Active MultiHoming
 author: Paban Sarma
 excerpt: >-
   Tutorial Explaining step by step approach for BGP EVPN service with port
@@ -119,7 +119,7 @@ Use “_show bundle bundle-ether_” CLI command to verify the state of the bund
 RP/0/RP0/CPU0:Leaf-1#show  bundle bundle-ether 1
 
 Bundle-Ether1
-  <mark>Status:                                    Up</mark>
+  <mark>Status:</mark>                                    <mark>Up</mark>
   Local links <active/standby/configured>:   1 / 0 / 1
   Local bandwidth <effective/available>:     10000000 (10000000) kbps
   MAC address (source):                      00bc.601c.d0d9 (Chassis pool)
@@ -181,7 +181,6 @@ Also, verify the port-active operation making one leaf active and one leaf stand
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 LEAF1:
 
 RP/0/RP0/CPU0:Leaf-1#<mark> sh evpn  ethernet-segment interface bundle-Ether 1 detail</mark>
@@ -303,14 +302,112 @@ Ethernet Segment Id      Interface                          Nexthops
   Local SHG label   : None
   Remote SHG labels : 0
   Access signal mode: Bundle OOS (Default)
-
-
 </div>
 </pre>
 </code>
 
-
 **Note** `In the example shown the ethernet segment Identifier is 00.12.12.12.12.12.12.12.12.12.12 and the portion impacting DF election is 12.12.12.12 as highlighted. For Dual homing an odd-even modulo operation will gives a result of 0. Therefore Leaf1 is our active PE as it has a lower BGP router ID of 1.1.1.1 compared to 2.2.2.2 of Leaf2.`
+
+Above output shows that the bundle interfaces are up and port active redundancy mode has created an active standby Leaf redundancy for the dual homed Host-1 . Next, lets’ provision the EVPN layer-2 service over this redundancy.
+
+### Task 3: Configure BGP EVPN based layer-2 multipoint service
+
+Here we will configure a EVPN layer-2 service between Leaf-1, Leaf-2 and Leaf-5 to provide a L2VPN between H1 and H5. Post configuration we will check  the status of ethernet segment. For detailed explanation of configuring BGP EVPN based layer-2 service, refer to this [post](https://xrdocs.io/ncs5500/tutorials/bgp-evpn-configuration-ncs-5500-part-3/).  
+
+![](https://github.com/xrdocs/ncs5500/blob/gh-pages/images/evpn-config/port_active_evpn.png?raw=true)
+
+Here , the L2 service is configured on VLAN 10 (sub-interface on the bundle) and only one VPN (EVI) is shown. We may have multiple services running over different sub-interface (VLAN). 
+
+```
+Leaf-1:
+interface Bundle-Ether 1.10 l2transport
+encapsulation dot1q 10
+rewrite ingress tag pop 1 symmetric
+!
+
+l2vpn
+bridge group bg-1
+bridge-domain bd-10
+interface Bundle-Ether 11.10
+evi 10
+!
+!
+
+evpn
+ evi 10
+  bgp
+   route-target import 1001:11
+   route-target export 1001:11
+  !
+  advertise-mac
+  !
+ !
+!
+
+Leaf-2:
+
+interface Bundle-Ether 1.10 l2transport
+encapsulation dot1q 10
+rewrite ingress tag pop 1 symmetric
+!
+
+l2vpn
+bridge group bg-1
+bridge-domain bd-10
+interface Bundle-Ether 1.10
+evi 10
+!
+!
+
+evpn
+evi 10
+bgp
+route-target import 1001:11
+route-target export 1001:11
+!
+advertise-mac
+!
+!
+Leaf-5:
+
+interface TenGigE0/0/0/45.10 l2transport
+encapsulation dot1q 10
+rewrite ingress tag pop 1 symmetric
+!
+evpn
+evi 10
+bgp
+route-target import 1001:11
+route-target export 1001:11
+!
+advertise-mac
+!
+!
+!
+l2vpn
+bridge group bg-1
+bridge-domain bd-10
+interface TenGigE0/0/0/45.10
+!
+evi 10
+!
+!
+```
+
+Host-5 is single-homed to Leaf-5, below is the Host-5 configuration for reference.
+
+```
+Host-5:
+
+interface TenGigE0/0/1/3.10
+description "Link to Leaf-5"
+ipv4 address 10.0.0.50 255.255.255.0
+encapsulation dot1q 10
+```
+
+Once , the EVPN service is up, H1 will be able to reach H5 and vice-versa. 
+
+
 
 
 
