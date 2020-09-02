@@ -11,7 +11,7 @@ tags:
   - EVPN
   - NCS 5500
 ---
-{% include_toc %}
+{% include toc %}
 
 ## Implementation of BGP-EVPN based Port-Active Multi-Homing
 
