@@ -78,3 +78,125 @@ ipv4 access-list udf_acl
 - Consider the below toplogy
 
 ![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%201.33.33%20PM.png)
+
+We have a layer 3 connectivity end to end and host 60.1.1.2 wants to reach 70.1.1.2. In a normal sceanrio, we wont we able to match the VLAN ID on a layer 3 interface. For doing that we would need to define a Layer 2 ACL. But that wont be allowed to configure on a Layer 3 interface. Now what if a network administrator wants to match or filter a packet on his desired field (in this case consider VLAN id). If the platform does not have the capability to filter on deep packet analysis, network administrator will not be able to achieve that. Thanks to UDF capability of NCS55xx and NCS5xx, we can filter packets on user defined fields.
+
+**Configuring UDF**
+
+Consider the packet below. We are sending the packet with source address 60.1.1.2 and destination address 70.1.1.2 with an encapsulation of 10.
+
+![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%201.42.58%20PM.png)
+
+If we want to filter the packet on the basis of encapsulation 10 we need to define the below UDF globally.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>udf udf_vlan header outer l2 offset 14 length 2</mark>
+</code>
+</pre>
+</div>
+
+**Referring the UDF to the ACL and applying it on the interface**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ipv4 access-list UDF_VLAN
+<mark>10 deny ipv4 any any udf udf_vlan 0xa 0xffff</mark>
+ 20 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.10
+ description using it for ACL testing
+ ipv4 address 60.1.1.1 255.255.255.0
+ ipv6 address 60::1/64
+ load-interval 30
+ encapsulation dot1q 10
+<mark> ipv4 access-group UDF_VLAN ingress</mark>
+</code>
+</pre>
+</div>
+
+
+**Verifying UDF**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 usage pfilter location 0/0/CPU0 
+Mon Aug 31 08:27:27.590 UTC
+Interface : TenGigE0/0/0/0.10 
+<mark>    Input  ACL : Common-ACL : N/A  ACL : UDF_VLAN</mark>
+    Output ACL : N/A
+</code>
+</pre>
+</div>    
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show controllers npu internaltcam location 0/0/CPU0 
+Mon Aug 31 08:28:34.944 UTC
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      160b   pmf-0       1898     91      36   INGRESS_LPTS_IPV4
+0    0      160b   pmf-0       1898     19      45   INGRESS_RX_ISIS
+0    0      160b   pmf-0       1898     23      54   INGRESS_QOS_IPV4
+0    0      160b   pmf-0       1898     15      56   INGRESS_QOS_MPLS
+0    0      160b   pmf-0       1898     2       60   INGRESS_EVPN_AA_ESI_TO_FBN_DB
+<mark>0    1      160b   pmf-0       1992     4       47   INGRESS_ACL_L3_IPV4</mark>
+</code>
+</pre>
+</div> 
+
+
+``` 
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 UDF_VLAN hardware ingress verify location 0/0/CPU0 
+Mon Aug 31 08:27:49.483 UTC
+
+Verifying TCAM entries for UDF_VLAN
+Please wait...                                   
+                                                 
+ 
+ 
+    INTF    NPU lookup  ACL # intf Total  compression Total   result failed(Entry) TCAM entries 
+                type    ID  shared ACES   prefix-type Entries        ACE SEQ #     verified
+ ---------- --- ------- --- ------ ------ ----------- ------- ------ ------------- ------------
+ 
+TenGigE0_0_0_0.10 (ifhandle: 0x41b8)
+
+              0 IPV4      7      1      2 NONE              3 passed                          3
+
+ ```
+
+
+![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%202.33.46%20PM.png)
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 UDF_VLAN hardware ingress location 0/0/CPU0 
+Mon Aug 31 09:05:35.701 UTC
+ipv4 access-list UDF_VLAN
+<mark> 10 deny ipv4 any any (43041269 matches)</mark>
+ 20 permit ipv4 any any
+</code>
+</pre>
+</div> 
+
+
+We can see the end to end traffic is getting dropped.
+
+![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%202.37.10%20PM.png)
+
+
