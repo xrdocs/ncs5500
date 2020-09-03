@@ -47,3 +47,34 @@ User Defined Field's or UDF can be considered as an inspection of a packet based
   - The user needs to define the name of the UDF, the header (inner/outer), offset and length of data to extract. 
   
   ![]({{site.baseurl}}/images/Screenshot%202020-08-27%20at%2011.35.14%20PM.png)
+  
+  - Then we need to define a UDK referencing the UDF
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile tcam format access-list ipv4 src-addr dst-addr src-port dst-port <mark>udf1 udf_test</mark>
+</code>
+</pre>
+</div>
+
+The hw-module verifies that the user has requested a valid tcam key. For IPv4 this will be either a 160 or 320 bit key. For IPv6 it will be a 320 bit key. 
+
+  - Then it needs to be defined in the ACE 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ipv4 access-list udf_acl
+<mark>10 deny ipv4 any any udf udf_test 0x4567 0xffff</mark>
+</code>
+</pre>
+</div>
+
+## UDF Use cases
+
+### Matching layer 2 entities on a Layer 3 interface
+
+- Consider the below toplogy
+
+![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%201.33.33%20PM.png)
