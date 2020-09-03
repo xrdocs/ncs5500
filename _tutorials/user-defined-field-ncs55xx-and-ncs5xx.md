@@ -81,7 +81,7 @@ In this section, we will try to cover a few scenarios to show how we can use cus
 
 ![]({{site.baseurl}}/images/Screenshot%202020-08-31%20at%201.33.33%20PM.png)
 
-We have a layer 3 connectivity end to end and host 60.1.1.2 wants to reach 70.1.1.2. In a normal sceanrio, we wont we able to match the VLAN ID on a layer 3 interface. For doing that we would need to define a Layer 2 ACL. But that wont be allowed to configure on a Layer 3 interface. Now what if a network administrator wants to match or filter a packet on his desired field (in this case consider VLAN id). If the platform does not have the capability to filter on deep packet analysis, network administrator will not be able to achieve that. Thanks to UDF capability of NCS55xx and NCS5xx, we can filter packets on user defined fields.
+We have a layer 3 connectivity end to end and host 60.1.1.2 wants to reach 70.1.1.2. In a normal scenario, we wont we able to match the VLAN ID on a layer 3 interface. For doing that we would need to define a Layer 2 ACL. But that wont be allowed to configure on a Layer 3 interface. Now what if a network administrator wants to match or filter a packet on his desired field (in this case consider VLAN id). If the platform does not have the capability to filter on deep packet analysis, network administrator will not be able to achieve that. Thanks to UDF capability of NCS55xx and NCS5xx, we can filter packets on user defined fields.
 
 **Configuring UDF**
 
@@ -94,10 +94,14 @@ If we want to filter the packet on the basis of encapsulation 10 we need to defi
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-<mark>udf udf_vlan header outer l2 offset 14 length 2</mark>
+<mark>udf udf_vlan header outer l2 offset 14 length 2
+hw-module profile tcam format access-list ipv4 src-addr dst-addr udf1 udf_vlan</mark>
 </code>
 </pre>
 </div>
+
+Note: Reload of the router or line card will be needed after configuring or modifying the hw-module profile.
+{: .notice--info}
 
 **Referring the UDF to the ACL and applying it on the interface**
 
