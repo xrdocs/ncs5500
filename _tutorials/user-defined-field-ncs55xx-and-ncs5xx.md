@@ -596,7 +596,7 @@ ipv4 access-list UDF_CUSTOM
 
 ## Summary
 
-In this tech-note, we saw how we can overcome the limits of static matching criterias by using user defined fields. This gives the users capabilities of matching the packets dynamically as per the requirement. This is very useful in troubleshooting network issues and identifying packets. We saw examples of a few use cases with UDF examples which can be customized as per the network requirements. With the availability of UDF, it is possible for the NCS55xx and NCS5xx platform to be more capable and flexible when fulfilling the packet classification functionalities.
+In this tech-note, we saw how we can overcome the limits of static matching criterias by using user defined fields. This gives the users capabilities of matching the packets dynamically as per the requirement. This is very useful in troubleshooting network issues and identifying packets. We saw a few simple examples with UDF. These can be customized as per the network requirements. With the availability of UDF, it is possible for the NCS55xx and NCS5xx platform to be more capable and flexible when fulfilling the packet classification functionalities.
 
 
 
