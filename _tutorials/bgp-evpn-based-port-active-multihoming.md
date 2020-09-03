@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2020-09-01 10:16 +0530'
 title: BGP EVPN based Port Active MultiHoming
 author: Paban Sarma
@@ -33,9 +33,7 @@ As shown in the above topology, Host-1 is multi-homed to Leaf-1 and Leaf-2. For 
 As per the reference topology Host-1 is multi-homed to Leaf-1 and Leaf-2 via LACP bundle-ethernet 1 going to both Leaf-1 and Leaf-2.  The host/CE with IP address 10.0.0.10/24 configured on a vlan sub interface on the bundle. . Following is the configuration of LAG on Host-1.
 The LAG on Host-1 will come up after we configure lacp and port-active multi-homing using EVPN Ether-Segment on the Leaf-1 and Leaf-2.  
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
+```
 Host-1:
 
 interface Bundle-Ether 1
@@ -53,9 +51,7 @@ interface Bundle-Ether1.10
 encapsulation dot1q 10
 ipv4 address 10.0.0.10 255.255.255.0
 !
-</div>
-</pre>
-</code>
+```
 
 ### Task 2: Configure EVPN based port-active multi-homing
 
@@ -68,6 +64,7 @@ Configure the LACP bundles on the Leaf-1 and Leaf-2. Use below configuration for
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 Leaf-1:
 
 interface TenGigE0/0/0/47
@@ -88,9 +85,10 @@ interface Bundle-Ether1
  description "Bundle to Host-1 for port-active"
  lacp system mac 1212.1212.1212
 !
-</div>
-</pre>
+
 </code>
+</pre>
+</div>
 
 Configure ESI  for the bundle interface to enable multi-homing of the host. Use the identical ethernet-segment configuration on both the Leafs. Configure load-balancing mode to port-active using “port-active” keyword for ethernet-segment. 
 
@@ -106,10 +104,9 @@ evpn
   ethernet-segment
    identifier type 0 12.12.12.12.12.12.12.12.12
    <mark> load-balancing-mode port-active</mark>
-
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Use “_show bundle bundle-ether_” CLI command to verify the state of the bundle interfaces on Leafs and Host-1.  
 
@@ -171,9 +168,9 @@ Bundle-Ether1
   --------------------  ---------------  -----------  --------------  ----------
   Te0/0/0/47            Local            Standby      0x8000, 0x0001    10000000
       <mark> Link is in standby due to bundle out of service state</mark>
-</div>
+</code>
 </pre>
-</code> 
+</div>
 
 Also, verify the port-active operation making one leaf active and one leaf standby by verifying the status of the ethernet segment on each PE
 
@@ -181,6 +178,7 @@ Also, verify the port-active operation making one leaf active and one leaf stand
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 LEAF1:
 
 RP/0/RP0/CPU0:Leaf-1#<mark> sh evpn  ethernet-segment interface bundle-Ether 1 detail</mark>
@@ -302,9 +300,9 @@ Ethernet Segment Id      Interface                          Nexthops
   Local SHG label   : None
   Remote SHG labels : 0
   Access signal mode: Bundle OOS (Default)
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 **Note** `In the example shown the ethernet segment Identifier is 00.12.12.12.12.12.12.12.12.12.12 and the portion impacting DF election is 12.12.12.12 as highlighted. For Dual homing an odd-even modulo operation will gives a result of 0. Therefore Leaf1 is our active PE as it has a lower BGP router ID of 1.1.1.1 compared to 2.2.2.2 of Leaf2.`
 
@@ -394,9 +392,9 @@ interface TenGigE0/0/0/45.10
 evi 10
 !
 !
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Host-5 is single-homed to Leaf-5, below is the Host-5 configuration for reference.
 
@@ -409,9 +407,9 @@ interface TenGigE0/0/1/3.10
 description "Link to Leaf-5"
 ipv4 address 10.0.0.50 255.255.255.0
 encapsulation dot1q 10
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Once , the EVPN service is up, H1 will be able to reach H5 and vice-versa. 
 
@@ -547,9 +545,9 @@ Ethernet Segment Id      Interface                          Nexthops
               24001 : nexthop 1.1.1.1
   Access signal mode: Bundle OOS (Default)
 
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 The above output on both PE shows that elected field is up only for the active PE,  although the output of both the Leafs show that both are forwarders of 1 service. Unlike All-active or Single-active, the same PE will be the elected PE for any other vlan configured on these ethernet segment. This is the nature of port active redundancy mode. To  
 
@@ -564,9 +562,9 @@ Thu Aug 13 11:29:24.024 UTC
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 10.0.0.50, timeout is 2 seconds:
 !!!!!
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Let’s now take a look at the BGP EVPN control plane by checking the types of routes received on different leaf’s. We are filtering the route for the specific PE and specific service using rd which is PE:EVI . for example , routes from leaf1 for EVI 10 will come with a RD of _**1.1.1.1:10**_
 
@@ -598,9 +596,9 @@ Route Distinguisher: 2.2.2.2:10
                       2.2.2.2                       100      0 i
 *>i[3][0][32][2.2.2.2]/80
                       2.2.2.2                       100      0 i
-</div>
+</code>
 </pre>
-</code>                      
+</div>                     
 
 From Above output from Leaf-1 clearly shows it has reached the RT2 (MAC) from Leaf-5. From Leaf2 it has only received the ESI route.
 
@@ -637,9 +635,9 @@ Route Distinguisher: 5.5.5.5:10
                       5.5.5.5                       100      0 i
 
 Processed 2 prefixes, 2 paths
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Above output shows Leaf-2 has learnt ESI and MAC of host 1 from Leaf1 and from Leaf 5 it has learnt the MAC of host-5.
 
@@ -676,9 +674,9 @@ Route Distinguisher: 2.2.2.2:10
 
 Processed 2 prefixes, 2 paths100      0 i
 
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 Leaf-5 also learns the MAC of host1 only via Leaf1 as it was the only active PE and there is no aliasing in port active multihoming.
 
@@ -715,14 +713,14 @@ VPN-IDEncap	MAC address	IP address 	Nexthop		Label
 10   MPLS    6c9c.ed6d.1d89 ::     		1.1.1.1		 24000
 10   MPLS    a03d.6f3d.5447 ::         TenGigE0/0/0/45.10	  24004
 
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 The above output verifies the BGP-EVPN control plane for EVPN multipoint service over Port-active multihoming. 
 **Note:** `As Leaf-2 sees Host-1's MAC reachable via Leaf-1, in case of another Host/ESI connected to Leaf-2 wants to reach to Host-1 it will have to go over Leaf-1 to reach to Host-1.`
 
-### Task 5: Configure the BGP-EVPN Distributed Anycast Gateway for IRB service
+### Task 5: Configure and Verify BGP-EVPN Distributed Anycast Gateway for IRB service
 
 In this section we will demonstrate the Layer-3 inter-subnet routing use case over EVPN port active multihoming. Similar to Host-1’s layer-2 reachability, Host-1’s IP will also only be reachable via Leaf-1 as next-hop. After we configure BGP-EVPN distributed anycast gateway for inter-subnet routing, we will observe the routing table of Leaf-5.
 
@@ -814,9 +812,9 @@ l2vpn
    !
    evi 11
    
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 We will also configure a two different subnet on the Host’s and respective static routing towards the gateways.
 
@@ -844,9 +842,9 @@ interface TenGigE0/0/1/3.11
 router static
  address-family ipv4 unicast
   111.0.0.0/16 111.0.1.1
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 BGP-EVPN IRB control plane can be verified by observing the route tables on the Leaf node. As we can see the route for remote host’s are learnt on Leaf1 and Leaf-5 via BGP. As Leaf-2 is in standby mode it lean’s route to  Host-1 from Leaf-1 via BGP instead of learning directly.
 
@@ -877,9 +875,9 @@ Gateway of last resort is not set
 <mark>B    111.0.0.10/32</mark> [200/0] via 1.1.1.1 (nexthop in vrf default), 00:26:38
 C    111.0.1.0/24 is directly connected, 00:29:27, BVI11
 L    111.0.1.1/32 is directly connected, 00:29:27, BVI11
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 As of now we have configured 2 different services over the EVPN port-active multihoming and we see Leaf-1 as DF for both of this service. This is due to the fact that load balancing happens per port/ESI and the bundle on the non DF nodes are in LACP OOS status. If we see the Ethernet segment status on Leaf-1, we will see it as elected forwarder for all the configured services.
 
@@ -932,8 +930,8 @@ Ethernet Segment Id      Interface                          Nexthops
   Remote SHG labels : 1
               24001 : nexthop 2.2.2.2
   Access signal mode: Bundle OOS (Default)
-</div>
-</pre>
 </code>
+</pre>
+</div>
 
 This concludes the BGP-EVPN based port-active implementation. We have shown example of both Layer2 bridging and IRB services over port-active redundancy. However, this redundancy mode can be used for any other services like layer3 or legacy layer 2. For further technical details refer to our [e-vpn.io](e-vpn.io) webpage that has a lot of material explaining the core concepts of EVPN, its operations and troubleshooting.
