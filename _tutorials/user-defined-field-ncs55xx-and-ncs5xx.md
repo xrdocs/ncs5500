@@ -3,7 +3,7 @@ published: true
 date: '2020-09-02 15:39 +0530'
 title: User Defined Field NCS55xx and NCS5xx
 author: Tejas Lad
-position: hidden
+position: top
 excerpt: This documents aims to deep dive into UDF ACL for NCS55xx and NCS5xx ACL's
 tags:
   - NCS5500
@@ -72,6 +72,8 @@ ipv4 access-list udf_acl
 </div>
 
 ## UDF Use cases
+
+In this section, we will try to cover a few scenarios to show how we can use custom fields to match/filter traffic. We have taken simple examples to make the concept easier to understand. Users can take tips from this and can use their own way of classifying traffic based on their criterias.
 
 ### Matching layer 2 entities on a Layer 3 interface
 
