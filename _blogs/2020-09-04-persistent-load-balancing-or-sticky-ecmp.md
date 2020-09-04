@@ -1,7 +1,15 @@
 ---
-published: false
+published: true
 date: '2020-09-04 16:27 +0530'
 title: Persistent Load Balancing or "Sticky ECMP"
+author: Xander Thuijs
+excerpt: >-
+  Traditional ECMP or equal cost multipath loadbalances traffic over a number
+  of   available paths towards a destination. When one path fails, the traffic
+  gets   re-shuffled over the available number of paths
+tags:
+  - iosxr
+  - cisco
 ---
 {% include toc icon="table" title='Persistent Load Balancing or "Sticky ECMP"' %}  
 {% include base_path %}
