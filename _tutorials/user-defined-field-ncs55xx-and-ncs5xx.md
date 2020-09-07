@@ -589,6 +589,11 @@ ipv4 access-list UDF_CUSTOM
 </pre>
 </div>
 
+## UDF ACL for matching DVMRP packets
+
+The Distance Vector Multicast Routing Protocol or DVMRP, is a routing protocol used to share information between routers to facilitate the transportation of IP multicast packets among networks [refer](https://en.wikipedia.org/wiki/Distance_Vector_Multicast_Routing_Protocol "refer"). DVMRP uses the Internet Group Management Protocol (IGMP) to exchange
+routing datagrams. To know further details on DVRMP please refer [RFC 1075](https://tools.ietf.org/html/rfc1075 "RFC 1075").  
+
 ## References
 
   - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "CCO Config Guide")
@@ -597,6 +602,3 @@ ipv4 access-list UDF_CUSTOM
 ## Summary
 
 In this tech-note, we saw how we can overcome the limits of static matching criterias by using user defined fields. This gives the users capabilities of matching the packets dynamically as per the requirement. This is very useful in troubleshooting network issues and identifying packets. We saw a few simple examples with UDF. These can be customized as per the network requirements. With the availability of UDF, it is possible for the NCS55xx and NCS5xx platform to be more capable and flexible when fulfilling the packet classification functionalities.
-
-
-
