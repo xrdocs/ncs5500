@@ -65,7 +65,7 @@ QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintainin
 
 RS(528,514) is sometimes called the KR4 FEC, and RS(544,514) KP4 FEC.
 
-RS(544,154) will provide a stronger FEC for use with higher speed serdes.
+RS(544,514) will provide a stronger FEC for use with higher speed serdes.
 
 ### High Power Support
 
