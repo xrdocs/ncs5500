@@ -592,7 +592,105 @@ ipv4 access-list UDF_CUSTOM
 ## UDF ACL for matching DVMRP packets
 
 The Distance Vector Multicast Routing Protocol or DVMRP, is a routing protocol used to share information between routers to facilitate the transportation of IP multicast packets among networks [refer](https://en.wikipedia.org/wiki/Distance_Vector_Multicast_Routing_Protocol "refer"). DVMRP uses the Internet Group Management Protocol (IGMP) to exchange
-routing datagrams. To know further details on DVRMP please refer [RFC 1075](https://tools.ietf.org/html/rfc1075 "RFC 1075").  
+routing datagrams. To know further details on DVMRP please refer [RFC 1075](https://tools.ietf.org/html/rfc1075 "RFC 1075"). DVMRP DDoS can cause IGMP process crash and also potentially bring down the router. Thanks to NCS5500 capability to filter the DVMRP packets with UDF, we can protect the network with such attacks. UDF can be used to match the DVMRP packets in NCS5500 to match and drop it at the ingress interface.
+
+**Packet with DVMRP header**
+
+![Screenshot 2020-09-07 at 5.30.40 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-07 at 5.30.40 PM.png)
+
+**Configuring UDF and referencing it to the ACL**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>udf udf_dvmrp header outer l4 offset 0 length 1
+hw-module profile tcam format access-list ipv4 src-addr dst-addr proto frag-bit udf1 udf_dvmrp</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ipv4 access-list UDF_DVMRP
+<mark>10 deny igmp any any udf udf_dvmrp 0x13 0xff</mark>
+20 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface Bundle-Ether31000
+ipv4 address 1.1.1.2 255.255.255.0
+<mark>ipv4 access-group UDF_DVMRP ingress</mark>
+</code>
+</pre>
+</div>
+
+
+We can see that ACL is matching the ingress DVMRP packets
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:xrg-307-NCS-5501-SE#show access-lists ipv4 UDF_DVMRP hardware ingress location 0/0/CPU0
+Thu Sep 3 23:20:03.056 UTC
+ipv4 access-list UDF_DVMRP
+<mark>10 deny igmp any any (1799642834 matches)</mark> 
+20 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:xrg-307-NCS-5501-SE#show access-lists ipv4 UDF_DVMRP hardware ingress det location 0/0/CPU0
+UDF_DVMRP Details:
+<mark>Sequence Number: 10</mark>
+NPU ID: 0
+Number of DPA Entries: 1
+<mark>ACL ID: 1</mark>
+<mark>ACE Action: DENY</mark>
+ACE Logging: DISABLED
+ABF Action: 0(ABF_NONE)
+<mark>Hit Packet Count: 1819195451</mark>      
+UDF Entries:
+1: udf_dvmrp: 0x13 (mask: 0xff)
+DPA Entry: 1
+Entry Index: 0
+DPA Handle: 0x8CD870A8
+<mark>Sequence Number: 20</mark>
+NPU ID: 0
+Number of DPA Entries: 1
+<mark>ACL ID: 1</mark>
+<mark>ACE Action: PERMIT</mark>
+ACE Logging: DISABLED
+ABF Action: 0(ABF_NONE)
+DPA Entry: 1
+Entry Index: 0
+DPA Handle: 0x8C4FBAC8
+Sequence Number: IMPLICIT DENY
+NPU ID: 0
+Number of DPA Entries: 1
+ACL ID: 1
+ACE Action: DENY
+ACE Logging: DISABLED
+ABF Action: 0(ABF_NONE)
+Hit Packet Count: 0
+DPA Entry: 1
+Entry Index: 0
+DPA Handle: 0x8C4FC4E8
+</code>
+</pre>
+</div>
+
+Thanks to Santosh Sharma for helping out test this scenario.
+{: .notice--success}
+
 
 ## References
 
