@@ -26,13 +26,34 @@ In today’s converged networks, operators have to implement packet forwarding i
 
 ## Different Types of ABF
 
-There are 3 types of ABF supported on NCS55xx and NCS5xx
+There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "Reference")
 
-| ABF Type                                | Details                                                                                                                                                                                                                                                                                                                                                                                                  |
-|-----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ABF for IPv4/IPv6                       | Only the next-hop IP address(es) is specified in the ACE rule.   The matching traffic is forwarded to the first "up" next-hop, as specified in the ACE rule,  instead of the next-hop determined by normal routing/forwarding.   The default VRF is used for the ABF next-hop lookup (determining the path) regardless of the VRF on which the  packet was received.                                     |
-| VRF-aware ABF for IPv4/IPv6             | Both the next-hop IP address(es) and the next-hop VRF(s) are specified in the ACE rule.   The matching traffic is forwarded to the first "up" next-hop, as specified in the ACE rule,  instead of the next-hop determined by normal routing/forwarding.   The specified VRF (instead of the VRF associated with the ingress packet/interface) is used for the ABF next-hop  lookup (determing the path). |
-| VRF-select (VRF only) ABF for IPv4/IPv6 | Only the next-hop VRF(s) is specified in the ACE rule.  The matching traffic is forwarded to the next-hop as  determined by a destination address lookup performed in the first "up" VRF as specified in the  ACE rule (instead of the VRF associated with the ingress packet/interface).                                                                                                                |
+  - **ABF for IPv4/IPv6**
+  
+    - Only the next-hop IP address is specified in the ACE rule.
+	- The matching traffic is forwarded to the first "up" next-hop, as specified in the ACE. 
+    - Default VRF is used in this type of ABF.
+    
+    ![Screenshot 2020-09-08 at 4.21.12 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 4.21.12 PM.png)
+
+
+  - **VRF-aware ABF for IPv4/IPv6**
+  
+    - Both the next-hop IP address and the next-hop VRF are specified in the ACE rule.
+    - The matching traffic is forwarded to the first "up" next-hop, as specified in the ACE. 
+    - The specified VRF is used instead of the default VRF for determining the path.
+    
+    ![Screenshot 2020-09-08 at 4.21.19 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 4.21.19 PM.png)
+
+
+  - **VRF-select ABF for IPv4/IPv6** 
+  
+    - Only the next-hop VRF(s) is specified in the ACE rule.
+    - The matching traffic is forwarded to the first “UP” VRF as specified in the ACE rule.
+    - Supported from IOS-XR 6.5.1 onwards.
+    
+    ![Screenshot 2020-09-08 at 4.21.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 4.21.26 PM.png)
+
 
 
 
