@@ -55,7 +55,13 @@ There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www
     ![Screenshot 2020-09-08 at 4.21.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 4.21.26 PM.png)
 
 
-## Different Types of ABF
+## Possible Use cases of ABF (Reference 1)
+
+**Source-Based Transit Provider Selection** – Internet service providers and other organizations can use ABF to route traffic originating from different sets of users through different internet connections across the policy routers.
+
+**Cost Savings** – Organizations can achieve cost savings by distributing interactive and batch traffic among low-bandwidth, low-cost permanent paths and high-bandwidth, high-cost, switched paths.
+
+**Load Sharing** – In addition to the dynamic load-sharing capabilities offered by destination-based routing that the Cisco IOS-XR software provides network manager can implement policies to distribute traffic among multiple paths based on the traffic characteristics.
 
 ## Reference
 
