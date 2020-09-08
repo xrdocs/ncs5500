@@ -136,7 +136,6 @@ This ACL will sent the traffic destined for 70.1.1.2 with DSCF AF11 via interfac
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:N55-24#show access-lists ipv4 usage pfilter location 0/0/CPU0 
-Tue Sep  8 14:18:33.929 UTC
 <mark>Interface : TenGigE0/0/0/0.10 
     Input  ACL : Common-ACL : N/A  ACL : ABF_Test</mark>  
     Output ACL : N/A
@@ -148,7 +147,6 @@ Tue Sep  8 14:18:33.929 UTC
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:N55-24#show access-lists ipv4 ABF_Test hardware ingress location 0/0/CPU0 
-Tue Sep  8 14:19:43.431 UTC
 <mark>ipv4 access-list ABF_Test
  10 permit ipv4 any any dscp af11 (next-hop: addr=65.1.1.2, vrf name=default)
  20 permit ipv4 any any dscp ef (next-hop: addr=66.1.1.2, vrf name=default)</mark>
@@ -156,28 +154,78 @@ Tue Sep  8 14:19:43.431 UTC
 </pre>
 </div>
 
+![Screenshot 2020-09-08 at 8.05.04 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 8.05.04 PM.png)
 
-RP/0/RP0/CPU0:N55-24#show access-lists ipv4 abf nexthops client pfilter_ea location 0/0/CPU0 
-Tue Sep  8 14:21:01.131 UTC
 
-ACL name : ABF_Test
-  ACE seq.        NH-1             NH-2             NH-3     
- ---------  ---------------  ---------------  ---------------
-        10         65.1.1.2         70.1.1.1      Not present
-    status               UP               UP      Not present
- at status      Not Present      Not Present      Not present
-     exist               No              Yes      Not present
-       vrf          default         default      Not present
-     track      Not present      Not present      Not present
-    pd ctx          Present          Present      Not present
-        20         66.1.1.2         70.1.1.1      Not present
-    status               UP               UP      Not present
- at status      Not Present      Not Present      Not present
-     exist               No              Yes      Not present
-       vrf          default         default      Not present
-     track      Not present      Not present      Not present
-    pd ctx          Present          Present      Not present
-RP/0/RP0/CPU0:N55-24#
+![Screenshot 2020-09-08 at 8.19.07 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 8.19.07 PM.png) 
+
+We can see the traffic (10000 packets of AF11 and 20000 packets of EF) is flowing fine. 
+
+![Screenshot 2020-09-08 at 11.05.55 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 11.05.55 PM.png)
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 ABF_Test hardware ingress location 0/0/CPU0 
+ipv4 access-list ABF_Test
+ <mark>10 permit ipv4 any any dscp af11 (99377687 matches) (next-hop: addr=65.1.1.2, vrf name=default)
+ 20 permit ipv4 any any dscp ef (198755422 matches) (next-hop: addr=66.1.1.2, vrf name=default)</mark>
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 ABF_Test hardware ingress detail location 0/0/CPU0 
+<mark>ABF_Test Details:
+Sequence Number: 10</mark>
+NPU ID: 0
+Number of DPA Entries: 1
+<mark>ACL ID: 1
+ACE Action: PERMIT</mark>
+ACE Logging: DISABLED
+<mark>ABF Action: 1(ABF_NH)
+ABF IP: 65.1.1.2
+ABF VRF: default</mark>
+ABF FEC ID: 0x2001ffb8
+<mark>Hit Packet Count: 99688849</mark>
+DPA Entry: 1
+        Entry Index: 0
+        DPA Handle: 0x8ED2D0A8
+        DSCP: 0x28 (Mask 0xFC)
+<mark>Sequence Number: 20</mark>
+NPU ID: 0
+Number of DPA Entries: 1
+<mark>ACL ID: 1
+ACE Action: PERMIT</mark>
+ACE Logging: DISABLED
+<mark>ABF Action: 1(ABF_NH)
+ABF IP: 66.1.1.2
+ABF VRF: default</mark>
+ABF FEC ID: 0x2001ffb9
+<mark>Hit Packet Count: 199377727</mark>
+DPA Entry: 1
+        Entry Index: 0
+        DPA Handle: 0x8ED2D498
+        DSCP: 0xB8 (Mask 0xFC)
+Sequence Number: IMPLICIT DENY
+NPU ID: 0
+Number of DPA Entries: 1
+ACL ID: 1
+ACE Action: DENY
+ACE Logging: DISABLED
+ABF Action: 0(ABF_NONE)
+Hit Packet Count: 0
+DPA Entry: 1
+        Entry Index: 0
+        DPA Handle: 0x8ED2D888
+</code>
+</pre>
+</div>
+
 
 
 
