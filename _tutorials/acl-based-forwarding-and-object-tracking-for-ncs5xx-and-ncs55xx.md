@@ -226,8 +226,7 @@ DPA Entry: 1
 </pre>
 </div>
 
-
-
+From the above outputs we can see that how we could influence the traffic to take a path which is not there in the routing table. This can be used by the operators for diverting the traffic to load balance or for purpose of troubleshooting.
 
 
 
