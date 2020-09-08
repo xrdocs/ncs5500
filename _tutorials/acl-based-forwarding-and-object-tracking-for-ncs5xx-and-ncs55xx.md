@@ -24,7 +24,7 @@ In today’s converged networks, operators have to implement packet forwarding i
 
 ![Screenshot 2020-09-08 at 3.23.09 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 3.23.09 PM.png)
 
-## Different Types of ABF
+## Different Types of ABF 
 
 There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "Reference")
 
@@ -55,7 +55,7 @@ There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www
     ![Screenshot 2020-09-08 at 4.21.26 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 4.21.26 PM.png)
 
 
-
+## Different Types of ABF
 
 ## Reference
 
