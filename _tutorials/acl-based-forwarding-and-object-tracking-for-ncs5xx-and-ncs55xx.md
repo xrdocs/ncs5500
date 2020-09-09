@@ -250,6 +250,10 @@ From the above outputs, we could successfully influence the traffic to take a pa
 - This can be avoided by either designing the rule to be specific enough to avoid matching the “for-us” packets or placing an explicit permit ACE rule (with higher priority) into the ACL before the matching ABF rule.
 [Reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "Reference")
 
+## Resource Utilization 
+
+As we already know the TCAM is very important resource in NCS55xx and NCS5xx. It needs to be optimized. The advantage of ABF is built within the same feature framework. ABF shares the same lookup field groups as ACL hereby saving the TCAM resources for additional lookups. Another advantage is ABF uses the CLI which is based on existing ACL infrastructure making it comfortable for the users to configure and implement. For further information on resource utilization please [refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "refer")
+
 ## Object Tracking with ABF
 
 In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will continue forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
