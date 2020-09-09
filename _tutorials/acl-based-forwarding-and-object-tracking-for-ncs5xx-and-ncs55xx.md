@@ -229,6 +229,26 @@ DPA Entry: 1
 From the above outputs, we could successfully influence the traffic to take a path which is not installed in the routing table. This can be used by the operators for diverting the traffic to load balance or for purpose of troubleshooting.
 
 
+## ABF Feature Support
+
+- ABF is supported only in Ingress Direction. It is not supported in the egress direction
+- ABF is supported only for V4 and V6. It is not supported for L2 ACL
+- NCS5500 supports upto 3 next-hops. The next-hops are selected on the basis of its configuration in the ACE
+- It is supported only for permit action. Deny action is not supported 
+- Supported on Physical Interfaces, Sub-interfaces and Bundles
+- ABF is not supported for common-ACL's
+- ABF supports dynamic next-hop modifications
+- ABF default route is not supported
+- IPv4 ABF next hops routed over GRE interfaces is supported
+
+## For Punt Packets 
+
+- Packets punted in the ingress direction from the NPU to the linecard CPU are not subjected to ABF treatment due to lack of ABF support in the slow path. These packets will be forwarded normally based on destination-address lookup by the software dataplane. 
+- Some examples of these types of packets are (but are not limited to) packets with IPv4 options, IPv6 extension headers, and packets destined for glean (unresolved/incomplete) adjacencies.
+
+- Packets destined to the local IP interface ("for-us" packets) are subjected to redirect if they match the rule containing the ABF action. 
+- This can be avoided by either designing the rule to be specific enough to avoid matching the “for-us” packets or placing an explicit permit ACE rule (with higher priority) into the ACL before the matching ABF rule.
+
 ## Object Tracking with ABF
 
 In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will continue forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
