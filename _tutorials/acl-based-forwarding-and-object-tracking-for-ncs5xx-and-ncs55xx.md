@@ -231,9 +231,9 @@ From the above outputs, we could successfully influence the traffic to take a pa
 
 ## Object Tracking with ABF
 
-Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will keep on forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
+In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will continue forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
 
-This is where we need Object-Tracking along with ABF. Let us see this with configuration example.
+This is where we need Object-Tracking along with ABF. Track option in ABF enables track object to be specified along with nexthop ip address. Let us see this with configuration example.
 
 ![Screenshot 2020-09-09 at 10.34.52 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 10.34.52 AM.png)
 
@@ -421,8 +421,15 @@ Wed Sep  9 05:48:03.242 UTC
 That's it! 
 {: .notice--success}
 
-## Summary
+
 ## Reference
 
   - Reference 1: https://community.cisco.com/t5/service-providers-documents/asr9000-xr-abf-acl-based-forwarding/ta-p/3153403
-  -
+  - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "CCO Config Guide")
+  
+  
+## Summary
+
+In this technote, we tried to cover the ABF feature, possible use cases and how to use ABF along with Object tracking to track the next-hops for failure scenarios. We also saw configuration examples on NCS55xx and NCS5xx. We have taken a simple network topology to explain the concept in easier way, but there is no restriction for ABF to work flawlessly in complex networks. Network admins can use this feature effectively to engineer the traffic along desired paths and perform troubleshooting as and when required. 
+
+
