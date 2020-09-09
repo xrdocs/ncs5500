@@ -20,7 +20,7 @@ position: hidden
 
 ## Introduction
 
-In today’s converged networks, operators have to implement packet forwarding in a way that goes beyond traditional routing protocol. Sometimes operators want certain traffic to be engineered based on rules which takes a separate path then what is already computed by the dynamic routing protocols. ACL Based Forwarding (ABF) can be used as a technique to achieve the same. ABF is a subset of PBR (Policy Based Routing) infrastructure in the XR platform. ABF allows traffic matching specific ACL rule to be forwarded to user specified nexthop instead of route selected by a routing protocol. ABF does not modify anything in the packet itself and therefore only affects the local routing/forwarding decision. The path for reaching the ABF next-hop, however, is determined by the normal routing/forwarding table.
+In today’s converged networks, operators have to implement packet forwarding in a way that goes beyond traditional routing protocol. Sometimes operators want certain traffic to be engineered to a separate path based on certain rules. They do not want it to take the path computated by the dynamic routing protocols. ACL Based Forwarding (ABF) can be used as a technique to achieve the same. ABF is a subset of PBR (Policy Based Routing) infrastructure in the XR platform. ABF allows traffic matching specific ACL rule to be forwarded to user specified nexthop instead of route selected by a routing protocol. ABF does not modify anything in the packet itself and therefore only affects the local routing/forwarding decision. The path for reaching the ABF next-hop however, is determined by the normal routing/forwarding table.
 
 ![Screenshot 2020-09-08 at 3.23.09 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 3.23.09 PM.png)
 
@@ -48,7 +48,7 @@ There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www
 
   - **VRF-select ABF for IPv4/IPv6** 
   
-    - Only the next-hop VRF(s) is specified in the ACE rule.
+    - Only the next-hop VRF is specified in the ACE rule.
     - The matching traffic is forwarded to the first “UP” VRF as specified in the ACE rule.
     - Supported from IOS-XR 6.5.1 onwards.
     
@@ -82,7 +82,7 @@ There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www
 
 ## ABF Platform Implementation 
 
-Now that we have understood the feature and its use cases, let us jump into the configuration and implementaion on NCS55xx and NCS5xx. We will be a taking a very simple topology to illustrate the feature.
+Now that we have understood the feature and its use cases, let us jump into the configuration and implementaion on NCS55xx and NCS5xx. We will be a taking a very simple topology for easier illustration of the feature.
 
 ![Screenshot 2020-09-08 at 7.11.34 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-08 at 7.11.34 PM.png)
 
@@ -128,7 +128,7 @@ ipv4 access-list ABF_Test
 </pre>
 </div>
 
-This ACL will sent the traffic destined for 70.1.1.2 with DSCF AF11 via interface TenGih 0/0/0/6 and traffic with DSCP EF (critical traffic) via TenGig 0/0/0/7. Let us verify the same with traffic.
+This ACL will sent the traffic destined for 70.1.1.2 with DSCF AF11 via interface TenGig 0/0/0/6 and traffic with DSCP EF (critical traffic) via TenGig 0/0/0/7. Let us verify the same.
 
 ## ABF Verification
 
@@ -229,17 +229,6 @@ DPA Entry: 1
 From the above outputs, we could successfully influence the traffic to take a path which is not installed in the routing table. This can be used by the operators for diverting the traffic to load balance or for purpose of troubleshooting.
 
 
-## ABF Feature Support
-
-- ABF is supported only in Ingress Direction. It is not supported in the egress direction
-- ABF is supported only for V4 and V6. It is not supported for L2 ACL
-- NCS5500 supports upto 3 next-hops. The next-hops are selected on the basis of its configuration in the ACE
-- It is supported only for permit action. Deny action is not supported 
-- Supported on Physical Interfaces, Sub-interfaces and Bundles
-- ABF is not supported for common-ACL's
-- ABF supports dynamic next-hop modifications
-- ABF default route is not supported
-- IPv4 ABF next hops routed over GRE interfaces is supported
 
 ## For Punt Packets 
 
@@ -252,15 +241,18 @@ From the above outputs, we could successfully influence the traffic to take a pa
 
 ## Resource Utilization 
 
-As we already know the TCAM is very important resource in NCS55xx and NCS5xx. It needs to be optimized. The advantage of ABF is built within the same feature framework. ABF shares the same lookup field groups as ACL hereby saving the TCAM resources for additional lookups. Another advantage is ABF uses the CLI which is based on existing ACL infrastructure making it comfortable for the users to configure and implement. For further information on resource utilization please [refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "refer")
+As we already know the TCAM is very important resource in NCS55xx and NCS5xx. It needs to be optimized. The advantage of ABF, is that it is built within the same feature framework. ABF shares the same lookup field groups as ACL hereby saving the TCAM resources for additional lookups. Another advantage is ABF uses the CLI which is based on existing ACL infrastructure making it comfortable for the users to configure and implement. For further information on resource utilization please [refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "refer")
 
 ## Object Tracking with ABF
 
-In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will continue forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
-
-This is where we need Object-Tracking along with ABF. Track option in ABF enables track object to be specified along with nexthop ip address. Let us see this with configuration example.
+In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. 
 
 ![Screenshot 2020-09-09 at 10.34.52 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 10.34.52 AM.png)
+
+Due to unknown reason, the link between the switch and R5 has gone down. Router R1 has no visibility of this and it will continue forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this type of failure scenario ?
+
+This is where we need Object-Tracking along with ABF. Track option in ABF enables track object to 
+be specified along with nexthop ip address. Let us see this with configuration example.
 
 
 ```
@@ -286,7 +278,7 @@ We can see the traffic has dropped completely
 
 ![Screenshot 2020-09-09 at 10.50.05 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 10.50.05 AM.png)
 
-Still the traffic is being forwarded over TenGig 0/0/0/7, as R1 has no visibility of the link down.
+The traffic is being forwarded over TenGig 0/0/0/7, as R1 has no visibility of the link down.
 
 ```
 RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/7 | i rate 
@@ -423,6 +415,17 @@ RP/0/RP0/CPU0:N55-24#
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/6 | i rate 
+Wed Sep  9 05:48:03.242 UTC
+  30 second input rate 1000 bits/sec, 0 packets/sec
+  <mark>30 second output rate 79362000 bits/sec, 10000 packets/sec</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/7 | i rate 
 Wed Sep  9 05:47:58.801 UTC
   30 second input rate 0 bits/sec, 0 packets/sec
@@ -432,20 +435,10 @@ Wed Sep  9 05:47:58.801 UTC
 </div>
 
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/6 | i rate 
-Wed Sep  9 05:48:03.242 UTC
-  30 second input rate 1000 bits/sec, 0 packets/sec
-  <mark>30 second output rate 79362000 bits/sec, 10000 packets/sec</mark>
-</code>
-</pre>
-</div>
-
 That's it! 
 {: .notice--success}
 
+This is just one of scenario. There can be multiple sceanrios where network admins can identify the need of using object tracking along with ABF to prevent the loss of traffic.
 
 ## Reference
 
