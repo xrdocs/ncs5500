@@ -301,6 +301,123 @@ ipv4 access-list ABF_Test
 </pre>
 </div>
 
+![Screenshot 2020-09-09 at 11.10.02 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 11.10.02 AM.png)
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show ipsla statistics 
+Entry number: 1 
+    Modification time: 05:22:50.959 UTC Wed Sep 09 2020
+    Start time       : 14:07:07.439 UTC Tue Sep 08 2020
+    Number of operations attempted: 708
+    Number of operations skipped  : 12
+    Current seconds left in Life  : 0
+    Operational state of entry    : Inactive
+    Operational frequency(seconds): 5
+    <mark>Connection loss occurred      : FALSE
+    Timeout occurred              : FALSE</mark>
+    Latest RTT (milliseconds)     : 1
+    Latest operation start time   : 15:07:02.440 UTC Tue Sep 08 2020
+    Next operation start time     : Inactive
+    Latest operation return code  : OK
+    RTT Values:
+      RTTAvg  : 1          RTTMin: 1          RTTMax : 1         
+      NumOfRTT: 1          RTTSum: 1          RTTSum2: 1
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show track 1
+Track 1 
+        Response Time Reporter 1 reachability 
+        <mark>Reachability is UP</mark>
+        2 changes, last change 14:09:23 UTC Tue Sep 08 2020
+        Latest operation return code: OK 
+        Latest RTT (millisecs) : 1 
+</code>
+</pre>
+</div>
+
+
+**Shutting the interface between R5 and Switch again**
+
+```
+RP/0/RP0/CPU0:N55-24#RP/0/RP0/CPU0:Sep  9 05:45:12.000 UTC: object_tracking[360]: %SERVICES-OT-6-TRACK_INFO : track 1 state Track_Down
+```
+
+![Screenshot 2020-09-09 at 11.19.05 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 11.19.05 AM.png)
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show ipsla statistics 
+Entry number: 1 
+    Modification time: 05:44:45.008 UTC Wed Sep 09 2020
+    Start time       : 05:44:45.011 UTC Wed Sep 09 2020
+    Number of operations attempted: 13
+    Number of operations skipped  : 13
+    Current seconds left in Life  : 3470
+    Operational state of entry    : Active
+    Operational frequency(seconds): 5
+    Connection loss occurred      : FALSE
+    <mark>Timeout occurred              : TRUE</mark>
+    Latest RTT (milliseconds)     : Unknown
+    Latest operation start time   : 05:46:45.012 UTC Wed Sep 09 2020
+    Next operation start time     : 05:46:50.012 UTC Wed Sep 09 2020
+    Latest operation return code  : TimeOut
+    RTT Values:
+      RTTAvg  : 0          RTTMin: 0          RTTMax : 0         
+      NumOfRTT: 0          RTTSum: 0          RTTSum2: 0
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show track 1
+Track 1 
+        Response Time Reporter 1 reachability 
+        <mark>Reachability is DOWN</mark>
+        3 changes, last change 05:45:12 UTC Wed Sep 09 2020
+        Latest operation return code: TimeOut 
+        Latest RTT (millisecs) : 0 
+RP/0/RP0/CPU0:N55-24#
+</code>
+</pre>
+</div>
+
+**Traffic is moved to next UP next-hop**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/7 | i rate 
+Wed Sep  9 05:47:58.801 UTC
+  30 second input rate 0 bits/sec, 0 packets/sec
+  <mark>30 second output rate 1000 bits/sec, 0 packets/sec</mark>
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/6 | i rate 
+Wed Sep  9 05:48:03.242 UTC
+  30 second input rate 1000 bits/sec, 0 packets/sec
+  <mark>30 second output rate 79362000 bits/sec, 10000 packets/sec</mark>
+</code>
+</pre>
+</div>
+
 ## Reference
 
   - Reference 1: https://community.cisco.com/t5/service-providers-documents/asr9000-xr-abf-acl-based-forwarding/ta-p/3153403
