@@ -448,6 +448,6 @@ This is just one of scenario. There can be multiple sceanrios where network admi
   
 ## Summary
 
-In this technote, we tried to cover the ABF feature, possible use cases and how to use ABF along with Object tracking to track the next-hops for failure scenarios. We also saw configuration examples on NCS55xx and NCS5xx. We have taken a simple network topology to explain the concept in easier way, but there is no restriction for ABF to work flawlessly in complex networks. Network admins can use this feature effectively to engineer the traffic along desired paths and perform troubleshooting as and when required. 
+In this technote, we tried to cover the ABF feature, possible use cases and how to use ABF along with Object tracking to track the next-hops for failure scenarios. We also saw configuration examples on NCS55xx and NCS5xx. We have taken a simple network topology to explain the concept in easier way, but there is no restriction for ABF to work flawlessly in complex networks. Network admins can use this feature effectively to engineer the traffic along desired paths and perform load-balancing and troubleshooting as and when required. 
 
 
