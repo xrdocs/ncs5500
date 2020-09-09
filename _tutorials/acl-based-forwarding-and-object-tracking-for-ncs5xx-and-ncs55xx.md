@@ -248,6 +248,7 @@ From the above outputs, we could successfully influence the traffic to take a pa
 
 - Packets destined to the local IP interface ("for-us" packets) are subjected to redirect if they match the rule containing the ABF action. 
 - This can be avoided by either designing the rule to be specific enough to avoid matching the “for-us” packets or placing an explicit permit ACE rule (with higher priority) into the ACL before the matching ABF rule.
+[Reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "Reference")
 
 ## Object Tracking with ABF
 
