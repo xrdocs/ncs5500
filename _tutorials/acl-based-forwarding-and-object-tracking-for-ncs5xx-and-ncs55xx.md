@@ -226,13 +226,82 @@ DPA Entry: 1
 </pre>
 </div>
 
-From the above outputs we can see that how we could influence the traffic to take a path which is not there in the routing table. This can be used by the operators for diverting the traffic to load balance or for purpose of troubleshooting.
+From the above outputs, we could successfully influence the traffic to take a path which is not installed in the routing table. This can be used by the operators for diverting the traffic to load balance or for purpose of troubleshooting.
 
 
+## Object Tracking with ABF
+
+Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. The link between the switch and R5 has gone down for some unknown reason. Router R1 has no visibility of this and it will keep on forwarding the traffic out of the interface Ten 0/0/0/7 as that link is in UP state. How to deal with this failure scenario ?
+
+This is where we need Object-Tracking along with ABF. Let us see this with configuration example.
+
+![Screenshot 2020-09-09 at 10.34.52 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 10.34.52 AM.png)
+
+
+```
+ipv4 access-list ABF_Test
+ 10 permit ipv4 any any dscp ef nexthop1 ipv4 66.1.1.2 nexthop2 ipv4 65.1.1.2
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/7 | in rate 
+Wed Sep  9 05:12:58.069 UTC
+  30 second input rate 1000 bits/sec, 0 packets/sec
+  30 second output rate 79361000 bits/sec, <mark>10000 packets/sec</mark>
+RP/0/RP0/CPU0:N55-24#
+</code>
+</pre>
+</div>
+
+**Shutting the interface between R5 and Switch**
+
+We can see the traffic has dropped completely 
+
+![Screenshot 2020-09-09 at 10.50.05 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-09 at 10.50.05 AM.png)
+
+Still the traffic is being forwarded over TenGig 0/0/0/7, as R1 has no visibility of the link down.
+
+```
+RP/0/RP0/CPU0:N55-24#show interfaces tenGigE 0/0/0/7 | i rate 
+Wed Sep  9 05:18:29.082 UTC
+  30 second input rate 0 bits/sec, 0 packets/sec
+  30 second output rate 81244000 bits/sec, 10238 packets/sec
+RP/0/RP0/CPU0:N55-24#
+
+```
+
+**Configuring object tracking for ABF**
+
+```
+ipsla
+ operation 1
+  type icmp echo
+   destination address 66.1.1.2
+   timeout 5000
+   frequency 5
+  !
+ !
+ schedule operation 1
+  start-time now
+ !
+!
+
+```
+
+**Modifying the ACL to track the next hop**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ipv4 access-list ABF_Test
+ <mark>10 permit ipv4 any any dscp ef nexthop1 track 1 ipv4 66.1.1.2 nexthop2 ipv4 65.1.1.2</mark>
+</code>
+</pre>
+</div>
 
 ## Reference
 
   - Reference 1: https://community.cisco.com/t5/service-providers-documents/asr9000-xr-abf-acl-based-forwarding/ta-p/3153403
-  - 
-
-
+  -
