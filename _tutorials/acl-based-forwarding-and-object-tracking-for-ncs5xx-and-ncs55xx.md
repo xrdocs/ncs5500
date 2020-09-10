@@ -243,6 +243,14 @@ From the above outputs, we could successfully influence the traffic to take a pa
 
 As we already know the TCAM is very important resource in NCS55xx and NCS5xx. It needs to be optimized. The advantage of ABF, is that it is built within the same feature framework. ABF shares the same lookup field groups as ACL hereby saving the TCAM resources for additional lookups. Another advantage is ABF uses the CLI which is based on existing ACL infrastructure making it comfortable for the users to configure and implement. For further information on resource utilization please [refer](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/ "refer")
 
+## Important considerations for ABF Next Hop
+
+While configuring the ABF next-hop we should consider the below:
+
+  - The next-hop address cannot be of the loopback interface.
+  - The next-hop address cannot an address routed/forwarded over the loopback interface.
+  - The next-hop address caanot be the address of a local port.
+
 ## Object Tracking with ABF
 
 In some scenarios, the ABF may fail to recognise that the next hop is not reachable and will keep on forwarding the packet to that next hop. This will cause traffic drop end to end. Consider the same topology as above. Traffic is flowing fine as per the configured next-hop. 
