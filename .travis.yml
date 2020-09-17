@@ -7,11 +7,11 @@ branches:
 script:
 - bundle exec jekyll build --config _config.yml
 - bundle exec htmlproofer ./_site --external_only --only-4xx --url-ignore \"/#.*/,/getting-started\"
-notifications:
-  slack:
-    rooms:
-      - secure: FfsxyLRKhEUGdf9TN2Pdz3PA8Xgbu2T4WTGPOuHOC7qCPNQoR+7I6+xLSUOsbZmZ08sdjXu+Y7vKAZ1ul4MfVxUfmuVss7eNNsWG0L+2idjmetml8SHWOZZzWdGL4QoEDopfD2eqtAI0cKvFBR9qaczCxYtp9DM75PDx/yoCbzIbV+GnzoGsLOjdA0ZDO/+AifnNxrMwbB5KsN6LwDcjVYH9jdOd/ESfrqq335ndbitnvAcxvtNyJCJeXeRo8b7a5v9sg6Afu9djqiCC8VYBjMG2K2x3KPB1kgTwTlyroGwYNi8TSz4egTb66Zov1xohlpLt6b1PfQSbuuzxm0qkPE0lnSwwxWnMUXvYCV3ZenT6EXJxIDiiFKxTjB2M0PnxGZYEypaT/Fm0MVAy5EHwX5n4rK7RoHU6CqycLGnai+K7H2bkIMN+reNyqq1Y0it0/hMfMP6kdcwlTjWfgnY4ZWB1AnE0iJHVkaZHEbkeIdE7wmGNQf0zabWboyLCeCu6kbDWV73lB8MRNkPHHXk02QgNetpDLPglFUBBrkqppcwFJ6W/N5TJeRDzWsN2iWmT/R46jtQXzYvPsnP+xJeuAchXRMl1E9DSEsB0WTPf/nqSex5RtbODeV5ykHryU/Z0GmcUp9mf23v5hxWkP81B5hwjbhIi7qAsvGn7Jvis+VE=
-    on_success: never
-    on_failure: always
-    template:
-      - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result}. Click on the build number to see details."
+# notifications:
+#   slack:
+#     rooms:
+#       - secure: FfsxyLRKhEUGdf9TN2Pdz3PA8Xgbu2T4WTGPOuHOC7qCPNQoR+7I6+xLSUOsbZmZ08sdjXu+Y7vKAZ1ul4MfVxUfmuVss7eNNsWG0L+2idjmetml8SHWOZZzWdGL4QoEDopfD2eqtAI0cKvFBR9qaczCxYtp9DM75PDx/yoCbzIbV+GnzoGsLOjdA0ZDO/+AifnNxrMwbB5KsN6LwDcjVYH9jdOd/ESfrqq335ndbitnvAcxvtNyJCJeXeRo8b7a5v9sg6Afu9djqiCC8VYBjMG2K2x3KPB1kgTwTlyroGwYNi8TSz4egTb66Zov1xohlpLt6b1PfQSbuuzxm0qkPE0lnSwwxWnMUXvYCV3ZenT6EXJxIDiiFKxTjB2M0PnxGZYEypaT/Fm0MVAy5EHwX5n4rK7RoHU6CqycLGnai+K7H2bkIMN+reNyqq1Y0it0/hMfMP6kdcwlTjWfgnY4ZWB1AnE0iJHVkaZHEbkeIdE7wmGNQf0zabWboyLCeCu6kbDWV73lB8MRNkPHHXk02QgNetpDLPglFUBBrkqppcwFJ6W/N5TJeRDzWsN2iWmT/R46jtQXzYvPsnP+xJeuAchXRMl1E9DSEsB0WTPf/nqSex5RtbODeV5ykHryU/Z0GmcUp9mf23v5hxWkP81B5hwjbhIi7qAsvGn7Jvis+VE=
+#     on_success: never
+#     on_failure: always
+#     template:
+#       - "Build <%{build_url}|#%{build_number}> (<%{compare_url}|%{commit}>) of %{repository_slug}@%{branch} by %{author} %{result}. Click on the build number to see details."
