@@ -225,7 +225,7 @@ Each ASIC is associated by 4GB of GDDR5 memory (total is the multiplication of n
 The buffer size is not related to the -SE or non-SE aspect (it's not related to TCAM).  
 For more details, refer to Lane's whitepaper:  
 
-[https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/](https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/)
+<!-- [https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/](https://xrdocs.io/ncs5500/blogs/2018-05-07-ncs-5500-buffering-architecture/) -->
 
 
 ### Supported optics
