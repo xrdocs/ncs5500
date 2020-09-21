@@ -54,7 +54,7 @@ To avoid the impact to multiple customer interface due to modifications, there h
 - It cannot be configured on the same line card which has compression.
 - Atomic replace of the common ACL is not supported.
 
-## Common ACL behaviour if hw-module profile is configured
+## Common ACL behaviour with hw-module profile
 
 | HW-module Profile                                                                | Common ACL Configuration |
 |----------------------------------------------------------------------------------|--------------------------|
@@ -66,7 +66,7 @@ To avoid the impact to multiple customer interface due to modifications, there h
 
 ![Screenshot 2020-09-21 at 3.44.22 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 3.44.22 PM.png)
 
-This is how you configure the common ACL along with interface specific ACL. We will see the configuration of the ACL's along with ACE's in later section.
+This is how you configure the common ACL along with interface specific ACL. We will see the detailed configurations in later section.
 
 ## Hardware Programming
 
@@ -83,7 +83,7 @@ ipv4 access-group common ACL_Comm ACL2 ingress
 
 ![Screenshot 2020-09-21 at 3.40.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 3.40.16 PM.png)
 
-The above figure shows how the hardware programming will happen in this case. The common ACL is programmed once in a TCAM and is located at the top of the TCAM. Interface ACLs are programmed below the common ACL. The TCAM search order is from top to bottom which gives the common ACL precedence over the interface ACL. The single instance of the common ACL in a TCAM ensures scalability when thousands of interfaces are enabled on an NP.  However, since the hardware resources for the common ACL must be reserved, a static number of TCAM entries are allocated. 
+The above figure shows how the hardware programming will happen in this case. The common ACL is programmed once in a TCAM and is located at the top of the TCAM. Interface ACL's are programmed below the common ACL. The TCAM search order is from top to bottom which gives the common ACL precedence over the interface ACL. The single instance of the common ACL in a TCAM ensures scalability when thousands of interfaces are enabled on an NP.  However, since the hardware resources for the common ACL must be reserved, a static number of TCAM entries are allocated. 
 
 Note: An interface may contain only the common ACL, only an interface ACL, or both the common and interface ACL.
 {: .notice--info}
@@ -247,7 +247,7 @@ NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
 </pre>
 </div>
 
-From the above output we can see that with the use of common ACL along with interface specific ACL's we are using only **26** entries in the TCAM as compared to previously 34 entries. If we need to make changes in ACE's which are common to interfaces, we just need to change it in the common-ACL and no need to make changes on each and every interface, making the manageability easier.
+From the above output we can see that with the use of common ACL along with interface specific ACL's we are using only **26** entries in the TCAM as compared to previously **34** entries. If we need to make changes in ACE's which are common to interfaces, we just need to change it in the common-ACL and no need to make changes on each and every interface, making the manageability easier. This is a very simple example with only 2 interfaces. We can see its usage when we apply it to multiple interface at the same time.
 
 ## Reference
 
@@ -255,7 +255,7 @@ From the above output we can see that with the use of common ACL along with inte
   
 ## Summary
 
-In this tech-note we successfully demonstrated the concept of Chained or Common ACL and could see how it makes ACL manageability easy and also helps in saving the TCAM resource. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security. 
+In this tech-note we successfully demonstrated the concept of Chained or Common ACL. We saw how it makes ACL manageability easy and also helps in saving the TCAM resources. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security. 
 
 
 
