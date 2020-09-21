@@ -58,6 +58,34 @@ To avoid the impact to multiple customer interface due to modifications, there h
 | hw-module profile tcam format access-list is used and common-acl is not included | Not Allowed              |
 | hw-module profile tcam format access-list is not used                            | Allowed                  |
 
+## Configuring a common ACL
+
+![Screenshot 2020-09-21 at 3.44.22 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 3.44.22 PM.png)
+
+This is how you configure the common ACL along with interface specific ACL. We will see the configuration of the ACL's along with ACE's in later section.
+
+## Hardware Programming
+
+Consider you have configured below ACL's on 2 interfaces along with a common ACL.
+
+```
+interface TenGigE0/0/0/0
+ipv4 access-group common ACL_Comm ACL1 ingress
+
+interface TenGigE0/0/0/1
+ipv4 access-group common ACL_Comm ACL2 ingress
+
+```
+
+![Screenshot 2020-09-21 at 3.40.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 3.40.16 PM.png)
+
+The above figure shows how the hardware programming will happen in this case. The common ACL is programmed once in a TCAM and is located at the top of the TCAM. Interface ACLs are programmed below the common ACL. The TCAM search order is from top to bottom which gives the common ACL precedence over the interface ACL. The single instance of the common ACL in a TCAM ensures scalability when thousands of interfaces are enabled on an NP.  However, since the hardware resources for the common ACL must be reserved, a static number of TCAM entries are allocated. 
+
+Note: An interface may contain only the common ACL, only an interface ACL, or both the common and interface ACL.
+{: .notice--info}
+
+
+
 
 
 
