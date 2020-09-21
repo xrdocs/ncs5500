@@ -223,10 +223,32 @@ Let us apply the same ACL's along with common ACL.
 
 ![Screenshot 2020-09-21 at 5.17.46 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.17.46 PM.png)
 
+## Resource Utilization with Common ACL.
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show controllers npu internaltcam location 0/0/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      160b   pmf-0       1883     107     36   INGRESS_LPTS_IPV4
+0    0      160b   pmf-0       1883     18      45   INGRESS_RX_ISIS
+0    0      160b   pmf-0       1883     23      54   INGRESS_QOS_IPV4
+0    0      160b   pmf-0       1883     15      56   INGRESS_QOS_MPLS
+0    0      160b   pmf-0       1883     2       60   INGRESS_EVPN_AA_ESI_TO_FBN_DB
+<mark>0    1      160b   pmf-0       1970     26      47   INGRESS_ACL_L3_IPV4</mark>
+</code>
+</pre>
+</div>
 
-## Resource Utilization
+From the above output we can see that with the use of common ACL along with interface specific ACL's we are using only **26** entries in the TCAM as compared to previously 34 entries. If we need to make changes in ACE's which are common to interfaces, we just need to change it in the common-ACL and no need to make changes on each and every interface, making the manageability easier.
 
+## Summary
+
+In this tech-note we successfully demonstrated the concept of Chained or Common ACL and could see how it makes ACL manageability easy and also helps in saving the TCAM resource. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security. 
 
 
 
