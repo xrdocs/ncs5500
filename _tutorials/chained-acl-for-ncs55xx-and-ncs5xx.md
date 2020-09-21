@@ -26,11 +26,11 @@ In our previous tech-notes, we introduced the ACL support ([ACL Introduction](ht
 
 ![Screenshot 2020-09-21 at 5.39.29 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.39.29 PM.png)
 
-Prior to the IOS-XR release 7.2.1, the packet filter (pfilter) only supported one ACL to be applied per direction and per protocol on any given interface. In a typical customer scenario, there are instances where they have ACL's applied on many interfaces (including physical and sub-interfaces). Most of the time it happens, many ACL's end up having similar ACE's. Consider an edge box of an ISP which has 2 sets of ACEs. One may be common ISP specific ACEs to protect ISP infrastructure as a whole and other would be interface specific ACEs which might be for blocking customer related address block. This is done to protect the ISP infrastructure against attacks by allowing only valid. To achieve this, we have to configure unique ACL per interface out of which most of the ACEs being common across all the ACLs on a box. 
+Prior to the IOS-XR release 7.2.1, the packet filter (pfilter) only supported one ACL to be applied per direction and per protocol on any given interface. In live production networks, there are instances where they have ACL's applied on multiple interfaces (including physical and sub-interfaces) and most of the time it happens, many ACL's end up having similar ACE's. Consider an edge box of an ISP which has 2 sets of ACEs. One set may be common ISP specific ACE's to protect ISP's infrastructure as a whole and other would be interface specific ACE's which might be for blocking customer related address block. This is done to protect the ISP infrastructure against attacks by allowing only valid address blocks while denying the suspicious ones. To achieve this, we have to configure unique ACL per interface. By doing this we may end up having most of the ACE's being common across all the ACLs on a box. 
 
 Modying ACL rules which are common to provider infrastructure will require changes to be done on each and every interface. This leads to manageability issues if there are any common ACL entries which are needed on every/most interface/interfaces. Also this ACL provisioning and modification can be very cumbersome for any operator or enterprise as any changes to the ACE results impacts every customer interface. Another important thing to note is, as we have unique ACL's per interface, it also wastes the valuable hardware resources, as the common ACEs are being replicated in all ACL's. 
 
-To avoid the impact to multiple customer interface due to modifications, there have been multiple request to support a feature, which can help accomodate more than one ACL a single interface. The goal is to separate various types of ACLs for specific reasons, yet to apply both of them on the same interface, in a defined order. Therefore from IOS-XR release 7.2.1, we bring in the support for Chained ACL also known as Common ACL, across NCS55xx and NCS5xx portfolio. This feature will be supported on platforms having **Q-MX, Jericho, Jericho+ and Jericho2**.
+To avoid the impact to multiple customer interface due to modifications, there have been multiple request to support a feature, which can help accomodate more than one ACL a single interface. The goal is to separate various types of ACLs for specific reasons, yet apply both of them on the same interface, in a defined order. Therefore from IOS-XR release 7.2.1, we bring in the support for Chained ACL also known as Common ACL, across NCS55xx and NCS5xx portfolio. This feature will be supported on platforms having **Q-MX, Jericho, Jericho+ and Jericho2**.
 
 ![Screenshot 2020-09-21 at 2.00.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 2.00.16 PM.png)
  
@@ -38,7 +38,7 @@ To avoid the impact to multiple customer interface due to modifications, there h
 ## Feature Support
 
 - Only 1 common/chained IPv4 and IPv6 ACL supported on each line card.
-- The common/chained ACL can be applied to any type of interface which supports interface ACLs (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces).
+- The common/chained ACL can be applied to any type of interface which supports interface ACL's (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces).
 - The common/chained ACL is supported in the ingress direction only. 
 - The common/chained ACL is searched first before the interface ACL.
 - Edit of common/chained ACL is supported.
@@ -51,7 +51,7 @@ To avoid the impact to multiple customer interface due to modifications, there h
 - This feature is not supported in egress direction.
 - ACL with object groups is not supported with common ACL as of now. 
 - ACL with ABF is not supported with common ACL.
-- It cannot be configured on the same line card which has compression configured.
+- It cannot be configured on the same line card which has compression.
 - Atomic replace of the common ACL is not supported.
 
 ## Common ACL behaviour if hw-module profile is configured
@@ -249,6 +249,10 @@ NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
 
 From the above output we can see that with the use of common ACL along with interface specific ACL's we are using only **26** entries in the TCAM as compared to previously 34 entries. If we need to make changes in ACE's which are common to interfaces, we just need to change it in the common-ACL and no need to make changes on each and every interface, making the manageability easier.
 
+## Reference
+
+  - [CCO Config Guide ](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html#Cisco_Generic_Topic.dita_4cf5c796-edf6-4712-a7d8-4982a251e265 "CCO Config Guide ")
+  
 ## Summary
 
 In this tech-note we successfully demonstrated the concept of Chained or Common ACL and could see how it makes ACL manageability easy and also helps in saving the TCAM resource. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security. 
