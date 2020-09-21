@@ -85,18 +85,8 @@ Note: An interface may contain only the common ACL, only an interface ACL, or bo
 {: .notice--info}
 
 
+## Common ACL Implementation
 
-
-
-
-
-
-
-
-
-
-
- 
 
 ## Resource Utilization
 
