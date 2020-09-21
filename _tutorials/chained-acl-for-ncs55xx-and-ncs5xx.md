@@ -23,7 +23,8 @@ In our previous tech-notes, we introduced the ACL support ([ACL Introduction](ht
 
 ## Overview
 
-![Screenshot 2020-09-21 at 2.00.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 2.00.16 PM.png)
+
+![Screenshot 2020-09-21 at 5.39.29 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.39.29 PM.png)
 
 Prior to the IOS-XR release 7.2.1, the packet filter (pfilter) only supported one ACL to be applied per direction and per protocol on any given interface. In a typical customer scenario, there are instances where they have ACL's applied on many interfaces (including physical and sub-interfaces). Most of the time it happens, many ACL's end up having similar ACE's. Consider an edge box of an ISP which has 2 sets of ACEs. One may be common ISP specific ACEs to protect ISP infrastructure as a whole and other would be interface specific ACEs which might be for blocking customer related address block. This is done to protect the ISP infrastructure against attacks by allowing only valid. To achieve this, we have to configure unique ACL per interface out of which most of the ACEs being common across all the ACLs on a box. 
 
@@ -31,6 +32,8 @@ Modying ACL rules which are common to provider infrastructure will require chang
 
 To avoid the impact to multiple customer interface due to modifications, there have been multiple request to support a feature, which can help accomodate more than one ACL a single interface. The goal is to separate various types of ACLs for specific reasons, yet to apply both of them on the same interface, in a defined order. Therefore from IOS-XR release 7.2.1, we bring in the support for Chained ACL also known as Common ACL, across NCS55xx and NCS5xx portfolio. This feature will be supported on platforms having **Q-MX, Jericho, Jericho+ and Jericho2**.
 
+![Screenshot 2020-09-21 at 2.00.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 2.00.16 PM.png)
+ 
  
 ## Feature Support
 
