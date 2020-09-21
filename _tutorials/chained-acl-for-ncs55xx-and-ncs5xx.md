@@ -23,11 +23,7 @@ In our previous tech-notes, we introduced the ACL support ([ACL Introduction](ht
 
 ## Overview
 
-
-![Screenshot 2020-09-21 at 5.39.29 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.39.29 PM.png)
-
 ![Screenshot 2020-09-21 at 7.37.35 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 7.37.35 PM.png)
-
 
 Prior to the IOS-XR release 7.2.1, the packet filter (pfilter) only supported one ACL to be applied per direction and per protocol on any given interface. In live production networks, there are instances where they have ACL's applied on multiple interfaces (including physical and sub-interfaces) and most of the time it happens, many ACL's end up having similar ACE's. Consider an edge box of an ISP which has 2 sets of ACEs. One set may be common ISP specific ACE's to protect ISP's infrastructure as a whole and other would be interface specific ACE's which might be for blocking customer related address block. This is done to protect the ISP infrastructure against attacks by allowing only valid address blocks while denying the suspicious ones. To achieve this, we have to configure unique ACL per interface. By doing this we may end up having most of the ACE's being common across all the ACLs on a box. 
 
