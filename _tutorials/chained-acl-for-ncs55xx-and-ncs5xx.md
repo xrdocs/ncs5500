@@ -26,6 +26,9 @@ In our previous tech-notes, we introduced the ACL support ([ACL Introduction](ht
 
 ![Screenshot 2020-09-21 at 5.39.29 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.39.29 PM.png)
 
+![Screenshot 2020-09-21 at 7.37.35 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 7.37.35 PM.png)
+
+
 Prior to the IOS-XR release 7.2.1, the packet filter (pfilter) only supported one ACL to be applied per direction and per protocol on any given interface. In live production networks, there are instances where they have ACL's applied on multiple interfaces (including physical and sub-interfaces) and most of the time it happens, many ACL's end up having similar ACE's. Consider an edge box of an ISP which has 2 sets of ACEs. One set may be common ISP specific ACE's to protect ISP's infrastructure as a whole and other would be interface specific ACE's which might be for blocking customer related address block. This is done to protect the ISP infrastructure against attacks by allowing only valid address blocks while denying the suspicious ones. To achieve this, we have to configure unique ACL per interface. By doing this we may end up having most of the ACE's being common across all the ACLs on a box. 
 
 Modying ACL rules which are common to provider infrastructure will require changes to be done on each and every interface. This leads to manageability issues if there are any common ACL entries which are needed on every/most interface/interfaces. Also this ACL provisioning and modification can be very cumbersome for any operator or enterprise as any changes to the ACE results impacts every customer interface. Another important thing to note is, as we have unique ACL's per interface, it also wastes the valuable hardware resources, as the common ACEs are being replicated in all ACL's. 
@@ -81,11 +84,7 @@ ipv4 access-group common ACL_Comm ACL2 ingress
 
 ```
 
-![Screenshot 2020-09-21 at 7.29.11 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 7.29.11 PM.png)
-
 ![Screenshot 2020-09-21 at 7.33.57 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 7.33.57 PM.png)
-
-
 
 The above figure shows how the hardware programming will happen in this case. The common ACL is programmed once in a TCAM and is located at the top of the TCAM. Interface ACL's are programmed below the common ACL. The TCAM search order is from top to bottom which gives the common ACL precedence over the interface ACL. The single instance of the common ACL in a TCAM ensures scalability when thousands of interfaces are enabled on an NP.  However, since the hardware resources for the common ACL must be reserved, a static number of TCAM entries are allocated. 
 
