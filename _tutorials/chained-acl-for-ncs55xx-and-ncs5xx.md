@@ -35,10 +35,11 @@ To avoid the impact to multiple customer interface due to modifications, there h
 ## Feature Support
 
 - Only 1 common/chained IPv4 and IPv6 ACL supported on each line card.
-- The common/chained ACL can be applied to any type of interface which supports interface ACLs (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces)
+- The common/chained ACL can be applied to any type of interface which supports interface ACLs (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces).
 - The common/chained ACL is supported in the ingress direction only. 
 - The common/chained ACL is searched first before the interface ACL.
 - Edit of common/chained ACL is supported.
+- Statistics of common/chained ACL is supported.
 - The is no change in scale after applying the common/chained ACL.
 - There is no performance impact with both the common and interface ACL applied.
 
@@ -86,6 +87,142 @@ Note: An interface may contain only the common ACL, only an interface ACL, or bo
 
 
 ## Common ACL Implementation
+
+Now that we have talked about the feature and its use case, let us move on to see how this feature is implemented. We have below 2 ACL's configured as an example.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv4 access-list ACL1_full</mark>
+ 10 deny ipv4 any 62.6.69.88 0.0.0.7
+ 15 deny ipv4 62.6.69.88 0.0.0.7 any
+ 20 deny ipv4 any 62.6.69.112 0.0.0.15
+ 25 deny ipv4 62.6.69.112 0.0.0.15 any
+ 30 deny ipv4 any 62.6.69.128 0.0.0.15
+ 35 deny ipv4 62.6.69.128 0.0.0.15 any
+ 40 deny ipv4 any 62.80.66.128 0.0.0.15
+ 45 deny ipv4 62.80.66.128 0.0.0.15 any
+ 50 deny ipv4 any 62.134.38.0 0.0.0.127
+ 60 permit tcp any eq bgp host 1.2.3.1
+ 70 permit tcp any host 1.2.3.1 eq bgp
+ 80 deny ipv4 any host 1.2.3.1
+ 90 deny ipv4 any 212.21.217.0 0.0.0.255
+ 100 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv4 access-list ACL2_full</mark>
+ 10 deny ipv4 any 62.6.69.88 0.0.0.7
+ 15 deny ipv4 62.6.69.88 0.0.0.7 any
+ 20 deny ipv4 any 62.6.69.112 0.0.0.15
+ 25 deny ipv4 62.6.69.112 0.0.0.15 any
+ 30 deny ipv4 any 62.6.69.128 0.0.0.15
+ 35 deny ipv4 62.6.69.128 0.0.0.15 any
+ 40 deny ipv4 any 62.80.66.128 0.0.0.15
+ 45 deny ipv4 62.80.66.128 0.0.0.15 any
+ 50 deny ipv4 any 62.134.38.0 0.0.0.127
+ 60 permit tcp any eq bgp host 7.8.9.6
+ 70 permit tcp any host 7.8.9.6 eq bgp
+ 80 deny ipv4 any host 7.8.9.6
+ 90 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+**Applying it on 2 separate interfaces**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show access-lists ipv4 usage pfilter location 0/0/CPU0 
+<mark>Interface : TenGigE0/0/0/0.10 
+    Input  ACL : Common-ACL : N/A  ACL : ACL1_full</mark>  
+    Output ACL : N/A
+<mark>Interface : TenGigE0/0/0/0.20 
+    Input  ACL : Common-ACL : N/A  ACL : ACL2_full</mark> 
+    Output ACL : N/A
+RP/0/RP0/CPU0:N55-24#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show controllers npu internaltcam location 0/0/CPU0 
+Mon Sep 21 11:22:15.856 UTC
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+0    0      160b   pmf-0       1883     107     36   INGRESS_LPTS_IPV4
+0    0      160b   pmf-0       1883     18      45   INGRESS_RX_ISIS
+0    0      160b   pmf-0       1883     23      54   INGRESS_QOS_IPV4
+0    0      160b   pmf-0       1883     15      56   INGRESS_QOS_MPLS
+0    0      160b   pmf-0       1883     2       60   INGRESS_EVPN_AA_ESI_TO_FBN_DB
+<mark>0    1      160b   pmf-0       1962     34      47   INGRESS_ACL_L3_IPV4</mark> 
+</code>
+</pre>
+</div>
+
+From the above we can see 34 entries are being programmed in the TCAM.
+
+If you closely look at the 2 ACL's we have most of the ACE's in common
+
+![Screenshot 2020-09-21 at 5.03.06 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.03.06 PM.png)
+
+Let us apply the same ACL's along with common ACL.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv4 access-list common-acl</mark>
+ 10 deny ipv4 any 62.6.69.88 0.0.0.7
+ 15 deny ipv4 62.6.69.88 0.0.0.7 any
+ 20 deny ipv4 any 62.6.69.112 0.0.0.15
+ 25 deny ipv4 62.6.69.112 0.0.0.15 any
+ 30 deny ipv4 any 62.6.69.128 0.0.0.15
+ 35 deny ipv4 62.6.69.128 0.0.0.15 any
+ 40 deny ipv4 any 62.80.66.128 0.0.0.15
+ 45 deny ipv4 62.80.66.128 0.0.0.15 any
+ 50 deny ipv4 any 62.134.38.0 0.0.0.127
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv4 access-list ACL1_specific</mark>
+ 10 permit tcp any eq bgp host 1.2.3.1
+ 20 permit tcp any host 1.2.3.1 eq bgp
+ 30 deny ipv4 any host 1.2.3.1
+ 40 deny ipv4 any 212.21.217.0 0.0.0.255
+ 50 permit ipv4 any any
+ </code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv4 access-list ACL2_specific</mark>
+ 10 permit tcp any eq bgp host 7.8.9.6
+ 20 permit tcp any host 7.8.9.6 eq bgp
+ 30 deny ipv4 any host 7.8.9.6
+ 40 permit ipv4 any any
+</code>
+</pre>
+</div>
+
+![Screenshot 2020-09-21 at 5.17.46 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 5.17.46 PM.png)
+
 
 
 ## Resource Utilization
