@@ -83,6 +83,9 @@ ipv4 access-group common ACL_Comm ACL2 ingress
 
 ![Screenshot 2020-09-21 at 3.40.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 3.40.16 PM.png)
 
+![Screenshot 2020-09-21 at 7.29.11 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 7.29.11 PM.png)
+
+
 The above figure shows how the hardware programming will happen in this case. The common ACL is programmed once in a TCAM and is located at the top of the TCAM. Interface ACL's are programmed below the common ACL. The TCAM search order is from top to bottom which gives the common ACL precedence over the interface ACL. The single instance of the common ACL in a TCAM ensures scalability when thousands of interfaces are enabled on an NP.  However, since the hardware resources for the common ACL must be reserved, a static number of TCAM entries are allocated. 
 
 Note: An interface may contain only the common ACL, only an interface ACL, or both the common and interface ACL.
