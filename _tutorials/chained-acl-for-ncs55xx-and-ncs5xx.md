@@ -31,7 +31,7 @@ Modying ACL rules which are common to provider infrastructure will require chang
 
 To avoid the impact to multiple customer interface due to modifications, there have been multiple request to support a feature, which can help accomodate more than one ACL a single interface. The goal is to separate various types of ACLs for specific reasons, yet apply both of them on the same interface, in a defined order. Therefore from IOS-XR release 7.2.1, we bring in the support for Chained ACL also known as Common ACL, across NCS55xx and NCS5xx portfolio. This feature will be supported on platforms having **Q-MX, Jericho, Jericho+ and Jericho2**.
 
-![Screenshot 2020-09-21 at 2.00.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-09-21 at 2.00.16 PM.png)
+![Screenshot 2020-09-22 at 11.29.00 AM.png]({{site.baseurl}}/images/Screenshot 2020-09-22 at 11.29.00 AM.png)
  
  
 ## Feature Support
