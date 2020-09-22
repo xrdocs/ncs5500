@@ -41,7 +41,8 @@ Considering the amount of ground to cover, we split the presentation in multiple
 [https://www.youtube.com/watch?v=eURgr9hgA2I](https://www.youtube.com/watch?v=eURgr9hgA2I)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/eURgr9hgA2I?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
-
+  
+  
 Covers many features around Segment Routing and EVPN.
 
 ### Part 2
@@ -49,7 +50,8 @@ Covers many features around Segment Routing and EVPN.
 [https://www.youtube.com/watch?v=PedQo7DRDf4](https://www.youtube.com/watch?v=PedQo7DRDf4)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/PedQo7DRDf4?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
-
+  
+  
 Covers both platform (NCS55A1-24Q6H-SS and new optics) and new features (WAN-Phy, QoS, ECMP, ACLs, ...)
 
 ### Part 3
@@ -57,11 +59,15 @@ Covers both platform (NCS55A1-24Q6H-SS and new optics) and new features (WAN-Phy
 [https://www.youtube.com/watch?v=9IYER-jIZ4Y](https://www.youtube.com/watch?v=9IYER-jIZ4Y)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/9IYER-jIZ4Y?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
-
+  
+  
 Covers other features including Security, DHCP, BVI, BFD, file management and bridge domains scale.
 
-## Features in details
+### Part 4
 
+Will be covered in a dedicated post.
+
+## Features in details
 
 ### SR IGP: Flex Algo Prefix Metric
 
