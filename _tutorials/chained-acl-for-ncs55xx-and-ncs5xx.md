@@ -36,8 +36,8 @@ To avoid the impact to multiple customer interface due to modifications, there h
  
 ## Feature Support
 
-- Only 1 common/chained IPv4 and IPv6 ACL supported on each line card.
-- The common/chained ACL can be applied to any type of interface which supports interface ACL's (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces).
+- Only 1 common/chained IPv4 and IPv6 ACL is supported per line card.
+- The common/chained ACL can be applied to any type of interfaces which supports interface ACL's (i.e VRF enabled interfaces, VLAN interfaces, Bundle interfaces).
 - The common/chained ACL is supported in the ingress direction only. 
 - The common/chained ACL is searched first before the interface ACL.
 - Edit of common/chained ACL is supported.
@@ -48,9 +48,10 @@ To avoid the impact to multiple customer interface due to modifications, there h
 ## What's Not Supported
 
 - This feature is not supported in egress direction.
-- ACL with object groups is not supported with common ACL as of now. 
+- This feature is not supported on Layer 2 interfaces.
+- ACL with object groups is not supported with common ACL. 
 - ACL with ABF is not supported with common ACL.
-- It cannot be configured on the same line card which has compression.
+- It cannot be configured on the same line card which has compression configured.
 - Atomic replace of the common ACL is not supported.
 
 ## Common ACL behaviour with hw-module profile
