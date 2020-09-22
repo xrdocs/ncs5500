@@ -12,7 +12,7 @@ tags:
   - NCS5500
   - ACL
   - Chained ACL
-position: hidden
+position: top
 ---
 {% include toc %}
 
@@ -254,9 +254,4 @@ From the above output we can see that with the use of common ACL along with inte
   
 ## Summary
 
-In this tech-note we successfully demonstrated the concept of Chained or Common ACL. We saw how it makes ACL manageability easy and also helps in saving the TCAM resources. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security. 
-
-
-
-
-
+In this tech-note we successfully demonstrated the concept of Chained or Common ACL. We saw how it makes ACL manageability easy and also helps in saving the TCAM resources. This is another capability of the NCS55xx and NCS5xx in terms of dataplane security.
