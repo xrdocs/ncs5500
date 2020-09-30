@@ -22,5 +22,22 @@ In our previous tech-notes, we focussed on exploring the data-plane security cap
 
 In IOS-XR LPTS, as part of **for-us** packet delivery process, the rate at which packets are delivered are selectively monitored to avoid overwhelming the CPU. LPTS filters and police the packets based on the defined flow-type rate in hardware before punting to the software. The LPTS  takes the Cisco IOS CoPP concept to a new level by automatically applying rate limiting to all packets that must be handled by any route processor on the device. LPTS maintains tables describing all packet flows destined for the route processor and uses a set of predefined policers that are applied based on the flow type of the incoming control traffic. The use case of this is we achieve automated control to network health without relying on network operators as it becomes  difficult to configure these functions manually in large-scale networks.
 
-## 
+## LPTS Overview: NCS55xx and NCS5xx
 
+LPTS module in IOS XR software classifies all ‘For Us’ control packets into 97 different flows. The incoming traffic rate limiting is done with a well-defined signature programmed in TCAM of each line-card. A signature can be anything that can identify the specific flow which the application is trying to permit. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type.Today LPTS uses the following tuples to identify a packet. 
+    
+| Tuples              |
+|---------------------|
+| VRF                 |
+| L3-protocol         |
+| L4-protocol         |
+| Interface           |
+| Source Address      |
+| Source Port         |
+| Destination Address |
+| Destination Port    |
+
+To minimize the usage of TCAM resource, the hardware programs only the protocol default entries in hardware and punt the control packets to LC CPU for full lpts lookup. In NPU, the ‘For Us’  control packet will do a hardware TCAM lookup which will hit one of the protocol default TCAM entries. Based on lookup results, the control packets will get policed and punted to LC CPU.
+When the ‘For Us’ packet is received by the LPTS decap node  in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
+Note that, with this approach we police all control traffic in hardware, perform full LPTS lookup in software LPTS in LC CPU before punting the packet to RP XR stack.
+Post 6.2.2 release, LPTS PD supports full pifib implementation in hardware with the use of 'dynamic flow feature' where the number of LPTS TCAM entries and per FLOW max entries can be controlled via PD LPTS profile and CLI configuration. Please refer to the child page for more info on the dynamic lpts flow feature.
