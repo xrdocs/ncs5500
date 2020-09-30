@@ -1,7 +1,16 @@
 ---
-published: false
+published: true
 date: '2020-09-30 16:02 +0530'
 title: Introduction to NCS55xx and NCS5xx LPTS
+author: Tejas Lad
+excerpt: Introduction to NCS55xx and NCS5xx LPTS
+tags:
+  - NCS5500
+  - NCS500
+  - CoPP
+  - control plane
+  - LPTS
+position: hidden
 ---
 {% include toc %}
 
