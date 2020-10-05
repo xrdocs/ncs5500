@@ -414,6 +414,9 @@ Platform:
 
 ## Hardware Traps
 
+Hardware traps are used for handling exception packets like TTLx, Invalid headers, most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance.
+  
+RP/0/RP0/CPU0:fretta-127#show controllers npu stats traps-all instance all location <lc>
 
 
 ## Glossary 
