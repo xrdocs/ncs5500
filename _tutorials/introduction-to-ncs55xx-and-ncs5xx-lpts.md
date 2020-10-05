@@ -185,7 +185,243 @@ RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0   
 ```
 
 
-## Per Port Rate Limiting of Multicast and Broadcast Punt Packets
+## Rate Limiting of Multicast and Broadcast Punt Packets
+
+Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and NCS5xx platforms rate limits them at the interface level. Currently, a rate limit is supported per NPU level. This feature supports rate limiting at the interface level so as to protect a port from receiving the multicast and broadcast storm of punted traffic. Rate limiting for all the L3 protocol punt packets and L2 protocol packets (only ERPS, and DOT1x) is supported on physical and bundle main interfaces. You can configure the multicast and broadcast rate limit in three levels as per below priority:
+
+  - Interface level
+  - Domain level
+  - Global level
+
+Let us check the same with the help of an example.
+
+Configuring at interface level
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
+Mon Oct  5 12:15:16.300 UTC
+lpts punt police
+ <mark>interface TenGigE0/0/0/0
+  mcast rate 1000
+  bcast rate 1000</mark>
+ !
+!
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE0/0/0/0
+Mon Oct  5 12:21:21.013 UTC
+<mark>Interface Name      : TenGigE0/0/0/0
+Punt Reason         : MCAST
+Domain              : default
+Scope               : IFH
+State               : Active
+Configured Rate     : 1000</mark>
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+Last Update (if any):
+<mark>Punt Type           : MCAST</mark>
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+<mark>Packet Rate         : 1000</mark>
+Domain              : 0
+CreateTime          : Mon Oct 05 2020 12:14:57.137.544
+Platform:
+  <mark>PolicerID   : 32304</mark>
+  NPU: TCAM-entry    StatsID
+    0:        227 0x8000020f
+----------------------------------------------------
+<mark>Interface Name      : TenGigE0/0/0/0
+Punt Reason         : BCAST
+Domain              : default
+Scope               : IFH
+State               : Active
+Configured Rate     : 1000</mark>
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+Last Update (if any):
+<mark>Punt Type           : BCAST</mark>
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+Packet Rate         : 1000
+Domain              : 0
+CreateTime          : Mon Oct 05 2020 12:14:57.138.712
+Platform:
+  <mark>PolicerID   : 32305</mark>
+  NPU: TCAM-entry    StatsID
+    0:        253 0x80000225
+----------------------------------------------------
+</code>
+</pre>
+</div>
+
+Configuring at Global level
+
+```
+RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
+Mon Oct  5 12:26:52.261 UTC
+lpts punt police
+ mcast rate 1000
+ bcast rate 1000
+!
+
+RP/0/RP0/CPU0:N55-24#
+
+```
+
+```
+RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
+Mon Oct  5 12:27:30.039 UTC
+Interface Name      : TenGigE0/0/0/0
+Punt Reason         : MCAST
+Domain              : default
+Scope               : Global
+State               : Active
+Configured Rate     : 1000
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+
+Last Update (if any):
+Punt Type           : MCAST
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+Packet Rate         : 1000
+Domain              : 0
+CreateTime          : Mon Oct 05 2020 12:26:40.826.302
+Platform:
+  PolicerID   : 32312
+  NPU: TCAM-entry    StatsID
+    0:        260 0x8000022c
+----------------------------------------------------
+Interface Name      : TenGigE0/0/0/0
+Punt Reason         : BCAST
+Domain              : default
+Scope               : Global
+State               : Active
+Configured Rate     : 1000
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+          
+Last Update (if any):
+Punt Type           : BCAST
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+Packet Rate         : 1000
+Domain              : 0
+CreateTime          : Mon Oct 05 2020 12:26:40.894.675
+Platform: 
+  PolicerID   : 32366
+  NPU: TCAM-entry    StatsID
+    0:        314 0x80000262
+----------------------------------------------------
+
+```
+Configuring at Domain level
+
+```
+RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
+Mon Oct  5 12:29:55.251 UTC
+lpts punt police
+ domain TEST
+  mcast rate 1000
+  bcast rate 1000
+ !
+!
+
+RP/0/RP0/CPU0:N55-24#show running-config lpts pifib hardware domain 
+Mon Oct  5 12:30:22.460 UTC
+lpts pifib hardware domain TEST
+ interface TenGigE0/0/0/0
+
+```
+
+```
+RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
+Mon Oct  5 12:31:15.139 UTC
+Interface Name      : TenGigE0/0/0/0
+Punt Reason         : MCAST
+Domain              : TEST
+Scope               : Global
+State               : Active
+Configured Rate     : 1000
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+
+Last Update (if any):
+Punt Type           : MCAST
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+Packet Rate         : 1000
+Domain              : 1
+CreateTime          : Mon Oct 05 2020 12:29:48.787.075
+Platform:
+  PolicerID   : 32308
+  NPU: TCAM-entry    StatsID
+    0:        256 0x80000228
+----------------------------------------------------
+Interface Name      : TenGigE0/0/0/0
+Punt Reason         : BCAST
+Domain              : TEST
+Scope               : Global
+State               : Active
+Configured Rate     : 1000
+Operational Rate    : 986
+Operational Burst   : 0
+Accepted            : 0
+Dropped             : 0
+
+Last Update (if any):
+Punt Type           : BCAST
+Interface Handle    : 0x00000108
+Is Virtual          : 0
+Is Enabled          : 1
+Packet Rate         : 1000
+Domain              : 1
+CreateTime          : Mon Oct 05 2020 12:29:48.787.997
+Platform:
+  PolicerID   : 32309
+  NPU: TCAM-entry    StatsID
+    0:        257 0x80000229
+----------------------------------------------------
+Interface Name      : TenGigE0/0/0/1
+Punt Reason         : MCAST
+Domain              : default
+Scope               : None
+State               : Disable
+Configured Rate     : 0
+
+Last Update (if any):
+Punt Type           : MCAST
+Interface Handle    : 0x00000110
+Is Virtual          : 0
+Is Enabled          : 0
+Packet Rate         : 0
+Domain              : 0
+CreateTime          : Mon Oct 05 2020 12:28:29.621.452
+----------------------------------------------------
+
+```
 
 ## Hardware Traps
 
