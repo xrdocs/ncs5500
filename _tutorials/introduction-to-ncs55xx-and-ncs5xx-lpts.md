@@ -415,6 +415,7 @@ Platform:
 ## Hardware Traps
 
 
+
 ## Glossary 
 
 | Terms           | Description                                                                                                                                                             |
