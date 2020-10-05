@@ -55,7 +55,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - Each flow policer has default static policer rate value. 
 - Each flow policer value can be conifgured to 0 (to drop all packet matching classification criteria) to max of 50K PPS.
 - Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
-- L2 Protocol and Exception packets are punted to the LC via CPU traps.
+- L2 Protocol and Exception packets are punted to the LC via CPU traps. (need to confirm)
 
 
 LPTS uses the following tuples to identify a packet:
@@ -189,12 +189,14 @@ RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0   
 
 ## Glossary 
 
-For us packets: Control/management plane packets destined to or to be processed by a node/element in IOS-XR system
-Flow: A binding between a  tuple <such as protocol, local address, local port, remote address, remote port> and an element
-FIB: Forwarding Information Base – A Table which is used to determine where a packet is to be forwarded (Destination line card/egress interface)
-iFIB: Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails
-LPTS : Local Packet Transport Services
-Netio: An IOS-XR process which performs packet forwarding in software, equivalent of “process switching?
-pIFIB or Pre-IFIB: Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM?
-Tuple: is an ordered list of integer
-SDR : Secure Domain Router
+| Terms           | Description                                                                                                                                                             |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| For us packets  | Control/management plane packets destined to or to be processed by a node/element in IOS-XR system                                                                      |
+| Flow            | A binding between a  tuple (such as protocol, local address, local port, remote address, remote port) and an element                                                    |
+| FIB             | Forwarding Information Base – A Table which is used to determine where a packet is to be forwarded.                                                                     |
+| iFIB            | Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails |
+| LPTS            | Local Packet Transport Services                                                                                                                                         |
+| Netio           | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching"                                                                       |
+| pFIB or pre-FIB | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                |
+| Tuple           | is an ordered list of integer                                                                                                                                           |
+| SDR             | Secure Domain Router                                                                                                                                                    |
