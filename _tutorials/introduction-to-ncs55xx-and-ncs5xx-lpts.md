@@ -41,7 +41,8 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - In NPU, the ‘For Us’  control packet undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
 - Hardware lookup result contains: 
 	- listener_tag (application of interest)
-    - flow type, packet destination
+    - flow type, 
+    - packet destination
     - policer of the flow
     - stats pointer
 - Based on lookup result, the control packets will get policed and punted to LC CPU. 
@@ -445,7 +446,8 @@ show controllers npu stats traps-all instance all location all
 ## Summary
 
 Hope you got the basics of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key portions 
-  - Filtering of what can be punted and categorization of the flow.
-  – Decides where the flow needs to go to: is it LC CPU or RP CPU
-  - Policing of the flows. (per “flow” and per NPU)
-Stay tuned for the next tech-note in which we will cover another capability around the same area:  Dynamic LPTS.
+- Filtering of what can be punted and categorization of the flow.
+- Decides where the flow needs to go to: is it LC CPU or RP CPU
+- Policing of the flows. (per “flow” and per NPU)
+Key message is that, LPTS can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. In the next tech note we will cover the Dynamic LPTS capabilities of the platforms. Stay tuned till then !!!
+
