@@ -267,7 +267,7 @@ Platform:
 </pre>
 </div>
 
-Configuring at Global level
+**Configuring at Global level**
 
 ```
 RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
@@ -281,26 +281,27 @@ RP/0/RP0/CPU0:N55-24#
 
 ```
 
-```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
 Mon Oct  5 12:27:30.039 UTC
-Interface Name      : TenGigE0/0/0/0
+<mark>Interface Name      : TenGigE0/0/0/0
 Punt Reason         : MCAST
 Domain              : default
 Scope               : Global
 State               : Active
-Configured Rate     : 1000
+Configured Rate     : 1000</mark>
 Operational Rate    : 986
 Operational Burst   : 0
 Accepted            : 0
 Dropped             : 0
-
 Last Update (if any):
-Punt Type           : MCAST
+<mark>Punt Type           : MCAST</mark>
 Interface Handle    : 0x00000108
 Is Virtual          : 0
 Is Enabled          : 1
-Packet Rate         : 1000
+<mark>Packet Rate         : 1000</mark>
 Domain              : 0
 CreateTime          : Mon Oct 05 2020 12:26:40.826.302
 Platform:
@@ -308,23 +309,22 @@ Platform:
   NPU: TCAM-entry    StatsID
     0:        260 0x8000022c
 ----------------------------------------------------
-Interface Name      : TenGigE0/0/0/0
+<mark>Interface Name      : TenGigE0/0/0/0
 Punt Reason         : BCAST
 Domain              : default
 Scope               : Global
 State               : Active
-Configured Rate     : 1000
+Configured Rate     : 1000</mark>
 Operational Rate    : 986
 Operational Burst   : 0
 Accepted            : 0
-Dropped             : 0
-          
+Dropped             : 0        
 Last Update (if any):
-Punt Type           : BCAST
+<mark>Punt Type           : BCAST</mark>
 Interface Handle    : 0x00000108
 Is Virtual          : 0
 Is Enabled          : 1
-Packet Rate         : 1000
+<mark>Packet Rate         : 1000</mark>
 Domain              : 0
 CreateTime          : Mon Oct 05 2020 12:26:40.894.675
 Platform: 
@@ -332,9 +332,13 @@ Platform:
   NPU: TCAM-entry    StatsID
     0:        314 0x80000262
 ----------------------------------------------------
+</code>
+</pre>
+</div>
 
-```
-Configuring at Domain level
+
+**Configuring at Domain level**
+
 
 ```
 RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
@@ -353,26 +357,27 @@ lpts pifib hardware domain TEST
 
 ```
 
-```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
 Mon Oct  5 12:31:15.139 UTC
-Interface Name      : TenGigE0/0/0/0
+<mark>Interface Name      : TenGigE0/0/0/0
 Punt Reason         : MCAST
 Domain              : TEST
 Scope               : Global
 State               : Active
-Configured Rate     : 1000
+Configured Rate     : 1000</mark>
 Operational Rate    : 986
 Operational Burst   : 0
 Accepted            : 0
 Dropped             : 0
-
 Last Update (if any):
-Punt Type           : MCAST
+<mark>Punt Type           : MCAST</mark>
 Interface Handle    : 0x00000108
 Is Virtual          : 0
 Is Enabled          : 1
-Packet Rate         : 1000
+<mark>Packet Rate         : 1000</mark>
 Domain              : 1
 CreateTime          : Mon Oct 05 2020 12:29:48.787.075
 Platform:
@@ -380,48 +385,32 @@ Platform:
   NPU: TCAM-entry    StatsID
     0:        256 0x80000228
 ----------------------------------------------------
-Interface Name      : TenGigE0/0/0/0
+<mark>Interface Name      : TenGigE0/0/0/0
 Punt Reason         : BCAST
 Domain              : TEST
 Scope               : Global
 State               : Active
-Configured Rate     : 1000
+Configured Rate     : 1000</mark>
 Operational Rate    : 986
 Operational Burst   : 0
 Accepted            : 0
 Dropped             : 0
-
 Last Update (if any):
-Punt Type           : BCAST
+<mark>Punt Type           : BCAST</mark>
 Interface Handle    : 0x00000108
 Is Virtual          : 0
 Is Enabled          : 1
-Packet Rate         : 1000
+<mark>Packet Rate         : 1000</mark>
 Domain              : 1
 CreateTime          : Mon Oct 05 2020 12:29:48.787.997
 Platform:
   PolicerID   : 32309
   NPU: TCAM-entry    StatsID
     0:        257 0x80000229
-----------------------------------------------------
-Interface Name      : TenGigE0/0/0/1
-Punt Reason         : MCAST
-Domain              : default
-Scope               : None
-State               : Disable
-Configured Rate     : 0
+</code>
+</pre>
+</div>
 
-Last Update (if any):
-Punt Type           : MCAST
-Interface Handle    : 0x00000110
-Is Virtual          : 0
-Is Enabled          : 0
-Packet Rate         : 0
-Domain              : 0
-CreateTime          : Mon Oct 05 2020 12:28:29.621.452
-----------------------------------------------------
-
-```
 
 ## Hardware Traps
 
