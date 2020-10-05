@@ -10,7 +10,7 @@ tags:
   - CoPP
   - control plane
   - LPTS
-position: top
+position: hidden
 ---
 {% include toc %}
 
