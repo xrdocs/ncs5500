@@ -140,4 +140,26 @@ TPA                    32196   Static  2000      2000      0         0-default
 PM-TWAMP               32199   Static  8000      799       0         0-default
 ```
 
+Note: This output shows the policer values per NPU
 
+The default policer values can also be changed as per your requirement. However you should be very careful while changing this default values.
+
+```
+RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware police flow fragment rate 2000
+
+```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
+-------------------------------------------------------------
+                Node 0/0/CPU0:
+-------------------------------------------------------------
+FlowType               Policer Type    Cur. Rate Burst     npu       Domain
+---------------------- ------- ------- --------- --------- --------- ---------
+<mark>Fragment               32102   Global  2000      197       0         0-default</mark>
+OSPF-mc-known          32103   Static  2000      2000      0         0-default
+OSPF-mc-default        32104   Static  100       8         0         0-default
+</code>
+</pre>
+</div>
