@@ -10,7 +10,7 @@ tags:
   - CoPP
   - control plane
   - LPTS
-position: hidden
+position: top
 ---
 {% include toc %}
 
@@ -166,6 +166,22 @@ OSPF-mc-default        32104   Static  100       8         0         0-default
 </pre>
 </div>
 
+The below command can be used to check the locally processed packets that are dropped by the LC CPU
+
+```
+RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location all
+
+Trap stats for lc 0
+
+
+Trap Type                                     NPU  Trap TrapStats   Policer Packet               Packet
+
+                                              ID    ID      ID              Accepted             Dropped
+============================================================================================================================
+RxTrapMimDiscardMacsaDrop (IRB)               0    1    0x1         32045   0                    0                    
+RxTrapMimDiscardMacsaTrap (ERP_BDL)           0    2    0x2         32041   0                    0                    
+RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0                    0 
+```
 
 ## Per Port Rate Limiting of Multicast and Broadcast Punt Packets
 
