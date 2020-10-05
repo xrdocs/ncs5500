@@ -419,11 +419,7 @@ Hardware traps are used for handling exception packets (TTLx, Invalid headers), 
 ```
 show controllers npu stats traps-all instance all location all
 ```
-
-  
-
-
-
+ 
 ## Glossary 
 
 | Terms           | Description                                                                                                                                                             |
