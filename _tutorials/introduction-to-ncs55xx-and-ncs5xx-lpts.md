@@ -20,11 +20,11 @@ position: hidden
 
 In our previous tech-notes, we focussed on exploring the data-plane security capabilities of NCS5xx and NCS55xx. In continuation to the same, we will discuss the NCS55xx and NCS5xx capabilities around control plane protection. In today's networks, control plane security is as important as data plane security. Customers need to focus on protecting the business critical control and management planes from malicious attacks and also misconfiguration events which may overwhelm the processor and bring down the router resulting in unfortunate event for any customer. The Cisco IOS devices have the concept of control plane policing. In IOS-XR devices, we use a very comprehensive and powerful feature called Local Packet Transport Services. ([Reference](https://community.cisco.com/t5/service-providers-documents/asr9000-xr-local-packet-transport-services-lpts-copp/ta-p/3123792 "Reference"))
 
-In IOS-XR LPTS, as part of **for-us** packet delivery process, the rate at which packets are delivered are selectively monitored to avoid overwhelming the CPU. LPTS filters and police the packets based on the defined flow-type rate in hardware before punting to the software. The LPTS  takes the Cisco IOS CoPP concept to a new level by automatically applying rate limiting to all packets that must be handled by any route processor on the device. LPTS maintains tables describing all packet flows destined for the route processor and uses a set of predefined policers that are applied based on the flow type of the incoming control traffic. The use case of this is we achieve automated control to network health without relying on network operators as it becomes  difficult to configure these functions manually in large-scale networks.
+In IOS-XR LPTS, as part of **for-us** packet delivery process, the rate at which packets are delivered are selectively monitored to avoid overwhelming the CPU. LPTS filters and police the packets based on the defined flow-type rate in hardware before punting to the software. The LPTS  takes the control plane protection (CoPP) concept to a new level by automatically applying rate limiting to all packets that must be handled by any route processor on the device. LPTS maintains tables describing all packet flows destined for the route processor and uses a set of predefined policers that are applied based on the flow type of the incoming control traffic. The use case of this is we achieve automated control to network health without relying on network operators as it becomes  difficult to configure these functions manually in large-scale networks.
 
 ## LPTS Overview: NCS55xx and NCS5xx
 
-LPTS module in **IOS XR software** classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. In traditional IOS-XR platforms (CRS/ASR9k) LPTS had different regions which consumed 16k entries each. But we do not have the same luxury in NCS55xx and NCS5xx due to limited TCAM resources. We need to use the TCAM very wisely to accomodate several features and functionalities. Therefore to minimize the usage of TCAM resource,  the LPTS platform dependent layer programs only the protocol default entries in hardware and punt the control packets to Line card CPU Netio for full lpts lookup in LPTS Decap node. In IOS XR, the Network Input/Output (NetIO) process is the equivalent to the IOS ip_input process and is responsible for forwarding packets in software. For further understanding of process switching please [refer](https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=2#:~:text=Process%20Switching,-Process%20switching%2C%20also&text=In%20IOS%2C%20the%20ip_input%20process,for%20processing%20incoming%20IP%20packets.&text=In%20IOS%20XR%2C%20the%20Network,for%20forwarding%20packets%20in%20software. "refer"). LPTS also maintains per interface complete table in netio chain in Line card CPU. 
+LPTS module in **IOS XR software** classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. In traditional IOS-XR platforms (CRS/ASR9k) LPTS had different regions which consumed 16k entries each. But we do not have the same luxury in NCS55xx and NCS5xx due to limited TCAM resources. We need to use the TCAM very wisely to accomodate several features and functionalities. Therefore to minimize the usage of TCAM resource,  the LPTS platform dependent layer programs only the protocol default entries in hardware and punt the control packets to Line card CPU Netio for full lpts lookup in LPTS Decap node. In IOS XR, the Network Input/Output (NetIO) process is the equivalent to the IOS ip_input process and is responsible for forwarding packets in software. For further understanding of process switching please [refer](https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=2#:~:text=Process%20Switching,-Process%20switching%2C%20also&text=In%20IOS%2C%20the%20ip_input%20process,for%20processing%20incoming%20IP%20packets.&text=In%20IOS%20XR%2C%20the%20Network,for%20forwarding%20packets%20in%20software. "refer"). LPTS also maintains per interface complete table in netio chain in Line card CPU,  making sure that packets are delivered to their intended destinations. LPTS uses two components to accomplish this task: the port arbitrator and flow managers. The port arbitrator and flow managers are processes that maintain the tables that describe packet flows for a logical router, known as the Internal Forwarding Information Base (IFIB). The IFIB is used to route received packets to the correct Route Processor for processing. ([reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_365eb914-2cee-4691-98ec-9c3a73fd6c4c "reference")). 
 
 
 ## LPTS in Pipeline Architecture
@@ -48,6 +48,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 
 ## Hardware Implementation
 
+- The control packets, which are destined to the Route Processor (RP), are policed using a set of ingress policers in the incoming ports.
 - LPTS entries in hardware TCAM classifies packets to select a policer to apply.
 - LPTS has hardware policers on all default entries in the NPU to limit traffic sent to local CPU.
 - Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU.
@@ -56,7 +57,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow. 
 
 
-LPTS uses the following tuples to identify a packet
+LPTS uses the following tuples to identify a packet:
     
 | Tuples              |
 |---------------------|
@@ -71,7 +72,7 @@ LPTS uses the following tuples to identify a packet
 
 ## Supported Flow Types in Hardware LPTS as per IOS-XR 7.2.1
 
-For displaying the output of the default poicers per flow, use the below command
+The below command displays pre-Internal Forwarding Information Base (IFIB) information for the designated node.
 
 ```
 RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
@@ -143,7 +144,7 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 Note: This output shows the policer values per NPU
 {: .notice--info}
 
-The default policer values can also be changed as per your requirement. However you should be very careful while changing this default values.
+LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. You should be very careful while changing this default values.
 
 ```
 RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware police flow fragment rate 2000
@@ -164,3 +165,8 @@ OSPF-mc-default        32104   Static  100       8         0         0-default
 </code>
 </pre>
 </div>
+
+
+## Per Port Rate Limiting of Multicast and Broadcast Punt Packets
+
+
