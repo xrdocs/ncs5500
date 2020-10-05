@@ -187,6 +187,8 @@ RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0   
 
 ## Per Port Rate Limiting of Multicast and Broadcast Punt Packets
 
+## Hardware Traps
+
 
 ## Glossary 
 
