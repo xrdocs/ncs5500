@@ -69,4 +69,75 @@ LPTS uses the following tuples to identify a packet
 | Destination Address |
 | Destination Port    |
 
+## Supported Flow Types in Hardware LPTS as per IOS-XR 7.2.1
+
+For displaying the output of the default poicers per flow, use the below command
+
+```
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
+
+-------------------------------------------------------------
+                Node 0/0/CPU0:
+-------------------------------------------------------------
+FlowType               Policer Type    Cur. Rate Burst     npu       Domain
+---------------------- ------- ------- --------- --------- --------- ---------
+Fragment               32102   Static  1000      98        0         0-default
+OSPF-mc-known          32103   Static  2000      2000      0         0-default
+OSPF-mc-default        32104   Static  100       8         0         0-default
+OSPF-uc-known          32105   Static  2000      2000      0         0-default
+OSPF-uc-default        32106   Static  100       8         0         0-default
+ISIS-known             32107   Static  2000      2000      0         0-default
+ISIS-default           32108   Static  100       8         0         0-default
+BGP-known              32116   Static  2500      2975      0         0-default
+BGP-cfg-peer           32117   Static  2000      2000      0         0-default
+BGP-default            32118   Static  100       8         0         0-default
+PIM-mcast-default      32119   Static  100       8         0         0-default
+PIM-mcast-known        32120   Static  2100      2078      0         0-default
+PIM-ucast              32121   Static  1000      500       0         0-default
+IGMP                   32122   Static  2000      2000      0         0-default
+ICMP-local             32123   Static  2500      250       0         0-default
+ICMP-control           32125   Static  2500      250       0         0-default
+ICMP-default           32126   Static  1000      98        0         0-default
+ICMP-app-default       32127   Static  2500      250       0         0-default
+LDP-TCP-known          32128   Static  2500      3104      0         0-default
+LDP-TCP-cfg-peer       32129   Static  2000      2000      0         0-default
+LDP-TCP-default        32130   Static  100       8         0         0-default
+LDP-UDP                32131   Static  2000      2000      0         0-default
+All-routers            32132   Static  1000      500       0         0-default
+RSVP-default           32138   Static  100       8         0         0-default
+RSVP-known             32139   Static  2500      2975      0         0-default
+SNMP                   32147   Static  2000      197       0         0-default
+SSH-known              32148   Static  1000      98        0         0-default
+SSH-default            32149   Static  100       8         0         0-default
+HTTP-known             32150   Static  1000      98        0         0-default
+HTTP-default           32151   Static  1000      98        0         0-default
+SHTTP-known            32152   Static  1000      98        0         0-default
+SHTTP-default          32153   Static  1000      98        0         0-default
+TELNET-known           32154   Static  1000      98        0         0-default
+TELNET-default         32155   Static  100       8         0         0-default
+UDP-known              32160   Static  25000     2494      0         0-default
+UDP-listen             32161   Static  4000      398       0         0-default
+UDP-default            32163   Static  100       8         0         0-default
+TCP-known              32164   Static  25000     2494      0         0-default
+TCP-listen             32165   Static  25000     2494      0         0-default
+TCP-default            32167   Static  100       8         0         0-default
+Raw-default            32171   Static  250       23        0         0-default
+ip-sla                 32172   Static  1000      98        0         0-default
+EIGRP                  32173   Static  1500      1119      0         0-default
+PCEP                   32176   Static  100       18        0         0-default
+GRE                    32177   Static  150       8         0         0-default
+VRRP                   32178   Static  1000      1000      0         0-default
+HSRP                   32179   Static  400       158       0         0-default
+MPLS-oam               32180   Static  250       31        0         0-default
+DNS                    32183   Static  500       49        0         0-default
+RADIUS                 32184   Static  7000      4158      0         0-default
+TACACS                 32185   Static  500       49        0         0-default
+NTP-default            32186   Static  100       8         0         0-default
+NTP-known              32187   Static  500       49        0         0-default
+DHCPv4                 32193   Static  4000      398       0         0-default
+DHCPv6                 32194   Static  4000      398       0         0-default
+TPA                    32196   Static  2000      2000      0         0-default
+PM-TWAMP               32199   Static  8000      799       0         0-default
+```
+
 
