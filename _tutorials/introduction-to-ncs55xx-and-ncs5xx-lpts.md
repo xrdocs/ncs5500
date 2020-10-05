@@ -141,6 +141,7 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 ```
 
 Note: This output shows the policer values per NPU
+{: .notice--info}
 
 The default policer values can also be changed as per your requirement. However you should be very careful while changing this default values.
 
