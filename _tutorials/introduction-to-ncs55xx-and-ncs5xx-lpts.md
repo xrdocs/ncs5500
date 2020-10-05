@@ -54,7 +54,8 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU.
 - Each flow policer has default static policer rate value. 
 - Each flow policer value can be conifgured to 0 (to drop all packet matching classification criteria) to max of 50K PPS.
-- Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow. 
+- Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
+- L2 Protocol and Exception packets are punted to the LC via CPU traps.
 
 
 LPTS uses the following tuples to identify a packet:
