@@ -26,29 +26,34 @@ In IOS-XR LPTS, as part of **for-us** packet delivery process, the rate at which
 
 LPTS module in **IOS XR software** classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. In traditional IOS-XR platforms (CRS/ASR9k) LPTS had different regions which consumed 16k entries each. But we do not have the same luxury in NCS55xx and NCS5xx due to limited TCAM resources. We need to use the TCAM very wisely to accomodate several features and functionalities. Therefore to minimize the usage of TCAM resource,  the LPTS platform dependent layer programs only the protocol default entries in hardware and punt the control packets to Line card CPU Netio for full lpts lookup in LPTS Decap node. In IOS XR, the Network Input/Output (NetIO) process is the equivalent to the IOS ip_input process and is responsible for forwarding packets in software. For further understanding of process switching please [refer](https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=2#:~:text=Process%20Switching,-Process%20switching%2C%20also&text=In%20IOS%2C%20the%20ip_input%20process,for%20processing%20incoming%20IP%20packets.&text=In%20IOS%20XR%2C%20the%20Network,for%20forwarding%20packets%20in%20software. "refer"). LPTS also maintains per interface complete table in netio chain in Line card CPU. 
 
-### NPU and Line Card CPU Lookup Process
-
-- In NPU, the ‘For Us’  control packet will do hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
-- Hardware lookup results contains the listener_tag (application of interest), flow type, packet destination, policer of the flow and stats pointer. We will see this in details in later section. Based on lookup results, the control packets will get policed and punted to LC CPU. 
-- When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
-- This helps us to police all control traffic in hardware while performing full LPTS lookup in software before punting the packet to IOS-XR RP.
 
 ## LPTS in Pipeline Architecture
 
 ![Screenshot 2020-10-05 at 11.36.38 AM.png]({{site.baseurl}}/images/Screenshot 2020-10-05 at 11.36.38 AM.png)
 
-The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asic is used to classify packets based on predefined protocol fields from Layer 2 to Layer 7, preprocessed header fields from previous processing blocks as well as user-defined fields in both Ingress and Egress direction. Based on these classifications, various actions can be applied to the packet.
-In the PMF stage, the packet carries all the information of previous block (incoming PP port, packet type, forwarding lookup results) which can be matched and set actions can be applied on the packet.
-LPTS uses the PMF architecture to classify the packet and other pre-processing attributes to apply action (punt CPU, stats and police).
+The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asic is the most programmable block in the TCAM. It contains all the information of previous blocks like incoming PP port, packet type, forwarding lookup results. It also classifies packets based on predefined protocol fields all the way from Layer 2 to Layer 7. Based on these classifications, various actions can be applied to the packet. In the PMF stage, the packet can be matched and set actions can be applied on the packet. LPTS uses the PMF architecture to classify the packet and other pre-processing attributes to apply action (punt CPU, stats and police).
+
+### NPU and Line Card CPU in action
+
+- In continuation of the above section, let us see how the lookup process happens in the NPU and LC CPU.
+- In NPU, the ‘For Us’  control packet undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
+- Hardware lookup result contains: 
+	- listener_tag (application of interest)
+    - flow type, packet destination
+    - policer of the flow
+    - stats pointer
+- Based on lookup result, the control packets will get policed and punted to LC CPU. 
+- When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
+- This helps us to police all control traffic in hardware while performing full LPTS lookup in software before punting the packet to IOS-XR RP.
 
 ## Hardware Implementation
 
-LPTS entries in hardware TCAM classifies packets to select a policer to apply.
-LPTS has hardware policers on all default entries in the NPU to limit traffic sent to local CPU.
-Policing done on the LC Hardware ASIC before packets hit RP/LC CPU
-Each flow policer has default static policer rate value derived based on cumulative protocol flows. Ex: OSPF Default entry policer rate = OSPF known rate + OSPF Default rate.
-Each flow policer value can be tuned to 0 (to drop all packet matching classification criteria) to max of 50K PPS via cli.
-The LPTS policers work on a per NPU basis. For ex, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow. Take extreme care when changing the LPTS policer values esp on multi NPU line cards.
+- LPTS entries in hardware TCAM classifies packets to select a policer to apply.
+- LPTS has hardware policers on all default entries in the NPU to limit traffic sent to local CPU.
+- Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU.
+- Each flow policer has default static policer rate value. 
+- Each flow policer value can be conifgured to 0 (to drop all packet matching classification criteria) to max of 50K PPS.
+- Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow. 
 
 
 LPTS uses the following tuples to identify a packet
