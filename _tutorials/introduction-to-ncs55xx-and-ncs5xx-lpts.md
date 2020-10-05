@@ -53,9 +53,9 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - LPTS has hardware policers on all default entries in the NPU to limit traffic sent to local CPU.
 - Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU.
 - Each flow policer has default static policer rate value. 
-- Each flow policer value can be conifgured to 0 (to drop all packet matching classification criteria) to max of 50K PPS.
+- Each flow policer value can be conifgured from 0 (to drop all packet matching classification criteria) to max of 50K PPS. (as compared to 100k in ASR9k)
 - Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
-- L2 Protocol and Exception packets are punted to the LC via CPU traps. (need to confirm)
+- L2 Protocol and Exception packets are punted to the LC via CPU traps. 
 
 
 LPTS uses the following tuples to identify a packet:
@@ -414,9 +414,14 @@ Platform:
 
 ## Hardware Traps
 
-Hardware traps are used for handling exception packets like TTLx, Invalid headers, most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance.
+Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
+
+```
+show controllers npu stats traps-all instance all location all
+```
+
   
-RP/0/RP0/CPU0:fretta-127#show controllers npu stats traps-all instance all location <lc>
+
 
 
 ## Glossary 
@@ -441,7 +446,8 @@ RP/0/RP0/CPU0:fretta-127#show controllers npu stats traps-all instance all locat
 
 ## Summary
 
-LPTS consists of 3 key portions
-  – Filtering of what can be punted and categorization of the flow.
+Hope you got the basics of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key portions 
+  - Filtering of what can be punted and categorization of the flow.
   – Decides where the flow needs to go to: is it LC CPU or RP CPU
   - Policing of the flows. (per “flow” and per NPU)
+Stay tuned for the next tech-note in which we will cover another capability around the same area:  Dynamic LPTS.
