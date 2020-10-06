@@ -107,21 +107,39 @@ Accepted/Dropped  : 0/0</mark>
 </pre>
 </div>
 
-As we discussed in the previous sections the hardware lookup results contains various fields like Interface, DestNode, Listener Tag, Flow-type and the hardware NPU data. Similarly we can get the output of default flow types as well
+As we discussed in the previous sections the hardware lookup results contains various fields like Interface, DestNode, Listener Tag, Flow-type and the hardware NPU data. Similarly we can get the output of default flow types as well. Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU. Each flow policer has default static policer rate value. Each flow policer value can be conifgured from 0 (to drop all packet matching classification criteria) to max of 50K PPS as compared to 100k in ASR9k. Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
+ 
 
-## Hardware Implementation
+LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. You should be very careful while changing this default values.
 
-- The control packets, which are destined to the Route Processor (RP), are policed using a set of ingress policers in the incoming ports.
-- LPTS entries in hardware TCAM classifies packets to select a policer to apply.
-- LPTS has hardware policers on all default entries in the NPU to limit traffic sent to local CPU.
-- Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU.
-- Each flow policer has default static policer rate value. 
-- Each flow policer value can be conifgured from 0 (to drop all packet matching classification criteria) to max of 50K PPS. (as compared to 100k in ASR9k)
-- Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
-- L2 Protocol and Exception packets are punted to the LC via CPU traps. 
+As we saw the ISIS known default police value was 2100
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PIM-mcast-known
+<mark>PIM-mcast-known        32120   Static  2100      2078      0         0-default</mark>
+</code>
+</pre>
+</div>
 
-LPTS uses the following tuples to identify a packet:
+We can configure it to a new value and see that it is taking affect. So now if the control packets goes beyond 1000 pps the packets will be policed.
+
+```
+RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware police flow Pim multicast known rate 1000
+
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PI$
+<mark>PIM-mcast-known        32120   Global  1000      1000      0         0-default</mark>
+</code>
+</pre>
+</div>
+
+**LPTS can use the following tuples to identify a packet:**
     
 | Tuples              |
 |---------------------|
@@ -133,6 +151,7 @@ LPTS uses the following tuples to identify a packet:
 | Source Port         |
 | Destination Address |
 | Destination Port    |
+
 
 ## Supported Flow Types in Hardware LPTS as per IOS-XR 7.2.1
 
@@ -205,30 +224,8 @@ TPA                    32196   Static  2000      2000      0         0-default
 PM-TWAMP               32199   Static  8000      799       0         0-default
 ```
 
-Note: This output shows the policer values per NPU
-{: .notice--info}
 
-LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. You should be very careful while changing this default values.
 
-```
-RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware police flow fragment rate 2000
-
-```
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
--------------------------------------------------------------
-                Node 0/0/CPU0:
--------------------------------------------------------------
-FlowType               Policer Type    Cur. Rate Burst     npu       Domain
----------------------- ------- ------- --------- --------- --------- ---------
-<mark>Fragment               32102   Global  2000      197       0         0-default</mark>
-OSPF-mc-known          32103   Static  2000      2000      0         0-default
-OSPF-mc-default        32104   Static  100       8         0         0-default
-</code>
-</pre>
-</div>
 
 The below command can be used to check the locally processed packets that are accepted or dropped by the LC CPU
 
