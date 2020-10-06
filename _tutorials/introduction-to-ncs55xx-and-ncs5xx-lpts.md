@@ -679,8 +679,8 @@ Platform:
 
 ## Summary
 
-Hope you got the basics of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key portions 
+Hope this content was useful and you understood the importance of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key portions: 
 - Filtering of what can be punted and categorization of the flow.
 - Decides where the flow needs to go to: is it LC CPU or RP CPU
 - Policing of the flows. (per “flow” and per NPU)
-Key message is that, LPTS can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. In the next tech note we will cover the Dynamic LPTS capabilities of the platforms. Stay tuned till then !!!
+Key message is that, LPTS takes control plane protection to new level and can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. In the next tech note we will cover the Dynamic LPTS capabilities of the platforms. Stay tuned till then !!!
