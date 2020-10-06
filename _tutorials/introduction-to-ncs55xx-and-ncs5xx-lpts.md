@@ -230,6 +230,153 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 ```
 
 
+## Handling Exception and Layer2 Control Packets
+
+Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
+
+```
+RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all locatio$
+
+
+
+Trap stats for lc 0
+
+
+Trap Type                                     NPU  Trap TrapStats   Policer Packet               Packet
+
+                                              ID    ID      ID              Accepted             Dropped
+============================================================================================================================
+RxTrapMimDiscardMacsaDrop (IRB)               0    1    0x1         32045   0                    0                    
+RxTrapMimDiscardMacsaTrap (ERP_BDL)           0    2    0x2         32041   0                    0                    
+RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0                    0                    
+RxTrapMimSaMove(CFM_DOWM_MEP_DMM)             0    6    0x6         32039   0                    0                    
+RxTrapMimSaUnknown(RCY_CFM_DOWN_MEP_DMM)      0    7    0x7         32039   0                    0                    
+RxTrapAuthSaLookupFail (IPMC default)         0    8    0x8         32035   0                    0                    
+RxTrapAuthSaPortFail (L3 wrong MAC)           0    9    0x9         32020   0                    0                    
+RxTrapAuthSaVlanFail (L3 unknown-MC/BC)       0    10   0xa         32020   43                   0                    
+RxTrapSaMulticast                             0    11   0xb         32020   0                    0                    
+RxTrapArpMyIp (Unknown VLAN)                  0    14   0xe         32020   0                    0                    
+RxTrapDhcpv4Server                            0    19   0x13        32019   0                    0                    
+RxTrapDhcpv4Client                            0    20   0x14        32024   0                    0                    
+RxTrapDhcpv6Server                            0    21   0x15        32019   0                    0                    
+RxTrapDhcpv6Client                            0    22   0x16        32024   0                    0                    
+RxTrapL2Cache_LACP                            0    24   0x18        32003   0                    0                    
+RxTrapL2Cache_LLDP1                           0    25   0x19        32004   0                    0                    
+RxTrapL2Cache_LLDP2                           0    26   0x1a        32004   0                    0                    
+RxTrapL2Cache_ELMI                            0    28   0x1c        32005   0                    0                    
+RxTrapL2Cache_BPDU                            0    29   0x1d        32029   0                    0                    
+RxTrapL2Cache_BUNDLE_BPDU                     0    30   0x1e        32029   0                    0                    
+RxTrapHeaderSizeErr                           0    33   0x21        32020   0                    0                    
+RxTrapIpCompMcInvalidIp                       0    37   0x25        32020   0                    0                    
+RxTrapMyMacAndIpDisabled                      0    38   0x26        32020   0                    0                    
+RxTrapMyMacAndMplsDisable                     0    39   0x27        32020   0                    0                    
+RxTrapArpReply                                0    40   0x28        32019   0                    0                    
+RxTrapFibDrop                                 0    43   0x2b        32020   0                    0                    
+RxTrapMTU                                     0    44   0x2c        32022   0                    0                    
+RxTrapMiscDrop                                0    45   0x2d        32020   0                    0                    
+RxTrapL2AclDeny                               0    46   0x2e        32036   0                    0                    
+Rx_UNKNOWN_PACKET                             0    49   0x31        32020   0                    0                    
+RxTrapL3AclDeny                               0    50   0x32        32036   0                    0                    
+RxTrapStpStateBlock_EXT_HDR                   0    52   0x34        32048   0                    0                    
+RxTrapFailover1Plus1Fail                      0    56   0x38        32043   0                    6                    
+RxTrapAdjacentCheckFail (Intf-Down)           0    57   0x39        32043   0                    0                    
+RxTrapFcoeSrcIdMismatchSa (EVPN IML drop)     0    58   0x3a        32043   0                    0                    
+RxTrapFcoeZoneCheckFail (MAC drop)            0    59   0x3b        32020   0                    0                    
+RxTrapOamY1731MplsTp(OAM_SWOFF_DN_CCM)        0    61   0x3d        32031   0                    0                    
+RxTrapOamY1731Pwe(OAM_SWOFF_UP_CCM)           0    62   0x3e        32032   0                    0                    
+RxTrapOamLevel                                0    69   0x45        32025   0                    0                    
+RxTrapRedirectToCpuOamPacket                  0    70   0x46        32027   0                    0                    
+RxTrapOamPassive                              0    71   0x47        32026   0                    0                    
+RxTrap1588                                    0    72   0x48        32040   0                    0                    
+RxTrapExternalLookupError                     0    73   0x49        32020   0                    0                    
+RxTrapArplookupFail                           0    74   0x4a        32001   0                    0                    
+RxTrapTrillUnknownUc (flooding UC disable)    0    83   0x53        32044   0                    0                    
+RxTrapTrillUnknownMc (flooding MC-BC disable) 0    84   0x54        32044   0                    0                    
+RxTrapMplsControlWordTrap                     0    88   0x58        32017   0                    0                    
+RxTrapMplsControlWordDrop                     0    90   0x5a        32017   0                    0                    
+RxTrapMplsUnknownLabel                        0    92   0x5c        32020   0                    0                    
+RxTrapIpv4VersionError                        0    100  0x64        32020   0                    0                    
+RxTrapIpv4ChecksumError                       0    102  0x66        32020   0                    0                    
+RxTrapIpv4HeaderLengthError                   0    104  0x68        32020   0                    0                    
+RxTrapIpv4TotalLengthError                    0    106  0x6a        32020   0                    0                    
+RxTrapIpv4Ttl0                                0    108  0x6c        32010   0                    0                    
+RxTrapIpv4Ttl1                                0    112  0x70        32010   0                    0                    
+RxTrapIpv4DipZero                             0    115  0x73        32020   0                    0                    
+RxTrapIpv4SipIsMc                             0    117  0x75        32020   0                    0                    
+RxTrapIpv6VersionError                        0    120  0x78        32020   0                    0                    
+RxTrapIpv6HopCount0                           0    122  0x7a        32013   0                    0                    
+RxTrapIpv6HopCount1                           0    123  0x7b        32013   0                    0                    
+RxTrapIpv6LoopbackAddress                     0    125  0x7d        32020   0                    0                    
+RxTrapIpv6MulticastSource                     0    127  0x7f        32020   0                    0                    
+RxTrapIpv6NextHeaderNull                      0    129  0x81        32012   0                    0                    
+RxTrapSRv6Cnt3                                0    133  0x85        32020   0                    0                    
+RxTrapIpv6Ipv4CompatibleDestination           0    137  0x89        32020   0                    0                    
+RxTrapMplsTtl0                                0    141  0x8d        32014   0                    0                    
+RxTrapMplsTtl1                                0    142  0x8e        32014   0                    0                    
+RxTrapFailoverFacilityInvalid                 0    153  0x99        32020   0                    0                    
+RxTrapUcStrictRpfFail                         0    155  0x9b        32037   0                    0                    
+bcmRxTrapUcLooseRpfFail                       0    156  0x9c        32037   0                    0                    
+RxTrapMcExplicitRpfFail                       0    157  0x9d        32035   0                    0                    
+RxTrapOamp(OAM_BDL_DN_NON_CCM)                0    160  0xa0        32033   0                    0                    
+RxTrapOamEthUpAccelerated(OAM_BDL_UP_NON_CCM) 0    164  0xa4        32034   0                    0                    
+RxTrapReceive                                 0    169  0xa9        32019   4010723              0                    
+RxTrapUserDefine_FIB_IPV4_NULL0               0    170  0xaa        32020   0                    0                    
+RxTrapUserDefine_SR_Unknown_Label             0    171  0xab        32020   0                    0                    
+RxTrapUserDefine_FIB_IPV6_NULL0               0    172  0xac        32020   0                    0                    
+RxTrapUserDefine_FIB_IPV4_GLEAN               0    173  0xad        32018   333442               0                    
+RxTrapUserDefine_FIB_IPV6_GLEAN               0    174  0xae        32018   0                    0                    
+RxTrapUserDefine_IPV4_OPTIONS                 0    175  0xaf        32006   0                    0                    
+RxTrapUserDefine_IPV4_RSVP_OPTIONS            0    176  0xb0        32007   0                    0                    
+RxTrapUserDefine_OAMP_LBM_LTM                 0    177  0xb1        32028   0                    0                    
+RxTrapUserDefine_IPV4_PIM_OPTIONS             0    179  0xb3        32008   0                    0                    
+RxTrapUserDefine_RECEIVE_L2                   0    180  0xb4        32019   1114670              0                    
+RxNetflowSnoopTrap0                           0    204  0xcc        32020   0                    0                    
+RxNetflowSnoopTrap1                           0    205  0xcd        32020   0                    0                    
+RxTrapSrv6EndOpPunt                           0    210  0xd2        32047   0                    0                    
+bcmRxTrapMacSecurity                          0    211  0xd3        32049   0                    0                    
+RxTrapUserDefine_OAM_SAT                      0    214  0xd6        32050   0                    0                    
+RxTrapFlowSpecDrop                            0    215  0xd7        32043   0                    0                    
+RP/0/RP0/CPU0:N55-24#
+```
+
+**Configuring the exception and other protocol packets**
+
+```
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 ?
+  domain     LPTS Domain
+  exception  Exception packets(cisco-support)
+  protocol   Protocol packets
+
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 exception ?
+  acl-log               acl log packets(cisco-support)
+  adjacency             Glean Adjacency resolution packets(cisco-support)
+  fib-drop              pkt drop due no fib match(cisco-support)
+  ipv4                  IPV4 exception packets(cisco-support)
+  ipv6                  IPv6 packets(cisco-support)
+  mpls                  MPLS exception packets(cisco-support)
+  netflow               For netflow packets(cisco-support)
+  recycle               For recycle packets(cisco-support)
+  tunnel-term-fragment  TunnelTermination And Fragmented(cisco-support)
+  urpf                  urpf exception packets(cisco-support)
+
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
+  arp   ARP Packets
+  bfd   Bidirectional Forwarding Detection packets(cisco-support)
+  cdp   CDP Packets
+  cfm   Connectivity Fault Management Protocol packets(cisco-support)
+  dhcp  Dynamic Host Configuration Protocol(cisco-support)
+  igmp  igmp Protocol packets(cisco-support)
+  ipv4  IPv4 packets(cisco-support)
+  ipv6  IPv6 packets(cisco-support)
+  lacp  LACP Packets
+  lldp  LLDP Packets
+  mpls  MPLS punt packets(cisco-support)
+  pim   Pim Protocol packets(cisco-support)
+  ptp   PTP (1588) Protocol packets(cisco-support)
+  rsvp  Resource Reservation Protocol packets(cisco-support)
+
+```
+
 ## Rate Limiting of Multicast and Broadcast Punt Packets
 
 Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and NCS5xx platforms rate limits them at the interface level. Currently, a rate limit is supported per NPU level. This feature supports rate limiting at the interface level so as to protect a port from receiving the multicast and broadcast storm of punted traffic. Rate limiting for all the L3 protocol punt packets and L2 protocol packets (only ERPS, and DOT1x) is supported on physical and bundle main interfaces. You can configure the multicast and broadcast rate limit in three levels as per below priority:
@@ -456,153 +603,6 @@ Platform:
 </pre>
 </div>
 
-
-## Handling Exception and Layer2 Control Packets
-
-Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
-
-```
-RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all locatio$
-
-
-
-Trap stats for lc 0
-
-
-Trap Type                                     NPU  Trap TrapStats   Policer Packet               Packet
-
-                                              ID    ID      ID              Accepted             Dropped
-============================================================================================================================
-RxTrapMimDiscardMacsaDrop (IRB)               0    1    0x1         32045   0                    0                    
-RxTrapMimDiscardMacsaTrap (ERP_BDL)           0    2    0x2         32041   0                    0                    
-RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0                    0                    
-RxTrapMimSaMove(CFM_DOWM_MEP_DMM)             0    6    0x6         32039   0                    0                    
-RxTrapMimSaUnknown(RCY_CFM_DOWN_MEP_DMM)      0    7    0x7         32039   0                    0                    
-RxTrapAuthSaLookupFail (IPMC default)         0    8    0x8         32035   0                    0                    
-RxTrapAuthSaPortFail (L3 wrong MAC)           0    9    0x9         32020   0                    0                    
-RxTrapAuthSaVlanFail (L3 unknown-MC/BC)       0    10   0xa         32020   43                   0                    
-RxTrapSaMulticast                             0    11   0xb         32020   0                    0                    
-RxTrapArpMyIp (Unknown VLAN)                  0    14   0xe         32020   0                    0                    
-RxTrapDhcpv4Server                            0    19   0x13        32019   0                    0                    
-RxTrapDhcpv4Client                            0    20   0x14        32024   0                    0                    
-RxTrapDhcpv6Server                            0    21   0x15        32019   0                    0                    
-RxTrapDhcpv6Client                            0    22   0x16        32024   0                    0                    
-RxTrapL2Cache_LACP                            0    24   0x18        32003   0                    0                    
-RxTrapL2Cache_LLDP1                           0    25   0x19        32004   0                    0                    
-RxTrapL2Cache_LLDP2                           0    26   0x1a        32004   0                    0                    
-RxTrapL2Cache_ELMI                            0    28   0x1c        32005   0                    0                    
-RxTrapL2Cache_BPDU                            0    29   0x1d        32029   0                    0                    
-RxTrapL2Cache_BUNDLE_BPDU                     0    30   0x1e        32029   0                    0                    
-RxTrapHeaderSizeErr                           0    33   0x21        32020   0                    0                    
-RxTrapIpCompMcInvalidIp                       0    37   0x25        32020   0                    0                    
-RxTrapMyMacAndIpDisabled                      0    38   0x26        32020   0                    0                    
-RxTrapMyMacAndMplsDisable                     0    39   0x27        32020   0                    0                    
-RxTrapArpReply                                0    40   0x28        32019   0                    0                    
-RxTrapFibDrop                                 0    43   0x2b        32020   0                    0                    
-RxTrapMTU                                     0    44   0x2c        32022   0                    0                    
-RxTrapMiscDrop                                0    45   0x2d        32020   0                    0                    
-RxTrapL2AclDeny                               0    46   0x2e        32036   0                    0                    
-Rx_UNKNOWN_PACKET                             0    49   0x31        32020   0                    0                    
-RxTrapL3AclDeny                               0    50   0x32        32036   0                    0                    
-RxTrapStpStateBlock_EXT_HDR                   0    52   0x34        32048   0                    0                    
-RxTrapFailover1Plus1Fail                      0    56   0x38        32043   0                    6                    
-RxTrapAdjacentCheckFail (Intf-Down)           0    57   0x39        32043   0                    0                    
-RxTrapFcoeSrcIdMismatchSa (EVPN IML drop)     0    58   0x3a        32043   0                    0                    
-RxTrapFcoeZoneCheckFail (MAC drop)            0    59   0x3b        32020   0                    0                    
-RxTrapOamY1731MplsTp(OAM_SWOFF_DN_CCM)        0    61   0x3d        32031   0                    0                    
-RxTrapOamY1731Pwe(OAM_SWOFF_UP_CCM)           0    62   0x3e        32032   0                    0                    
-RxTrapOamLevel                                0    69   0x45        32025   0                    0                    
-RxTrapRedirectToCpuOamPacket                  0    70   0x46        32027   0                    0                    
-RxTrapOamPassive                              0    71   0x47        32026   0                    0                    
-RxTrap1588                                    0    72   0x48        32040   0                    0                    
-RxTrapExternalLookupError                     0    73   0x49        32020   0                    0                    
-RxTrapArplookupFail                           0    74   0x4a        32001   0                    0                    
-RxTrapTrillUnknownUc (flooding UC disable)    0    83   0x53        32044   0                    0                    
-RxTrapTrillUnknownMc (flooding MC-BC disable) 0    84   0x54        32044   0                    0                    
-RxTrapMplsControlWordTrap                     0    88   0x58        32017   0                    0                    
-RxTrapMplsControlWordDrop                     0    90   0x5a        32017   0                    0                    
-RxTrapMplsUnknownLabel                        0    92   0x5c        32020   0                    0                    
-RxTrapIpv4VersionError                        0    100  0x64        32020   0                    0                    
-RxTrapIpv4ChecksumError                       0    102  0x66        32020   0                    0                    
-RxTrapIpv4HeaderLengthError                   0    104  0x68        32020   0                    0                    
-RxTrapIpv4TotalLengthError                    0    106  0x6a        32020   0                    0                    
-RxTrapIpv4Ttl0                                0    108  0x6c        32010   0                    0                    
-RxTrapIpv4Ttl1                                0    112  0x70        32010   0                    0                    
-RxTrapIpv4DipZero                             0    115  0x73        32020   0                    0                    
-RxTrapIpv4SipIsMc                             0    117  0x75        32020   0                    0                    
-RxTrapIpv6VersionError                        0    120  0x78        32020   0                    0                    
-RxTrapIpv6HopCount0                           0    122  0x7a        32013   0                    0                    
-RxTrapIpv6HopCount1                           0    123  0x7b        32013   0                    0                    
-RxTrapIpv6LoopbackAddress                     0    125  0x7d        32020   0                    0                    
-RxTrapIpv6MulticastSource                     0    127  0x7f        32020   0                    0                    
-RxTrapIpv6NextHeaderNull                      0    129  0x81        32012   0                    0                    
-RxTrapSRv6Cnt3                                0    133  0x85        32020   0                    0                    
-RxTrapIpv6Ipv4CompatibleDestination           0    137  0x89        32020   0                    0                    
-RxTrapMplsTtl0                                0    141  0x8d        32014   0                    0                    
-RxTrapMplsTtl1                                0    142  0x8e        32014   0                    0                    
-RxTrapFailoverFacilityInvalid                 0    153  0x99        32020   0                    0                    
-RxTrapUcStrictRpfFail                         0    155  0x9b        32037   0                    0                    
-bcmRxTrapUcLooseRpfFail                       0    156  0x9c        32037   0                    0                    
-RxTrapMcExplicitRpfFail                       0    157  0x9d        32035   0                    0                    
-RxTrapOamp(OAM_BDL_DN_NON_CCM)                0    160  0xa0        32033   0                    0                    
-RxTrapOamEthUpAccelerated(OAM_BDL_UP_NON_CCM) 0    164  0xa4        32034   0                    0                    
-RxTrapReceive                                 0    169  0xa9        32019   4010723              0                    
-RxTrapUserDefine_FIB_IPV4_NULL0               0    170  0xaa        32020   0                    0                    
-RxTrapUserDefine_SR_Unknown_Label             0    171  0xab        32020   0                    0                    
-RxTrapUserDefine_FIB_IPV6_NULL0               0    172  0xac        32020   0                    0                    
-RxTrapUserDefine_FIB_IPV4_GLEAN               0    173  0xad        32018   333442               0                    
-RxTrapUserDefine_FIB_IPV6_GLEAN               0    174  0xae        32018   0                    0                    
-RxTrapUserDefine_IPV4_OPTIONS                 0    175  0xaf        32006   0                    0                    
-RxTrapUserDefine_IPV4_RSVP_OPTIONS            0    176  0xb0        32007   0                    0                    
-RxTrapUserDefine_OAMP_LBM_LTM                 0    177  0xb1        32028   0                    0                    
-RxTrapUserDefine_IPV4_PIM_OPTIONS             0    179  0xb3        32008   0                    0                    
-RxTrapUserDefine_RECEIVE_L2                   0    180  0xb4        32019   1114670              0                    
-RxNetflowSnoopTrap0                           0    204  0xcc        32020   0                    0                    
-RxNetflowSnoopTrap1                           0    205  0xcd        32020   0                    0                    
-RxTrapSrv6EndOpPunt                           0    210  0xd2        32047   0                    0                    
-bcmRxTrapMacSecurity                          0    211  0xd3        32049   0                    0                    
-RxTrapUserDefine_OAM_SAT                      0    214  0xd6        32050   0                    0                    
-RxTrapFlowSpecDrop                            0    215  0xd7        32043   0                    0                    
-RP/0/RP0/CPU0:N55-24#
-```
-
-**Configuring the exception and other protocol packets**
-
-```
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 ?
-  domain     LPTS Domain
-  exception  Exception packets(cisco-support)
-  protocol   Protocol packets
-
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 exception ?
-  acl-log               acl log packets(cisco-support)
-  adjacency             Glean Adjacency resolution packets(cisco-support)
-  fib-drop              pkt drop due no fib match(cisco-support)
-  ipv4                  IPV4 exception packets(cisco-support)
-  ipv6                  IPv6 packets(cisco-support)
-  mpls                  MPLS exception packets(cisco-support)
-  netflow               For netflow packets(cisco-support)
-  recycle               For recycle packets(cisco-support)
-  tunnel-term-fragment  TunnelTermination And Fragmented(cisco-support)
-  urpf                  urpf exception packets(cisco-support)
-
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
-  arp   ARP Packets
-  bfd   Bidirectional Forwarding Detection packets(cisco-support)
-  cdp   CDP Packets
-  cfm   Connectivity Fault Management Protocol packets(cisco-support)
-  dhcp  Dynamic Host Configuration Protocol(cisco-support)
-  igmp  igmp Protocol packets(cisco-support)
-  ipv4  IPv4 packets(cisco-support)
-  ipv6  IPv6 packets(cisco-support)
-  lacp  LACP Packets
-  lldp  LLDP Packets
-  mpls  MPLS punt packets(cisco-support)
-  pim   Pim Protocol packets(cisco-support)
-  ptp   PTP (1588) Protocol packets(cisco-support)
-  rsvp  Resource Reservation Protocol packets(cisco-support)
-
-```
 
 ## Glossary 
 
