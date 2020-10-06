@@ -377,6 +377,58 @@ RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
 
 ```
 
+### How to check the default policer value of individual traps
+
+```
+RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all locatio$
+RxTrapIpv4Ttl0                                0    108  0x6c        32010   0                    0  RxTrapIpv4Ttl1                                0    112  0x70        32010   0                    0 RxTrapMplsTtl0                                0    141  0x8d        32014   0                    0  RxTrapMplsTtl1                                0    142  0x8e        32014   0                    0 
+```                  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
+Tue Oct  6 16:04:19.751 UTC
+Last login: Tue Oct  6 15:56:35 2020 from 172.0.16.1
+export PS1='#'
+[xr-vm_node0_0_CPU0:~]$export PS1='#'
+<mark>#dpa_show puntpolicer | grep -e Def -e 32010
+            Def CIR Rate  Conf CIR Rate  CIR Burst         ID
+ 10 -  0:            100              0        100      32010</mark>
+#
+</code>
+</pre>
+</div> 
+
+**Configuring new policer rate**
+
+```
+RP/0/RP0/CPU0:N55-24#show running-config lpts 
+Tue Oct  6 16:05:05.994 UTC
+lpts punt police location 0/0/CPU0
+ exception ipv4 ttl-error rate 200
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
+Tue Oct  6 16:05:21.713 UTC
+Last login: Tue Oct  6 16:04:19 2020 from 172.0.16.1
+export PS1='#'
+[xr-vm_node0_0_CPU0:~]$export PS1='#'
+#
+#dpa_show puntpolicer | grep -e Def -e 32010
+            Def CIR Rate  Conf CIR Rate  CIR Burst         ID
+ <mark>10 -  0:            100            200        100      32010</mark>
+#
+</code>
+</pre>
+</div> 
+
+From the above output we can see that new policer value has been programmed in the hardware.
+
+
 ## Rate Limiting of Multicast and Broadcast Punt Packets
 
 Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and NCS5xx platforms rate limits them at the interface level. Currently, a rate limit is supported per NPU level. This feature supports rate limiting at the interface level so as to protect a port from receiving the multicast and broadcast storm of punted traffic. Rate limiting for all the L3 protocol punt packets and L2 protocol packets (only ERPS, and DOT1x) is supported on physical and bundle main interfaces. You can configure the multicast and broadcast rate limit in three levels as per below priority:
