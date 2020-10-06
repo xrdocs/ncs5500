@@ -225,26 +225,6 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 ```
 
 
-
-
-The below command can be used to check the locally processed packets that are accepted or dropped by the LC CPU
-
-```
-RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location all
-
-Trap stats for lc 0
-
-
-Trap Type                                     NPU  Trap TrapStats   Policer Packet               Packet
-
-                                              ID    ID      ID              Accepted             Dropped
-============================================================================================================================
-RxTrapMimDiscardMacsaDrop (IRB)               0    1    0x1         32045   0                    0                    
-RxTrapMimDiscardMacsaTrap (ERP_BDL)           0    2    0x2         32041   0                    0                    
-RxTrapMimDiscardMacsaSnoop(dot1x)             0    3    0x3         32020   0                    0 
-```
-
-
 ## Rate Limiting of Multicast and Broadcast Punt Packets
 
 Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and NCS5xx platforms rate limits them at the interface level. Currently, a rate limit is supported per NPU level. This feature supports rate limiting at the interface level so as to protect a port from receiving the multicast and broadcast storm of punted traffic. Rate limiting for all the L3 protocol punt packets and L2 protocol packets (only ERPS, and DOT1x) is supported on physical and bundle main interfaces. You can configure the multicast and broadcast rate limit in three levels as per below priority:
