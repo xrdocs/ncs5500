@@ -523,6 +523,44 @@ RxTrapUserDefine_OAM_SAT                      0    214  0xd6        32050   0   
 RxTrapFlowSpecDrop                            0    215  0xd7        32043   0                    0                    
 RP/0/RP0/CPU0:N55-24#
 ```
+
+**Configuring the exception and other protocol packets**
+
+```
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 ?
+  domain     LPTS Domain
+  exception  Exception packets(cisco-support)
+  protocol   Protocol packets
+
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 exception ?
+  acl-log               acl log packets(cisco-support)
+  adjacency             Glean Adjacency resolution packets(cisco-support)
+  fib-drop              pkt drop due no fib match(cisco-support)
+  ipv4                  IPV4 exception packets(cisco-support)
+  ipv6                  IPv6 packets(cisco-support)
+  mpls                  MPLS exception packets(cisco-support)
+  netflow               For netflow packets(cisco-support)
+  recycle               For recycle packets(cisco-support)
+  tunnel-term-fragment  TunnelTermination And Fragmented(cisco-support)
+  urpf                  urpf exception packets(cisco-support)
+
+RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
+  arp   ARP Packets
+  bfd   Bidirectional Forwarding Detection packets(cisco-support)
+  cdp   CDP Packets
+  cfm   Connectivity Fault Management Protocol packets(cisco-support)
+  dhcp  Dynamic Host Configuration Protocol(cisco-support)
+  igmp  igmp Protocol packets(cisco-support)
+  ipv4  IPv4 packets(cisco-support)
+  ipv6  IPv6 packets(cisco-support)
+  lacp  LACP Packets
+  lldp  LLDP Packets
+  mpls  MPLS punt packets(cisco-support)
+  pim   Pim Protocol packets(cisco-support)
+  ptp   PTP (1588) Protocol packets(cisco-support)
+  rsvp  Resource Reservation Protocol packets(cisco-support)
+
+```
  
 ## Glossary 
 
