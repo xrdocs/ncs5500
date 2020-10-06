@@ -10,7 +10,7 @@ tags:
   - CoPP
   - control plane
   - LPTS
-position: hidden
+position: top
 ---
 {% include toc %}
 
@@ -451,4 +451,3 @@ Hope you got the basics of LPTS and its implementation on the platform. To summa
 - Decides where the flow needs to go to: is it LC CPU or RP CPU
 - Policing of the flows. (per “flow” and per NPU)
 Key message is that, LPTS can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. In the next tech note we will cover the Dynamic LPTS capabilities of the platforms. Stay tuned till then !!!
-
