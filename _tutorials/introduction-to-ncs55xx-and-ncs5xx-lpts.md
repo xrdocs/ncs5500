@@ -71,6 +71,9 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 
 **Sample result of a LPTS entry**
 
+We have configured ISIS on the interface Ten0/0/0/6 and Ten0/0/0/7.
+Let us check the LPTS hardware entry.
+
 ```
 RP/0/RP0/CPU0:N55-24#show isis neighbors             
 IS-IS 1 neighbors:
@@ -86,9 +89,9 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry location 0/0/CPU0 | beg TenG
 Is Fragment       : 0
 Domain            : 0-default
 Listener Tag      : IPv4_STACK
-Flow Type         : PIM-mcast-known</mark>
+Flow Type         : PIM-mcast-known
 DestNode          : Deliver RP0
-Dest Type         : Dlvr
+Dest Type         : Dlvr</mark>
 Punt Queue Prio   : MEDIUM
 <mark>Hardware NPU Data        
 -------      
@@ -104,22 +107,7 @@ Accepted/Dropped  : 0/0</mark>
 </pre>
 </div>
 
-
-```
-RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry brief location 0/0/CPU0  
-
---------------------------------------
-          Node: 0/0/CPU0
---------------------------------------
-     G - Global flowtype counters
---------------------------------------
-
-Type DestIP           SrcIP            Interface        vrf   L4     LPort/Type     RPort  npu  Flowtype         DestNode   PuntPrio Accept Drop     Domain
----- ---------------- ---------------- ---------------- ----- ------ -------------- ------ ---- ---------------- ---------- -------- ------ ------ - ---------------
-IPV4 224.0.0.13       any              Te0/0/0/7        0     103    any            0      0    PIM-mcast-known  Dlvr RP0   MEDIUM   0      0        0-default
-IPV4 224.0.0.13       any              Te0/0/0/6        0     103    any            0      0    PIM-mcast-known  Dlvr RP0   MEDIUM   0      0        0-default
-
-```
+As we discussed in the previous sections the hardware lookup results contains various fields like Interface, DestNode, Listener Tag, Flow-type and the hardware NPU data. Similarly we can get the output of default flow types as well
 
 ## Hardware Implementation
 
