@@ -603,7 +603,6 @@ RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
   rsvp  Resource Reservation Protocol packets(cisco-support)
 
 ```
-## Packet Re-circulation
 
 ## Glossary 
 
