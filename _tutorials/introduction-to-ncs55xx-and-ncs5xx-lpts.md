@@ -41,7 +41,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - In NPU, the ‘For Us’  control packet undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
 - Hardware lookup result contains: 
 	- listener_tag (application of interest)
-    - flow type, 
+    - flow type 
     - packet destination
     - policer of the flow
     - stats pointer
@@ -415,7 +415,7 @@ Platform:
 </div>
 
 
-## Hardware Traps
+## Handling Exception and Layer2 Control Packets
 
 Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
 
