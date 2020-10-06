@@ -48,57 +48,78 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 
 ### NPU and Line Card CPU in action
 
-- In continuation of the above section, let us see how the lookup process happens in the NPU and LC CPU.
-- In NPU, the ‘For Us’  control packet undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
+- Let us the see the packet path in more details. 
+- In NPU, the ‘For Us’  control packets undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. 
 - Hardware lookup result contains: 
 	- listener_tag (application of interest)
     - flow type 
     - packet destination
     - policer of the flow
     - stats pointer
+- All ingress packets are classified into IPv4/IPv6/L2 depending on the L2/L3 headers processed in ingress pipeline.
+- After such classification, packets go into Software Path Process (SPP), that selects whether to send to L2/SPIO or NetIO process.
+- SPP is a component classifies packets in punt path to identify its client. In our case NetIO or L2/SPIO.
+- NetIO handles L3 Protocol Packets.
+- L3 packets undergo a FIB lookup and are classified as a “for-us” packet if it has to be consumed by the router itself.
 - Based on lookup result, the control packets will get policed and punted to LC CPU. 
 - When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
 - This helps us to police all control traffic in hardware while performing full LPTS lookup in software before punting the packet to IOS-XR RP.
+- The Streamlined Packet IO - SPIO is used by L2 processes.
+- NetIO and SPIO processes the packet header in the received packet to extract packet information and provide it to the client. 
+- L2 control protocols do not go through LPTS lookup. They are punted to LC or RP CPU as per configuration. We will look into the details in later sections.
+ 
 
-**Sample result**
+**Sample result of a LPTS entry**
 
+```
+RP/0/RP0/CPU0:N55-24#show isis neighbors             
+IS-IS 1 neighbors:
+System Id      Interface        SNPA           State Holdtime Type IETF-NSF
+N540-49        Te0/0/0/7        *PtoP*         Up    28       L2   Capable 
+N540-49        Te0/0/0/6        *PtoP*         Up    26       L2   Capable 
+```
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry location 0/0/CPU0 
-----------------------------------------
-             Node: 0/0/CPU0
-----------------------------------------
-     G - Global flowtype counters
-----------------------------------------
-<mark>L3 Proto          : IPV4(1)
-L4 Proto          : any(0)
-Destination IP    : any
-Source IP         : any
-L4 remote port    : 0
-L4 src port/Type  : any
-VRF ID            : default
-Interface         : --
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry location 0/0/CPU0 | beg TenGigE0/0/0/6
+<mark>Interface         : TenGigE0/0/0/6
 Is Fragment       : 0
 Domain            : 0-default
-Listener Tag      : IPv4_REASS
-Flow Type         : Fragment
-DestNode          : Local LC
-Dest Type         : Punt</mark>
-Punt Queue Prio   : LOW
+Listener Tag      : IPv4_STACK
+Flow Type         : PIM-mcast-known</mark>
+DestNode          : Deliver RP0
+Dest Type         : Dlvr
+Punt Queue Prio   : MEDIUM
 <mark>Hardware NPU Data        
 -------      
 NPU               : 0
-TCAM entry        : 53
-Policer_id        : 0x7d66
-Stats_id          : 0x80000195
-Stats_hdl         : 0x895d2808
-Compression_id    : 0x3fff
+TCAM entry        : 209
+Policer_id        : 0x7d78
+Stats_id          : 0x800001fd
+Stats_hdl         : 0x8ed4ef10
+Compression_id    : 0x1
 Accepted/Dropped  : 0/0</mark> 
 ---------------------------------------------------
 </code>
 </pre>
 </div>
+
+
+```
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry brief location 0/0/CPU0  
+
+--------------------------------------
+          Node: 0/0/CPU0
+--------------------------------------
+     G - Global flowtype counters
+--------------------------------------
+
+Type DestIP           SrcIP            Interface        vrf   L4     LPort/Type     RPort  npu  Flowtype         DestNode   PuntPrio Accept Drop     Domain
+---- ---------------- ---------------- ---------------- ----- ------ -------------- ------ ---- ---------------- ---------- -------- ------ ------ - ---------------
+IPV4 224.0.0.13       any              Te0/0/0/7        0     103    any            0      0    PIM-mcast-known  Dlvr RP0   MEDIUM   0      0        0-default
+IPV4 224.0.0.13       any              Te0/0/0/6        0     103    any            0      0    PIM-mcast-known  Dlvr RP0   MEDIUM   0      0        0-default
+
+```
 
 ## Hardware Implementation
 
