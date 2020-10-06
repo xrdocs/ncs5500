@@ -39,7 +39,7 @@ The three component which LPTS needs accomplish the task are:
 - **Port arbitrator**: The port arbitrator (lpts_pa) process creates, maintains and distributes table with entry information to process/forward “for-us” packets to the right destination.
 - **Pre-ifib (pifib) manager server** and **Flow manager** are processes that maintain the IFIB slices tables and Pre-IFIB table respectively that describe packet flows to the right element inside a logical router. The IFIB is used to route received packets to the correct Route Processor for processing. ([reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_365eb914-2cee-4691-98ec-9c3a73fd6c4c "reference")). 
 
-**High Level LPTS Flow Chart**
+### High Level LPTS Flow Chart
 
 ![Screenshot 2020-10-06 at 7.43.53 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-06 at 7.43.53 PM.png)
 
