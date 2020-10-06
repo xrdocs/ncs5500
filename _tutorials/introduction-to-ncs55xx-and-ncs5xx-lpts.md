@@ -39,6 +39,10 @@ The three component which LPTS needs accomplish the task are:
 - **Port arbitrator**: The port arbitrator (lpts_pa) process creates, maintains and distributes table with entry information to process/forward “for-us” packets to the right destination.
 - **Pre-ifib (pifib) manager server** and **Flow manager** are processes that maintain the IFIB slices tables and Pre-IFIB table respectively that describe packet flows to the right element inside a logical router. The IFIB is used to route received packets to the correct Route Processor for processing. ([reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_365eb914-2cee-4691-98ec-9c3a73fd6c4c "reference")). 
 
+**High Level LPTS Flow Chart**
+
+![Screenshot 2020-10-06 at 7.43.53 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-06 at 7.43.53 PM.png)
+
 
 ## LPTS in Pipeline Architecture
 
@@ -81,6 +85,7 @@ System Id      Interface        SNPA           State Holdtime Type IETF-NSF
 N540-49        Te0/0/0/7        *PtoP*         Up    28       L2   Capable 
 N540-49        Te0/0/0/6        *PtoP*         Up    26       L2   Capable 
 ```
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -112,7 +117,7 @@ As we discussed in the previous sections the hardware lookup results contains va
 
 LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. You should be very careful while changing this default values.
 
-As we saw the ISIS known default police value was 2100
+As we saw the ISIS known default police value is 2100.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
