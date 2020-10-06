@@ -51,6 +51,46 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
 - This helps us to police all control traffic in hardware while performing full LPTS lookup in software before punting the packet to IOS-XR RP.
 
+**Sample result**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware entry location 0/0/CPU0 
+----------------------------------------
+             Node: 0/0/CPU0
+----------------------------------------
+     G - Global flowtype counters
+----------------------------------------
+<mark>L3 Proto          : IPV4(1)
+L4 Proto          : any(0)
+Destination IP    : any
+Source IP         : any
+L4 remote port    : 0
+L4 src port/Type  : any
+VRF ID            : default
+Interface         : --
+Is Fragment       : 0
+Domain            : 0-default
+Listener Tag      : IPv4_REASS
+Flow Type         : Fragment
+DestNode          : Local LC
+Dest Type         : Punt</mark>
+Punt Queue Prio   : LOW
+<mark>Hardware NPU Data        
+-------      
+NPU               : 0
+TCAM entry        : 53
+Policer_id        : 0x7d66
+Stats_id          : 0x80000195
+Stats_hdl         : 0x895d2808
+Compression_id    : 0x3fff
+Accepted/Dropped  : 0/0</mark> 
+---------------------------------------------------
+</code>
+</pre>
+</div>
+
 ## Hardware Implementation
 
 - The control packets, which are destined to the Route Processor (RP), are policed using a set of ingress policers in the incoming ports.
