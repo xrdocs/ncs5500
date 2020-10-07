@@ -51,7 +51,7 @@ The three component which LPTS needs accomplish the task are:
 	- Does not touch packets
      
 
-### High Level LPTS Flow Chart
+### High Level LPTS Flow Chart (At PI level)
 
 ![Screenshot 2020-10-06 at 7.43.53 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-06 at 7.43.53 PM.png)
 
@@ -75,7 +75,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - All ingress packets are classified into IPv4/IPv6/L2 depending on the L2/L3 headers processed in ingress pipeline.
 - After such classification, packets go into Software Path Process (SPP), that selects whether to send to L2/SPIO or NetIO process.
 - SPP is a component classifies packets in punt path to identify its client. In our case NetIO or L2/SPIO.
-- NetIO handles L3 Protocol Packets.
+- NetIO handles L3 Protocol Packets like ICMP, OSPF, BGP etc.
 - L3 packets undergo a FIB lookup and are classified as a “for-us” packet if it has to be consumed by the router itself.
 - Based on lookup result, the control packets will get policed and punted to LC CPU. 
 - When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
