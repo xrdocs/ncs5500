@@ -675,6 +675,7 @@ Platform:
 - [ASR9k LPTS](https://community.cisco.com/t5/service-providers-documents/asr9000-xr-local-packet-transport-services-lpts-copp/ta-p/3123792 "ASR9k LPTS")
 - [Comparing ASR9k and NCS5500](https://cisco.sharepoint.com/:w:/r/sites/MIGRoutingPMTMECommunications/NCS%205500/Visitor%20Space/PreSales%20Resources/LPTS_Comparision_ASR9k_NCS5500/LPTS%20ASR9000%20and%20NCS5500%20Comparison.docx?d=w65a5b86c044c4e5f9b63a100bdc121f6&csf=1&web=1&e=rXIFkI "Comparing ASR9k and NCS5500")
 - [CCO Configuration Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_81657248-82a9-409c-bed1-2109d8552cbf "CCO Configuration Guide")
+- [Forwarding Architecture](https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2014/pdf/BRKSPG%202904.pdf "Forwarding Architecture")
 - FRETTA LPTS wiki.
 
 ## Summary
