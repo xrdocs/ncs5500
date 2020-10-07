@@ -429,232 +429,109 @@ export PS1='#'
 From the above output we can see that new policer value has been programmed in the hardware.
 
 
-## Rate Limiting of Multicast and Broadcast Punt Packets
+## Dynamic LPTS Flow Type
 
-Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and NCS5xx platforms rate limits them at the interface level. Currently, a rate limit is supported per NPU level. This feature supports rate limiting at the interface level so as to protect a port from receiving the multicast and broadcast storm of punted traffic. Rate limiting for all the L3 protocol punt packets and L2 protocol packets (only ERPS, and DOT1x) is supported on physical and bundle main interfaces. You can configure the multicast and broadcast rate limit in three levels as per below priority:
+In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot support all LPTS flows in the TCAM hardware where resources are shared across multiple features. Therefore there is a need to provide configurable option for customers to decide what flow types they need to program in the hardware and maximum lpts entry per flow type. This can help in saving a lot of hardware resources. Customers can dynamically turn on/off a particular flowtype and max entry for the type using the new CLI to decide the LPTS entries to be programmed in the hardware.
 
-  - Interface level
-  - Domain level
-  - Global level
+### Feature Support
 
-Let us check the same with the help of an example.
+- All the mandatory entries will be programmed in TCAM irrespective of configurations.
+- If we do not configure the new CLI, the pifib process will have the default behavior as earlier without any flow limitation or maximum size set.
+- For unsupported flow types we will get errors in the platform.
+- Flowtype maximum values learned from the configuration will take precedence to the default list.
+- Un-configured flows will be set to default static values set by platform.
+- Non-Mandatory entries can also be configured using the same CLI.
+- The configuration has local scope - meaning we can set different flows and maximum flows per Line Card.
+**- Default maximum hardware entries across all lpts flows is 8k.** **(Need to confirm)**
 
-### Configuring at interface level
+### Flow Type Categories
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
-Mon Oct  5 12:15:16.300 UTC
-lpts punt police
- <mark>interface TenGigE0/0/0/0
-  mcast rate 1000
-  bcast rate 1000</mark>
- !
-!
-</code>
-</pre>
-</div>
+| Flow Type                        | Details                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+|----------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Not supported                    | Flow types not supported by platform. All LPTS PI cli configuration will return error for unsupported flow types.                                                                                                                                                                                                                                                                                                                                                |
+| Supported, Default and Mandatory | Flow types Supported by platform and not configurable.                                                                                                                                                                                                                                                                                                                                                                                                           |
+|                                  | Fragment<br>Raw-Default<br>OSPF Unicast default<br>OSPF Multicast default - 224.0.0.5, 224.0.0.6, ff02::5 and ff02::6<br>BGP default - two entry with src and dest port as 179<br>ICMP-local<br>ICMP-control<br>ICMP-default<br>ICMP-app-default<br>All-routers<br>SSH-default<br>GRE<br>SNMP<br>PIM-mcast-default<br>VRRP<br>PIM-ucast<br>IGMP<br>UDP default<br>TCP default<br>ISIS default<br>RSVP default<br>Telnet default<br>DNS<br>NTP default<br>LDP-UDP |
+|                                  | Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails                                                                                                                                                                                                                                                                                          |
+|                                  | Local Packet Transport Services                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+|                                  | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching"                                                                                                                                                                                                                                                                                                                                                                |
+|                                  | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                                                                                                                                                                                                                                                                                                         |
+|                                  | is an ordered list of integer                                                                                                                                                                                                                                                                                                                                                                                                                                    |
+|                                  | Secure Domain Router                                                                                                                                                                                                                                                                                                                                                                                                                                             |
+You can now import Markdown table code directly using File/Paste table data... dialog.
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE0/0/0/0
-Mon Oct  5 12:21:21.013 UTC
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : MCAST
-Domain              : default
-Scope               : IFH
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0
-Last Update (if any):
-<mark>Punt Type           : MCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-<mark>Packet Rate         : 1000</mark>
-Domain              : 0
-CreateTime          : Mon Oct 05 2020 12:14:57.137.544
-Platform:
-  <mark>PolicerID   : 32304</mark>
-  NPU: TCAM-entry    StatsID
-    0:        227 0x8000020f
-----------------------------------------------------
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : BCAST
-Domain              : default
-Scope               : IFH
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0
-Last Update (if any):
-<mark>Punt Type           : BCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-Packet Rate         : 1000
-Domain              : 0
-CreateTime          : Mon Oct 05 2020 12:14:57.138.712
-Platform:
-  <mark>PolicerID   : 32305</mark>
-  NPU: TCAM-entry    StatsID
-    0:        253 0x80000225
-----------------------------------------------------
-</code>
-</pre>
-</div>
+How to use it?
+Using the Table menu set the desired size of the table.
+Enter the table data into the table:
+select and copy (Ctrl+C) a table from the spreadsheet (e.g. Google Docs, LibreOffice Calc, webpage) and paste it into our editor -- click a cell and press Ctrl+V
+or just double click any cell to start editing it's contents -- Tab and Arrow keys can be used to navigate table cells
+Adjust text alignment and table borders using the options from the menu and using the toolbar buttons -- formatting is applied to all the selected cells.
+Click "Generate" button to see the generated table -- select it and copy to your document.
+Markdown tables support
+As the official Markdown documentation states, Markdown does not provide any special syntax for tables. Instead it uses HTML <table> syntax. But there exist Markdown syntax extensions which provide additional syntax for creating simple tables.
 
-### Configuring at Global level
+One of the most popular is Markdown Here — an extension for popular browsers which allows you to easily prepare good-looking e-mails using Markdown syntax.
 
-```
-RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
-Mon Oct  5 12:26:52.261 UTC
-lpts punt police
- mcast rate 1000
- bcast rate 1000
-!
+Similar table syntax is used in the Github Flavored Markdown, in short GFM tables.
 
-RP/0/RP0/CPU0:N55-24#
+Example
+GFM Markdown table syntax is quite simple. It does not allow row or cell spanning as well as putting multi-line text in a cell. The first row is always the header followed by an extra line with dashes "-" and optional colons ":" for forcing column alignment.
 
-```
+| Tables   |      Are      |  Cool |
+|----------|:-------------:|------:|
+| col 1 is |  left-aligned | $1600 |
+| col 2 is |    centered   |   $12 |
+| col 3 is | right-aligned |    $1 |
+    
+Advertisement
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
-Mon Oct  5 12:27:30.039 UTC
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : MCAST
-Domain              : default
-Scope               : Global
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0
-Last Update (if any):
-<mark>Punt Type           : MCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-<mark>Packet Rate         : 1000</mark>
-Domain              : 0
-CreateTime          : Mon Oct 05 2020 12:26:40.826.302
-Platform:
-  PolicerID   : 32312
-  NPU: TCAM-entry    StatsID
-    0:        260 0x8000022c
-----------------------------------------------------
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : BCAST
-Domain              : default
-Scope               : Global
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0        
-Last Update (if any):
-<mark>Punt Type           : BCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-<mark>Packet Rate         : 1000</mark>
-Domain              : 0
-CreateTime          : Mon Oct 05 2020 12:26:40.894.675
-Platform: 
-  PolicerID   : 32366
-  NPU: TCAM-entry    StatsID
-    0:        314 0x80000262
-----------------------------------------------------
-</code>
-</pre>
-</div>
+Not supported - flow types not supported by platform. All LPTS PI cli config will return error for unsupported flow types.
+Supported, Default and Mandatory - flow types Supported by platform and not configurable.
+Fragment
+Raw-Default
+OSPF Unicast default
+OSPF Multicast default - 224.0.0.5, 224.0.0.6, ff02::5 and ff02::6
+BGP default - two entry with src and dest port as 179
+ICMP-local
+ICMP-control
+ICMP-default
+ICMP-app-default
+All-routers
+SSH-default
+GRE
+SNMP
+PIM-mcast-default
+VRRP
+PIM-ucast
+
+IGMP
+UDP default
+TCP default
+ISIS default
+RSVP default 
+Telnet default
+DNS
+NTP default
+LDP-UDP
+Supported, Default and non-mandatory - Default flow types which will be programmed in the hardware at process boot. These flows are also configurable via cli.
+TPA - 5 entries(max) - TBD
+Configurable - Flows that are configurable via cli (non-default). Download to hardware based on cli config or profile.
+BGP-known
+
+BGP-cfg-peer
+LDP-TCP-known
+LDP-TCP-cfg-peer
+SSH-known
+Telnet Known
+NTP known
+LDP-UDP
+OSPF-uc-known
+OSPF-mc-known
+RSVP known
+ISIS known
+TPA
 
 
-### Configuring at Domain level
-
-
-```
-RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
-Mon Oct  5 12:29:55.251 UTC
-lpts punt police
- domain TEST
-  mcast rate 1000
-  bcast rate 1000
- !
-!
-
-RP/0/RP0/CPU0:N55-24#show running-config lpts pifib hardware domain 
-Mon Oct  5 12:30:22.460 UTC
-lpts pifib hardware domain TEST
- interface TenGigE0/0/0/0
-
-```
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#show lpts punt statistics location 0/0/CPU0 | beg TenGigE$
-Mon Oct  5 12:31:15.139 UTC
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : MCAST
-Domain              : TEST
-Scope               : Global
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0
-Last Update (if any):
-<mark>Punt Type           : MCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-<mark>Packet Rate         : 1000</mark>
-Domain              : 1
-CreateTime          : Mon Oct 05 2020 12:29:48.787.075
-Platform:
-  PolicerID   : 32308
-  NPU: TCAM-entry    StatsID
-    0:        256 0x80000228
-----------------------------------------------------
-<mark>Interface Name      : TenGigE0/0/0/0
-Punt Reason         : BCAST
-Domain              : TEST
-Scope               : Global
-State               : Active
-Configured Rate     : 1000</mark>
-Operational Rate    : 986
-Operational Burst   : 0
-Accepted            : 0
-Dropped             : 0
-Last Update (if any):
-<mark>Punt Type           : BCAST</mark>
-Interface Handle    : 0x00000108
-Is Virtual          : 0
-Is Enabled          : 1
-<mark>Packet Rate         : 1000</mark>
-Domain              : 1
-CreateTime          : Mon Oct 05 2020 12:29:48.787.997
-Platform:
-  PolicerID   : 32309
-  NPU: TCAM-entry    StatsID
-    0:        257 0x80000229
-</code>
-</pre>
-</div>
-
+lpts pifib hardware dynamic-flows flow <FLOW_NAME> <MAX ENTRY> // Max entry value of zero means flow type is not programmed in hw
 
 ## Glossary 
 
