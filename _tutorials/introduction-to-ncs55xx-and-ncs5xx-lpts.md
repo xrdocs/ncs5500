@@ -681,7 +681,7 @@ Platform:
 ## Summary
 
 Hope this content was useful and you understood the importance of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key functions: 
-- Filtering of what can be punted and categorization of the flow.
-- Decides where the flow needs to go to: is it LC CPU or RP CPU
-- Policing of the flows. (per “flow” and per NPU)
-Key message is that, LPTS takes control plane protection to new level and can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. We also covered how the exception and layer2 control packets are handled in the hardware. In the next tech note we will cover the Dynamic LPTS capabilities of the platforms. Stay tuned till then !!!
+- Filtering of what can be punted and categorised as a flow.
+- Decides where the flow needs to go to: is it LC CPU or RP CPU ?
+- Policing of the flows per NPU.
+Key message is that, LPTS takes control plane protection to new level and can be considered as a feature which is composed of a dynamic ACL's which are created as part of user configuration automatically. This is configuration driven and no user intervention is required. We also covered how the exception and layer2 control packets are handled in the hardware. In the next tech note we will cover the Dynamic LPTS Flow Type capabilities of the platforms. Stay tuned till then !!!
