@@ -451,38 +451,11 @@ In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot suppor
 | Not supported                    | Flow types not supported by platform. All LPTS PI cli configuration will return error for unsupported flow types.                                                                                                                                                                                                                                                                                                                                                |
 | Supported, Default and Mandatory | Flow types Supported by platform and not configurable.                                                                                                                                                                                                                                                                                                                                                                                                           |
 |                                  | Fragment<br>Raw-Default<br>OSPF Unicast default<br>OSPF Multicast default - 224.0.0.5, 224.0.0.6, ff02::5 and ff02::6<br>BGP default - two entry with src and dest port as 179<br>ICMP-local<br>ICMP-control<br>ICMP-default<br>ICMP-app-default<br>All-routers<br>SSH-default<br>GRE<br>SNMP<br>PIM-mcast-default<br>VRRP<br>PIM-ucast<br>IGMP<br>UDP default<br>TCP default<br>ISIS default<br>RSVP default<br>Telnet default<br>DNS<br>NTP default<br>LDP-UDP |
-|                                  | Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails                                                                                                                                                                                                                                                                                          |
-|                                  | Local Packet Transport Services                                                                                                                                                                                                                                                                                                                                                                                                                                  |
-|                                  | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching"                                                                                                                                                                                                                                                                                                                                                                |
-|                                  | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                                                                                                                                                                                                                                                                                                         |
-|                                  | is an ordered list of integer                                                                                                                                                                                                                                                                                                                                                                                                                                    |
-|                                  | Secure Domain Router                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-You can now import Markdown table code directly using File/Paste table data... dialog.
 
-How to use it?
-Using the Table menu set the desired size of the table.
-Enter the table data into the table:
-select and copy (Ctrl+C) a table from the spreadsheet (e.g. Google Docs, LibreOffice Calc, webpage) and paste it into our editor -- click a cell and press Ctrl+V
-or just double click any cell to start editing it's contents -- Tab and Arrow keys can be used to navigate table cells
-Adjust text alignment and table borders using the options from the menu and using the toolbar buttons -- formatting is applied to all the selected cells.
-Click "Generate" button to see the generated table -- select it and copy to your document.
-Markdown tables support
-As the official Markdown documentation states, Markdown does not provide any special syntax for tables. Instead it uses HTML <table> syntax. But there exist Markdown syntax extensions which provide additional syntax for creating simple tables.
 
-One of the most popular is Markdown Here — an extension for popular browsers which allows you to easily prepare good-looking e-mails using Markdown syntax.
 
-Similar table syntax is used in the Github Flavored Markdown, in short GFM tables.
 
-Example
-GFM Markdown table syntax is quite simple. It does not allow row or cell spanning as well as putting multi-line text in a cell. The first row is always the header followed by an extra line with dashes "-" and optional colons ":" for forcing column alignment.
 
-| Tables   |      Are      |  Cool |
-|----------|:-------------:|------:|
-| col 1 is |  left-aligned | $1600 |
-| col 2 is |    centered   |   $12 |
-| col 3 is | right-aligned |    $1 |
-    
-Advertisement
 
 Not supported - flow types not supported by platform. All LPTS PI cli config will return error for unsupported flow types.
 Supported, Default and Mandatory - flow types Supported by platform and not configurable.
