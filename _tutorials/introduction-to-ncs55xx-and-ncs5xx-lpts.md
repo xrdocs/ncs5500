@@ -679,7 +679,7 @@ Platform:
 
 ## Summary
 
-Hope this content was useful and you understood the importance of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key portions: 
+Hope this content was useful and you understood the importance of LPTS and its implementation on the platform. To summarize LPTS consists of 3 key functions: 
 - Filtering of what can be punted and categorization of the flow.
 - Decides where the flow needs to go to: is it LC CPU or RP CPU
 - Policing of the flows. (per “flow” and per NPU)
