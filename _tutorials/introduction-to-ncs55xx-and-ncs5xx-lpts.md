@@ -127,7 +127,7 @@ Accepted/Dropped  : 0/0</mark>
 As we discussed in the previous sections the hardware lookup results contains various fields like Interface, DestNode, Listener Tag, Flow-type and the hardware NPU data. Similarly we can get the output of default flow types as well. Policing is done on the LC Hardware ASIC before packets hit RP/LC CPU. Each flow policer has default static policer rate value. Each flow policer value can be conifgured from 0 (to drop all packet matching classification criteria) to max of 50K PPS as compared to 100k in ASR9k. Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
  
 
-LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. You should be very careful while changing this default values.
+LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. 
 
 As we saw the ISIS known default police value is 2100.
 
@@ -156,6 +156,9 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PI$
 </pre>
 </div>
 
+Note: You should be very careful while changing this default values.
+{: .notice--info}
+
 **LPTS can use the following tuples to identify a packet:**
     
 | Tuples              |
@@ -172,7 +175,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PI$
 
 ## Supported Flow Types in Hardware LPTS as per IOS-XR 7.2.1
 
-The below command displays pre-Internal Forwarding Information Base (IFIB) information for the designated node.
+The below command displays pre-Internal Forwarding Information Base (pIFIB) information for the designated node. It shows all the Flow Types supported and their default policer values. 
 
 ```
 RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
@@ -244,7 +247,7 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 
 ## Handling Exception and Layer2 Control Packets
 
-Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle for us LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
+Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle "for-us" LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
 
 ```
 RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location 0/0/CPU0
