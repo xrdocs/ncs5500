@@ -247,7 +247,9 @@ PM-TWAMP               32199   Static  8000      799       0         0-default
 
 ## Handling Exception and Layer2 Control Packets
 
-Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle "for-us" LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. The full list of traps can be checked via the below show command 
+Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle "for-us" LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. Like ASR9k, NCS55xx and NCS5xx also processes the L2 frames without LPTS involvement. It has its own policers implemented. Almost each protocol is processed by LC CPU, except bundle control traffic like BFD, OAM. 
+
+The below output shows the full list of supported traps.
 
 ```
 RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location 0/0/CPU0
@@ -354,6 +356,59 @@ RxTrapFlowSpecDrop                            0    215  0xd7        32043   0   
 RP/0/RP0/CPU0:N55-24#
 ```
 
+### How to check the default policer value of individual traps
+
+```
+RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location 0/0/CPU0 | in Ttl
+RxTrapIpv4Ttl0                                0    108  0x6c        32010   0                    0  RxTrapIpv4Ttl1                                0    112  0x70        32010   0                    0 RxTrapMplsTtl0                                0    141  0x8d        32014   0                    0  RxTrapMplsTtl1                                0    142  0x8e        32014   0                    0 
+```                  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
+Tue Oct  6 16:04:19.751 UTC
+Last login: Tue Oct  6 15:56:35 2020 from 172.0.16.1
+export PS1='#'
+[xr-vm_node0_0_CPU0:~]$export PS1='#'
+<mark>#dpa_show puntpolicer | grep -e Def -e 32010
+                  Def CIR Rate  Conf CIR Rate  CIR Burst         ID
+ 10 -  0:            100              0        100      32010</mark>
+#
+</code>
+</pre>
+</div> 
+
+From the above output we can see the trap policer default value is 100 pps. 
+
+**Configuring new policer rate**
+
+```
+RP/0/RP0/CPU0:N55-24#show running-config lpts 
+Tue Oct  6 16:05:05.994 UTC
+lpts punt police location 0/0/CPU0
+ exception ipv4 ttl-error rate 200
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
+Tue Oct  6 16:05:21.713 UTC
+Last login: Tue Oct  6 16:04:19 2020 from 172.0.16.1
+export PS1='#'
+[xr-vm_node0_0_CPU0:~]$export PS1='#'
+#
+#dpa_show puntpolicer | grep -e Def -e 32010
+                      Def CIR Rate  Conf CIR Rate  CIR Burst         ID
+ <mark>10 -  0:            100            200        100      32010</mark>
+#
+</code>
+</pre>
+</div> 
+
+From the above output we can see that new policer value has been programmed in the hardware.
+
 **Configuring the exception and other protocol packets**
 
 ```
@@ -391,57 +446,6 @@ RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
   rsvp  Resource Reservation Protocol packets(cisco-support)
 
 ```
-
-### How to check the default policer value of individual traps
-
-```
-RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all locatio$
-RxTrapIpv4Ttl0                                0    108  0x6c        32010   0                    0  RxTrapIpv4Ttl1                                0    112  0x70        32010   0                    0 RxTrapMplsTtl0                                0    141  0x8d        32014   0                    0  RxTrapMplsTtl1                                0    142  0x8e        32014   0                    0 
-```                  
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
-Tue Oct  6 16:04:19.751 UTC
-Last login: Tue Oct  6 15:56:35 2020 from 172.0.16.1
-export PS1='#'
-[xr-vm_node0_0_CPU0:~]$export PS1='#'
-<mark>#dpa_show puntpolicer | grep -e Def -e 32010
-            Def CIR Rate  Conf CIR Rate  CIR Burst         ID
- 10 -  0:            100              0        100      32010</mark>
-#
-</code>
-</pre>
-</div> 
-
-**Configuring new policer rate**
-
-```
-RP/0/RP0/CPU0:N55-24#show running-config lpts 
-Tue Oct  6 16:05:05.994 UTC
-lpts punt police location 0/0/CPU0
- exception ipv4 ttl-error rate 200
-```
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-24#attach location 0/0/CPU0 
-Tue Oct  6 16:05:21.713 UTC
-Last login: Tue Oct  6 16:04:19 2020 from 172.0.16.1
-export PS1='#'
-[xr-vm_node0_0_CPU0:~]$export PS1='#'
-#
-#dpa_show puntpolicer | grep -e Def -e 32010
-            Def CIR Rate  Conf CIR Rate  CIR Burst         ID
- <mark>10 -  0:            100            200        100      32010</mark>
-#
-</code>
-</pre>
-</div> 
-
-From the above output we can see that new policer value has been programmed in the hardware.
 
 
 ## Dynamic LPTS Flow Type
