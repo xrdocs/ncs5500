@@ -51,11 +51,6 @@ The three component which LPTS needs accomplish the task are:
 	- Does not touch packets
      
 
-### High Level LPTS Flow Chart (At PI level)
-
-![Screenshot 2020-10-06 at 7.43.53 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-06 at 7.43.53 PM.png)
-
-
 ## LPTS in Pipeline Architecture
 
 ![Screenshot 2020-10-05 at 11.36.38 AM.png]({{site.baseurl}}/images/Screenshot 2020-10-05 at 11.36.38 AM.png)
