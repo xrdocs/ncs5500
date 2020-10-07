@@ -408,49 +408,13 @@ export PS1='#'
 </div> 
 
 From the above output we can see that new policer value has been programmed in the hardware.
+Similarly we can change the default trap policer values of exception and protocol packets.
 
-**Configuring the exception and other protocol packets**
-
-```
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 ?
-  domain     LPTS Domain
-  exception  Exception packets(cisco-support)
-  protocol   Protocol packets
-
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 exception ?
-  acl-log               acl log packets(cisco-support)
-  adjacency             Glean Adjacency resolution packets(cisco-support)
-  fib-drop              pkt drop due no fib match(cisco-support)
-  ipv4                  IPV4 exception packets(cisco-support)
-  ipv6                  IPv6 packets(cisco-support)
-  mpls                  MPLS exception packets(cisco-support)
-  netflow               For netflow packets(cisco-support)
-  recycle               For recycle packets(cisco-support)
-  tunnel-term-fragment  TunnelTermination And Fragmented(cisco-support)
-  urpf                  urpf exception packets(cisco-support)
-
-RP/0/RP0/CPU0:N55-24(config)#lpts punt police location 0/0/CPU0 protocol ?
-  arp   ARP Packets
-  bfd   Bidirectional Forwarding Detection packets(cisco-support)
-  cdp   CDP Packets
-  cfm   Connectivity Fault Management Protocol packets(cisco-support)
-  dhcp  Dynamic Host Configuration Protocol(cisco-support)
-  igmp  igmp Protocol packets(cisco-support)
-  ipv4  IPv4 packets(cisco-support)
-  ipv6  IPv6 packets(cisco-support)
-  lacp  LACP Packets
-  lldp  LLDP Packets
-  mpls  MPLS punt packets(cisco-support)
-  pim   Pim Protocol packets(cisco-support)
-  ptp   PTP (1588) Protocol packets(cisco-support)
-  rsvp  Resource Reservation Protocol packets(cisco-support)
-
-```
 
 
 ## Dynamic LPTS Flow Type
 
-In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot support all LPTS flows in the TCAM hardware where resources are shared across multiple features. Therefore there is a need to provide configurable option for customers to decide what flow types they need to program in the hardware and maximum lpts entry per flow type. This can help in saving a lot of hardware resources. Customers can dynamically turn on/off a particular flowtype and max entry for the type using the new CLI to decide the LPTS entries to be programmed in the hardware. This feature is supported from IOS-XR 6.2.x onwards.
+In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot support all LPTS flows in the TCAM hardware where resources are shared across multiple features. Therefore there is a need to provide configurable option for customers to decide what flow types they need to program in the hardware and maximum lpts entry per flow type. This can help in saving a lot of hardware resources. Customers can dynamically turn on/off a particular flowtype and max entry for the type using the CLI to decide the LPTS entries to be programmed in the hardware. This feature is supported from IOS-XR 6.2.x onwards.
 
 ### Feature Support
 
@@ -461,9 +425,167 @@ In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot suppor
 - Un-configured flows will be set to default static values set by platform.
 - Non-Mandatory entries can also be configured using the same CLI.
 - The configuration has local scope - meaning we can set different flows and maximum flows per Line Card.
-**- Default maximum hardware entries across all lpts flows is 8k.** **(Need to confirm)**
+- Maximum hardware entries across all lpts flows is 8k.
+- Let us verify the same with below output
 
-### Flow Type Categories
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
+ <mark>Dynamic-flows Statistics:
+ -------------------------
+ (C - Configurable, T - TRUE, F - FALSE, * - Configured)
+ Def_Max  - Default Max Limit
+ Conf_Max - Configured Max Limit
+ HWCnt    - Hardware Entries Count
+ ActLimit - Actual Max Limit
+ SWCnt    - Software Entries Count
+ P, (+)   - Pending Software Entries</mark>
+   FLOW-TYPE           C  Def_Max Conf_Max     HWCnt/ActLimit      SWCnt P
+ -------------------- -- ------- --------   -------/--------    ------- -
+ Fragment             T        4       --         2/4                 2  
+ OSPF-mc-known        T      600       --         6/600               6  
+ OSPF-mc-default      T        8       --         4/8                 4  
+ OSPF-uc-known        T      300       --         3/300               3  
+ OSPF-uc-default      T        4       --         2/4                 2  
+ ISIS-known           T      300       --         4/300               6 +
+ ISIS-default         T        2       --         1/2                 1  
+ BGP-known            T      900       --         2/900               2  
+ BGP-cfg-peer         T      900       --         2/900               2  
+ BGP-default          T        8       --         4/8                 4  
+ PIM-mcast-default    T       40       --         0/40                0  
+ PIM-mcast-known      T      300       --        10/300              10  
+ PIM-ucast            T       40       --         2/40                2  
+ IGMP                 T     1164       --        31/1164             31  
+ ICMP-local           T        4       --         4/4                 4  
+ ICMP-control         T       10       --         5/10                5  
+ ICMP-default         T       18       --         9/18                9  
+ ICMP-app-default     T        4       --         2/4                 2  
+ LDP-TCP-known        T      300       --         1/300               1  
+ LDP-TCP-cfg-peer     T      300       --         1/300               1  
+ LDP-TCP-default      T       40       --         0/40                0  
+ LDP-UDP              T      300       --         2/300               2  
+ All-routers          T      300       --        10/300              10  
+ RSVP-default         T        4       --         1/4                 1  
+ RSVP-known           T      300       --         2/300               2  
+ SNMP                 T      300       --         0/300               0  
+ SSH-known            T      150       --         0/150               0  
+ SSH-default          T       40       --         0/40                0  
+ HTTP-known           T       40       --         0/40                0  
+ HTTP-default         T       40       --         0/40                0  
+ SHTTP-known          T       40       --         0/40                0  
+ SHTTP-default        T       40       --         0/40                0  
+ TELNET-known         T      150       --         0/150               0  
+ TELNET-default       T        4       --         1/4                 1  
+ UDP-known            T       40       --         0/40                0  
+ UDP-listen           T       40       --         2/40                2  
+ UDP-default          T        4       --         2/4                 2  
+ TCP-known            T       40       --         0/40                0  
+ TCP-listen           T       40       --         0/40                0  
+ TCP-default          T        4       --         2/4                 2  
+ Raw-default          T        4       --         2/4                 2  
+ ip-sla               T       50       --         0/50                0  
+ EIGRP                T       40       --         0/40                0  
+ PCEP                 T       20       --         0/20                0  
+ GRE                  T        4       --         2/4                 2  
+ VRRP                 T      150       --         0/150               0  
+ HSRP                 T       40       --         0/40                0  
+ MPLS-oam             T       40       --         2/40                2  
+ DNS                  T       40       --         0/40                0  
+ RADIUS               T       40       --         0/40                0  
+ TACACS               T       40       --         0/40                0  
+ NTP-default          T        4       --         0/4                 0  
+ NTP-known            T      150       --         0/150               0  
+ DHCPv4               T       40       --         0/40                0  
+ DHCPv6               T       40       --         0/40                0  
+ TPA                  T      100       --         0/100               0  
+ PM-TWAMP             T       36       --         0/36                0  
+<mark>---------------------------------------------------
+ Active TCAM Usage : 7960/8000 [Platform MAX: 8000]
+ HWCnt/SWCnt       : 123/130
+---------------------------------------------------</mark>
+</code>
+</pre>
+</div>
+
+From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS and may have instability.
+
+Let us take an example of expanding the max entries from 300 to 400.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware dynamic-flows location 0/0/CPU0
+RP/0/RP0/CPU0:N55-24(config-pifib-flows-per-node)#flow isis known max 400
+RP/0/RP0/CPU0:N55-24(config-pifib-flows-per-node)#commit 
+% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RP0/CPU0:N55-24(config-pifib-flows-per-node)#show configuration failed
+Wed Oct  7 08:42:42.338 UTC
+!! SEMANTIC ERRORS: This configuration was rejected by 
+!! the system due to semantic errors. The individual 
+!! errors with each failed configuration command can be 
+!! found below.
+lpts pifib hardware dynamic-flows location 0/0/CPU0
+ flow isis known max 400
+<mark>!!% invalid max_limit value input: Platform MAX limit is 8000. But the configured flow max value is 8060. Please decrement config total by 60 OR increase Platform MAX.</mark>
+!
+end
+```
+</code>
+</pre>
+</div>
+
+We can see that we are crossing the max limit due to which our configuration is getting rejected. How to overcome this ? To overcome this limitation we need to compromise on reducing max entries for other flow type. This will be different for every customers. Say for example customer decides reduce the IGMP to accomodate the extra ISIS entries 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show running-config lpts 
+Wed Oct  7 08:49:44.605 UTC
+lpts pifib hardware dynamic-flows location 0/0/CPU0
+ <mark>flow pim multicast known max 400
+ flow igmp max 500</mark>
+</code>
+</pre>
+</div>
+
+RP/0/RP0/CPU0:N55-24#
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
+ Dynamic-flows Statistics:
+ -------------------------
+ (C - Configurable, T - TRUE, F - FALSE, * - Configured)
+ Def_Max  - Default Max Limit
+ Conf_Max - Configured Max Limit
+ HWCnt    - Hardware Entries Count
+ ActLimit - Actual Max Limit
+ SWCnt    - Software Entries Count
+ P, (+)   - Pending Software Entries
+  FLOW-TYPE           C  Def_Max Conf_Max     HWCnt/ActLimit      SWCnt P
+ -------------------- -- ------- --------   -------/--------    ------- -
+ Fragment             T        4       --         2/4                 2  
+ OSPF-mc-known        T      600       --         6/600               6  
+ OSPF-mc-default      T        8       --         4/8                 4  
+ OSPF-uc-known        T      300       --         3/300               3  
+ OSPF-uc-default      T        4       --         2/4                 2  
+ ISIS-known           T      300       --         4/300               6 +
+ ISIS-default         T        2       --         1/2                 1  
+ BGP-known            T      900       --         2/900               2  
+ BGP-cfg-peer         T      900       --         2/900               2  
+ BGP-default          T        8       --         4/8                 4  
+ PIM-mcast-default    T       40       --         0/40                0  
+ <mark>PIM-mcast-known      T*     300      400        10/400              10</mark> 
+ PIM-ucast            T       40       --         2/40                2  
+ <mark>IGMP                 T*    1164      500        31/500              31</mark>
+</code>
+</pre>
+</div>
+
+### Different Flow Type Categories
 
 | Flow Type                            | Details                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 |--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -471,10 +593,6 @@ In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot suppor
 | Supported, Default and Mandatory     | Flow types Supported by platform and not configurable.<br><br>Fragment<br>Raw-Default<br>OSPF Unicast default<br>OSPF Multicast default - 224.0.0.5, 224.0.0.6, ff02::5 and ff02::6<br>BGP default - two entry with src and dest port as 179<br>ICMP-local<br>ICMP-control<br>ICMP-default<br>ICMP-app-default<br>All-routers<br>SSH-default<br>GRE<br>SNMP<br>PIM-mcast-default<br>VRRP<br>PIM-ucast<br>IGMP<br>UDP default<br>TCP default<br>ISIS default<br>RSVP default<br>Telnet default<br>DNS<br>NTP default<br>LDP-UDP |
 | Supported, Default and non-mandatory | Default flow types which will be programmed in the hardware at process boot. These flows are also configurable via cli.                                                                                                                                                                                                                                                                                                                                                                                                        |
 | Configurable                         | Flows that are configurable via cli (non-default). Download to hardware based on cli config or profile.<br><br><br>BGP-known<br>BGP-cfg-peer<br>LDP-TCP-known<br>LDP-TCP-cfg-peer<br>SSH-known<br>Telnet Known<br>NTP known<br>LDP-UDP<br>OSPF-uc-known<br>OSPF-mc-known<br>RSVP known<br>ISIS known<br>TPA                                                                                                                                                                                                                    |
-
-
-### Configuring the Dynamic Flows
-
 
 
 ## Glossary 
@@ -498,6 +616,10 @@ In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot suppor
 - [CCO Configuration Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_81657248-82a9-409c-bed1-2109d8552cbf "CCO Configuration Guide")
 - [Forwarding Architecture](https://www.ciscolive.com/c/dam/r/ciscolive/us/docs/2014/pdf/BRKSPG%202904.pdf "Forwarding Architecture")
 - FRETTA LPTS wiki.
+
+## Thanks
+
+A very big thank to Balamurugan Subramanian (balasubr) and Dipesh Raghuvanshi (diraghuv) for their critical inputs during the collateral.
 
 ## Summary
 
