@@ -80,7 +80,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - Based on lookup result, the control packets will get policed and punted to LC CPU. 
 - When the ‘For Us’ packet is received by the LPTS decap node in NetIO, LPTS  does ifib lookup and find the packet associated  protocol client and deliver the packet to the protocol stack.
 - This helps us to police all control traffic in hardware while performing full LPTS lookup in software before punting the packet to IOS-XR RP.
-- The Streamlined Packet IO - SPIO is used by L2 processes.
+- The Streamlined Packet IO - SPIO is used by L2 processes CFM,STP,ARP etc.
 - NetIO and SPIO processes the packet header in the received packet to extract packet information and provide it to the client. 
 - L2 control protocols do not go through LPTS lookup. They are punted to LC or RP CPU as per configuration. We will look into the details in later sections.
  
