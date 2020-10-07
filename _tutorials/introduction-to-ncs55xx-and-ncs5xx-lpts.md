@@ -439,7 +439,7 @@ Multicast and broadcast punted traffic need to be rate limited. The NCS55xx and 
 
 Let us check the same with the help of an example.
 
-Configuring at interface level
+### Configuring at interface level
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -511,7 +511,7 @@ Platform:
 </pre>
 </div>
 
-**Configuring at Global level**
+### Configuring at Global level
 
 ```
 RP/0/RP0/CPU0:N55-24#show running-config lpts punt police 
@@ -581,7 +581,7 @@ Platform:
 </div>
 
 
-**Configuring at Domain level**
+### Configuring at Domain level
 
 
 ```
