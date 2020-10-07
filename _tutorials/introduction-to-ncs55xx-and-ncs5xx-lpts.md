@@ -10,7 +10,7 @@ tags:
   - CoPP
   - control plane
   - LPTS
-position: hidden
+position: top
 ---
 {% include toc %}
 
@@ -614,7 +614,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
 
 ## Thanks
 
-A very big thank to Balamurugan Subramanian (balasubr) and Dipesh Raghuvanshi (diraghuv) for their critical inputs during the collateral.
+A very big thanks to Balamurugan Subramanian (balasubr) and Dipesh Raghuvanshi (diraghuv) for their critical inputs during the collateral.
 
 ## Summary
 
