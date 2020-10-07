@@ -36,8 +36,20 @@ Note: LPTS is applicable only for control and management plane traffic entering 
 
 The three component which LPTS needs accomplish the task are: 
 
-- **Port arbitrator**: The port arbitrator (lpts_pa) process creates, maintains and distributes table with entry information to process/forward “for-us” packets to the right destination.
-- **Pre-ifib (pifib) manager server** and **Flow manager** are processes that maintain the IFIB slices tables and Pre-IFIB table respectively that describe packet flows to the right element inside a logical router. The IFIB is used to route received packets to the correct Route Processor for processing. ([reference](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_365eb914-2cee-4691-98ec-9c3a73fd6c4c "reference")). 
+- **Port Arbitrator Process**
+	- Aggregates bindings into flows
+	- Generates IFIB and Pre-IFIB
+	- Allocates Flow Group IDs
+	- Does not touch packets
+- **Flow Manager Process**
+	- Copies IFIB slice updates from the Port Arbitrator to netio
+	- Does not touch packets
+	- Acts as a Sub-Server to the Port Arbitrator
+- **Pre-IFIB Manager Process**
+	- Copies Pre-IFIB updates from the Port Arbitrator to netio
+	- Filters and translates Pre-IFIB updates into TCAM updates
+	- Does not touch packets
+     
 
 ### High Level LPTS Flow Chart
 
@@ -431,7 +443,7 @@ From the above output we can see that new policer value has been programmed in t
 
 ## Dynamic LPTS Flow Type
 
-In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot support all LPTS flows in the TCAM hardware where resources are shared across multiple features. Therefore there is a need to provide configurable option for customers to decide what flow types they need to program in the hardware and maximum lpts entry per flow type. This can help in saving a lot of hardware resources. Customers can dynamically turn on/off a particular flowtype and max entry for the type using the new CLI to decide the LPTS entries to be programmed in the hardware.
+In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot support all LPTS flows in the TCAM hardware where resources are shared across multiple features. Therefore there is a need to provide configurable option for customers to decide what flow types they need to program in the hardware and maximum lpts entry per flow type. This can help in saving a lot of hardware resources. Customers can dynamically turn on/off a particular flowtype and max entry for the type using the new CLI to decide the LPTS entries to be programmed in the hardware. This feature is supported from IOS-XR 6.2.x onwards.
 
 ### Feature Support
 
@@ -454,58 +466,9 @@ In limited hardware resource platforms like NCS55xx and NCS5xx, we cannot suppor
 | Configurable                         | Flows that are configurable via cli (non-default). Download to hardware based on cli config or profile.<br><br><br>BGP-known<br>BGP-cfg-peer<br>LDP-TCP-known<br>LDP-TCP-cfg-peer<br>SSH-known<br>Telnet Known<br>NTP known<br>LDP-UDP<br>OSPF-uc-known<br>OSPF-mc-known<br>RSVP known<br>ISIS known<br>TPA                                                                                                                                                                                                                    |
 
 
+### Configuring the Dynamic Flows
 
 
-
-
-Not supported - flow types not supported by platform. All LPTS PI cli config will return error for unsupported flow types.
-Supported, Default and Mandatory - flow types Supported by platform and not configurable.
-Fragment
-Raw-Default
-OSPF Unicast default
-OSPF Multicast default - 224.0.0.5, 224.0.0.6, ff02::5 and ff02::6
-BGP default - two entry with src and dest port as 179
-ICMP-local
-ICMP-control
-ICMP-default
-ICMP-app-default
-All-routers
-SSH-default
-GRE
-SNMP
-PIM-mcast-default
-VRRP
-PIM-ucast
-
-IGMP
-UDP default
-TCP default
-ISIS default
-RSVP default 
-Telnet default
-DNS
-NTP default
-LDP-UDP
-Supported, Default and non-mandatory - Default flow types which will be programmed in the hardware at process boot. These flows are also configurable via cli.
-TPA - 5 entries(max) - TBD
-Configurable - Flows that are configurable via cli (non-default). Download to hardware based on cli config or profile.
-BGP-known
-
-BGP-cfg-peer
-LDP-TCP-known
-LDP-TCP-cfg-peer
-SSH-known
-Telnet Known
-NTP known
-LDP-UDP
-OSPF-uc-known
-OSPF-mc-known
-RSVP known
-ISIS known
-TPA
-
-
-lpts pifib hardware dynamic-flows flow <FLOW_NAME> <MAX ENTRY> // Max entry value of zero means flow type is not programmed in hw
 
 ## Glossary 
 
