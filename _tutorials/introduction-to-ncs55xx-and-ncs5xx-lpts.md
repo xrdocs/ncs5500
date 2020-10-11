@@ -45,7 +45,9 @@ Below are the terminologies which we will be referring multiple times in the doc
 | Netio           | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching"                                                                       |
 | pFIB or pre-FIB | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                |
 | Tuple           | is an ordered list of integer                                                                                                                                           |
-| SDR             | Secure Domain Router. It provide a means of partitioning a router into multiple, independent routers ([Further Details](https://www.cisco.com/c/en/us/td/docs/routers/xr12000/software/xr12k_r3-9/system_management/command/reference/yr39xr12k_chapter12.html#:~:text=Secure%20domain%20routers%20(SDRs)%20provide,the%20rest%20of%20the%20system. "Further Details"))                                                                                                                                                    |
+| SDR             | Secure Domain Router. It provide a means of partitioning a router into multiple, independent routers ([Further Details](https://www.cisco.com/c/en/us/td/docs/routers/xr12000/software/xr12k_r3-9/system_management/command/reference/yr39xr12k_chapter12.html#:~:text=Secure%20domain%20routers%20(SDRs)%20provide,the%20rest%20of%20the%20system. "Further Details"))                     |
+
+
 ### Main Components of LPTS 
 
 The three component which LPTS needs to accomplish its task are:                               
