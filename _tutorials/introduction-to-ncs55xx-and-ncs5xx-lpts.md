@@ -425,6 +425,9 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
 | Configurable                         | Flows that are configurable via cli (non-default). Download to hardware based on cli config or profile.<br><br><br>BGP-known<br>BGP-cfg-peer<br>LDP-TCP-known<br>LDP-TCP-cfg-peer<br>SSH-known<br>Telnet Known<br>NTP known<br>LDP-UDP<br>OSPF-uc-known<br>OSPF-mc-known<br>RSVP known<br>ISIS known<br>TPA                                                                                                                                                                                                                    |
 
 
+## LPTS Best Practices
+
+
 ## Reference
 
 - [ASR9k LPTS](https://community.cisco.com/t5/service-providers-documents/asr9000-xr-local-packet-transport-services-lpts-copp/ta-p/3123792 "ASR9k LPTS")
