@@ -31,9 +31,9 @@ LPTS also plays a vital role in support of NSR (Non Stop Routing) enabled contro
 Note: LPTS is applicable only for control and management plane traffic entering into the router and destined to the local router. Packets originated by the router and transit traffic are not processed by LPTS.
 {: .notice--info}
 
-### Important Terminologies
+### Glossary
 
-Below are the terminologies which we will be referring multiple times in the document.
+Below are the terminologies which we will referring multiple times in the document.
 
 | Terms           | Description                                                                                                                                                             |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
