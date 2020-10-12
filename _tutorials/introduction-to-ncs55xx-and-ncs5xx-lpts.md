@@ -91,7 +91,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 process the actual packet.
 - 11) The CPU runs the software processes that decapsulate the packet and deliver them to the correct stack.
 
-Note: Modular systems will have 2 RP's. For fixed platforms there will be only 1 RP
+Note: Modular systems will have 2 Route Processors (RP). For fixed platforms there will be only 1 Route Processor (RP).
 {: .notice--info}
 
 **Sample result of a LPTS entry**
