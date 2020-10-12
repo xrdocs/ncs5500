@@ -15,6 +15,9 @@ You can find more content related to NCS-5500 and NCS-5700 following this [link]
 Before insertion of 400GE line cards, the NCS-5500 needs to be modified to support packet forwarding and cooling. For instance, it's necessary to use "version 2" (v2) fabric cards and fan trays. During the first 3 years of its existence, the NCS-5500 chassis where shipped with v1 FC/FT.  
 In this blog post, Benoit Mercier Des Rochettes ([Manager in CX organization](https://www.linkedin.com/in/benoit-mercier-des-rochettes-12960148/)) will detail the different step necessary to guarantee a smooth migration from v1 to v2.
 
+Note: this is the short version of the MOP prepared by the CX team for this migration. The exhaustive one being specific to customer's requirement, we purposefully removed a lot of content for this article.
+{: .notice--info}
+
 ## Video
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XMQumuTkzmg?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
@@ -1012,7 +1015,12 @@ Eject all fabric cards:
 
 Replace them with v2 fabric cards:
 
-![5b-FC.png]({{site.baseurl}}/images/5b-FC.png)
+![5b-FC.png]({{site.baseurl}}/images/5b-FC.png){: .align-center}
+
+Make sure your remove the plastic cache before insertion :)  
+(you have no idea what we've seen...)
+
+![FC2-cache.png]({{site.baseurl}}/images/FC2-cache.png){: .align-center}
 
 Insert the three v2 fan trays:
 
@@ -1021,12 +1029,523 @@ Insert the three v2 fan trays:
 
 ![6-FT3.png]({{site.baseurl}}/images/6-FT3.png){: .align-center}
 
+At this point, we can re-plug the power blocks and watch the system booting up.
 
+Once completed, we verify the parts inserted
 
-  
------
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508#show platform
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/2/CPU0          NC55-36X100G-A-SE          IOS XR RUN        NSHUT
+0/2/NPU0          Slice                      UP
+0/2/NPU1          Slice                      UP
+0/2/NPU2          Slice                      UP
+0/2/NPU3          Slice                      UP
+0/RP0/CPU0        NC55-RP-E(Active)          IOS XR RUN        NSHUT
+0/RP1/CPU0        NC55-RP-E(Standby)         IOS XR RUN        NSHUT
+0/FC0             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FC1             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FC2             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FC3             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FC4             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FC5             NC55-5508-FC2              OPERATIONAL       NSHUT
+0/FT0             NC55-5508-FAN2             OPERATIONAL       NSHUT
+0/FT1             NC55-5508-FAN2             OPERATIONAL       NSHUT
+0/FT2             NC55-5508-FAN2             OPERATIONAL       NSHUT
+0/SC0             NC55-SC                    OPERATIONAL       NSHUT
+0/SC1             NC55-SC                    OPERATIONAL       NSHUT
+RP/0/RP0/CPU0:5508#</code>
+</pre>
+</div>
+
+And the firmware:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>sysadmin-vm:0_RP0# show hw-module fpd
+                                                                   FPD Versions
+                                                                ===============
+Location  Card type         HWver FPD device       ATR Status   Run    Programd
+-------------------------------------------------------------------------------
+0/2       NC55-36X100G-A-SE 0.303 Bootloader           CURRENT    0.14    0.14
+0/2       NC55-36X100G-A-SE 0.303 DBFPGA               CURRENT    0.14    0.14
+0/2       NC55-36X100G-A-SE 0.303 IOFPGA               CURRENT    0.21    0.21
+0/2       NC55-36X100G-A-SE 0.303 SATA                 CURRENT    5.00    5.00
+0/RP0     NC55-RP           1.1   Bootloader           CURRENT    9.30    9.30
+0/RP0     NC55-RP           1.1   IOFPGA               CURRENT    0.09    0.09
+0/RP0     NC55-RP           1.1   SATA                 CURRENT    6.00    6.00
+0/RP1     NC55-RP           1.1   Bootloader           CURRENT    9.30    9.30
+0/RP1     NC55-RP           1.1   IOFPGA               CURRENT    0.09    0.09
+0/FC0     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC0     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/FC1     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC1     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/FC2     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC2     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/FC3     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC3     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/FC4     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC4     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/FC5     NC55-5508-FC2     1.0   Bootloader           CURRENT    1.80    1.80
+0/FC5     NC55-5508-FC2     1.0   IOFPGA               CURRENT    0.12    0.12
+0/SC0     NC55-SC           1.4   Bootloader           CURRENT    1.74    1.74
+0/SC0     NC55-SC           1.4   IOFPGA               CURRENT    0.10    0.10
+0/SC1     NC55-SC           1.4   Bootloader           CURRENT    1.74    1.74
+0/SC1     NC55-SC           1.4   IOFPGA               CURRENT    0.10    0.10</code>
+</pre>
+</div>
+
+## Other show commands you could use
+
+In no specific order, you could have a look at the output of the following additional show command before and after the software upgrade and hardware migration.
+
+- (admin) show controller card-mgr inventory
+- (admin) show led
+- (admin) show environment all
+- (admin) show alarms
+- show filesystem location 0/rp0/CPU0
+- show filesystem location 0/rp1/CPU0	
+- show process cpu | ex 0%      0%       0%
+- show processes blocked (several times to avoid transcient blocks)
+- (admin) show controller fabric plane all
+- (admin) show controller fabric health
+- (admin) show controller fabric plane all statistics 
+- (admin) show controller fabric plane all detail
+
 
 ## Configuration used for the test
+
+Mostly for reference
+
+### TREX configs
+
+TREX-Config-port0.yaml
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>- name: L3VPN-1
+  stream:
+    name: L3VPN-1
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 0
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        AAAAAAAAAAAAAAAAgQAD6AgARQAFxgABAABABl4uCwAAAgwAAAInEE4gAAAAAAAAAABQAiAA/hAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 10000
+          init_value: 10000
+          step: 1
+          max_value: 11000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1500
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 100
+      rule_type: stats
+- name: L2VPN-1
+  stream:
+    name: L2VPN-1
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 2
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        PP3+pKriAAAAAAAAgQAAZAgARQAFxgABAABABjUwEAAAATAAAAFOIHUwAAAAAAAAAABQAiAAhvIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 20000
+          init_value: 20000
+          step: 1
+          max_value: 21000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1400
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 200
+      rule_type: stats
+- name: L2VPN-RSVP-1
+  stream:
+    name: L2VPN-RSVP-1
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 2
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        PP3+pKriAAAAAAAAgQAAZQgARQAFYgABAABABjWUEAAAATAAAAFOIHUwAAAAAAAAAABQAiAAh1YAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 20000
+          init_value: 20000
+          step: 1
+          max_value: 21000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1400
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 300
+      rule_type: stats
+</code>
+</pre>
+</div>
+
+and TREX-Config-port1.yaml
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>- name: L3VPN-2
+  stream:
+    name: L3VPN-2
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 0
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        AAAAAAAAAAAAAAAAgQAH0AgARQAFxgABAABABl4uDAAAAgsAAAInECcQAAAAAAAAAABQAiAAJSEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 10000
+          init_value: 10000
+          step: 1
+          max_value: 11000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1500
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 101
+      rule_type: stats
+- name: L2VPN-2
+  stream:
+    name: L2VPN-2
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 2
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        PP3+pKrhAAAAAAAAgQAAZQgARQAFxgABAABABjUwMAAAARAAAAFOIJxAAAAAAAAAAABQAiAAX+IAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 20000
+          init_value: 20000
+          step: 1
+          max_value: 21000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1400
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 201
+      rule_type: stats
+- name: L2VPN-RSVP-2
+  stream:
+    name: L2VPN-RSVP-2
+    advanced_mode: true
+    enabled: true
+    self_start: true
+    next_stream_id: -1
+    isg: 0
+    flags: 2
+    action_count: 0
+    packet:
+      meta: ''
+      binary: >-
+        PP3+pKrhAAAAAAAAgQAAZggARQAFYgABAABABjWUMAAAARAAAAFOIJxAAAAAAAAAAABQAiAAYEYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+      model: ''
+    rx_stats:
+      enabled: false
+    vm:
+      split_by_var: ''
+      instructions:
+        - next_var: null
+          name: TCP_sport_5
+          min_value: 20000
+          init_value: 20000
+          step: 1
+          max_value: 21000
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - next_var: null
+          name: pkt_size_1
+          min_value: 80
+          init_value: 80
+          step: 1
+          max_value: 1400
+          type: flow_var
+          size: 2
+          op: inc
+          split_to_cores: true
+        - name: TCP_sport_5
+          add_value: 0
+          pkt_offset: 38
+          type: write_flow_var
+          is_big_endian: true
+        - type: trim_pkt_size
+          name: pkt_size_1
+        - name: pkt_size_1
+          add_value: -18
+          pkt_offset: 20
+          type: write_flow_var
+          is_big_endian: true
+        - type: fix_checksum_ipv4
+          pkt_offset: 18
+      cache_size: 5000
+    mode:
+      rate:
+        type: pps
+        value: 1
+      type: continuous
+      count: 1
+      pkts_per_burst: 1
+      total_pkts: 1
+      ibg: 0
+    flow_stats:
+      enabled: true
+      stream_id: 301
+      rule_type: stats
+</code>
+</pre>
+</div>
+
+### Router under test config
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -1345,4 +1864,6 @@ RP/0/RP0/CPU0:NCS55K#</code>
 </pre>
 </div>
 
+## Acknowledgement
 
+Tons of thanks to Benoit who made himself available during vacations for the video recording and for providing such a detailed MOP.
