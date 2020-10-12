@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2020-10-12 15:11 +0200'
 title: NCS-5500 Fabric Migration
 author: Nicolas Fevrier
@@ -22,19 +22,7 @@ Note: this is the short version of the MOP prepared by the CX team for this migr
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/XMQumuTkzmg?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
-## High level description of the migration steps
-
-- Lab preparation
-- Configuration of the customer features on the router(s)
-- Configuration of the scales on the generators
-- Preparation of a realistic topology
-- Perform software upgrade
-- Verification of non regression on the existing features
-- Documentation of the MOP
-
-In this demo, we used an 8-slot chassis with NC55-36X100G-SE-S (powered by Jericho+ ASICs) and executing IOS XR 6.3.15.
-
-Lab topology:
+## Lab topology
 
 ![test-topology.png]({{site.baseurl}}/images/test-topology.png){: .align-center}
 
@@ -46,6 +34,10 @@ We will monitor 3 services (and flow) during the test:
 A route generator completes this picture, advertising 996,940 IPv4 and 225,280 IPv6 routes over BGP (the internet routing scale projection for our customer).  
 
 The purpose of this configuration being to identify if/when each step will be disruptive for the customer's services.
+
+## Migration steps
+
+In this demo, we used an 8-slot chassis with NC55-36X100G-SE-S (powered by Jericho+ ASICs) and executing IOS XR 6.3.15.
 
 ### Before getting started
 
@@ -250,6 +242,8 @@ copy harddisk:PRE_admin-running_config_122719.txt location 0/RP0 harddisk: locat
 </pre>
 </div>  
 
+### Uploading IOS XR images and verification
+
 ![Screen Shot 2020-10-12 at 4.30.58 PM.png]({{site.baseurl}}/images/Screen Shot 2020-10-12 at 4.30.58 PM.png){: .align-center}
 
 IOS XR images can be downloaded on Software Download site:
@@ -279,6 +273,8 @@ RP/0/RP0/CPU0:5508#show md5 file ncs5500-mgbl-3.0.0.0-r663.x86_64.rpm
 RP/0/RP0/CPU0:5508#</code>
 </pre>
 </div>  
+
+### Software installation
 
 After verifying the matching of the MD5 hashing, we can proceed to the installation.
 
@@ -990,6 +986,8 @@ Location  Card type         HWver FPD device       ATR Status   Run    Programd
 
 To make sure you are ready for the next step, one way could be check the service are restored. Another one, is to verify the "NSR ready" state in the show redundancy summary output. It shows that both RPs are in sync and the router is in stable/nominal state.
 
+### Hardware migration
+
 We are now ready for the fan trays and fabric cards replacement.  
 At this point, it's recommended to perform the migration with the chassis shutdown electrically.
 
@@ -1113,7 +1111,6 @@ In no specific order, you could have a look at the output of the following addit
 - (admin) show controller fabric health
 - (admin) show controller fabric plane all statistics 
 - (admin) show controller fabric plane all detail
-
 
 ## Configuration used for the test
 
