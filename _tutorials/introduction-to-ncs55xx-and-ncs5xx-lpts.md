@@ -438,6 +438,8 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
 
 ## LPTS Best Practices
 
+- [Cisco Control Plane Best Practices](https://tools.cisco.com/security/center/resources/copp_best_practices "Cisco Control Plane Best Practices")
+
 
 ## Reference
 
