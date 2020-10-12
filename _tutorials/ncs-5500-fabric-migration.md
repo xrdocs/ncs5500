@@ -990,21 +990,38 @@ To make sure you are ready for the next step, one way could be check the service
 We are now ready for the fan trays and fabric cards replacement.  
 At this point, it's recommended to perform the migration with the chassis shutdown electrically.
 
+Unplug all power blocks:
+
 ![1-power.png]({{site.baseurl}}/images/1-power.png){: .align-center}
+
+Unscrew the fan trays:
 
 ![2-FT1.png]({{site.baseurl}}/images/2-FT1.png){: .align-center}
 
+Remove the fan trays one by one:
+
 ![3-FT2.png]({{site.baseurl}}/images/3-FT2.png){: .align-center}
+
+Unscrew the fabric cards:
 
 ![4-FC1.png]({{site.baseurl}}/images/4-FC1.png){: .align-center}
 
+Eject all fabric cards:
+
 ![5-FC.png]({{site.baseurl}}/images/5-FC.png){: .align-center}
+
+Replace them with v2 fabric cards:
+
+![5b-FC.png]({{site.baseurl}}/images/5b-FC.png)
+
+Insert the three v2 fan trays:
+
+**IMPORTANT**: Make sure you don't insert any v1 Fan with v2 Fabric or vice-versa. These parts are shouldn't allow the insertion (with a pin guide to avoid mistake), but don't force the insertion. If it doesn't fit, make sure you didn't mix up cards and fans.
+{: .notice--info}
 
 ![6-FT3.png]({{site.baseurl}}/images/6-FT3.png){: .align-center}
 
 
-
-{: .align-center}
 
   
 -----
