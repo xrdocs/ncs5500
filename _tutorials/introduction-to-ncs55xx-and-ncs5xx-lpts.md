@@ -48,8 +48,6 @@ Note: LPTS is applicable only for control and management plane traffic entering 
 {: .notice--info}
 
 
-
-
 ### Main Components of LPTS 
 
 The three component which LPTS needs to accomplish its task are:                               
@@ -76,6 +74,8 @@ The three component which LPTS needs to accomplish its task are:
 The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asic is the most programmable block in the TCAM. It contains all the information of previous blocks like incoming PP port, packet type, forwarding lookup results. It also classifies packets based on predefined protocol fields all the way from Layer 2 to Layer 7. Based on these classifications, various actions can be applied to the packet. LPTS uses the PMF architecture to classify the packet and other pre-processing attributes to apply action (punt CPU, stats and police).
 
 ### NPU and Line Card CPU in action
+
+![Screenshot 2020-10-12 at 7.55.16 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-12 at 7.55.16 PM.png)
 
 - 1) A frame is received on the ingress interface of NCS55xx or NCS5xx. On receiving the packet necessary layer 1 and 2 checks are performed and layer 3 information is extracted from the packet and passes it to the forwarding ASIC.
 - 2) Packet enters the ingress pipeline and traps are generated based on forwarding lookup.
