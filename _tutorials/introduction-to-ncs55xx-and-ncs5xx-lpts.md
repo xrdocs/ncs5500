@@ -155,7 +155,7 @@ RP/0/RP0/CPU0:N55-24(config)#lpts pifib hardware police flow Pim multicast known
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PI$
+RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PIM-mcast-known
 <mark>PIM-mcast-known        32120   Global  1000      1000      0         0-default</mark>
 </code>
 </pre>
