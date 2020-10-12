@@ -26,18 +26,21 @@ In IOS-XR LPTS, as part of **"for-us"** packet delivery process, the rate at whi
 
 Before moving further, lets define the terminologies which we will referring multiple times in the document.
 
-| Terms           | Description                                                                                                                                                             |
-|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| "For-us" packets  | Control/management plane packets destined to or to be processed by a node/element in IOS-XR system                                                                      |
-| Flow            | A binding between a  tuple (such as protocol, local address, local port, remote address, remote port) and an element                                                    |
-| FIB             | Forwarding Information Base – A Table which is used to determine where a packet is to be forwarded.                                                                     |
-| iFIB            | Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails |
-| LPTS            | Local Packet Transport Services                                                                                                                                         |
-| Netio           | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching"                                                                       |
-| pFIB or pre-FIB | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                |
-| Tuple           | is an ordered list of integer                                                                                                                                           |
-| SDR             | Secure Domain Router. It provide a means of partitioning a router into multiple, independent routers ([Further Details](https://www.cisco.com/c/en/us/td/docs/routers/xr12000/software/xr12k_r3-9/system_management/command/reference/yr39xr12k_chapter12.html#:~:text=Secure%20domain%20routers%20(SDRs)%20provide,the%20rest%20of%20the%20system. "Further Details"))                    |
 
+| Terms            | Description                                                                                                                                                             |
+|------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| CoPP             | Control Plane Protection ([More Details](https://www.cisco.com/c/en/us/td/docs/switches/lan/catalyst6500/ios/15-0SY/configuration/guide/15_0_sy_swcg/control_plane_policing_copp.pdf "More Details"))                                                                                                                                                |
+| “For-us” packets | Control/management plane packets destined to or to be processed by a node/element in IOS-XR system                                                                      |
+| Flow             | A binding between a tuple (such as protocol, local address, local port, remote address, remote port) and an element                                                     |
+| FIB              | Forwarding Information Base – A Table which is used to determine where a packet is to be forwarded.                                                                     |
+| iFIB             | Internal Forwarding Information Base – A Table that is used to determine where a “for-us” packet needs to be sent inside IOS-XR running system when pIFIB look up fails |
+| LPTS             | Local Packet Transport Services                                                                                                                                         |
+| Netio            | An IOS-XR process which performs packet forwarding in software, equivalent of “process switching”                                                                       |
+| pFIB or pre-FIB  | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                |
+| Tuple            | is an ordered list of integer                                                                                                                                           |
+| SDR              | Secure Domain Router. It provide a means of partitioning a router into multiple, independent routers. ([More Details](https://www.cisco.com/c/en/us/td/docs/routers/xr12000/software/xr12k_r3-9/system_management/command/reference/yr39xr12k_chapter12.html#:~:text=Secure%20domain%20routers%20(SDRs)%20provide,the%20rest%20of%20the%20system. "More Details"))                                                                    |
+| SPP              | Software Path Process. Its a multiplexer/demultiplexer component NPU and clients on LC/RP CPU                                                                           |
+| SPiO             | Streamlined Packet IO is for processing L2 control packets                                                                                                              |
 
 ## LPTS Overview
 
