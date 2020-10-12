@@ -89,12 +89,10 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - 10) The Streamlined Packet IO - SPIO is used by L2 processes CFM,STP,ARP etc. When a reaches from SPP to NetIO/SPIO, the control information is transferred. NetIO/SPIO strip off the npu header and process the actual packet.
 - 11) The CPU runs the software processes that decapsulate the packet and deliver them to the correct stack.
 
- 
 
 **Sample result of a LPTS entry**
 
-We have configured ISIS on the interface Ten0/0/0/6 and Ten0/0/0/7.
-Let us check the LPTS hardware entry.
+We have configured ISIS on the interface Ten0/0/0/6 and Ten0/0/0/7. Let us check the LPTS hardware entry.
 
 ```
 RP/0/RP0/CPU0:N55-24#show isis neighbors             
@@ -132,10 +130,7 @@ Accepted/Dropped  : 0/0</mark>
 
 As we discussed in the previous sections the hardware lookup results contains various fields like Interface, DestNode, Listener Tag, Flow-type and the hardware NPU data. Similarly we can get the output of default flow types as well. Policing is done on the LC Hardware ASIC before packets hits the CPU. Each flow policer has default static policer rate value. Each flow policer value can be configured from 0 (to drop all packet matching classification criteria) to max of 50K PPS as compared to 100k in ASR9k. Similar to ASR9k platform, the LPTS policers work on a per NPU basis. For example, if the LPTS police value is set to 1000pps for a flow, it means that every NPU on the LC can punt with 1000pps to the CPU for that flow.
  
-
-LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. 
-
-As we saw the ISIS known default police value is 2100.
+LPTS takes effect on all applications that receive packets from outside the router. LPTS functions without any need for customer configuration. However, the policer values can be customized if required. As we saw the ISIS known default police value is 2100.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -198,7 +193,6 @@ The below output shows the full list of supported traps. ([Full List of RX Traps
 RP/0/RP0/CPU0:N55-24#show controllers npu stats traps-all instance all location 0/0/CPU0
 ```
 
-
 ### How to check the default policer value of individual traps
 
 ```
@@ -217,7 +211,6 @@ export PS1='#'
 <mark>#dpa_show puntpolicer | grep -e Def -e 32010
                   Def CIR Rate  Conf CIR Rate  CIR Burst         ID
  10 -  0:            100              0        100      32010</mark>
-#
 </code>
 </pre>
 </div> 
@@ -245,14 +238,12 @@ export PS1='#'
 #dpa_show puntpolicer | grep -e Def -e 32010
                       Def CIR Rate  Conf CIR Rate  CIR Burst         ID
  <mark>10 -  0:            100            200        100      32010</mark>
-#
 </code>
 </pre>
 </div> 
 
 From the above output we can see that new policer value has been programmed in the hardware.
 Similarly we can change the default trap policer values of exception and protocol packets.
-
 
 
 ## Dynamic LPTS Flow Type
@@ -351,9 +342,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU0
 </pre>
 </div>
 
-From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS and may have instability.
-
-Let us take an example of expanding the max entries from 300 to 400.
+From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS and may have instability. Let us take an example of expanding the max entries from 300 to 400.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -378,7 +367,7 @@ end
 </pre>
 </div>
 
-We can see that we are crossing the max limit due to which our configuration is getting rejected. How to overcome this ? To overcome this limitation we need to compromise on reducing max entries for other flow type. This will be different for every customers. Say for example customer decides reduce the IGMP to accomodate the extra ISIS entries 
+We can see that we are crossing the max limit due to which our configuration is getting rejected. How to overcome this ? To overcome this limitation we need to compromise on reducing max entries for other flow type. This will be different for every customers. Say for example customer decides reduce the IGMP to accomodate the extra ISIS entries. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -391,9 +380,6 @@ lpts pifib hardware dynamic-flows location 0/0/CPU0
 </code>
 </pre>
 </div>
-
-RP/0/RP0/CPU0:N55-24#
-
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -452,7 +438,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU$
 
 ## Thanks
 
-A very big thanks to Balamurugan Subramanian (balasubr) and Dipesh Raghuvanshi (diraghuv) for their critical inputs during the collateral.
+A very big thanks to Balamurugan Subramanian (balasubr), Dipesh Raghuvanshi (diraghuv), Prafull Soni (sprafull) for their critical inputs during the collateral.
 
 ## Summary
 
