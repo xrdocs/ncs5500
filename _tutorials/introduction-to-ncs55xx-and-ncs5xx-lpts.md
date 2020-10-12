@@ -86,6 +86,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 9) When the "For Us" packets are received by the LPTS decap node in NetIO, LPTS  does iFIB lookup and find the packet associated protocol client and deliver the packet to the protocol stack. Sometimes, this lookup is skipped if listener tag is provided.
 10) The Streamlined Packet IO - SPIO is used by L2 processes CFM,STP,ARP etc. When a reaches from SPP to NetIO/SPIO, the control information is transferred. NetIO/SPIO strip off the npu header and process the actual packet.
 11) The CPU runs the software processes that decapsulate the packet and deliver them to the correct stack.
+
  
 
 **Sample result of a LPTS entry**
