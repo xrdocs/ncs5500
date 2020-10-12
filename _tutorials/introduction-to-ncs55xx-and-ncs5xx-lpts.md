@@ -22,18 +22,9 @@ In our previous tech-notes, we focussed on exploring the data-plane security cap
 
 In IOS-XR LPTS, as part of **"for-us"** packet delivery process, the rate at which packets are delivered are selectively monitored to avoid overwhelming the CPU. LPTS filters and polices the packets based on the defined flow-type rate in hardware before punting to the software. Punt is a popular terminology used for sending packets to the control-plane for processing. It deals with packets that require special handling or can not be switched by CEF (Cisco Express Forwarding). For more details please [Visit](https://petri.com/cisco-express-forwarding-cef-overview "Visit"). The LPTS takes the control plane protection (CoPP) concept to a new level by automatically applying rate limiting to all packets that must be handled by any CPU on the device. The use case of this is we achieve automated control to network health without relying on network operators, as it becomes  difficult to configure these functions manually in large-scale networks.
 
-## LPTS Overview
+## Glossary
 
-LPTS is an integral component of IOS-XR systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. **IOS XR software** classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. In traditional IOS-XR platforms (CRS/ASR9k) LPTS had different regions which consumed 16k entries each. But we do not have the same luxury in NCS55xx and NCS5xx due to limited TCAM resources. We need to use these resources very wisely to accomodate several features and functionalities. Therefore to minimize the usage of resources, the LPTS platform dependent (PD) layer programs only the protocol default entries in the hardware. It punts the control packets to Line card CPU Netio for full lpts lookup in LPTS Decap node. We will see this in details in later sections. The Network Input/Output (NetIO) process is responsible for forwarding packets in software. (For deeper understanding of process switching and slow path please [refer](https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=2#:~:text=Process%20Switching,-Process%20switching%2C%20also&text=In%20IOS%2C%20the%20ip_input%20process,for%20processing%20incoming%20IP%20packets.&text=In%20IOS%20XR%2C%20the%20Network,for%20forwarding%20packets%20in%20software. "refer")). 
-
-LPTS also plays a vital role in support of NSR (Non Stop Routing) enabled control plane. LPTS will make use of the fabric infrastructure for “for-us” control packets to both Active and Standby RP for NSR enabled processes. LPTS also installs dynamic flow entries for certain protocol packets on-demand, an example would be, for ICMP echo request sent out from the local router to peer router, LPTS will create flow entry in Pre-IFIB so that ICMP echo reply received from the peer router will be matched against it.
-
-Note: LPTS is applicable only for control and management plane traffic entering into the router and destined to the local router. Packets originated by the router and transit traffic are not processed by LPTS.
-{: .notice--info}
-
-### Glossary
-
-Below are the terminologies which we will referring multiple times in the document.
+Before moving further, lets define the terminologies which we will referring multiple times in the document.
 
 | Terms           | Description                                                                                                                                                             |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -46,6 +37,17 @@ Below are the terminologies which we will referring multiple times in the docume
 | pFIB or pre-FIB | Compact version of IFIB. A filtered version of pIFIB, HW pIFIB is loaded into LC HW TCAM                                                                                |
 | Tuple           | is an ordered list of integer                                                                                                                                           |
 | SDR             | Secure Domain Router. It provide a means of partitioning a router into multiple, independent routers ([Further Details](https://www.cisco.com/c/en/us/td/docs/routers/xr12000/software/xr12k_r3-9/system_management/command/reference/yr39xr12k_chapter12.html#:~:text=Secure%20domain%20routers%20(SDRs)%20provide,the%20rest%20of%20the%20system. "Further Details"))                    |
+
+## LPTS Overview
+
+LPTS is an integral component of IOS-XR systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. **IOS XR software** classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. In traditional IOS-XR platforms (CRS/ASR9k) LPTS had different regions which consumed 16k entries each. But we do not have the same luxury in NCS55xx and NCS5xx due to limited TCAM resources. We need to use these resources very wisely to accomodate several features and functionalities. Therefore to minimize the usage of resources, the LPTS platform dependent (PD) layer programs only the protocol default entries in the hardware. It punts the control packets to Line card CPU Netio for full lpts lookup in LPTS Decap node. We will see this in details in later sections. The Network Input/Output (NetIO) process is responsible for forwarding packets in software. (For deeper understanding of process switching and slow path please [refer](https://www.ciscopress.com/articles/article.asp?p=2272154&seqNum=2#:~:text=Process%20Switching,-Process%20switching%2C%20also&text=In%20IOS%2C%20the%20ip_input%20process,for%20processing%20incoming%20IP%20packets.&text=In%20IOS%20XR%2C%20the%20Network,for%20forwarding%20packets%20in%20software. "refer")). 
+
+LPTS also plays a vital role in support of NSR (Non Stop Routing) enabled control plane. LPTS will make use of the fabric infrastructure for “for-us” control packets to both Active and Standby RP for NSR enabled processes. LPTS also installs dynamic flow entries for certain protocol packets on-demand, an example would be, for ICMP echo request sent out from the local router to peer router, LPTS will create flow entry in Pre-IFIB so that ICMP echo reply received from the peer router will be matched against it.
+
+Note: LPTS is applicable only for control and management plane traffic entering into the router and destined to the local router. Packets originated by the router and transit traffic are not processed by LPTS.
+{: .notice--info}
+
+
 
 
 ### Main Components of LPTS 
@@ -187,7 +189,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all
       
 ## Handling Exception and Layer2 Control Packets
 
-In the previous section, we discussed that during the first pass, 2 types of hardware traps are generated. Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjaceny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle "for-us" LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. 
+In the previous section, we discussed that during the first pass, 2 types of hardware traps are generated. Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjacecny, LPTS for-us and prefix miss packets. **RxTrapReceive** is the hardware trap being used to handle "for-us" LPTS punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. 
 
 
 The below output shows the full list of supported traps. ([Full List of RX Traps](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/71x/b-ip-addresses-cg-ncs5500-71x/b-ip-addresses-cg-ncs5500-71x_chapter_01001.html "Full List of RX Traps"))
