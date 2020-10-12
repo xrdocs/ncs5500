@@ -161,7 +161,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location 0/0/CPU0 | in PIM-
 </pre>
 </div>
 
-Note: You should be very careful while changing this default values.
+Note: You should be very careful while changing this default values. The generic best practice for LPTS is to use the default configurations and not change anything.
 {: .notice--info}
 
 **LPTS can use the following tuples to identify a packet:**
