@@ -990,6 +990,21 @@ To make sure you are ready for the next step, one way could be check the service
 We are now ready for the fan trays and fabric cards replacement.  
 At this point, it's recommended to perform the migration with the chassis shutdown electrically.
 
+![1-power.png]({{site.baseurl}}/images/1-power.png){: .align-center}
+
+![2-FT1.png]({{site.baseurl}}/images/2-FT1.png){: .align-center}
+
+![3-FT2.png]({{site.baseurl}}/images/3-FT2.png){: .align-center}
+
+![4-FC1.png]({{site.baseurl}}/images/4-FC1.png){: .align-center}
+
+![5-FC.png]({{site.baseurl}}/images/5-FC.png){: .align-center}
+
+![6-FT3.png]({{site.baseurl}}/images/6-FT3.png){: .align-center}
+
+
+
+{: .align-center}
 
   
 -----
