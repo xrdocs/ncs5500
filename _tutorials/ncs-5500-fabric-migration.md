@@ -4,7 +4,7 @@ date: '2020-10-12 15:11 +0200'
 title: NCS-5500 Fabric Migration
 author: Nicolas Fevrier
 excerpt: v1 to v2 NCS-5500 ugprade procedure
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS-5500 v1 to v2 Fabric Migration" %} 
 
@@ -13,7 +13,8 @@ You can find more content related to NCS-5500 and NCS-5700 following this [link]
 ## Introduction
 
 Before insertion of 400GE line cards, the NCS-5500 needs to be modified to support packet forwarding and cooling. For instance, it's necessary to use "version 2" (v2) fabric cards and fan trays. During the first 3 years of its existence, the NCS-5500 chassis where shipped with v1 FC/FT.  
-In this blog post, Benoit Mercier Des Rochettes ([Manager in CX organization](https://www.linkedin.com/in/benoit-mercier-des-rochettes-12960148/)) will detail the different step necessary to guarantee a smooth migration from v1 to v2.
+In this blog post, Benoit Mercier Des Rochettes ([Manager in CX organization](https://www.linkedin.com/in/benoit-mercier-des-rochettes-12960148/)) will detail the different step necessary to guarantee a smooth migration from v1 to v2.  
+At the moment of this video and blog publication, the v2 "commons" were only available for 8-slot and 16-slot chassis. The 4-slot version being in the roadmap.
 
 Note: this is the short version of the MOP prepared by the CX team for this migration. The exhaustive one being specific to customer's requirement, we purposefully removed a lot of content for this article.
 {: .notice--info}
@@ -27,17 +28,18 @@ Note: this is the short version of the MOP prepared by the CX team for this migr
 ![test-topology.png]({{site.baseurl}}/images/test-topology.png){: .align-center}
 
 The testbed is made of 3 routers (NCS-5508 with 36x100G-SE-S line card, NCS-5501-SE and ASR9000) and one traffic generator (TRex: [more details available here](https://trex-tgn.cisco.com/)).  
-We will monitor 3 services (and flow) during the test:  
+We will monitor 3 services (and flows) during the test:  
 - L3VPN
 - PW
 - PW over RSVP-TE
+
 A route generator completes this picture, advertising 996,940 IPv4 and 225,280 IPv6 routes over BGP (the internet routing scale projection for our customer).  
 
 The purpose of this configuration being to identify if/when each step will be disruptive for the customer's services.
 
 ## Migration steps
 
-In this demo, we used an 8-slot chassis with NC55-36X100G-SE-S (powered by Jericho+ ASICs) and executing IOS XR 6.3.15.
+In this demo, we used an 8-slot chassis with NC55-36X100G-SE-S (powered by Jericho+ ASICs) and starting with IOS XR 6.3.15.
 
 ### Before getting started
 
@@ -132,7 +134,7 @@ RP/0/RP0/CPU0:5508#</code>
 </pre>
 </div>
 
-It's important to verify with this show command output that both route processor processes are in sync. NSR status must be ready.
+It's important to verify with this show command output that both route processor processes are in sync. NSR status must be "Ready".
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -356,7 +358,7 @@ Dec 20 09:37:31     ncs5500-mpls-te-rsvp-4.1.0.0-r663.x86_64
 This install operation will reload the system, continue?
  [yes/no]:[yes] yes
 
-RP/0/RP1/CPU0:FT-NCS55K#RP/0/RP1/CPU0:Nov 14 14:03:30.464 UTC: fpd-serv[193]: %PKT_INFRA-FM-3-FAULT_MAJOR : ALARM_MAJOR :FPD-NEED-UPGRADE :DECLARE :0/2:
+RP/0/RP1/CPU0:Nov 14 14:03:30.464 UTC: fpd-serv[193]: %PKT_INFRA-FM-3-FAULT_MAJOR : ALARM_MAJOR :FPD-NEED-UPGRADE :DECLARE :0/2:
 RP/0/RP1/CPU0:Nov 14 14:03:30.959 UTC: fpd-serv[193]: %PKT_INFRA-FM-3-FAULT_MAJOR : ALARM_MAJOR :FPD-NEED-UPGRADE :DECLARE :0/RP0:
 RP/0/RP1/CPU0:Nov 14 14:03:31.597 UTC: fpd-serv[193]: %PKT_INFRA-FM-3-FAULT_MAJOR : ALARM_MAJOR :FPD-NEED-UPGRADE :DECLARE :0/RP1:
 0/2/ADMIN0:Nov 14 14:03:35.485 UTC: card_mgr[2507]: %INFRA-FPD_Driver-6-UPGRADE_RESULT : Upgrade completes 11 percent for fpd Bootloader@location 0/2.
@@ -676,7 +678,7 @@ Please do not attempt to reconfigure the device until this process is complete.
 Location : LAB ILM 3rd Floor
 
 For operational problems contact :
-Benoit des Rochettes                    email:  bemercie@cisco.com
+Benoit des Rochettes                    email:  xxxxxxxx@cisco.com
 
 
 RP/0/RP0/CPU0:Nov 18 08:47:39.414 UTC: bgp[1042]: %ROUTING-BGP-5-ASYNC_IPC_STATUS : default:(A)inst-id 0, Initial Config Done
@@ -707,7 +709,7 @@ Password:
 RP/0/RP0/CPU0:Nov 18 08:47:55.841 UTC: exec[67856]: %SECURITY-LOGIN-6-AUTHEN_SUCCESS : Successfully authenticated user 'cisco' from 'console' on 'con0_RP0_CPU0'
 
 
-RP/0/RP0/CPU0:FT-NCS55K#0/FC1/ADMIN0:Nov 18 08:47:57.118 UTC: aaad[2021]: %MGBL-AAAD-7-DEBUG : Disaster-recovery account not configured. Using first user as disaster-recovery account
+0/FC1/ADMIN0:Nov 18 08:47:57.118 UTC: aaad[2021]: %MGBL-AAAD-7-DEBUG : Disaster-recovery account not configured. Using first user as disaster-recovery account
 RP/0/RP0/CPU0:Nov 18 08:47:58.487 UTC: isis[1009]: %ROUTING-ISIS-6-INFO_STARTUP_FINISH : Cold controlled start completed
 0/FC4/ADMIN0:Nov 18 08:47:58.654 UTC: aaad[2016]: %MGBL-AAAD-7-DEBUG : Disaster-recovery account not configured. Using first user as disaster-recovery account
 0/2/ADMIN0:Nov 18 08:48:03.670 UTC: esd[3180]: %INFRA-ESD-6-PORT_STATE_CHANGE_LINK_UP : The physical link state of the control ethernet switch port 7 has changed. New Link state UP, Admin state: UP
@@ -852,7 +854,7 @@ RP/0/RP1/CPU0:Nov 18 08:49:09.905 UTC: isis[1009]: %ROUTING-ISIS-5-NSR_CONN : IS
 RP/0/RP0/CPU0:Nov 18 08:49:16.416 UTC: ztp.sh[65792]: %OS-SYSLOG-6-LOG_INFO : ZTP will abort as username is configured. Do not configure until ZTP aborted message is seen.
 RP/0/RP0/CPU0:Nov 18 08:49:20.941 UTC: ztp.sh[65825]: %OS-SYSLOG-6-LOG_INFO : ZTP aborted
 
-RP/0/RP0/CPU0:FT-NCS55K#RP/0/RP0/CPU0:Nov 18 08:49:25.008 UTC: kim[278]: %INFRA-KIM-6-LOG_INFO : XR statistics will be pushed into the Linux kernel at 5 second intervals
+RP/0/RP0/CPU0:Nov 18 08:49:25.008 UTC: kim[278]: %INFRA-KIM-6-LOG_INFO : XR statistics will be pushed into the Linux kernel at 5 second intervals
 LC/0/2/CPU0:Nov 18 08:49:27.528 UTC: ifmgr[223]: %PKT_INFRA-LINK-3-UPDOWN : Interface HundredGigE0/2/0/0, changed state to Down
 LC/0/2/CPU0:Nov 18 08:49:27.528 UTC: ifmgr[223]: %PKT_INFRA-LINEPROTO-5-UPDOWN : Line protocol on Interface HundredGigE0/2/0/0, changed state to Down
 LC/0/2/CPU0:Nov 18 08:49:27.528 UTC: ifmgr[223]: %PKT_INFRA-LINK-5-CHANGED : Interface HundredGigE0/2/0/35, changed state to Administratively Down
@@ -917,8 +919,7 @@ We verify the firmware:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:FT-NCS55K#show hw-module fpd
-Fri Dec 20 10:10:24.936 UTC
+<code>RP/0/RP0/CPU0:5508#show hw-module fpd
                                                                FPD Versions
                                                                =================
 Location   Card type        HWver FPD device       ATR Status   Running Programd
@@ -1095,6 +1096,8 @@ Location  Card type         HWver FPD device       ATR Status   Run    Programd
 </pre>
 </div>
 
+Very likely you'll have to update the firmware for the new v2 parts and reload them to make it active.
+
 ## Other show commands you could use
 
 In no specific order, you could have a look at the output of the following additional show command before and after the software upgrade and hardware migration.
@@ -1105,7 +1108,7 @@ In no specific order, you could have a look at the output of the following addit
 - (admin) show alarms
 - show filesystem location 0/rp0/CPU0
 - show filesystem location 0/rp1/CPU0	
-- show process cpu | ex 0%      0%       0%
+- show process cpu
 - show processes blocked (several times to avoid transcient blocks)
 - (admin) show controller fabric plane all
 - (admin) show controller fabric health
