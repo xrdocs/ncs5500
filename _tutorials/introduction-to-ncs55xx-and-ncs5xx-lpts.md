@@ -54,18 +54,23 @@ Note: LPTS is applicable only for control and management plane traffic entering 
 
 ### Main Components of LPTS 
 
+![Screenshot 2020-10-13 at 9.55.18 AM.png]({{site.baseurl}}/images/Screenshot 2020-10-13 at 9.55.18 AM.png)
+
 The three component which LPTS needs to accomplish its task are:                               
 
 - **Port Arbitrator Process**
+    - One process instance per CPU
 	- Aggregates bindings into flows
 	- Generates IFIB and Pre-IFIB
 	- Allocates Flow Group IDs
 	- Does not touch packets
 - **Flow Manager Process**
+    - One process instance per CPU
 	- Copies IFIB slice updates from the Port Arbitrator to netio
 	- Does not touch packets
 	- Acts as a Sub-Server to the Port Arbitrator
 - **Pre-IFIB Manager Process**
+    - One instance per CPU and NPU
 	- Copies Pre-IFIB updates from the Port Arbitrator to netio
 	- Filters and translates Pre-IFIB updates into TCAM updates
 	- Does not touch packets
