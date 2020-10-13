@@ -67,8 +67,12 @@ Test performed with a snake topology on a single line card. The purpose is to id
 No article posted, just a video: [https://www.youtube.com/watch?v=Y_RoK2PsC1k](https://www.youtube.com/watch?v=Y_RoK2PsC1k)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/Y_RoK2PsC1k?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
-
+.  
 Demonstration of the impact (or lack of impact for instance) when ejecting Active or Standby RP and System Controller of an NCS5508. Then, the test is focusing on the power supply modules.
+
+**Fabric and Fan Trays upgrade**  
+Not exactly a test, but the demo of a migration from v1 to v2 fabric cards and fan trays with the software upgrade to prepare this operation.  
+[https://xrdocs.io/ncs5500/tutorials/ncs-5500-fabric-migration/](https://xrdocs.io/ncs5500/tutorials/ncs-5500-fabric-migration/)
 
 ### Netflow and IPFIX
 
@@ -95,12 +99,14 @@ Second, the FIB table programmed in the External TCAM of a Jericho+ based system
 No article posted, just a video: [https://www.youtube.com/watch?v=3tIVveCOZHs](https://www.youtube.com/watch?v=3tIVveCOZHs)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/3tIVveCOZHs?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
+.
 
 **FIB Writing Rate on Jericho+ w/o eTCAM but Large LEM / NCS55A1-24H**  
 Follow up of the previous test but this time, in the LPM / LEM of an NCS55A1-24H:  
 [https://www.youtube.com/watch?v=nT31rHqFm-o](https://www.youtube.com/watch?v=nT31rHqFm-o)
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/nT31rHqFm-o?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
+.
 
 **FIB Scale on Jericho+ w/ eTCAM**  
 Validation of the capability to store a full routing table first then to push the cursor to 4M IPv4 entries in the hardware (for instance, the eTCAM of a Jericho+ system).  
@@ -141,7 +147,7 @@ Hari and Sai provides an overview of the tests they performed for their customer
 [https://www.youtube.com/watch?v=10XBBe_uYKc](https://www.youtube.com/watch?v=10XBBe_uYKc)  
 
 <iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/10XBBe_uYKc?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
-
+.
 
 ## Conclusion: What's next?
 
