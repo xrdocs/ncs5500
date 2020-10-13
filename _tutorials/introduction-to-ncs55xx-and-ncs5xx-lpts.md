@@ -10,7 +10,7 @@ tags:
   - CoPP
   - control plane
   - LPTS
-position: top
+position: hidden
 ---
 {% include toc %}
 
@@ -54,7 +54,7 @@ Note: LPTS is applicable only for control and management plane traffic entering 
 
 ### Main Components of LPTS 
 
-![Screenshot 2020-10-13 at 9.55.18 AM.png]({{site.baseurl}}/images/Screenshot 2020-10-13 at 9.55.18 AM.png)
+![Screenshot 2020-10-13 at 11.59.49 AM.png]({{site.baseurl}}/images/Screenshot 2020-10-13 at 11.59.49 AM.png)
 
 The three component which LPTS needs to accomplish its task are:                               
 
