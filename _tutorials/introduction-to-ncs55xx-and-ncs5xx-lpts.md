@@ -83,7 +83,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 
 ### NPU and Line Card CPU in action
 
-![Screenshot 2020-10-12 at 11.23.05 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-12 at 11.23.05 PM.png)
+![Screenshot 2020-10-13 at 6.05.25 PM.png]({{site.baseurl}}/images/Screenshot 2020-10-13 at 6.05.25 PM.png)
 
 - 1) A frame is received on the ingress interface of NCS55xx or NCS5xx. On receiving the packet necessary layer 1 and 2 checks are performed and layer 3 information is extracted from the packet and passes it to the forwarding ASIC.
 - 2) Packet enters the ingress pipeline and traps are generated based on forwarding lookup.
