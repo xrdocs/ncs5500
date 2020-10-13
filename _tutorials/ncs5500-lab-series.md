@@ -63,7 +63,11 @@ Test of various aspects around NCS5500 Flowspec implementation:
 [https://xrdocs.io/ncs5500/tutorials/ncs5500-fabric-redundancy-tests/](https://xrdocs.io/ncs5500/tutorials/ncs5500-fabric-redundancy-tests/)  
 Test performed with a snake topology on a single line card. The purpose is to identify the impact on performance and bandwidth, per NPU, when removing a fabric cards. It will also point the limit of using a snake for performance testing.
 
-**Route Processor, System Controller and Power Modules Redundancy** (coming soon)
+**Route Processor, System Controller and Power Modules Redundancy**  
+No article posted, just a video: [https://www.youtube.com/watch?v=Y_RoK2PsC1k](https://www.youtube.com/watch?v=Y_RoK2PsC1k)
+
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/Y_RoK2PsC1k?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
+
 Demonstration of the impact (or lack of impact for instance) when ejecting Active or Standby RP and System Controller of an NCS5508. Then, the test is focusing on the power supply modules.
 
 ### Netflow and IPFIX
@@ -88,12 +92,15 @@ Second, the FIB table programmed in the External TCAM of a Jericho+ based system
 [https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-programming-speed/](https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-programming-speed/)
 
 **FIB Writing Rate on Jericho+ w/ eTCAM**  
-Video recording of the demo described in the blog post above:  
-[https://www.youtube.com/watch?v=3tIVveCOZHs](https://www.youtube.com/watch?v=3tIVveCOZHs)
+No article posted, just a video: [https://www.youtube.com/watch?v=3tIVveCOZHs](https://www.youtube.com/watch?v=3tIVveCOZHs)
+
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/3tIVveCOZHs?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
 
 **FIB Writing Rate on Jericho+ w/o eTCAM but Large LEM / NCS55A1-24H**  
 Follow up of the previous test but this time, in the LPM / LEM of an NCS55A1-24H:  
 [https://www.youtube.com/watch?v=nT31rHqFm-o](https://www.youtube.com/watch?v=nT31rHqFm-o)
+
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/nT31rHqFm-o?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
 
 **FIB Scale on Jericho+ w/ eTCAM**  
 Validation of the capability to store a full routing table first then to push the cursor to 4M IPv4 entries in the hardware (for instance, the eTCAM of a Jericho+ system).  
@@ -128,6 +135,13 @@ Same testbed then above, reconfigured to validate ECMP and LAG load balancing wi
 **Non-Drop Rate**  
 [https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/](https://xrdocs.io/ncs5500/tutorials/testing-ndr-on-ncs5500/)  
 Test performed on Jericho+ systems. Identification and explanation of the different packet size performances.
+
+**NDR for NC57-18DD-SE line cards**  
+Hari and Sai provides an overview of the tests they performed for their customer's CPOC.  
+[https://www.youtube.com/watch?v=10XBBe_uYKc](https://www.youtube.com/watch?v=10XBBe_uYKc)  
+
+<iframe type="text/html" width="560" height="315" src="https://www.youtube.com/embed/10XBBe_uYKc?autoplay=1" frameborder="0" allow="autoplay" ></iframe>{: .align-center}
+
 
 ## Conclusion: What's next?
 
