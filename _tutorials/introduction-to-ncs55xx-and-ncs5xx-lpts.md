@@ -89,7 +89,7 @@ The Programmable Mapping and Filtering (PMF) engine block in IRPP forwarding asi
 - 4) By looking at the traps, the packets are recycled to ingress pipeline by skipping the egress pipeline lookups. The lookup key can contain various values such as: source IP, destination IP, source L4 port, destination L4 port, interface, vrf and compression id.
 - 5) This TCAM lookup happens in PMF. The “for-us” control packets are then punted by encapsulating in the NPU header. In NPU, the “for-us” control packets undergo hardware TCAM lookup which will hit one of the protocol default TCAM entries. NPU header contains the control information such as – ingress port, destination node, trap code, trap qualifier, listener_tag, flow type, stats pointer etc.
 - 6) LPTS entries are installed as 4 main groups i.e. IPv4, IPv6, CLNS and L2. In first pass the traps are different for L2 and L3 because the lookup tables are different which are generating the traps. After such classification, packets go into Software Path Process (SPP), that selects whether to send to L2/SPIO or NetIO process. The packets are received by SPP in IOS-XR by opening a raw socket to listen over the punt interface. SPP is a component that classifies packets in punt path to identify its client. Moreover, SPP does the parsing of npu header to extract the control information filled by NPU. However, it retains the npu header. Based on this parsing results it decides the client. (In our case NetIO or L2/SPIO). In case, there is no proper decision, the packet is forwarded to NetIO as a default client.
-- 7) NetIO handles L3 Protocol Packets like ICMP, OSPF, BGP etc. It also processes ARP packets unlike ASR9K where ARP is via SPIO. Based on lookup result, the control packets will get policed and punted to LC CPU.
+- 7) NetIO handles L3 Protocol Packets like ICMP, OSPF, BGP etc. Based on lookup result, the control packets will get policed and punted to LC CPU.
 - 8) In case of errors, the packets are also punted for diagnostics (even if npu decides it to drop) or for some action (to generate ICMP error) via traps from first pass itself and policed.
 - 9) When the "For Us" packets are received by the LPTS decap node in NetIO, LPTS  does iFIB lookup and find the packet associated protocol client and deliver the packet to the protocol stack. Most of the times this lookup is skipped and that provides the performance as use the work done in NPU to be avoided in CPU.
 - 10) The Streamlined Packet IO - SPIO is used by L2 processes CFM,STP,ARP etc. When a reaches from SPP to NetIO/SPIO, the control information is transferred. NetIO/SPIO strip off the npu header and 
@@ -352,6 +352,10 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU0
 </div>
 
 From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS and may have instability. Let us take an example of expanding the max entries from 300 to 400.
+
+Note: It is recommended to use HW flows and have no software flow.
+{: .notice--info}
+
 
 <div class="highlighter-rouge">
 <pre class="highlight">
