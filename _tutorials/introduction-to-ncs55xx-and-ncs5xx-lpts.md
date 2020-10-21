@@ -193,9 +193,9 @@ The below command displays pre-Internal Forwarding Information Base (pIFIB) info
 RP/0/RP0/CPU0:N55-24#show lpts pifib hardware police location all 
 ```
       
-## Handling Exception and Layer2 Control Packets
+## Handling Exception Packets
 
-There are two ways packet can be punted: one via LPTS and other is Traps. In the previous section, we discussed that during the first pass, 2 types of hardware traps are generated. Hardware traps are used for handling exception packets (TTLx, Invalid headers), most of Layer2 control protocols (CFM, LACP, BFD, CDP etc) and other system level punt like ACL log, netflow rate, adjacecny, LPTS for-us and prefix miss packets. Traps are specific rules in NPU (Predefined/programmable). It can be considered to be a subset of lpts. **RxTrapReceive** is the hardware trap being used to handle "for-us" punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0 pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. 
+Traps are specific predefined rules in NPU (Predefined/programmable). It can be considered to be a subset of lpts. **RxTrapReceive** is the hardware trap being used to handle "for-us" punt. All hardware traps are statically programmed with default policer rates per NPU. LPTS module supports configuration of these trap policer values. Same as LPTS punt policers, these trap policers can be configured with policer rate values from 0 pps (for complete drop) till predefined max limit per trap. As mentioned above, we need to take care while changing the default values as that will impact both functionality and CPU performance. 
 
 
 The below output shows the full list of supported traps. ([Full List of RX Traps](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/71x/b-ip-addresses-cg-ncs5500-71x/b-ip-addresses-cg-ncs5500-71x_chapter_01001.html "Full List of RX Traps"))
