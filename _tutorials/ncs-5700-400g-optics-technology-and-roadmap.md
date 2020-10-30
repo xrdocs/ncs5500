@@ -65,7 +65,9 @@ QSFP-DD supports RS-FEC (Clause 91) RS(544,514) for 50G serdes, while maintainin
 
 RS(528,514) is sometimes called the KR4 FEC, and RS(544,514) KP4 FEC.
 
-RS(544,514) will provide a stronger FEC for use with higher speed serdes.
+RS(544,514) will provide a stronger FEC for use with higher speed serdes, and hence require a slightly higher overhead.
+
+RS(528,514) is running at 25.78125 GBaud/s, and RS(544,514) is running at 26.5625 GBaud/s (53.125 Gbit/s)
 
 ### High Power Support
 
@@ -174,10 +176,10 @@ Date     | Specs         | Standard       | Speed | W/L  | Distance | Cable     
          |               | 200GBase-ER4   | 200G  | 50G  | 40km     | SMF       | 1310nm | Duplex   | N        | LWDM
 2020 Jan | IEEE 802.3cm  | 400GBase-SR8   | 400G  | 50G  | 100m     | MMF OM4   | 850nm  | Parallel | Y        |
          |               | 400GBase-SR4.2 | 400G  | 50G  | 100m     | MMF OM4   | 850nm  | Parallel | Y        | SWDM Bidi
-2020 Mar | MSA [OIF](https://www.oiforum.com/technical-work/hot-topics/400zr-2/) | 400ZR          | 400G  | 400G | <120km   | SMF       | 1550nm | Duplex   | N        | Coherent
+2020 Mar | MSA [OIF](https://www.oiforum.com/technical-work/hot-topics/400zr-2/) | 400ZR          | 400G  | 400G | <120km   | SMF       | 1550nm | Duplex   | Muxponder        | Coherent
 2020 End | IEEE P802.3cu | 400GBase-FR4   | 400G  | 100G | 2km      | SMF       | 1310nm | Duplex   | N        | CWDM
          |               | 400GBase-LR4-6 | 400G  | 100G | 6km      | SMF       | 1310nm | Duplex   | N        | CWDM
-2020 End | MSA [OpenZR+](http://openzrplus.org/) | 400G-ZR+       | 400G  | 400G | >120km   | SMF       | 1550nm | Duplex   | N        | Coherent
+2020 End | MSA [OpenZR+](http://openzrplus.org/) | 400G-ZR+       | 400G  | 400G | >120km   | SMF       | 1550nm | Duplex   | Muxponder        | Coherent
 2021 End | IEEE P802.3ck | 400GBase-CR4   | 400G  | 100G | 5m       | Copper    |        | Parallel | Y        |
          |               | 200GBase-CR2   | 200G  | 100G | 5m       | Copper    |        | Parallel | Y        |
          |               | 100GBase-CR    | 100G  | 100G | 5m       | Copper    |        | Duplex   | N        |
@@ -298,6 +300,7 @@ QDD-2X100-CWDM4-S | 2x100G QSFP-DD   Transceiver, 2x100G-CWDM4, Dual Duplex CS, 
 QDD-2X100-SR4-S   | 2x100G QSFP-DD   Transceiver, 2x100GBASE-SR4, MPO-24, MMF, OM4                                                                            | 100 m               | Roadmap
 QDD-2x100-PSM4-S  | 2x100G QSFP-DD   Transceiver, 2x100G-PSM4, MPO-24, SMF                                                                                    | 500 m               | Roadmap
 QSFP-40/100-SRBD  | Dual Rate QSFP28   Transceiver, 100G-SWDM2 Bidi , Duplex LC, MMF, OM4                                                                     | 100 m               | Roadmap
+QSFP-100G-DR-S    | 100G QSFP28 Transceiver,   100GBASAE-DR, SMF, Duplex LC, SMF                                                                              | 500 m               | Roadmap
 QSFP-100G-FR-S    | 100G QSFP28 Transceiver,   100GBASAE-FR, SMF, Duplex LC, SMF                                                                              | 2 km                | Roadmap
 QSFP-100G-LR-S    | 100G QSFP28 Transceiver,   100GBASAE-LR, SMF, Duplex LC, SMF                                                                              | 10 km               | Roadmap
 QDD-4x100G-FR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-FR, MPO-12, SMF                                                                                  | 2 km                | Roadmap
