@@ -67,7 +67,7 @@ RS(528,514) is sometimes called the KR4 FEC, and RS(544,514) KP4 FEC.
 
 RS(544,514) will provide a stronger FEC for use with higher speed serdes, and hence require a slightly higher overhead.
 
-RS(528,514) is running at 25.78125 GBaud/s, and RS(544,514) is running at 26.5625 GBaud/s (53.125 Gbit/s)
+RS(528,514) is running at 25.78125 GBaud/s (25.78125 Gbit/s), and RS(544,514) is running at 26.5625 GBaud/s (53.125 Gbit/s)
 
 ### High Power Support
 
