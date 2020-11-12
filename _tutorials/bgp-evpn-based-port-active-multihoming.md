@@ -237,7 +237,7 @@ Ethernet Segment Id      Interface                          Nexthops
   Carving timer     : 0 sec [not running]
   Local SHG label   : None
   Remote SHG labels : 0
-  Access signal mode: Bundle OOS (Default)
+  <mark>Access signal mode: Bundle OOS (Default)</mark>
 
 
 LEAF2: 
@@ -299,14 +299,150 @@ Ethernet Segment Id      Interface                          Nexthops
   Carving timer     : 0 sec [not running]
   Local SHG label   : None
   Remote SHG labels : 0
-  Access signal mode: Bundle OOS (Default)
+  <mark>Access signal mode: Bundle OOS (Default)</mark>
 </code>
 </pre>
 </div>
 
 **Note** `In the example shown the ethernet segment Identifier is 00.12.12.12.12.12.12.12.12.12.12 and the portion impacting DF election is 12.12.12.12 as highlighted. For Dual homing an odd-even modulo operation will gives a result of 0. Therefore Leaf1 is our active PE as it has a lower BGP router ID of 1.1.1.1 compared to 2.2.2.2 of Leaf2.`
 
-Above output shows that the bundle interfaces are up and port active redundancy mode has created an active standby Leaf redundancy for the dual homed Host-1 . Next, lets’ provision the EVPN layer-2 service over this redundancy.
+Above output shows that the bundle interfaces are up and port active redundancy mode has created an active standby Leaf redundancy for the dual homed Host-1. By default the ethernet segment signals bundle OOS on the non-DF PE. The ES may also be configured with 'access-signal bundle-down'. This configuration is used to keep ES down instead of OOS when EVPN cost-out/core-isolation and similar triggers are applied. In the Down signalling mode, the CE side is able to switch ES from one to the other when LACP is not supported. The below snippet shows the configuration and CLI output.
+
+<div>
+<pre>
+<code>
+evpn
+ interface Bundle-Ether2
+  ethernet-segment
+   identifier type 0 18.44.18.44.18.44.18.44.00
+   load-balancing-mode port-active
+  !
+  <mark>access-signal bundle-down</mark>
+
+RP/0/RP0/CPU0:LEAF-1#show evpn  ethernet-segment  interface bundle-Ether 2 detail 
+Thu Nov 12 00:43:18.314 GMT+4
+Legend:
+  B   - No Forwarders EVPN-enabled,
+  C   - Backbone Source MAC missing (PBB-EVPN),
+  RT  - ES-Import Route Target missing,
+  E   - ESI missing,
+  H   - Interface handle missing,
+  I   - Name (Interface or Virtual Access) missing,
+  M   - Interface in Down state,
+  O   - BGP End of Download missing,
+  P   - Interface already Access Protected,
+  Pf  - Interface forced single-homed,
+  R   - BGP RID not received,
+  S   - Interface in redundancy standby state,
+  X   - ESI-extracted MAC Conflict
+  SHG - No local split-horizon-group label allocated
+
+Ethernet Segment Id      Interface                          Nexthops            
+------------------------ ---------------------------------- --------------------
+0018.4418.4418.4418.4400 BE2                                1.1.1.1
+                                                            2.2.2.2
+  ES to BGP Gates   : Ready
+  ES to L2FIB Gates : Ready
+  Main port         :
+     Interface name : Bundle-Ether2
+     Interface MAC  : 0032.1780.98de
+     IfHandle       : 0x080040c4
+     <mark>State          : Up</mark>
+     Redundancy     : Not Defined
+  ESI type          : 0
+     Value          : 18.4418.4418.4418.4400
+  ES Import RT      : 1844.1844.1844 (from ESI)
+  Source MAC        : 0000.0000.0000 (N/A)
+  Topology          :
+     Operational    : MH
+     Configured     : Port-Active
+  Service Carving   : Auto-selection
+     Multicast      : Disabled
+  Convergence       :
+     Mobility-Flush : Count 0, Skip 0, Last n/a
+  Peering Details   : 2 Nexthops
+     1.1.1.1 [MOD:P:00]
+     2.2.2.2 [MOD:P:00]
+  Service Carving Results:
+     Forwarders     : 0
+     Elected        : 0
+     Not Elected    : 0
+  EVPN-VPWS Service Carving Results:
+     Primary        : 0
+     Backup         : 0
+     Non-DF         : 0
+  MAC Flushing mode : STP-TCN
+  Peering timer     : 3 sec [not running]
+  Recovery timer    : 30 sec [not running]
+  Carving timer     : 0 sec [not running]
+  Local SHG label   : None
+  Remote SHG labels : 0
+  <mark>Access signal mode: Bundle Down</mark>
+  
+  RP/0/RP0/CPU0:LEAF-2#show evpn  ethernet-segment  interface bundle-Ether 2 detail 
+Thu Nov 12 04:49:28.018 UTC
+Legend:
+  B   - No Forwarders EVPN-enabled,
+  C   - Backbone Source MAC missing (PBB-EVPN),
+  RT  - ES-Import Route Target missing,
+  E   - ESI missing,
+  H   - Interface handle missing,
+  I   - Name (Interface or Virtual Access) missing,
+  M   - Interface in Down state,
+  O   - BGP End of Download missing,
+  P   - Interface already Access Protected,
+  Pf  - Interface forced single-homed,
+  R   - BGP RID not received,
+  S   - Interface in redundancy standby state,
+  X   - ESI-extracted MAC Conflict
+  SHG - No local split-horizon-group label allocated
+
+Ethernet Segment Id      Interface                          Nexthops            
+------------------------ ---------------------------------- --------------------
+0018.4418.4418.4418.4400 BE2                                1.1.1.1
+                                                            2.2.2.2
+  ES to BGP Gates   : Ready
+  ES to L2FIB Gates : Ready
+  Main port         :
+     Interface name : Bundle-Ether2
+     Interface MAC  : 00bc.6013.44de
+     IfHandle       : 0x0800403c
+     <mark>State          : Standby</mark>
+     Redundancy     : Not Defined
+  ESI type          : 0
+     Value          : 18.4418.4418.4418.4400
+  ES Import RT      : 1844.1844.1844 (from ESI)
+  Source MAC        : 0000.0000.0000 (N/A)
+  Topology          :
+     Operational    : MH
+     Configured     : Port-Active
+  Service Carving   : Auto-selection
+     Multicast      : Disabled
+  Convergence       :
+     Mobility-Flush : Count 0, Skip 0, Last n/a
+  Peering Details   : 2 Nexthops
+     1.1.1.1 [MOD:P:00]
+     2.2.2.2 [MOD:P:00]
+  Service Carving Results:
+     Forwarders     : 0
+     Elected        : 0
+     Not Elected    : 0
+  EVPN-VPWS Service Carving Results:
+     Primary        : 0
+     Backup         : 0
+     Non-DF         : 0
+  MAC Flushing mode : STP-TCN
+  Peering timer     : 3 sec [not running]
+  Recovery timer    : 30 sec [not running]
+  Carving timer     : 0 sec [not running]
+  Local SHG label   : None
+  Remote SHG labels : 0
+  Access signal mode: Bundle Down
+</code>
+</pre>
+</div>
+
+Next, lets’ provision the EVPN layer-2 service over this redundancy.
 
 ### Task 3: Configure BGP EVPN based layer-2 multipoint service
 
