@@ -131,7 +131,7 @@ For example, 400GBase-SR8 requires 8 pairs of MMF, total 16 fibers. Each fiber s
 
 In case of bidirectional 400GBase-SR4.2, it only requires 4 pairs of MMF, total 8 fibers. Each fiber run 2 wavelengths, one in each direction, total also 16 wavelengths.
 
-WDM technology is required for the multiplexing, such as SWDM in the case of 400GBase-SR4.2.
+WDM technology is required for the multiplexing, such as SWDM in the case of 400GBase-SR4.2 and 100G-SWDM2.
 
 ### Parallel Fiber and Breakout Support
 
@@ -308,7 +308,7 @@ QDD-4x100G-FR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-FR, MPO-12, SMF    
 QDD-4x100G-LR     | 4x100G QSFP-DD   Transceiver, 4x100GBASE-LR, MPO-12, SMF                                                                                  | 10 km               | Roadmap
                   | Can be used as 4x100G   breakout to QSFP-100G-LR-S                                                                                        | 10 km               | Roadmap
 QDD-400G-SR4-BD   | 400G QSFP-DD   Transceiver, 400GBASE-SR4.2, MPO-12, MMF, OM4                                                                              | 100  m              | Roadmap
-                  | Can be used as 4x100G   breakout to 100G-BiDi                                                                                             | 100  m              | Roadmap
+                  | Can be used as 4x100G   breakout to 100G-SWDM2 BiDi                                                                                       | 100  m              | Roadmap
 QDD-400G-SR8-S    | 400G QSFP-DD   Transceiver, 400GBASE-SR8, MPO-16, MMF, OM4                                                                                | 100 m               | Roadmap
                   | Can be used as 8x50G   breakout to 50GBASE-SR                                                                                             | 100 m               | Roadmap
 QDD-400G-LR4-S    | 400G QSFP-DD   Transceiver, 400G-LR4, SMF, Duplex LC, SMF                                                                                 | 10 km               | Roadmap
