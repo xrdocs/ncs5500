@@ -21,6 +21,10 @@ You can find more content related to NCS5500 including routing memory management
 Edited in August 2018 to add a note on the lack of support of S-RTBH, and to fix an error pointed by Muffadal Presswala (thanks :) related to the behavior with eTCAM systems.
 {: .notice--info}
 
+Nov2020: S-RTBH support has been added in IOSXR 7.2.1 but only for line cards and platforms powered by Jericho2 and eTCAM (NC57-18DD-SE for example).
+{: .notice--info}
+
+
 ## S01E07 NCS5500 URPF Configuration and Impact on Scale
 
 ### Previously on "Understanding NCS5500 Resources"
@@ -89,7 +93,7 @@ And compare these figures to the packet count per interface to understand how mu
 
 Now said, some other very good reasons to enable URPF loose mode exist. For example, it's a mandatory brick of a [Source-based Remotely Triggered Black Hole](https://www.cisco.com/c/dam/en_us/about/security/intelligence/blackhole.pdf) architecture (S-RTBH).
 
-But... S-RTBH is not supported currently on NCS5500 (even if the URPF loose-mode is supported, it can not be used for this particular use-case). It will be fixed in a future release.
+But... S-RTBH is not supported currently on most of the NCS5500 platforms (even if the URPF loose-mode is supported, it can not be used for this particular use-case). Only exception: the NC57-18DD-SE line cards and all future platforms based on Jericho2 (with eTCAM).  
 {: .notice--info}
 
 ### NCS5500 Implementation
