@@ -24,6 +24,9 @@ Edited in August 2018 to add a note on the lack of support of S-RTBH, and to fix
 Nov2020: S-RTBH support has been added in IOSXR 7.2.1 but only for line cards and platforms powered by Jericho2 and eTCAM (NC57-18DD-SE for example).
 {: .notice--info}
 
+Nov2020: Change of configuration in 7.x
+{: .notice--info}
+
 
 ## S01E07 NCS5500 URPF Configuration and Impact on Scale
 
@@ -147,6 +150,9 @@ interface HundredGigE0/7/0/0
 </code>
 </pre>
 </div>
+
+Note: Starting from 6.7.x and 7.x.y, it's mandatory to enable both IPv4 and IPv6 URPF configuration at the same time. The configuration for just one address-family will be rejected by the commit.
+{: .notice--info}
 
 ### Configuration and impact on scale Jericho systems (with eTCAM)
 
