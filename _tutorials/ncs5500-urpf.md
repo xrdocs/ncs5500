@@ -27,6 +27,9 @@ Nov2020: S-RTBH support has been added in IOSXR 7.2.1 but only for line cards an
 Nov2020: Change of configuration in 7.x
 {: .notice--info}
 
+Dec2020: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
+
 
 ## S01E07 NCS5500 URPF Configuration and Impact on Scale
 
@@ -126,6 +129,9 @@ hw-module fib ipv6 scale internet-optimized-disable
 
 Note: depending on the IOS XR version, the options could be different and actually could be the opposite of "disable", be attentive at what is availabe in the CLI.
 {: .notice--info}
+
+Note: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
 
 With the optimization disabled and after the line cards / system reload, we have now:
 
