@@ -17,6 +17,9 @@ position: top
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN, Flowspec implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
+Important Update: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
+
 ## Introduction
 
 Between September 2017 and March 2018, we published five articles to answer recurrent questions on the routing memory utilization. The NCS5500 adoption was ramping up, and users were learning about the LEM, LPM and eTCAM used to store the routing information.  
