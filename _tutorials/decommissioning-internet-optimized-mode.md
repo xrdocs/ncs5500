@@ -67,7 +67,7 @@ No configuration, the IPv4 and IPv6 will be sorted in the internal database foll
 ![host-optimized-default.png]({{site.baseurl}}/images/host-optimized-default.png){: .align-center}
 
 
-### configured: host-optimized-disable and custom-lem
+### configure-able: host-optimized-disable and custom-lem
 
 The remaining configuration options will be:  
 - v4 host-optimized-disable
