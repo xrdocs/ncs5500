@@ -27,7 +27,8 @@ You can find more content related to NCS5500 including routing memory management
 **Update3**: In Nov 2019, clarification on the lack of MACsec support on 1G interfaces.
 {: .notice--info}
 
-
+**Update4** in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
 
 ### Previously on "Understanding NCS5500 Resources"
 
@@ -475,6 +476,9 @@ OOR Information
 Like the other non-eTCAM systems, we can use two different configurations: the host-optimized mode (default) and the internet-optimized mode.
 
 ![24H-host-internet.jpg]({{site.baseurl}}/images/24H-host-internet.jpg){: .align-center}
+
+Note: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
 
 Let's take a full internet table made of 655487 v4 and 42852 v6 real routes
 and check how it fits in this system.
