@@ -28,6 +28,8 @@ You can find more content related to NCS5500 including routing in VRF, URPF, ACL
 **Disclaimer**: In the following page and video, you'll find a demo of the internet-optimized mode on NCS5500 routers based on Jericho (or Jericho+). This demo ran in late 2017 is still accurate. With recent internet distribution you should still be able to store a full view v4 and v6 in the internal memories (LEM and LPM). Does it mean it's recommended? Probably not: it will occupy 80% or more of the LEM which doesn't give more room for growth and potential routing incident. In September 2019, we recommend you select devices with eTCAM for internet peering roles unless you are running a smart system of route filtering to contain the table size.
 {: .notice--info}
 
+Important update: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
 
 ### Previously on "Understanding NCS5500 Resources"
 
@@ -559,6 +561,9 @@ RP/0/RP0/CPU0:NCS5508#
 </code>
 </pre>
 </div>
+
+Note: in IOS XR 7.3.1, we will decommission the "internet-optimized" mode, please check this article: [https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/](https://xrdocs.io/ncs5500/tutorials/decommissioning-internet-optimized-mode/)
+{: .notice--danger}
 
 Configuration to enable the internet-optimized mode on non-eTCAM line cards:
 
