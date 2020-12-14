@@ -4,7 +4,7 @@ date: '2020-12-10 13:29 +0100'
 title: Decommissioning the Internet-Optimized Mode
 author: Nicolas Fevrier
 excerpt: Brief note on the removal of the internet-optimized mode
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Remove Internet-opt Mode" %} 
 
@@ -86,7 +86,3 @@ We also added a mention in the following docs and videos to inform that internet
 - [https://xrdocs.io/ncs5500/tutorials/Understanding-ncs5500-jericho-plus-systems/](https://xrdocs.io/ncs5500/tutorials/Understanding-ncs5500-jericho-plus-systems/)
 - [https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/](https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/)
 - [https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/](https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/)
-
-
-
-
