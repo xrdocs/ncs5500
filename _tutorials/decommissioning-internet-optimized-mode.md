@@ -86,3 +86,5 @@ We also added a mention in the following docs and videos to inform that internet
 - [https://xrdocs.io/ncs5500/tutorials/Understanding-ncs5500-jericho-plus-systems/](https://xrdocs.io/ncs5500/tutorials/Understanding-ncs5500-jericho-plus-systems/)
 - [https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/](https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/)
 - [https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/](https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/)
+- [https://www.youtube.com/watch?v=8Tq4nyP2wuA](https://www.youtube.com/watch?v=8Tq4nyP2wuA)
+- [https://www.youtube.com/watch?v=nT31rHqFm-o](https://www.youtube.com/watch?v=nT31rHqFm-o)
