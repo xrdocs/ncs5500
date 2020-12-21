@@ -45,10 +45,30 @@ With the current implementation of Y.1564 on NCS 500 and NCS 5500 routers can on
 - Packet Size
   - Fixed size (range)
   - EMIX pattern (defined in Y.1564)
+- Destination MAC 
+- Information Rate (IR)
+  - Committed Information Rate (CIR)
+  - Excess Information Rate (EIR) only for color aware generation: (IR-CIR)
+- Duration of the test
+  - 1 -1440 (minutes)
+  
+The source MAC for generated traffic flow is taken from the interface on which Y.1564 profile is attached. Destination MAC address can be specified while starting an Y.1564 test.
 
 The following table shows the packet size for Y.1564 SADT on the NCS platforms.
 
 |a | b | c | d | e | f | g | h | u |
 |64 | 128 | 256 | 512 | 1024 | 1280 | 1518 | MTU | user defined | 
+
+### Measurement Statistics 
+Y.1564 defines various parameters that can be measured on the DUT, which in turn related to the performance indicators of the service like throughput and latency. These parameters help in validating the committed SLA for the provisioned service. Cisco NCS 500 and NCS 5500 routers support the measurement of the following statistical parameters:
+- Frame Loss 
+- Frame Loss Ratio (FLR)
+- Frame Delay (FD)
+  - Min
+  - Max
+  - Average
+Measurement of Frame Delay Variation (Jitter) is not supported. The above parameters are computed over a test duration which is configurable under the SAT profile  in the range of 1 minutes to 1440 Minutes (24 Hour).
+
+
 
 
