@@ -117,16 +117,18 @@ This section illustrates the different components of a Y.1564 test profile. As e
 ### Running Y.1564 Service Activation Test
 The final step is starting an Y.1564 testing. In this step the Y.1564 profile is attached to a target interface and destination MAC is configured. MAC of the target interface is used as the source MAC of generated packet. This needs to be enabled on the exec mode.
 
-ethernet service-activation-test start interface tenGigE 0/0/0/2.1003 profile profile_#_1 destination 1.2.3 direction internal
+`ethernet service-activation-test start interface tenGigE 0/0/0/2.1003 profile profile_#_1 destination 1.2.3 direction internal`
 
-ethernet  service-activation-test start interface  tenGigE 0/0/0/2.1002 profile profile_#_1 destination 1.2.3 direction external
+`ethernet  service-activation-test start interface  tenGigE 0/0/0/2.1002 profile profile_#_1 destination 1.2.3 direction external`
 
-The highlighted data needs to be entered accordingly. The direction can be either internal or external. The important point is that, the interface must have the service-activation-test permitted in the particular direction.
+The destination MAC adress specified is used in the generated packets. The direction can be either internal or external. The important point is that, the interface must have the service-activation-test permitted in the particular direction.
 
 Note: Since the mode used is two way mode, the remote end must have the loopback (data plane) enabled before starting a test.  Else, calculated statistic will be inaccurate.  In case, the statistics are not important, and the capacity is used just for traffic generation, then loopback is not necessary on the remote end. 
 
 ## Verifying Y.1564 Test Results
 The results of an ongoing or completed Y.1564 test can be seen using the “show ethernet service-activation-test” cli. The following table summarizes the relevant list of CLIs. The test results are preserved and can be viewed until a new Y.1564 test is started on the same target interface.
+
+### List of CLIs
 
 | CLI                                                             	| DEscription                                                                                                                           	|
 |-----------------------------------------------------------------	|---------------------------------------------------------------------------------------------------------------------------------------	|
@@ -136,7 +138,57 @@ The results of an ongoing or completed Y.1564 test can be seen using the “show
 |     show ethernet   service-activation-test completed           	|     Shows details of   the past Y.1564 test on all target                                                                             	|
 |     show ethernet   service-activation-test interface <xxxx>    	|     Shows details of   current or past Y.1564 test on the target interface specified                                                  	|
   
+### Detailed Output
   
+```
+  RP/0/RP0/CPU0:N540-18#show ethernet service-activation-test interface tenGigE 0/0/0/2.1003
+Fri Dec 18 01:20:28.503 GMT+4
+Interface TenGigE0/0/0/2.1003
+  Service activation tests permitted
+  Test completed:
+    Duration 10 minute(s)
+    Information rate 750 Mbps
+    Color-blind
+    Internal, Two-way, Destination 00:01:00:02:00:03
+    Packet size EMIX, Sequence 'abceg', Pattern hex 0x00
+    Outer CoS 5
+
+  Results:
+    Step 1, Information Rate 750 Mbps
+      CIR packets:
+        Tx packets: 94286350, bytes: 0
+        Rx packets: 94286350, bytes: 38476876568
+
+        FL: 0, FLR: 0%
+        FD: Min 10.680us, Mean 12.773us, Max 18.548us
+        IFDV: Not supported
+        Out of order packets: 0 (0%)
+        Error packets: 0 (0%)
+
+      EIR packets:
+        Tx packets: 0, bytes: 0
+        Rx packets: 0, bytes: 0
+        FL: 0, FLR: 0%
+        FD: Min 0.000us, Mean 0.000us, Max 0.000us
+        IFDV: Min 0.000us, Mean 0.000us, Max 0.000us
+        Out of order packets: 0 (0%)
+        Error packets: 0 (0%)
+  ```
+  
+  The above output can be interpreted as below:
+- Test on interface Interface TenGigE0/0/0/2.1003 is completed.
+- Test duration was 10 minutes.
+- It was a color blind profile in two way mode in internal direction. 
+- Packet size is EMIX with sequence « abceg » is used, i.e equal ratio of packets sized 64,128,256,1024 and 1518 bytes are generated. The pattern is 0x00 i.e. data generated is 0x00
+- Outer COS value is 5 for the generated packets.
+- From the results we can see the repecteive counts of Tx and Rx packets in CIR section only as it is a color blidn profile
+- The FL and FLR are 0.
+- Minimum , maximum and average delay values are also shown.
+- The Jitter (IFDV) is not supoorted as stated earlier.
+- There was no error packets.
+
+## Conclusion: 
+In this article, we have captured the Y.1564 concepts and how to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement. 
 
 
-
+ 
