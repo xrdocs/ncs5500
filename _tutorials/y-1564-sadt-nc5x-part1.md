@@ -70,7 +70,8 @@ Y.1564 defines various parameters that can be measured on the DUT, which in turn
 - Frame Delay (FD)
   - Min
   - Max
-  - Average
+  - Average  
+
 Measurement of Frame Delay Variation (Jitter) is not supported. The above parameters are computed over a test duration which is configurable under the SAT profile  in the range of 1 minutes to 1440 Minutes (24 Hour).
 
 ## Using Y.1564 SAT
@@ -195,4 +196,4 @@ Interface TenGigE0/0/0/2.1003
 - There was no error packets.
 
 ## Conclusion: 
-In this article, we have captured the Y.1564 concepts and how to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement.
+In this article, we have captured the Y.1564 concepts and steps to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement.
