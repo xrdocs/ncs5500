@@ -56,8 +56,9 @@ The source MAC for generated traffic flow is taken from the interface on which Y
 
 The following table shows the packet size for Y.1564 SADT on the NCS platforms.
 
-|a | b | c | d | e | f | g | h | u |
-|64 | 128 | 256 | 512 | 1024 | 1280 | 1518 | MTU | user defined | 
+| a  	| b   	| c   	| d   	| e    	| f    	| g    	| h   	| u            	|
+|----	|-----	|-----	|-----	|------	|------	|------	|-----	|--------------	|
+| 64 	| 128 	| 256 	| 512 	| 1024 	| 1280 	| 1518 	| MTU 	| user defined 	|
 
 ### Measurement Statistics 
 Y.1564 defines various parameters that can be measured on the DUT, which in turn related to the performance indicators of the service like throughput and latency. These parameters help in validating the committed SLA for the provisioned service. Cisco NCS 500 and NCS 5500 routers support the measurement of the following statistical parameters:
@@ -69,6 +70,73 @@ Y.1564 defines various parameters that can be measured on the DUT, which in turn
   - Average
 Measurement of Frame Delay Variation (Jitter) is not supported. The above parameters are computed over a test duration which is configurable under the SAT profile  in the range of 1 minutes to 1440 Minutes (24 Hour).
 
+## Using Y.1564 SAT
+The Y.1564 testing methodology on NCS 500/5500 routers includes the following steps.
+- Enable Service
+- Permit Y.1564 on the interface 
+- Configure and Y.1564 Profile
+- Run an Y.1564 test by attaching the profile to the interface
+- Verifying Y.1564 Results
+
+### Enabling Service
+As mentioned earlier only point-to-point L2VPN services are supported. Following config snippet shows targeted LDP based p2p VPWS configuration between two PEs 
+
+
+### Permit Y.1564 on Target Interface
+
+The service UNI or Attachment circuit needs to be enabled to run Y.1564 tests. Ideally the target interface must be an L2 transport interface (physical port or sub-interface, bundle or non-bundle). The permitted test can be either in internal or external or both depending on the type of test we want to run. Following config snippet is shown from the node T18.
+```
+interface TenGigE0/0/0/2.1001 l2transport
+ encapsulation dot1q 1001
+ ethernet service-activation-test
+  permit [internal | external | all]
+```
+
+Note: The Y.1564 mode by default is two-way measurement mode, so the generated traffic is expected to be looped back from remote end. This can be achieved by using Ethernet Data plane loopback feature on NCS 500 and NCS 5500 boxes. Example config to enable loopback below (from Node T44):
+
+```
+interface TenGigE0/0/0/1.1000 l2transport
+ 	encapsulation dot1q 1000
+ 	ethernet loopback
+  	 permit [internal | external]
+```
+
+### Configuring Y.1564 traffic profile
+
+This section illustrates the different components of a Y.1564 test profile. As explained in earlier section, the Y.1564 SAT profile can be color aware or color blind and various layer 2 fields can be specified. Each profile is represented by a profile name which may contain alphanumeric and special character. The mode of operation is “two-way” by default and need not be configured. Following are some example of Y.1564 profile configuration.
+
+|    <br>SL#    	|    <br>Configuration                                                                                                                                                                                                                                            	|    <br>Remarks                                                                                                              	|
+|---------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
+|    <br>1      	|    <br>ethernet service-activation-test<br>   <br> profile profile_#_1<br>   <br>  outer-cos 5<br>   <br>  duration 10 minutes<br>   <br>  packet-size emix<br>   <br>  information-rate 750 mbps                                                               	|    <br>Color blind   profile with EMIX frame size at 750 Mbps  IR for duration of 10 minutes                                	|
+|    <br>2      	|    <br>ethernet service-activation-test<br>   <br> profile profile_#_2<br>   <br>  outer-cos5<br>   <br>  duration 5 minutes<br>   <br>  packet-size 1024<br>   <br>  information-rate 1   gbps                                                                 	|    <br>Color blind   profile with fixed frame size of 1024 Bytes at 1Gbps IR for duration of 5   minutes                    	|
+|    <br>3      	|    <br>ethernet service-activation-test<br>   <br> profile profile_#3<br>   <br>  outer-cos4<br>   <br>  duration 5 minutes<br>   <br>  color-aware cir 1500   mbps eir-color COS 3<br>   <br>  packet-size 1500<br>   <br>  information-rate 2   gbps          	|    <br>Color aware   profile at CIR 1500 Mbps and EIR 500 Mbps. CIR COS is 4 and EIR COS is 3. DEI   for EIR is not set.    	|
+|    <br>4      	|    <br>ethernet service-activation-test<br>   <br> profile profile_#4<br>   <br>  outer-cos1<br>   <br>  duration 5 minutes<br>   <br>  color-aware cir 700   mbps eir-color set-dei COS 0<br>   <br>  packet-size 512<br>   <br>  information-rate 1   gbps    	|    <br>Color aware   profile at CIR 700 Mbps and EIR 300 Mbps. CIR COS is 1 and EIR COS is 0. DEI   for EIR is set.         	|
+
+
+
+### Running Y.1564 Service Activation Test
+The final step is starting an Y.1564 testing. In this step the Y.1564 profile is attached to a target interface and destination MAC is configured. MAC of the target interface is used as the source MAC of generated packet. This needs to be enabled on the exec mode.
+
+ethernet service-activation-test start interface tenGigE 0/0/0/2.1003 profile profile_#_1 destination 1.2.3 direction internal
+
+ethernet  service-activation-test start interface  tenGigE 0/0/0/2.1002 profile profile_#_1 destination 1.2.3 direction external
+
+The highlighted data needs to be entered accordingly. The direction can be either internal or external. The important point is that, the interface must have the service-activation-test permitted in the particular direction.
+
+Note: Since the mode used is two way mode, the remote end must have the loopback (data plane) enabled before starting a test.  Else, calculated statistic will be inaccurate.  In case, the statistics are not important, and the capacity is used just for traffic generation, then loopback is not necessary on the remote end. 
+
+## Verifying Y.1564 Test Results
+The results of an ongoing or completed Y.1564 test can be seen using the “show ethernet service-activation-test” cli. The following table summarizes the relevant list of CLIs. The test results are preserved and can be viewed until a new Y.1564 test is started on the same target interface.
+
+| CLI                                                             	| DEscription                                                                                                                           	|
+|-----------------------------------------------------------------	|---------------------------------------------------------------------------------------------------------------------------------------	|
+| show ethernet service-activation-test                           	|     Shows details of   current and past Y.1564 tests. Also includes all the interface where test is   permitted but no test is run    	|
+|     show ethernet   service-activation-test brief               	|     Shows list of   interface, permission and status of Y.1564 test on the target interface                                           	|
+|     show ethernet   service-activation-test in-progress         	|     Shows details of   the currently running Y.1564 test on all target                                                                	|
+|     show ethernet   service-activation-test completed           	|     Shows details of   the past Y.1564 test on all target                                                                             	|
+|     show ethernet   service-activation-test interface <xxxx>    	|     Shows details of   current or past Y.1564 test on the target interface specified                                                  	|
+  
+  
 
 
 
