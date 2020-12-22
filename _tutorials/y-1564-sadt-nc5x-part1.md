@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2020-12-21 13:04 +0530'
-title: 'Y.1564 SADT on NCS : Part1'
+title: 'Y.1564 Service Activation Testing on NCS  : Part1'
 author: Paban Sarma
 excerpt: >-
   First Part of the Tutorial series explaining Y.1564 SADT on NCS 5500 and NCS
