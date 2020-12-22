@@ -82,6 +82,10 @@ The Y.1564 testing methodology on NCS 500/5500 routers includes the following st
 ### Enabling Service
 As mentioned earlier only point-to-point L2VPN services are supported. Following config snippet shows targeted LDP based p2p VPWS configuration between two PEs 
 
+|    <br>Service     	|    <br>Config on PE1                                                                                                                                                            	|    <br>Config on PE2                                                                                              	|
+|--------------------	|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-------------------------------------------------------------------------------------------------------------------	|
+| LDP VPWS           	| l2vpn                               <br>xconnect group vpws <br>p2p 1001                            <br>interface TenGigE0/0/0/2.1001  <br>neighbor ipv4 172.16.3.44 pw-id 1001 	| l2vpn<br>xconnect group vpws<br>p2p 1001<br>interface TenGigE0/0/0/1.1001<br>neighbor ipv4 172.16.3.18 pw-id 1001 	|
+
 
 ### Permit Y.1564 on Target Interface
 
@@ -189,7 +193,4 @@ Interface TenGigE0/0/0/2.1003
 - There was no error packets.
 
 ## Conclusion: 
-In this article, we have captured the Y.1564 concepts and how to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement. 
-
-
- 
+In this article, we have captured the Y.1564 concepts and how to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement.
