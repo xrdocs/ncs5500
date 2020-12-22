@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2020-12-21 13:04 +0530'
 title: 'Y.1564 Service Activation Testing on NCS  : Part1'
 author: Paban Sarma
@@ -148,7 +148,7 @@ The results of an ongoing or completed Y.1564 test can be seen using the “show
 ### Detailed Output
   
 ```
-  RP/0/RP0/CPU0:N540-18#show ethernet service-activation-test interface tenGigE 0/0/0/2.1003
+  RP/0/RP0/CPU0:PE1#show ethernet service-activation-test interface tenGigE 0/0/0/2.1003
 Fri Dec 18 01:20:28.503 GMT+4
 Interface TenGigE0/0/0/2.1003
   Service activation tests permitted
