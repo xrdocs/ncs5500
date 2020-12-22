@@ -11,7 +11,7 @@ tags:
 ---
 
 |Paban Sarma, Technical Marketing Engineer (pasarma@cisco.com) |  
-|Chethan K .S, Software Engineer (ches@cisco.com) |
+|Chethan K .S, Software Test Lead (ches@cisco.com) |
 
 ## Overview  
 The ITU-T recommendation Y.1564 defines an out-of-service test methodology to confirm the proper configuration and performance of an Ethernet service prior to customer delivery and covers the case of both a point-to-point and point-to-multipoint topology. This service activation acceptance testing of Ethernet-based services can be implemented as a test function inside of a network element. This particular functionality was introduced on Cisco NCS 500 and NCS 5500 series routers starting release IOS XR 7.1.x. 
@@ -19,6 +19,8 @@ The ITU-T recommendation Y.1564 defines an out-of-service test methodology to co
 The objective of this series of articles is to capture the Y.1564 capabilities of NCS 5500 and NCS 500 series routers. we will dicsuss the implementation and various use cases and their configurations & verifications. This part includes concpets, supported scenarios & configuration examples to demonstrate how operators can run Y.1564 SADT on the box.
 
 ## Y.1564 Concepts:
+![concepts_1564.png]({{site.baseurl}}/images/concepts_1564.png)
+
 ### Traffic Generation and Measurement 
 There are various operations as per Y.1564 viz.
 - Traffic Generation Mode:   
