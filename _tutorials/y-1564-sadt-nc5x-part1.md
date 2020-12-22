@@ -194,6 +194,7 @@ Interface TenGigE0/0/0/2.1003
 - Minimum , maximum and average delay values are also shown.
 - The Jitter (IFDV) is not supoorted as stated earlier.
 - There was no error packets.
+- All statistic related to EIR is shown as 0 because this is a color blind test
 
 ## Conclusion: 
 In this article, we have captured the Y.1564 concepts and steps to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement.
