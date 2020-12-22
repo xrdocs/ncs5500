@@ -1,5 +1,5 @@
 ---
-published: true
+published: false
 date: '2020-12-21 13:04 +0530'
 title: 'Y.1564 Service Activation Testing on NCS  : Part1'
 author: Paban Sarma
@@ -10,8 +10,8 @@ tags:
   - iosxr
 ---
 
-|Paban Sarma, Technical Marketing Engineer|  
-|Chethan K .S, Software Engineer|
+|Paban Sarma, Technical Marketing Engineer (pasarma@cisco.com) |  
+|Chethan K .S, Software Engineer (ches@cisco.com) |
 
 ## Overview  
 The ITU-T recommendation Y.1564 defines an out-of-service test methodology to confirm the proper configuration and performance of an Ethernet service prior to customer delivery and covers the case of both a point-to-point and point-to-multipoint topology. This service activation acceptance testing of Ethernet-based services can be implemented as a test function inside of a network element. This particular functionality was introduced on Cisco NCS 500 and NCS 5500 series routers starting release IOS XR 7.1.x. 
