@@ -16,7 +16,7 @@ tags:
 ## Overview  
 The ITU-T recommendation Y.1564 defines an out-of-service test methodology to confirm the proper configuration and performance of an Ethernet service prior to customer delivery and covers the case of both a point-to-point and point-to-multipoint topology. This service activation acceptance testing of Ethernet-based services can be implemented as a test function inside of a network element. This particular functionality was introduced on Cisco NCS 500 and NCS 5500 series routers starting release IOS XR 7.1.x. 
 
-The objective of this series of articles is to capture the Y.1564 capabilities of NCS 5500 and NCS 500 series routers. we will dicsuss the implementation and various use cases and their configurations & verifications. This part includes concpets, supported scenarios & configuration examples to demonstrate how operators can run Y.1564 SADT on the box.
+The objective of this series of articles is to capture the Y.1564 capabilities of NCS 5500 and NCS 500 series routers. We will discuss the implementation and various use-cases and their configurations & verifications. This part includes concepts, supported scenarios & configuration examples to demonstrate how operators can run Y.1564 SADT on the box.
 
 ## Y.1564 Concepts:
 ![concepts_1564.png]({{site.baseurl}}/images/concepts_1564.png)
@@ -28,7 +28,7 @@ There are various operations as per Y.1564 viz.
 - Passive Measurement Mode:   
 _Here the DUT measures the traffic received on the service interface in order to verify the proper service configuration. This mode is not available in NCS 500 and NCS 5500 products._
 - Two way statistics collection Mode:   
-_In this mode, traffic generation and  all measurements are done locally on the DUT. Traffic is looped back on the far end after MAC swap. Based on the return traffic this mode calculates various statistic like throughput, loss etc. For this mode, the remote end needs to be properly configured to loopback the traffic sent towards it. The Y.1564 implementation on NCS 500 and NCS 5500 routers implements the two-way mode._   
+_In this mode, traffic generation and  all measurements are done locally on the DUT. Traffic is looped back on the far end after MAC swap. Based on the return traffic this mode calculates various statistics like throughput, loss etc. For this mode, the remote end needs to be properly configured to loopback the traffic sent towards it. The Y.1564 implementation on NCS 500 and NCS 5500 routers implements the two-way mode._   
 
 The direction of Traffic Generation can be internal or external. In internal mode the traffic is generated at the UNI and forwarded towards the network (via the service). In external mode traffic is sent out of the interface.
 
@@ -111,7 +111,7 @@ interface TenGigE0/0/0/1.1000 l2transport
 
 ### Configuring Y.1564 traffic profile
 
-This section illustrates the different components of a Y.1564 test profile. As explained in earlier section, the Y.1564 SAT profile can be color aware or color blind and various layer 2 fields can be specified. Each profile is represented by a profile name which may contain alphanumeric and special character. The mode of operation is “two-way” by default and need not be configured. Following are some example of Y.1564 profile configuration.
+This section illustrates the different components of a Y.1564 test profile. As explained in earlier section, the Y.1564 SAT profile can be color aware or color blind and various layer 2 fields can be specified. Each profile is represented by a profile name which may contain alphanumeric and special character. The mode of operation is “two-way” by default and doesn't need configuration. Following are some examples of Y.1564 profile configuration.
 
 |    <br>SL#    	|    <br>Configuration                                                                                                                                                                                                                                            	|    <br>Remarks                                                                                                              	|
 |---------------	|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|-----------------------------------------------------------------------------------------------------------------------------	|
@@ -131,7 +131,7 @@ The final step is starting an Y.1564 testing. In this step the Y.1564 profile is
 
 The destination MAC adress specified is used in the generated packets. The direction can be either internal or external. The important point is that, the interface must have the service-activation-test permitted in the particular direction.
 
-Note: Since the mode used is two way mode, the remote end must have the loopback (data plane) enabled before starting a test.  Else, calculated statistic will be inaccurate.  In case, the statistics are not important, and the capacity is used just for traffic generation, then loopback is not necessary on the remote end. 
+Note: Since the mode used is two way mode, the remote end must have the loopback (data plane) enabled before starting a test.  Else, calculated statistics will be inaccurate.  In case, the statistics are not important, and the capacity is used just for traffic generation, then loopback is not necessary on the remote end. 
 
 ## Verifying Y.1564 Test Results
 The results of an ongoing or completed Y.1564 test can be seen using the “show ethernet service-activation-test” cli. The following table summarizes the relevant list of CLIs. The test results are preserved and can be viewed until a new Y.1564 test is started on the same target interface.
@@ -191,10 +191,10 @@ Interface TenGigE0/0/0/2.1003
 - Outer COS value is 5 for the generated packets.
 - From the results we can see the repecteive counts of Tx and Rx packets in CIR section only as it is a color blidn profile
 - The FL and FLR are 0.
-- Minimum , maximum and average delay values are also shown.
-- The Jitter (IFDV) is not supoorted as stated earlier.
+- Minimum, maximum and average delay values are also shown.
+- The Jitter (IFDV) is not supported as stated earlier.
 - There was no error packets.
-- All statistic related to EIR is shown as 0 because this is a color blind test
+- All statistics related to EIR are shown as 0 because this is a color blind test
 
 ## Conclusion: 
 In this article, we have captured the Y.1564 concepts and steps to implement a Y.1564 service activation test on NCS 500 and 5500 routers. In next articles we will focus on utilizing the Y.1564 functionalities like color aware generation to validate different service requirement.
