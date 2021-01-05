@@ -92,7 +92,7 @@ As mentioned earlier only point-to-point L2VPN services are supported. Following
 
 ### Permit Y.1564 on Target Interface
 
-The service UNI or Attachment circuit needs to be enabled to run Y.1564 tests. Ideally the target interface must be an L2 transport interface (physical port or sub-interface, bundle or non-bundle). The permitted test can be either in internal or external or both depending on the type of test we want to run. Following config snippet is shown from the node T18.
+The service UNI or Attachment circuit needs to be enabled to run Y.1564 tests. Ideally the target interface must be an L2 transport interface (physical port or sub-interface, bundle or non-bundle). The permitted test can be either in internal or external or both depending on the type of test we want to run. Following config snippet is shown from the node PE1.(refer to logical topology in the concept section).
 ```
 interface TenGigE0/0/0/2.1001 l2transport
  encapsulation dot1q 1001
@@ -100,7 +100,7 @@ interface TenGigE0/0/0/2.1001 l2transport
   permit [internal | external | all]
 ```
 
-Note: The Y.1564 mode by default is two-way measurement mode, so the generated traffic is expected to be looped back from remote end. This can be achieved by using Ethernet Data plane loopback feature on NCS 500 and NCS 5500 boxes. Example config to enable loopback below (from Node T44):
+Note: The Y.1564 mode by default is two-way measurement mode, so the generated traffic is expected to be looped back from remote end. This can be achieved by using Ethernet Data plane loopback feature on NCS 500 and NCS 5500 boxes. Example config to enable loopback below (from Node PE2):
 
 ```
 interface TenGigE0/0/0/1.1000 l2transport
