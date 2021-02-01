@@ -49,6 +49,10 @@ The above figure represents the architecture of the domain based LPTS. For under
 ## Sample Use Case
  
 ## Memory Impact
+
+There would be a slight increase in memory for pifibm_server_rp/lc process due to this functionality. Some heap memory would be utilized in keeping the domain states and for caching the entries within the process which would be dynamically updated into platform as and when needed 
+For normal programming of entries some extra checks on the entries would be added if this functionality is enabled to ensure domain information population.Overall in normal flow there would be very less impact while programming TCAM entries. With any configuration change there would be control plane churn as TCAM reprogramming is triggered. The TCAM entries in hardware would depend on the configuration used for ports and the scale of L3-routable entries (as L3 entries gets duplicated if additional domain is configured). 
+
  
 ## Scale
  
