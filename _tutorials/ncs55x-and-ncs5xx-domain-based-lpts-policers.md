@@ -47,6 +47,12 @@ The above figure represents the architecture of the domain based LPTS. For under
 
 
 ## Sample Use Case
+
+![Screenshot 2021-02-01 at 8.21.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-01 at 8.21.20 PM.png)
+
+For example take the above network. It has been logically partioned into 2 domains i.e. core and peering. The core domain needs the traffic to be policed at a lower rate than the peering domain. To achieve this, concept of domain space partition in LPTS for the ports is very useful. It helps to utilize the port orientation in the network and will enable separate controllable policer profile per domain. 
+
+
  
 ## Memory Impact
 
