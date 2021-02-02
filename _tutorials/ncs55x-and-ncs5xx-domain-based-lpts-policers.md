@@ -70,6 +70,42 @@ Below are some of the hardware entries programmed under default core.
 
 ![Screenshot 2021-02-02 at 11.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-02 at 11.57.02 PM.png)
 
+Now let us configure one interface under the domain core and see how it impacts the values and programming
+
+```
+lpts pifib hardware domain core
+ interface TenGigE0/0/0/0
+!
+lpts pifib hardware police
+ domain core
+  flow bgp known rate 2000
+ !
+!
+```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:R1#show lpts pifib hardware police location all | in BGP           
+Tue Feb  2 18:44:46.931 UTC
+BGP-known              32116   Static  2500      2975      0         0-default</mark>
+BGP-cfg-peer           32117   Static  2000      2000      0         0-default
+BGP-default            32118   Static  100       8         0         0-default
+<mark>BGP-known              32216   Global  2000      2398      0         1-core</mark>
+RP/0/RP0/CPU0:R1#
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-02-03 at 12.19.25 AM.png]({{site.baseurl}}/images/Screenshot 2021-02-03 at 12.19.25 AM.png)
+
+We can see 2 different entries are created. One in default domain and other in the core domain.
+
+## Feature Support
+
+- Domain configuration is supported only on physical and bundle main interfaces.
+- The configuration will be rejected if we apply on sub-interfaces.
+- Only 2 domains are allowed. One is default and other is user configured.
+- It is supported on NCS540/NCS560 and NCS5500(J/J+/J2)
 
 ## Memory Impact
 
