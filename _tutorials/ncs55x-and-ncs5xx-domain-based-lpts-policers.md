@@ -52,7 +52,19 @@ The above figure represents the architecture of the domain based LPTS. For under
 
 For example take the above network. It has been logically partioned into 2 domains i.e. core and peering. The core domain needs the traffic to be policed at a lower rate than the peering domain. To achieve this, concept of domain space partition in LPTS for the ports is very useful. It helps to utilize the port orientation in the network and will enable separate controllable policer profile per domain. 
 
+Below output shows the default policer value under default domain for BGP-known
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:R1#show lpts pifib hardware police location all | in BGP 
+Tue Feb  2 18:13:04.100 UTC
+BGP-known              32116   Static  2500      2975      0         0-default</mark>
+BGP-cfg-peer           32117   Static  2000      2000      0         0-default
+BGP-default            32118   Static  100       8         0         0-default
+</code>
+</pre>
+</div>
  
 ## Memory Impact
 
