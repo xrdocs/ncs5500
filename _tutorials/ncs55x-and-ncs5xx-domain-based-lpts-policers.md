@@ -66,6 +66,7 @@ BGP-default            32118   Static  100       8         0         0-default
 </pre>
 </div>
  
+
 ## Memory Impact
 
 There would be a slight increase in memory for pifibm_server_rp/lc process due to this functionality. Some heap memory would be utilized in keeping the domain states and for caching the entries within the process which would be dynamically updated into platform as and when needed 
