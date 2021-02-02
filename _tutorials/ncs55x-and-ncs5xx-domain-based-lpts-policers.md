@@ -28,22 +28,22 @@ The usual LPTS implementation treats the traffic in a single domain and packet r
 
 ![Screenshot 2021-02-01 at 5.28.04 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-01 at 5.28.04 PM.png)
 
-Let us take an example of NCS 5501. It has 48 1G/10G ports and 6 40G/100G ports. The first set of ports are located in core 0 and second set in core 1. The advantage of using per domain LPTS definition are:    
-
+Let us take an example of NCS 5501. It has 48 1G/10G ports and 6 40G/100G ports. The first set of ports are located in core 0 and second set in core 1. The advantage of using per domain LPTS are:    
   - We can use existing concept of known/default policers
   - Per port resources are available on NCS55xx and NCS5xx 
   - It strengthens the existing security plus gives added granularity
   - Domain creates individual isolation of ports (e.g VRF)
   - This can scale even with just having internal TCAM
  
-Note: By default all the ports will be classified in default domain. 
+Note: By default all the ports will be classified in default domain if no user defined domain is configured. 
 {: .notice--info}
+
 
 ## Domain Based LPTS Architecture
  
 ![Screenshot 2021-02-01 at 7.49.31 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-01 at 7.49.31 PM.png)
  
-The above figure represents the architecture of the domain based LPTS. For understanding of the terminology like port arbitrator, Pre-iFIB, iFIB etc and the basic flow of LPTS, it is highly recommended to read this [article](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/ "article"). As per the flow described in that artcile, first the entries are downloaded in LPTS Pre-IFIB. LPTS HW Pre-iFIB creates/updates/delete with domain index in the key of Pre-iFIB entry. LPTS domain and its associated interfaces are added/deleted to update port variable of interfaces. LPTS HW Policer is updated or programmed for a specific flow type under a specific LPTS domain index. LPTS Pre-iFIB PD does hardware programming of Domain based policers and HW Pre-iFIB entries to database table. LPTS Pre-iFIB then programs PMF, policer and port variable. Management client access the Pre-iFIB HW entry or policer data via the SysDB.
+The above figure represents the architecture of the domain based LPTS. For understanding of the terminology like port arbitrator, Pre-iFIB, iFIB etc and the basic flow of LPTS, it is highly recommended to read this [Article](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/ "article"). As per the flow described in that artcile, first the entries are downloaded in LPTS Pre-IFIB. LPTS HW Pre-iFIB creates/updates/delete with domain index in the key of Pre-iFIB entry. LPTS domain and its associated interfaces are added/deleted to update port variable of interfaces. LPTS HW Policer is updated or programmed for a specific flow type under a specific LPTS domain index. LPTS Pre-iFIB PD does hardware programming of Domain based policers and HW Pre-iFIB entries to database table. LPTS Pre-iFIB then programs PMF, policer and port variable. Management client access the Pre-iFIB HW entry or policer data via the SysDB.
 
 
 ## Sample Use Case
@@ -63,8 +63,3 @@ For normal programming of entries some extra checks on the entries would be adde
 ## Scale
  
  The total number of domains supported would be as per platform capability.
- 
-
- 
-  
-
