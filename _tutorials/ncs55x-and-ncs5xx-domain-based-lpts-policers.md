@@ -65,7 +65,11 @@ BGP-default            32118   Static  100       8         0         0-default
 </code>
 </pre>
 </div>
- 
+
+Below are some of the hardware entries programmed under default core.
+
+![Screenshot 2021-02-02 at 11.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-02 at 11.57.02 PM.png)
+
 
 ## Memory Impact
 
