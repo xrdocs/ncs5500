@@ -10,7 +10,7 @@ tags:
   - LPTS
   - Control Plane Protection
   - LPTS Domain Based Filtering
-position: hidden
+position: top
 ---
 {% include toc %}
 
@@ -132,4 +132,3 @@ Hope this technote helped to understand the NCS55xx and NCS5xx capability to con
 ## Reference
 
 - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_201aa6d6-27c3-4c40-b53e-35dd7d4c0912)
-
