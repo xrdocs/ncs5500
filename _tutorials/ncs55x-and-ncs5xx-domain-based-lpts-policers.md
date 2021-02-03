@@ -50,7 +50,7 @@ The above figure represents the architecture of the domain based LPTS. For under
 
 ![Screenshot 2021-02-01 at 8.21.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-01 at 8.21.20 PM.png)
 
-For example take the above network. It has been logically partioned into 2 domains i.e. core and peering. The core domain needs the traffic to be policed at a lower rate than the peering domain. To achieve this, concept of domain space partition in LPTS for the ports is very useful. It helps to utilize the port orientation in the network and will enable separate controllable policer profile per domain. 
+For example take the above network. Customer has logically partioned the network into 2 domains i.e. core and peering. NCS5500 has its interfaces in both the domain's.  The core domain needs the BGP-known control packets to be policed at a different rate than the peering domain. To achieve this, concept of domain space partition in LPTS for the ports is very useful. It helps to utilize the port orientation in the network and will enable separate controllable policer profile per domain. 
 
 Below output shows the default policer value under default domain for BGP-known
 
@@ -66,22 +66,28 @@ BGP-default            32118   Static  100       8         0         0-default
 </pre>
 </div>
 
-Below are some of the hardware entries programmed under default core.
+Below are some of the hardware entries programmed under default domain.
 
 ![Screenshot 2021-02-02 at 11.57.02 PM.png]({{site.baseurl}}/images/Screenshot 2021-02-02 at 11.57.02 PM.png)
 
-Now let us configure one interface under the domain core and see how it impacts the values and programming
+Now let us configure one interface under the domain core and we will leave the peering domain as default domain and see how it impacts the values and programming
 
-```
-lpts pifib hardware domain core
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>lpts pifib hardware domain core
  interface TenGigE0/0/0/0
 !
 lpts pifib hardware police
  domain core
-  flow bgp known rate 2000
+  flow bgp known rate 2000</mark>
  !
 !
-```
+</code>
+</pre>
+</div>
+
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -100,19 +106,23 @@ RP/0/RP0/CPU0:R1#
 
 We can see 2 different entries are created. One in default domain and other in the core domain.
 
+Note: By default all the ports will be classified in default domain if no user defined domain is configured. 
+{: .notice--info}
+we found that its marginal increase. Hence we are allowing to create only one user configured domain.
+
 ## Feature Support
 
 - Domain configuration is supported only on physical and bundle main interfaces.
 - The configuration will be rejected if we apply on sub-interfaces.
 - Only 2 domains are allowed. One is default and other is user configured.
-- It is supported on NCS540/NCS560 and NCS5500(J/J+/J2)
+- It is supported on NCS540/NCS560 and NCS5500(J/J+/J2).
+- Interface configured in user defined domain will be adhering to the domain specific configuration.
 
 ## Memory Impact
 
 There would be a slight increase in memory for pifibm_server_rp/lc process due to this functionality. Some heap memory would be utilized in keeping the domain states and for caching the entries within the process which would be dynamically updated into platform as and when needed 
-For normal programming of entries some extra checks on the entries would be added if this functionality is enabled to ensure domain information population.Overall in normal flow there would be very less impact while programming TCAM entries. With any configuration change there would be control plane churn as TCAM reprogramming is triggered. The TCAM entries in hardware would depend on the configuration used for ports and the scale of L3-routable entries (as L3 entries gets duplicated if additional domain is configured). 
+For normal programming of entries some extra checks on the entries would be added if this functionality is enabled to ensure domain information population. Overall in normal flow there would be very less impact while programming TCAM entries. With any configuration change there would be control plane churn as TCAM reprogramming is triggered. The TCAM entries in hardware would depend on the configuration used for ports and the scale of L3-routable entries (as L3 entries gets duplicated if additional domain is configured). 
 
+## Conclusion
  
-## Scale
- 
- The total number of domains supported would be as per platform capability.
+## Reference
