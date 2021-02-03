@@ -114,9 +114,11 @@ Note: The duplicate entries created cause just a marginal increase in the memory
 
 - Domain configuration is supported only on physical and bundle main interfaces.
 - The configuration will be rejected if we apply on sub-interfaces.
-- Only 2 domains are allowed. One is default and other is user configured.
+- Domain name can be any word but can have up to a maximum of 32 characters
+- Only 1 user configured domain is allowed along with default domain.
+- The policer rates that are configured for ports or line cards will have policer rates of the domain after configuring the ports or line cards as part of a domain. For example, if port hundredGigE 0/0/0/1 and port hundredGigE 0/0/0/2 have policer rate of 3000 for ospf unicast known flow and if the ports are configured as part of domain CORE, then the policer rate of domain CORE for ospf unicast known flow is 3000 unless it is configured otherwise
+- User can configure a particular port, a group of ports, or a line card of a router with LPTS policers of a single domain.
 - It is supported on NCS540/NCS560 and NCS5500(J/J+/J2).
-- Interface configured in user defined domain will be adhering to the domain specific configuration.
 
 ## Memory Impact
 
@@ -124,5 +126,10 @@ There would be a slight increase in memory for pifibm_server_rp/lc process due t
 For normal programming of entries some extra checks on the entries would be added if this functionality is enabled to ensure domain information population. Overall in normal flow there would be very less impact while programming TCAM entries. With any configuration change there would be control plane churn as TCAM reprogramming is triggered. The TCAM entries in hardware would depend on the configuration used for ports and the scale of L3-routable entries (as L3 entries gets duplicated if additional domain is configured). 
 
 ## Conclusion
+
+
  
 ## Reference
+
+- [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/62x/b-ip-addresses-configuration-guide-ncs5500-62x/b-ipaddr-cg-ncs5500-62x_chapter_0111.html#Cisco_Concept.dita_201aa6d6-27c3-4c40-b53e-35dd7d4c0912)
+
