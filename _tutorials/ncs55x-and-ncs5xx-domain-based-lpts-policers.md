@@ -106,7 +106,7 @@ RP/0/RP0/CPU0:R1#
 
 We can see 2 different entries are created. One in default domain and other in the core domain.
 
-Note: The duplicate entries created cause just a marginal increase in the memory consumption. Hence to optimise the memeory resource, we are allowing to create only one user configured domain.
+Note: The duplicate entries created cause just a marginal increase in the memory consumption. Hence to optimise the memory resources, we are allowing to create only one user configured domain.
 {: .notice--info}
 
 
