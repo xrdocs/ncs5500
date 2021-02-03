@@ -106,9 +106,9 @@ RP/0/RP0/CPU0:R1#
 
 We can see 2 different entries are created. One in default domain and other in the core domain.
 
-Note: By default all the ports will be classified in default domain if no user defined domain is configured. 
+Note: The duplicate entries created cause just a marginal increase in the memory consumption. Hence to optimise the memeory resource, we are allowing to create only one user configured domain.
 {: .notice--info}
-we found that its marginal increase. Hence we are allowing to create only one user configured domain.
+
 
 ## Feature Support
 
