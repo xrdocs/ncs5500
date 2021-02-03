@@ -8,6 +8,9 @@ excerpt: >-
   500 routers 
 tags:
   - iosxr
+  - cisco
+  - NCS 5500
+  - NCS 500
 ---
 
 |Paban Sarma, Technical Marketing Engineer (pasarma@cisco.com) |  
