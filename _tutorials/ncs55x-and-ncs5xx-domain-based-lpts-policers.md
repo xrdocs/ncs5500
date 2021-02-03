@@ -10,7 +10,7 @@ tags:
   - LPTS
   - Control Plane Protection
   - LPTS Domain Based Filtering
-position: top
+position: hidden
 ---
 {% include toc %}
 
