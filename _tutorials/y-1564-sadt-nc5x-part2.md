@@ -21,14 +21,18 @@ In [Previous Article](https://xrdocs.io/ncs5500/tutorials/y-1564-sadt-nc5x-part1
 ## Y.1564 Color Profile
 An ethernet service activation test can be either color aware or color blind. By default, a test is color blind and only a single flow is generated at a rate configured in the information rate. The color aware mode is distinguished by use of a different COS marking. This different COS identifies the Excess Information Rate (EIR) flow. The committed flow uses the COS value provided in the “outer-COS” and “inner-COS” configuration. In a color aware flow, the EIR flow that is generated might have the discard eligibility indicator (DEI) set (dei =1). By default, it is not set (dei=0). The Committed information rate (CIR) needs to be configured for color-aware mode and EIR is obtained from the difference of information rate (IR) and committed information rate (CIR).
 
-```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 ethernet service-activation-test
  profile profile_#_1
   outer-cos 1
-  color-aware cir 700 mbps eir-color cos 0
+  <mark> color-aware <span style="color:blue"> cir 700 mbps</span> <span style="color:pink">  eir-color cos 0</span></mark>
   information-rate 1 gbps
   packet-size 512
-```
+</code>
+</pre>
+</div> 
 
 The line `color-aware cir 700 mbps eir-color cos 0`  in the SADT profile denotes that this is a color aware profile. The committed information rate (CIR) is specified in the same configuration line. The excess information rate (EIR) is obtained from the difference of information rate (IR) and the CIR . When traffic is generated, traffic within CIR is marked with the outer-cos value in profile, traffic exceeding CIR profile is marked with the eir-color cos. 
 
