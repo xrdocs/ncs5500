@@ -134,7 +134,7 @@ The final step is starting an Y.1564 testing. In this step the Y.1564 profile is
 
 The destination MAC adress specified is used in the generated packets. The direction can be either internal or external. The important point is that, the interface must have the service-activation-test permitted in the particular direction.
 
-Note: Since the mode used is two way mode, the remote end must have the loopback (data plane) enabled before starting a test.  Else, calculated statistics will be inaccurate.  In case, the statistics are not important, and the capacity is used just for traffic generation, then loopback is not necessary on the remote end. 
+Note: `Since the mode used is two way mode, the remote end must have the loopback enabled (MAC SWAP) before starting a test.  Else, calculated statistics will be inaccurate.`
 
 ## Verifying Y.1564 Test Results
 The results of an ongoing or completed Y.1564 test can be seen using the “show ethernet service-activation-test” cli. The following table summarizes the relevant list of CLIs. The test results are preserved and can be viewed until a new Y.1564 test is started on the same target interface.
