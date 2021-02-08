@@ -114,6 +114,9 @@ Once the circuit and QoS all are in place, the service can be validated using a 
 
 #### config on PE1
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 interface TenGigE0/0/0/0.1001 l2transport
  encapsulation dot1q 1001
  mtu 9000
@@ -128,9 +131,15 @@ xconnect group vpws
   p2p ll_pw
    interface TenGigE0/0/0/0.1001
    neighbor ipv4 2.2.2.2 pw-id 1001
-   
+</code>
+</pre>
+</div> 
+
 #### config on PE2
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 interface TenGigE0/0/0/2.1001 l2transport
  encapsulation dot1q 1001
  mtu 9000
@@ -145,10 +154,15 @@ xconnect group vpws
     p2p ll_pw
    interface TenGigE0/0/0/2.1001
    neighbor ipv4 1.1.1.1 pw-id 1001
-
+</code>
+</pre>
+</div> 
 
 #### Common QoS Config
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 policy-map conform-parent
  class class-default
   service-policy conform-child
@@ -178,10 +192,15 @@ policy-map conform-child
   !
  !
  end-policy-map
-
+</code>
+</pre>
+</div> 
 
 #### SADT Profile configuration:
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 ethernet service-activation-test
  profile color-aware
   outer-cos 4
@@ -198,6 +217,9 @@ ethernet service-activation-test
   duration 15 minutes
   packet-size 1500
   information-rate 2 gbps
+</code>
+</pre>
+</div> 
 
 The color aware profile used to validate the BWP is generating IR at 2 Gbps (1Gbps CIR & 2-1=1Gbps EIR). The expectation is we would see 70% loss for CIR and 80% loss for the EIR streams. To validate individual class can peak upto 500 Mbps, color blind profile is used at 2 Gbps and expected FLR is 75%.
 
@@ -211,9 +233,9 @@ Now, we start the service activation test on the UNI interface. The loopback is 
 
 
 
-```
-
-
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:PE1# RP/0/RP0/CPU0:T-2006#show ethernet service-activation-test  interface TenGigE0/0/0/0.1001
 
 Mon Feb  1 10:50:24.335 UTC
@@ -222,26 +244,26 @@ Interface TenGigE0/0/0/0.1001
   Test completed:
     Duration 15 minute(s)
     Information rate 2 Gbps
-    Color-aware, CIR: 1 Gbps, EIR: CoS 3
+    <mark>Color-aware, CIR: 1 Gbps, EIR: CoS 3</mark>
     Internal, Two-way, Destination 00:01:00:02:00:03
     Packet size 1500, Pattern hex 0x00
-    Outer CoS 4
+    <mark>Outer CoS 4</mark>
 
   Results:
     Step 1, Information Rate 2 Gbps
-      CIR packets:
+      <mark>CIR packets:</mark>
         Tx packets: 74923274, bytes: 112384911000
         Rx packets: 22180963, bytes: 33271444500
-        FL: 52742311, FLR: 70%
+        FL: 52742311, <mark>FLR: 70%</mark>
         FD: Min 11.736us, Mean 14.605us, Max 17.532us
         IFDV: Not supported
         Out of order packets: 11220557 (15%)
         Error packets: 0 (0%)
 
-      EIR packets:
+      <mark>EIR packets:</mark>
         Tx packets: 74923274, bytes: 112384911000
         Rx packets: 14696226, bytes: 22044339000
-        FL: 60227048, FLR: 80%
+        FL: 60227048, <mark>FLR: 80%</mark>
         FD: Min 12.224us, Mean 14.625us, Max 17.480us
         IFDV: Not supported
         Out of order packets: 10596475 (14%)
@@ -255,7 +277,7 @@ TenGigE0/0/0/0.1001 input: conform-parent
 Class class-default
   Classification statistics          (packets/bytes)     (rate - kbps)
     Matched             :           191993780/288374657560         1999997
-    Transmitted         :            47299928/71044491856          492736
+    <mark>Transmitted         :            47299928/71044491856          492736</mark>
     Total Dropped       :           144693852/217330165704         1507261
   Policing statistics                (packets/bytes)     (rate - kbps) 
     Policed(conform)    :            47299928/71044491856          492763
@@ -269,7 +291,7 @@ Class class-default
       Transmitted         :             6230480/9358180960           295643
       Total Dropped       :            14841744/22292299488          704308
     Policing statistics                (packets/bytes)     (rate - kbps) 
-      Policed(conform)    :             6230480/9358180960           295643
+      <mark>Policed(conform)    :             6230480/9358180960           295643</mark>
       Policed(exceed)     :                   0/0                    0
       Policed(violate)    :            14841744/22292299488          704308
       Policed and dropped :            14841744/22292299488        
@@ -278,7 +300,7 @@ Class class-default
   Policy conform-child Class yellow
     Classification statistics          (packets/bytes)     (rate - kbps)
       Matched             :            95996887/144187324274         1000046
-      Transmitted         :            41069448/61686310896          197093
+      <mark>Transmitted         :            41069448/61686310896          197093</mark>
       Total Dropped       :            54927439/82501013378          802953
     Policing statistics                (packets/bytes)     (rate - kbps) 
       Policed(conform)    :            41069448/61686310896          197093
@@ -287,14 +309,18 @@ Class class-default
       Policed and dropped :            54927439/82501013378        
       Policed and dropped(parent policer)  : 0/0
 
-```
+</code>
+</pre>
+</div>
 
 As we see from above results Committed rate for both service is met. The FLR of ~70% and 80% for the CIR and EIR flows mean a throughput of 300 Mbps and 200 Mbps for the CoS 4 and CoS 3 respectively.   
 The below output for the color blind profile can validate that individually, the CoS 4  class can reach a peak-rate of 500 Mbps. The test is run on ideal scenario and the FLR of 75% on 2 Gbps IR indicates that a throughput of 500 Mbps is achieved.
 
 In Both of the test result there is out of order packets which is expected as OOO is flagged if a recieved packet sequence is different from the expected sequence and it is bound to happen when some of the generated packets are loss due to QoS enforecment. 
 
-```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:T-2006#show  ethernet service-activation-test interface TenGigE0/0/0/0.1001
 Mon Feb  1 16:43:44.589 UTC
 Interface TenGigE0/0/0/0.1001
@@ -302,17 +328,17 @@ Interface TenGigE0/0/0/0.1001
   Test completed:
     Duration 15 minute(s)
     Information rate 2 Gbps
-    Color-blind
+    <mark>Color-blind</mark>
     Internal, Two-way, Destination 00:01:00:02:00:03
     Packet size 1500, Pattern hex 0x00
-    Outer CoS 4
+    <mark>Outer CoS 4</mark>
 
   Results:
     Step 1, Information Rate 2 Gbps
-      CIR packets:
+      <mark>CIR packets:</mark>
         Tx packets: 149851022, bytes: 224776533000
         Rx packets: 36768654, bytes: 55152981000
-        FL: 113082368, FLR: 75%
+        FL: 113082368, <mark>FLR: 75%</mark>
         FD: Min 12.188us, Mean 14.825us, Max 20.252us
         IFDV: Not supported
         Out of order packets: 11284818 (8%)
@@ -335,7 +361,7 @@ TenGigE0/0/0/0.1001 input: conform-parent
 Class class-default
   Classification statistics          (packets/bytes)     (rate - kbps)
     Matched             :            45190770/67876536540          2000402
-    Transmitted         :            11133061/16721857622          492788
+    <mark>Transmitted         :            11133061/16721857622          492788</mark>
     Total Dropped       :            34057709/51154678918          1507614
   Policing statistics                (packets/bytes)     (rate - kbps) 
     Policed(conform)    :            11133061/16721857622          492788
@@ -346,7 +372,7 @@ Class class-default
   Policy conform-child Class green
     Classification statistics          (packets/bytes)     (rate - kbps)
       Matched             :            45190770/67876536540          2000402
-      Transmitted         :            11133061/16721857622          492788
+      <mark>Transmitted         :            11133061/16721857622          492788</mark>
       Total Dropped       :            34057709/51154678918          1507614
     Policing statistics                (packets/bytes)     (rate - kbps)
       Policed(conform)    :            11133061/16721857622          492788
@@ -379,13 +405,9 @@ Class class-default
       Policed and dropped :                   0/0
       Policed and dropped(parent policer)  : 0/0
 Policy Bag Stats time: 1612198187756  [Local Time: 02/01/21 16:49:47.756]
-```
+</code>
+</pre>
+</div>
 
 ## Conclusion
-We covered Y.1564 color aware test profile and various aspects of the configuration. We have also illustrated one use case scenario, where color aware SADT comes handy in verifying a L2 service with multi-CoS/color aware bandwidth profile. 
-
-
-
-
-
-
+We covered Y.1564 color aware test profile and various aspects of the configuration. We have also illustrated one use case scenario, where color aware SADT comes handy in verifying a L2 service with multi-CoS/color aware bandwidth profile.
