@@ -13,7 +13,7 @@ position: hidden
 <style>
  .test1 table {
   border-collapse: collapse;
-  width: fixed
+  table-layout: fixed
  }
  .test1 table td, .test1 table th {
   border: 1px solid #999;
