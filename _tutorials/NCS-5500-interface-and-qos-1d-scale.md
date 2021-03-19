@@ -23,12 +23,12 @@ position: hidden
 
 <div class="test1">
 <table>
-      <tr>
+      <tr style="height:0;">
         <td style="width:10%;"/>
         <td style="width:15%;"/>
         <td style="width:10%;"/>
-        <td style="width:10%;"/>
         <td style="width:15%;"/>
+        <td style="width:10%;"/>
         <td style="width:10%;"/>
       </tr>
   <tr>
