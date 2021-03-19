@@ -14,7 +14,7 @@ position: hidden
  .test1 {
   border-collapse: collapse;
   table-layout: fixed;
-  width: 70%;
+  width: 100%;
   text-align: right;
 }
 .test1 tr:nth-child(1) {background: green;}
@@ -25,12 +25,12 @@ position: hidden
 <div class="test1">
 <table>
     <colgroup>
-        <col width="1%" />
-        <col width="2%" />
-        <col width="3%" />
-        <col width="4%" />
+        <col width="10%" />
+        <col width="20%" />
+        <col width="30%" />
         <col width="5%" />
-        <col width="6%" />
+        <col width="15%" />
+        <col width="20%" />
     </colgroup>
   <tr>
     <td colspan="6">Title</td>
