@@ -10,7 +10,7 @@ position: hidden
 
 ## A New Post
 
-| <div style="width:100px">description</div>       | QSFP28-DD    | QSFP56          | QSFP28         | QSFP+          |
+| QSFP-DD         | QSFP28-DD    | QSFP56          | QSFP28         | QSFP+          |
 |:---------------:|:------------:|:---------------:|:--------------:|:--------------:|
 | 400G            | 200G         | 200G            | 100G           | 40G            |
 |-----------------+--------------+-----------------+----------------|:---------------|
@@ -625,14 +625,73 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
    </tr>
     <tr>
         <td colspan="2" bgcolor=red>Combine columns 1 and 2</td>
-        <td>Line 2, column 3</td    
+      <td>Line 2, column 3</td>    
     </tr>
     <tr>
         <td colspan="2" bgcolor=blue>Combine columns 1 and 2</td>
-        <td>Row 3, column 3</td    
+      <td>Row 3, column 3</td>
     </tr>
 </table>
 
+ ## html with css
           
-          
-          
+ <style>
+    .users {
+      table-layout: fixed;
+      width: 100%;
+      white-space: nowrap;
+    }
+    .row-ID {
+      width: 10%;
+    }
+    .row-name {
+      width: 30%;
+    }
+    .row-job {
+      width: 20%;
+    }
+    .row-desc {
+      width: 40%;
+    }
+    .users td {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .users th {
+      background: darkblue;
+      color: white;
+    }
+    .users td,
+    .users th {
+      text-align: left;
+      padding: 5px 10px;
+    }
+    .users tr:nth-child(even) {
+      background: lightblue;
+    }
+</style>
+<table class="users">
+  <thead>
+    <tr>
+      <th class="row-1 row-ID">ID</th>
+                 <Th class = "row-2 row-name"> Name </ th>
+                 <Th class = "row-3 row-job"> position </ th>
+                 <Th class = "row-4 row-desc"> Description <th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0001</td>
+                 <Td> Wool thirty </ td>
+                 <Td> Engineer distal </ td>
+                 <Td> this staff is the worst I have ever seen of front-end engineers, no one </ td>
+    </tr>
+    <tr>
+      <td>0002</td>
+                 <Td> wool fat three dddddddddddddddddddddddddddddrrrrrrrrddddddddd </ td>
+                 <Td> JAVA programmers </ td>
+                 <Td> a qualified programmers </ td>
+    </tr>
+  </tbody>
+</table>
