@@ -619,17 +619,20 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 
 <table>
     <tr>
-        <td background: hsl(150, 50%, 50%)>first row</td> 
+        <td bgcolor=orange>first row</td> 
         <td>the second list</td>
         <td>Third column</td> 
    </tr>
     <tr>
-        <td background: hsl(160, 60%, 50%)>Combine columns 1 and 2</td>
+        <td colspan="2"bgcolor=red>Combine columns 1 and 2</td>
         <td>Line 2, column 3</td    
     </tr>
     <tr>
-        <td colspan="2" background: hsl(170, 70%, 50%)>Combine columns 1 and 2</td>
+        <td colspan="2" bgcolor=blue>Combine columns 1 and 2</td>
         <td>Row 3, column 3</td    
     </tr>
 </table>
 
+          
+          
+          
