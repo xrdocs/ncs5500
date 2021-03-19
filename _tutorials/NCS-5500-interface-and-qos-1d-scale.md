@@ -617,6 +617,15 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 
 ## cell color
 
+table {
+  border-collapse: collapse;
+}
+
+td, th {
+  border: 5px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+}
 <table>
   <thead>
     <tr>
