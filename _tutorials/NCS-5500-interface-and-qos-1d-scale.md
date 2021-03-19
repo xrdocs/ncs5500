@@ -14,7 +14,7 @@ position: hidden
  .test1 {
   border-collapse: collapse;
   table-layout: fixed;
-  width: 100%;
+  width: 60%;
   text-align: right;
 }
 .test1 tr:nth-child(1) {background: green;}
