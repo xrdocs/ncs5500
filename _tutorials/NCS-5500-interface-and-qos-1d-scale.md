@@ -73,25 +73,10 @@ text-align: center;
 </tr>
 </table>
 
-<table>
-    <tr>
-        <td bgcolor=#FF69B4>first row</td> 
-        <td>the second list</td>
-        <td>Third column</td> 
-   </tr>
-    <tr>
-        <td colspan="2"bgcolor=#7B68EE>Combine columns 1 and 2</td>
-        <td>Line 2, column 3</td    
-    </tr>
-    <tr>
-        <td colspan="2" bgcolor=#ADFF2F>Combine columns 1 and 2</td>
-        <td>Row 3, column 3</td    
-    </tr>
-</table>
 
 ## Table with only the class specified {#table-with-only-the-class-specified}
 
-<div class="ox-hugo-table my-table">
+<div class="ox-hugo-table my-table" markdown="1">
 <div></div>
 
 | h1  | h2  | h3  |
@@ -109,7 +94,7 @@ CSS that customizes `.my-table table`.
 
 <style>.table-nocaption table { width: 50%;  }</style>
 
-<div class="ox-hugo-table table-nocaption">
+<div class="ox-hugo-table table-nocaption" markdown="1">
 <div></div>
 
 | h1  | h2  | h3  |
@@ -127,7 +112,7 @@ Above table get wrapped in the auto-generated class
 
 <style>.my-table-2 table { width: 80%;  }</style>
 
-<div class="ox-hugo-table my-table-2">
+<div class="ox-hugo-table my-table-2" markdown="1">
 <div></div>
 
 | h1  | h2  | h3  |
@@ -144,7 +129,7 @@ specified CSS attribute is auto-set for `.my-table-2 table`.
 
 <style>.table-1 table { text-align: left;  }</style>
 
-<div class="ox-hugo-table table-1">
+<div class="ox-hugo-table table-1" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 1</span>:
@@ -163,7 +148,7 @@ specified CSS attribute is auto-set for `.table-1 table`.
 
 <style>.table-2 table { text-align: right;  }</style>
 
-<div class="ox-hugo-table table-2">
+<div class="ox-hugo-table table-2" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 2</span>:
@@ -178,7 +163,7 @@ specified CSS attribute is auto-set for `.table-1 table`.
 
 <style>.table-3 table { text-align: center;  }</style>
 
-<div class="ox-hugo-table table-3">
+<div class="ox-hugo-table table-3" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 3</span>:
@@ -196,7 +181,7 @@ specified CSS attribute is auto-set for `.table-1 table`.
 
 <style>.my-red-bordered-table table { border: 2px solid red;  }</style>
 
-<div class="ox-hugo-table my-red-bordered-table">
+<div class="ox-hugo-table my-red-bordered-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 4</span>:
@@ -218,7 +203,7 @@ table. So the CSS properties do not need to be specified again.
 
 Below table will also show up with a red border.
 
-<div class="ox-hugo-table my-red-bordered-table">
+<div class="ox-hugo-table my-red-bordered-table" markdown="1">
 <div></div>
 
 | h1  | h2  | h3  |
@@ -243,7 +228,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table tab4">
+<div class="ox-hugo-table tab4" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 5</span>:
@@ -275,7 +260,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table basic-styling">
+<div class="ox-hugo-table basic-styling" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 6</span>:
@@ -299,7 +284,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table collapsed basic-styling">
+<div class="ox-hugo-table collapsed basic-styling" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 7</span>:
@@ -336,7 +321,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table two-axis-table">
+<div class="ox-hugo-table two-axis-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 8</span>:
@@ -370,7 +355,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table sane-table">
+<div class="ox-hugo-table sane-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 9</span>:
@@ -394,7 +379,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table zebra-striping sane-table">
+<div class="ox-hugo-table zebra-striping sane-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 10</span>:
@@ -422,7 +407,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table hl-table-cell sane-table">
+<div class="ox-hugo-table hl-table-cell sane-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 11</span>:
@@ -447,7 +432,7 @@ block.
 }
 </style>
 
-<div class="ox-hugo-table hl-table-row sane-table">
+<div class="ox-hugo-table hl-table-row sane-table" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 12</span>:
@@ -576,7 +561,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 }
 </style>
 
-<div class="ox-hugo-table blur-non-hovered">
+<div class="ox-hugo-table blur-non-hovered" markdown="1">
 <div></div>
 <div class="table-caption">
   <span class="table-number">Table 13</span>:
@@ -591,8 +576,5 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 | Conway    | Tim        | tconway@earthlink.net | $50.00  | <http://www.timconway.com> |
 
 </div>
-  
-  
-  
 
 
