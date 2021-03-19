@@ -17,7 +17,7 @@ position: hidden
   width: 70%;
   text-align: right;
 }
-  .orange { background: red;}
+  .orange { background: orange;}
 </style>
 
 <div class="test1">
