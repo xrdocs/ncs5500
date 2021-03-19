@@ -16,6 +16,8 @@ position: hidden
   table-layout: fixed;
   width: 70%;
   text-align: right;
+   tr:nth-child(3) {background: green;}
+   td:nth-child(2) {background: yellow;}
 }
   .orange { background: orange;}
 </style>
