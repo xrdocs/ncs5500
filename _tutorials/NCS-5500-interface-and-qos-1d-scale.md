@@ -25,7 +25,7 @@ position: hidden
 <div class="test1">
 <table>
     <colgroup>
-        <col width="20%" />
+        <col width="5%" />
         <col width="5%" />
         <col width="15%" />
         <col width="5%" />
