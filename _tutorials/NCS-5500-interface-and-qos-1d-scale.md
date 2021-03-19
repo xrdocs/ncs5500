@@ -40,8 +40,8 @@ text-align: center;
 ### New paragraph
 
 <table>
-<tr>                                       #<tr></tr>The number is: number of rows
-    <td rowspan="7">  Combine multiple rows into one column:<br/>  #<td></td>The number is: the number of columns
+<tr>
+    <td rowspan="7">  Combine multiple rows into one column:<br/>
                  Use rowspan = "n" <br/>
                  Merge across n rows<br/>
         </td>
