@@ -35,12 +35,12 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td class="head1" colspan="4">Bundle Scale N (256/512/1024)</td>
-    <td rowspan="3">Total Scale</td>
+    <td class="head1" colspan="5">Bundle Scale N (256/512/1024)</td>
   </tr>
   <tr>
     <td colspan="2">Main</td>
     <td colspan="2">Subinterface</td>
+    <td rowspan="2">Total Scale</td>
   </tr>
   <tr>
     <td>L2</td>
@@ -49,8 +49,7 @@ position: hidden
     <td>L3</td>
   </tr>
   <tr>
-    <td class="head2" colspan="4">HQOS Mode</td>
-    <td></td>
+    <td class="head2" colspan="5">HQOS Mode</td>
   </tr>
   <tr>
     <td></td>
@@ -102,8 +101,7 @@ position: hidden
     <td>N</td>
   </tr>
   <tr>
-    <td class="head2" colspan="4">Non-HQOS Mode</td>
-    <td></td>
+    <td class="head2" colspan="5">Non-HQOS Mode</td>
   </tr>
   <tr>
     <td></td>
