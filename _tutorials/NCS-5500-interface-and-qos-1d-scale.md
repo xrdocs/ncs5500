@@ -56,6 +56,7 @@ text-align: center;
                  Use rowspan = "n" <br/>
                  Merge across n rows<br/>
         </td>
+    <td>File identification:</td>
     <td>content</td>
 </tr>
 <tr>
