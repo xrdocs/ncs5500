@@ -696,6 +696,17 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
   </tbody>
 </table>
 
+<style>
+ .test1 table {
+  border-collapse: collapse;
+ }
+ .test1 td, .test1 th {
+  border: 1px solid #999;
+  padding: 0.5rem;
+  text-align: left;
+ }
+</style>
+
 <table class="test1">
   <thead>
     <tr>
@@ -722,15 +733,4 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
     </tr>
   </tbody>
 </table>
-
-<style>
- .test1 table {
-  border-collapse: collapse;
- }
- .test1 td, .test1 th {
-  border: 1px solid #999;
-  padding: 0.5rem;
-  text-align: left;
- }
-</style>
 
