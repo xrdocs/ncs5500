@@ -19,11 +19,14 @@ position: hidden
   padding: 0.5rem;
   text-align: left;
  }
+.test1 tr.hidden-row td {
+    height: 0;
+}
 </style>
 
 <div class="test1">
 <table>
-      <tr style="height:0;">
+      <tr class="hidden-row">
         <td style="width:10%;"/>
         <td style="width:15%;"/>
         <td style="width:10%;"/>
