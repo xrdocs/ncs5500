@@ -25,12 +25,12 @@ position: hidden
 <div class="test1">
 <table>
     <colgroup>
+        <col width="1%" />
+        <col width="2%" />
+        <col width="3%" />
+        <col width="4%" />
         <col width="5%" />
-        <col width="5%" />
-        <col width="15%" />
-        <col width="5%" />
-        <col width="5%" />
-        <col width="15%" />
+        <col width="6%" />
     </colgroup>
   <tr>
     <td colspan="6">Title</td>
