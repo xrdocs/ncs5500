@@ -11,82 +11,110 @@ position: hidden
 ## A New Post
 
 <style>
- .test1 {
-  border-collapse: collapse;
+ .table1 {
   table-layout: fixed;
-  width: 60%;
-  text-align: right;
+  width: 50%;
 }
-.test1 tr:nth-child(1) {background: green;}
-.test1  td:nth-child(2) {background: yellow;}
-  .orange { background: orange;}
+ .table2 {
+  table-layout: fixed;
+  width: 90%;
+}
 </style>
-
-<div class="test1">
+<div class="table1">
 <table>
-    <colgroup>
-        <col width="10%" />
-        <col width="20%" />
-        <col width="20%" />
-        <col width="10%" />
-        <col width="20%" />
-        <col width="10%" />
-    </colgroup>
+  <colgroup>
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+  </colgroup>
   <tr>
-    <td colspan="6">Title</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td>This</td>
-    <td>Little</td>
-    <td>Piggy</td>
-    <td>Went</td>
-    <td>To</td>
-    <td>Market</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td colspan="2">This</td>
-    <td>Little</td>
-    <td>Piggy</td>
-    <td>Went</td>
-    <td>To</td>
-  </tr>
-    <tr>
-    <td colspan="4">This</td>
-    <td rowspan="3">Little</td>
-    <td class="orange">Piggy</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
   <tr>
-    <td rowspan="2">This</td>
-    <td>Little</td>
-    <td>Piggy</td>
-    <td>Went</td>
-    <td bgcolor=red>To</td>
-  </tr>
-  <tr>
-    <td>Little</td>
-    <td >Piggy</td>
-    <td >Went</td>
-    <td style="background: blue;">To</td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
   </tr>
 </table>
 </div>
-
-  <div style="width:350px; border:blue 1px solid">
-    <table border="0" style="font-family:Arial,Helvetica;font-size:10pt;table-layout:fixed;">
-      <tr>
-        <td style="width:17px;"/>
-        <td style="width:20px;"/>
-        <td style="width:180px;"/>
-        <td style="width:130px;"/>
-      </tr>
-      <tr>
-        <td colspan="4" style="width:100%;text-align:center;font-eight:bold;background-color:#eef;">09 January 2012</td>
-      </tr>
-      <tr title="09 January 2012">
-        <td align="center" valign="middle" colspan="1" style="width:17px;height:1.1em;"><img src="../../../../_layouts/images/WebParts2010/AWT3_Klein.png" style="border-style:None;border-width:0px;height:1.1em;width:1.1em;" /></td>
-        <td align="left" valign="top" colspan="1" style="width:20px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">LO</td>
-        <td align="left" valign="top" colspan="1" style="width:180px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Customer Name Ltd.</td>
-        <td align="left" valign="top" colspan="1" style="width:120px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Reason for visiting today</td>
-      </tr>
-    </table>
-  </div>
+<div class="table2">
+<table>
+  <colgroup>
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+  </colgroup>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+</div>
