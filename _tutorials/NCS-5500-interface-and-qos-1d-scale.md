@@ -28,9 +28,9 @@ position: hidden
         <col width="10%" />
         <col width="20%" />
         <col width="30%" />
-        <col width="5%" />
-        <col width="15%" />
+        <col width="10%" />
         <col width="20%" />
+        <col width="10%" />
     </colgroup>
   <tr>
     <td colspan="6">Title</td>
