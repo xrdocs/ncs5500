@@ -101,6 +101,87 @@ position: hidden
     <td class="body1"></td>
     <td>N</td>
   </tr>
+  <tr>
+    <td class="head2" colspan="4">Non-HQOS Mode</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>4096</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>4096</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>1790</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>4097</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
+  </tr>
 </table>
 </div>
 <div class="table2">
