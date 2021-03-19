@@ -19,7 +19,7 @@ position: hidden
   padding: 0.5rem;
   text-align: left;
  }
-.test1 tr.hidden-row td {
+tr.hidden-row td {
     height: 0;
 }
 </style>
@@ -31,7 +31,7 @@ position: hidden
         <td style="width:15%;"/>
         <td style="width:10%;"/>
         <td style="width:10%;"/>
-        <td style="width:10%;"/>
+        <td style="width:15%;"/>
         <td style="width:10%;"/>
       </tr>
   <tr>
