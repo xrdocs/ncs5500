@@ -56,7 +56,7 @@ position: hidden
     <td></td>
     <td></td>
     <td></td>
-    <td class="body1></td>
+    <td class="body1"></td>
     <td>N-1</td>
   </tr>
 </table>
