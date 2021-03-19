@@ -28,11 +28,11 @@ tr.hidden-row td {
 <table>
       <tr class="hidden-row">
         <td style="width:10%;"/>
-        <td style="width:15%;"/>
+        <td style="width:5%;"/>
         <td style="width:10%;"/>
         <td style="width:10%;"/>
-        <td style="width:15%;"/>
-        <td style="width:10%;"/>
+        <td style="width:5%;"/>
+        <td style="width:5%;"/>
       </tr>
   <tr>
     <td colspan="6">Title</td>
@@ -92,5 +92,3 @@ tr.hidden-row td {
       </tr>
     </table>
   </div>
-  
-  
