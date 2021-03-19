@@ -12,7 +12,7 @@ position: hidden
 
 ## Table Styling in Markdown
 
-<div class="heatMap">
+<div class="heatMap" markdown="1">
 
 | QSFP56-DD       | QSFP28-DD    | QSFP56          | QSFP28         | QSFP+          |
 |:---------------:|:------------:|:---------------:|:--------------:|:--------------:|
