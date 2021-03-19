@@ -26,6 +26,14 @@ tr.hidden-row td {
 
 <div class="test1">
 <table>
+    <colgroup>
+        <col width="5%" />
+        <col width="5%" />
+        <col width="15%" />
+        <col width="5%" />
+        <col width="5%" />
+        <col width="15%" />
+    </colgroup>
       <tr class="hidden-row">
         <td style="width:10%;"/>
         <td style="width:5%;"/>
