@@ -642,7 +642,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
  .test1 table td, .test1 table th {
   border: 1px solid #999;
   padding: 0.5rem;
-  text-align: right;
+  text-align: left;
  }
 </style>
 
