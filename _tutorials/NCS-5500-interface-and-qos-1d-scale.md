@@ -17,9 +17,7 @@ position: hidden
   width: 70%;
   text-align: right;
 }
-.test1 tr:nth-child(3) { 
-  td:nth-child(3) {background: green; }
-  }
+  .orange { background: red;}
 </style>
 
 <div class="test1">
@@ -64,8 +62,8 @@ position: hidden
   </tr>
   <tr>
     <td>Little</td>
-    <td>Piggy</td>
-    <td>Went</td>
+    <td class="orange">Piggy</td>
+    <td bgcolor=red>Went</td>
     <td style="background: blue;">To</td>
   </tr>
 </table>
