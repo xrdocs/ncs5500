@@ -11,13 +11,13 @@ position: hidden
 ## A New Post
 
 <style>
- .test1 table {
+ .test1 {
   border-collapse: collapse;
   table-layout: fixed;
   width: 70%;
   text-align: right;
 }
-.test1 tr:nth-child(3) {background: green;}
+.test1 tr:nth-child(1) {background: green;}
 .test1  td:nth-child(2) {background: yellow;}
   .orange { background: orange;}
 </style>
@@ -53,19 +53,19 @@ position: hidden
     <tr>
     <td colspan="4">This</td>
     <td rowspan="3">Little</td>
-    <td>Piggy</td>
+    <td class="orange">Piggy</td>
   </tr>
   <tr>
     <td rowspan="2">This</td>
     <td>Little</td>
     <td>Piggy</td>
     <td>Went</td>
-    <td>To</td>
+    <td bgcolor=red>To</td>
   </tr>
   <tr>
     <td>Little</td>
-    <td class="orange">Piggy</td>
-    <td bgcolor=red>Went</td>
+    <td >Piggy</td>
+    <td >Went</td>
     <td style="background: blue;">To</td>
   </tr>
 </table>
