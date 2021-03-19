@@ -634,7 +634,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 </table>
 
 ## html with css
-          
+<div>          
 <style>
  .test1 table {
   border-collapse: collapse;
@@ -672,7 +672,8 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
     </tr>
   </tbody>
 </table>
-
+</div>
+<div>
 <style>
  .test2 table td, .test2 table th {
   border: 5px solid #999;
@@ -707,5 +708,6 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
     </tr>
   </tbody>
 </table>
+</div>
 
 
