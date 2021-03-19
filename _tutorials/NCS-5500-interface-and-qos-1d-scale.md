@@ -23,6 +23,17 @@ position: hidden
 
 <div class="test1">
 <table>
+      <tr>
+        <td style="width:10%;"/>
+        <td style="width:15%;"/>
+        <td style="width:10%;"/>
+        <td style="width:10%;"/>
+        <td style="width:15%;"/>
+        <td style="width:10%;"/>
+      </tr>
+  <tr>
+    <td colspan="6">Title</td>
+  </tr>
   <tr>
     <td>This</td>
     <td>Little</td>
