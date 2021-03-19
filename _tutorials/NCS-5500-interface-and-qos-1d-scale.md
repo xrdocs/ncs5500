@@ -19,6 +19,7 @@ position: hidden
   table-layout: fixed;
   width: 90%;
 }
+ .head1 { background: lightskyblue;}
 </style>
 <div class="table1">
 <table>
@@ -30,11 +31,8 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td class="head1" colspan="4">Bundle Scale N (256/512/1024)</td>
+    <td rowspan="3">Sum of Scale Number</td>
   </tr>
   <tr>
     <td></td>
