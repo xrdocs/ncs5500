@@ -13,35 +13,25 @@ position: hidden
 <style>
  .test1 table {
   border-collapse: collapse;
+  width: fixed
  }
  .test1 table td, .test1 table th {
   border: 1px solid #999;
   padding: 0.5rem;
   text-align: left;
  }
-tr.hidden-row td {
-    height: 0;
-}
 </style>
 
 <div class="test1">
 <table>
     <colgroup>
-        <col width="5%" />
+        <col width="20" />
         <col width="5%" />
         <col width="15%" />
         <col width="5%" />
         <col width="5%" />
         <col width="15%" />
     </colgroup>
-      <tr class="hidden-row">
-        <td style="width:10%;"/>
-        <td style="width:5%;"/>
-        <td style="width:10%;"/>
-        <td style="width:10%;"/>
-        <td style="width:5%;"/>
-        <td style="width:5%;"/>
-      </tr>
   <tr>
     <td colspan="6">Title</td>
   </tr>
