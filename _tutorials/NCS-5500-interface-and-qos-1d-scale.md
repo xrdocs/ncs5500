@@ -14,13 +14,16 @@ position: hidden
  .table1 {
   table-layout: fixed;
   width: 50%;
+  text-align: center;
 }
  .table2 {
   table-layout: fixed;
   width: 90%;
+  text-align: center;
 }
  .head1 { background: lightskyblue;}
  .head2 { background: lightskyblue;}
+ .body1 { background: green;}
 </style>
 <div class="table1">
 <table>
@@ -32,8 +35,8 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td class="head1" colspan="4">Bundle Scale N</td>
-    <td rowspan="3">Sum of Scale</td>
+    <td class="head1" colspan="4">Bundle Scale N (256/512/1024)</td>
+    <td rowspan="3">Total Scale</td>
   </tr>
   <tr>
     <td colspan="2">Main</td>
@@ -53,8 +56,8 @@ position: hidden
     <td></td>
     <td></td>
     <td></td>
-    <td></td>
-    <td></td>
+    <td class="body1></td>
+    <td>N-1</td>
   </tr>
 </table>
 </div>
