@@ -624,7 +624,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
         <td>Third column</td> 
    </tr>
     <tr>
-        <td colspan="2"bgcolor=red>Combine columns 1 and 2</td>
+        <td colspan="2" bgcolor=red>Combine columns 1 and 2</td>
         <td>Line 2, column 3</td    
     </tr>
     <tr>
