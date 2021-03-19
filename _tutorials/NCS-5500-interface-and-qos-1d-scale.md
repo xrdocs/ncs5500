@@ -17,7 +17,9 @@ position: hidden
   width: 70%;
   text-align: right;
 }
-.test1 tr:nth-child(3), td:nth-child(3) { background: green; }
+.test1 tr:nth-child(3) { 
+  td:nth-child(3) {background: green; }
+  }
 </style>
 
 <div class="test1">
