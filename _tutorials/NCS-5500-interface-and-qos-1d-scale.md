@@ -20,6 +20,7 @@ position: hidden
   width: 90%;
 }
  .head1 { background: lightskyblue;}
+ .head2 { background: lightskyblue;}
 </style>
 <div class="table1">
 <table>
@@ -31,21 +32,21 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td class="head1" colspan="4">Bundle Scale N (256/512/1024)</td>
-    <td rowspan="3">Sum of Scale Number</td>
+    <td class="head1" colspan="4">Bundle Scale N</td>
+    <td rowspan="3">Sum of Scale</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td colspan="2">Main</td>
+    <td colspan="2">Subinterface</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td>L2</td>
+    <td>L3</td>
+    <td>L2</td>
+    <td>L3</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="4">HQOS Mode</td>
     <td></td>
   </tr>
   <tr>
