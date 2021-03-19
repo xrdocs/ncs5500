@@ -577,4 +577,42 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 
 </div>
 
+## complete guide
+
+<table>
+  <tr>
+    <td>This</td>
+    <td>Little</td>
+    <td>Piggy</td>
+    <td>Went</td>
+    <td>To</td>
+    <td>Market</td>
+  </tr>
+  <tr>
+    <td colspan="2">This</td>
+    <td>Little</td>
+    <td>Piggy</td>
+    <td>Went</td>
+    <td>To</td>
+  </tr>
+    <tr>
+    <td colspan="4">This</td>
+    <td rowspan="3">Little</td>
+    <td>Piggy</td>
+  </tr>
+  <tr>
+    <td rowspan="2">This</td>
+    <td>Little</td>
+    <td>Piggy</td>
+    <td>Went</td>
+    <td>To</td>
+  </tr>
+  <tr>
+    <td>Little</td>
+    <td>Piggy</td>
+    <td>Went</td>
+    <td>To</td>
+  </tr>
+</table>
+
 
