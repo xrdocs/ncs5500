@@ -30,7 +30,7 @@ position: hidden
         <td style="width:10%;"/>
         <td style="width:15%;"/>
         <td style="width:10%;"/>
-        <td style="width:15%;"/>
+        <td style="width:10%;"/>
         <td style="width:10%;"/>
         <td style="width:10%;"/>
       </tr>
