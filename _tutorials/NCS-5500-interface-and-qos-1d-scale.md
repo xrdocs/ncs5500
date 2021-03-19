@@ -73,6 +73,22 @@ text-align: center;
 </tr>
 </table>
 
+<table>
+    <tr>
+        <td bgcolor=#FF69B4>first row</td> 
+        <td>the second list</td>
+        <td>Third column</td> 
+   </tr>
+    <tr>
+        <td colspan="2"bgcolor=#7B68EE>Combine columns 1 and 2</td>
+        <td>Line 2, column 3</td    
+    </tr>
+    <tr>
+        <td colspan="2" bgcolor=#ADFF2F>Combine columns 1 and 2</td>
+        <td>Row 3, column 3</td    
+    </tr>
+</table>
+
 ## Table with only the class specified {#table-with-only-the-class-specified}
 
 <div class="ox-hugo-table my-table">
