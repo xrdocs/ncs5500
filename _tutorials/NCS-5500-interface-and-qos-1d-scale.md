@@ -12,17 +12,28 @@ position: hidden
 
 ## Table Styling in Markdown
 
+<style>
+.heatMap {
+    width: 70%;
+    text-align: center;
+}
+.heatMap th {
+background: grey;
+word-wrap: break-word;
+text-align: center;
+}
+.heatMap tr:nth-child(1) { background: red; }
+.heatMap tr:nth-child(2) { background: orange; }
+.heatMap tr:nth-child(3) { background: green; }
+</style>
+
 <div class="heatMap" markdown="1">
 
-| QSFP56-DD       | QSFP28-DD    | QSFP56          | QSFP28         | QSFP+          |
-|:---------------:|:------------:|:---------------:|:--------------:|:--------------:|
-| 400G            | 200G         | 200G            | 100G           | 40G            |
-|-----------------+--------------+-----------------+----------------|:---------------|
-| 2x200G          | 2x100G       | 2x100G          | 4x25G          | 4x10G          |
-|-----------------+--------------+-----------------+----------------|:---------------|
-| 4x100G          | 8x25G        | 4x50G           |                |                |
-|-----------------+--------------+-----------------+----------------|:---------------|
-| 8x5 0G          |              |                 |                |                |
+| Everything | in this table | is Centered |  and the table will only take up 70% of the screen width  | 
+| -- | -- | -- | -- |
+| This | is | a | Red Row |
+| This | is | an | Orange Row |
+| This | is | a | Green Row |
 
 </div>
 
