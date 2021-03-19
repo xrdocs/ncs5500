@@ -619,16 +619,16 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 
 <table>
     <tr>
-        <td bgcolor=#FF69B4>first row</td> 
+        <td background=#FF69B4>first row</td> 
         <td>the second list</td>
         <td>Third column</td> 
    </tr>
     <tr>
-        <td colspan="2"bgcolor=#7B68EE>Combine columns 1 and 2</td>
+        <td colspan="2"background=#7B68EE>Combine columns 1 and 2</td>
         <td>Line 2, column 3</td    
     </tr>
     <tr>
-        <td colspan="2" bgcolor=#ADFF2F>Combine columns 1 and 2</td>
+        <td colspan="2" background=#ADFF2F>Combine columns 1 and 2</td>
         <td>Row 3, column 3</td    
     </tr>
 </table>
