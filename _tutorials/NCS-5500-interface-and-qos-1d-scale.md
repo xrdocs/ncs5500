@@ -634,7 +634,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
 </table>
 
 ## html with css
-<div>          
+         
 <style>
  .test1 table {
   border-collapse: collapse;
@@ -646,7 +646,8 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
  }
 </style>
 
-<table class="test1">
+<div class="test1" markdown="1">
+<table>
   <thead>
     <tr>
       <th>Name</th>
@@ -673,7 +674,7 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
   </tbody>
 </table>
 </div>
-<div>
+
 <style>
  .test2 table td, .test2 table th {
   border: 5px solid #999;
@@ -682,7 +683,8 @@ _Let's-go-ballistic-with-CSS_ Edition :smile:
  }
 </style>
 
-<table class="test2">
+<div class="test2" markdown="1">
+<table>
   <thead>
     <tr>
       <th>Name</th>
