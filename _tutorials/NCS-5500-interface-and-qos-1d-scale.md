@@ -58,3 +58,25 @@ position: hidden
   </tr>
 </table>
 </div>
+
+  <div style="width:350px; border:blue 1px solid">
+    <table border="0" style="font-family:Arial,Helvetica;font-size:10pt;table-layout:fixed;">
+      <tr>
+        <td style="width:17px;"/>
+        <td style="width:20px;"/>
+        <td style="width:180px;"/>
+        <td style="width:130px;"/>
+      </tr>
+      <tr>
+        <td colspan="4" style="width:100%;text-align:center;font-eight:bold;background-color:#eef;">09 January 2012</td>
+      </tr>
+      <tr title="09 January 2012">
+        <td align="center" valign="middle" colspan="1" style="width:17px;height:1.1em;"><img src="../../../../_layouts/images/WebParts2010/AWT3_Klein.png" style="border-style:None;border-width:0px;height:1.1em;width:1.1em;" /></td>
+        <td align="left" valign="top" colspan="1" style="width:20px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">LO</td>
+        <td align="left" valign="top" colspan="1" style="width:180px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Customer Name Ltd.</td>
+        <td align="left" valign="top" colspan="1" style="width:120px;height:1.1em;text-overflow:ellipsis;overflow:hidden;white-space:nowrap;">Reason for visiting today</td>
+      </tr>
+    </table>
+  </div>
+  
+  
