@@ -673,11 +673,11 @@ HQOS mode is required if you use ingress hierarchical policy-map on a main/subin
 For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
 
 <style>
-.ingressqos th:first-of-type {width: 10%;}
-.ingressqos th:nth-of-type(2) {width: 20%;}
-.ingressqos th:nth-of-type(3) {width: 20%;}
-.ingressqos th:nth-of-type(4) {width: 25%;}
-.ingressqos th:nth-of-type(5) {width: 25%;}
+.ingressqos table th:first-of-type {width: 10%;}
+.ingressqos table th:nth-of-type(2) {width: 20%;}
+.ingressqos table th:nth-of-type(3) {width: 20%;}
+.ingressqos table th:nth-of-type(4) {width: 25%;}
+.ingressqos table th:nth-of-type(5) {width: 25%;}
 </style>
 <div class="ingressqos" markdown="1">
 | QoS Mode | Class-Map Size | Scale per Core | Scale per NPU   Bundle | Scale per NPU   Physical |
