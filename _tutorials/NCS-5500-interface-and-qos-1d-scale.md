@@ -12,11 +12,25 @@ position: hidden
 
 This tutorial will discuss single dimensional interface and QoS scale of the NCS-5500 series.
 
-The first section will introduce the basic L2 and L3 physical/bundle/main/subinterface scale, without enabling QoS.
+The first section will introduce the basic L2 and L3 interface scale, without enabling QoS.
 
 The next section will discuss the impact of HQOS mode on bundle interface scale. HQOS mode is required if you need to enable Egress QoS on subinterfaces.
 
 Then we will discuss the impact of enabling QoS on interface scale, with respect to both ingress and egress.
+
+## Non-QoS L2 and L3 Interface Scale 
+
+Below interface scales are effective from IOS XR 6.6.3 and 7.0.1. No QoS and no HQOS mode for these scales.
+
+### L3 Interface and Subinterface Scale
+
+L3 subinterfaces scale is both per interface and per system, relevant limits are:
+L3 subinterfaces <= 2000
+L3 bundle subinterfaces <= 1024
+L3 subinterfaces + L3 bundle subinterfaces <= 2000
+L3 bundle main interfaces + L3 bundle subinterfaces <= 1790
+L3 main interfaces + L3 subinterfaces < 2558
+L3 (main + subinterfaces) + L3 bundle (main+subinterfaces) < 2558
 
 
 
