@@ -652,3 +652,10 @@ Below table will present the above scale limits in graphical format for ease of 
   </tr>
 </table>
 </div>
+
+## Ingress and Egress QoS Interface Scale
+
+Enabling QoS will have impact on interface scale, and the effect will be different for ingress and egress, due to the difference in hardware resources required.
+
+
+
