@@ -33,7 +33,7 @@ L3 bundle subinterfaces <= 1024
 L3 subinterfaces + L3 bundle subinterfaces <= 2000  
 L3 bundle main interfaces + L3 bundle subinterfaces <= 1790  
 L3 main interfaces + L3 subinterfaces < 2558  
-L3 (main + subinterfaces) + L3 bundle (main+subinterfaces) < 2558  
+L3 (main + subinterfaces) + L3 bundle (main + subinterfaces) < 2558  
 
 ### L2 Interface and Subinterface Scale
 
@@ -112,7 +112,7 @@ Below table will present the above scale limits in graphical format for ease of 
     <td>L3</td>
   </tr>
   <tr>
-    <td class="head2" colspan="9">Non-HQOS Bundle interfacecs only</td>
+    <td class="head2" colspan="9">Non-HQOS Bundle interfaces only</td>
   </tr>
   <tr>
     <td></td>
@@ -478,7 +478,7 @@ L2 Bundle main interfaces + L3 Bundle subinterfaces <=2047
 
 ### HQOS mode Bundle Interface Scale
 
-HQOS mode is needed to enable egress hierarchivel QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
+HQOS mode is needed to enable egress hierarchical QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
 
 HQOS mode is disabled by default, and can be enabled by below command:
 ```
