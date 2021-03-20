@@ -8,7 +8,16 @@ position: hidden
 ---
 {% include toc %}
 
-## A New Post
+## Introduction
+
+This tutorial will discuss some single dimensional scale of the NCS-5500 series.
+
+The first section will introduce the basic L2 and L3 physical/bundle/main/subinterface scale, without enabling QoS.
+
+The next section will discuss the impact of HQOS mode on bundle interface scale, still without enabling QoS. HQOS mode is required if you require Egress QoS on subinterfaces.
+
+Then we will discuss
+
 
 <style>
  .table1 {
