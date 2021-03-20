@@ -53,6 +53,18 @@ For mixed L2 and L2, relevant limits are:
 (L3 + L2) main + subinterfaces <= 6652 per system  
 (L3 + L2) subinterfaces + bundle subinterfaces <= 8192 system  
 
+### Non-QoS Bundle Interface Scale
+
+Bundle interface scale is configurable in IOS XR, with less bundle members support for higher bundle interface scale.
+
+Let N be the maximum number of bundle interfaces supported. Default N is 256, and can be changed by:
+
+```
+RP/0/RP0/CPU0:OC-SE(config)#hw-module profile bundle-scale ?
+  1024  Max 1024 trunks, Max 16 members (128 main + 896 sub)
+  512   Max 512 trunks, Max 32 members  (128 main + 384 sub)
+  256   Max 256 trunks, Max 64 members  (128 main + 128 sub)
+```
 
 
 
