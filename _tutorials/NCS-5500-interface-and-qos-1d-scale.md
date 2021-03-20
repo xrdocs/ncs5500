@@ -21,6 +21,7 @@ position: hidden
   table-layout: fixed;
   width: 90%;
   text-align: center;
+  color: black;
 }
  .head1 { background: lightskyblue;}
  .head2 { background: lightskyblue;}
