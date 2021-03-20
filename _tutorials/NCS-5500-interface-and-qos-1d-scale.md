@@ -680,6 +680,7 @@ For a bundle member with ingress QoS on a core of a NPU,  QoS resources are cons
 .ingressqos table th:nth-of-type(5) {width: 25%;}
 </style>
 <div class="ingressqos" markdown="1">
+
 | QoS Mode | Class-Map Size | Scale per Core | Scale per NPU   Bundle | Scale per NPU   Physical |
 |----------|----------------|----------------|------------------------|--------------------------|
 | Normal   | 4              | 1023           | 1023                   | 2046                     |
@@ -690,6 +691,7 @@ For a bundle member with ingress QoS on a core of a NPU,  QoS resources are cons
 | Enhanced | 8              | 435            | 435                    | 870                      |
 | Enhanced | 16             | 217            | 217                    | 434                      |
 | Enhanced | 32             | 108            | 108                    | 216                      |
+
 </div>
 
 ### Egress QoS Interface Scale
@@ -710,8 +712,10 @@ HQOS mode is required if you use egress hierarchical policy-maps on a main/subin
 .egressqos th:nth-of-type(5) {width: 10%;}
 </style>
 <div class="egressqos" markdown="1">
+
 | Scale   per Core      | Fixed | 5504 | 5508 | 5516 |
 |-----------------------|-------|------|------|------|
 | Before   IOS XR 7.0.1 | 512   | 48   | 48   | 48   |
 | IOS XR   7.0.1        | 1024  | 192  | 96   | 48   |
+
 </div>
