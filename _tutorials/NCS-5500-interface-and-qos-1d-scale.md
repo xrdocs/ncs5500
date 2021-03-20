@@ -44,6 +44,16 @@ L2 (bundle main + bundle subinterfaces) <= 4097 per system
 L2 (subinterfaces + bundle subinterfaces) <= 8191 per system  
 L2 (main + subinterfaces + bundle main + bundle subinterfaces) <=8192 per system  
 
+### Mixed L2 and L3 Interface and Subinterface Scale
+
+For mixed L2 and L2, relevant limits are:
+
+(L3 + L2) subinterfaces <= 6095 system  
+(L3 + L2) main interfaces <= 2304 system  
+(L3 + L2) main + subinterfaces <= 6652 per system  
+(L3 + L2) subinterfaces + bundle subinterfaces <= 8192 system  
+
+
 
 
 
