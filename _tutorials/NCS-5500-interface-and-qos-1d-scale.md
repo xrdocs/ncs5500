@@ -675,7 +675,16 @@ HQOS mode is only required if you use hierarchical qos inegress policy-map on a 
 
 The ingress qos interface scale is shown in the below table, please note each NPU has 2 cores:
 
-
+| QoS Mode | Class-Map Size | Scale per Core | Scale per NPU   Bundle | Scale per NPU   Physical |
+|----------|----------------|----------------|------------------------|--------------------------|
+| Normal   | 4              | 1023           | 1023                   | 2046                     |
+| Normal   | 8              | 511            | 511                    | 1022                     |
+| Normal   | 16             | 255            | 255                    | 510                      |
+| Normal   | 32             | 127            | 127                    | 254                      |
+| Enhanced | 4              | 871            | 871                    | 1742                     |
+| Enhanced | 8              | 435            | 435                    | 870                      |
+| Enhanced | 16             | 217            | 217                    | 434                      |
+| Enhanced | 32             | 108            | 108                    | 216                      |
 
 
 
