@@ -20,7 +20,7 @@ Then we will discuss the impact of enabling QoS on interface scale, with respect
 
 ## Non-QoS L2 and L3 Interface Scale 
 
-Below interface scales are effective from IOS XR 6.6.3 and 7.0.1. No QoS and no HQOS mode for these scales.
+Below interface scales are effective from IOS XR 6.6.3 and 7.0.1. No QoS and no HQOS mode for these scales. Maximum bundle interface scale is assumed to be the maximum 1024, and more details will be discussed on bundle scale in the next section.
 
 ### L3 Interface and Subinterface Scale
 
