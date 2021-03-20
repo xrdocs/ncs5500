@@ -706,7 +706,7 @@ For a bundle interface, each bundle main and member interface will consume 8 que
 HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and even for egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
 
 <style>
-.ingressqos table {text-align: center; width: 70%}
+.egressqos table {text-align: center; width: 70%}
 .egressqos th:first-of-type {width: 20%;}
 .egressqos th:nth-of-type(2) {width: 10%;}
 .egressqos th:nth-of-type(3) {width: 10%;}
