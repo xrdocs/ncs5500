@@ -673,11 +673,12 @@ HQOS mode is required if you use ingress hierarchical policy-map on a main/subin
 For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
 
 <style>
-.ingressqos table th:first-of-type {width: 10%;}
+.ingressqos table {text-align: center;}
+.ingressqos table th:first-of-type {width: 15%;}
 .ingressqos table th:nth-of-type(2) {width: 20%;}
 .ingressqos table th:nth-of-type(3) {width: 20%;}
-.ingressqos table th:nth-of-type(4) {width: 25%;}
-.ingressqos table th:nth-of-type(5) {width: 25%;}
+.ingressqos table th:nth-of-type(4) {width: 22%;}
+.ingressqos table th:nth-of-type(5) {width: 23%;}
 </style>
 <div class="ingressqos" markdown="1">
 
@@ -705,6 +706,7 @@ For a bundle interface, each bundle main and member interface will consume 8 que
 HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and even for egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
 
 <style>
+.ingressqos table {text-align: center; width: 70%}
 .egressqos th:first-of-type {width: 20%;}
 .egressqos th:nth-of-type(2) {width: 10%;}
 .egressqos th:nth-of-type(3) {width: 10%;}
