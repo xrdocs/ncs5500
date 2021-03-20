@@ -15,7 +15,6 @@ position: hidden
   table-layout: fixed;
   width: 50%;
   text-align: center;
-  font-weight: bold;
   color: black;
 }
  .table2 {
