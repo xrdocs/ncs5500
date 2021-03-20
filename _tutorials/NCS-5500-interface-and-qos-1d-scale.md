@@ -62,7 +62,7 @@ Below table will present the above scale limits in graphical format for ease of 
   .table1 tr:first-of-type {font-weight: bold;}
   .table1 {
    table-layout: fixed;
-   width: 50%;
+   width: 90%;
    text-align: center;
    color: black;
 }
@@ -70,7 +70,7 @@ Below table will present the above scale limits in graphical format for ease of 
   .table2 tr:first-of-type {font-weight: bold;}
  .table2 {
   table-layout: fixed;
-  width: 90%;
+  width: 50%;
   text-align: center;
   color: black;
 }
@@ -78,7 +78,7 @@ Below table will present the above scale limits in graphical format for ease of 
  .head2 { background: whitesmoke;}
  .body1 { background: lightgreen;}
 </style>
-<div class="table2">
+<div class="table1">
 <table>
   <colgroup>
     <col width="10%" />
@@ -496,7 +496,7 @@ L3 Bundle main interfaces + L3 Bundle main interfaces <= N
 
 Below table will present the above scale limits in graphical format for ease of visualization:
 
-<div class="table1">
+<div class="table2">
 <table>
   <colgroup>
     <col width="10%" />
