@@ -53,48 +53,7 @@ For mixed L2 and L2, relevant limits are:
 (L3 + L2) main + subinterfaces <= 6652 per system  
 (L3 + L2) subinterfaces + bundle subinterfaces <= 8192 system  
 
-## Non-QoS Bundle Interface Scale
-
-Bundle interface scale is configurable in IOS XR, with less bundle members support for higher bundle interface scale.
-
-Let N be the maximum number of bundle interfaces supported. Default N is 256, and can be changed by:
-
-```
-RP/0/RP0/CPU0:NCS5500(config)#hw-module profile bundle-scale ?
-  1024  Max 1024 trunks, Max 16 members (128 main + 896 sub)
-  512   Max 512 trunks, Max 32 members  (128 main + 384 sub)
-  256   Max 256 trunks, Max 64 members  (128 main + 128 sub)
-```
-
-### Non-HQOS Mode Bundle Interface Scale
-
-The bundle interface scale is independent of N for non-HQOS mode, and relevant limits are:
-
-L3 Bundle subinterfaces <= 1024 per system  
-L2 Bundle subinterfaces <= 4094/4096 per interface/system  
-L2 Bundle subinterfaces + L3 Bundle subinterfaces <= 4096 per system  
-L2 Bundle main interfaces + L3 Bundle main interfaces <=1024  
-L2 Bundle main interfaces + L2 Bundle subinterfaces <=4097  
-L2 Bundle main interfaces + L3 Bundle subinterfaces <=2047  
-(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= 5120  
-
-### HQOS mode Bundle Interface Scale
-
-HQOS mode is needed to enable egress hierarchivel QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
-
-HQOS mode is disabled by default, and can be enabled by below command:
-
-```
-hw-module profile qos hqos-enable
-```
-The bundle interface scale is dependent of N for HQOS mode, and relevant limits are:
-
-L3 Bundle subinterfaces + L2 Bundle subinterfaces < N  
-L3 Bundle main interfaces + L3 Bundle main interfaces <= N  
-(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= N  
-
-
-
+Below table will present the above scale limits in graphical format for ease of visualization:
 
 <style>
  .table1 {
@@ -113,163 +72,6 @@ L3 Bundle main interfaces + L3 Bundle main interfaces <= N
  .head2 { background: lightskyblue;}
  .body1 { background: green;}
 </style>
-<div class="table1">
-<table>
-  <colgroup>
-    <col width="10%" />
-    <col width="10%" />
-    <col width="10%" />
-    <col width="10%" />
-    <col width="10%" />
-  </colgroup>
-  <tr>
-    <td class="head1" colspan="5">Non-QoS Bundle Scale N (256/512/1024)</td>
-  </tr>
-  <tr>
-    <td colspan="2">Main</td>
-    <td colspan="2">Subinterface</td>
-    <td rowspan="2">Total Scale</td>
-  </tr>
-  <tr>
-    <td>L2</td>
-    <td>L3</td>
-    <td>L2</td>
-    <td>L3</td>
-  </tr>
-  <tr>
-    <td class="head2" colspan="5">HQOS Mode</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="head2" colspan="5">Non-HQOS Mode</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td>1024</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td>4096</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>4096</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>1024</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>1024</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>1024</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td class="body1"></td>
-    <td>1790</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td>4097</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td></td>
-    <td>5120</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>5120</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>5120</td>
-  </tr>
-</table>
-</div>
 <div class="table2">
 <table>
   <colgroup>
@@ -645,6 +447,206 @@ L3 Bundle main interfaces + L3 Bundle main interfaces <= N
     <td class="body1"></td>
     <td class="body1"></td>
     <td>8192</td>
+  </tr>
+</table>
+</div>
+
+## Non-QoS Bundle Interface Scale
+
+Bundle interface scale is configurable in IOS XR, with less bundle members support for higher bundle interface scale.
+
+Let N be the maximum number of bundle interfaces supported. Default N is 256, and can be changed by:
+
+```
+RP/0/RP0/CPU0:NCS5500(config)#hw-module profile bundle-scale ?
+  1024  Max 1024 trunks, Max 16 members (128 main + 896 sub)
+  512   Max 512 trunks, Max 32 members  (128 main + 384 sub)
+  256   Max 256 trunks, Max 64 members  (128 main + 128 sub)
+```
+
+### Non-HQOS Mode Bundle Interface Scale
+
+The bundle interface scale is independent of N for non-HQOS mode, and relevant limits are:
+
+L3 Bundle subinterfaces <= 1024 per system  
+L2 Bundle subinterfaces <= 4094/4096 per interface/system  
+L2 Bundle subinterfaces + L3 Bundle subinterfaces <= 4096 per system  
+L2 Bundle main interfaces + L3 Bundle main interfaces <=1024  
+L2 Bundle main interfaces + L2 Bundle subinterfaces <=4097  
+L2 Bundle main interfaces + L3 Bundle subinterfaces <=2047  
+(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= 5120  
+
+### HQOS mode Bundle Interface Scale
+
+HQOS mode is needed to enable egress hierarchivel QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
+
+HQOS mode is disabled by default, and can be enabled by below command:
+
+```
+hw-module profile qos hqos-enable
+```
+The bundle interface scale is dependent of N for HQOS mode, and relevant limits are:
+
+L3 Bundle subinterfaces + L2 Bundle subinterfaces < N  
+L3 Bundle main interfaces + L3 Bundle main interfaces <= N  
+(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= N  
+
+Below table will present the above scale limits in graphical format for ease of visualization:
+
+<div class="table1">
+<table>
+  <colgroup>
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+    <col width="10%" />
+  </colgroup>
+  <tr>
+    <td class="head1" colspan="5">Non-QoS Bundle Scale N (256/512/1024)</td>
+  </tr>
+  <tr>
+    <td colspan="2">Main</td>
+    <td colspan="2">Subinterface</td>
+    <td rowspan="2">Total Scale</td>
+  </tr>
+  <tr>
+    <td>L2</td>
+    <td>L3</td>
+    <td>L2</td>
+    <td>L3</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="5">HQOS Mode</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="5">Non-HQOS Mode</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>4096</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>4096</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>1790</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>4097</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
   </tr>
 </table>
 </div>
