@@ -657,5 +657,23 @@ Below table will present the above scale limits in graphical format for ease of 
 
 Enabling QoS will have impact on interface scale, and the effect will be different for ingress and egress, due to the difference in hardware resources required.
 
+### Ingress QoS Interface Scale
+
+In Normal QoS mode, 2 counters are used per policy-map, and support the best interface scale.
+
+If Enhanced QoS mode is enabled, 4 counters are used per policy-map, providing better statistics, but also used more hardware resources, resulting in lower interface scale:
+```
+hw-module profile stats qos-enhanced
+```
+The default maximum number of class-maps per policy-map is 32. If you configure a smaller max-classmap-size, it will result in higher interface scale:
+```
+hw-module profile qos max-classmap-size [4|8|16|32]
+```
+The maximum number of unique policy-maps per NPU is increased from 30 to 250 from IOS XR 6.6.3/7.0.1. However, this does not impact on the ingress QoS interface scale.
+
+HQOS mode is only required if you use hierarchical qos policy-map on a main/subinterface, but not for flat qos policy-map on a main/subinterface. However, this does not impact on the ingress QoS interface scale.
+
+
+
 
 
