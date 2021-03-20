@@ -35,7 +35,7 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td class="head1" colspan="5">Bundle Scale N (256/512/1024)</td>
+    <td class="head1" colspan="5">Non-QoS Bundle Scale N (256/512/1024)</td>
   </tr>
   <tr>
     <td colspan="2">Main</td>
@@ -196,7 +196,7 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td class="head1" colspan="9">Non-QoS L3 and L2 Interface Scale</td>
+    <td class="head1" colspan="9">Non-QoS L2 and L3 Interface Scale</td>
   </tr>
   <tr>
     <td colspan="4">Physical Interfaces</td>
