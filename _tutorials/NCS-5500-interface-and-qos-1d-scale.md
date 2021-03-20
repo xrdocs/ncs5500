@@ -74,9 +74,9 @@ Below table will present the above scale limits in graphical format for ease of 
   text-align: center;
   color: black;
 }
- .head1 { background: cornflowerblue;}
- .head2 { background: lightskyblue;}
- .body1 { background: green;}
+ .head1 { background: darkgray;}
+ .head2 { background: lightgrey;}
+ .body1 { background: lightgreen;}
 </style>
 <div class="table2">
 <table>
