@@ -58,7 +58,7 @@ For mixed L2 and L2, relevant limits are:
 Below table will present the above scale limits in graphical format for ease of visualization:
 
 <style>
-  .table1 tr {line-height: 90%}
+  .table1 tr {line-height: 95%}
   .table1 tr:first-of-type {font-weight: bold;}
   .table1 {
    table-layout: fixed;
@@ -66,7 +66,7 @@ Below table will present the above scale limits in graphical format for ease of 
    text-align: center;
    color: black;
 }
- .table2 tr {line-height: 90%}
+ .table2 tr {line-height: 95%}
   .table2 tr:first-of-type {font-weight: bold;}
  .table2 {
   table-layout: fixed;
