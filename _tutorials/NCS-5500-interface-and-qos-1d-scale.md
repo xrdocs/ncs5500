@@ -517,58 +517,6 @@ Below table will present the above scale limits in graphical format for ease of 
     <td>L3</td>
   </tr>
   <tr>
-    <td class="head2" colspan="5">HQOS Mode</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>N-1</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td></td>
-    <td></td>
-    <td>N</td>
-  </tr>
-  <tr>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td class="body1"></td>
-    <td>N</td>
-  </tr>
-  <tr>
     <td class="head2" colspan="5">Non-HQOS Mode</td>
   </tr>
   <tr>
@@ -647,6 +595,58 @@ Below table will present the above scale limits in graphical format for ease of 
     <td class="body1"></td>
     <td class="body1"></td>
     <td>5120</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="5">HQOS Mode</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>N-1</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>N</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>N</td>
   </tr>
 </table>
 </div>
