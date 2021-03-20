@@ -196,15 +196,31 @@ position: hidden
     <col width="10%" />
   </colgroup>
   <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <td class="head1" colspan="9">Non-QoS L3 and L2 Interface Scale</td>
+  </tr>
+  <tr>
+    <td colspan="4">Physical Interfaces</td>
+    <td colspan="4">Bundle Interfaces</td>
+    <td rowspan="3">Total Scale</td>
+  </tr>
+  <tr>
+    <td colspan="2">Main</td>
+    <td colspan="2">Subinterface</td>
+    <td colspan="2">Main</td>
+    <td colspan="2">Subinterface</td>
+  </tr>
+  <tr>
+    <td>L2</td>
+    <td>L3</td>
+    <td>L2</td>
+    <td>L3</td>
+    <td>L2</td>
+    <td>L3</td>
+    <td>L2</td>
+    <td>L3</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="9">Non-HQOS Bundle interfacecs only</td>
   </tr>
   <tr>
     <td></td>
@@ -214,8 +230,8 @@ position: hidden
     <td></td>
     <td></td>
     <td></td>
-    <td></td>
-    <td></td>
+    <td class="body1"></td>
+    <td>1024</td>
   </tr>
   <tr>
     <td></td>
@@ -224,9 +240,9 @@ position: hidden
     <td></td>
     <td></td>
     <td></td>
+    <td class="body1"></td>
     <td></td>
-    <td></td>
-    <td></td>
+    <td>4096</td>
   </tr>
   <tr>
     <td></td>
@@ -235,9 +251,312 @@ position: hidden
     <td></td>
     <td></td>
     <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>4096</td>
+  </tr>
+  <tr>
     <td></td>
     <td></td>
     <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td>1024</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>1790</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>4097</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>5120</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="9">Physical Interfaces only</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>2000</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4095</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>6095</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>2304</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>2304</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>2304</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>2557</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>4095</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>6399</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>6652</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td>6652</td>
+  </tr>
+  <tr>
+    <td class="head2" colspan="9">Non-HQOS Mixed Physical and Bundle Interfaces</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>2000</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>8191</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>5119</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>6096</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td></td>
+    <td></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>8192</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td>2557</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td class="body1"></td>
+    <td></td>
+    <td>8192</td>
+  </tr>
+  <tr>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td class="body1"></td>
+    <td>8192</td>
   </tr>
 </table>
 </div>
