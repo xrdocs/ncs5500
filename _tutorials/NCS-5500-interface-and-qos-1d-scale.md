@@ -485,7 +485,7 @@ HQOS mode is disabled by default, and can be enabled by below command:
 ```
 hw-module profile qos hqos-enable
 ```
-The bundle interface scale is dependent of N for HQOS mode, and relevant limits are:
+HQOS mode will impose additional limits on bundle interface scale, depending on N:
 
 L3 Bundle subinterfaces + L2 Bundle subinterfaces < N  
 L3 Bundle main interfaces + L3 Bundle main interfaces <= N  
