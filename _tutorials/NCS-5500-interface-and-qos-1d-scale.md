@@ -24,6 +24,8 @@ Below interface scales are effective from IOS XR 6.6.3 and 7.0.1. No QoS and no 
 
 ### L3 Interface and Subinterface Scale
 
+For L3 main interfaces, it is the number of physical interfaces present on a particular fixed or modular chassis, whatever the speed. Please note for breakout, it is counted as the number of interfaces after the breakout.
+
 L3 subinterfaces scale is both per interface and per system, relevant limits are:
 
 L3 subinterfaces <= 2000  
