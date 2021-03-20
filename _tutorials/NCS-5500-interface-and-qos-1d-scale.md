@@ -25,12 +25,24 @@ Below interface scales are effective from IOS XR 6.6.3 and 7.0.1. No QoS and no 
 ### L3 Interface and Subinterface Scale
 
 L3 subinterfaces scale is both per interface and per system, relevant limits are:
-L3 subinterfaces <= 2000
-L3 bundle subinterfaces <= 1024
-L3 subinterfaces + L3 bundle subinterfaces <= 2000
-L3 bundle main interfaces + L3 bundle subinterfaces <= 1790
-L3 main interfaces + L3 subinterfaces < 2558
-L3 (main + subinterfaces) + L3 bundle (main+subinterfaces) < 2558
+
+L3 subinterfaces <= 2000  
+L3 bundle subinterfaces <= 1024  
+L3 subinterfaces + L3 bundle subinterfaces <= 2000  
+L3 bundle main interfaces + L3 bundle subinterfaces <= 1790  
+L3 main interfaces + L3 subinterfaces < 2558  
+L3 (main + subinterfaces) + L3 bundle (main+subinterfaces) < 2558  
+
+### L2 Interface and Subinterface Scale
+
+Max subinterfaces per interface is 4094 (0,4095 reserved), relevant limits are:
+
+L2 subinterfaces <= 4094/4095 per interface/system  
+L2 (main + subinterfaces) <= 4094/4095 per system  
+L2 bundle subinterfaces <= 4094/4096 per interface/system  
+L2 (bundle main + bundle subinterfaces) <= 4097 per system  
+L2 (subinterfaces + bundle subinterfaces) <= 8191 per system  
+L2 (main + subinterfaces + bundle main + bundle subinterfaces) <=8192 per system  
 
 
 
