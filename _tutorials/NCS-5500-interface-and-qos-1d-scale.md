@@ -64,6 +64,7 @@ Below table will present the above scale limits in graphical format for ease of 
   text-align: center;
   color: black;
 }
+ .table1 tr {line-height: 80%}
  .table2 {
   table-layout: fixed;
   width: 90%;
