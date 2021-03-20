@@ -458,14 +458,12 @@ Below table will present the above scale limits in graphical format for ease of 
 Bundle interface scale is configurable in IOS XR, with less bundle members support for higher bundle interface scale.
 
 Let N be the maximum number of bundle interfaces supported. Default N is 256, and can be changed by:
-
 ```
 RP/0/RP0/CPU0:NCS5500(config)#hw-module profile bundle-scale ?
   1024  Max 1024 trunks, Max 16 members (128 main + 896 sub)
   512   Max 512 trunks, Max 32 members  (128 main + 384 sub)
   256   Max 256 trunks, Max 64 members  (128 main + 128 sub)
 ```
-
 ### Non-HQOS Mode Bundle Interface Scale
 
 The bundle interface scale is independent of N for non-HQOS mode, and relevant limits are:
@@ -483,7 +481,6 @@ L2 Bundle main interfaces + L3 Bundle subinterfaces <=2047
 HQOS mode is needed to enable egress hierarchivel QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
 
 HQOS mode is disabled by default, and can be enabled by below command:
-
 ```
 hw-module profile qos hqos-enable
 ```
@@ -673,7 +670,7 @@ The maximum number of unique ingress policy-maps per NPU is increased from 30 to
 
 HQOS mode is only required if you use hierarchical qos inegress policy-map on a main/subinterface, but not for flat qos ingress policy-map on a main/subinterface. However, this does not impact on the ingress QoS interface scale.
 
-The ingress qos interface scale is shown in the below table, please note each NPU has 2 cores:
+For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
 
 | QoS Mode | Class-Map Size | Scale per Core | Scale per NPU   Bundle | Scale per NPU   Physical |
 |----------|----------------|----------------|------------------------|--------------------------|
