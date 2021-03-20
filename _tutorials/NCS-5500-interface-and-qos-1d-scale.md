@@ -14,7 +14,7 @@ This tutorial will discuss single dimensional interface and QoS scale of the NCS
 
 The first section will introduce the basic L2 and L3 interface scale, without enabling QoS.
 
-The next section will discuss the impact of HQOS mode on bundle interface scale. HQOS mode is required if you need to enable Egress QoS on subinterfaces.
+The next section will discuss the impact of HQOS mode on bundle interface scale.
 
 Then we will discuss the impact of enabling QoS on interface scale, with respect to both ingress and egress.
 
@@ -53,18 +53,45 @@ For mixed L2 and L2, relevant limits are:
 (L3 + L2) main + subinterfaces <= 6652 per system  
 (L3 + L2) subinterfaces + bundle subinterfaces <= 8192 system  
 
-### Non-QoS Bundle Interface Scale
+## Non-QoS Bundle Interface Scale
 
 Bundle interface scale is configurable in IOS XR, with less bundle members support for higher bundle interface scale.
 
 Let N be the maximum number of bundle interfaces supported. Default N is 256, and can be changed by:
 
 ```
-RP/0/RP0/CPU0:OC-SE(config)#hw-module profile bundle-scale ?
+RP/0/RP0/CPU0:NCS5500(config)#hw-module profile bundle-scale ?
   1024  Max 1024 trunks, Max 16 members (128 main + 896 sub)
   512   Max 512 trunks, Max 32 members  (128 main + 384 sub)
   256   Max 256 trunks, Max 64 members  (128 main + 128 sub)
 ```
+
+### Non-HQOS Mode Bundle Interface Scale
+
+The bundle interface scale is independent of N for non-HQOS mode, and relevant limits are:
+
+L3 Bundle subinterfaces <= 1024 per system  
+L2 Bundle subinterfaces <= 4094/4096 per interface/system  
+L2 Bundle subinterfaces + L3 Bundle subinterfaces <= 4096 per system  
+L2 Bundle main interfaces + L3 Bundle main interfaces <=1024  
+L2 Bundle main interfaces + L2 Bundle subinterfaces <=4097  
+L2 Bundle main interfaces + L3 Bundle subinterfaces <=2047  
+(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= 5120  
+
+### HQOS mode Bundle Interface Scale
+
+HQOS mode is needed to enable egress hierarchivel QoS policies on main interfaces, or to enable egress flat or hierarchical QoS policies on subinterfaces.
+
+HQOS mode is disabled by default, and can be enabled by below command:
+
+```
+hw-module profile qos hqos-enable
+```
+The bundle interface scale is dependent of N for HQOS mode, and relevant limits are:
+
+L3 Bundle subinterfaces + L2 Bundle subinterfaces < N  
+L3 Bundle main interfaces + L3 Bundle main interfaces <= N  
+(L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= N  
 
 
 
