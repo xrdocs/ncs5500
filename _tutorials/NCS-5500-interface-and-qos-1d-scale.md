@@ -718,7 +718,7 @@ Each physical interface will always be assigned 8 queues, which is fixed.
 
 Each physical subinterface will be assigned 8 additional queues when it is created and with egress QoS configured.
 
-Bundle interface does not consume additional queues other than the queues of the physical bundle members.
+Bundle main interface with M bundle members does not consume additional queues other than the queues of the M bundle members.
 
 Each bundle member of a bundle subinterface will be assigned 8 additional qeueus when the bundle subinterface is created and with egress QoS configured.
 
