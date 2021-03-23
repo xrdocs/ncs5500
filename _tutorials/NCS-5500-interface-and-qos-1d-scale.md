@@ -710,11 +710,11 @@ Egress qos policy-map supports a maximum of 8 class-maps and each with 1 queue, 
 
 Each physical interface will always be assigned 8 queues, which is fixed.
 
-Each physical subinterface will be assigned 8 additional queues when they are configured.
+Each physical subinterface will be assigned 8 additional queues when it is created and with egress QoS configured.
 
-Bundle interface does not consume additional queues other than the queues of the physical bundle members when they are configured.
+Bundle interface does not consume additional queues other than the queues of the physical bundle members.
 
-Each bundle member of a bundle subinterface will be assigned 8 additional qeueus when they are configured.
+Each bundle member of a bundle subinterface will be assigned 8 additional qeueus when the bundle subinterface is created and with egress QoS configured.
 
 HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and also egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
 
