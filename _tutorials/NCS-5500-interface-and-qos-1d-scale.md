@@ -452,7 +452,7 @@ Below table will present the above scale limits in graphical format for ease of 
     <td class="body1"></td>
     <td class="body1"></td>
     <td class="body1"></td>
-    <td>8192</td>
+    <td>10496</td>
   </tr>
 </table>
 </div>
@@ -672,7 +672,7 @@ hw-module profile qos max-classmap-size [4|8|16|32]
 ```
 The maximum number of unique ingress policy-maps per NPU is increased from 30 to 250 from IOS XR 6.6.3/7.0.1. However, this does not impact on the ingress QoS interface scale.
 
-HQOS mode is required if you use ingress hierarchical policy-map on a main/subinterface, but not for ingress flat policy-map on a main/subinterface. However, HQOS does not impact on the ingress QoS interface scale.
+HQOS mode is not required for ingress hierarchical policy-maps, and HQOS mode does not impact ingress QoS interface scale.
 
 For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
 
@@ -707,7 +707,7 @@ Egress qos policy-map supports a fixed 8 maximum class-maps and is assigned a fi
 
 For a bundle interface, each bundle main and member interface will consume 8 queues.
 
-HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and even for egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
+HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and also egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
 
 <style>
 .egressqos table, th {text-align: center; width: 70%}
