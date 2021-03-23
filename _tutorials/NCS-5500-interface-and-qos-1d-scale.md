@@ -660,6 +660,8 @@ Enabling QoS will have impact on interface scale, and the effect will be differe
 
 ### Ingress QoS Interface Scale
 
+Ingress QoS scale is impacted by the available counters for statistics.
+
 In Normal QoS mode, 2 counters are used per ingress policy-map, and support the best interface scale.
 
 If Enhanced QoS mode is enabled, 4 counters are used per ingress policy-map, providing better statistics, but also used more hardware resources, resulting in lower interface scale:
@@ -672,7 +674,7 @@ hw-module profile qos max-classmap-size [4|8|16|32]
 ```
 The maximum number of unique ingress policy-maps per NPU is increased from 30 to 250 from IOS XR 6.6.3/7.0.1. However, this does not impact on the ingress QoS interface scale.
 
-HQOS mode is not required for ingress hierarchical policy-maps, and HQOS mode does not impact ingress QoS interface scale.
+HQOS mode is not required for ingress qos, even with hierarchical policy-maps, and HQOS mode does not impact ingress QoS interface scale.
 
 For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
 
@@ -703,9 +705,15 @@ For a bundle member with ingress QoS on a core of a NPU,  QoS resources are cons
 
 Egress QoS scale is impacted by the available queues (VOQ Virtual Output Queues).
 
-Egress qos policy-map supports a fixed 8 maximum class-maps and is assigned a fixed 8 queues.
+Egress qos policy-map supports a maximum of 8 class-maps and each with 1 queue, by default, and no configuration is required.
 
-For a bundle interface, each bundle main and member interface will consume 8 queues.
+Each physical interface will always be assigned 8 queues, which is fixed.
+
+Each physical subinterface will be assigned 8 additional queues when they are configured.
+
+Bundle interface does not consume additional queues other than the queues of the physical bundle members when they are configured.
+
+Each bundle member of a bundle subinterface will be assigned 8 additional qeueus when they are configured.
 
 HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and also egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
 
