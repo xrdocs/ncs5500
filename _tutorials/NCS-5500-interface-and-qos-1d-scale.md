@@ -677,7 +677,9 @@ The maximum number of unique ingress policy-maps per NPU is increased from 30 to
 
 HQOS mode is not required for ingress qos, even with hierarchical policy-maps, and HQOS mode does not impact ingress QoS interface scale.
 
-For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same:
+For a bundle member with ingress QoS on a core of a NPU,  QoS resources are consumed on both of the 2 cores of that NPU, so per core and per NPU scale are the same.
+
+Below table is the number of main/subinterfaces with ingress policy-map attached:
 
 <style>
 .ingressqos table, th {text-align: center;}
@@ -717,6 +719,8 @@ Bundle interface does not consume additional queues other than the queues of the
 Each bundle member of a bundle subinterface will be assigned 8 additional qeueus when the bundle subinterface is created and with egress QoS configured.
 
 HQOS mode is required if you use egress hierarchical policy-maps on a main/subinterface, and also egress flat policy-map on a subinterface. HQOS mode will not impact egress QoS interface scale, but will impact bundle interface scale as in above section.
+
+Below table is the number of main/subinterfaces with egress policy-map attached:
 
 <style>
 .egressqos table, th {text-align: center; width: 70%}
