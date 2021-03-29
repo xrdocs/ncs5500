@@ -31,6 +31,7 @@ We asked a few colleagues to help documenting the new improvements brought by th
 ## Segment Routing IPv6 (SRv6)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Dna59DZlLmQ?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+.
 
 Jakub Horn presents and demonstrates in his lab:
 - SRv6 uSID
@@ -47,6 +48,7 @@ The configuration used for the demos are available here:
 ## EVPN
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/3eoDB7uia6k?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+.
 
 Jiri Chaloupka and Lampros Gkavogiannis detail the following features:  
 - EVPN Head-End
