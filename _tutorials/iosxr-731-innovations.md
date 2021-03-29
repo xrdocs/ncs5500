@@ -4,7 +4,7 @@ date: '2021-03-29 12:45 +0200'
 title: IOS XR 7.3.1 Innovations in NCS5500/NCS5700/NCS500 Platforms
 author: Nicolas Fevrier
 excerpt: What's new in IOS XR731 in term of features and newly supported hardware
-position: hidden
+position: top
 tags:
   - iosxr
 ---
