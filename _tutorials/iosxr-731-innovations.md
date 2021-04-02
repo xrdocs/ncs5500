@@ -65,7 +65,12 @@ Jiri Chaloupka and Lampros Gkavogiannis detail the following features:
 
 ## Quality of Service
 
-Coming soon
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lvhHNdXEC_c?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+.
+
+Paban Sarma provides details on new QoS features:  
+- Shared-Policy Instances
+- Policy-map templates and uniqueness
 
 ## Security
 
@@ -92,7 +97,3 @@ Coming soon
 ### NCS57B1-6D24 / NCS57B1-5DSE
 
 Coming soon
-
-
-
-
