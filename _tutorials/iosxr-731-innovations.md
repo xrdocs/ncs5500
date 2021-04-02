@@ -74,7 +74,12 @@ Paban Sarma provides details on new QoS features:
 
 ## Security
 
-Coming soon
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O6tTu2Nidj8?autoplay=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+.
+
+Rakesh Kandula presents the latest improvements in IOS XR security brought in IOS XR 7.3.1:  
+- SSD encryption (note: it's limited to the platform running XR7)
+- X.509v3 Certificate based SSH authentication
 
 ## MPLS Segment Routing
 
