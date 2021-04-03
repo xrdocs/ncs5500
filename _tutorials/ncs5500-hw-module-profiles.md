@@ -639,7 +639,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![04.png]({{site.baseurl}}/images/04.png){: .align-center}
+![Screenshot 2021-04-03 at 2.31.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 2.31.43 PM.png)
+
 
 NCS 5500 supports BGP FlowSpec starting from IOS XR 6.5.1. Only the J+ platforms with eTCAM (-A-SE) are supporting this feature.
 
