@@ -150,7 +150,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
+
 
 "Destination-based Load balancing" has been introduced in 6.6.2 and is completed in 7.1.1.  
 It's another solution to address the 4K ECMP FEC limitation with software based pre-selection of the path. In this approach, one path out of available multipaths is selected based on software hash on destination IP before prefix is programmed in hardware. Data plane is programmed with selected single path. So traffic is virtually distributed on available paths by pre-selection of path based on per-prefix hash.  
@@ -1214,7 +1215,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
 
 Profile enabling per-label statistics at "ingress" for Segment Routing labels (only for the labels within configured SRGB and SRLB).
 Once activated, QoS Stats will not work for the same labeled packets.
@@ -1236,7 +1237,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
 
 Profile increasing the counters available in the egress pipeline from 16K (default) to 24K. These counters are taken from the ingress pipeline, impacting the scale for ACL/QOS/LPTS/etc.   
 This command also enables ingress SR counters.  
