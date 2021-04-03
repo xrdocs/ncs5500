@@ -308,8 +308,8 @@ RP/0/RP1/CPU0:5508-1-731(config)#
 
 To enable L3 BGP services over NCS5500/5700 use hw-module profile hw-module fib recycle service-over-rsvpte”. Prior to this feature, BGP services (6PE, VPNv4) were not supported over LDPoRSVPTE on NCS5500. With introduction of this feature, in IOS-XR 7.3.1 on systems with J/J+ and IOS-XR 7.4.1 on J2-comp-mode this use cases is possible. The is achieved via recycle approach.  In first pass,  IGP local label and BGP label is added and then packet is recycled. Recycled packet is treated as regular IGP MPLSoRSVPTE packet in second pass. In second pass, IGP local label is swapped with IGP out label and then pushed RSVP TE label and packet is sent out. In order to activate/deactivate recycling traffic for BGP services going over RSVP TE, you must manually reload the chassis/all line cards
 
-The limitation of this implementation is the throughput of the services over the TE tunnel. Because the packets are getting recycled, the throughput of each NPU core becomes half in worst case. This is because almost half of the b/w of each NPU core will be used by recycle port.
-EVPN over LDPoTE is supported only on J/J+. It is still not supported on J2 due to hardware limitations.
+Note: Enabling this profile, packets meant for the TE tunnel gets recycled
+EVPN over LDPoTE is supported only on J/J+. 
 {: .notice--info}
 
 ## bgp-pic multipath
