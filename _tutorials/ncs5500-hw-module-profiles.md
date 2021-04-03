@@ -201,7 +201,10 @@ _External documentation_:
 - [https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/](https://xrdocs.io/ncs5500/tutorials/ncs5500-urpf/)
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/62x/b-system-security-cg-ncs5500-62x/b-system-security-cg-ncs5500-62x_chapter_01001.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/62x/b-system-security-cg-ncs5500-62x/b-system-security-cg-ncs5500-62x_chapter_01001.html)
 
-Please pay attention to the form of the command since it could lead to confusions: for IPv4 it's internet-optimized while it's internet-optimized**-disable** for IPv6.
+Note1: Please pay attention to the form of the command since it could lead to confusions: for IPv4 it's internet-optimized while it's internet-optimized**-disable** for IPv6.
+{: .notice--info}
+
+Note2: This profiles are not applicable for J2 based systems.
 {: .notice--info}
 
 ### mpls
@@ -243,7 +246,10 @@ When we position NCS5500 as a pure LSR role, the first and third allocation are 
 
 EVPN services are not supported with this profile.
 
-Note: in an IGP domain, only the router's loopbacks need to be bound to labels. It's a best practise to use filters to reduce the IGP to MPLS relationship.
+Note1: in an IGP domain, only the router's loopbacks need to be bound to labels. It's a best practise to use filters to reduce the IGP to MPLS relationship.
+{: .notice--info}
+
+Note2: This profiles is not applicable for J2 based systems.
 {: .notice--info}
 
 _External documentation_:  
@@ -269,10 +275,13 @@ In 6.5.x: no services could work with this profile (no L2VPN/L3VPN as the "trans
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs560/segment-routing/71x/b-segment-routing-cg-71x-ncs560/b-segment-routing-cg-71x-ncs560_chapter_011.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs560/segment-routing/71x/b-segment-routing-cg-71x-ncs560/b-segment-routing-cg-71x-ncs560_chapter_011.html)
 
-Note: lsr-optimized mode was introduced in 6.5.x and was not supported on J+ w/ eTCAM systems initially, this limitation is removed starting from 7.1.1.
+Note1: lsr-optimized mode was introduced in 6.5.x and was not supported on J+ w/ eTCAM systems initially, this limitation is removed starting from 7.1.1.
 {: .notice--info}
 
 Note2: this profile can not be used with the internet-optimized.
+{: .notice--info}
+
+Note3: This profiles are not applicable for J2 based systems.
 {: .notice--info}
 
 ### recycle
@@ -442,7 +451,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-Limited to the NC57-18DD-SE line cards (based on Jericho2 with eTCAM OP2), this profile will enable the hybrid ACL configuration.  
+Note: This profiles is not applicable for J2 based systems
+{: .notice--info} 
+
 
 ### acl ipv6
 
@@ -471,7 +482,7 @@ When these extension headers are detected, these packets are sent to control pla
 This behavior of sending packet to CPU is enabled by default, but in case user wants to disable this special handling of extension headers, they can enable the hardware profile.  
 With this, they don't have to insert permit rules in each ACLs. All the packets with extension headers will bypass security ACLs and will be permitted. This CLI can be configured or de-configured anytime during router operation and does not need any restart of system.  
 
-Note: Can be enabled and disabled without requiring a system reload.
+Note: Can be enabled and disabled without requiring a system reload. This profile is not needed on J2 based systems.
 {: .notice--info}
 
 _External documentation_:  
@@ -610,6 +621,8 @@ This algorithm does not apply to fixed systems where the fabric links are not co
 Check "Set Fabric Bandwidth Threshold" in the installation guide:  
 [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5500-hardware-installation-guide/b-ncs5500-hardware-installation-guide_chapter_011.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5500-hardware-installation-guide/b-ncs5500-hardware-installation-guide_chapter_011.html)
 
+Note: This profile is not needed for J2 based systems.
+{: .notice--info}
 
 ### flowspec
 
@@ -736,6 +749,9 @@ Doesn't work for Segment Routing (same as IPv4) and doesn't support Explicit NUL
 
 _External documentation_:  
 - [https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv6-implementation-on-ncs5500-platform/ba-p/3771621](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv6-implementation-on-ncs5500-platform/ba-p/3771621)
+
+Note: This profile is not needed for J2 based systems
+{: .notice--info}
 
 ### qos
 
@@ -1178,6 +1194,9 @@ _External documentation_:
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/63x/b-ip-addresses-configuration-guide-ncs5500-63x/b-ip-addresses-configuration-guide-ncs5500-63x_chapter_010.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/63x/b-ip-addresses-configuration-guide-ncs5500-63x/b-ip-addresses-configuration-guide-ncs5500-63x_chapter_010.html)
 - [https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/)
 
+Note: This profiles is not needed for J2 based systems.
+{: .notice--info}
+
 ### stats ingress-sr
 
 <div class="highlighter-rouge">
@@ -1324,6 +1343,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 
 Very similar the enh profile, extending the MPLS scale from 8k to 20k counters (4k for ARP/ND) and at the expense of the L2 counters (no L2 with this one).
 
+Note: This profiles is not needed for J2 based systems
+{: .notice--info}
+
 ### tcam acl-prefix
 
 <div class="highlighter-rouge">
@@ -1349,7 +1371,7 @@ First, it's only relevant for products with eTCAM. Hybrid ACLs are not supported
 Second, it's only relevant to products based on Jericho. With Jericho+, the eTCAM is much larger and a portion of the database is allocated to ACLs dynamically, no configuration is needed.  
 Finally, pay specific attention to the release used on the router. Indeed, between 6.2.x and before 6.3.2, the eTCAM was carved by default with 20% for ACL and 80% for IPv4 routes. Its not the case before 6.2 and starting from 6.3.2, where default config is allocating 100% of the eTCAM to IPv4 routes.
 
-Note: if you don't configure space for ACL in eTCAM, the hybrid ACL configuration will be rejected at commit.
+Note: if you don't configure space for ACL in eTCAM, the hybrid ACL configuration will be rejected at commit. This profile is not needed for J2 based systems.
 {: .notice--info}
 
 _External documentation_:  
