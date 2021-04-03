@@ -275,6 +275,59 @@ Note: lsr-optimized mode was introduced in 6.5.x and was not supported on J+ w/ 
 Note2: this profile can not be used with the internet-optimized.
 {: .notice--info}
 
+### recycle
+
+**_hw-module fib recycle service-over-rsvpte_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib recycle ?
+  service-over-rsvpte  Recycle traffic for BGP services going over RSVP TE
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib recycle service-over-rsvpte ?
+  -cr-  
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib recycle service-over-rsvpte 
+Wed Mar 31 23:10:12.063 PDT
+In order to activate/deactivate recycling traffic for BGP services going over RSVP TE, you must manually reload the chassis/all line cards
+RP/0/RP1/CPU0:5508-1-731(config)#
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.58.02 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.58.02 AM.png)
+
+To enable L3 BGP services over NCS5500/5700 use hw-module profile hw-module fib recycle service-over-rsvpte”. Prior to this feature, BGP services (6PE, VPNv4) were not supported over LDPoRSVPTE on NCS5500. With introduction of this feature, in IOS-XR 7.3.1 on systems with J/J+ and IOS-XR 7.4.1 on J2-comp-mode this use cases is possible. The is achieved via recycle approach.  In first pass,  IGP local label and BGP label is added and then packet is recycled. Recycled packet is treated as regular IGP MPLSoRSVPTE packet in second pass. In second pass, IGP local label is swapped with IGP out label and then pushed RSVP TE label and packet is sent out. In order to activate/deactivate recycling traffic for BGP services going over RSVP TE, you must manually reload the chassis/all line cards
+
+The limitation of this implementation is the throughput of the services over the TE tunnel. Because the packets are getting recycled, the throughput of each NPU core becomes half in worst case. This is because almost half of the b/w of each NPU core will be used by recycle port.
+EVPN over LDPoTE is supported only on J/J+. It is still not supported on J2 due to hardware limitations.
+{: .notice--info}
+
+## bgp-pic multipath
+
+**_hw-module fib bgp-pic multipath-core enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib bgp-pic multipath-core ?
+  enable  Enable pic core in forwarding chain
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib bgp-pic multipath-core enable ?
+  -cr-  
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module fib bgp-pic multipath-core enable 
+Thu Apr  1 02:49:14.402 PDT
+In order to activate/deactivate bgp multipath pic core, you must manually reload the chassis/all line cards
+RP/0/RP1/CPU0:5508-1-731(config)#
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.59.58 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.59.58 AM.png)
+
+To avoid BGP prefix dependent convergence, when multiple ECMP paths are available via IGP, use the hw-module profile fib multipath-core enable. This helps in achieving sub second convergence. The BGP protocol will select more than 1 primary path as primary path set and 1 backup path for primary path set. It will install the primary and backup path pair in the RIB. FIB will replicate same backup path for all primary paths and program all path as a protected path. To disable the feature, need to use below CLI. After disabling the CLI router reload is recommended.“no hw-module fib bgp-pic multipath-core enable”. 
+
+Note: In order to activate/deactivate bgp multipath pic core, you must manually reload the chassis/all line cards.BGP LU level 1 is not supported. L3VPN/6PE/6VPE pic core multipath is not supported over igp
+{: .notice--info}
+
 ## oversubscription
 
 <div class="highlighter-rouge">
