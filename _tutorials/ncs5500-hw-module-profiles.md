@@ -1259,7 +1259,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 1.40.07 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 1.40.07 PM.png)
+
 
 By default, we only use two counters for policers.  
 This profile enables the 4-counter mode:
@@ -1318,7 +1319,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![09.png]({{site.baseurl}}/images/09.png){: .align-center}
+![Screenshot 2021-04-03 at 1.41.49 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 1.41.49 PM.png)
+
 
 This profile changes the "stats" EEDB bank to use "half" entries and thereby increases the EEDB scale available. It has been specifically created for large TE deployments, extending the head-end scale from 4k to 14k. Only on J+ systems.
 
