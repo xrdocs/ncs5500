@@ -50,6 +50,8 @@ Many thanks to:
 - Neeraj Garg
 - Riadh Habibi
 - Richard Poll
+- Tejas Lad
+- Angu Chakravarthy
 
 ## Hardware Module CLI hierarchy
 
@@ -762,6 +764,39 @@ This profile, introduced in 7.1.1, replaces the "short" one and extends the supp
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0101.html#wp1849861368](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0101.html#wp1849861368)
+
+**_hw-module profile qos conform-aware-policer_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos ?
+  conform-aware-policer           Configure Conform Aware Policer mode
+  hqos-enable                     Enable Hierarchical QoS
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  max-classmap-size               max class map size
+  physical-hqos-enable            Enable Hierarchical QoS on physical interfaces
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in t
+he same ingress QoS policy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos conform-aware-policer ?
+  -cr-  
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos conform-aware-policer
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.05.27 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.05.27 AM.png)
+
+To enable the conform-aware hierarchical policy feature use the _hw-module profile qos conform-aware-policer_ command. It was introduced in release IOS-XR 7.2.1. Implementing the profile conform aware hierarchical policy, allows conform traffic from the child level policy to get priority over Exceed or Violate traffic at parent level policy. Prior to this profile, there was no way that conform traffic belonging to child policy was getting priority over the parent level policy.  When this profile is enabled the entire system is put in color aware mode as compared to color blind mode by default. There is no effect on other features or resources.
+
+Note: In order to activate this new npu profile, you must manually reload the chassis
+The support on J2 based platforms is only in native mode from release IOS XR 7.4.1
+{: .notice--info}
+
+_External documentation_:  
+- [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html)
 
 ### segment-routing srv6 
 
