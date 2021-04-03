@@ -452,6 +452,88 @@ Note: "hw-module profile qos max-trunks <256/512/1024>" is replaced by "hw-modul
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html#wp3930832296](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html#wp3930832296)
 
+
+### bundle-hash
+
+
+**_hw-module profile bundle-hash ignore-ingress-port_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash ignore-ingress-port ?  
+  -cr-  
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash ignore-ingress-port
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.37.35 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.37.35 AM.png)
+
+This profile was introduced in IOS-XR 7.1.2. After enabling this profile ingress traffic port is removed from the hash-key computation. This results in different hash-key value gets computation. This alters the traffic distribution across the bundle members. This is a global CLI and applies to all Line cards and all bundles on the chassis. This profile doesn’t require a chassis or a LC reload.
+
+
+**_hw-module profile bundle-hash per-packet-round-robin_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash ?
+  hash-index              configure which polynomial to use in bundle-hash
+  ignore-ingress-port     Disable ingress port during bundle hash computation
+  per-packet-round-robin  Enable per-packet round robin loadbalancing for all bundles in system
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash 
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash per-packet-round-robin ?
+  -cr-  
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.40.07 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.40.07 AM.png)
+
+This profile is introduced in IOS XR 7.3.1. Enabling this profile, bundles will start egressing traffic in a per-packet round robin manner across all members. This suppresses any internal load balancing algorithm and it becomes purely round robin. This is a global CLI and applies to all bundles across all locations/LCs. 
+
+Note: This profile doesn’t require a chassis or a LC reload.
+When per packet round robin mode is enabled, all bundle links will be equally used for egress. Hence, the bundle-hash CLI tool or ‘show cef exact-route’ command to predict the egress member link will not be of any use.  
+{: .notice--info}
+
+
+**_hw-module profile bundle-hash hash-index <> location <>_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash hash-index ?           
+  1   Use Polynomial value 0x8011
+  10  Use LB-Key-Pkt-Data directly
+  11  Use counter incremented every packet
+  12  Use counter incremented every two clocks
+  2   Use Polynomial value 0x8423
+  3   Use Polynomial value 0x8101
+  4   Use Polynomial value 0x84A1
+  5   Use Polynomial value 0x9019
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash hash-index 10 ?
+  location  Location of bundle-hash polynomial config
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash hash-index 10 location ?
+  0/0/CPU0  Location of bundle-hash polynomial config
+  0/3/CPU0  Location of bundle-hash polynomial config
+  0/7/CPU0  Location of bundle-hash polynomial config
+  WORD      Location of bundle-hash polynomial config
+RP/0/RP1/CPU0:5508-1-731(config)#hw-module profile bundle-hash hash-index 10 location
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.41.57 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.41.57 AM.png)
+
+This is the config to adjust the LAG load balancing algorithm by changing the hash polynomial used by ASIC. The router continues to use the existing 7-Tuples algorithm, but user can change the polynomial value used internally. This results in different load-balancing which may be better in some cases. This profile is per location or LC based. So the change is applicable only for traffic streams ingressing on that particular Line Card. Hash-key is calculated based on ingress LC. Hash-key value decides which bundle member will be selected for egress, irrespective of whichever LC bundle member belongs to. User can configure same hash-index on all LCs if desired.
+
+
+Note: Any other hash-index is not valid or there are some internal limitations. Hence only CLI should be used to modify the hash-index and not via shell.
+Hash-indices 11 and 12 result in a per-pkt based distribution across bundle. So should be used with caution/after testing. This profile doesn’t require a chassis or a LC reload. When there are multiple NPU’s/ASIC’s on a LC, and hash index is configured on that location, that configuration gets applied to each NPU.
+{: .notice--info}
+
+
 ### bw-threshold
 
 <div class="highlighter-rouge">
