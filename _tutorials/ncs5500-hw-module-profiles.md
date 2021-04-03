@@ -757,7 +757,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![04.png]({{site.baseurl}}/images/04.png){: .align-center}
+![]({{site.baseurl}}/images/Screenshot%202021-04-03%20at%2011.05.27%20AM.png)
 
 From CCO: "To enable classification of IPv6 packets based on (CoS, DEI) on L3 sub-interfaces, run the hw-module profile qos ipv6 short-l2qos-enable command in the XR Config mode."  
 This profile, introduced in 7.1.1, replaces the "short" one and extends the support of the classification to the COS/DEI fields in the IPv6 headers, reducing the destination address to 96bits.
@@ -797,6 +797,161 @@ The support on J2 based platforms is only in native mode from release IOS XR 7.4
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0100.html)
+
+
+**_hw-module profile qos shared-policer-per-class-stats_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos ?
+  conform-aware-policer           Configure Conform Aware Policer mode
+  hqos-enable                     Enable Hierarchical QoS
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  max-classmap-size               max class map size
+  physical-hqos-enable            Enable Hierarchical QoS on physical interfaces
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in t
+he same ingress QoS policy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos shared-policer-per-class-stats ?
+  -cr-  
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos shared-policer-per-class-stats
+</code>
+</pre>
+</div>
+
+![]({{site.baseurl}}/images/Screenshot%202021-04-03%20at%2011.05.27%20AM.png)
+
+This profile was introduced in IOS-XR 7.2.1. Implementing this profile, will provide an option for token bucket sharing among two or more classes. Prior to this, there was no way to share a policer token bucket among two or more class. This token sharing depends on the incoming traffic rate, so there is no guarantee that both c1 and c2 will get equal share. However, if c2 doesn’t have any traffic, then all the bandwidth will be used by c1. This CLI will need system reload to enable the feature. The stats for each class will be available separately. In Shared Policer feature Per-Class Mode, policer bucket will be shared among two or more classes. It will also allow individual class statistics rather than aggregated statistics. Without enabling this feature as well the shared policer will work with respect to token bucket sharing, however the stats will be available only as aggregate stats, and not per individual class stats.
+
+Note: In order to activate this new npu profile, you must manually reload the chassis
+The support on J2 based platforms is only in native mode from release IOS XR 7.4.1
+Policy based tunnel selection (PBTS) is disabled when we enable this profile
+{: .notice--info}
+
+_External documentation_:  
+- [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_010.html#wp4161007330](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_010.html#wp4161007330)
+
+
+**_hw-module profile qos wred-stats-enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos wred-stats-enable
+  -cr-  
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos shared-policer-per-class-stats
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.18.57 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.18.57 AM.png)
+
+
+WRED-stats accounting feature on NCS5700 platform will be introduced from IOS-XR 7.4.1. WRED stats will be supported on systems based on J2 with OP2 TCAM only in native mode. Statistics like WRED FWD, WRED Drop count will be available for all the discard-class 0,1,2. WRED stats can be used as an indication of network congestion bottleneck and network planning can be done accordingly.
+
+Note:In order to activate this new npu profile, you must manually reload the chassis
+The support is only on J2 platforms with e-tcam in native mode from release IOS XR 7.4.1
+{: .notice--info}
+
+
+**_hw-module profile qos qosg-dscp-mark-enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos ?
+  conform-aware-policer           Configure Conform Aware Policer mode
+  hqos-enable                     Enable Hierarchical QoS
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  max-classmap-size               max class map size
+  physical-hqos-enable            Enable Hierarchical QoS on physical interfaces
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in t
+he same ingress QoS policy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos qosg-dscp-mark-enable 10 ?
+  0-63  Second DSCP/Precedence value
+  -cr-    
+RP/0/RP0/CPU0:IOS(config)#hw-module profile qos qosg-dscp-mark-enable 10
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.22.42 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.22.42 AM.png)
+
+To set the qos-group and DSCP values within the same QoS policy that is applied in the ingress direction, use the hw-module profile qos qosg-dscp-mark-enable command. This profile was introduced in IOS-XR 7.1.2. With the use of this profile, we can configure a single ingress policy with both set dscp/precedence and set qos-group at the same time. We can configure set dscp or prec and set qos-group under the same policy-map but not inside the same class map in a policy map. In order to activate this new npu profile, you must manually reload the chassis
+
+_External documentation_:
+- [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0101.html#wp1468010117](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/b-ncs5500-qos-cli-reference/b-ncs5500-qos-cli-reference_chapter_0101.html#wp1468010117)
+
+
+**_hw-module profile qos ecn-marking-stats_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:ios#con t
+Fri Mar 26 10:35:10.739 UTC
+RP/0/RP0/CPU0:ios(config)#hw-module profile qos ?
+  conform-aware-policer           Configure Conform Aware Policer mode
+  ecn-marking-stats               Enable ECN marking stats mode
+  hqos-enable                     Enable Hierarchical QoS
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  max-classmap-size               max class map size
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in the same ingress QoS policy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+  wred-stats-enable               Enable Wred egress stats
+RP/0/RP0/CPU0:ios(config)#hw-module profile qos ecn-marking-stats 
+Fri Mar 26 10:35:20.004 UTC
+In order to activate this profile, you must manually reload the chassis/all line cards
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-04-03 at 11.24.40 AM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 11.24.40 AM.png)
+
+This profile helps to enable the counters for ECN marked packets when the packet is going out of the node. It was introduced in release IOS-XR 7.3.2. 
+ECN feature is enabled by default in the system. But counters for ECN marked packets is not enabled due to stats resource limitation. When this hw-module is enabled, we enable rules in hardware to count ECN marked packets during congestion in the system.
+
+In order to activate this new npu profile, you must manually reload the chassis
+With this profile enabled, Egress IPv4 and IPv6 ACL will not work due to PMF resource limitation in egress.
+
+Note: In order to activate this new npu profile, you must manually reload the chassis
+With this profile enabled, Egress IPv4 and IPv6 ACL will not work due to PMF resource limitation in egress.
+{: .notice--info}
+
+### enabling native mode 
+
+**_hw-module profile npu native-mode-enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:IOS(config)#hw-module profile npu ?
+  native-mode-enable  Enable NPUs to operate in native mode
+RP/0/RP0/CPU0:T-2006(config)#hw-module profile npu
+
+RP/0/RP0/CPU0:ios#config
+RP/0/RP0/CPU0:ios(config)#hw-module profile npu native-mode-enable
+In order to activate this new npu profile, you must manually reload the chassis
+RP/0/RP0/CPU0:ios(config)#commit
+RP/0/RP0/CPU0:ios(config)
+</code>
+</pre>
+</div>
+
+J2 based systems can operate in 2 modes: 
+Compatible Mode—Used when the chassis contains combination of Cisco NC57 and older generation line cards. This is the default mode.
+Native Mode—Used when the chassis contains only Cisco NC57 line cards. 
+
+This hw-module profile is introduced in IOS-XR 7.2.1. For operating a modular chassis with J2 based Line cards in full capacity we need to enable this profile. Jericho and Jericho+ based LC’s present in the chassis should be shut down from admin mode before reload or removed from the chassis. The forwarding behavior will be broken and can be unpredictable if the system will not be able to shut them down properly. To enable the native mode, use the hw-module profile npu native-mode-enable command in the configuration mode. Reload of the router will be needed to switch to native mode. The fixed chassis based on J2 chipset will operate by default in native mode only.
+
+_External documentation_:
+-[https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/vpn/72x/b-l2vpn-cg-ncs5500-72x/configure-gigabit-ethernet-for-layer-2-VPNs.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/vpn/72x/b-l2vpn-cg-ncs5500-72x/configure-gigabit-ethernet-for-layer-2-VPNs.html)
+
 
 ### segment-routing srv6 
 
