@@ -1413,7 +1413,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![07.png]({{site.baseurl}}/images/07.png){: .align-center}
+![Screenshot 2021-04-03 at 2.27.25 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 2.27.25 PM.png)
+
 
 Only valid on the first generation of eTCAM (with Jericho ASIC). These hardware profile CLI permits the allocation / carving of the memory for specific route type. It does influence the way routes are stored in the different databases too.  
 It's not operational on J+ eTCAM since the allocation is dynamic and all routes are stored in external TCAM by default.
@@ -1557,7 +1558,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![07.png]({{site.baseurl}}/images/07.png){: .align-center}
+![]({{site.baseurl}}/images/Screenshot%202021-04-03%20at%202.27.25%20PM.png)
 
 This profile exists specifically for the application of URPF on a Jericho-based eTCAM system or line card.  
 It will disable a mechanism named "double capacity" that allowed to double the size of the 80b key memory, extending the route count from 1M to 2M entries.  
