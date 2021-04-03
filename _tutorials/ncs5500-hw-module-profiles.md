@@ -356,7 +356,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#hw-module oversubscription prioritize untagged
 </pre>
 </div>
 
-Features developped for NCS540, not NCS5500.  
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
+  
 
 ## port-range
 
@@ -423,7 +424,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 Introduced in IOS XR 6.1.4, this profile is specifically designed to enable L3 egress ACL over BVI.  
 
@@ -500,7 +501,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 In IOS XR 6.5.1, we introduced this hardware profile to offer more flexibility in the distribution "number of bundles vs numbers of bundle members". Some customers wanted more bundle interfaces with few ports or vice versa fewer bundle interfaces with more port members.
 
@@ -695,7 +696,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![05.png]({{site.baseurl}}/images/05.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 This hardware profile must be enabled prior to configure an exporter-map with version ipfix option 315 on a specific line card.
 
@@ -716,7 +717,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![05.png]({{site.baseurl}}/images/05.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 This feature introduced in 7.0.1 enables the full packet capture mode, and is documented externally on [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/netflow/b-ncs5500-netflow-cli-reference/b-ncs5500-netflow-cli-reference_chapter_01.html#wp4044800456](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/netflow/b-ncs5500-netflow-cli-reference/b-ncs5500-netflow-cli-reference_chapter_01.html#wp4044800456)  
 
@@ -759,7 +760,7 @@ Many options behind the qos profiles...
 
 **_hw-module profile qos hqos-enable_**
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -807,7 +808,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![05.png]({{site.baseurl}}/images/05.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 The max-classmap-size represents the maximum number of class-map we can use in policy-map. It has a direct impact on the  number of L2 interfaces where you can apply QoS.
 
@@ -882,7 +883,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![04.png]({{site.baseurl}}/images/04.png){: .align-center}
+![Screenshot 2021-04-03 at 12.39.43 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.39.43 PM.png)
 
 Introduced in IOS XR 6.5.1 for the support of the QPPB feature.  
 Only mandatory to apply it (and reload the line card) for IPv6, it's not needed for IPv4 QPPB activation.
@@ -1460,7 +1461,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![05.png]({{site.baseurl}}/images/05.png){: .align-center}
+![Screenshot 2021-04-03 at 12.54.11 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.54.11 PM.png)
+
 
 These hardware profiles are necessary to enable the UDK/UDF (User-Defined TCAM Key and Field) used with ingress ACL.  
 - They permit the definition of the TCAM key.
