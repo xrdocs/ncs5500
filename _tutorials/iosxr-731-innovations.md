@@ -30,7 +30,7 @@ We asked a few colleagues to help documenting the new improvements brought by th
 
 ## Segment Routing IPv6 (SRv6)
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Dna59DZlLmQ?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/Dna59DZlLmQ?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Jakub Horn presents and demonstrates in his lab:
@@ -47,7 +47,7 @@ The configuration used for the demos are available here:
 
 ## EVPN
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/3eoDB7uia6k?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/3eoDB7uia6k?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Jiri Chaloupka and Lampros Gkavogiannis detail the following features:  
@@ -65,7 +65,7 @@ Jiri Chaloupka and Lampros Gkavogiannis detail the following features:
 
 ## Quality of Service
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/lvhHNdXEC_c?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/lvhHNdXEC_c?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Paban Sarma provides details on new QoS features:  
@@ -74,7 +74,7 @@ Paban Sarma provides details on new QoS features:
 
 ## Security
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/O6tTu2Nidj8?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/O6tTu2Nidj8?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Rakesh Kandula presents the latest improvements in IOS XR security brought in IOS XR 7.3.1:  
