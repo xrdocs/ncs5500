@@ -18,6 +18,7 @@ position: top
 | 2020-Apr-08 | Correction: HQoS not needed for ingress policer on sub-if |
 | 2020-Jul-31 | Add: hw-mod profile bw-threshold |
 | 2020-Aug-10 | Add: comment on the need to use UDK profile for packet-length match in ACL |
+| 2021-Apr-3  | Add: hw-mod profiles till 7.3.1, updated the support for J2 based platforms for exisiting profiles | 
 
 
 
@@ -55,7 +56,7 @@ Many thanks to:
 
 ## Hardware Module CLI hierarchy
 
-For this article, we use IOS XR 6.6.3 and 7.0.2. The document will be updated regularly.  
+For this article, we use IOS XR 6.6.3, 7.0.2, 7.3.1. The document will be updated regularly.  
 
 ### Graphical view of the 6.6.3 structure
 
