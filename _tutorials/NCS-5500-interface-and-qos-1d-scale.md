@@ -712,6 +712,10 @@ Below table is the number of interfaces with ingress policy-map attached:
 
 Egress QoS scale is impacted by the available queues (VOQ Virtual Output Queues).
 
+In NCS-5500 architecture, the egress queues are actually mapped to the buffer on ingress, and organized as virtual output queues. The benefits of this approach are minimized egress buffers, and allows single lookup on ingress for forwarding. 
+
+In this model, the ingress NPU has to store information for all egress NPU/Linecard, so scale will vary with number of egress NPU/Linecards.
+
 Egress qos policy-map supports a maximum of 8 class-maps and each with 1 queue, by default, and no configuration is required.
 
 Each physical interface will always be assigned 8 queues, which is fixed.
