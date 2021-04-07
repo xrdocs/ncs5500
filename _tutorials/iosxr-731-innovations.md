@@ -47,7 +47,7 @@ The configuration used for the demos are available here:
 
 ## EVPN
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/3eoDB7uia6k?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/3eoDB7uia6k" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Jiri Chaloupka and Lampros Gkavogiannis detail the following features:  
@@ -65,7 +65,7 @@ Jiri Chaloupka and Lampros Gkavogiannis detail the following features:
 
 ## Quality of Service
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/lvhHNdXEC_c?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/lvhHNdXEC_c" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Paban Sarma provides details on new QoS features:  
@@ -74,7 +74,7 @@ Paban Sarma provides details on new QoS features:
 
 ## Security
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/O6tTu2Nidj8?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/O6tTu2Nidj8" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 Rakesh Kandula presents the latest improvements in IOS XR security brought in IOS XR 7.3.1:  
@@ -83,7 +83,21 @@ Rakesh Kandula presents the latest improvements in IOS XR security brought in IO
 
 ## MPLS Segment Routing
 
-Coming soon
+This section is split itself in three parts
+
+### IGPs
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/5myoWuSioGY" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
+Jose Liste covers a lot of topics in this 30min long video:  
+
+- OSPF LFA/TI-LFA for FlexAlgo
+- Rounding of Min-Delay Values
+- OSPF Conditional Advertisement
+- ISIS TI-LFA Protection of Unlabeled IPv6 Prefixes
+- Inter-Level SRMS Advertisement Propagation
+
 
 ## New products
 
