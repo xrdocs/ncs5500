@@ -14,9 +14,9 @@ position: top
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, ACLs, Netflow following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
-Authors: Nicolas Fevrier
-         Tejas Lad
+Authors: Nicolas Fevrier & Tejas Lad
 {: .notice--info}
+
 ## Introduction
 
 This short post will help understanding how the ports are allocated to NPU for each line card and systems.
@@ -366,3 +366,18 @@ Fixed Platform Scaled version with J2 ASIC
 Note: Core0: 20x 100G and Core1: 4x100G + 5x400G
 Keep it in mind for the snake tests
 {: .notice--info}
+
+### NC57-24DD 
+
+High Density 400G Line card based on 2xJ2 chipset.
+
+![Screenshot 2021-04-10 at 7.42.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 7.42.35 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| FH0/x/0/0 | 0 / 0    | FH0/x/0/6  | 0 / 1    | FH0/x/0/12 | 1 / 0    | FH0/x/0/18 | 1 / 1    |
+| FH0/x/0/1 | 0 / 0    | FH0/x/0/7  | 0 / 1    | FH0/x/0/13 | 1 / 0    | FH0/x/0/19 | 1 / 1    |
+| FH0/x/0/2 | 0 / 0    | FH0/x/0/8  | 0 / 1    | FH0/x/0/14 | 1 / 0    | FH0/x/0/29 | 1 / 1    |
+| FH0/x/0/3 | 0 / 0    | FH0/x/0/9  | 0 / 1    | FH0/x/0/15 | 1 / 0    | FH0/x/0/21 | 1 / 1    |
+| FH0/x/0/4 | 0 / 0    | FH0/x/0/10 | 0 / 1    | FH0/x/0/16 | 1 / 0    | FH0/x/0/22 | 1 / 1    |
+| FH0/x/0/5 | 0 / 0    | FH0/x/0/11 | 0 / 1    | FH0/x/0/17 | 1 / 0    | FH0/x/0/23 | 1 / 1    |
