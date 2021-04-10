@@ -324,3 +324,42 @@ System-on-chip with one Jericho+. Capable of Class B timing and MACSEC on all po
 | Te0/0/0/12 | 0 / 1    | TF0/0/0/26 | 0 / 1    | TF0/0/0/40 | 0 / 1    |            |          |
 | Te0/0/0/13 | 0 / 1    | TF0/0/0/27 | 0 / 1    | TF0/0/0/41 | 0 / 1    |            |          |
 
+
+### NCS57B1-6D24H
+
+First fixed platform based on J2 ASIC. MACSEC capable on all 100G and 400G ports. Class C timing ready platform. Base version with support of ZR/ZR+ optics.
+
+![Screenshot 2021-04-10 at 7.13.40 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 7.13.40 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| Hu0/0/0/0 | 0 / 0    | Hu0/0/0/8  | 0 / 0    | Hu0/0/0/16 | 0 / 0    | FH0/0/0/24 | 0 / 1    |
+| Hu0/0/0/1 | 0 / 0    | Hu0/0/0/9  | 0 / 0    | Hu0/0/0/17 | 0 / 0    | FH0/0/0/25 | 0 / 1    |
+| Hu0/0/0/2 | 0 / 0    | Hu0/0/0/10 | 0 / 0    | Hu0/0/0/18 | 0 / 0    | FH0/0/0/26 | 0 / 1    |
+| Hu0/0/0/3 | 0 / 0    | Hu0/0/0/11 | 0 / 0    | Hu0/0/0/19 | 0 / 0    | FH0/0/0/27 | 0 / 1    |
+| Hu0/0/0/4 | 0 / 0    | Hu0/0/0/12 | 0 / 0    | Hu0/0/0/20 | 0 / 1    | FH0/0/0/28 | 0 / 1    |
+| Hu0/0/0/5 | 0 / 0    | Hu0/0/0/13 | 0 / 0    | Hu0/0/0/21 | 0 / 1    | FH0/0/0/29 | 0 / 0    |
+| Hu0/0/0/6 | 0 / 0    | Hu0/0/0/14 | 0 / 0    | Hu0/0/0/22 | 0 / 1    |            |          |
+| Hu0/0/0/7 | 0 / 0    | Hu0/0/0/15 | 0 / 0    | Hu0/0/0/23 | 0 / 1    |            |          |
+
+
+### NCS-57B1-5DSE
+
+Fixed Platform Scaled version with J2 ASIC
+
+![Screenshot 2021-04-10 at 7.13.50 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 7.13.50 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| Hu0/0/0/0 | 0 / 0    | Hu0/0/0/8  | 0 / 0    | Hu0/0/0/16 | 0 / 0    | FH0/0/0/24 | 0 / 1    |
+| Hu0/0/0/1 | 0 / 0    | Hu0/0/0/9  | 0 / 0    | Hu0/0/0/17 | 0 / 0    | FH0/0/0/25 | 0 / 1    |
+| Hu0/0/0/2 | 0 / 0    | Hu0/0/0/10 | 0 / 0    | Hu0/0/0/18 | 0 / 0    | FH0/0/0/26 | 0 / 1    |
+| Hu0/0/0/3 | 0 / 0    | Hu0/0/0/11 | 0 / 0    | Hu0/0/0/19 | 0 / 0    | FH0/0/0/27 | 0 / 1    |
+| Hu0/0/0/4 | 0 / 0    | Hu0/0/0/12 | 0 / 0    | Hu0/0/0/20 | 0 / 1    | FH0/0/0/28 | 0 / 1    |
+| Hu0/0/0/5 | 0 / 0    | Hu0/0/0/13 | 0 / 0    | Hu0/0/0/21 | 0 / 1    |            |          |
+| Hu0/0/0/6 | 0 / 0    | Hu0/0/0/14 | 0 / 0    | Hu0/0/0/22 | 0 / 1    |            |          |
+| Hu0/0/0/7 | 0 / 0    | Hu0/0/0/15 | 0 / 0    | Hu0/0/0/23 | 0 / 1    |            |          |
+
+Note: Core0: 20x 100G and Core1: 4x100G + 5x400G
+Keep it in mind for the snake tests
+{: .notice--info}
