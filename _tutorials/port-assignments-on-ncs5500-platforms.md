@@ -381,3 +381,23 @@ High Density 400G Line card based on 2xJ2 chipset.
 | FH0/x/0/3 | 0 / 0    | FH0/x/0/9  | 0 / 1    | FH0/x/0/15 | 1 / 0    | FH0/x/0/21 | 1 / 1    |
 | FH0/x/0/4 | 0 / 0    | FH0/x/0/10 | 0 / 1    | FH0/x/0/16 | 1 / 0    | FH0/x/0/22 | 1 / 1    |
 | FH0/x/0/5 | 0 / 0    | FH0/x/0/11 | 0 / 1    | FH0/x/0/17 | 1 / 0    | FH0/x/0/23 | 1 / 1    |
+
+### NC57-18DD
+
+High Density Line card with combination of 100G and 400G native ports. It is based on 2xJ2 chipset. Allows Flexible combination of 400G/100G/200G/40G optics and breakout options. 
+
+![Screenshot 2021-04-10 at 11.29.40 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 11.29.40 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|
+| Hu0/x/0/0 | 0 / 0    | Hu0/x/0/10 | 0 / 1    | FH0/x/0/20 | 1 / 0    |
+| Hu0/x/0/1 | 0 / 0    | Hu0/x/0/11 | 0 / 1    | FH0/x/0/21 | 1 / 1    |
+| Hu0/x/0/2 | 0 / 0    | Hu0/x/0/12 | 0 / 1    | FH0/x/0/22 | 1 / 1    |
+| Hu0/x/0/3 | 0 / 0    | Hu0/x/0/13 | 0 / 1    | FH0/x/0/23 | 1 / 1    |
+| Hu0/x/0/4 | 0 / 0    | Hu0/x/0/14 | 1 / 0    | FH0/x/0/24 | 1 / 1    |
+| Hu0/x/0/5 | 0 / 0    | Hu0/x/0/15 | 1 / 0    | FH0/x/0/25 | 1 / 1    |
+| Hu0/x/0/6 | 0 / 0    | Hu0/x/0/16 | 1 / 0    | FH0/x/0/26 | 0 / 1    |
+| Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 1 / 0    | FH0/x/0/27 | 0 / 1    |
+| Hu0/x/0/8 | 0 / 0    | FH0/x/0/18 | 1 / 0    | FH0/x/0/28 | 0 / 1    |
+| Hu0/x/0/9 | 0 / 0    | FH0/x/0/19 | 1 / 0    | FH0/x/0/29 | 0 / 1    |
+
