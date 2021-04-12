@@ -98,6 +98,20 @@ Jose Liste covers a lot of topics in this 30min long video:
 - ISIS TI-LFA Protection of Unlabeled IPv6 Prefixes
 - Inter-Level SRMS Advertisement Propagation
 
+### Performance Monitoring and Traffic-Engineering
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/KkdX7CL7bGU" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
+- Named Profile
+- SR Policy Delay Measurement with Loopback-mode
+- SR Policy Liveless Monitoring
+- SR-TE Cumulative-Metric Bound
+
+
+## Optics
+
+Coming soon
 
 ## New products
 
