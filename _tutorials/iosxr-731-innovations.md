@@ -108,6 +108,12 @@ Jose Liste covers a lot of topics in this 30min long video:
 - SR Policy Liveless Monitoring
 - SR-TE Cumulative-Metric Bound
 
+### Dynamic SR P2MP Policies
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/oG11YKMzxqU" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
+- Dynamic SR P2MP policies theory and lab demo
 
 ## Optics
 
