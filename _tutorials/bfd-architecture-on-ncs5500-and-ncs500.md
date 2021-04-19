@@ -11,7 +11,7 @@ tags:
   - NCS 5500
   - BFD
   - Protection
-position: top
+position: hidden
 ---
 ## Introduction
 
