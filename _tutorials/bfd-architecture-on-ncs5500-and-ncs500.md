@@ -70,7 +70,8 @@ Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560.
 
 All of us are already aware of the Pipeline architecture which is used for packet processing in NCS55xx and NCS5xx. Let us understand the packet processing w.r.t BFD. 
 
-  - When a packet is received in the ingress direction, it goes through several stages in IRPP.   --   - Ingress hardware logic is capable of identifying the oam packets which is present in Forwader block in pipeline. 
+  - When a packet is received in the ingress direction, it goes through several stages in IRPP.
+  - Ingress hardware logic is capable of identifying the oam packets which is present in Forwader block in pipeline. 
   - It supports all the oam packets and the identification logic generates variables which will be used by the next Step OAM Classifier.
   - When OAMP processor receives the BFD packet.  It has 2 options
     - OAMP consume the BFD packet
@@ -93,14 +94,17 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
 
 **1st cycle:**
 
+  - L3 Lookup takes place. 
   - BFD is treated as an IP packet and will hit the FLP entry which satisfies IP criteria and destination is resolved as recycle port.
+  - Identify the packet as for us packet and recycle for second pass. 
   - The PP port value on which packet is received is extracted in PMF stage.
-  - It is added as part of stacking header. 
 
 **2nd cycle:**
 
+  - Packet hits PMF entries.
   - After recycling the packet, parser will qualify the packet as BFD and would set the trap code accordingly.
   - In PMF stage, BFD packet would be processed and sets the traps & destination accordingly.
+  - Packet is redirected to egress line card based on PMF action.
 
 
 
