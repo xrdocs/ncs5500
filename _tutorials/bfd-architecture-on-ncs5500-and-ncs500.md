@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2021-04-19 14:04 +0530'
-title: BFD architecture on NCS55xx and NCS5xx
+title: BFD Architecture on NCS55xx and NCS5xx
 author: Tejas Lad
 excerpt: Implementation of BFD on NCS5500 and NCS500
 tags:
@@ -13,6 +13,8 @@ tags:
   - Protection
 position: hidden
 ---
+{% include toc icon="table" title="BFD Architecture on NCS55xx and NCS5xx" %} 
+
 ## Introduction
 
 After successfully introducing the [LPTS](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) for control plane protection and the [ACL's](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/) for data-plane protection on the NCS55xx and NCS5xx portfolio, we will start this new series on faster convergence. All of us are already aware of the concept Bidirectional Forwarding Detection - BFD. BFD is fairly old technology and is widely deployed across the industry for faster network convergence. In this tech-note, we will discuss the hardware architecture and implementation of BFD on NCS55xx and NCS5xx platforms.
@@ -27,5 +29,24 @@ Another benefit of BFD, is that it provides network administrators with a consis
 
 For understanding the BFD in details please visit the excellent articles. [[Reference1](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926) [Reference2](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)]. In this document, we will try to focus on BFD architecture and hardware implementation.
 
-## BFD on NCS55xx and NCS5xx
+## BFD Modes on NCS55xx and NCS5xx
+
+| Mode         | Support |
+|--------------|---------|
+| Asynchronous | Yes     |
+| Echo         | No      |
+
+For further details and working on the modes of operation, please [Visit](https://www.cisco.com/c/en/us/td/docs/routers/crs/software/crs_r4-2/interfaces/configuration/guide/hc42bifw.html#wp1026021)
+
+## BFD Single-Path and Multi-Path Sessions
+
+BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions.BFD sessions between virtual interfaces (BVI, BE, PWHE, GRE tunnel) of directly connected peers is also a Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
+
+BFD Single Path Support
+
+| BFD Type           | v4  | v6  |
+|--------------------|-----|-----|
+| Physical Interface | Yes | Yes |
+| Sub-Interface      | Yes | Yes |
+| BFDoBundle - BoB   | Yes | Yes |
 
