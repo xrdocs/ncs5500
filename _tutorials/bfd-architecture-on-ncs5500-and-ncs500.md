@@ -42,11 +42,25 @@ For further details and working on the modes of operation, please [Visit](https:
 
 BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions.BFD sessions between virtual interfaces (BVI, BE, PWHE, GRE tunnel) of directly connected peers is also a Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
 
-BFD Single Path Support
+### BFD Single-Path Support
 
 | BFD Type           | v4  | v6  |
 |--------------------|-----|-----|
 | Physical Interface | Yes | Yes |
 | Sub-Interface      | Yes | Yes |
 | BFDoBundle - BoB   | Yes | Yes |
+
+### BFD Multi-Path Support
+
+| BFD Type                       | v4  | v6  |
+|--------------------------------|-----|-----|
+| BFD over Logical Bundle - BLB  | Yes | Yes |
+| BVI                            | Yes | Yes |
+| BGP MultiHop                   | Yes | Yes |
+
+Note1: BFD Multi-Path (v4/v6) over BVI and BGP Multihop is not supported on systems based on J2.
+{: .notice--info}
+
+Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560.
+{: .notice--info}
 
