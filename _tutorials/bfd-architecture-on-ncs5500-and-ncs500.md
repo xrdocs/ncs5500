@@ -107,5 +107,26 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
   - Packet is redirected to egress line card based on PMF action.
 
 
+## BFD Feature Support
+
+  - BFD is supported only in Asynchronous mode. Demand and Echo mode are not supported.
+  - Static, OSPF, BGP and IS-IS applications are supported in IPv4 BFD.
+  - Only static routes are supported in IPv6 BFD.
+  - BFD over VRF is supported.
+  - BFD over BVI is supported only on fixed NCS550 platforms.
+  - BFD support over VRRP interface is supported from IOS-XR 7.2.1
+  - BFD dampening for IPv4 is supported.
+  - BFD multihop is supported over an IP and non-IP core. 
+  - BoB and BLB coexistence is not supported at the moment. It will be supported in the future.
+ 
+ Note: We will dedicate separate technotes on some of the features described above for details.
+{: .notice--info}
+
+## Reference 
+
+  - [ASR9k BFD Implementation](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)
+  - [BFD NCS5500 ](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
+  - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
+
 
 
