@@ -107,6 +107,18 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
   - Packet is redirected to egress line card based on PMF action.
 
 
+## BFD Timers
+
+**IPv4 and IPv6**
+
+| Type of BFD Session | Minimum Timer Supported | Default/Minimum Multipliers |
+|---------------------|-------------------------|-----------------------------|
+| Physical/Vlan       | 4ms                     | 3                           |
+| BOB                 | 4ms                     | 3                           |
+| BLB                 | 50ms                    | 3                           |
+| MHOP                | 50ms                    | 3                           |
+
+
 ## BFD Feature Support
 
   - BFD is supported only in Asynchronous mode. Demand and Echo mode are not supported.
@@ -118,6 +130,7 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
   - BFD dampening for IPv4 is supported.
   - BFD multihop is supported over an IP and non-IP core. 
   - BoB and BLB coexistence is not supported at the moment. It will be supported in the future.
+  - BFD with IPv4 supports upto 6 unique timers. With IPv6 we do not have limit of unique timers.
  
  Note: We will dedicate separate technotes on some of the features described above for details.
 {: .notice--info}
