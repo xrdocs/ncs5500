@@ -141,8 +141,12 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
   - [BFD NCS5500 ](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
   - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
 
+## Thanks
+
+Special thanks to Arun Vadamalai for his valueable feedback during the documentation.
 
 ## Summary
 
-This was an introductory article on BFD to get familiarise with feature with pipeline architecture. In the next article, we will focus on how to read the BFD parameters in the outputs and also see some basic debugging. Also we will touch upon the concept of BOB and BLB. 
+This was an introductory article on BFD to get familiarise with feature wi
+th pipeline architecture. In the next article, we will focus on how to read the BFD parameters in the outputs and also see some basic debugging. Also we will touch upon the concept of BOB and BLB. 
 
