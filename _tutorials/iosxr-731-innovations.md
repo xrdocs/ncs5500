@@ -8,6 +8,8 @@ position: top
 tags:
   - iosxr
 ---
+{% include toc icon="table" title="XR 7.3.1 Innovations" %} 
+
 ## Introduction
 
 IOS XR 7.3.1 has been published in late February 2021 and is an ED version for many XR platforms including:  
