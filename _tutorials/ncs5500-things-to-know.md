@@ -253,9 +253,13 @@ It's true with the exception of the modular systems and line cards (NCS55A2-MOD 
 
 ### Breakout-cable
 
-Do you support breakout cable options?
+Q: Do you support breakout cable options?  
+A: Yes, depending on the optic type, it's possible to configure 4x10G, 4x25G, 4x100G, etc.
 
-Yes, depending on the optic type, it's possible to configure 4x10G or 4x25G
+Q: How do you configure it?  
+A: it depends on the router type.
+
+On NCS55xx:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -264,18 +268,29 @@ RP/0/RP0/CPU0:NCS5500(config-Optics)# breakout 4x10</code>
 </pre>
 </div>
 
+On NCS57B1:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 ?
+  instance  card instance of MPA's
+  location  fully qualified location specification
+RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 instance 0 location 0/RP0/CPU0 mode ?
+  WORD  port mode 40-100, 400, 2x100, 4x10, 4x25, 4x10-4x25, 1x100, 2x100-PAM4, 3x100, 4x100
+RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 instance 0 location 0/RP0/CPU0 mode 4x10</code>
+</pre>
+</div>
+
 It doesn't need a reload to be enabled.
 
 Some optics like the SR4 can be natively broke out in 4x10G. Some others will need specific optics like the 4x10G LR. Check the pdf linked above for all options. 25G is only supported on the Jericho+ platforms.
 {: .notice--info}
 
-Do you support all the features on ports in breakout mode?
+Q: Do you support all the features on ports in breakout mode?  
+A: Yes, no restriction
 
-Yes, no restriction
-
-Can you mix breakout ports and "normal" ports on the same NPU
-
-Yes, no restriction in the combination of ports on a given NPU
+Q:Can you mix breakout ports and "normal" ports on the same NPU  
+A: Yes, no restriction in the combination of ports on a given NPU
 
 
 ### Interface identification
