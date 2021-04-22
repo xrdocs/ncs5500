@@ -117,6 +117,11 @@ Jose Liste covers a lot of topics in this 30min long video:
 
 - Dynamic SR P2MP policies theory and lab demo
 
+### NCS57B1-6D24 / NCS57B1-5DSE
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MyqmIlozL8M" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
 ## Optics
 
 Coming soon
@@ -135,6 +140,4 @@ Coming soon
 
 Coming soon
 
-### NCS57B1-6D24 / NCS57B1-5DSE
 
-Coming soon
