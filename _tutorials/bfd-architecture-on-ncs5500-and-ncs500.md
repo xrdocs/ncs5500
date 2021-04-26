@@ -122,27 +122,15 @@ PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline
 
 
 
-TX Path
+### TX Path
 
+![Screenshot 2021-04-26 at 4.30.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-26 at 4.30.35 PM.png)
 
-OAM will generate the BFD packet with complete BFD payload and UDP header 
-It will also generate the partial L3 header 
-Now this packet is injected into the IRPP
-IRPP and ITPP will send the packet as it is to the ETPP 
-In ETPP and ERPP the complete L3 header is populated and L2 header is also added to the packet
-Packet is then sent out accordingly to the network interface
-
- 
-## BFD Timers
-
-**IPv4 and IPv6**
-
-| Type of BFD Session | Minimum Timer Supported | Default/Minimum Multipliers |
-|---------------------|-------------------------|-----------------------------|
-| Physical/Vlan       | 4ms                     | 3                           |
-| BOB                 | 4ms                     | 3                           |
-| BLB                 | 50ms                    | 3                           |
-| MHOP                | 50ms                    | 3                           |
+- OAM Engine will generate the BFD packet with complete BFD payload, L3 partial header and UDP header 
+- This packet is then injected into the IRPP for further processing.
+- IRPP and ITPP will send the packet to the ETPP. 
+- In ETPP and ERPP the complete L3 header is populated and L2 header is also added to the packet
+- Packet is then sent out accordingly from the network interface.
 
 
 ## BFD Feature Support
@@ -161,9 +149,22 @@ Packet is then sent out accordingly to the network interface
  Note: We will dedicate separate technotes on some of the features described above for details.
 {: .notice--info}
 
+
+## BFD Timers
+
+**IPv4 and IPv6**
+
+| Type of BFD Session | Minimum Timer Supported | Default/Minimum Multipliers |
+|---------------------|-------------------------|-----------------------------|
+| Physical/Vlan       | 4ms                     | 3                           |
+| BOB                 | 4ms                     | 3                           |
+| BLB                 | 50ms                    | 3                           |
+| MHOP                | 50ms                    | 3                           |
+
+
 ## BFD Scale
 
-Scale is defined by the OAM engine. 
+Resources of the OAM engine present in the hardware are also used by other features like CFM. This limits the BFD scale a certain limit single-path and multi-path (v4/v6). But we have succeeded in carving the resources appropriately, to provide right amount of BFD sessions (v4/v6) which suits different use cases.  
 
 
 ## Reference 
