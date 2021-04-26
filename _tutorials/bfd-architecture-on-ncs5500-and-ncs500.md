@@ -114,10 +114,10 @@ BFD on the NCS55xx and NCS5xx is hardware offloaded. All the BFD packets are pro
 
 - If all the checks pass , the Packet is consumed by the OAMP RX machine  and not punted to CPU.
 
-Note: Highlevel definition of the blocks used in the above discussion
-OAM: Operation, administration and Management Block used for administration of the ethernet and BFD OAM
-FLP: Forwarding lookup block in the forwarding engine.
-PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline
+Note: Highlevel definition of the blocks used in the above discussion  
+OAM: Operation, administration and Management Block used for administration of the ethernet and BFD OAM  
+FLP: Forwarding lookup block in the forwarding engine  
+PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline  
 {: .notice--info}
 
 
