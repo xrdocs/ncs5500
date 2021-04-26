@@ -17,7 +17,7 @@ position: hidden
 
 ## Introduction
 
-After successfully introducing the [LPTS](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) for control plane protection and the [ACL's](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/) for data-plane protection on the NCS55xx and NCS5xx portfolio, we will start this new series on faster convergence. All of us are already aware of the concept Bidirectional Forwarding Detection - BFD. BFD is fairly old technology and is widely deployed across the industry for faster network convergence. In this tech-note, we will discuss the hardware architecture and implementation of BFD on NCS55xx and NCS5xx platforms.
+After successfully introducing the [LPTS](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) for control plane protection and the [ACL's](https://xrdocs.io/ncs5500/tutorials/security-acl-on-ncs5500-part1/) for data-plane protection on the NCS55xx and NCS5xx portfolio, we will start this new series on faster convergence. All of us are already aware of the concept Bidirectional Forwarding Detection - BFD. BFD is fairly old technology and is widely deployed across the industry for faster network convergence. In this tech-note, we will discuss the implementation of BFD w.r.t NCS55xx and NCS5xx platforms.
 
 ## Quick Refresh
 
@@ -27,9 +27,9 @@ Convergence of business-critical applications is a very important for any networ
 
 Another benefit of BFD, is that it provides network administrators with a consistent method of detecting failures. Thus, one availability methodology could be used, irrespective of the Interior Gateway Protocol (IGP) or the topology of the target network. This eases network profiling and planning, because re-convergence time should be consistent and predictable. BFD function is defined in [RFC 5880](https://tools.ietf.org/html/rfc5880). BFD is essentially a Control plane protocol designed to detect the forwarding path failures. BFD adjacencies do not go down on Control-Plane restarts (e.g. RSP failover) since the goal of BFD is to detect only the forwarding plane failures. [[Reference](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)] 
 
-For understanding the BFD in details please visit the excellent articles. [[Reference1](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926) [Reference2](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)]. In this document, we will try to focus on BFD architecture and hardware implementation.
+For understanding the BFD in details please visit the excellent articles. [[Reference1](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926) [Reference2](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)]. In this document, we will try to focus on BFD architecture and its hardware implementation.
 
-## BFD Modes on NCS55xx and NCS5xx
+## BFD Modes Supported on NCS55xx and NCS5xx
 
 | Mode         | Support |
 |--------------|---------|
@@ -66,7 +66,7 @@ Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560.
 
 ## BFD Hardware Implementation 
 
-As you might be already aware by now, of the Pipeline architecture which is used for packet processing in NCS55xx and NCS5xx. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). Let us understand the packet processing w.r.t BFD. 
+As we already know, NCS55xx and NCS5xx uses Pipeline architecture for packet processing. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). Let us understand the packet processing w.r.t BFD. 
 
 
 ### RX Path 
@@ -77,8 +77,8 @@ As you might be already aware by now, of the Pipeline architecture which is used
 **Ingress PP Pipeline**
 
 The ingress packet processing pipeline provides two main functions:
-  - BFD identification. By identification it means whether it is a BFD packet (after identifying it as for-us packet).
-  - BFD classification. By classification we mean a single path or a multi path BFD packet.
+  - BFD identification: Whether it is a BFD packet (after identifying it as for-us packet).
+  - BFD classification: Whether single path or a multi path BFD packet.
 
 ### 2-Pass Processing
 
