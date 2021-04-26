@@ -80,7 +80,7 @@ The ingress packet processing pipeline provides two main functions:
   - BFD identification. By identification it means whether it is a BFD packet (after identifying it as for-us packet).
   - BFD classification. By classification we mean a single path or a multi path BFD packet.
 
-#### 2-Pass Processing
+### 2-Pass Processing
 
 BFD on the NCS55xx and NCS5xx is hardware offloaded. All the BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a well known port (internal) for core0 and core1 before BFD packet processing starts. 
 
