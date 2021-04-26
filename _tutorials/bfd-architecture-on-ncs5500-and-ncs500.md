@@ -66,27 +66,22 @@ Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560.
 
 ## BFD Hardware Implementation 
 
-![Screenshot 2021-04-20 at 12.09.21 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-20 at 12.09.21 PM.png)
+### RX Path 
 
-All of us are already aware of the Pipeline architecture which is used for packet processing in NCS55xx and NCS5xx. Let us understand the packet processing w.r.t BFD. 
+![Screenshot 2021-04-26 at 1.22.17 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-26 at 1.22.17 PM.png)
 
-  - When a packet is received in the ingress direction, it goes through several stages in IRPP.
-  - Ingress hardware logic is capable of identifying the oam packets which is present in Forwader block in pipeline. 
-  - It supports all the oam packets and the identification logic generates variables which will be used by the next Step OAM Classifier.
-  - When OAMP processor receives the BFD packet.  It has 2 options
-    - OAMP consume the BFD packet
-    - OAMP punts the packet to CPU.
-  - Upon the reception of the BFD packet, various checks are done.
-  - When any of this checks fails and the corresponding sticky bit is set and destination to the CPU is picked.
-  - If all the checks pass , the Packet is consumed by the OAMP machine and not punted to CPU.
 
-### Ingress PP Pipeline
+#### Ingress PP Pipeline
 
-The ingress PP pipeline provides two main functions.
-  - BFD identification  
-  - BFD classification. 
+The ingress packet processing pipeline provides two main functions.
+  - BFD identification. By identification it means whether it is a BFD packet (after identifying it as for-us packet).
+  - BFD classification. By classification we mean a single path or a multi path BFD packet.
 
 When a BFD packet is forwarded to the OAM processor, the OAM processor must receive some information on how to process the packet. Various blocks like FLP and PMF update this OAM information in the pipeline.
+
+OAM: Operation, administration and Management Block used for administration of the ethernet and BFD OAM
+FLP: Forwarding lookup block in the forwarding engine.
+PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline
 
 ### 2-Pass Processing
 
@@ -95,17 +90,48 @@ BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a w
 **1st cycle:**
 
   - L3 Lookup takes place. 
-  - BFD is treated as an IP packet and will hit the FLP entry which satisfies IP criteria and destination is resolved as recycle port.
-  - Identify the packet as for us packet and recycle for second pass. 
-  - The PP port value on which packet is received is extracted in PMF stage.
+  - BFD is treated as an IP packet and check will be made whether it is a for-us packet.
+  - If the packet is identified as for us packet and it is recycled for second pass. 
+  - The packet Processor port value on which packet is received is extracted in PMF stage. (It seems internal will remove it)
 
 **2nd cycle:**
 
-  - Packet hits PMF entries.
   - After recycling the packet, parser will qualify the packet as BFD and would set the trap code accordingly.
-  - In PMF stage, BFD packet would be processed and sets the traps & destination accordingly.
+  - There are 2 possibilties: 1) packet trap to LC CPU (BFD sw stack) 2) packet trap to OAM engine
+  - point 1 Intial BFD packets before the session or pre-hand shake BFD packets are sent to LC CPU
+   
+  
+    Point 2
+  - When OAMP processor receives the BFD packet.  It has 2 options
+    - OAMP consume the BFD packet
+    - OAMP punts the packet to CPU.
+  - Upon the reception of the BFD packet, various checks are done.
+  - When any of this checks fails and the corresponding sticky bit is set and destination to the CPU is picked.
+  - If all the checks pass , the Packet is consumed by the OAMP machine and not punted to CPU.
+  
+  
+  To be removed 
+  - BFD packet would be processed and traps sets the traps & destination accordingly.
   - Packet is redirected to egress line card based on PMF action.
+  
+All of us are already aware of the Pipeline architecture which is used for packet processing in NCS55xx and NCS5xx. Let us understand the packet processing w.r.t BFD. 
 
+to be removed 
+  - When a packet is received in the ingress direction, it goes through several stages in IRPP.
+  - Ingress hardware logic is capable of identifying the oam packets which is present in Forwader block in pipeline. 
+
+
+Scale is defined by the OAM engine. 
+
+TX Path
+
+
+OAM will generate the BFD packet with complete BFD payload and UDP header 
+It will also generate the partial L3 header 
+Now this packet is injected into the IRPP
+IRPP and ITPP will send the packet as it is to the ETPP 
+In ETPP and ERPP the complete L3 header is populated and L2 header is also added to the packet
+Packet is then sent out accordingly to the network interface
 
 ## BFD Timers
 
@@ -148,5 +174,4 @@ Special thanks to Arun Vadamalai for his valueable feedback during the documenta
 ## Summary
 
 This was an introductory article on BFD to get familiarise with feature wi
-th pipeline architecture. In the next article, we will focus on how to read the BFD parameters in the outputs and also see some basic debugging. Also we will touch upon the concept of BOB and BLB. 
-
+th pipeline architecture. In the next article, we will focus on how to read the BFD parameters in the outputs and also see some basic debugging. Also we will touch upon the concept of BOB and BLB.
