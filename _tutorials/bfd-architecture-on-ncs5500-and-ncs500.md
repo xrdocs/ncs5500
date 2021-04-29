@@ -108,17 +108,20 @@ The ingress packet processing pipeline provides two main functions:
    - Verify that the packet and the traps are correct or else generate the appropriate error code. 
    - Verify that the type taken from the trap is the correct.
    - There are various other checks which are internally done in the pipeline.
-   - When any of the required checks fails and the corresponding sticky bit is set and destination to the CPU is picked
+   - When any of the required checks fails and the corresponding sticky bit is set and destination to the CPU is picked.
+   - The packet is then punted to the CPU.
    
 **OAMP consumes the BFD packet**
 
 - If all the checks pass , the Packet is consumed by the OAMP RX machine  and not punted to CPU.
 
-Note: Highlevel definition of the blocks used in the above discussion  
-OAM: Operation, administration and Management Block used for administration of the ethernet and BFD OAM  
-FLP: Forwarding lookup block in the forwarding engine  
-PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline  
-{: .notice--info}
+**Highlevel definition of the blocks used in the above discussion**
+
+| OAM  | Operation, administration and Management used for administration of the ethernet and BFD OAM                                                                                                                                                                                                                                                                                           |
+|------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OAMP | OAMP is a dedicated hardware engine to accelerate the handling of OAM packets. Main functionalities include:<br>1. Generates/Receives BFD packets<br>2. Generates timeout events for a session if continuous packets are not received.<br>3. Punts packet to LC-CPU (BFD stack) in case there is change in BFD session state or flags. Based on which state machine is maintained.<br> |
+| FLP  | Forwarding lookup block in the forwarding engine in the IRPP. <br>It is a very programmable and flexible block. <br>It helps in lookup action using different database like LEM, LPM etc. <br>It has place for OAM classification too.                                                                                                                                                 |
+| PMF  | Programmable Mapping and Filtering block is another block present in the pipeline. <br>It is most programmable block in the pipeline. It has all the history of the packet from other blocks like incoming ports, lookup results etc. <br>It takes care of ACL, LPTS, QoS etc. It is there in ingress and egress pipeline                                                              |
 
 
 
