@@ -86,16 +86,19 @@ The ingress packet processing pipeline provides two main functions:
 
 **1st cycle:**
 
-  - L3 Lookup takes place. 
+  - The first pass is based on L3 Lookup. 
   - BFD is treated as an IP packet and check will be made whether it is a 'for-us' packet.
   - If the packet is identified as 'for-us' packet, it is recycled for second pass. 
   - The packet is then sent to the PMF stage.
 
 **2nd cycle:**
 
-  - After recycling the packet and the parser qualifying the packet as BFD packet, trap codes are generated. 
+  - After recycling the packet, parser qualifies the packet as BFD with parser code. 
+  - There is a specific code for BFD packet which is internal to the hardware. 
+  - BFD FLP is hit based on the parser context and trap code is generated accordingly.
+  - In PMF stage, BFD packet would be processed and sets the traps & destination accordingly. 
   - Then the packets are sent to OAMP.
-  - When OAMP receives the BFD packet.  It has 2 options
+  - When OAMP receives the BFD packet, it has 2 options:
     - OAMP consumes the BFD packet
     - OAMP punts the packet to CPU.
 
