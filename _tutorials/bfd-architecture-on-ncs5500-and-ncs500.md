@@ -40,7 +40,7 @@ For further details and working on the modes of operation, please [Visit](https:
 
 ## BFD Single-Path and Multi-Path Sessions
 
-BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions. BFD sessions between virtual interfaces (BVI, BE, GRE tunnel) of directly connected peers is also a Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
+BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions. BFD sessions between virtual interfaces (BVI, BE, GRE tunnel) of directly connected peers is referred to as Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
 
 ### BFD Single-Path Support
 
@@ -66,7 +66,7 @@ Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560. It will be suppo
 
 ## BFD Hardware Implementation 
 
-BFD on the NCS55xx and NCS5xx is hardware offloaded. The hardware offload feature enables the offload of a BFD session to the network processing unit - NPU of the line cards on modular chassis or a standalone fixed chassis, in an IPv4 or IPv6 network. BFD hardware offload improves scale and reduces the overall network convergence time by sending rapid failure detection packets to the routing protocols for recalculating the routing table. NCS55xx and NCS5xx uses Pipeline architecture for packet processing. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). Let us understand the packet processing w.r.t BFD. For further details on BFD hardware offload please [visit](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/66x/b-routing-cg-ncs5500-66x/b-routing-cg-ncs5500-66x_chapter_0111.html#id_103405). 
+BFD on the NCS55xx and NCS5xx is hardware offloaded. The hardware offload feature enables the offload of a BFD session to the network processing unit - NPU of the line cards on modular chassis or a standalone fixed chassis, in an IPv4 or IPv6 network. BFD hardware offload improves scale and reduces the overall network convergence time by sending rapid failure detection packets to the routing protocols for recalculating the routing table. NCS55xx and NCS5xx uses Pipeline architecture for packet processing. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). For further details on BFD hardware offload please [visit](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/66x/b-routing-cg-ncs5500-66x/b-routing-cg-ncs5500-66x_chapter_0111.html#id_103405). Let us understand the packet processing in the pipeline architecture w.r.t BFD.
 
 
 ### RX Path 
@@ -90,23 +90,25 @@ The ingress packet processing pipeline provides two main functions:
   - BFD is treated as an IP packet and check will be made whether it is a 'for-us' packet.
   - If the packet is identified as 'for-us' packet, it is recycled for second pass. 
   - The packet is then sent to the PMF stage.
+  - If the packet is not a for-us packet then based on the L3 lookup appropriate action is taken on the packet.
 
 **2nd cycle:**
 
   - After recycling the packet, parser qualifies the packet as BFD with parser code. 
-  - There is a specific code for BFD packet which is internal to the hardware. 
+  - Parser is the block which extracts ethertype, MAC addresses and determines offset (where network header starts) for next stages in the pipeline
+  - There is a specific parser code for BFD packet which is internal to the hardware. 
   - BFD FLP is hit based on the parser context and trap code is generated accordingly.
-  - In PMF stage, BFD packet would be processed and sets the traps & destination accordingly. 
-  - Then the packets are sent to OAMP.
-  - When OAMP receives the BFD packet, it has 2 options:
-    - OAMP consumes the BFD packet
-    - OAMP punts the packet to CPU.
+  - In PMF stage, BFD packet is processed and sets the required traps & destination accordingly. 
+  - The packets are then sent to OAMP Engine.
+  - When OAMP Enginer receives the BFD packet, it has 2 options:
+    - OAMP Engine consumes the BFD packet
+    - OAMP Engine punts the packet to CPU.
 
 **OAMP punts the BFD packet to CPU**
 
 
--  When a BFD packet is forwarded to the OAM processor, the OAM processor must receive some information on how to process the packet. 
-- Various blocks like FLP and PMF update this OAM information in the pipeline.
+-  When a BFD packet is forwarded to the OAMP engine, it must receive some information on how to process the packet. 
+- Various blocks like FLP and PMF update this information in the pipeline and pass it on to the OAM engine.
 - Upon the reception of the BFD packet, the following checks are done.
    - Verify that the packet and the traps are correct or else generate the appropriate error code. 
    - Verify that the type taken from the trap is the correct.
@@ -116,14 +118,14 @@ The ingress packet processing pipeline provides two main functions:
    
 **OAMP consumes the BFD packet**
 
-- If all the checks pass , the Packet is consumed by the OAMP RX machine  and not punted to CPU.
+- If all the checks pass, the packet is consumed by the OAMP engine and processed. It is not punted to CPU.
 
 **Highlevel definition of the blocks used in the above discussion**
 
 | Block | Description                                                                                                                                                                                                                                                                                                                                                                  |
 |-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | OAM   | Operation, administration and Management used for administration of the ethernet and BFD OAM                                                                                                                                                                                                                                                                                 |
-| OAMP  | OAMP is a dedicated hardware engine to accelerate the handling of OAM packets. Main functionalities include:<br>-Generates/Receives BFD packets<br>-Generates timeout events for a session if continuous packets are not received.<br>-Punts packet to LC-CPU (BFD stack) in case there is change in BFD session state or flags. Based on which state machine is maintained. |
+| OAMP Engine | OAMP is a dedicated hardware engine to accelerate the handling of OAM packets. Main functionalities include:<br>-Generates/Receives BFD packets<br>-Generates timeout events for a session if continuous packets are not received.<br>-Punts packet to LC-CPU (BFD stack) in case there is change in BFD session state or flags. Based on which state machine is maintained. |
 | FLP   | Forwarding lookup block in the forwarding engine in the IRPP.<br>-It is a very programmable and flexible block.<br>-It helps in lookup action using different database like LEM, LPM etc.<br>-It has place for OAM classification too.                                                                                                                                       |
 | PMF   | Programmable Mapping and Filtering block is another block present in the pipeline.<br>-It is most programmable block in the pipeline. <br>-It has all the history of the packet from other blocks like incoming ports, lookup results etc.<br>-It takes care of ACL, LPTS, QoS etc. It is there in ingress and egress pipeline.                                              |
 
@@ -132,12 +134,15 @@ The ingress packet processing pipeline provides two main functions:
 
 ![Screenshot 2021-04-26 at 4.30.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-26 at 4.30.35 PM.png)
 
-- OAM Engine will generate the BFD packet with complete BFD payload, L3 partial header and UDP header 
+- OAMP Engine will generate the BFD packet with complete BFD payload, L3 partial header and UDP header 
 - This packet is then injected into the IRPP for further processing.
 - IRPP and ITPP will send the packet to the ETPP. 
 - In ETPP and ERPP the complete L3 header is populated and L2 header is also added to the packet
 - Packet is then sent out accordingly from the network interface.
 
+Note:
+OAMP Engine has various blocks which are internal and cannot be published. We have used a single block for simplication
+{: .notice--info}
 
 ## BFD Feature Support
 
