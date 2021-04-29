@@ -100,11 +100,11 @@ The ingress packet processing pipeline provides two main functions:
   - BFD FLP is hit based on the parser context and trap code is generated accordingly.
   - In PMF stage, BFD packet is processed and sets the required traps & destination accordingly. 
   - The packets are then sent to OAMP Engine.
-  - When OAMP Enginer receives the BFD packet, it has 2 options:
+  - When OAMP Engine receives the BFD packet, it has 2 options:
     - OAMP Engine consumes the BFD packet
     - OAMP Engine punts the packet to CPU.
 
-**OAMP punts the BFD packet to CPU**
+**OAMP Engine punts the BFD packet to CPU**
 
 
 -  When a BFD packet is forwarded to the OAMP engine, it must receive some information on how to process the packet. 
@@ -116,7 +116,7 @@ The ingress packet processing pipeline provides two main functions:
    - When any of the required checks fails and the corresponding sticky bit is set and destination to the CPU is picked.
    - The packet is then punted to the CPU.
    
-**OAMP consumes the BFD packet**
+**OAMP Engine consumes the BFD packet**
 
 - If all the checks pass, the packet is consumed by the OAMP engine and processed. It is not punted to CPU.
 
@@ -125,7 +125,7 @@ The ingress packet processing pipeline provides two main functions:
 | Block | Description                                                                                                                                                                                                                                                                                                                                                                  |
 |-------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | OAM   | Operation, administration and Management used for administration of the ethernet and BFD OAM                                                                                                                                                                                                                                                                                 |
-| OAMP Engine | OAMP is a dedicated hardware engine to accelerate the handling of OAM packets. Main functionalities include:<br>-Generates/Receives BFD packets<br>-Generates timeout events for a session if continuous packets are not received.<br>-Punts packet to LC-CPU (BFD stack) in case there is change in BFD session state or flags. Based on which state machine is maintained. |
+| OAMP Engine | It is a dedicated hardware engine to accelerate the handling of OAM packets. Main functionalities include:<br>-Generates/Receives BFD packets<br>-Generates timeout events for a session if continuous packets are not received.<br>-Punts packet to LC-CPU (BFD stack) in case there is change in BFD session state or flags. Based on which state machine is maintained. |
 | FLP   | Forwarding lookup block in the forwarding engine in the IRPP.<br>-It is a very programmable and flexible block.<br>-It helps in lookup action using different database like LEM, LPM etc.<br>-It has place for OAM classification too.                                                                                                                                       |
 | PMF   | Programmable Mapping and Filtering block is another block present in the pipeline.<br>-It is most programmable block in the pipeline. <br>-It has all the history of the packet from other blocks like incoming ports, lookup results etc.<br>-It takes care of ACL, LPTS, QoS etc. It is there in ingress and egress pipeline.                                              |
 
@@ -175,7 +175,7 @@ OAMP Engine has various blocks which are internal and cannot be published. We ha
 
 ## BFD Scale
 
-Resources of the OAM engine present in the hardware are also used by other features like CFM. This limits the BFD scale a certain limit single-path and multi-path (v4/v6). But we have succeeded in carving the resources appropriately, to provide right amount of BFD sessions (v4/v6) which suits different use cases.  
+Resources of the OAMP engine present in the hardware are also used by other features like CFM. This limits the BFD scale a certain limit single-path and multi-path (v4/v6). But we have succeeded in carving the resources appropriately, to provide right amount of BFD sessions (v4/v6) which suits different use cases.   
 
 
 ## Reference 
