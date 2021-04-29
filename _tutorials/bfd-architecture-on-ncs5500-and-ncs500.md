@@ -40,7 +40,7 @@ For further details and working on the modes of operation, please [Visit](https:
 
 ## BFD Single-Path and Multi-Path Sessions
 
-BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions.BFD sessions between virtual interfaces (BVI, BE, PWHE, GRE tunnel) of directly connected peers is also a Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
+BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are referred to as Single-Path sessions. BFD sessions between virtual interfaces (BVI, BE, GRE tunnel) of directly connected peers is also a Multi-Path session because of possible asymmetrical routing. Both BFD Single-Path and Multipath sessions are supported on NCS55xx and NCS5xx. 
 
 ### BFD Single-Path Support
 
@@ -58,15 +58,15 @@ BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are
 | BVI                            | Yes | Yes |
 | BGP MultiHop                   | Yes | Yes |
 
-Note1: BFD Multi-Path (v4/v6) over BVI and BGP Multihop is not supported on systems based on J2.
+Note1: BFD Multi-Path (v4/v6) over BVI and BGP Multihop is not supported on systems based on J2 at the moment. It will be supported in future release IOS-XR 7.4.1
 {: .notice--info}
 
-Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560.
+Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560. It will be supported in future releases.
 {: .notice--info}
 
 ## BFD Hardware Implementation 
 
-As we already know, NCS55xx and NCS5xx uses Pipeline architecture for packet processing. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). Let us understand the packet processing w.r.t BFD. 
+BFD on the NCS55xx and NCS5xx is hardware offloaded. The hardware offload feature enables the offload of a BFD session to the network processing unit - NPU of the line cards on modular chassis or a standalone fixed chassis, in an IPv4 or IPv6 network. BFD hardware offload improves scale and reduces the overall network convergence time by sending rapid failure detection packets to the routing protocols for recalculating the routing table. NCS55xx and NCS5xx uses Pipeline architecture for packet processing. For details on the Pipeline Architecture please visit this excellent [article](https://xrdocs.io/ncs5500/tutorials/ncs5500-qos-part-1-understanding-packet-buffering/). Let us understand the packet processing w.r.t BFD. For further details on BFD hardware offload please [visit](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/66x/b-routing-cg-ncs5500-66x/b-routing-cg-ncs5500-66x_chapter_0111.html#id_103405). 
 
 
 ### RX Path 
@@ -80,9 +80,9 @@ The ingress packet processing pipeline provides two main functions:
   - BFD identification: Whether it is a BFD packet (after identifying it as for-us packet).
   - BFD classification: Whether single path or a multi path BFD packet.
 
-### 2-Pass Processing
+**2-Pass Processing**
 
-BFD on the NCS55xx and NCS5xx is hardware offloaded. All the BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a well known port (internal) for core0 and core1 before BFD packet processing starts. 
+ All the BFD packets are processed in 2 cycles. In first cycle, packet is recycled on a well known port (internal) for core0 and core1 before BFD packet processing starts. 
 
 **1st cycle:**
 
@@ -94,9 +94,9 @@ BFD on the NCS55xx and NCS5xx is hardware offloaded. All the BFD packets are pro
 **2nd cycle:**
 
   - After recycling the packet and the parser qualifying the packet as BFD packet, trap codes are generated. 
-  - Then the packets are sent to OAMP Processor.
-  - When OAMP processor receives the BFD packet.  It has 2 options
-    - OAMP consume the BFD packet
+  - Then the packets are sent to OAMP.
+  - When OAMP receives the BFD packet.  It has 2 options
+    - OAMP consumes the BFD packet
     - OAMP punts the packet to CPU.
 
 **OAMP punts the BFD packet to CPU**
@@ -110,7 +110,7 @@ BFD on the NCS55xx and NCS5xx is hardware offloaded. All the BFD packets are pro
    - There are various other checks which are internally done in the pipeline.
    - When any of the required checks fails and the corresponding sticky bit is set and destination to the CPU is picked
    
-**OAMP consume the BFD packet**
+**OAMP consumes the BFD packet**
 
 - If all the checks pass , the Packet is consumed by the OAMP RX machine  and not punted to CPU.
 
@@ -139,7 +139,7 @@ PMF: Programmable Mapping and Filtering block in the ingress and egress pipeline
   - Static, OSPF, BGP and IS-IS applications are supported in IPv4 BFD.
   - Only static routes are supported in IPv6 BFD.
   - BFD over VRF is supported.
-  - BFD over BVI is supported only on fixed NCS550 platforms.
+  - BFD over BVI is supported only on fixed NCS5550 platforms.
   - BFD support over VRRP interface is supported from IOS-XR 7.2.1
   - BFD dampening for IPv4 is supported.
   - BFD multihop is supported over an IP and non-IP core. 
