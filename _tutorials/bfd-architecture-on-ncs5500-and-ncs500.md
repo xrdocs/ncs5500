@@ -150,7 +150,7 @@ OAMP Engine has various blocks which are internal and cannot be published. We ha
   - Static, OSPF, BGP and IS-IS applications are supported in IPv4 BFD.
   - Only static routes are supported in IPv6 BFD.
   - BFD over VRF is supported.
-  - BFD over BVI is supported only on fixed NCS5550 platforms.
+  - BFD over BVI is supported only on fixed NCS5500 platforms.
   - BFD support over VRRP interface is supported from IOS-XR 7.2.1
   - BFD dampening for IPv4 is supported.
   - BFD multihop is supported over an IP and non-IP core. 
@@ -161,7 +161,16 @@ OAMP Engine has various blocks which are internal and cannot be published. We ha
 {: .notice--info}
 
 
-## BFD Timers
+## BFD Scale
+
+Scale on NCS55xx and NCS5xx is always a subject of discussion because of the hardware resources available on the chipsets. The hardware resources are limited and has to be utilised properly to achieve the best results. Let us discuss in more details on how BFD scale is determined for these platforms and how well we have managed to address the resource issue. 
+
+Scale is decided on multiple things. First is obviously the hardware resources. From BFD feature perspective, the OAMP Engine resources play a critical role. The resources are equally divided between CFM and BFD feature needs. Now if we double-click on BFD, then within that resources are again divided for BFD Single-Path and BFD Multi-Path. Again one more consideration, we need to divide the resources amongst IPv4 and IPv6. For IPv4 we only need to worry from the OAMP resources. But for IPv6 we also need to take into account other internal resources which limits the scale (internal to ASIC). IPv6 needs almost three times more resources than IPv4 w.r.t OAMP engine. Again when the packets are recycled, we need to take into consideration the queue and its bandwidth shared with other features and number of recycles. All these factors goes into scale considerations. Each Asic type i.e. Q-MX/J/J+/J2 has different processing, resources and bandwidth capacity. So the scale will vary across chipsets. 
+
+Considering all the above criterias, we have succeeded in carving and the resources optimally , to provide right amount of BFD sessions (v4/v6) which suits different use cases. If 
+
+
+## BFD Timers 
 
 **IPv4 and IPv6**
 
@@ -171,11 +180,6 @@ OAMP Engine has various blocks which are internal and cannot be published. We ha
 | BOB                 | 4ms                     | 3                           |
 | BLB                 | 50ms                    | 3                           |
 | MHOP                | 50ms                    | 3                           |
-
-
-## BFD Scale
-
-Resources of the OAMP engine present in the hardware are also used by other features like CFM. This limits the BFD scale a certain limit single-path and multi-path (v4/v6). But we have succeeded in carving the resources appropriately, to provide right amount of BFD sessions (v4/v6) which suits different use cases.   
 
 
 ## Reference 
