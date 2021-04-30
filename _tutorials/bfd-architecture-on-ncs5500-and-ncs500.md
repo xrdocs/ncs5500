@@ -167,20 +167,44 @@ Scale on NCS55xx and NCS5xx is always a subject of discussion because of the har
 
 Scale is decided on multiple things. First is obviously the hardware resources. From BFD feature perspective, the OAMP Engine resources play a critical role. The resources are equally divided between CFM and BFD feature needs. Now if we double-click on BFD, then within that resources are again divided for BFD Single-Path and BFD Multi-Path. Again one more consideration, we need to divide the resources amongst IPv4 and IPv6. For IPv4 we only need to worry from the OAMP resources. But for IPv6 we also need to take into account other internal resources which limits the scale (internal to ASIC). IPv6 needs almost three times more resources than IPv4 w.r.t OAMP engine. Again when the packets are recycled, we need to take into consideration the queue and its bandwidth shared with other features and number of recycles. All these factors goes into scale considerations. Each Asic type i.e. Q-MX/J/J+/J2 has different processing, resources and bandwidth capacity. So the scale will vary across chipsets. 
 
-Considering all the above criterias, we have succeeded in carving and the resources optimally , to provide right amount of BFD sessions (v4/v6) which suits different use cases. If 
+Considering all the above criterias, we have succeeded in carving and the resources optimally , to provide right amount of BFD sessions (v4/v6) which suits every use cases. 
 
+Note:
+If you are looking for details on the scale per product please contact your cisco representative.
+{: .notice--info}
 
 ## BFD Timers 
 
-**IPv4 and IPv6**
+NCS55xx and NCS5xx BFD Implementation supports timers which can be used for faster detection of failures. This are configurable values and users have the flexibility of configuring different timers and multiplier values. BFD v4 sessions do not have any limitations in scale w.r.t minimum timer values. But the BFD v6 scale limit does depend on the configured minimum timer. Below is the list of timers and multiplier values supported.
+
+
+**Support for IPv4 Timers and Multipliers**
 
 | Type of BFD Session | Minimum Timer Supported | Default/Minimum Multipliers |
 |---------------------|-------------------------|-----------------------------|
 | Physical/Vlan       | 4ms                     | 3                           |
 | BOB                 | 4ms                     | 3                           |
 | BLB                 | 50ms                    | 3                           |
-| MHOP                | 50ms                    | 3                           |
+| Multi-HOP           | 50ms                    | 3                           |
 
+Note:
+Only 6 unique timers are supported with BFDv4.  
+Scale numbers for v4 will not be affected by the timer values
+{: .notice--info}
+
+**Support for IPv6 Timers and Multipliers**
+
+| Type of BFD                 | Minimum Timer Supported         | Default/Minimum Multipliers | Scale Limitation w.r.t min_interval |
+|-----------------------------|---------------------------------|-----------------------------|-------------------------------------|
+| Single Hop                  | 1. 4/5/6/7 ms<br>2. 8ms & above | 3ms                         | 1. 150<br>2. 250                    |
+| BOB (BFD o/ Bundle Members) | 1. 4/5/6/7 ms<br>2. 8ms & above | 3ms                         | 1. 150<br>2. 250                    |
+| BLB (BFD o/ Logical bundle) | 50 ms                           | 3ms                         | 250                                 |
+| MHOP                        | 50 ms                           | 3ms                         | 250                                 |
+
+Note:
+No restrictions on number of unique timers support with BFDv6.  
+Scale numbers for v6 will be affected by the timer values. The above values are for J/J+/J2 compatible mode. For J2 native mode this numbers will be a bit higher. For other chipsets the numbers will vary. For detailed scale numbers please get in touch with your cisco representative.
+{: .notice--info}
 
 ## Reference 
 
