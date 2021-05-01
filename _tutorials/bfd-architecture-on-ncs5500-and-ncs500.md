@@ -221,4 +221,4 @@ Special thanks to Arun Vadamalai for his valueable feedback during the documenta
 
 ## Summary
 
-This was an introductory article on BFD to get familiarise with feature with pipeline architecture. In the next article, we will focus on how to read the BFD parameters in the outputs and also see some basic debugging. Also we will touch upon the concept of BOB and BLB.
+This was an introductory article on BFD to get familiarise with feature with pipeline architecture. In the next article, we will focus more on the technical aspects of how to read the BFD parameters in the outputs and also see some basic debugging. We will touch upon the OAMP engine resource usage. We will discuss the concepts of BLB and BoB and look at its difference and use cases. Stay tuned !!!! 
