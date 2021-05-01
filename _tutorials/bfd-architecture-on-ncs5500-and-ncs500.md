@@ -27,7 +27,7 @@ Convergence of business-critical applications is a very important for any networ
 
 Another benefit of BFD, is that it provides network administrators with a consistent method of detecting failures. Thus, one availability methodology could be used, irrespective of the Interior Gateway Protocol (IGP) or the topology of the target network. This eases network profiling and planning, because re-convergence time should be consistent and predictable. BFD function is defined in [RFC 5880](https://tools.ietf.org/html/rfc5880). BFD is essentially a Control plane protocol designed to detect the forwarding path failures. BFD adjacencies do not go down on Control-Plane restarts (e.g. RSP failover) since the goal of BFD is to detect only the forwarding plane failures. [[Reference](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)] 
 
-For understanding the BFD in details please visit the excellent articles. [[Reference1](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926) [Reference2](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)]. In this document, we will try to focus on BFD architecture and its hardware implementation.
+For understanding the BFD in details please visit the excellent articles. [[Reference1](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926) [Reference2](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)]. In this document, we will try to focus on BFD architecture and its hardware implementation on NCS55xx and NCS5xx product families.
 
 ## BFD Modes Supported on NCS55xx and NCS5xx
 
@@ -113,12 +113,12 @@ The ingress packet processing pipeline provides two main functions:
    - Verify that the packet and the traps are correct or else generate the appropriate error code. 
    - Verify that the type taken from the trap is the correct.
    - There are various other checks which are internally done in the pipeline.
-   - When any of the required checks fails and the corresponding sticky bit is set and destination to the CPU is picked.
+   - When any of the required checks fails, the corresponding failure bit is set and destination to the CPU is picked.
    - The packet is then punted to the CPU.
    
 **OAMP Engine consumes the BFD packet**
 
-- If all the checks pass, the packet is consumed by the OAMP engine and processed. It is not punted to CPU.
+- If all the checks pass without any failure bit set, the packet is consumed by the OAMP engine and processed. It is not punted to CPU.
 
 **Highlevel definition of the blocks used in the above discussion**
 
@@ -129,7 +129,9 @@ The ingress packet processing pipeline provides two main functions:
 | FLP   | Forwarding lookup block in the forwarding engine in the IRPP.<br>-It is a very programmable and flexible block.<br>-It helps in lookup action using different database like LEM, LPM etc.<br>-It has place for OAM classification too.                                                                                                                                       |
 | PMF   | Programmable Mapping and Filtering block is another block present in the pipeline.<br>-It is most programmable block in the pipeline. <br>-It has all the history of the packet from other blocks like incoming ports, lookup results etc.<br>-It takes care of ACL, LPTS, QoS etc. It is there in ingress and egress pipeline.                                              |
 
-
+Note:
+There are multiple blocks in the IRPP and ERPP in the pipeline for packet processing. Parser, FLP, PMF etc are one of those. This is specific to ASIC used, hence not exposing the internal details.
+{: .notice--info}
 ### TX Path
 
 ![Screenshot 2021-04-26 at 4.30.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-26 at 4.30.35 PM.png)
@@ -163,19 +165,19 @@ OAMP Engine has various blocks which are internal and cannot be published. We ha
 
 ## BFD Scale
 
-Scale on NCS55xx and NCS5xx is always a subject of discussion because of the hardware resources available on the chipsets. The hardware resources are limited and has to be utilised properly to achieve the best results. Let us discuss in more details on how BFD scale is determined for these platforms and how well we have managed to address the resource issue. 
+Scale on NCS55xx and NCS5xx is always a subject of discussion because of the hardware resources available on the chipsets. The hardware resources are limited and has to be utilised properly to achieve the best results. Let us discuss in more details on how BFD scale is determined for these platforms and how well we have managed to address the available resources. 
 
 Scale is decided on multiple things. First is obviously the hardware resources. From BFD feature perspective, the OAMP Engine resources play a critical role. The resources are equally divided between CFM and BFD feature needs. Now if we double-click on BFD, then within that resources are again divided for BFD Single-Path and BFD Multi-Path. Again one more consideration, we need to divide the resources amongst IPv4 and IPv6. For IPv4 we only need to worry from the OAMP resources. But for IPv6 we also need to take into account other internal resources which limits the scale (internal to ASIC). IPv6 needs almost three times more resources than IPv4 w.r.t OAMP engine. Again when the packets are recycled, we need to take into consideration the queue and its bandwidth shared with other features and number of recycles. All these factors goes into scale considerations. Each Asic type i.e. Q-MX/J/J+/J2 has different processing, resources and bandwidth capacity. So the scale will vary across chipsets. 
 
 Considering all the above criterias, we have succeeded in carving and the resources optimally , to provide right amount of BFD sessions (v4/v6) which suits every use cases. 
 
 Note:
-If you are looking for details on the scale per product please contact your cisco representative.
+If you are looking for details on the scale per product please contact us or your cisco representative.
 {: .notice--info}
 
 ## BFD Timers 
 
-NCS55xx and NCS5xx BFD Implementation supports timers which can be used for faster detection of failures. This are configurable values and users have the flexibility of configuring different timers and multiplier values. BFD v4 sessions do not have any limitations in scale w.r.t minimum timer values. But the BFD v6 scale limit does depend on the configured minimum timer. Below is the list of timers and multiplier values supported.
+NCS55xx and NCS5xx BFD Implementation supports timers which can be used for faster detection of failures. These are configurable values and users have the flexibility of configuring different timers and multiplier values. BFD v4 sessions do not have any limitations in scale w.r.t minimum timer values. But the BFD v6 scale limit does depend on the configured minimum timer. Below is the list of timers and multiplier values supported.
 
 
 **Support for IPv4 Timers and Multipliers**
@@ -203,7 +205,7 @@ Scale numbers for v4 will not be affected by the timer values
 
 Note:
 No restrictions on number of unique timers support with BFDv6.  
-Scale numbers for v6 will be affected by the timer values. The above values are for J/J+/J2 compatible mode. For J2 native mode this numbers will be a bit higher. For other chipsets the numbers will vary. For detailed scale numbers please get in touch with your cisco representative.
+Scale numbers for v6 will be affected by the timer values. The above values are for J/J+/J2 compatible mode. For J2 native mode this numbers will be a bit higher. For other chipsets the numbers will vary. For detailed scale numbers please get in touch with us or your cisco representative.
 {: .notice--info}
 
 ## Reference 
@@ -211,6 +213,7 @@ Scale numbers for v6 will be affected by the timer values. The above values are 
   - [ASR9k BFD Implementation](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)
   - [BFD NCS5500 ](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
   - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
+  - [NCS5500 Deepdive Cisco Live](https://www.ciscolive.com/global/on-demand-library.html?search=nicolas%20fevrier#/session/1564610723886001c86Q)
 
 ## Thanks
 
