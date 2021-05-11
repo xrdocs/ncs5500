@@ -29,9 +29,11 @@ As discussed in the previous article, the goal of Bidirectional Forwarding Detec
 
 Let us look at the BFD control packet format briefly. This will be useful in understanding the CLI outputs and the messages being exchanged between 2 nodes. 
 
-![Screenshot 2021-05-11 at 12.43.14 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-11 at 12.43.14 PM.png)
+![Screenshot 2021-05-11 at 12.56.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-11 at 12.56.15 PM.png)
 
 Apart from the above fields, we also have the optional Authentication section. For details please [refer](https://datatracker.ietf.org/doc/html/rfc5880).
+
+
 
 
 
