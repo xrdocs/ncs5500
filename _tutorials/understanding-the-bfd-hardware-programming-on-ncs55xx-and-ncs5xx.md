@@ -55,4 +55,19 @@ Apart from the above fields, we also have the optional Authentication section. F
 For detailed explaination of each field please [refer](https://datatracker.ietf.org/doc/html/rfc5880)
 
 
+### BFD State Machine
+
+![Screenshot 2021-05-11 at 2.24.16 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-11 at 2.24.16 PM.png)
+
+As per the [RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880), the BFD state machine is quite straightforward.  There are three states through which a session normally proceeds: two for establishing a session. They are Init and Up and one for tearing down a session. That is Down. This allows a three-way handshake for both session establishment and session teardown, assuring that both systems are aware of all session state changes.  A fourth state AdminDown exists so that a session can be administratively put down indefinitely. Each system communicates its session state in the State (Sta) field in the BFD Control packet.
+
+| State           | Description                                                                                                                                                                                                                                                                                                                              |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Down state      | This state means that the session is down or has just been created. <br>A session remains in Down state until the remote system indicates that it agrees that the session is down by sending a BFD Control packet with the State field set to anything other than Up.                                                                    |
+| Init state      | This state means that the remote system is communicating, and the local system desires to bring the session up, but the remote system does not yet realize it.  <br>A session will remain in Init state until either a BFD Control Packet is received that is signalling Init or Up state in which case the session advances to Up state |
+| Up state        | This state means that the BFD session has successfully been established, and implies that connectivity between the systems is working. <br>The session will remain in the Up state until either connectivity fails or the session is taken down administratively.                                                                        |
+| AdminDown state | This state means that the session is being held administratively down.  <br>This causes the remote system to enter Down state, and remain there until the local system exits AdminDown state                                                                                                                                             |
+
+Note: For details on state machine please refer the RFC 
+{: .notice--info}
 
