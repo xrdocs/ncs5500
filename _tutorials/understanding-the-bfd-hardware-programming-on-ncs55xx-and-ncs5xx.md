@@ -50,7 +50,7 @@ Apart from the above fields, we also have the optional Authentication section. F
 | Your Discriminator            | The discriminator received from the corresponding remote system. This field reflects back the received value of My Discriminator, or is zero if that value is unknown.                                                                  |
 | Desired Min TX Interval       | This is the minimum interval, in microseconds, that the local system would like to use when transmitting BFD Control packets.                                                                                                           |
 | Required Min RX Interval      | This is the minimum interval, in microseconds, between received BFD Control packets that this system is capable of supporting.                                                                                                          |
-| Required Min Echo RX Interval | his is the minimum interval, in microseconds, between received BFD Echo packets that this system is capable of supporting.                                                                                                              |
+| Required Min Echo RX Interval | This is the minimum interval, in microseconds, between received BFD Echo packets that this system is capable of supporting.                                                                                                              |
 
 For detailed explaination of each field please [refer](https://datatracker.ietf.org/doc/html/rfc5880)
 
