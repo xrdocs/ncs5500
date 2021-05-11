@@ -71,3 +71,10 @@ As per the [RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880), the BFD st
 Note: For details on state machine please refer the RFC 
 {: .notice--info}
 
+
+## Configuring and Monitoring BFD on NCS5500
+
+After a quick refresh of the theory behind the BFD packets, let us get into the routers and check it practically. We will take a simple example and walk through the hardware programming.
+
+
+
