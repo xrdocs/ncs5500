@@ -30,12 +30,13 @@ You can find the datasheet on Cisco's website:
 [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/datasheet-c78-744698.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/datasheet-c78-744698.html)
 
 We differentiate the:  
-- base system (Jericho 2 without eTCAM) offering 24x 100G and 6x 400G ports: NCS57B1-6D24
-- scale system (Jericho 2 with OP2 eTCAM) offering 24x 100G and 5x 400G ports: NCS57B1-5DSE
+- base system (Jericho 2 without eTCAM) offering 24x 100G and 6x 400G ports: **NCS57B1-6D24**
 
 ![6D24 plongeant.png]({{site.baseurl}}/images/6D24 plongeant.png){: .align-center}
 
-![5DSE plongeant.jpg]({{site.baseurl}}/images/5DSE plongeant.jpg){: .align-center}
+- scale system (Jericho 2 with OP2 eTCAM) offering 24x 100G and 5x 400G ports: **NCS57B1-5DSE**
+
+![5DSE plongeant-good.jpg]({{site.baseurl}}/images/5DSE plongeant-good.jpg){: .align-center}
 
 The difference between the two versions is simply the presence of an eTCAM and for the system equipped with this additional resource, we have one port QSFP-DD 400G left.  
 The connection to the eTCAM is made through fabric ports for the routes and classifiers, but we are using "NIF" ports for the statistics, hence the impact on the 400G port density.
