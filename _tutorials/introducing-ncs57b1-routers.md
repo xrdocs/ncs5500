@@ -10,7 +10,7 @@ position: hidden
 
 ## Intro
 
-With IOS XR 7.3.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware. Among them, the NCS 57B1 series.
+With IOS XR 7.3.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware are also launched with this release. Among them, the NCS 57B1 series.
 
 These two new routers are the NCS57B1-6D24 and NCS57B1-5DSE, both  1RU systems with a mix of 100G and 400G ports and powered by a Broadcom Jericho2 NPU.  
 They can be used in multiple places in the network, like aggregation (100G to 400G), 5G (class-C capable), internet peering, core, ...  
