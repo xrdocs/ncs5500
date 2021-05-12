@@ -114,5 +114,65 @@ router ospf 1
 
 Let us verify a few CLI commands and confirm the hardware programming.
 
+![Screenshot 2021-05-12 at 2.13.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 2.13.23 PM.png)
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd ipv4 session interface tenGigE 0/0/0/12 detail 
+<mark>I/f: TenGigE0/0/0/12, Location: 0/0/CPU0
+Dest: 192.18.26.18
+Src: 192.18.26.26</mark>
+ State: UP for 0d:2h:6m:39s, number of times UP: 1
+ Session type: PR/V4/SH
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147487749, your discr: 2147491924, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147491924, your discr: 2147487749, state UP, D/F/P/C/A: 0/1/0/1/0
+Timer Values:
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+ Desired echo tx interval: 0 s, local negotiated echo tx interval: 0 ms
+ Echo detection time: 0 ms(0 ms*3), async detection time: 900 ms(300 ms*3)
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=3, min=7 ms, max=2184 ms, avg=829 ms
+       Last packet transmitted 7598 s ago
+   Rx: Number of intervals=6, min=4 ms, max=1700 ms, avg=461 ms
+       Last packet received 7598 s ago
+ Intervals between echo packets:
+   Tx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet transmitted 0 s ago
+   Rx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet received 0 s ago
+ Latency of echo packets (time between tx and rx):
+   Number of packets: 0, min=0 ms, max=0 ms, avg=0 ms
+<mark>Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  ospf-1               300 ms     3          300 ms     3 </mark>        
+
+<mark>H/W Offload Info:
+ H/W Offload capability : Y, Hosted NPU     : 0/0/CPU0</mark>
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 292/45 
+
+<mark>Platform Info:</mark>
+NPU ID: 0 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x2054     Echo Session ID    : 0x0
+Async Tx Key        : 0x80002054  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+</code>
+</pre>
+</div>
+
 
 
