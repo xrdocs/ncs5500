@@ -4,7 +4,7 @@ date: '2021-05-11 22:04 +0200'
 title: Introducing NCS 57B1 Routers
 author: Nicolas Fevrier
 excerpt: Introduction of the new NCS 57B1 Routeurs
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="NCS 57B1 Routers" %} 
 
@@ -215,7 +215,7 @@ The second rule is technically more complex but can be summarized with the follo
 ![quad2.png]({{site.baseurl}}/images/quad2.png){: .align-center}
 
 A couple of not-supported use-cases.  
-Example 1:
+**Example 1**:
 
 ![not-supported-1.png]({{site.baseurl}}/images/not-supported-1.png){: .align-center}
 
@@ -223,7 +223,7 @@ Here, we start with QSPF+ 40G in port 0, then we insert a QSFP28 100G in port2.
 No problem, it works.  
 Then we try to configure the 100G in breakout mode, 4x25G. The system refuses to commit the configuration: we can't get QSFP+ and 4x25G in the same quad.
 
-Example 2:
+**Example 2**:
 
 ![not-supported-2.png]({{site.baseurl}}/images/not-supported-2.png){: .align-center}
 
@@ -232,7 +232,7 @@ We insert a QSFP28 100G in port2.
 No problem, this configuration is supported.  
 Then we try to configure the 100G in breakout mode, 4x25G. The system refuses to commit the configuration for the same reason: we can't get QSFP+ and 4x25G in the same quad.
 
-Example 3:
+**Example 3**:
 
 ![not-supported-3.png]({{site.baseurl}}/images/not-supported-3.png){: .align-center}
 
