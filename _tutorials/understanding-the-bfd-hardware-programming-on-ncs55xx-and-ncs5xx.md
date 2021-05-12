@@ -339,8 +339,8 @@ RP/0/RP0/CPU0:N55-26#
 
 ## Packet Captures
 
-Let us examine a sample packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer.
+Let us examine a sample packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer. We can verify that the values are matching with the CLI outputs we captured in the earlier commands
 
-![]({{site.baseurl}}/images/Screenshot%202021-05-12%20at%204.54.22%20PM.png)![Screenshot 2021-05-12 at 4.54.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 4.54.22 PM.png)
+![Screenshot 2021-05-12 at 4.54.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 4.54.22 PM.png)
 
 
