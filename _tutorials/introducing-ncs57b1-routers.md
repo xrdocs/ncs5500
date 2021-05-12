@@ -229,14 +229,19 @@ Example 3:
 ![not-supported-3.png]({{site.baseurl}}/images/not-supported-3.png){: .align-center}
 
 We start with QSFP28 100G in ports 0 and 2.  
-
-
-![not-supported.png]({{site.baseurl}}/images/not-supported.png){: .align-center}
-
+We configure ports 0-1 in breakout mode, port 1 is disabled and now we have 4x25G in port 0.  
+Now we insert a QSFP+ in port 3 and the port doesn't go up: we can't get QSFP+ and 4x25G in the same quad.
 
 ### MACsec support
 
+MACsec is not supported in IOS XR 7.3.1 but is tracked in the roadmap (contact your Cisco representative for the latest plans). Still, all ports are connected to PHY supporting the feature. It will be supported on 100G ports, 400G ports and also breakout ports.
+
 ![MACsec.png]({{site.baseurl}}/images/MACsec.png){: .align-center}
+
+## Conclusion
+
+This new router is the first Jericho2-based platform in fixed form factor. It offers a very high 100G and 400G port density in a very small size (1RU).  
+In a future article, we will demonstrate the routing scale and prefix programming speed in J2.  
 
 
 
