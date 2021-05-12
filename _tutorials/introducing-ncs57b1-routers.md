@@ -59,7 +59,7 @@ From the back, you find:
 
 ![]({{site.baseurl}}/images/6D24%20back%20plat.jpg){: .align-center}
 
-In the front, we have 100G ports (QDD cages, designed for high power optics) on the left part and 400G (QDD too) on the right.
+In the front, we have 100G ports (QDD cages, designed for high power optics) on the left part and 400G (QDD too) on the right. These cages will permit the use of 100G ZR optics in the upper row (the exact amount of optics is still under validation and will be updated later) and 400G ZR/ZR+ in all the ports on the right.
 
 ![100G-ports.png]({{site.baseurl}}/images/100G-ports.png){: .align-center}
 
@@ -82,17 +82,26 @@ Like it's predecessors using in NCS 5500 platforms, it's a VOQ-only forwarding a
 
 ![J2-2.png]({{site.baseurl}}/images/J2-2.png){: .align-center}
 
+The NPU uses 50Gbps SERDES to connect to the Reverse Gear Boxes
+
+### Block Diagrams
+
+NCS57B1-6D24 and NCS57B1-5DSE:
+
+![diagram-6D24.png]({{site.baseurl}}/images/diagram-6D24.png){: .align-center}
+
+![diagram-5DSE.png]({{site.baseurl}}/images/diagram-5DSE.png){: .align-center}
+
+From an architecture point of view, very few differences between the two platforms. Some interfaces links being used to connect to the statistic part of the OP2 eTCAM, hence the different 400G port density.  
+Jericho 2 ASIC is connected to PHY chipsets operated in reverse gear boxes to connect to the 100G interfaces or switching mode to connect to the 400G interfaces.  
+
+## Software
+
+The NCS571B are both introduced with IOS XR 7.3.1, that's the minimum release to support them.  
+Since it's a standalone platform, it operates by default in "Native Mode", no configuration is required to enable that mode.  
 
 
-----
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code> "Pre-existing [hw-module fib ipv4 scale internet-optimized] config has "  
- "been found. This feature isn't supported anymore and therefore ignored. "  
- "Please delete this config. "  </code>
-</pre>
-</div>
+## Ports configuration
 
-![host-optimized-default.png]({{site.baseurl}}/images/host-optimized-default.png){: .align-center}
 
