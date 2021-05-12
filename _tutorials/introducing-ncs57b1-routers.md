@@ -114,5 +114,87 @@ Keep in mind some basic concept here: you can not break a 400G interfaces and ex
 
 ![break-out-rules.png]({{site.baseurl}}/images/break-out-rules.png){: .align-center}
 
+The NCS57B1 internal architecture imposes two simple rules to respect when configuring ports:  
+- QSFP28 and QSFP+ breakout ports can only be configured on the top row and it disables the facing N+1 port
+- you can not mix 4x25 break and QSFP+ (40G or 4x10G) in the same Quad.
+
+Let's review these two rules in details:
+
+### breakout cables in top row
+
+This first rule only applies to the 100G ports on the left part, not the 400G capable ports on the right.
+
+Only the ports with an even number, located on the top row, can be configured as 4x10G or 4x25G breakout. 
+
+![port-numbering.png]({{site.baseurl}}/images/port-numbering.png){: .align-center}
+
+The configuration is different than the one available on other platforms under "controller ...", it's now done under "hw-module port-range":
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 ?
+  instance  card instance of MPA's
+  location  fully qualified location specification
+RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 instance 0 location 0/RP0/CPU0 mode ?
+  WORD  port mode 40-100, 400, 2x100, 4x10, 4x25, 4x10-4x25, 1x100, 2x100-PAM4, 3x100, 4x100
+RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 instance 0 location 0/RP0/CPU0 mode 4x10</code>
+</pre>
+</div>
+
+So the configuration is effective for two subsequent ports, in the example above it's 6 and 7. That means, the configuration of the port of the top row will automatically disable the port on the bottom (or N+1).
+
+![break-out-rules.png]({{site.baseurl}}/images/break-out-rules.png){: .align-center}
+
+In the example below, we configured the ports 16-17 in 4x10G breakout.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:ios#show contr npu voq-usage int all inst all loc 0/RP0/CPU0
+
+-------------------------------------------------------------------
+Node ID: 0/RP0/CPU0
+Intf         Intf     NPU NPU  PP   Sys   VOQ   Flow   VOQ    Port
+name         handle    #  core Port Port  base  base   port   speed
+             (hex)                                     type       
+----------------------------------------------------------------------
+Hu0/0/0/0    3c000048   0   0    9     9   1024   6160 local   100G
+Hu0/0/0/1    3c000058   0   0   11    11   1104   6256 local   100G
+Hu0/0/0/2    3c000068   0   0   13    13   1112   6272 local   100G
+Hu0/0/0/3    3c000078   0   0   15    15   1120   6288 local   100G
+Hu0/0/0/4    3c000088   0   0   17    17   1128   6304 local   100G
+Hu0/0/0/5    3c000098   0   0   19    19   1136   6320 local   100G
+Hu0/0/0/6    3c0000a8   0   0   21    21   1144   6336 local   100G
+Hu0/0/0/7    3c0000b8   0   0   23    23   1152   6352 local   100G
+Fo0/0/0/8    3c0000c8   0   0   25    25   1184   6416 local    40G
+Hu0/0/0/9    3c0000d8   0   0   27    27   1160   6368 local   100G
+Fo0/0/0/10   3c0000e8   0   0   29    29   1192   6432 local    40G
+Fo0/0/0/11   3c0000f8   0   0   31    31   1200   6448 local    40G
+Hu0/0/0/12   3c000108   0   0   33    33   1168   6384 local   100G
+Hu0/0/0/13   3c000118   0   0   35    35   1176   6400 local   100G
+Hu0/0/0/14   3c000128   0   0   37    37   1096   6240 local   100G
+<mark>Hu0/0/0/15</mark>   3c000138   0   0   39    39   1088   6224 local   100G
+<mark>Hu0/0/0/18</mark>   3c000168   0   0   45    45   1072   6192 local   100G
+Hu0/0/0/19   3c000178   0   0   47    47   1064   6176 local   100G
+FH0/0/0/28   3c000188   0   1   49    49   1224   6224 local   400G
+FH0/0/0/27   3c0001c8   0   1   57    57   1248   6272 local   400G
+FH0/0/0/26   3c000208   0   1   65    65   1240   6256 local   400G
+Hu0/0/0/25   3c000248   0   1   73    73   1032   6144 local   100G
+FH0/0/0/24   3c000288   0   1   81    81   1232   6240 local   400G
+Hu0/0/0/20   3c0002c8   0   1   89    89   1056   6192 local   100G
+Hu0/0/0/21   3c0002d8   0   1   91    91   1048   6176 local   100G
+Hu0/0/0/22   3c0002e8   0   1   93    93   1040   6160 local   100G
+Fo0/0/0/23   3c0002f8   0   1   95    95   1216   6208 local    40G
+<mark>Te0/0/0/16/0</mark> 3c002148   0   0   41    41   1208   6464 local    10G
+<mark>Te0/0/0/16/1</mark> 3c002150   0   0   42    42   1256   6480 local    10G
+<mark>Te0/0/0/16/2</mark> 3c002158   0   0   43    43   1264   6496 local    10G
+<mark>Te0/0/0/16/3</mark> 3c002160   0   0   44    44   1080   6208 local    10G</code>
+</pre>
+</div>
+
+You notice we have now 5-tuple 0/0/0/16/x for these interfaces, proof it's broken out in 4.  
+Also we see that port 17 disappeared of the inventory.
+
+Again, these rules don't apply to the 400G ports on the right, all of them can be configured in break-out mode.
+
 
 
