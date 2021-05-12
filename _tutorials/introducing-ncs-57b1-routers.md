@@ -48,6 +48,15 @@ From the back, you find:
 - two power supply (AC or DC) offering 1+1 redundancy
 - 6 fan trays offering 5+1 redundancy
 
+In the front, we have 100G ports (QDD cages, designed for high power optics) on the left part and 400G (QDD too) on the right.
+
+![100G-ports.png]({{site.baseurl}}/images/100G-ports.png){: .align-center}
+
+![400G-ports.png]({{site.baseurl}}/images/400G-ports.png){: .align-center}
+
+Finally, on the right end, we have the timing ports and management ports.
+
+![timing-mgt.png]({{site.baseurl}}/images/timing-mgt.png){: .align-center}
 
 
 ### NPU
