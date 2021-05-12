@@ -37,26 +37,26 @@ To understand where the product names NCS57B1-6D24 and -5DSE come from:
 
 You can find the datasheet on Cisco's website:  
 [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/datasheet-c78-744698.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/datasheet-c78-744698.html)  
-You can find a lot of details on the part numbers, licenses, standards compliance, and tons of details on the products.
+It contains a lot of details on the part numbers, licenses, standards compliance, and much more.
 
 We differentiate:  
-- the "base" system (Jericho 2 without eTCAM) offering 24x 100G and 6x 400G ports: **NCS57B1-6D24**
+- the "base" system (Jericho2 without eTCAM) offering 24x 100G and 6x 400G ports: **NCS57B1-6D24**
 
 ![6D24 plongeant.png]({{site.baseurl}}/images/6D24 plongeant.png){: .align-center}
 
-- the "scale" system (Jericho 2 with OP2 eTCAM) offering 24x 100G and 5x 400G ports: **NCS57B1-5DSE**
+- the "scale" system (Jericho2 with OP2 eTCAM) offering 24x 100G and 5x 400G ports: **NCS57B1-5DSE**
 
 ![5DSE plongeant-good.jpg]({{site.baseurl}}/images/5DSE plongeant-good.jpg){: .align-center}
 
 The difference between the two versions is simply the presence of an eTCAM and for the system equipped with this additional resource, we have one port QSFP-DD 400G left.  
-The connection to the eTCAM is made through fabric ports for the routes and classifiers, but we are using "NIF" ports for the statistics, hence the impact on the 400G port density.
+This eTCAM is connected to the fabric ports for the routes and classifiers, but we are using "NIF" ports for the statistics, hence the impact on the 400G port density.
 
 ### Hardware
 
 ![dimensions.png]({{site.baseurl}}/images/dimensions.png){: .align-center}
 
 From the back, you find:  
-- two power supply modules (AC or DC) 2kW offering 1+1 redundancy (PSU2KW-ACPI or PSU2KW-DCPI). Note we don't support the mix of AC and DC, and the cooling is only front to back today.
+- two power supply modules (AC or DC) 2kW offering 1+1 redundancy (PSU2KW-ACPI or PSU2KW-DCPI). Note we don't support the mix of AC and DC, and the cooling is only front-to-back today.
 - 6 fan trays (NC57-B1-FAN1-FW) offering 5+1 redundancy.
 
 ![]({{site.baseurl}}/images/6D24%20back%20plat.jpg){: .align-center}
@@ -86,7 +86,7 @@ Like it's predecessors using in NCS 5500 platforms, it's a VOQ-only forwarding a
 
 The NPU uses 50Gbps (a bit more than 53 with encoding and headers) SERDES to connect to the Reverse Gear Boxes:
 
-![J2-2.png]({{site.baseurl}}/images/J2-2.png){: .align-center}
+![J2-2b.png]({{site.baseurl}}/images/J2-2b.png){: .align-center}
 
 
 ### Block Diagrams
@@ -112,6 +112,14 @@ Take a look at the setup guide for mode details.
 
 It's possible to use the router in multiple roles, like aggregation of 100G and 400G ports for example.  
 It offers 24 ports 100G and 5 or 6 ports 400G. So it's possible to imagine cases with 2.4Tbps to the clients in 100G and 2.4Tbps to the core in 400G. But nothing prevents from breaking some or all of the 400G ports in 4x100G, to build a 32x 100G + 4x 400G systems. It's very flexible.
+
+A couple of examples among many other possibilities:
+
+![24+6.png]({{site.baseurl}}/images/24+6.png){: .align-center}
+
+![32+4.png]({{site.baseurl}}/images/32+4.png){: .align-center}
+
+![48.png]({{site.baseurl}}/images/48.png){: .align-center}
 
 Keep in mind some basic concept here: you can not break a 400G interfaces and expect to connect it to existing 100G SR4, LR4 or CWDM4. The 100G port facing the breakout cable must be "1-lambda" optics like DR/FR.
 
@@ -237,6 +245,11 @@ Now we insert a QSFP+ in port 3 and the port doesn't go up: we can't get QSFP+ a
 MACsec is not supported in IOS XR 7.3.1 but is tracked in the roadmap (contact your Cisco representative for the latest plans). Still, all ports are connected to PHY supporting the feature. It will be supported on 100G ports, 400G ports and also breakout ports.
 
 ![MACsec.png]({{site.baseurl}}/images/MACsec.png){: .align-center}
+
+### Other things to know?
+
+- We will support 10G via QSFP to SFP Adaptor (QSA). Not supported in 7.3.1, in the roadmap.
+- 1G will not be supported
 
 ## Conclusion
 
