@@ -12,7 +12,9 @@ position: hidden
 
 With IOS XR 7.3.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware. Among them, the NCS 57B1 series.
 
-These two new routers are the NCS57B1-6D24 and NCS57B1-5DSE, both  1RU systems with a mix of 100G and 400G ports and powered by a Broadcom Jericho2 NPU.
+These two new routers are the NCS57B1-6D24 and NCS57B1-5DSE, both  1RU systems with a mix of 100G and 400G ports and powered by a Broadcom Jericho2 NPU.  
+They can be used in multiple places in the network, like aggregation (100G to 400G), 5G (class-C capable), internet peering, core, ...  
+If it can offer 10G breakout through QSA and break-out cables, this router is optimized for 100G and 400G interfaces.
 
 ## Videos
 
@@ -100,8 +102,17 @@ Jericho 2 ASIC is connected to PHY chipsets operated in reverse gear boxes to co
 The NCS571B are both introduced with IOS XR 7.3.1, that's the minimum release to support them.  
 Since it's a standalone platform, it operates by default in "Native Mode", no configuration is required to enable that mode.  
 
-
+Note: this system is using the newest version of IOS XR named XR7. XR7 is the latest evolution of the operating system and from feature and scale is similar to XR64bit used in other NCS5500 product. The main noticeable difference will be in the upgrade process based on Golden ISO images and the "install replace" approach instead of the "install add / install activate" methodology.  
+Take a look at the setup guide for mode details.
 
 ## Ports configuration
+
+It's possible to use the router in multiple roles, like aggregation of 100G and 400G ports for example.  
+It offers 24 ports 100G and 5 or 6 ports 400G. So it's possible to imagine cases with 2.4Tbps to the clients in 100G and 2.4Tbps to the core in 400G. But nothing prevents from breaking some or all of the 400G ports in 4x100G, to build a 32x 100G + 4x 400G systems. It's very flexible.
+
+Keep in mind some basic concept here: you can not break a 400G interfaces and expect to connect it to existing 100G SR4, LR4 or CWDM4. The 100G port facing the breakout cable must be "1-lambda" optics like DR/FR.
+
+![break-out-rules.png]({{site.baseurl}}/images/break-out-rules.png){: .align-center}
+
 
 
