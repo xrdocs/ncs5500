@@ -143,7 +143,7 @@ RP/0/RP0/CPU0:NCS5500(config)#hw-module port-range 6 7 instance 0 location 0/RP0
 
 So the configuration is effective for two subsequent ports, in the example above it's 6 and 7. That means, the configuration of the port of the top row will automatically disable the port on the bottom (or N+1).
 
-![break-out-rules.png]({{site.baseurl}}/images/break-out-rules.png){: .align-center}
+![breakout-100G.png]({{site.baseurl}}/images/breakout-100G.png){: .align-center}
 
 In the example below, we configured the ports 16-17 in 4x10G breakout.
 
@@ -195,6 +195,30 @@ You notice we have now 5-tuple 0/0/0/16/x for these interfaces, proof it's broke
 Also we see that port 17 disappeared of the inventory.
 
 Again, these rules don't apply to the 400G ports on the right, all of them can be configured in break-out mode.
+
+### Mixing 25G breakout and QSFP+
+
+The second rule is technically more complex but can be summarized with the following abstraction:  
+"Each block of four ports (QUAD: 0-3, 4-7, 8-11, 12-15, 16-19 and 20-23) can not accept a mix of 4x25G and QSFP+ port, whether they are used in 40G or 4x10G". All other options are supported, as long as they also follow the first rule described earlier.  
+
+![quad2.png]({{site.baseurl}}/images/quad2.png){: .align-center}
+
+A couple of not-supported use-cases:
+
+![not-supported.png]({{site.baseurl}}/images/not-supported.png){: .align-center}
+
+![not-supported-1.png]({{site.baseurl}}/images/not-supported-1.png){: .align-center}
+
+![not-supported-2.png]({{site.baseurl}}/images/not-supported-2.png){: .align-center}
+
+![not-supported-3.png]({{site.baseurl}}/images/not-supported-3.png){: .align-center}
+
+### MACsec support
+
+![MACsec.png]({{site.baseurl}}/images/MACsec.png){: .align-center}
+
+
+
 
 
 
