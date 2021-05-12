@@ -112,9 +112,13 @@ router ospf 1
   !
 ```
 
+### Verification in the Pipeline
+
 Let us verify a few CLI commands and confirm the hardware programming.
 
 ![Screenshot 2021-05-12 at 2.13.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 2.13.23 PM.png)
+
+The below output gives different parameters of the BFD control packet which are mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded values
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -174,5 +178,161 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
+Let us check the hardware for the discriminator values. This is the most important thing to check, if peer and local routers are exchanging each others discriminator values. Session handle should match our discriminator
 
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show dpa objects bfdhwoff location 0/0/CPU0
+  ofa_npu_mask_t npu_mask => 1 
+  uint8 unit => 0
+  uint8 slot => 0
+  uint16 xid => 1
+ <mark>@uint32 session_handle => 2147491924</mark>
+ @uint16 soft_session_handle => 0
+  uint32 flags => 8
+  int id => (not set)
+  uint8_t remote_id_grid_alloc => 1
+  uint32_t alloc_sz => (not set)
+  uint32_t remote_id => 1
+  <mark>ofa_encap_id_t tunnel_encapid => 0x4001380b</mark>
+  uint8_t tunnel_encapid_grid_alloc => 1
+  uint8_t remote_id_rid_level => 0
+  uint8_t tunnel_encapid_rid_level => 1
+  uint8 type => (not set)
+  int tx_gport => (not set)
+  int remote_gport => (not set)
+  uint16 dest_port => 40
+  int bfd_period => 300
+  uint16 vpn => (not set)
+  uint8 vlan_pri => (not set)
+  uint8 inner_vlan_pri => (not set)
+  uint32 vrf_id => 3758096384
+  uint32 egress_label => (not set)
+  uint8 egress_ttl => (not set)
+  uint8 egress_exp => (not set)
+  uint32 label => (not set)
+  <mark>uint32 egress_if => 1073807360</mark>
+  uint32 secondary_egress_if => (not set)
+  uint32 egress_ifh => 320
+  uint32 secondary_egress_ifh => (not set)
+  uint8 primary_tunnel_bit_index => (not set)
+  uint32 bundle_ifh => (not set)
+  uint8 mep_id => (not set)
+  uint8 mep_id_length => (not set)
+  int int_pri => 24
+  uint8 cpu_qid => (not set)
+  uint8 local_state => 3
+  <mark>uint32 local_discr => 2147491924</mark>
+  uint32 local_min_tx => 300000
+  uint32 local_min_rx => 300000
+  uint8 local_detect_mult => 3
+  uint32 bfd_detection_time => 900000
+  <mark>uint32 remote_discr => 2147487749</mark>
+  uint32 remote_flags => 0
+  uint8 remote_state => 0
+  uint32 bfd_session_type => 0
+  uint8 ip_tos => 192
+  uint8 ip_ttl => 255
+  uint32 udp_src_port => 49153
+  uint32 dst_ip_addr => 3222411794
+  dpa_ip6_addr_t dst_ip6_addr => (not set)
+  uint32 src_ip_addr => 3222411802
+</code>
+</pre>
+</div>
+
+Note: This is trimmed output 
+{: .notice--info}
+
+From the tunnel_encapid take last 5 digits and run the below command. We get the value of  Next_eep. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:N55-26#show controller fia diagshell 0 "diag pp lif type=out id=0x1380b gl=1" location 0/0/cpu0</mark>
+Node ID: 0/0/CPU0
+************************************************ 
+Warning: Core 0: Packet diagnostics refers to OLP packet 
+************************************************ 
+Global Out_LIF:0x0001380b -> Local Out_LIF:0x0000e0ca -> Type:(null) Bank:6 Offset:101
+DATA Encapsulation:
+data_entry[0]: 0x121a1a0c data_entry[1]: 0x0006a8c0 data_entry[2]: 0x00000000 oam_lif_set: 0
+<mark>Next_eep: 0x600a</mark>
+RP/0/RP0/CPU0:N55-26#
+</code>
+</pre>
+</div>
+
+Convert the egress_int from decimal to hex. And then use the last 5 digits and run the below command. The Local Out_LIF should match the Next_eep. We can also verify the dest_mac which can be verified by the show arp command
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:N55-26#show controller fia diagshell 0 "diag pp lif type=out id=0x10000 gl=1" location 0/0/cpu0</mark>
+Node ID: 0/0/CPU0
+************************************************ 
+Warning: Core 0: Packet diagnostics refers to OLP packet 
+************************************************ 
+Global Out_LIF:0x00010000 -> <mark>Local Out_LIF:0x0000600a</mark> -> Type:(null) Bank:2 Offset:5
+LL Encapsulation:
+<mark>dest_mac:00:32:17:80:98:30</mark>
+out_vid_valid: 1
+out_vid: 19
+pcp_dei_valid: 0
+pcp_dei: 0
+tpid_index: 0
+ll_remark_profile: 0
+out_ac_valid: 0
+out_ac_lsb: 0
+oam_lif_set: 0
+outlif_profile: 0x10
+is native: 0
+Next_eep: 0xffffffff
+RP/0/RP0/CPU0:N55-26#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:N55-26#show arp 192.18.26.18</mark>
+-------------------------------------------------------------------------------
+0/0/CPU0
+-------------------------------------------------------------------------------
+Address         Age        Hardware Addr   State      Type  Interface
+192.18.26.18    00:27:14   <mark>0032.1780.9830</mark>  Dynamic    ARPA  TenGigE0/0/0/12
+RP/0/RP0/CPU0:N55-26#
+</code>
+</pre>
+</div>
+
+From the below output we can see the properties of the BFD. It clearly mentions that the BFD is processed in the OAM engine and not in the CPU. Other hardware values programmed are also matching.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:N55-26#show controllers fia diagshell 0 "diag oam ep id=0x2054 location 0/0/CPU0</mark> 
+Node ID: 0/0/CPU0
+<mark>=====BFD endpoint ID: 0X2054</mark> 
+        ***Properties:
+        <mark>Type: BFD over IPV4</mark>
+        <mark>BFD session is processed in OAMA (rather than CPU)</mark>. TX gport: 0X6c000028
+        Remote gport: 0X160040e3
+        gport disabled
+        Source address: 0.0.0.0 <mark>UDP source port: 49153</mark>
+        <mark>Local state: up,        Remote state: up</mark>
+        Local diagnostic: No Diagnostic,        Remote diagnostic: No Diagnostic
+        Remote Flags: 0x8,       Local Flags 0x8
+        Queing priority: 24
+        BFD rate (ms): 301
+        Desired local min TX interval: 300000, Required local RX interval: 300000
+        Local discriminator: 2147491924, Local detection multiplier: 3
+        <mark>Remote discriminator: 2147487749</mark>
+        Remote detection explicit timeout: 899300
+RP/0/RP0/CPU0:N55-26#
+</code>
+</pre>
+</div>
