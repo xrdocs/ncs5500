@@ -78,25 +78,41 @@ After a quick refresh of the theory behind the BFD packets, let us get into the 
 
 ![Screenshot 2021-05-12 at 11.31.43 AM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 11.31.43 AM.png)
 
-'''
-RP/0/RP0/CPU0:N55-24#show route 70.1.1.0 
-Thu Jul 16 17:49:35.559 UTC
+We have configured OSPF between R1 and R2 and used BFD on the physical interface.
 
-Routing entry for 70.1.1.0/24
-  Known via "isis 1", distance 115, metric 20, type level-2
-  Installed Jul 16 12:06:16.262 for 05:43:19
-  Routing Descriptor Blocks
-    66.1.1.1, from 172.16.4.49, via TenGigE0/0/0/6
-      Route metric is 20
-  No advertising protos. 
-RP/0/RP0/CPU0:N55-24#
+**R1**
 
-'''
+```
+router ospf 1
+ router-id 172.16.3.26
+ address-family ipv4 unicast
+ area 0
+  !
+  interface TenGigE0/0/0/12
+   bfd minimum-interval 300
+   bfd fast-detect
+   bfd multiplier 3
+   network point-to-point
+  !
+```
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-<mark> </mark>
-</code>
-</pre>
-</div>
+**R2**
+
+```
+router ospf 1
+ router-id 172.16.3.18
+ address-family ipv4 unicast
+ area 0
+  !
+  interface TenGigE0/0/0/12
+   bfd minimum-interval 300
+   bfd fast-detect
+   bfd multiplier 3
+   network point-to-point
+  !
+```
+
+Let us verify a few CLI commands and confirm the hardware programming.
+
+
+
