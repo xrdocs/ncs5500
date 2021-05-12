@@ -8,7 +8,7 @@ position: top
 ---
 {% include toc icon="table" title="NCS 57B1 Routers" %} 
 
-## Intro
+## Introduction
 
 With IOS XR 7.3.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware are also launched with this release. Among them, the NCS 57B1 series.
 
