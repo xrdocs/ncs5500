@@ -82,9 +82,12 @@ These routers are "system on a chip" or SoC. All ports are connected to a single
 At the heart, we have the Broadcom Jericho 2 NPU. It offers 4.8 Tbps and 2BPPS of forwarding capacity.  
 Like it's predecessors using in NCS 5500 platforms, it's a VOQ-only forwarding architecture with ingress hybrid packet buffering. Hybrid here means the packets can be stored in a 32MB on-chip memory or in an 8GB external HBM in case of queue congestion.
 
+![J2-OCB-HBM.png]({{site.baseurl}}/images/J2-OCB-HBM.png){: .align-center}
+
+The NPU uses 50Gbps (a bit more than 53 with encoding and headers) SERDES to connect to the Reverse Gear Boxes:
+
 ![J2-2.png]({{site.baseurl}}/images/J2-2.png){: .align-center}
 
-The NPU uses 50Gbps SERDES to connect to the Reverse Gear Boxes
 
 ### Block Diagrams
 
@@ -205,13 +208,17 @@ The second rule is technically more complex but can be summarized with the follo
 
 A couple of not-supported use-cases:
 
-![not-supported.png]({{site.baseurl}}/images/not-supported.png){: .align-center}
-
 ![not-supported-1.png]({{site.baseurl}}/images/not-supported-1.png){: .align-center}
+
+In the diagram above, 
 
 ![not-supported-2.png]({{site.baseurl}}/images/not-supported-2.png){: .align-center}
 
 ![not-supported-3.png]({{site.baseurl}}/images/not-supported-3.png){: .align-center}
+
+
+![not-supported.png]({{site.baseurl}}/images/not-supported.png){: .align-center}
+
 
 ### MACsec support
 
