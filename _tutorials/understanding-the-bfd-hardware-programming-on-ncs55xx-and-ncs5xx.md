@@ -19,7 +19,7 @@ position: hidden
 
 ## Introduction
 
-In our previous [artcile](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we introduced the BFD feature implementation in the pipeline architecture of NCS55xx and NCS5xx. We discussed how the packet flow and the hardware resources being utilised. We also how the scale is considered for the BFD feature and how well we have carved the resources from the ASIC with IOS-XR. In this article, we will go a bit deeper in the BFD configurations, reading the BFD outputs, hardware programming and resource utilization.
+In our previous [artcile](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs, hardware programming and resource utilization.
 
 ## Quick Refresh ([RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880))
 
@@ -72,7 +72,7 @@ Note: For details on state machine please refer the RFC
 {: .notice--info}
 
 
-## Configuring and Monitoring BFD on NCS5500
+## Configuring a simple BFD session (NCS55xx and NCS5xx)
 
 After a quick refresh of the theory behind the BFD packets, let us get into the routers and check it practically. We will take a simple example and walk through the hardware programming. We will take a very simple example and verify.
 
@@ -80,7 +80,7 @@ After a quick refresh of the theory behind the BFD packets, let us get into the 
 
 We have configured OSPF between R1 and R2 and used BFD on the physical interface.
 
-**R1**
+**R1 (NCS-55A2-MOD-HD-S)**
 
 ```
 router ospf 1
@@ -96,7 +96,7 @@ router ospf 1
   !
 ```
 
-**R2**
+**R2 (N540-24Z8Q2C-M)**
 
 ```
 router ospf 1
@@ -112,13 +112,13 @@ router ospf 1
   !
 ```
 
-### Verification in the Pipeline
+## Verification in the Pipeline
 
-Let us verify a few CLI commands and confirm the hardware programming.
+Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information on the session configured in brief.
 
 ![Screenshot 2021-05-12 at 2.13.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 2.13.23 PM.png)
 
-The below output gives different parameters of the BFD control packet which are mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded values
+The below output gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -178,7 +178,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
-Let us check the hardware for the discriminator values. This is the most important thing to check, if peer and local routers are exchanging each others discriminator values. Session handle should match our discriminator
+Let us check the hardware programming for the discriminator values. This is the most important thing to check, if peer and local routers are exchanging each others discriminator values. In the below output, **session_handle** should match **our discriminator**
 
 
 <div class="highlighter-rouge">
@@ -246,7 +246,7 @@ RP/0/RP0/CPU0:N55-26#show dpa objects bfdhwoff location 0/0/CPU0
 Note: This is trimmed output 
 {: .notice--info}
 
-From the tunnel_encapid take last 5 digits and run the below command. We get the value of  Next_eep. 
+From the **tunnel_encapid** take last 5 digits and run the below command. We get the value of  **Next_eep**. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -265,7 +265,7 @@ RP/0/RP0/CPU0:N55-26#
 </pre>
 </div>
 
-Convert the egress_int from decimal to hex. And then use the last 5 digits and run the below command. The Local Out_LIF should match the Next_eep. We can also verify the dest_mac which can be verified by the show arp command
+Convert the egress_int from decimal to hex. And then use the last 5 digits and run the below command. The **Local Out_LIF** should match the **Next_eep**. We can also verify the **dest_mac** which can be verified by the show arp command
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -339,8 +339,46 @@ RP/0/RP0/CPU0:N55-26#
 
 ## Packet Captures
 
-Let us examine a sample packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer. We can verify that the values are matching with the CLI outputs we captured in the earlier commands
+Let us examine the packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer. We can verify that the values are matching with the CLI outputs we captured in the earlier commands
 
 ![Screenshot 2021-05-12 at 4.54.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 4.54.22 PM.png)
 
+## QoS treatment for BFD packets
 
+From the below output we can see the BFD control packets are marked by default with highest priority i.e TC7
+
+```
+class-map match-any BFD
+ match traffic-class 7 
+ end-class-map
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show policy-map interface tenGigE 0/0/0/12        
+TenGigE0/0/0/12 output: BFD
+Class BFD
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    <mark>Matched             :                 914/97196                1</mark>
+    <mark>Transmitted         :                 914/97196                1</mark>
+    Total Dropped       :                   0/0                    0
+  Queueing statistics
+    Queue ID                             : 1127 
+    Taildropped(packets/bytes)           : 0/0
+Class class-default
+  Classification statistics          (packets/bytes)     (rate - kbps)
+    Matched             :                 105/8204                 0
+    Transmitted         :                 105/8204                 0
+    Total Dropped       :                   0/0                    0
+  Queueing statistics
+    Queue ID                             : 1120 
+    Taildropped(packets/bytes)           : 0/0
+</code>
+</pre>
+</div>
+
+## Reference
+
+- [ASR9k BFD Implementation](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)
+- [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
