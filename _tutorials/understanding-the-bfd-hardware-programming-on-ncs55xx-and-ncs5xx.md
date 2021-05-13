@@ -178,6 +178,14 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
+Note: Session type: PR/V4/SH.    
+Here PR = Pre-routed session (eg: sessions bound to an interface like pos, serial, etc
+If its SW = Switched session (eg: BLB, BFD over TE, Multi-hop sessions)
+V4 = IPv4
+SH = Single Hop
+{: .notice--info}
+
+
 Let us check the hardware programming for the discriminator values. This is the most important thing to check, if peer and local routers are exchanging each others discriminator values. In the below output, **session_handle** should match **our discriminator**
 
 
@@ -382,3 +390,7 @@ Class class-default
 
 - [ASR9k BFD Implementation](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)
 - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
+
+## Summary
+
+Hope this article helped you to understand the hardware programming of the BFD in the pipeline architecture. This can be used for a basic debugging before reaching out to Cisco TAC :). In the next arcticle we will try to explore the concepts of BLB/BOB/BVI and its hardware implementation.
