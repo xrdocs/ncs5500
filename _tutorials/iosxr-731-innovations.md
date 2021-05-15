@@ -117,20 +117,26 @@ Jose Liste covers a lot of topics in this 30min long video:
 
 - Dynamic SR P2MP policies theory and lab demo
 
+## Optics
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ybdHKwktP_U" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
+## New products
+
 ### NCS57B1-6D24 / NCS57B1-5DSE
 
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MyqmIlozL8M" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
-## Optics
-
-Coming soon
-
-## New products
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/HRKhKuMAy-g" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
 
 ### Chassis commons
 
-Coming soon
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/D57C38pcfyo" frameborder="0" allowfullscreen></iframe>{: .align-center}
+.
+
 
 ### NC55-32T16Q4H-A Line Card
 
@@ -139,5 +145,3 @@ Coming soon
 ### NC57-36H-SE
 
 Coming soon
-
-
