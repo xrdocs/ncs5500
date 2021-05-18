@@ -19,7 +19,7 @@ position: hidden
 
 ## Introduction
 
-In our previous [artcile](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs, hardware programming and resource utilization.
+In our previous [artcile](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper. We will see a sample configuration, and see how to read the BFD outputs, hardware programming and resource utilization.
 
 ## Quick Refresh ([RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880))
 
@@ -68,7 +68,7 @@ As per the [RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880), the BFD st
 | Up state        | This state means that the BFD session has successfully been established, and implies that connectivity between the systems is working. <br>The session will remain in the Up state until either connectivity fails or the session is taken down administratively.                                                                        |
 | AdminDown state | This state means that the session is being held administratively down.  <br>This causes the remote system to enter Down state, and remain there until the local system exits AdminDown state                                                                                                                                             |
 
-Note: For details on state machine please refer the RFC 
+Note: For details on state machine please refer the RFC 5880 
 {: .notice--info}
 
 
@@ -179,10 +179,10 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </div>
 
 Note: Session type: PR/V4/SH.    
-Here PR = Pre-routed session (eg: sessions bound to an interface like pos, serial, etc
-If its SW = Switched session (eg: BLB, BFD over TE, Multi-hop sessions)
-V4 = IPv4
-SH = Single Hop
+Here PR = Pre-routed session (eg: sessions bound to an interface like pos, serial, etc  
+If its SW = Switched session (eg: BLB, BFD over TE, Multi-hop sessions)  
+V4 = IPv4  
+SH = Single Hop  
 {: .notice--info}
 
 
@@ -393,4 +393,4 @@ Class class-default
 
 ## Summary
 
-Hope this article helped you to understand the hardware programming of the BFD in the pipeline architecture. This can be used for a basic debugging before reaching out to Cisco TAC :). In the next arcticle we will try to explore the concepts of BLB/BOB/BVI and its hardware implementation.
+Hope this article helped you to understand the hardware programming of the BFD in the pipeline architecture. The platform is fully complied with the RFC specifications. This can be used as a reference for a basic debugging before reaching out to Cisco TAC :). In the next arcticle we will try to explore the concepts of BLB/BOB/BVI and its hardware implementation.
