@@ -108,9 +108,9 @@ The decision to keep a queue in OCB or to evict it to the DRAM will depends on t
 - below 6000 packets or 200k Bytes, the queue will stay inside the chipset  
 - above one of these two thresholds, the packets are stored in DRAM  
 
-![12-OnChip.jpg]({{site.baseurl}}/images/12-OnChip.jpg){: .align-center}
+![12-OnChip-.jpg]({{site.baseurl}}/images/12-OnChip-.jpg){: .align-center}
 
-![13-OffChip.jpg]({{site.baseurl}}/images/13-OffChip.jpg){: .align-center}
+![13-OffChip-.jpg]({{site.baseurl}}/images/13-OffChip-.jpg){: .align-center}
 
 This management is done at the queue level only. It will not impact the other packets going to other destination or even to the same destination but in a different queue:
 
@@ -121,7 +121,7 @@ As long as we have packets in this evicted queue, it will stay in the DRAM. Once
 On the egress side, we have a 16MB memory used to differentiate unicast and multicast traffic, and among them to separate high and low priority. That's the only level of classification available on the output buffer.  
 In the future we will come back on the main difference of behavior between unicast and multicast, in a VOQ-only model.  
 
-![15-Egress.jpg]({{site.baseurl}}/images/15-Egress.jpg){: .align-center}
+![15-Egress-.jpg]({{site.baseurl}}/images/15-Egress-.jpg){: .align-center}
 
 ### Virtual Output Queues
 
@@ -216,7 +216,7 @@ This memory is important but is not used most of the time.
 We will demonstrate in next article that the percentage of packets going to DRAM represents a tiny portion of the overall traffic (around 0.15%).  
 The NPU is connected to the DRAM via a 900Gbps unidirectional link:
 
-![19-DRAM-Speed1.jpg]({{site.baseurl}}/images/19-DRAM-Speed1.jpg){: .align-center}
+![19-DRAM-Speed1-.jpg]({{site.baseurl}}/images/19-DRAM-Speed1-.jpg){: .align-center}
 
 Unidirectional means we can:
 - write in the DRAM at 900Gbps  
@@ -227,14 +227,14 @@ or
 
 If we maintain a constant state of queue eviction (all the queues are constantly receiving traffic and can't be moved back to OCB), we end up with a 450/450 state:
 
-![20-DRAM-Speed2.jpg]({{site.baseurl}}/images/20-DRAM-Speed2.jpg){: .align-center}
+![20-DRAM-Speed2-.jpg]({{site.baseurl}}/images/20-DRAM-Speed2-.jpg){: .align-center}
 
 To reach such a situation, we need very specifically crafted traffic flows, maintaining a constant state of saturation without being taildropped (check the next section).  
 Aside in a lab, having traffic received on a given NPU and targeted all the queues of all the egress ports while maintaining a congestion state, is not a realistic scenario.
 
 It's important to keep in mind we are increasing the amount of DRAM and the total amount of bandwidth to this DRAM when we insert more line cards (more NPUs) in a system:  
 
-![21-DRAM-and-BW.jpg]({{site.baseurl}}/images/21-DRAM-and-BW.jpg){: .align-center}
+![21-DRAM-and-BW-.jpg]({{site.baseurl}}/images/21-DRAM-and-BW-.jpg){: .align-center}
 
 In this example, we have 3 NPUs, representing a total of 12GB of traffic and an aggregated bandwidth of 2.7Tbps unidirectional to the external buffer.  
 More line cards --> more NPUs --> more DRAM and more bandwidth to DRAM.
