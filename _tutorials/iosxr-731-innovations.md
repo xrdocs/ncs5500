@@ -53,13 +53,87 @@ The configuration used for the demos are available here:
 .
 
 Jiri Chaloupka and Lampros Gkavogiannis detail the following features:  
+
 - EVPN Head-End
+
+EVPN control plane used on top of the head-end to decide which interface is active or stand-by.
+
+![EVPN01.png]({{site.baseurl}}/images/EVPN01.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>evpn
+ interface PW-Ether 1
+  ethernet-segment
+   identifier type 0 9.8.7.6.5.4.3.2.1
+
+l2vpn
+ xconnect group xc100
+  p2p evpn-headend
+   interface PW-Ether1
+   neighbor evpn evi 1 target 1 source 1</code>
+</pre>
+</div>
+
 - EVPN Convergence
-- Fast ReRoute
-- MAC Mobility
-- Mass Withdraw
-- Edge Failure Fast ReRoute
-- EVPN Load Balancing
+  - Fast ReRoute
+  
+  Handled by the transport layer (SR TI-LFA for example)
+  
+  - MAC Mobility
+  
+  Available since EVPN inception, it uses a sequence number in the advertisement, to track VM move for example:
+  
+  ![EPNV02.png]({{site.baseurl}}/images/EPNV02.png){: .align-center}
+
+  - Mass Withdraw
+  
+  Also available since the early EVPN days. In this example, CE1 is multihomed so PE3 sees the mac addresses through the same segment ESI1.
+   
+  ![EVPN03.png]({{site.baseurl}}/images/EVPN03.png){: .align-center}
+
+PE1 losing the link to CE1, it just sends a RT1 update to PE3, that can reprogram the decision to send the traffic to PE2. But it takes a bit of time to generate, receive and compute this BGP advertisement. Hence the introduction of the next feature.
+  
+  - Edge Failure Fast ReRoute
+  
+  Similar to the L3VPN BGP PIC Edge feature, adapted for EVPN.
+  
+  ![EVPN04-.png]({{site.baseurl}}/images/EVPN04-.png){: .align-center}
+  
+  Using EBGP betwen CE and PE. PE1 will pre-program the back up path over PE2 that will forward via PE1 until the network fully converged. During that short period of time, we will have a sub-optimal routing path, but no packet loss.
+  
+  And it works for both All-Active and Single-Active.
+  
+  ![EVPN05.png]({{site.baseurl}}/images/EVPN05.png){: .align-center}
+
+All-Active configuration:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>evpn
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 36.37.36.37.36.37.36.37.01
+   convergence
+    reroute</code>
+</pre>
+</div>
+
+Single-Active configuration:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>evpn
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 36.37.36.37.36.37.36.37.01
+   load-balancing-mode single-active
+   convergence
+    reroute</code>
+</pre>
+</div>
+
+  - EVPN Load Balancing
 - SFA Single Flow Active
 - Next-Hop Tracking for DF Election
 - NTP sync
