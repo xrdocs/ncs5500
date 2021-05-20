@@ -133,11 +133,64 @@ Single-Active configuration:
 </pre>
 </div>
 
-  - EVPN Load Balancing
+- EVPN Load Balancing
+
+![EVPN06.png]({{site.baseurl}}/images/EVPN06.png){: .align-center}
+
+Since the beginning we have All-Active mode where PE1 and PE2 are configured to make CE1 believe it's connected to a single device via link aggregation.  
+Later, we introduced the single-active mode, followed by the port-active mode.
+
 - SFA Single Flow Active
+
+To improve the convergence, particularly when connected to legacy L2 protocols (like spanning-tree, REP-AG.G.8032), we introduce this new load balancing mode.
+
+![EVPN07.png]({{site.baseurl}}/images/EVPN07.png){: .align-center}
+
+SFA is leveraging pre-programmed information between PE1 and PE2.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>evpn
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 36.37.36.37.36.37.36.37.01
+   load-balancing-mode single-flow-active
+   convergence
+    mac-mobility</code>
+</pre>
+</div>
+
+![EVPN08.png]({{site.baseurl}}/images/EVPN08.png){: .align-center}
+
+Check [https://datatracker.ietf.org/doc/html/draft-brissette-bess-evpn-l2gw-proto-06](https://datatracker.ietf.org/doc/html/draft-brissette-bess-evpn-l2gw-proto-06) for more details.
+
 - Next-Hop Tracking for DF Election
+
+We are enabling next-hop tracking for Route-Type 4. When NH disappears from the table, we trigger immediately a DF election.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>evpn
+ interface Bundle-Ether100
+  ethernet-segment
+   identifier type 0 36.37.36.37.36.37.36.37.01
+   load-balancing-mode single-active
+   convergence
+    <mark>nexthop-tracking</mark>
+    reroute</code>
+</pre>
+</div>
+
+![EVPN09.png]({{site.baseurl}}/images/EVPN09.png){: .align-center}
+
 - NTP sync
+
+When you have two nodes on the same ESI segment, and these two routers are NTP synchronized (no need for additional configuration). It will add the timestamps in the RT-4 and the whole convergence process will speed up.
+
 - Multicast MultiHoming
+
+
+
 
 ## Quality of Service
 
