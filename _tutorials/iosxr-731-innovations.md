@@ -189,8 +189,13 @@ When you have two nodes on the same ESI segment, and these two routers are NTP s
 
 - Multicast MultiHoming
 
+![EVPN-mcast.png]({{site.baseurl}}/images/EVPN-mcast.png){: .align-center}
 
+This new feature enables redundancy for multi-attached multicast receivers. It leverages Route Type 7 and 8 for IGMP Synchronization between PEs. Also, it requires Designated Forwarder (DF) Election between these PE routers.  
+After IGMP snooping has been enabled and this information has been synced with the peer, both the peers need to act like a last hop router and send PIM join upstream. Once traffic arrives on both the peers, only one should forward it to the receiver. Designated Forwarder Election elects one peer to do the forwarding.
 
+EVPN IPv4 MC Enhanced DF election for mcast: As per RFC 7432, designated forwarder (DF) election is at the granularity of <ESI,EVI> . However, customers need multi tenancy at finer level. 
+A per multicast stream DF election is required, as they use a single Vlan for IPTV service
 
 ## Quality of Service
 
