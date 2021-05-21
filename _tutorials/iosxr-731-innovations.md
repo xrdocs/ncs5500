@@ -331,6 +331,9 @@ end-policy-map</code>
 </pre>
 </div>
 
+Here, P1 and P2 are different, because setting different traffic-class values (3 and 5).  
+Also, P3 is different than P1 and P2, because it sets cos 3 (and not the others).  
+So, these 3 policy-maps are using 3 different IDs and are considered unique.
 
 ## Security
 
@@ -338,8 +341,47 @@ end-policy-map</code>
 .
 
 Rakesh Kandula presents the latest improvements in IOS XR security brought in IOS XR 7.3.1:  
-- SSD encryption (note: it's limited to the platform running XR7)
+- SSD encryption (note: it's limited to the platforms running XR7)
+
+Feature developed for use-cases like: router theft, RMA scenario, unauthorized disk swap and router decommissionning.  
+Provides data-at-rest protection for sensitive data like running configuration
+Encryption key is generated in hardware TAm (Trust Anchor module) chip and is unique per line card in a chassis, it encrypts only a disk partition and not the entire SSD.
+
+Configuration:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>disk encryption activate location 0/x/CPU0</code>
+</pre>
+</div>
+
 - X.509v3 Certificate based SSH authentication
+
+This new feature will remove the need for Username/Password management (no need for RSA key management for end users): authenticate end users logging into routers using x.509v3 certificates (based on RFC6187).  
+Once local authentication passes, authorization can be local or remote (TACACS)
+
+![X509v3-1.png]({{site.baseurl}}/images/X509v3-1.png){: .align-center}
+
+1- End user presents their certificate to the router for authentication  
+2- Router validates the certificate locally for authentication  
+3- Authorization request is then sent to TACACS server to fetch the group info of the user  
+4- User gets access to the router with the appropriate privilege level  
+
+Configuration
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:5508-1-731(config)#ssh server algorithms host-key x509v3-ssh-rsa
+RP/0/RP0/CPU0:5508-1-731(config)#ssh server trustpoint host tp1
+RP/0/RP0/CPU0:5508-1-731(config)#ssh server certificate username ?
+  common-name          user common name(CN) from subject name field
+  user-principle-name  user principle name(UPN) from subject alternate name
+RP/0/RP0/CPU0:5508-1-731(config)#ssh server certificate username</code>
+</pre>
+</div>
+
+Config guide: [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/70x/b-system-security-cg-ncs5500-70x/b-system-security-cg-ncs5500-70x_chapter_011.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/70x/b-system-security-cg-ncs5500-70x/b-system-security-cg-ncs5500-70x_chapter_011.html)
+
 
 ## MPLS Segment Routing
 
