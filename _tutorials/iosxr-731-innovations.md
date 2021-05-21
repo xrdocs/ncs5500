@@ -395,6 +395,22 @@ This section is split itself in three parts
 Jose Liste covers a lot of topics in this 30min long video:  
 
 - OSPF LFA/TI-LFA for FlexAlgo
+
+![SRMPLS01.png]({{site.baseurl}}/images/SRMPLS01.png){: .align-center}
+
+Extends the benefits of TI-LFA to Flex-Algo. Automated Topology Independent and guaranteed sub-50ms per-prefix protection optimized per Flex-Algo.  
+Flex-Algo will run the shortest path computation for the primary and now also for the back-up path (and with OSPF). The back-up path is computed independantly.
+
+In this example, the flex-algo 128 definition is "min IGP metric and avoid RED affinity". 
+
+![SRMPLS02.png]({{site.baseurl}}/images/SRMPLS02.png){: .align-center}
+
+![SRMPLS03.png]({{site.baseurl}}/images/SRMPLS03.png){: .align-center}
+
+The support is now extended for OSPF at the level it was for ISIS:
+
+![SRMPLS04.png]({{site.baseurl}}/images/SRMPLS04.png){: .align-center}
+
 - Rounding of Min-Delay Values
 - OSPF Conditional Advertisement
 - ISIS TI-LFA Protection of Unlabeled IPv6 Prefixes
@@ -426,22 +442,9 @@ Jose Liste covers a lot of topics in this 30min long video:
 
 ### NCS57B1-6D24 / NCS57B1-5DSE
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MyqmIlozL8M" frameborder="0" allowfullscreen></iframe>{: .align-center}
-.
-
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/HRKhKuMAy-g" frameborder="0" allowfullscreen></iframe>{: .align-center}
-.
+[https://xrdocs.io/ncs5500/tutorials/introducing-ncs57b1-routers/](https://xrdocs.io/ncs5500/tutorials/introducing-ncs57b1-routers/)
 
 ### Chassis commons
 
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/D57C38pcfyo" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
-
-
-### NC55-32T16Q4H-A Line Card
-
-Coming soon
-
-### NC57-36H-SE
-
-Coming soon
