@@ -10,6 +10,9 @@ position: top
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
+**Update**: Contrary to what was initially described, the decommissionning in 7.3.1 only covers the IPv4 CLI.
+{: .notice--info}
+
 ## Introduction
 
 In early 2021, with the IOS XR release 7.3.1, we will remove the internet-optimized mode.  
@@ -32,17 +35,13 @@ Internet v4 and v6 is growing too vast and the optimization if not enough. We do
 
 Starting from IOS XR 7.3.1 (a release targeted for Feb/Mar 2021), we will remove this hw-module configuration options:
 - hw-module fib ipv4 scale internet-optimized
-- hw-module fib ipv6 scale internet-optimized-disable
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>RP/0/RP0/CPU0:5508-1-721(config)#hw-module fib ipv4 scale ?
   host-optimized-disable  Configure Host optimization by default
   <mark><del>internet-optimized      Configure Intetrnet optimized</del></mark>
-RP/0/RP0/CPU0:5508-1-721(config)#hw-module fib ipv6 scale ?
-  custom-lem                  Customise the prefix distribution to LEM
-  <mark><del>internet-optimized-disable  Configure by default Intetrnet optimized</del></mark>
-RP/0/RP0/CPU0:5508-1-721(config)#hw-module fib ipv6 scale</code>
+RP/0/RP0/CPU0:5508-1-721(config)</code>
 </pre>
 </div>
 
@@ -71,7 +70,7 @@ No configuration, the IPv4 and IPv6 will be sorted in the internal database foll
 
 The remaining configuration options will be:  
 - v4 host-optimized-disable
-- v6 custom-lem
+- v6 custom-lem and internet-optimized
 
 ![host-disable-custom-lem.png]({{site.baseurl}}/images/host-disable-custom-lem.png){: .align-center}
 
