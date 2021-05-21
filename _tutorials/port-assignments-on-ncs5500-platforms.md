@@ -346,7 +346,7 @@ First fixed platform based on J2 ASIC. MACSEC capable on all 100G and 400G ports
 | Hu0/0/0/7 | 0 / 0    | Hu0/0/0/15 | 0 / 0    | Hu0/0/0/23 | 0 / 1    |            |          |
 
 
-### NCS-57B1-5DSE
+### NCS57B1-5DSE
 
 Fixed Platform Scaled version with J2 ASIC
 
@@ -382,7 +382,7 @@ High Density 400G Line card based on 2xJ2 chipset.
 | FH0/x/0/4 | 0 / 0    | FH0/x/0/10 | 0 / 1    | FH0/x/0/16 | 1 / 0    | FH0/x/0/22 | 1 / 1    |
 | FH0/x/0/5 | 0 / 0    | FH0/x/0/11 | 0 / 1    | FH0/x/0/17 | 1 / 0    | FH0/x/0/23 | 1 / 1    |
 
-### NC57-18DD
+### NC57-18DD-SE
 
 High Density Line card with combination of 100G and 400G native ports. It is based on 2xJ2 chipset. Allows Flexible combination of 400G/100G/200G/40G optics and breakout options. 
 
@@ -400,4 +400,3 @@ High Density Line card with combination of 100G and 400G native ports. It is bas
 | Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 1 / 0    | FH0/x/0/27 | 0 / 1    |
 | Hu0/x/0/8 | 0 / 0    | FH0/x/0/18 | 1 / 0    | FH0/x/0/28 | 0 / 1    |
 | Hu0/x/0/9 | 0 / 0    | FH0/x/0/19 | 1 / 0    | FH0/x/0/29 | 0 / 1    |
-
