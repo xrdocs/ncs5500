@@ -26,6 +26,10 @@ We now support new fixed-form systems (1xRU pizza box) like: [NCS57B1-6D24 / NCS
 
 ### RP2-E
 
+This is the third generation of Route Processor, after the RP and RP-E.  
+The second generation supported Class-B timing quality. And the only noticeable difference with the new RP2-E will be the supported of Class-C. To enable this feature, we will need the new RP but also line cards capable of this timing quality, for example the NC55-32T16Q4H-A (available in IOS XR 7.2.2 and 7.3.1) and the NC57-36H6D-S (coming in IOS XR 7.3.2). 
+
 ![RP2-E-01.png]({{site.baseurl}}/images/RP2-E-01.png){: .align-center}
+
 
 
