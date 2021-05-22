@@ -32,7 +32,7 @@ And we will start with 8-min of videos to introduce the topic:
 We will cover the following in this blog post:
 
 - Pre-requisites before inserting the new line cards
-- Description of the NC55-24DD and NC55-18DD-SE
+- Description of the NC57-24DD and NC57-18DD-SE
 - Interoperability with former generation
 - New fabric bandwidth, speed-up and redundancy
 - Features at FCS
@@ -48,13 +48,13 @@ Before inserting the new products, we need to verify the system is running the m
 
 It will be mandatory to upgrade the fabric cards and the fan trays in the chassis before any 400GE line card insertion.  
 We differentiate the new fan trays and fabric cards by the number "2" at the end of the product IDs:
-- NC55-5508-FC2 / NC55-5516-FC2 
-- NC55-5508-FAN2 / NC55-5516-FAN2
+- NC55-5504-FC2 / NC55-5508-FC2 / NC55-5516-FC2 
+- NC55-5504-FAN2 / NC55-5508-FAN2 / NC55-5516-FAN2
 
-These PIDs are available today for 8-slot and 16-slot chassis, but not for 4-slot chassis. It will come in the roadmap (contact your favorite Cisco representative if you have urgent needs).
 
 A few notes on these parts:
-- they are supported since version IOS XR 6.6.25 but you will need a newer release for the 400GE line cards. With 6.6.25, you can still insert them and benefit from the lower power consumption with cards based on Jericho and Jericho+
+- 8-slot and 16-slot are supported since version IOS XR 6.6.25 but you will need a newer release for the 400GE line cards. With 6.6.25, you can still insert them and benefit from the lower power consumption with cards based on Jericho and Jericho+
+- 4-slot support has been introduced in IOS XR 7.2.2 and 7.3.1
 - we don't support in-service migration. You'll have to shut down the chassis and replace them.
 - we can't mix different generations
 	- v2 Fabric Cards can only operate with other v2 Fabric Cards
@@ -70,7 +70,7 @@ Regarding the other chassis parts: Route Processors, System Controllers and Powe
 
 ### Software
 
-The new fan trays and fabric cards are supported since IOS XR 6.6.25 but don't be confused by it. We will need a minimum version of __IOS XR 7.0.2__ to support the new line cards NC55-24DD and NC55-18DD-SE.  
+The new fan trays and fabric cards are supported since IOS XR 6.6.25 but don't be confused by it. We will need a minimum version of __IOS XR 7.0.2__ to support the new line cards NC57-24DD and NC57-18DD-SE.  
 Regarding the features supported at inception, please refer to the feature section of this blog post.
 
 ## New Line Cards
@@ -110,7 +110,7 @@ Finally, we will use a newer generation of external TCAM with these NPUs too.
 
 We will have two of these Jericho2s in each of the line cards we are introducing.
 
-### NC55-24DD
+### NC57-24DD
 
 ![Vigor-3quart.jpg]({{site.baseurl}}/images/Vigor-3quart.jpg){: .align-center}
 
@@ -135,7 +135,7 @@ Internally, the card is made of two J2 NPUs, each servicing half of the ports fo
 
 ![Vigor-block-diagram.jpg]({{site.baseurl}}/images/Vigor-block-diagram.jpg){: .align-center}
 
-### NC55-18DD-SE
+### NC57-18DD-SE
 
 The second line card is offering more physical ports, higher scale but less overall bandwidth.
 
@@ -176,7 +176,7 @@ For reference, here is the block diagram on the 18DD-SE line card:
 
 ![VigorSE-block-diagram.jpg]({{site.baseurl}}/images/VigorSE-block-diagram.jpg){: .align-center}
 
-**Note**: None of the NC55-24DD or the NC55-18DD-SE are MACsec capable but the timing features are possible and will be enabled in future software releases (of course, it will require the proper RP-Es).
+**Note**: None of the NC57-24DD or the NC57-18DD-SE are MACsec capable but the timing features are possible and will be enabled in future software releases (of course, it will require the proper RP-Es).
 {: .notice--info}
 
 ## Fabric Speed-Up and Redundancy
@@ -186,7 +186,7 @@ Each Jericho2 connects to each Fabric Module with a total of 18 SERDES at 53.125
 They can be evenly distributed between one, two or three Fabric Engine (Ramon).  
 - 8-slot: 9 SERDES connected to 2 Ramon/FC
 - 16-slot: 6 SERDES connected to 3 Ramon/FC
-- in the future, 4-slot: 18 SERDES connected to 1 Ramon/FC
+- 4-slot: 18 SERDES connected to 1 Ramon/FC
 
 For the 8-slot chassis:
 
@@ -206,7 +206,7 @@ To calculate the bandwidth available per Jericho2, we will use the following mat
 	- 18x 53.125Gbps x 5FM = 4781Gbps (raw)
 	- 18x 45.8Gbps x 5FM = 4122Gbps (85.8% of 4800Gbps)
 
-If we lose one fabric card, the NC55-24DD can not be line rate (around 86%) while the NC55-18DD-SE will still be.  
+If we lose one fabric card, the NC57-24DD can not be line rate (around 86%) while the NC57-18DD-SE will still be.  
 It's important to state the obvious here, we are talking about lab corner-cases since the situation where 12 ports 400GE of the same card will be used at an average level exceeding 86%, at the exact moment we lose a fabric card is virtually impossible.
 
 ## 400GE and QSFP-DD
@@ -220,7 +220,7 @@ Breakout of 400GE is still possible, but it will imply to use 100G "one-lambda P
 
 ![breakout.jpg]({{site.baseurl}}/images/breakout.jpg){: .align-center}
 
-In the other hand, QSFP28-DD will be perfect to breakout in two SR4/LR4/CWDM4. A perfect use-case for the NC55-18DD-SE ports operating in pairs, it will allow a smooth transition from existing 100G backbones to 400G.
+In the other hand, QSFP28-DD will be perfect to breakout in two SR4/LR4/CWDM4. A perfect use-case for the NC57-18DD-SE ports operating in pairs, it will allow a smooth transition from existing 100G backbones to 400G.
 
 ## Mixing Line Card Generations and Features at FCS
 
