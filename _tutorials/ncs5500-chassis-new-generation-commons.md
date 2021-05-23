@@ -6,7 +6,7 @@ author: Nicolas Fevrier
 excerpt: >-
   New route processor, new power supply and new fan trays / fabric cards for the
   NCS 5500 chassis
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="New Commons for NCS5500 Chassis" %} 
 
@@ -22,7 +22,7 @@ We now support new fixed-form systems (1xRU pizza box) like: [NCS57B1-6D24 / NCS
 <iframe width="560" height="315" src="https://www.youtube.com/embed/D57C38pcfyo" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 .  
 
-**Mea Culpa**: At multiple occasions, I said "RP-2" instead of "RP-E", probably not help clarifying the options available. So the chronology of the route processor options are: RP, RP-E and RP2-E. That's the last one we are introducing today.
+**Mea Culpa**: At multiple occasions, I said "RP-2" instead of "RP-E", certainly creating some confusions to the watcher. So the chronology of the route processor options are: RP, RP-E and RP2-E. That's the last one we are introducing today.
 {: .notice--info}
 
 ## New parts for NCS5500 Chassis
