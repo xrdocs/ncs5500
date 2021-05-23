@@ -58,14 +58,38 @@ We invite you to check the following articles and videos to get more details:
 
 ![Ramon.png]({{site.baseurl}}/images/Ramon.png){: .align-center}
 
+The v2 fabric cards are using "Ramon" Fabric ASICs from Broadcom:  
+- 3 per NC55-5516-FC2
+- 2 per NC55-5508-FC2
+- 1 per NC55-5504-FC2
 
+As mentioned above, they can connect J2 line cards with PAM4 50G SERDES and J/J+ line cards with NRZ 25G SERDES.
 
----
+### NC55-PWR-4.4KW-DC
 
+![Patongv2.png]({{site.baseurl}}/images/Patongv2.png){: .align-center}
 
+Latest addition to the power module supported in the modular NCS5500 chassis. It's a DC-only power supply, offering up to 4400W, 3 inputs from -48V to -60V DC, and it's supported on all types of chassis (4-slot: 4 PSUx, 8-slot: 8 PSUs and 16-slot: 10 PSUs).
 
+![PSUs.png]({{site.baseurl}}/images/PSUs.png){: .align-center}
 
+This level of power (4400W) is a significant improvement compared to the former generations (3000W in DC and 3300W in HVDC). It's mandatory to support both N+1 and N+N redundancy with the new generations of line cards based on J2.  
+Supported with IOS XR 7.3.1, you can not mix them with previous PSU generations.
 
-| Port N | Port N+1 |
-|:------:|:------:|
-| 400G | Must be emptied |
+These new PSU has 6 lugs connectors for 3 DC inputs:
+
+![PSU-connection1.png]({{site.baseurl}}/images/PSU-connection1.png){: .align-center}
+
+It allows the connection of each PSU to grid A and grid B, and offers a third pair. We suggest to alternate the connection of this third feed between A and B.  
+In such scenario, all PSUs are providing 4.4kW each.
+That will guarantee full feed redundancy in case of outage like the loss of Grid A in the example below:
+
+![PSU-connection2.png]({{site.baseurl}}/images/PSU-connection2.png){: .align-center}
+
+With this logic, whether we lose grid A or grid B, each pair of PSU can provide 4400 + 2200 = 6.6kW.
+
+## Conclusion
+
+We introduced new components of the chassis to support new requirements: class-C timing, 400G requirements in the 4-slot chassis, N+N power supply redundancy with the new power needs.  
+Next article and video will be dedicated to the new line cards introduced in IOS XR 7.3.1.  
+Stay tuned.
