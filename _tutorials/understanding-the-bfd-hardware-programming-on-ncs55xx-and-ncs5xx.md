@@ -78,7 +78,7 @@ After a quick refresh of the theory behind the BFD packets, let us get into the 
 
 ![Screenshot 2021-05-12 at 11.31.43 AM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 11.31.43 AM.png)
 
-We have configured OSPF between R1 and R2 and used BFD on the physical interface.
+In this example, we have configured OSPF between R1 and R2 and used BFD on the physical interface. The BFD configurations are configured under the physical interface.
 
 **R1 (NCS-55A2-MOD-HD-S)**
 
@@ -116,9 +116,9 @@ router ospf 1
 
 Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information on the session configured in brief.
 
-![Screenshot 2021-05-12 at 2.13.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 2.13.23 PM.png)
+![Screenshot 2021-05-24 at 7.15.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-24 at 7.15.15 PM.png)
 
-The below output gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values.
+The below gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -178,12 +178,17 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
-Note: Session type: PR/V4/SH.    
-Here PR = Pre-routed session (eg: sessions bound to an interface like pos, serial, etc
-If its SW = Switched session (eg: BLB, BFD over TE, Multi-hop sessions)
-V4 = IPv4
-SH = Single Hop
-{: .notice--info}
+
+| Flags | Session Type                                                                                                            |
+|-------|-------------------------------------------------------------------------------------------------------------------------|
+| PR    | Pre-Routed Session mostly single path sessions applicable for Physical or Sub-interfaces and BFD over Bundle interfaces |
+| SW    | Switched Session mostly including BFD over Logical Bundle- BLB, BFD over BVI and Multipath session                      |
+| V4    | IPv4 Session                                                                                                            |
+| V6    | IPv6 Session                                                                                                            |
+| SH    | Single Hop Session                                                                                                      |
+| MH    | Multi Hop Session                                                                                                       |
+| BL    | BFD over Bundle Ethernet                                                                                                |
+| IR    | BVI                                                                                                                     |
 
 
 Let us check the hardware programming for the discriminator values. This is the most important thing to check, if peer and local routers are exchanging each others discriminator values. In the below output, **session_handle** should match **our discriminator**
