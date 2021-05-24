@@ -318,7 +318,64 @@ Let us examine the packet capture of the control packets being exchanged between
 
 ![Screenshot 2021-05-12 at 4.54.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 4.54.22 PM.png)
 
+## Timer Negotiations
 
+Let us change the minimum timer and the multiplier value one end and see how the timer values are negotiated.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N540-18#show running-config router ospf 1
+router ospf 1
+ router-id 172.16.3.18
+ address-family ipv4 unicast
+ area 0
+  !
+  interface TenGigE0/0/0/12
+   <mark>bfd minimum-interval 100
+   bfd fast-detect
+   bfd multiplier 3
+   network point-to-point</mark>
+  !
+</code>
+</pre>
+</div>
+
+R1 has a minimum time interval value of 300ms. R2 has minimum time interval value of 100ms. What will be the negotiated timer value ? Will the session go down. Let us verify.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd all session 
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+<mark>Te0/0/0/12          192.18.26.18    0s(0s*0)         900ms(300ms*3)  UP        
+                                                             Yes   0/0/CPU0</mark>   
+</code>
+</pre>
+</div>  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N540-18#show bfd all session 
+Mon May 24 13:37:14.829 GMT+4
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+<mark>Te0/0/0/12          192.18.26.26    0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0</mark>
+</code>
+</pre>
+</div>
+
+We can the higher timer value is negotiated
+ 
 
 ## Reference
 
