@@ -455,6 +455,29 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd client 
+Mon May 24 17:32:04.194 UTC
+Name                 Node       Num sessions  
+-------------------- ---------- --------------
+L2VPN_ATOM           0/RP0/CPU0 0             
+MPLS-TE              0/RP0/CPU0 0             
+XTC                  0/RP0/CPU0 0             
+bgp-default          0/RP0/CPU0 0             
+bundlemgr_distrib    0/RP0/CPU0 0             
+ipv4_static          0/RP0/CPU0 0             
+<mark>isis-1               0/RP0/CPU0 1</mark>             
+isis-acr             0/RP0/CPU0 0             
+object_tracking      0/RP0/CPU0 0             
+<mark>ospf-1               0/RP0/CPU0 1</mark>             
+pim6                 0/RP0/CPU0 0             
+pim                  0/RP0/CPU0 0 
+</code>
+</pre>
+</div>
+
 For details on how to configure different clients, please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
 
 
