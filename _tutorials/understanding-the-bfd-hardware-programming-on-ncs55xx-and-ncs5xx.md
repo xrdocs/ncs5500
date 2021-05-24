@@ -289,6 +289,29 @@ Tx Echo pkt :
 Note: This is trimmed output 
 {: .notice--info}
 
+The below command gives the number of clients for the BFD 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd client 
+Name                 Node       Num sessions  
+-------------------- ---------- --------------
+L2VPN_ATOM           0/RP0/CPU0 0             
+MPLS-TE              0/RP0/CPU0 0             
+XTC                  0/RP0/CPU0 0             
+bgp-default          0/RP0/CPU0 0             
+bundlemgr_distrib    0/RP0/CPU0 0             
+ipv4_static          0/RP0/CPU0 0             
+isis-acr             0/RP0/CPU0 0             
+object_tracking      0/RP0/CPU0 0             
+<mark>ospf-1               0/RP0/CPU0 1</mark>            
+pim6                 0/RP0/CPU0 0             
+pim                  0/RP0/CPU0 0
+</code>
+</pre>
+</div>
+
 ## Packet Captures
 
 Let us examine the packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer. We can verify that the values are matching with the CLI outputs we captured in the earlier commands
