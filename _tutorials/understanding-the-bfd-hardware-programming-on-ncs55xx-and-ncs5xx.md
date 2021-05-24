@@ -219,6 +219,76 @@ RP/0/RP0/CPU0:N55-26#
 </pre>
 </div>
 
+Below is another important verification which shows the history of the BFD state machine. This command gives the history of the BFD session establishment and also gives the messages being exchanged during the handshake between the neighbors. The full state machine can be checked with this command.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd all session status history location 0/0/CPU0 
+IPv4:
+-----
+I/f: TenGigE0/0/0/12, Location: 0/0/CPU0 table_id:0xe0000000
+State: UP, flags:0x80040
+Iftype: 0x1e, basecaps: 30
+Async dest addr: 192.18.26.18
+Async src addr: 192.18.26.26
+Echo dest addr: 192.18.26.26
+Echo src addr: 172.16.3.26
+Additional info from Flags: 
+ FIB is READY
+ Session Active on 0/0/CPU0
+Platform Info: 0x0, Mac Length: 14
+Redundancy session info:
+ Created from active BFD server
+Last Down Diag: Nbor signalled down
+Last Rx Pkt Down Diag: Admin down
+Last Down Time: May 24 15:53:17.434 
+Last Async Tx Counters and Timestamps: 
+Last Async Rx Counters and Timestamps: count 41
+  [May 24 15:53:17.434]  [May 12 05:50:40.360]  [May 12 05:50:40.059]
+Last Async Rx valid packets delayed or in transit: 
+Last Echo Tx Counters and Timestamps: 
+Last Echo Rx Counters and Timestamps: 
+Last Echo Rx valid packets delayed: 
+Last UP Time: May 24 15:54:23.237 
+Last IO EVM Scheduled Time: May 24 15:53:17.434 
+Last IO EVM Schedule Complete Time: May 24 15:53:16.674 
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147487750, your discr: 2147491924, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147491924, your discr: 2147487750, state UP, D/F/P/C/A: 0/1/0/1/0
+Tx Echo pkt :
+ Version: 0, Local Discr: 2147491924, Sequence No: 0
+<mark>History:</mark>
+[May 24 15:54:23.237] Session (v1) state change, triggered by event 'Remote
+    state up', from INIT to UP with current diag being None
+[May 24 15:54:19.886] Session (v1) state change, triggered by event 'Remote
+    state down', from DOWN to INIT with current diag being Nbor signalled down
+[May 24 15:53:18.533] Session Down, session flags (0x80050), Echo Latency Last
+    hwm 0 msrx async last hwm:3510217ms, tx async last hwm:2184ms
+[May 24 15:53:17.434] Session (v1) state change, triggered by event 'Remote
+    state admindown', from UP to DOWN with current diag being Nbor signalled down
+[May 24 15:53:17.434] Session Down, session flags (0x80040), Echo Latency Last
+    hwm 0 msrx async last hwm:3510217ms, tx async last hwm:2184ms
+[May 12 05:50:39.754] Session (v1) state change, triggered by event 'Remote
+    state init', from DOWN to UP with current diag being None
+[May 12 05:50:39.754] Session out of Dampened State: Backoff Ctr:0, Waited:2184,
+    Backoff:2000, Jitter:131
+[May 12 05:50:37.570] Session (v1) state change, triggered by event 'Session
+    create', from Unknown to DOWN with current diag being None
+[May 12 05:50:37.570] Session in Dampened State: Backoff Ctr:0, Waited Past:0,
+    Waited:0, Backoff:2000
+</code>
+</pre>
+</div>
+
+Note: This is trimmed output 
+{: .notice--info}
+
 ## Packet Captures
 
 Let us examine the packet capture of the control packets being exchanged between the routers. Below is the packet capture of the received parameters from the remote peer. We can verify that the values are matching with the CLI outputs we captured in the earlier commands
