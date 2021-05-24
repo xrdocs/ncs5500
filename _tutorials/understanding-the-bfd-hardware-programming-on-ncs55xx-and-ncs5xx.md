@@ -19,7 +19,7 @@ position: hidden
 
 ## Introduction
 
-In our previous [article](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs, hardware programming and resource utilization.
+In our previous [article](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs and hardware programming.
 
 ## Quick Refresh ([RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880))
 
@@ -376,6 +376,87 @@ Interface           Dest Addr           Local det time(int*mult)      State
 
 We can the higher timer value is negotiated
  
+## Configuring ISIS as a client for the same interface
+
+After configuring the ISIS between the routers and configuring BFD on the interface, we can see that the BFD session will remain 1 but the clients will now show ospf and isis
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd all session 
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+Te0/0/0/12          192.18.26.18    0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0  
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N55-26#show bfd all session detail 
+IPv4:
+-----
+I/f: TenGigE0/0/0/12, Location: 0/0/CPU0
+Dest: 192.18.26.18
+Src: 192.18.26.26
+ State: UP for 0d:0h:9m:39s, number of times UP: 3
+ Session type: PR/V4/SH
+Received parameters:
+ Version: 1, desired tx interval: 100 ms, required rx interval: 100 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147487751, your discr: 2147491924, state UP, D/F/P/C/A: 0/0/0/1/0
+Transmitted parameters:
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147491924, your discr: 2147487751, state UP, D/F/P/C/A: 0/1/0/1/0
+Timer Values:
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+ Desired echo tx interval: 0 s, local negotiated echo tx interval: 0 ms
+ Echo detection time: 0 ms(0 ms*3), async detection time: 900 ms(300 ms*3)
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=3, min=304 ms, max=21 s, avg=8078 ms
+       Last packet transmitted 579 s ago
+   Rx: Number of intervals=5, min=2 ms, max=1832 ms, avg=683 ms
+       Last packet received 578 s ago
+ Intervals between echo packets:
+   Tx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet transmitted 0 s ago
+   Rx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet received 0 s ago
+ Latency of echo packets (time between tx and rx):
+   Number of packets: 0, min=0 ms, max=0 ms, avg=0 ms
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+ <mark> ospf-1               300 ms     3          300 ms     3         
+  isis-1               300 ms     3          300 ms     3</mark>         
+H/W Offload Info:
+ H/W Offload capability : Y, Hosted NPU     : 0/0/CPU0
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 310/56 
+Platform Info:
+NPU ID: 0 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x2054     Echo Session ID    : 0x0
+Async Tx Key        : 0x80002054  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+</code>
+</pre>
+</div>
+
+For details on how to configure different clients, please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
+
 
 ## Reference
 
