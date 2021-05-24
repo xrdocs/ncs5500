@@ -114,7 +114,7 @@ router ospf 1
 
 ## Verification in the Pipeline
 
-Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information on the session configured in brief.
+Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information on the session configured.
 
 ![Screenshot 2021-05-24 at 7.15.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-24 at 7.15.15 PM.png)
 
