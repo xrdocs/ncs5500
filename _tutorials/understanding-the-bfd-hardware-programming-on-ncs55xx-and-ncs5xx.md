@@ -118,7 +118,7 @@ Let us verify a few CLI commands and confirm the hardware programming. This comm
 
 ![Screenshot 2021-05-24 at 7.15.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-24 at 7.15.15 PM.png)
 
-The below gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values.
+The below gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values. The state of the session is showing UP as the programming in the hardware is done properly. If there is any programming issue, we will see the state stuck in admin down or init. Another important value to check in the output is _Async Session ID_ and _Async Tx Key_. In case of programming issues the key would be 0.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -191,7 +191,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | IR    | BVI                                                                                                                     |
 
 
-From the below output we can see the properties of the BFD. It clearly mentions that the BFD is processed in the OAM engine and not in the CPU. Other hardware values programmed are also matching.
+The hardware programming in the OAM engine can also be verified with the below command. The _Async Session ID_ can be used to get the output. It clearly mentions that the BFD is processed in the OAM engine and not in the CPU. Other hardware values programmed are also matching. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -225,40 +225,7 @@ Let us examine the packet capture of the control packets being exchanged between
 
 ![Screenshot 2021-05-12 at 4.54.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 4.54.22 PM.png)
 
-## QoS treatment for BFD packets
 
-From the below output we can see the BFD control packets are marked by default with highest priority i.e TC7
-
-```
-class-map match-any BFD
- match traffic-class 7 
- end-class-map
-```
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:N55-26#show policy-map interface tenGigE 0/0/0/12        
-TenGigE0/0/0/12 output: BFD
-Class BFD
-  Classification statistics          (packets/bytes)     (rate - kbps)
-    <mark>Matched             :                 914/97196                1</mark>
-    <mark>Transmitted         :                 914/97196                1</mark>
-    Total Dropped       :                   0/0                    0
-  Queueing statistics
-    Queue ID                             : 1127 
-    Taildropped(packets/bytes)           : 0/0
-Class class-default
-  Classification statistics          (packets/bytes)     (rate - kbps)
-    Matched             :                 105/8204                 0
-    Transmitted         :                 105/8204                 0
-    Total Dropped       :                   0/0                    0
-  Queueing statistics
-    Queue ID                             : 1120 
-    Taildropped(packets/bytes)           : 0/0
-</code>
-</pre>
-</div>
 
 ## Reference
 
