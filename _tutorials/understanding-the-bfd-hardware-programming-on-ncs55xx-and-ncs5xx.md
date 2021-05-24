@@ -170,8 +170,8 @@ Local Stats:
 NPU ID: 0 
 Async RTC ID        : 1          Echo RTC ID        : 0
 Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
-Async Session ID    : 0x2054     Echo Session ID    : 0x0
-Async Tx Key        : 0x80002054  Echo Tx Key        : 0x0
+<mark>Async Session ID    : 0x2054</mark>     Echo Session ID    : 0x0
+<mark>Async Tx Key        : 0x80002054</mark>  Echo Tx Key        : 0x0
 Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
 Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </code>
