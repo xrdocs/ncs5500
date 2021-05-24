@@ -374,7 +374,7 @@ Interface           Dest Addr           Local det time(int*mult)      State
 </pre>
 </div>
 
-We can the higher timer value is negotiated
+We can see the higher timer value is negotiated
  
 ## Configuring ISIS as a client for the same interface
 
