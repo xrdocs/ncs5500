@@ -188,7 +188,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | SH    | Single Hop Session                                                                                                      |
 | MH    | Multi Hop Session                                                                                                       |
 | BL    | BFD over Bundle Ethernet                                                                                                |
-| IR    | BVI                                                                                                                     |
+| BR    | BVI                                                                                                                     |
 
 
 The hardware programming in the OAM engine can also be verified with the below command. The _Async Session ID_ can be used to get the output. It clearly mentions that the BFD is processed in the OAM engine and not in the CPU. Other hardware values programmed are also matching. 
@@ -478,14 +478,14 @@ pim                  0/RP0/CPU0 0
 </pre>
 </div>
 
-For details on how to configure different clients, please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
+So we saw a couple of examples of configuring the OSPF and ISIS as clients of BFD. For details on how to configure different clients like BGP, pim, BFD on sub interface please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
 
+
+## Summary
+
+Hope this article helped you to understand the hardware programming of the BFD in the pipeline architecture. This can be used for a basic configuration and debugging before reaching out to Cisco TAC :). In the next arcticle we will try to explore the concepts of BLB/BOB/BVI and its hardware implementation. 
 
 ## Reference
 
 - [ASR9k BFD Implementation](https://community.cisco.com/t5/service-providers-documents/bfd-support-on-cisco-asr9000/ta-p/3153191)
 - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html)
-
-## Summary
-
-Hope this article helped you to understand the hardware programming of the BFD in the pipeline architecture. This can be used for a basic debugging before reaching out to Cisco TAC :). In the next arcticle we will try to explore the concepts of BLB/BOB/BVI and its hardware implementation.
