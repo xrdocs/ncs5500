@@ -19,7 +19,7 @@ position: hidden
 
 ## Introduction
 
-In our previous [article](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs and hardware programming.
+In our previous [article](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/), we discussed the BFD feature in the pipeline architecture (NCS55xx and NCS5xx). We discussed how the packet flow and the hardware resources are utilised. We saw how the scale is considered for the BFD feature and how well the resources have been carved to achieve the desired numbers. In this article, we will go a bit deeper in the BFD. We will see a sample configuration, and see how to read the BFD outputs (as per RFC 5880) and check the hardware programming.
 
 ## Quick Refresh ([RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880))
 
@@ -112,13 +112,13 @@ router ospf 1
   !
 ```
 
-## Verification in the Pipeline
+## Verification
 
-Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information on the session configured.
+Let us verify a few CLI commands and confirm the hardware programming. This command gives a quick information of all the sessions configured.
 
 ![Screenshot 2021-05-24 at 7.15.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-24 at 7.15.15 PM.png)
 
-The below gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values. The state of the session is showing UP as the programming in the hardware is done properly. If there is any programming issue, we will see the state stuck in admin down or init. Another important value to check in the output is _Async Session ID_ and _Async Tx Key_. In case of programming issues the key would be 0.
+The below command gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values. The state of the session is showing UP as the programming in the hardware is done properly. If there is any programming issue, we will see the state stuck in admin down or init. Another important value to check in the output is _Async Session ID_ and _Async Tx Key_. In case of programming issues the value of the key would be 0.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -224,7 +224,7 @@ Below is another important verification which shows the history of the BFD state
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:N55-26#show bfd all session status history location 0/0/CPU0 
+<mark>RP/0/RP0/CPU0:N55-26#show bfd all session status history location 0/0/CPU0</mark> 
 IPv4:
 -----
 I/f: TenGigE0/0/0/12, Location: 0/0/CPU0 table_id:0xe0000000
