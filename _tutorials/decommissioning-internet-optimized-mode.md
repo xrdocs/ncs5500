@@ -10,7 +10,7 @@ position: top
 
 You can find more content related to NCS5500 including routing memory management, VRF, URPF, Netflow, QoS, EVPN implementation following this [link](https://xrdocs.io/ncs5500/tutorials/).
 
-**Update**: Contrary to what was initially described, the decommissionning in 7.3.1 only covers the IPv4 CLI.
+**Update**: Contrary to what was initially described, the decommissionning in 7.3.1 only covers the IPv4 CLI. The v6 CLI will be removed in 7.4.1.
 {: .notice--info}
 
 ## Introduction
