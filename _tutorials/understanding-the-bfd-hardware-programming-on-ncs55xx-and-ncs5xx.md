@@ -13,7 +13,7 @@ tags:
   - NCS5500
   - BFD
   - convergence
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Understanding the BFD Hardware Programming on NCS55xx and NCS5xx" %} 
 
@@ -74,7 +74,7 @@ Note: For details on state machine please refer the RFC
 
 ## Configuring a simple BFD session (NCS55xx and NCS5xx)
 
-After a quick refresh of the theory behind the BFD packets, let us get into the routers and check it practically. We will take a simple example and walk through the hardware programming. We will take a very simple example and verify.
+After a quick refresh of the theory behind the BFD packets, let us get into the routers and check it practically. We will take a simple example and walk through the hardware programming. 
 
 ![Screenshot 2021-05-12 at 11.31.43 AM.png]({{site.baseurl}}/images/Screenshot 2021-05-12 at 11.31.43 AM.png)
 
@@ -118,7 +118,7 @@ Let us verify a few CLI commands and confirm the hardware programming. This comm
 
 ![Screenshot 2021-05-24 at 7.15.15 PM.png]({{site.baseurl}}/images/Screenshot 2021-05-24 at 7.15.15 PM.png)
 
-The below command gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values. The state of the session is showing UP as the programming in the hardware is done properly. If there is any programming issue, we will see the state stuck in admin down or init. Another important value to check in the output is _Async Session ID_ and _Async Tx Key_. In case of programming issues the value of the key would be 0.
+The below command gives a detailed output of the different parameters of the BFD control packet which we mentioned in the earlier section. We can see the source and destination values, the version, state, discriminator values and different flags being set or clear. We can also see the hardware offloaded information and values. The state of the session is showing UP which indicates the programming in the hardware is done properly. If there is any programming issue, we will see the state stuck in admin down or init. Another important value to check in the output is _Async Session ID_ and _Async Tx Key_. In case of hardware programming issues the value of the key would be **0**.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -478,7 +478,7 @@ pim                  0/RP0/CPU0 0
 </pre>
 </div>
 
-So we saw a couple of examples of configuring the OSPF and ISIS as clients of BFD. For details on how to configure different clients like BGP, pim, BFD on sub interface please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926)
+So we saw a couple of examples of configuring the OSPF and ISIS as clients of BFD. The clients are not just restricted to OSPF and IS-IS. We support many other clients. For details on how to configure different clients like BGP, pim, BFD on sub interface please [refer](https://community.cisco.com/t5/service-providers-blogs/bfd-over-ipv4-implementation-on-ncs5500-platform/ba-p/3825926). In the netx artcile we will also cover the BFD w.r.t bundles and touch upon the concepts of BLB and BoB.
 
 
 ## Summary
