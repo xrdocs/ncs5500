@@ -492,7 +492,7 @@ hw-module profile qos hqos-enable
 HQOS mode will impose additional limits on bundle interface scale, depending on N:
 
 L3 Bundle subinterfaces + L2 Bundle subinterfaces < N  
-L3 Bundle main interfaces + L3 Bundle main interfaces <= N  
+L3 Bundle main interfaces + L2 Bundle main interfaces <= N  
 (L2 + L3) Bundle main interfaces + (L2 + L3) Bundle subinterfaces <= N  
 
 Below table will present the above scale limits in graphical format for ease of visualization:
