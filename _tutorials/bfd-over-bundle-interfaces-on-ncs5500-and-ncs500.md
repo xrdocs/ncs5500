@@ -4,7 +4,7 @@ date: '2021-06-18 10:53 +0530'
 title: BFD over Bundle Interfaces on NCS5500 and NCS500
 author: Tejas Lad
 excerpt: This document explains the BFD over Bundle Interfaces on NCS5500 and NCS500
-position: top
+position: hidden
 tags:
   - iosxr
   - NCS5500
@@ -22,7 +22,7 @@ We started the NCS5500 and NCS500 BFD technotes with [BFD architecture](https://
 ## Background
 
 
-![Screenshot 2021-06-17 at 2.21.46 PM.png]({{site.baseurl}}/images/Screenshot 2021-06-17 at 2.21.46 PM.png)
+![Screenshot 2021-06-18 at 11.18.09 AM.png]({{site.baseurl}}/images/Screenshot 2021-06-18 at 11.18.09 AM.png)
 
 Just a quick backgroun before we move. Link Bundle or Bundle Ethernet has been in the industry for a long time now. [Link Bundle](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/61x/b-ncs5500-interfaces-configuration-guide-61x/b-ncs5500-interfaces-configuration-guide-61x_chapter_0101.html) is simply a group of ports that are bundled together and act as a single link. The Link Bundling feature allows you to group multiple point-to-point links together into one logical link and provide higher bidirectional bandwidth, redundancy, and load balancing between two routers. A virtual interface is assigned to the bundled link. Cisco IOS XR software supports the IEEE 802.3ad—Standard technology that employs a Link Aggregation Control Protocol (LACP) to ensure that all the member links in a bundle are compatible. The advantages of link bundles are as follows:
 
