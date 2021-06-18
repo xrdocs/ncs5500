@@ -122,6 +122,90 @@ Session association information:
 </pre>
 </div>
 
+We can see the Bundle Interface 24 as the BFD interface with session owners as the individual member links. The session type is PR/V4/SH/BI/IB. 
+
+| Flags | Session Type                                                                                                            |
+|-------|-------------------------------------------------------------------------------------------------------------------------|
+| PR    | Pre-Routed Session mostly single path sessions applicable for Physical or Sub-interfaces and BFD over Bundle interfaces |
+| V4    | IPv4 Session                                                                                                            |
+| SH    | Single Hop Session                                                                                                      |
+| BI    | Bundle Interface                                                                                                        |
+| IB    | IETF BoB                                                                                                                |
+
+But the above output does not give us the full details on discriminators, negotiated timer values etc. For looking into those values individually, we need to check the below command.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show bfd all session detail interface <mark>twentyFiveGigE 0/0/0/24</mark>    
+IPv4:
+-----
+<mark>I/f: TwentyFiveGigE0/0/0/24, Location: 0/0/CPU0</mark>
+Dest: 192.6.17.17
+Src: 192.6.17.6
+ State: UP for 0d:1h:39m:22s, number of times UP: 1
+ <mark>Session type: PR/V4/SH/BM/IB</mark>
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147491864, your discr: 2147487752, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147487752, your discr: 2147491864, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Timer Values:</mark>
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+ Desired echo tx interval: 0 s, local negotiated echo tx interval: 0 ms
+ Echo detection time: 0 ms(0 ms*3), async detection time: 900 ms(300 ms*3)
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=4, min=5 ms, max=14 s, avg=7164 ms
+       Last packet transmitted 5949 s ago
+   Rx: Number of intervals=13, min=2 ms, max=1700 ms, avg=1195 ms
+       Last packet received 5962 s ago
+ Intervals between echo packets:
+   Tx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet transmitted 0 s ago
+   Rx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet received 0 s ago
+ Latency of echo packets (time between tx and rx):
+   Number of packets: 0, min=0 ms, max=0 ms, avg=0 ms
+<mark>Session owner information:</mark>
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib</mark>    300 ms     3          300 ms     3         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  <mark>BE24                 192.6.17.17                             
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_INTERFACE</mark>
+<mark>H/W Offload Info:</mark>
+ <mark>H/W Offload capability : Y, Hosted NPU     : 0/0/CPU0</mark>
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 49/35          
+Platform Info:
+NPU ID: 0 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x1008     Echo Session ID    : 0x0
+Async Tx Key        : 0x80001008  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+</code>
+</pre>
+</div>
+
+| Flags | Session Type                                                                                                            |
+|-------|-------------------------------------------------------------------------------------------------------------------------|
+| PR    | Pre-Routed Session mostly single path sessions applicable for Physical or Sub-interfaces and BFD over Bundle interfaces |
+| V4    | IPv4 Session                                                                                                            |
+| SH    | Single Hop Session                                                                                                      |
+| BM    | Bundle Member                                                                                                        |
+| IB    | IETF BoB                                                                                                                |
+
+Similary we can check the parameters of the other bundle members as well.
 
 
 
