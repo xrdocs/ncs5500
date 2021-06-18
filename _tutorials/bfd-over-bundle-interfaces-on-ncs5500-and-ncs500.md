@@ -48,4 +48,81 @@ Running a single BFD session over the aggregation without internal knowledge of 
 
 BFD over Bundle(BoB) implementation on NCS5500 and NCS500 is a standard based fast failure detection of link aggregation (LAG) memberlinks that is interoperable between different platforms. There are 2 modes available: **Cisco and IETF**. NCS5500 and NCS500 only supports the IETF mode. For BFD over Bundle, the BFD client is **bundlemgr**. Hence if BFD session goes down, bundlemgr will bring down the bundle if it violates the minimum link criteria. 
 
-## Configuring a BFD session over a Bundle Interface
+## Configuring BoB
+
+Configuring BoB is very simple. Let us take a simple topology as mentioned above with 3 links connected between 2 routers. We will bundle them into a single virtual interface. Let us configure BFD on the Bundle interfaces as below: 
+
+```
+interface Bundle-Ether24
+ bfd mode ietf
+ bfd address-family ipv4 multiplier 3
+ bfd address-family ipv4 destination 192.6.17.17
+ bfd address-family ipv4 fast-detect
+ bfd address-family ipv4 minimum-interval 300
+```
+
+Thats it !!! We are done. We should see BFD neighbor coming up now. Let us verify the same.
+
+## Verifying BoB
+
+```
+RP/0/RP0/CPU0:T-2006#show bfd all session 
+
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+Hu0/0/1/1           192.6.17.17     0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0       
+TF0/0/0/24          192.6.17.17     0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0       
+TF0/0/0/29          192.6.17.17     0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0       
+BE24                192.6.17.17     n/a              n/a              UP        
+                                                             No    n/a 
+```
+
+```
+RP/0/RP0/CPU0:T-2006#show bfd
+
+IPV4 Sessions Up: 4, Down: 0, Unknown/Retry: 0, Total: 4
+RP/0/RP0/CPU0:T-2006#
+
+```
+From the above output we can see Bundle Interface as well the individual member links. As we mentioned above, BoB is all about monitoring the individual member link for failure. 
+
+Let us look the detailed output
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show bfd all session interface bundle-ether 24 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether24, Location: 0/RP0/CPU0</mark>
+Dest: 192.6.17.17
+Src: 192.6.17.6
+ <mark>State: UP for 0d:1h:21m:53s, number of times UP: 1</mark>
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+ Session owner information:                          Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib</mark>    300 ms     3          300 ms     3         
+Session association information:
+ <mark> Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  TF0/0/0/24           192.6.17.17                             
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  TF0/0/0/29           192.6.17.17                             
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  Hu0/0/1/1            192.6.17.17                             
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER </mark>
+</code>
+</pre>
+</div>
+
+
+
+
+
