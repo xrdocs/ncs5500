@@ -208,5 +208,12 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 Similary we can check the parameters of the other bundle members as well.
 
 
+## Platform Support
+
+| Platform | Support |
+|----------|---------|
+| NCS5500  | Yes     |
+| NCS540   | Yes     |
+| NCS560   | Yes     |
 
 
