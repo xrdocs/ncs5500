@@ -4,7 +4,7 @@ date: '2021-06-18 10:53 +0530'
 title: BFD over Bundle Interfaces on NCS5500 and NCS500
 author: Tejas Lad
 excerpt: This document explains the BFD over Bundle Interfaces on NCS5500 and NCS500
-position: hidden
+position: top
 tags:
   - iosxr
   - NCS5500
@@ -17,20 +17,19 @@ tags:
 
 ## Introduction
 
-We started the NCS5500 and NCS500 BFD technotes with [BFD architecture](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/#:~:text=BFD%20Feature%20Support,-BFD%20is%20supported&text=Static%2C%20OSPF%2C%20BGP%20and%20IS,are%20supported%20in%20IPv4%20BFD.&text=BFD%20over%20BVI%20is%20supported,dampening%20for%20IPv4%20is%20supported.). Then we looked a bit deeper with the [Hardware Programming](https://xrdocs.io/ncs5500/tutorials/understanding-the-bfd-hardware-programming-on-ncs55xx-and-ncs5xx/). We confirmed the behaviour as per [RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880). We also checked the OAM engine programming in the hardware and saw a few verification commands for quick verification. In this tech-note we will discuss the BFD over Bundles and BFD over Logical Bundles. What are their use cases and see the programming and behaviour w.r.t [RFC 7130](https://datatracker.ietf.org/doc/html/rfc7130) and [RFC 5883](https://datatracker.ietf.org/doc/html/rfc5883).
+We started the NCS5500 and NCS500 BFD technotes with [BFD architecture](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/#:~:text=BFD%20Feature%20Support,-BFD%20is%20supported&text=Static%2C%20OSPF%2C%20BGP%20and%20IS,are%20supported%20in%20IPv4%20BFD.&text=BFD%20over%20BVI%20is%20supported,dampening%20for%20IPv4%20is%20supported.). Then we looked a bit deeper with the [Hardware Programming](https://xrdocs.io/ncs5500/tutorials/understanding-the-bfd-hardware-programming-on-ncs55xx-and-ncs5xx/). We confirmed the behaviour as per [RFC 5880](https://datatracker.ietf.org/doc/html/rfc5880). We also checked the OAM engine programming in the hardware and saw a few commands for quick verification. In this tech-note we will discuss the BFD over Bundles aka BoB. What is the use case and see the programming/behaviour w.r.t [RFC 7130](https://datatracker.ietf.org/doc/html/rfc7130).
 
-## Background
+## Brief Background
 
 
 ![Screenshot 2021-06-18 at 11.18.09 AM.png]({{site.baseurl}}/images/Screenshot 2021-06-18 at 11.18.09 AM.png)
 
-Just a quick backgroun before we move. Link Bundle or Bundle Ethernet has been in the industry for a long time now. [Link Bundle](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/61x/b-ncs5500-interfaces-configuration-guide-61x/b-ncs5500-interfaces-configuration-guide-61x_chapter_0101.html) is simply a group of ports that are bundled together and act as a single link. The Link Bundling feature allows you to group multiple point-to-point links together into one logical link and provide higher bidirectional bandwidth, redundancy, and load balancing between two routers. A virtual interface is assigned to the bundled link. Cisco IOS XR software supports the IEEE 802.3ad—Standard technology that employs a Link Aggregation Control Protocol (LACP) to ensure that all the member links in a bundle are compatible. The advantages of link bundles are as follows:
+Just a quick background before we move. Link Bundle or Bundle Ethernet has been in the industry for a long time now. [Link Bundle](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/61x/b-ncs5500-interfaces-configuration-guide-61x/b-ncs5500-interfaces-configuration-guide-61x_chapter_0101.html) is simply a group of ports that are bundled together and act as a single link. The Link Bundling feature allows you to group multiple point-to-point links together into one logical link and provide higher bidirectional bandwidth, redundancy, and load balancing between two routers. A virtual interface is assigned to the bundled link. Cisco IOS XR software supports the IEEE 802.3ad—Standard technology that employs a Link Aggregation Control Protocol (LACP) to ensure that all the member links in a bundle are compatible. The advantages of link bundles are as follows:
 
   - Multiple links can span several line cards to form a single interface. Thus, the failure of a single link does not cause a loss of connectivity.
   - Bundled interfaces increase bandwidth availability, because traffic is forwarded over all available members of the bundle. Therefore, traffic can flow on the available links if one of the links within a bundle fails. 
   - Bandwidth can be added without interrupting packet flow.
   
-
 
 ## Why do we need BFD over Bundle - BoB ?
 
@@ -139,7 +138,7 @@ We can see the Bundle Interface 24 as the BFD interface with session owners as t
 | BI    | Bundle Interface                                                                                                        |
 | IB    | IETF BoB                                                                                                                |
 
-But the above output does not give us the full details on discriminators, negotiated timer values etc. For looking into those values individually, we need to check the below command.
+But the above output does not give us the full details on discriminators, negotiated timer values so-on and so-forth. For looking into those values individually, we need to check the below command.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -212,7 +211,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | BM    | Bundle Member                                                                                                        |
 | IB    | IETF BoB                                                                                                                |
 
-Similary we can check the parameters of the other bundle members as well.
+Similary we can check the parameters of the other bundle members as well. (show bfd all session detail interface twentyFiveGigE 0/0/0/29, show bfd all session detail interface hun 0/0/1/1)
 
 ## BFD over Bundle with IPv4 Unnumbered Interfaces
 
@@ -330,7 +329,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </pre>
 </div>
 
-From the above output we can see that the source and destination value taken now is of the loopback address. We have not applied any IPv4 address on the Bundle Interface.
+From the above output we can see that the source and destination value taken now, is of the loopback interface. We have not applied any IPv4 address on the Bundle Interface.
 
 
 ## Platform Support
@@ -341,7 +340,10 @@ From the above output we can see that the source and destination value taken now
 | NCS540   | Yes     |
 | NCS560   | Yes     |
 
+## Summary
+
+Hope this article helped to understand the BoB feature on the NCS5500 and NCS500 and its use case. We have also seen the basic commands for quick verification. We also covered the BoB with IP Unnumbered interface.
 
 ## References 
 
-https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html#Cisco_Concept.dita_fa9251b5-0c63-4382-ba40-d591ad8e1925
+[CCO Guide ](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html#Cisco_Concept.dita_fa9251b5-0c63-4382-ba40-d591ad8e1925)
