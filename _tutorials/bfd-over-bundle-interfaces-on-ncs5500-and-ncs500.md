@@ -83,16 +83,23 @@ BE24                192.6.17.17     n/a              n/a              UP
                                                              No    n/a 
 ```
 
-```
-RP/0/RP0/CPU0:T-2006#show bfd
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show bfd summary 
 
-IPV4 Sessions Up: 4, Down: 0, Unknown/Retry: 0, Total: 4
+Node       All PPS usage   MP  PPS usage   Session number    
+           %   Used  Max   %   Used  Max   Total MP     Max
+---------- --------------- --------------- ------------------
+0/0/CPU0   0   0     1000  0   0     700   <mark>3</mark>     0      756
 RP/0/RP0/CPU0:T-2006#
+</code>
+</pre>
+</div>
 
-```
-From the above output we can see Bundle Interface as well the individual member links. As we mentioned above, BoB is all about monitoring the individual member link for failure. 
+From the above output we can confirm that the total number of sessions are 3. The  Bundle Interface session is a dummy session and it does not count for the overall supported scale on the platform. The session output shows all the member links which can be used to quickly verify the individual members. 
 
-Let us look the detailed output
+Let us look the detailed output to understand other parameters.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -207,6 +214,124 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 
 Similary we can check the parameters of the other bundle members as well.
 
+## BFD over Bundle with IPv4 Unnumbered Interfaces
+
+With [IOSXR-7.3.1](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html#Cisco_Concept.dita_fa9251b5-0c63-4382-ba40-d591ad8e1925), NCS5500 and NCS500 supports BFD over Bundle with IPv4 Unnumbered Interfaces . This feature enables BFD to run on IP unnumbered interfaces, which take the IP address from the loopback address. The same loopback address is used on multiple interfaces. This helps to save IP addresses space or range. BFD creates a session on the unnumbered interface for which the BFD clients provide the source and destination IP address along with the interface index. BFD establishes the session on the Layer 3 unnumbered link to which the interface index corresponds. The source address is derived from the Loopback interface at the source. The destination node also uses IP unnumbered interface with loopback address and that is used as destination IP address. BFD sends control packets to the unnumbered interfaces. These control packets are the regular IP BFD packets. Address Resolution Protocol (ARP) resolves the destination loopback IP address to the destination node’s router MAC address. Let us verify the same
+
+### Configuring the session over IPv4 unnumbered interfaces
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show running-config interface bundle-ether 24
+
+interface Bundle-Ether24
+ bfd mode ietf
+ bfd address-family ipv4 multiplier 3
+ bfd address-family ipv4 destination 172.16.4.41
+ bfd address-family ipv4 fast-detect
+ bfd address-family ipv4 minimum-interval 300
+ ipv4 point-to-point
+ <mark>ipv4 unnumbered Loopback0</mark>
+ bundle minimum-active links 1
+!
+
+RP/0/RP0/CPU0:T-2006#
+</code>
+</pre>
+</div>
+
+### Verifying the BFD session
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show bfd all session    
+
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+TF0/0/0/24          172.16.4.41     0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0       
+TF0/0/0/29          172.16.4.41     0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/0/CPU0       
+BE24                172.16.4.41     n/a              n/a              UP        
+                                                             No    n/a 
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:T-2006#show bfd all session interface <mark>twentyFiveGigE 0/0/0/24</mark> detail 
+
+IPv4:
+-----
+<mark>I/f: TwentyFiveGigE0/0/0/24, Location: 0/0/CPU0</mark>
+<mark>Dest: 172.16.4.41
+Src: 172.16.4.6</mark>
+ <mark>State: UP for 0d:0h:5m:36s, number of times UP: 1
+ Session type: PR/V4/SH/BM/IB</mark>
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147491940, your discr: 2147487763, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 2147487763, your discr: 2147491940, state UP, D/F/P/C/A: 0/1/0/1/0
+Timer Values:
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+ Desired echo tx interval: 0 s, local negotiated echo tx interval: 0 ms
+ Echo detection time: 0 ms(0 ms*3), async detection time: 900 ms(300 ms*3)
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=6, min=110 ms, max=62 s, avg=19 s
+       Last packet transmitted 241 s ago
+   Rx: Number of intervals=19, min=2 ms, max=65 s, avg=6186 ms
+       Last packet received 240 s ago
+ Intervals between echo packets:
+   Tx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet transmitted 0 s ago
+   Rx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet received 0 s ago
+ Latency of echo packets (time between tx and rx):
+   Number of packets: 0, min=0 ms, max=0 ms, avg=0 ms
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+ <mark> bundlemgr_distrib</mark>    300 ms     3          300 ms     3         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  BE24                 172.16.4.41                             
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_INTERFACE
+
+<mark>H/W Offload Info:</mark>
+ H/W Offload capability : Y, Hosted NPU     : 0/0/CPU0
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 130/67 
+          
+Platform Info:
+NPU ID: 0 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x1013     Echo Session ID    : 0x0
+Async Tx Key        : 0x80001013  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+</code>
+</pre>
+</div>
+
+From the above output we can see that the source and destination value taken now is of the loopback address. We have not applied any IPv4 address on the Bundle Interface.
+
 
 ## Platform Support
 
@@ -217,3 +342,6 @@ Similary we can check the parameters of the other bundle members as well.
 | NCS560   | Yes     |
 
 
+## References 
+
+https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/73x/b-routing-cg-ncs5500-73x/implementing-bfd.html#Cisco_Concept.dita_fa9251b5-0c63-4382-ba40-d591ad8e1925
