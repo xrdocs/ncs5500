@@ -342,7 +342,7 @@ From the above output we can see that the source and destination value taken now
 
 ## Summary
 
-Hope this article helped to understand the BoB feature on the NCS5500 and NCS500 and its use case. We have also seen the basic commands for quick verification. We also covered the BoB with IP Unnumbered interface.
+Hope this article helped to understand the BoB feature on the NCS5500 and NCS500 and its use case. We have also seen the basic commands for quick verification. We also covered the BoB with IP Unnumbered interface. In the next article, we will cover the multipath sessions: BLB and BVI and understand their use cases.
 
 ## References 
 
