@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2021-06-22 12:12 +0530'
-title: Multipath BFD sessions on NCS5500 and NCS500
+title: Multipath and MultiHop BFD sessions on NCS5500 and NCS500
 author: Tejas Lad
 excerpt: >-
   This document covers the implementation of BLB and BFD over BVI on NCS5500 and
@@ -154,7 +154,15 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | SH    | Single Hop Session                                           |
 | BL    | BFD Type is BLB                                              |
 
-From the detailed output we can see that its a switched session with session type as BLB. The BFD client is IS-IS. We can also see MP download state: BFD_MP_DOWNLOAD_ACK which shows its a Multi-path session. Like IS-IS we can use the OSPF as well as Static route as clients. We can also use vlan sub-interface instead of physical main interface in the routing process.
+From the detailed output we can see that its a switched session with session type as BLB. The BFD client is IS-IS. We can also see _MP download state: BFDMPDOWNLOADACK_ which shows its a Multi-path session. Like IS-IS we can use the OSPF and Static route as clients. We can also use vlan sub-interfaces along with physical main interface in the routing process. We can see BLB is a single hop multipath session. Source/Destination MAC address for BFD control packet is MAC of Bundle-Ether interface. BLB treats the bundle as one single interface and BFD packet may take any physical link to reach other end device.
+
+
+
+
+
+
+
+
 
 
 
