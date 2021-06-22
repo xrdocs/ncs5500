@@ -24,4 +24,15 @@ In our previous article we discussed [BFD over Bundle Interface or BoB](https://
 
 ## BFD over Logical Bundle
 
+With IOS-XR 7.1.1, we support BLB on NCS5500 and NCS500 platforms. The Bidirectional Forwarding Detection (BFD) over Logical Bundle feature implements and deploys BFD over bundle interfaces based on RFC 5880. This is the fundamental difference between BLB and BoB. In the former the bundle interface is a single interface, whereas in the later we implement BFD per member link. BLB is a multipath (MP) single-hop session. BLB requires limited knowledge of the bundle interfaces on which the sessions run, this is because BFD treats the bundle as one big pipe. To function, [BLB](https://www.cisco.com/c/en/us/td/docs/routers/asr9000/software/asr9k-r6-2/routing/configuration/guide/b-routing-cg-asr9000-62x/b-routing-cg-asr9000-62x_chapter_0100.html#concept_45D0EC68B0A241B39338087FEB10055F) requires only information about IP addresses, interface types, and caps on bundle interfaces. Information such as list of bundle members, member states, and configured minimum or maximum bundle links are not required. In case of BLB, BFD client is not Bundle link but protocols running over bundle link. BLB is supported on IPv4 and IPv6 addresses and IPv6 link-local address.  
+
+| BFD Session Type              | BFD Client                        |
+|-------------------------------|-----------------------------------|
+| BFD over Bundle - BoB         | bundlemgr                         |
+| BFD over Logical Bundle - BLB | protocols running over the bundle |
+
+
+
+
+
 
