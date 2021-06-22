@@ -287,6 +287,96 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 
 Again we can see the BFD over BVI interface is a single hop but a multipath session. 
 
+Note: BFD over BVI for IPv4 and IPv6 is not supported yet on systems based on Jericho2 and NCS560.
+{: .notice--info}
 
+## BFD MultiHop Session
+
+Till now we saw all the sessions be it Single-Path or Multi-Path, were Single-Hop. Now we will see Multi-Hop Multi-Path session. There are scenarios in which BFD needs to be enabled between two end-points which are not directly connected but across one or more Layer3 hops. For example BFD running over logical interfaces like GRE tunnel or protocol BGP. In such scenario path to reach other end-point will not always be same. As long as one path to the destination is active, BFD will come up. Also in such cases, there is not only one LC through which packet would leave the router and enter the router. And thus it is not just multi-hop but multi-path as well. We support BFD Multihop sessions for NCS5500 family and with the latest IOS-XR release 7.3.1 we have included other platforms from the NCS500 family as well. Let us verify the multihop BFD.
+
+### Configuring the multi-hop BFD
+
+```
+router bgp 100
+ bgp router-id 6.6.6.6
+ address-family ipv4 unicast
+neighbor 172.16.4.41
+  remote-as 100
+  bfd fast-detect
+  bfd multiplier 3
+  bfd minimum-interval 300
+  update-source Loopback0
+  address-family ipv4 unicast
+  !
+```
+
+### Verifying the multi-hop BFD 
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:T-2006#show bfd all session detail</mark> 
+
+IPv4:
+-----
+
+<mark>Location: 0/0/CPU0</mark>
+Dest: 172.16.4.41
+Src: 172.16.4.6
+VRF Name/ID: default/0x60000000
+ <mark>State: UP for 0d:0h:18m:4s, number of times UP: 1
+ Session type: SW/V4/MH</mark>
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Multiplier: 3, diag: None
+ My discr: 16, your discr: 4, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Multiplier: 3, diag: None
+ My discr: 4, your discr: 16, state UP, D/F/P/C/A: 0/1/0/1/0
+Timer Values:
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+async detection time: 900 ms(300 ms*3)
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=3, min=5 ms, max=1061 s, avg=354 s
+       Last packet transmitted 1084 s ago
+   Rx: Number of intervals=4, min=2 ms, max=302 ms, avg=152 ms
+       Last packet received 1084 s ago
+<mark>MP download state: BFD_MP_DOWNLOAD_ACK</mark>
+State change time: Jun 22 11:58:19.853
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bgp-default </mark>         300 ms     3          300 ms     3         
+
+<mark>H/W Offload Info:</mark>
+ H/W Offload capability : Y, Hosted NPU     : 0/0/CPU0
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 0/0 
+
+Platform Info:
+NPU ID: 0 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x4        Echo Session ID    : 0x0
+Async Tx Key        : 0x4  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+          
+</code>
+</pre>
+</div>
+
+| Flags | Session Type                                                 |
+|-------|--------------------------------------------------------------|
+| SW    | Switched Session which includes BFD over Logical Bundle- BLB |
+| V4    | IPv4 Session                                                 |
+| MH    | Multi Hop Session                                            |
+
+From the flags we can see the client BGP is having a multi-hop session. _MP download state: BFDMPDOWNLOADACK_ indicates that it is multi-path as well.
 
 
