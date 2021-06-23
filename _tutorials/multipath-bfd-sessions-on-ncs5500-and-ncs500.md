@@ -379,6 +379,9 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 
 From the flags we can see the client BGP is having a multi-hop session. MP download state: BFD_MP_DOWNLOAD_ACK indicates that it is multi-path as well. 
 
+## Timers and Scale
+
+For the minimum timers and scale support, please visit the [BFD Architecture Document](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/).
 
 ## Reference
 
