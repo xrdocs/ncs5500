@@ -20,7 +20,7 @@ position: hidden
 
 ## Introduction
 
-In our previous article we discussed [BFD over Bundle Interface or BoB](https://xrdocs.io/ncs5500/tutorials/bfd-over-bundle-interfaces-on-ncs5500-and-ncs500/). In this article, we discuss one more concept for bundle: BFD over Logical Bundle or BLB. We will understand the difference between BLB and BoB and see its use cases. We will also see Multipath and Multihop Sessions with BFD over BVI interfaces.
+In our previous article we discussed [BFD over Bundle Interface or BoB](https://xrdocs.io/ncs5500/tutorials/bfd-over-bundle-interfaces-on-ncs5500-and-ncs500/). In this article, we discuss one more concept for bundle: BFD over Logical Bundle or BLB. We will understand the difference between BLB and BoB and see its use cases. We will also see what are Multipath and Multihop Sessions with BFD over BVI interfaces.
 
 ## BFD over Logical Bundle
 
@@ -154,7 +154,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | SH    | Single Hop Session                                           |
 | BL    | BFD Type is BLB                                              |
 
-From the detailed output we can see that its a switched session with session type as BLB. The BFD client is IS-IS. We can also see _MP download state: BFDMPDOWNLOADACK_ which shows its a Multi-path session. Like IS-IS we can use the OSPF and Static route as clients. We can also use vlan sub-interfaces along with physical main interface in the routing process. We can see BLB is a single hop multipath session. Source/Destination MAC address for BFD control packet is MAC of Bundle-Ether interface. BLB treats the bundle as one single interface and BFD packet may take any physical link to reach other end device.
+From the detailed output we can see that its a switched session with session type as BLB. The BFD client is IS-IS. We can also see **MP download state: BFD_MP_DOWNLOAD_ACK** which shows its a Multi-path session. Like IS-IS we can also use the OSPF and Static route as clients. We can also use vlan sub-interfaces along with physical main interface in the routing process. We can see BLB is a single hop multipath session. Source/Destination MAC address for BFD control packet is MAC of Bundle-Ether interface. BLB treats the bundle as one single interface and BFD packet may take any physical link to reach other end device.
 
 
 ## BFD over BVI Interface
@@ -378,5 +378,3 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | MH    | Multi Hop Session                                            |
 
 From the flags we can see the client BGP is having a multi-hop session. _MP download state: BFDMPDOWNLOADACK_ indicates that it is multi-path as well.
-
-
