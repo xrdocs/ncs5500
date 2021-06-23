@@ -377,4 +377,9 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | V4    | IPv4 Session                                                 |
 | MH    | Multi Hop Session                                            |
 
-From the flags we can see the client BGP is having a multi-hop session. _MP download state: BFDMPDOWNLOADACK_ indicates that it is multi-path as well.
+From the flags we can see the client BGP is having a multi-hop session. MP download state: BFD_MP_DOWNLOAD_ACK indicates that it is multi-path as well. 
+
+
+## Reference
+
+[CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/71x/b-routing-cg-ncs5500-71x/b-routing-cg-ncs5500-71x_chapter_0111.html#concept_hdq_sfm_gkb)
