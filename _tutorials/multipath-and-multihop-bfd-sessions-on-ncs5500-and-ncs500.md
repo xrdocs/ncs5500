@@ -14,7 +14,7 @@ tags:
   - BFD
   - BLB
   - BVI
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Multipath BFD sessions on NCS5500 and NCS500" %} 
 
