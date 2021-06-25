@@ -377,7 +377,7 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 | V4    | IPv4 Session                                                 |
 | MH    | Multi Hop Session                                            |
 
-From the flags we can see the client BGP is having a multi-hop session. MP download state: BFD_MP_DOWNLOAD_ACK indicates that it is multi-path as well. 
+From the flags we can see the client BGP is having a **multi-hop** session. MP download state: BFD_MP_DOWNLOAD_ACK indicates that it is **multi-path** as well. 
 
 ## Timers and Scale
 
@@ -386,3 +386,7 @@ For the minimum timers and scale support, please visit the [BFD Architecture Doc
 ## Reference
 
 [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/71x/b-routing-cg-ncs5500-71x/b-routing-cg-ncs5500-71x_chapter_0111.html#concept_hdq_sfm_gkb)
+
+## Summary
+
+Hope this tech-note helped understanding the concept of BLB and its difference between [BoB](https://xrdocs.io/ncs5500/tutorials/bfd-over-bundle-interfaces-on-ncs5500-and-ncs500/). We also touched upon the concept of Multi-Path and Multi-Hop sessions. 
