@@ -292,7 +292,10 @@ Note: BFD over BVI for IPv4 and IPv6 is not supported yet on systems based on Je
 
 ## BFD MultiHop Session
 
-Till now we saw all the sessions be it Single-Path or Multi-Path, were Single-Hop. Now we will see Multi-Hop Multi-Path session. There are scenarios in which BFD needs to be enabled between two end-points which are not directly connected but across one or more Layer3 hops. For example BFD running over logical interfaces like GRE tunnel or protocol BGP. In such scenario path to reach other end-point will not always be same. As long as one path to the destination is active, BFD will come up. Also in such cases, there is not only one LC through which packet would leave the router and enter the router. And thus it is not just multi-hop but multi-path as well. We support BFD Multihop sessions for NCS5500 family and with the latest IOS-XR release 7.3.1 we have included other platforms from the NCS500 family as well. Let us verify the multihop BFD.
+Till now we saw all the sessions be it Single-Path or Multi-Path, were Single-Hop. Now we will see Multi-Hop Multi-Path session. There are scenarios in which BFD needs to be enabled between two end-points which are not directly connected but across one or more Layer3 hops. For example BFD running over logical interfaces like GRE tunnel or protocol BGP. In such scenario path to reach other end-point will not always be same. As long as one path to the destination is active, BFD will come up. Also in such cases, there is not only one LC through which packet would leave the router and enter the router. And thus it is not just multi-hop but multi-path as well.   The encapsulation of BFD Control packets for multihop application in IPv4 and IPv6 is identical to that defined in BFD single hop, except that the UDP destination port must have a value of 4784.  This can aid in the demultiplexing and internal routing of incoming BFD packets.[[RFC 5883](https://datatracker.ietf.org/doc/html/rfc5883 "RFC 5883")]
+We support BFD Multihop sessions for NCS5500 family and with the latest IOS-XR release 7.3.1 we have included other platforms from the NCS500 family as well. Let us verify the multihop BFD.
+
+
 
 ### Configuring the multi-hop BFD
 
@@ -386,7 +389,8 @@ For the minimum timers and scale support, please visit the [BFD Architecture Doc
 ## Reference
 
 [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/routing/71x/b-routing-cg-ncs5500-71x/b-routing-cg-ncs5500-71x_chapter_0111.html#concept_hdq_sfm_gkb)
+[RFC 5883](https://datatracker.ietf.org/doc/html/rfc5883 "RFC 5883")
 
 ## Summary
 
-Hope this tech-note helped understanding the concept of BLB and its difference between [BoB](https://xrdocs.io/ncs5500/tutorials/bfd-over-bundle-interfaces-on-ncs5500-and-ncs500/). We also touched upon the concept of Multi-Path and Multi-Hop sessions. 
+Hope this tech-note helped understanding the concept of BLB and its difference between [BoB](https://xrdocs.io/ncs5500/tutorials/bfd-over-bundle-interfaces-on-ncs5500-and-ncs500/). We also touched upon the concept of Multi-Path and Multi-Hop sessions.
