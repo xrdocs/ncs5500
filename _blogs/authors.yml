@@ -1,3 +1,8 @@
+---
+title: ''
+published: false
+date: '2021-07-15 11:25 +0530'
+---
 #################################   Teams   #################################
 
 Cisco Software Management Team:
@@ -346,3 +351,10 @@ Jasmine Joyce Kalaiselvan:
   bio         : "Technical Leader, Cisco."
   avatar      : "jkalaise.jpg"
   twitter     : "jkalaise"
+
+Akshaya Kumar:
+  name        : "Akshaya Kumar"
+  email       : "sakskuma@cisco.com"
+  bio         : "Technical Marketing Engineer, Cisco"
+  twitter     : "broadbandtme"
+  github      : "akshaycisco"
