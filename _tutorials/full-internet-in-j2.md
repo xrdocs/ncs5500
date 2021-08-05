@@ -783,6 +783,16 @@ And we flush this memory at 28K+ pfx/s.
 
 ### IPv4 in eTCAM in J2-SE
 
+Same methodology here, we directly jump to the prefix / second graphs.
+
+![eTCAM-prog-1.png]({{site.baseurl}}/images/eTCAM-prog-1.png){: .align-center}
+
+We program routes in eTCAM at a speed varying between 31K and 32K pfx/s.
+
+![eTCAM-prog-2.png]({{site.baseurl}}/images/eTCAM-prog-2.png){: .align-center}
+
+Flushing is done at a speed between 31K and 35J pfx/s.
+
 ### IPv6 in eTCAM in J2-SE
 
 
