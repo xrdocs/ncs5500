@@ -771,6 +771,16 @@ Which is also confirmed here:
 
 ### IPv6 in LPM in J2 non-eTCAM
 
+Let's jump directly to the pfx/s graphs we generated:
+
+![LPMv6-prog-1.png]({{site.baseurl}}/images/LPMv6-prog-1.png){: .align-center}
+
+We program at 30K+ IPv6 pfx/s.
+
+![LPMv6-prog-2.png]({{site.baseurl}}/images/LPMv6-prog-2.png){: .align-center}
+
+And we flush this memory at 28K+ pfx/s.
+
 ### IPv4 in eTCAM in J2-SE
 
 ### IPv6 in eTCAM in J2-SE
