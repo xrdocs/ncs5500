@@ -63,13 +63,7 @@ This defect only impacts the systems with no eTCAM where the v4/v6 prefixes are 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP1/CPU0:5508-1-741#show  controllers fia diagshell 0 "dbal table dump table=IPV4_UNICAST_PRIVATE_LEM_FORWARD" location 0/7/CPU0 | i 1.1.1.191
-
-RP/0/RP1/CPU0:5508-1-741#show  controllers fia diagshell 0 "dbal table dump table=IPV4_UNICAST_PRIVATE_LPM_FORWARD" location 0/7/CPU0 | i 1.1.1.191
-RP/0/RP1/CPU0:5508-1-741#show  controllers fia diagshell 0 "dbal table dump table=IPV4_UNICAST_PRIVATE_LPM_FORWARD" location 0/7/CPU0 | i 1.1.1.191
-
-| 31  | 0 mask: 0xffff | 1.1.1.191 (0x10101bf) mask: 0xffffffff        || KAPS_FLOW_ID 19 (655379)   |
-RP/0/RP1/CPU0:5508-1-741#sh route 1.1.1.191
+<code>RP/0/RP1/CPU0:5508-1-741#sh route 1.1.1.191
 
 Routing entry for 1.1.1.191/32
   Known via "local", distance 0, metric 0 (connected)
@@ -81,6 +75,11 @@ Routing entry for 1.1.1.191/32
     9 (protoid=9, clientid=33)
     5 (protoid=5, clientid=25)
 
+RP/0/RP1/CPU0:5508-1-741#show  controllers fia diagshell 0 "dbal table dump table=IPV4_UNICAST_PRIVATE_LEM_FORWARD" location 0/7/CPU0 | i 1.1.1.191
+
+RP/0/RP1/CPU0:5508-1-741#show  controllers fia diagshell 0 "dbal table dump table=IPV4_UNICAST_PRIVATE_LPM_FORWARD" location 0/7/CPU0 | i 1.1.1.191
+
+| 31  | 0 mask: 0xffff | 1.1.1.191 (0x10101bf) mask: 0xffffffff        || KAPS_FLOW_ID 19 (655379)   |
 RP/0/RP1/CPU0:5508-1-741#</code>
 </pre>
 </div>
@@ -90,7 +89,6 @@ Don't use this shell command in production since it dumps the entirety of the ta
 Until this DDTS is fixed, take the output of "show controller npu resources" with a grain of salt (or do the math yourself, counting the /32s from the DPA and adjusting the counters accordingly).
 
 ## Full internet view in Jericho2 platforms / LCs
-
 
 We will run the test on a chassis equipped with a J2 line cards: non eTCAM (NC57-24DD) and with eTCAM (NC57-36H-SE):
 
@@ -340,16 +338,106 @@ RP/0/RP1/CPU0:5508-1-731#</code>
 </pre>
 </div>
 
-### J2 no eTCAM
+### J2 no-eTCAM
 
-Using streaming telemetry, we have a graphical visualization of the counters (having a very small portion of v4/32 in the lab, since they are not announced over the public internet, it only represents a negligeable number and we can trust what is streamed).
+Using streaming telemetry, we have a graphical visualization of the counters (having a very small portion of v4/32s in the lab, since they are not announced over the public internet, it only represents a negligeable number and we can trust what is streamed).
+
+![Gauges-J2.png]({{site.baseurl}}/images/Gauges-J2.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-731#sh contr npu resources lpm loc 0/7/CPU0
+
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2621440
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
 
 
+Current Usage
+        Total In-Use                : 958517   (37 %)
+        <mark>iproute                     : 836794   (32 %)</mark>
+        <mark>ip6route                    : 121577   (5 %)</mark>
+        ipmcroute                   : 101      (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
 
 
+NPU-1
+OOR Summary
+        Estimated Max Entries       : 2621440
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
 
 
+Current Usage
+        Total In-Use                : 958517   (37 %)
+        iproute                     : 836794   (32 %)
+        ip6route                    : 121577   (5 %)
+        ipmcroute                   : 101      (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
 
+
+^MRP/0/RP1/CPU0:5508-1-731#</code>
+</pre>
+</div>
+
+### J2 with eTCAM
+
+All routes are, as expected, present in eTCAM:
+
+![Gauges-J2-SE.png]({{site.baseurl}}/images/Gauges-J2-SE.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-731#sh contr npu resources exttcamipv4 loc 0/3/CPU0
+
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 5000000
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 836868   (17 %)
+        <mark>iproute                     : 836893   (17 %)</mark>
+
+
+RP/0/RP1/CPU0:5508-1-731#sh contr npu resources exttcamipv6
+
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2000000
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 121559   (6 %)
+        <mark>ip6route                    : 121609   (6 %)</mark>
+
+RP/0/RP1/CPU0:5508-1-731#</code>
+</pre>
+</div>
 
 ## Telemetry Config
 
