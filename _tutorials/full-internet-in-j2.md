@@ -795,9 +795,22 @@ Flushing is done at a speed between 31K and 35J pfx/s.
 
 ### IPv6 in eTCAM in J2-SE
 
+Again, same test methodology for IPv6.
 
+![eTCAMv6-prog-1.png]({{site.baseurl}}/images/eTCAMv6-prog-1.png){: .align-center}
 
-## Telemetry Config
+Varies from 25K to 28K pfx/s.
+
+![eTCAMv6-prog-2.png]({{site.baseurl}}/images/eTCAMv6-prog-2.png){: .align-center}
+
+Fluctuates between 24K and 27K pfx/s.
+
+## Conclusion
+
+On Jericho2, the programming and flushing of the routes is more or less the same for both LPM and eTCAM, around 25-30K prefixes per second.  
+A system based on Jericho2 with no eTCAM can perfectly handle a full internet view (v4 + v6) and has lot of room for the years to come. eTCAM systems will be used to extend the capacity of the J2 chipset (high interface scale, QoS, etc) via the enablement of specific "-SE" MDB profiles, but the internet size is no longer a criteria to select -SE or non-SE.
+
+## Annex: Telemetry Config
 
 <div class="highlighter-rouge">
 <pre class="highlight">
