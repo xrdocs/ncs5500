@@ -386,9 +386,11 @@ Current Usage
         ip6mc_comp_grp              : 0        (0 %)
 
 
-^MRP/0/RP1/CPU0:5508-1-731#</code>
+RP/0/RP1/CPU0:5508-1-731#</code>
 </pre>
 </div>
+
+37% of the capacity with 2021 internet tables, that confirms we don't need a -SE system or card specifically for internet handling. Of course, the -SE options are very relevant for other use-cases, but it's no longer driven by the internet size, at least for a dozen of years.
 
 ### J2 with eTCAM
 
@@ -438,6 +440,272 @@ Current Usage
 RP/0/RP1/CPU0:5508-1-731#</code>
 </pre>
 </div>
+
+## Projected Internet view (2027) in Jericho2 platforms / LCs
+
+We will reuse the projection done in this article last year to guesstimate the additional routes in year 2027: [https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/](https://xrdocs.io/ncs5500/tutorials/ncs5500-routing-resource-with-2020-internet/)
+
+![IPv4-projection.png]({{site.baseurl}}/images/IPv4-projection.png){: .align-center}
+
+![IPv6-projection.png]({{site.baseurl}}/images/IPv6-projection.png){: .align-center}
+
+That's 462,640 extra IPv4 and 239,128 extra IPv6 routes.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-731#sh bgp sum
+
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0000000   RD version: 7531536
+BGP main routing table version 7531536
+BGP NSR Initial initsync version 7 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         7531536    7531536    7531536    7531536     7531536           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+25.2.19.2         0   100    1016  286333  7069295    0    0 16:53:51          0
+192.168.100.151   0  1000  836857  175793  7069295    0    0 01:29:15     836741
+192.168.100.152   0  1000  691695     626        0    0    0 01:41:44 Active
+192.168.100.153   0  1000    2426  187154        0    0 33564 00:00:09     <mark>462640</mark>
+192.168.100.154   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.155   0  1000     753     754        0    0    0 14:25:11 Active
+192.168.100.156   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.157   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.158   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.159   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.160   0  1000       0       0        0    0    0 00:00:00 Active
+192.168.100.161   0   100       0       0        0    0    0 00:00:00 Active
+
+RP/0/RP1/CPU0:5508-1-731#sh bgp ipv6 un
+
+BGP router identifier 1.3.5.9, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0xe0800000   RD version: 1317146
+BGP main routing table version 1317146
+BGP NSR Initial initsync version 7 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker         1317146    1317146    1317146    1317146     1317146           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001:25:1:15::2   0   100       0       0        0    0    0 00:00:00 Idle
+2001:25:2:19::2   0   100       0       0        0    0    0 00:00:00 Active
+2001:111::151     0   151    2176   79834  1317146    0    0 00:00:15     <mark>239128</mark>
+2001:111::152     0   152  121592   32694  1317146    0    0 01:28:50     121498
+
+RP/0/RP1/CPU0:5508-1-731#sh dpa resources iproute loc 0/7/CPU0
+
+"iproute" OFA Table (Id: 48, Scope: Global)
+--------------------------------------------------
+IPv4 Prefix len distribution
+Prefix   Actual       Prefix   Actual
+ /0       11           /1       0
+ /2       0            /3       0
+ /4       11           /5       0
+ /6       0            /7       0
+ /8       18           /9       13
+ /10      40           /11      100
+ /12      302          /13      585
+ /14      1186         /15      2027
+ /16      13440        /17      8190
+ /18      13679        /19      24739
+ /20      40174        /21      48749
+ /22      175966       /23      89388
+ /24      875877       /25      91
+ /26      0            /27      0
+ /28      0            /29      0
+ /30      0            /31      0
+ /32      100
+
+OFA Infra Stats Summary
+                 Create Requests: 4042814
+                 Delete Requests: 2748128
+                 Update Requests: 21951
+                    Get Requests: 0
+
+                  Backwalk Stats
+                 Update Requests: 0
+                  Update Skipped: 0
+
+                          Errors
+                Resolve Failures: 0
+                 Not Found in DB: 0
+                    Exists in DB: 0
+                 No Memory in DB: 0
+               Reserve Resources: 0
+               Release Resources: 0
+                Update Resources: 0
+                  Retry Attempts: 0
+            Recovered from error: 0
+               Errors from bwalk: 0
+
+RP/0/RP1/CPU0:5508-1-731#sh dpa resources ip6route loc 0/7/CPU0
+
+"ip6route" OFA Table (Id: 49, Scope: Global)
+--------------------------------------------------
+IPv6 Prefix len distribution
+Prefix   Actual       Prefix   Actual
+ /0       10           /1       0
+ /2       0            /3       0
+ /4       0            /5       0
+ /6       0            /7       0
+ /8       0            /9       0
+ /10      10           /11      0
+ /12      0            /13      0
+ /14      0            /15      0
+ /16      31           /17      0
+ /18      0            /19      1
+ /20      13           /21      3
+ /22      7            /23      7
+ /24      28           /25      8
+ /26      15           /27      20
+ /28      121          /29      3727
+ /30      521          /31      194
+ /32      16553        /33      2539
+ /34      2226         /35      922
+ /36      4777         /37      796
+ /38      1460         /39      830
+ /40      9269         /41      689
+ /42      2760         /43      700
+ /44      11231        /45      1077
+ /46      2337         /47      2102
+ /48      239355       /49      0
+ /50      0            /51      0
+ /52      1            /53      0
+ /54      0            /55      0
+ /56      1            /57      0
+ /58      0            /59      0
+ /60      0            /61      0
+ /62      0            /63      0
+ /64      56347        /65      0
+ /66      0            /67      0
+ /68      0            /69      0
+ /70      0            /71      0
+ /72      0            /73      0
+ /74      0            /75      0
+ /76      0            /77      0
+ /78      0            /79      0
+RP/0/RP1/CPU0:5508-1-731#</code>
+</pre>
+</div>
+
+### J2 no-eTCAM
+
+![Gauges-J2-b.png]({{site.baseurl}}/images/Gauges-J2-b.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-731#sh contr npu resources lpm loc 0/7/CPU0
+
+HW Resource Information
+    Name                            : lpm
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2621440
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        <mark>Total In-Use                : 1655437  (63 %)</mark>
+        <mark>iproute                     : 1294586  (49 %)</mark>
+        <mark>ip6route                    : 360705   (14 %)</mark>
+        ipmcroute                   : 101      (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+
+NPU-1
+OOR Summary
+        Estimated Max Entries       : 2621440
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 1655437  (63 %)
+        iproute                     : 1294586  (49 %)
+        ip6route                    : 360705   (14 %)
+        ipmcroute                   : 101      (0 %)
+        ip6mcroute                  : 0        (0 %)
+        ip6mc_comp_grp              : 0        (0 %)
+
+
+RP/0/RP1/CPU0:5508-1-731#</code>
+</pre>
+</div>
+
+It proves that we will still have a reasonable amount of empty space (a third more, or less) in 2028 if internet growth keeps the current trends.
+
+### J2 with eTCAM
+
+![Gauges-J2-SE-b.png]({{site.baseurl}}/images/Gauges-J2-SE-b.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-731#sh contr npu resources exttcamipv4 loc 0/3/CPU0
+
+HW Resource Information
+    Name                            : ext_tcam_ipv4
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 5000000
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        <mark>Total In-Use                : 1294661  (26 %)</mark>
+        <mark>iproute                     : 1294686  (26 %)</mark>
+
+
+RP/0/RP1/CPU0:5508-1-731#sh contr npu resources exttcamipv6 loc 0/3/CPU0
+
+HW Resource Information
+    Name                            : ext_tcam_ipv6
+    Asic Type                       : Jericho 2
+
+NPU-0
+OOR Summary
+        Estimated Max Entries       : 2000000
+        Red Threshold               : 95 %
+        Yellow Threshold            : 80 %
+        OOR State                   : Green
+
+
+Current Usage
+        Total In-Use                : 360688   (18 %)
+        <mark>ip6route                    : 360738   (18 %)</mark>
+
+
+RP/0/RP1/CPU0:5508-1-731#</code>
+</pre>
+</div>
+
+Certainly this projection of internet growth is showing we have tons of space in this external TCAM, space available for other data.
 
 ## Telemetry Config
 
