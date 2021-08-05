@@ -3,7 +3,7 @@ published: true
 date: '2021-08-04 22:56 +0200'
 title: Full Internet in Jericho2 NPU and Programming Speed
 author: Nicolas Fevrier
-position: hidden
+position: top
 excerpt: Understand the J2 memory utilization and the programming / convergence speed
 ---
 {% include toc icon="table" title="Full Internet in J2" %}  
