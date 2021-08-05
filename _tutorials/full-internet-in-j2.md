@@ -856,19 +856,3 @@ telemetry model-driven
 !</code>
 </pre>
 </div>
-
-------
-
-![36x100G-SE.jpg]({{site.baseurl}}/images/36x100G-SE.jpg){: .align-center}
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-
-</code>
-</pre>
-</div>
-
-Note: blabla
-{: .notice--danger}
-
