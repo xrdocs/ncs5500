@@ -707,6 +707,76 @@ RP/0/RP1/CPU0:5508-1-731#</code>
 
 Certainly this projection of internet growth is showing we have tons of space in this external TCAM, space available for other data.
 
+## Routes Programming Speed
+
+We performed these tests and documented them for J+ in this article: "NCS5500 FIB Programming Speed" - [https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-programming-speed/](https://xrdocs.io/ncs5500/tutorials/ncs5500-fib-programming-speed/)  
+It's now time to do it again for Jericho2.
+
+### Methodology
+
+We are running the test with J2 line cards in modular chassis. It's important to shut down all line card except the one under test since it may impact the performance measurement.  
+Indeed line cards will wait for the slowest element of the chassis, that is visible in the following graph with "plateaux" (the moment a line card waits for the lower one to catch up).
+
+![plateaux.png]({{site.baseurl}}/images/plateaux.png){: .align-center}
+
+Also, to make sure we are not "polluting" the test results with a slow announcement of the BGP routes, we are pushing large blocks of routes with an internal Cisco tool. 1M IPv4 prefixes for example.
+
+We will measure the programming speed in LPM in non-eTCAM card and in external TCAM in an -SE card. And the approach will be the same for each test:  
+- we will start the advertisement at T0
+- at T1, the RIB converged
+- at T2, the hardware resource (LPM/eTCAM) is fully programmed
+- at T3, we stop the route advertisement (withdrawal begings)
+- at T4, all routes are flushed from RIB
+- at T5, all routes are flushed from hardware resource (LPM/eTCAM)
+
+### IPv4 in LPM in J2 non-eTCAM
+
+TO: 11:04:18:232, we start advertisement
+
+![1-T0.png]({{site.baseurl}}/images/1-T0.png){: .align-center}
+
+T1: 11:04:27:270 (9 seconds later)
+
+![1-T1.png]({{site.baseurl}}/images/1-T1.png){: .align-center}
+
+First result: RIB is programmed at an average of 1,000,000 / 9 = 111k pfx/s
+
+T2: 11:04:55:276 (37 after beginning of advertisement)
+
+![1-T2.png]({{site.baseurl}}/images/1-T2.png){: .align-center}
+
+Second result: LPM is programmed at an average of 1,000,000 / 37 = 27k pfx/s  
+Which is confirmed by this second diagram:
+
+![LPM-prog-1.png]({{site.baseurl}}/images/LPM-prog-1.png){: .align-center}
+
+T3: 11:05:32:282, we stop advertisement
+
+![1-T3.png]({{site.baseurl}}/images/1-T3.png){: .align-center}
+
+T4: 11:05:38:260 (6 seconds later)
+
+![1-T4.png]({{site.baseurl}}/images/1-T4.png){: .align-center}
+
+Third result: RIB is flushed at an average of 1,000,000 / 6 = 166k pfx/s
+
+T5: 11:06:07:248 (35 seconds after beginning of withdrawal)
+
+![1-T5.png]({{site.baseurl}}/images/1-T5.png){: .align-center}
+
+Fourth result: LPM is flushed at an average of 1,000,000 / 35 = 28.5 pfx/s  
+Which is also confirmed here:  
+
+![LPM-prog-2.png]({{site.baseurl}}/images/LPM-prog-2.png){: .align-center}
+
+### IPv6 in LPM in J2 non-eTCAM
+
+### IPv4 in eTCAM in J2-SE
+
+### IPv6 in eTCAM in J2-SE
+
+
+
 ## Telemetry Config
 
 <div class="highlighter-rouge">
