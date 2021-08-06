@@ -34,5 +34,110 @@ BFD over Bundle(BoB) implementation is a standard based fast failure detection o
   - BoB does not provide true L3 check and is not supported on subinterfaces.
   - With BLB, a failure of bundle members, which BFD is not running on is not detected.
   - And a failure of a bundle member, which BFD is running on will cause BFD to declare a session     failure on the bundle, even if there are sufficient numbers of other bundle members available     and functional.
+  
+To overcome these limitations, it is possible to run BoB and BLB in parallel on the same bundle interface. This provides the faster bundle convergence from BoB and the true L3 check from BLB ([Reference](https://kxiwq67737.lithium.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
+
+## BoB and BLB Coexistence Feature Support
+
+  - The feature is supported from IOS-XR 741.
+  - It is supported on all the platforms including **NCS 540**, **NCS 560** and **NCS 5500** (including systems based on J2).
+  - Support for two modes: Inherit and Logical
+
+## Inherit and Logical Modes of Operation([Reference](https://kxiwq67737.lithium.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
+
+BoB and BLB coexistence is supported with the following 2 modes: 
+
+**Inherit**: When the “inherit” coexistence mode is configured then a BLB will always create a virtual session and never a BFD session with real packets.
+
+**Logical**: When the option "logical" is used BLB will always create a real session even when BoB is on. There is one exception if the main bundle interface has an IPv4 address. In this case the session is inherited when BoB is on.
+
+We will see this is details when we check it on our routers.
+
+## Router Demo
+
+After all the theory behind the need the BoB and BLB coexistence, let us see it in action. We will use 2 back to back connected routers with IOS-XR 741 and verify different scenarios with inherit and logical mode. Below is our lab setup.
+
+![Screenshot 2021-08-06 at 3.20.44 PM.png]({{site.baseurl}}/images/Screenshot 2021-08-06 at 3.20.44 PM.png)
+
+### Inherit Mode 
+
+Let us first configure the linecards to allow hosting of MP BFD sessions. If no linecards are included, linecards groups are not formed, and consequently no BFD MP sessions are created. And second configuration is related to the BoB-BLB coexistence. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>bfd
+ multipath include location 0/7/CPU0
+ bundle coexistence bob-blb inherit</mark>
+!
+</code>
+</pre>
+</div>
+
+**BoB and BLB configs** 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface Bundle-Ether30
+ description connected to NCS5508-2
+ bfd mode ietf
+ bfd address-family ipv4 multiplier 3
+ bfd address-family ipv4 destination 30.1.1.2
+ bfd address-family ipv4 fast-detect
+ bfd address-family ipv4 minimum-interval 300
+ ipv4 address 30.1.1.1 255.255.255.252
+!
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router isis 1
+ is-type level-2-only
+ net 49.0000.0000.0191.00
+ log adjacency changes
+ log pdu drops
+ address-family ipv4 unicast
+  metric-style wide
+  segment-routing mpls
+!
+ interface Bundle-Ether30
+  bfd minimum-interval 300
+  bfd multiplier 3
+  bfd fast-detect ipv4
+  point-to-point
+  address-family ipv4 unicast
+  !
+</code>
+</pre>
+</div>
+
+**Verifying the BFD sessions**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session
+IPv4:
+-----
+Interface           Dest Addr           Local det time(int*mult)      State     
+                                    Echo             Async   H/W   NPU     
+------------------- --------------- ---------------- ---------------- ----------
+<mark>FH0/7/0/23          30.1.1.2        0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/7/CPU0       
+FH0/7/0/21          30.1.1.2        0s(0s*0)         900ms(300ms*3)   UP        
+                                                             Yes   0/7/CPU0                
+BE30                30.1.1.2        n/a              n/a              UP        
+                                                             No    n/a </mark> 
+</code>
+</pre>
+</div>
+
+
+
+
 
 
