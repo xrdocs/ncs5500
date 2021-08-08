@@ -230,11 +230,11 @@ Session association information:
 RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30.1 detail 
 IPv4:
 -----
-I/f: Bundle-Ether30.1, Location: 0/RP1/CPU0
+<mark>I/f: Bundle-Ether30.1</mark>, Location: 0/RP1/CPU0
 Dest: 31.1.1.2
 Src: 31.1.1.1
  State: UP for 0d:0h:1m:59s, number of times UP: 1
- Session type: PR/V4/SH/IH
+ <mark>Session type: PR/V4/SH/IH</mark>
 Session owner information:
                             Desired               Adjusted
   Client               Interval   Multiplier Interval   Multiplier
@@ -243,8 +243,8 @@ Session owner information:
 Session association information:
   Interface            Dest Addr / Type                   
   -------------------- -----------------------------------
-  BE30                 30.1.1.2                                
-                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_INTERFACE
+  <mark>BE30                 30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_INTERFACE</mark>
 </code>
 </pre>
 </div>
@@ -261,3 +261,141 @@ As we discussed above, in the Inherited mode BLB will always create a virtual se
 
 
 ### Logical Mode
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+bfd
+ multipath include location 0/7/CPU0
+ <mark>bundle coexistence bob-blb logical</mark>
+!
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP1/CPU0
+Dest: 30.1.1.2
+Src: 30.1.1.1
+ State: UP for 0d:0h:41m:54s, number of times UP: 2
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib    300 ms     3          300 ms     3         
+  isis-1               300 ms     3          300 ms     3</mark>         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  FH0/7/0/23           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  FH0/7/0/21           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER  
+</code>
+</pre>
+</div>
+
+When we configure the BoB-BLB coexistence in Logical mode, there is one exception. If the main bundle interface has an IPv4 address, the session is inherited when BoB is on. Let us configure a BLB session via a bundle sub-interface.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-74142I-C#show bfd all session interface bundle-ether 30 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP0/CPU0
+Dest: 30.1.1.1
+Src: 30.1.1.2
+ State: UP for 0d:0h:50m:32s, number of times UP: 3
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib</mark>    300 ms     3          300 ms     3         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  <mark>FH0/3/0/23           30.1.1.1                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  FH0/3/0/21           30.1.1.1                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER</mark> 
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-74142I-C#show bfd all session interface bundle-ether 30.1 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30.1</mark>, Location: 0/3/CPU0
+Dest: 31.1.1.1
+Src: 31.1.1.2
+ State: UP for 0d:0h:5m:28s, number of times UP: 1
+ <mark>Session type: SW/V4/SH/BL</mark>
+<mark>Received parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 15728648, your discr: 7340048, state UP, D/F/P/C/A: 0/0/0/1/0
+<mark>Transmitted parameters:</mark>
+ Version: 1, desired tx interval: 300 ms, required rx interval: 300 ms
+ Required echo rx interval: 0 ms, multiplier: 3, diag: None
+ My discr: 7340048, your discr: 15728648, state UP, D/F/P/C/A: 0/1/0/1/0
+Timer Values:
+ Local negotiated async tx interval: 300 ms
+ Remote negotiated async tx interval: 300 ms
+ Desired echo tx interval: 0 s, local negotiated echo tx interval: 0 ms
+ Echo detection time: 0 ms(0 ms*3), async detection time: 900 ms(300 ms*3)
+Label:
+ Internal label: 24036/0x5de4
+Local Stats:
+ Intervals between async packets:
+   Tx: Number of intervals=3, min=7 ms, max=5103 ms, avg=1802 ms
+       Last packet transmitted 327 s ago
+   Rx: Number of intervals=8, min=5 ms, max=1700 ms, avg=712 ms
+       Last packet received 327 s ago
+ Intervals between echo packets:
+   Tx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet transmitted 0 s ago
+   Rx: Number of intervals=0, min=0 s, max=0 s, avg=0 s
+       Last packet received 0 s ago
+ Latency of echo packets (time between tx and rx):
+   Number of packets: 0, min=0 ms, max=0 ms, avg=0 ms
+<mark>MP download state: BFD_MP_DOWNLOAD_ACK</mark>
+State change time: Aug  8 03:11:10.233
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>isis-1</mark>               300 ms     3          300 ms     3         
+
+<mark>H/W Offload Info:</mark>
+ H/W Offload capability : Y, Hosted NPU     : 0/3/CPU0
+ Async Offloaded        : Y, Echo Offloaded : N
+ Async rx/tx            : 54/19 
+
+Platform Info:
+NPU ID: 1 
+Async RTC ID        : 1          Echo RTC ID        : 0
+Async Feature Mask  : 0x0        Echo Feature Mask  : 0x0
+Async Session ID    : 0x10       Echo Session ID    : 0x0
+Async Tx Key        : 0x700010  Echo Tx Key        : 0x0
+Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
+Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+</code>
+</pre>
+</div>
+
+From the above output we can see that, when the option "logical" is used BLB will always create a real session.
+
+
