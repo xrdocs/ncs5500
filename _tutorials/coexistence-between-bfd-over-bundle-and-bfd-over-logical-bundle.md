@@ -257,3 +257,7 @@ Session association information:
 | IH    | State Inherit                                                                                                           |
 
 
+As we discussed above, in the Inherited mode BLB will always create a virtual session and never a BFD session with real packets. 
+
+
+### Logical Mode
