@@ -42,6 +42,7 @@ To overcome these limitations, it is possible to run BoB and BLB in parallel on 
   - The feature is supported from IOS-XR 741.
   - It is supported on all the platforms including **NCS 540**, **NCS 560** and **NCS 5500** (including systems based on J2).
   - Support for two modes: Inherit and Logical
+  - Supported for BFD v4 and v6 sessions
 
 ## Inherit and Logical Modes of Operation([Reference](https://kxiwq67737.lithium.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
 
@@ -397,5 +398,10 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 </div>
 
 From the above output we can see that, when the option "logical" is used BLB will always create a real session.
+
+
+## Summary
+
+We covered a quick background BoB and BLB and what are their limitations. Hope this article was helpful to understand the use case of BLB and BoB coexistence. 
 
 
