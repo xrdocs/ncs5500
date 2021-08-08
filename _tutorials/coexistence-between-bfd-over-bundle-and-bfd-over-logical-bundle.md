@@ -136,8 +136,124 @@ BE30                30.1.1.2        n/a              n/a              UP
 </pre>
 </div>
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP1/CPU0
+Dest: 30.1.1.2
+Src: 30.1.1.1
+ State: UP for 0d:0h:0m:51s, number of times UP: 2
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib    300 ms     3          300 ms     3 </mark>        
+  <mark>isis-1               300 ms     3          300 ms     3 </mark>        
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  <mark>FH0/7/0/23           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  FH0/7/0/21           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER</mark> 
+</code>
+</pre>
+</div>
 
+| Flags | Session Type                                                                                                            |
+|-------|-------------------------------------------------------------------------------------------------------------------------|
+| PR    | Pre-Routed Session mostly single path sessions applicable for Physical or Sub-interfaces and BFD over Bundle interfaces |
+| V4    | IPv4 Session                                                                                                            |
+| SH    | Single Hop Session                                                                                                      |
+| BI    | Bundle Interface                                                                                                        |
+| IB    | IETF BoB                                                                                                                |
 
+Instead of bundle main interface, let us add a sub-interface of the same bundle for the ISIS adjacency. We will keep the mode as Inherited.
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router isis 1
+ is-type level-2-only
+ net 49.0000.0000.0191.00
+ address-family ipv4 unicast
+  metric-style wide
+ !
+ interface Bundle-Ether30.1
+  bfd minimum-interval 300
+  bfd multiplier 3
+  bfd fast-detect ipv4
+  point-to-point
+  address-family ipv4 unicast
+  !
+ !
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP1/CPU0
+Dest: 30.1.1.2
+Src: 30.1.1.1
+ State: UP for 0d:0h:12m:47s, number of times UP: 2
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib</mark>    300 ms     3          300 ms     3         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  FH0/7/0/23           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  FH0/7/0/21           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  <mark>BE30.1               31.1.1.2                                
+                       BFD_SESSION_SUBTYPE_STATE_INHERIT </mark>      
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30.1 detail 
+IPv4:
+-----
+I/f: Bundle-Ether30.1, Location: 0/RP1/CPU0
+Dest: 31.1.1.2
+Src: 31.1.1.1
+ State: UP for 0d:0h:1m:59s, number of times UP: 1
+ Session type: PR/V4/SH/IH
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  isis-1               300 ms     3          300 ms     3         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  BE30                 30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_INTERFACE
+</code>
+</pre>
+</div>
+
+| Flags | Session Type                                                                                                            |
+|-------|-------------------------------------------------------------------------------------------------------------------------|
+| PR    | Pre-Routed Session mostly single path sessions applicable for Physical or Sub-interfaces and BFD over Bundle interfaces |
+| V4    | IPv4 Session                                                                                                            |
+| SH    | Single Hop Session                                                                                                      |
+| IH    | State Inherit                                                                                                           |
 
 
