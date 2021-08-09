@@ -399,7 +399,10 @@ Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
 
 From the above output we can see that, when the option "logical" is used BLB will always create a real session.
 
+## Which mode to choose: Inherit vs Logical ?
+
+## Memory and Scale Impact
 
 ## Summary
 
-We covered a quick background BoB and BLB and what are their limitations. Hope this article was helpful to understand the use case of BLB and BoB coexistence.
+We covered a quick background BoB and BLB and what are their limitations are when using either of them. We also saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This is supported with OSPF, BGP as well as static. Hope this article was helpful.  
