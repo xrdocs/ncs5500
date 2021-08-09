@@ -53,7 +53,7 @@ In next releases (roadmap at the moment of the redaction of this article), diffe
 
 And essentially, things are very simple:  
 - in J2 without eTCAM, all IPv4 and IPv6 prefixes are stored in LPM
-- in J2 with eTCAM, all IPv4 and IPv6 prefixes are stored in LEM
+- in J2 with eTCAM, all IPv4 and IPv6 prefixes are stored in... eTCAM
 
 **_Important note:_**
 
@@ -856,3 +856,7 @@ telemetry model-driven
 !</code>
 </pre>
 </div>
+
+**Thanks to:**  
+- Fred Cuiller for the corrections
+
