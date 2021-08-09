@@ -401,8 +401,10 @@ From the above output we can see that, when the option "logical" is used BLB wil
 
 ## Which mode to choose: Inherit vs Logical ?
 
+When the “inherited” mode is configured, the BLB session inherits from BoB session, as the BLB session is created as a virtual session, but never gets downloaded to the LC and so, no real packets are sent out.  The “logical” mode creates a BFD session with real packets and BLB requires multi-path (MP) configurations irrespective of the inherited mode. Inherited sessions when BOB is not enabled will be held in DOWN State. 
+
 ## Memory and Scale Impact
 
 ## Summary
 
-We covered a quick background BoB and BLB and what are their limitations are when using either of them. We also saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This is supported with OSPF, BGP as well as static. Hope this article was helpful.  
+We covered a quick background BoB and BLB and what are their limitations are when using either of them. We also saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This is supported with OSPF, BGP as well as static. Hope this article was helpful.
