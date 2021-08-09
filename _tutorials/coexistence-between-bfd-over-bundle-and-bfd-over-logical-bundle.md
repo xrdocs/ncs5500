@@ -48,7 +48,7 @@ To overcome these limitations, it is possible to run BoB and BLB in parallel on 
 
 BoB and BLB coexistence is supported with the following 2 modes: 
 
-**Inherit**: When the “inherit” coexistence mode is configured then a BLB will always create a virtual session and never a BFD session with real packets.
+**Inherit**: When the “inherit” coexistence mode is configured then a BLB will always create a virtual session and never a BFD session with real packets. This means BLB will not send packets, but will refer the packets that are sent by BoB. 
 
 **Logical**: When the option "logical" is used BLB will always create a real session even when BoB is on. There is one exception if the main bundle interface has an IPv4 address. In this case the session is inherited when BoB is on.
 
