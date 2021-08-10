@@ -173,7 +173,7 @@ Session association information:
 | BI    | Bundle Interface                                                                                                        |
 | IB    | IETF BoB                                                                                                                |
 
-Instead of bundle main interface, let us add a sub-interface of the same bundle for the ISIS adjacency. We will keep the mode as Inherited.
+Now let us add a sub-interface of the same bundle for the ISIS adjacency. We will keep the mode as Inherit.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -184,7 +184,7 @@ router isis 1
  address-family ipv4 unicast
   metric-style wide
  !
- interface Bundle-Ether30.1
+ <mark>interface Bundle-Ether30.1</mark>
   bfd minimum-interval 300
   bfd multiplier 3
   bfd fast-detect ipv4
@@ -258,10 +258,12 @@ Session association information:
 | IH    | State Inherit                                                                                                           |
 
 
-As we discussed above, in the Inherited mode BLB will always create a virtual session and never a BFD session with real packets. 
+As we discussed above, we can see that in the Inherit mode, BLB will always create a virtual session and never a BFD session with real packets. 
 
 
 ### Logical Mode
+
+Let us verify the behaviour in the logical mode. We will change the configuration of the coexistence mode as logical in place of inherit.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -273,38 +275,6 @@ bfd
 </code>
 </pre>
 </div>
-
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30 detail 
-IPv4:
------
-<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP1/CPU0
-Dest: 30.1.1.2
-Src: 30.1.1.1
- State: UP for 0d:0h:41m:54s, number of times UP: 2
- <mark>Session type: PR/V4/SH/BI/IB</mark>
-Session owner information:
-                            Desired               Adjusted
-  Client               Interval   Multiplier Interval   Multiplier
-  -------------------- --------------------- ---------------------
-  <mark>bundlemgr_distrib    300 ms     3          300 ms     3         
-  isis-1               300 ms     3          300 ms     3</mark>         
-Session association information:
-  Interface            Dest Addr / Type                   
-  -------------------- -----------------------------------
-  FH0/7/0/23           30.1.1.2                                
-                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
-  FH0/7/0/21           30.1.1.2                                
-                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER  
-</code>
-</pre>
-</div>
-
-When we configure the BoB-BLB coexistence in Logical mode, there is one exception. If the main bundle interface has an IPv4 address, the session is inherited when BoB is on. Let us configure a BLB session via a bundle sub-interface.
-
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -393,11 +363,47 @@ Async Session ID    : 0x10       Echo Session ID    : 0x0
 Async Tx Key        : 0x700010  Echo Tx Key        : 0x0
 Async Tx Stats addr : 0x0   Echo Tx Stats addr : 0x0
 Async Rx Stats addr : 0x0   Echo Rx Stats addr : 0x0
+
 </code>
 </pre>
 </div>
 
-From the above output we can see that, when the option "logical" is used BLB will always create a real session.
+From the above output we can see that, when the option "logical" is used BLB will always create a real session. We can see the BFD packets are exchanged between the two neighbors and BLB Flag is set. 
+
+When we configure the BoB-BLB coexistence in Logical mode, there is one exception. If the main bundle interface has an IPv4 address, the session is inherited when BoB is on. Let us configure a BLB session via a bundle sub-interface.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-74142I-C#show bfd all session interface bundle-ether 30 detail 
+IPv4:
+-----
+<mark>I/f: Bundle-Ether30</mark>, Location: 0/RP1/CPU0
+Dest: 30.1.1.2
+Src: 30.1.1.1
+ State: UP for 0d:0h:41m:54s, number of times UP: 2
+ <mark>Session type: PR/V4/SH/BI/IB</mark>
+Session owner information:
+                            Desired               Adjusted
+  Client               Interval   Multiplier Interval   Multiplier
+  -------------------- --------------------- ---------------------
+  <mark>bundlemgr_distrib    300 ms     3          300 ms     3         
+  isis-1               300 ms     3          300 ms     3</mark>         
+Session association information:
+  Interface            Dest Addr / Type                   
+  -------------------- -----------------------------------
+  FH0/7/0/23           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER   
+  FH0/7/0/21           30.1.1.2                                
+                       BFD_SESSION_SUBTYPE_RTR_BUNDLE_MEMBER  
+</code>
+</pre>
+</div>
+
+
+## BLB dependency on BoB in Inherit Mode
+
+
 
 ## Which mode to choose: Inherit vs Logical ?
 
