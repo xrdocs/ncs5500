@@ -642,7 +642,7 @@ While choosing between the coexistence mode, we need to understand how each mode
 
 ## Memory and Scale Impact
 
-There is no memory impact expected while configuring the BoB and BLB coexistence. The scale calculation will also not change and remain as per the existing scale supported. For details on how the scale is calculated please [refer](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/).
+There is no memory impact expected while configuring the BoB and BLB coexistence. When using inherit mode the scale will only be considered for the BoB sessions. With logical mode it would be a summation of BoB and BLB. The overall scale calculation will not change and remain as per the existing scale supported. For details on how the scale is calculated please [refer](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/).
 
 ## Summary
 
