@@ -638,7 +638,7 @@ RP/0/RP1/CPU0:Aug  9 21:26:18.799 PDT: isis[1009]: %ROUTING-ISIS-5-ADJCHANGE : A
 
 ## Which mode to choose: Inherit vs Logical ?
 
-When the “inherited” mode is configured, the BLB session inherits from BoB session, as the BLB session is created as a virtual session, but never gets downloaded to the LC and so, no real packets are sent out.  The “logical” mode creates a BFD session with real packets and BLB requires multi-path (MP) configurations irrespective of the inherited mode. Inherited sessions when BOB is not enabled will be held in DOWN State. 
+While choosing between the coexistence mode, we need to understand how each mode works and what do we want to achieve. As we saw in the earlier sections and examples, in Inherit mode, BLB sessions will simply inherit the BoB session state and doesn’t have its own state machine. If BoB is down then BLB also will go down. BLB clients (routing protocols) are tied to BoB session state. So if BoB session goes down, along with bundle-mgr, routing protocols too get notified. In the Logical mode BLB and BoB sessions are independent sessions and notify their respective clients based on their timeout configured. If link failure detection is the only criteria for customer then BoB should be enough in most cases. But convergence may get affected due to the point of indirect notification to the routing protocols. If forwarding detection is also required for the bundle main/sub-interfaces, then BLB should be used along with BoB. This will help in achieving faster convergence.
 
 ## Memory and Scale Impact
 
@@ -646,4 +646,4 @@ There is no memory impact expected while configuring the BoB and BLB coexistence
 
 ## Summary
 
-We covered a quick background BoB and BLB and what are their limitations are when using either of them. We also saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This is supported with OSPF, BGP as well as static. Hope this article was helpful.
+We covered a quick background BoB and BLB and what are their limitations are when using either of them. We saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This feature is supported with OSPF, BGP as well as static. We discussed on what basis we can select the coexistence mode. As a best practice, for faster convergence we should use BoB-BLB coexistence wherever possible.
