@@ -2,7 +2,7 @@
 published: true
 date: '2021-08-06 14:14 +0530'
 title: Coexistence Between BFD over Bundle and BFD over Logical Bundle
-position: hidden
+position: top
 author: Tejas Lad
 excerpt: >-
   This document will cover the Coexistence Between BFD over Bundle and BFD over
@@ -647,7 +647,3 @@ There is no memory impact expected while configuring the BoB and BLB coexistence
 ## Summary
 
 Hope you find this article useful. We covered a quick background BoB and BLB and what are their limitations are when using either of them. We saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This feature is supported with OSPF, BGP as well as static. We discussed on what basis we can select the coexistence mode. As a best practice, for faster convergence we should use BoB-BLB coexistence wherever possible.
-
-
-
-
