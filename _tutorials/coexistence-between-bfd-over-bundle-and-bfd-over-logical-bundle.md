@@ -35,7 +35,7 @@ BFD over Bundle(BoB) implementation is a standard based fast failure detection o
   - With BLB, a failure of bundle members, which BFD is not running on is not detected.
   - And a failure of a bundle member, which BFD is running on will cause BFD to declare a session     failure on the bundle, even if there are sufficient numbers of other bundle members available     and functional.
   
-To overcome these limitations, it is possible to run BoB and BLB in parallel on the same bundle interface. This provides the faster bundle convergence from BoB and the true L3 check from BLB ([Reference](https://kxiwq67737.lithium.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
+To overcome these limitations, it is possible to run BoB and BLB in parallel on the same bundle interface. This provides the faster bundle convergence from BoB and the true L3 check from BLB ([Reference](https://community.cisco.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
 
 ## BoB and BLB Coexistence Feature Support
 
