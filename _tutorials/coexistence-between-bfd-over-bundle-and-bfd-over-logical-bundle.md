@@ -44,7 +44,7 @@ To overcome these limitations, it is possible to run BoB and BLB in parallel on 
   - Support for two modes: Inherit and Logical
   - Supported for BFD v4 and v6 sessions
 
-## Inherit and Logical Modes of Operation([Reference](https://kxiwq67737.lithium.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
+## Inherit and Logical Modes of Operation([Reference](https://community.cisco.com/t5/service-providers-documents/bfd-on-crs/ta-p/3154501))
 
 BoB and BLB coexistence is supported with the following 2 modes: 
 
