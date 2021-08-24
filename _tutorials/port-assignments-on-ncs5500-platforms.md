@@ -257,14 +257,14 @@ Keep it in mind for the snake tests
 
 ### NCS57C3-MOD(-SE)-S
 
-First fixed platform based on a single J2C ASIC but offering a lot of flexibility via it's Modular Port Adapters.
+First fixed platform based on a single J2C ASIC but offering a lot of flexibility via its Modular Port Adapters.
 
 ![NCS57C3-MOD-block-diagram.png]({{site.baseurl}}/images/NCS57C3-MOD-block-diagram.png)
 
 Jericho 2C is made of a single core, the chart becomes very simple ;)
 
 | Interface | NPU/Core |
-|-----------|----------|
+|:-----------:|:----------:|
 | All | 0 / 0    | 
 
 
