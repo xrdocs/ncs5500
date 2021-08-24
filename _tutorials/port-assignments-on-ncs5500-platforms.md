@@ -101,7 +101,7 @@ NCS55A1-24H is made of two Jericho+ connected back-to-back (no fabric engine)
 
 ### NCS55A1-36H(-SE)
 
-NCSA1-36Hs are made of 4 Jericho+ ASICs interconnected through a FE3600 ASIC.
+NCS55A1-36Hs are made of 4 Jericho+ ASICs interconnected through a FE3600 ASIC.
 
 ![NCS5500-36H.jpg]({{site.baseurl}}/images/NCS5500-36H.jpg)
 
@@ -189,6 +189,26 @@ This line card is made of 4 Jericho ASICs with eTCAM.
 | Hu0/x/0/7 | 0 / 0 | Hu0/x/0/16 | 1 / 0 | Hu0/x/0/25 | 2 / 0 | Hu0/x/0/34 | 3 / 0 |
 | Fo0/x/0/8 | 0 / 1 | Hu0/x/0/17 | 1 / 0 | Fo0/x/0/26 | 2 / 1 | Hu0/x/0/35 | 3 / 0 |
 
+
+### NCS55-36X100G-A-SE
+
+Finally, this line card is using 4 Jericho+ with new generation eTCAM.
+
+![NC55-36X100G-A-SE.jpg]({{site.baseurl}}/images/NC55-36X100G-A-SE.jpg)
+
+| Interface | NPU/Core | Interface | NPU/Core | Interface | NPU/Core | Interface | NPU/Core |
+|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| Hu0/x/0/0 | 0 / 1 | Hu0/x/0/9 | 1 / 1  | Hu0/x/0/18 | 2 / 1 | Hu0/x/0/27 | 3 / 1 |
+| Hu0/x/0/1 | 0 / 1 | Hu0/x/0/10 | 1 / 1 | Hu0/x/0/19 | 2 / 1 | Hu0/x/0/28 | 3 / 1 |
+| Hu0/x/0/2 | 0 / 1 | Hu0/x/0/11 | 1 / 1 | Hu0/x/0/20 | 2 / 1 | Hu0/x/0/29 | 3 / 1 |
+| Hu0/x/0/3 | 0 / 0 | Hu0/x/0/12 | 1 / 0 | Hu0/x/0/21 | 2 / 0 | Hu0/x/0/30 | 3 / 0 |
+| Hu0/x/0/4 | 0 / 0 | Hu0/x/0/13 | 1 / 0 | Hu0/x/0/22 | 2 / 0 | Hu0/x/0/31 | 3 / 0 |
+| Hu0/x/0/5 | 0 / 0 | Hu0/x/0/14 | 1 / 0 | Hu0/x/0/23 | 2 / 0 | Hu0/x/0/32 | 3 / 0 |
+| Hu0/x/0/6 | 0 / 0 | Hu0/x/0/15 | 1 / 0 | Hu0/x/0/24 | 2 / 0 | Hu0/x/0/33 | 3 / 0 |
+| Hu0/x/0/7 | 0 / 1 | Hu0/x/0/16 | 1 / 1 | Hu0/x/0/25 | 2 / 1 | Hu0/x/0/34 | 3 / 1 |
+| Hu0/x/0/8 | 0 / 0 | Hu0/x/0/17 | 1 / 0 | Hu0/x/0/26 | 2 / 0 | Hu0/x/0/35 | 3 / 0 |
+
+
 ### NC55-MOD-A-S
 
 ![modLC-A-S.jpg]({{site.baseurl}}/images/modLC-A-S.jpg){: .align-center}
@@ -215,6 +235,79 @@ MPA 4x100:
 | Hu0/x/y/3 | 0 / 1 |
 
 
+### NC57-24DD 
+
+High Density 400G Line card based on 2xJ2 chipset.
+
+![Screenshot 2021-04-10 at 7.42.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 7.42.35 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| FH0/x/0/0 | 0 / 0    | FH0/x/0/6  | 0 / 1    | FH0/x/0/12 | 1 / 0    | FH0/x/0/18 | 1 / 1    |
+| FH0/x/0/1 | 0 / 0    | FH0/x/0/7  | 0 / 1    | FH0/x/0/13 | 1 / 0    | FH0/x/0/19 | 1 / 1    |
+| FH0/x/0/2 | 0 / 0    | FH0/x/0/8  | 0 / 1    | FH0/x/0/14 | 1 / 0    | FH0/x/0/29 | 1 / 1    |
+| FH0/x/0/3 | 0 / 0    | FH0/x/0/9  | 0 / 1    | FH0/x/0/15 | 1 / 0    | FH0/x/0/21 | 1 / 1    |
+| FH0/x/0/4 | 0 / 0    | FH0/x/0/10 | 0 / 1    | FH0/x/0/16 | 1 / 0    | FH0/x/0/22 | 1 / 1    |
+| FH0/x/0/5 | 0 / 0    | FH0/x/0/11 | 0 / 1    | FH0/x/0/17 | 1 / 0    | FH0/x/0/23 | 1 / 1    |
+
+### NC57-18DD-SE
+
+High Density Line card with combination of 100G and 400G native ports. It is based on 2xJ2 chipset. Allows Flexible combination of 400G/100G/200G/40G optics and breakout options. 
+
+![Screenshot 2021-04-10 at 11.29.40 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 11.29.40 PM.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|
+| Hu0/x/0/0 | 0 / 0    | Hu0/x/0/10 | 0 / 1    | FH0/x/0/20 | 1 / 0    |
+| Hu0/x/0/1 | 0 / 0    | Hu0/x/0/11 | 0 / 1    | FH0/x/0/21 | 1 / 1    |
+| Hu0/x/0/2 | 0 / 0    | Hu0/x/0/12 | 0 / 1    | FH0/x/0/22 | 1 / 1    |
+| Hu0/x/0/3 | 0 / 0    | Hu0/x/0/13 | 0 / 1    | FH0/x/0/23 | 1 / 1    |
+| Hu0/x/0/4 | 0 / 0    | Hu0/x/0/14 | 1 / 0    | FH0/x/0/24 | 1 / 1    |
+| Hu0/x/0/5 | 0 / 0    | Hu0/x/0/15 | 1 / 0    | FH0/x/0/25 | 1 / 1    |
+| Hu0/x/0/6 | 0 / 0    | Hu0/x/0/16 | 1 / 0    | FH0/x/0/26 | 0 / 1    |
+| Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 1 / 0    | FH0/x/0/27 | 0 / 1    |
+| Hu0/x/0/8 | 0 / 0    | FH0/x/0/18 | 1 / 0    | FH0/x/0/28 | 0 / 1    |
+| Hu0/x/0/9 | 0 / 0    | FH0/x/0/19 | 1 / 0    | FH0/x/0/29 | 0 / 1    |
+
+### NC57-36H-SE
+
+Line card offering 100G connectivity (up to 3.6Tbps) and high scale routing. It is based on a single J2 chipset and OP2 eTCAM. 
+
+![NC57-36H-SE-block-diagram.png]({{site.baseurl}}/images/NC57-36H-SE-block-diagram.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| Hu0/x/0/0 | 0 / 0    | Hu0/x/0/10 | 0 / 0    | Hu0/x/0/20 | 0 / 1    | Hu0/x/0/39 | 0 / 1    |
+| Hu0/x/0/1 | 0 / 0    | Hu0/x/0/11 | 0 / 0    | Hu0/x/0/21 | 0 / 1    | Hu0/x/0/31 | 0 / 1    |
+| Hu0/x/0/2 | 0 / 0    | Hu0/x/0/12 | 0 / 0    | Hu0/x/0/22 | 0 / 1    | Hu0/x/0/32 | 0 / 1    |
+| Hu0/x/0/3 | 0 / 0    | Hu0/x/0/13 | 0 / 0    | Hu0/x/0/23 | 0 / 1    | Hu0/x/0/33 | 0 / 1    |
+| Hu0/x/0/4 | 0 / 0    | Hu0/x/0/14 | 0 / 0    | Hu0/x/0/24 | 0 / 1    | Hu0/x/0/34 | 0 / 1    |
+| Hu0/x/0/5 | 0 / 0    | Hu0/x/0/15 | 0 / 0    | Hu0/x/0/25 | 0 / 1    | Hu0/x/0/35 | 0 / 1    |
+| Hu0/x/0/6 | 0 / 0    | Hu0/x/0/16 | 0 / 0    | Hu0/x/0/26 | 0 / 1    |  |  |
+| Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 0 / 0    | Hu0/x/0/27 | 0 / 1    |  |  |
+| Hu0/x/0/8 | 0 / 0    | Hu0/x/0/18 | 0 / 0    | Hu0/x/0/28 | 0 / 1    |  |  |
+| Hu0/x/0/9 | 0 / 0    | Hu0/x/0/19 | 0 / 0    | Hu0/x/0/29 | 0 / 1    |  |  |
+
+### NC57-36H6D-S
+
+Line card offering a mix of 100G, 200G and 400G connectivity (up to 4.8Tbps). It is based on a single J2 chipset without eTCAM. 
+
+![NC57-36H6D-S-block-diagram.png]({{site.baseurl}}/images/NC57-36H6D-S-block-diagram.png)
+
+| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
+|-----------|----------|------------|----------|------------|----------|------------|----------|
+| Hu0/x/0/0 | 0 / 0    | Hu0/x/0/10 | 0 / 0    | Hu0/x/0/20 | 0 / 1    | FH0/x/0/39 | 0 / 1    |
+| Hu0/x/0/1 | 0 / 0    | Hu0/x/0/11 | 0 / 0    | Hu0/x/0/21 | 0 / 1    | FH0/x/0/31 | 0 / 1    |
+| Hu0/x/0/2 | 0 / 0    | Hu0/x/0/12 | 0 / 0    | Hu0/x/0/22 | 0 / 1    | FH0/x/0/32 | 0 / 1    |
+| Hu0/x/0/3 | 0 / 0    | Hu0/x/0/13 | 0 / 0    | Hu0/x/0/23 | 0 / 1    | FH0/x/0/33 | 0 / 1    |
+| Hu0/x/0/4 | 0 / 0    | Hu0/x/0/14 | 0 / 0    | FH0/x/0/24 | 0 / 1    | FH0/x/0/34 | 0 / 1    |
+| Hu0/x/0/5 | 0 / 0    | Hu0/x/0/15 | 0 / 0    | FH0/x/0/25 | 0 / 1    | FH0/x/0/35 | 0 / 1    |
+| Hu0/x/0/6 | 0 / 0    | Hu0/x/0/16 | 0 / 0    | FH0/x/0/26 | 0 / 1    |  |  |
+| Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 0 / 0    | FH0/x/0/27 | 0 / 1    |  |  |
+| Hu0/x/0/8 | 0 / 0    | Hu0/x/0/18 | 0 / 0    | FH0/x/0/28 | 0 / 1    |  |  |
+| Hu0/x/0/9 | 0 / 0    | Hu0/x/0/19 | 0 / 0    | FH0/x/0/29 | 0 / 1    |  |  |
+
+
 ### NCS55A2-MOD(-SE)-S
 
 2RU chassis made of a single Jericho+ ASIC.
@@ -238,23 +331,6 @@ MPA 4x100:
 | Te0/x/0/12 | 0 / 1 | TF0/x/0/26 | 0 / 1 | Hu0/x/1/0 | 0 / 0 | Te0/x/2/11 | 0 / 1 |
 | Te0/x/0/13 | 0 / 1 | TF0/x/0/27 | 0 / 1 | Hu0/x/1/1 | 0 / 1 | - | - |
 
-### NCS55-36X100G-A-SE
-
-Finally, this line card is using 4 Jericho+ with new generation eTCAM.
-
-![NC55-36X100G-A-SE.jpg]({{site.baseurl}}/images/NC55-36X100G-A-SE.jpg)
-
-| Interface | NPU/Core | Interface | NPU/Core | Interface | NPU/Core | Interface | NPU/Core |
-|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
-| Hu0/x/0/0 | 0 / 1 | Hu0/x/0/9 | 1 / 1  | Hu0/x/0/18 | 2 / 1 | Hu0/x/0/27 | 3 / 1 |
-| Hu0/x/0/1 | 0 / 1 | Hu0/x/0/10 | 1 / 1 | Hu0/x/0/19 | 2 / 1 | Hu0/x/0/28 | 3 / 1 |
-| Hu0/x/0/2 | 0 / 1 | Hu0/x/0/11 | 1 / 1 | Hu0/x/0/20 | 2 / 1 | Hu0/x/0/29 | 3 / 1 |
-| Hu0/x/0/3 | 0 / 0 | Hu0/x/0/12 | 1 / 0 | Hu0/x/0/21 | 2 / 0 | Hu0/x/0/30 | 3 / 0 |
-| Hu0/x/0/4 | 0 / 0 | Hu0/x/0/13 | 1 / 0 | Hu0/x/0/22 | 2 / 0 | Hu0/x/0/31 | 3 / 0 |
-| Hu0/x/0/5 | 0 / 0 | Hu0/x/0/14 | 1 / 0 | Hu0/x/0/23 | 2 / 0 | Hu0/x/0/32 | 3 / 0 |
-| Hu0/x/0/6 | 0 / 0 | Hu0/x/0/15 | 1 / 0 | Hu0/x/0/24 | 2 / 0 | Hu0/x/0/33 | 3 / 0 |
-| Hu0/x/0/7 | 0 / 1 | Hu0/x/0/16 | 1 / 1 | Hu0/x/0/25 | 2 / 1 | Hu0/x/0/34 | 3 / 1 |
-| Hu0/x/0/8 | 0 / 0 | Hu0/x/0/17 | 1 / 0 | Hu0/x/0/26 | 2 / 0 | Hu0/x/0/35 | 3 / 0 |
 
 ### NCS-55A1-48Q6H 
 
@@ -367,36 +443,6 @@ Note: Core0: 20x 100G and Core1: 4x100G + 5x400G
 Keep it in mind for the snake tests
 {: .notice--info}
 
-### NC57-24DD 
 
-High Density 400G Line card based on 2xJ2 chipset.
 
-![Screenshot 2021-04-10 at 7.42.35 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 7.42.35 PM.png)
 
-| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
-|-----------|----------|------------|----------|------------|----------|------------|----------|
-| FH0/x/0/0 | 0 / 0    | FH0/x/0/6  | 0 / 1    | FH0/x/0/12 | 1 / 0    | FH0/x/0/18 | 1 / 1    |
-| FH0/x/0/1 | 0 / 0    | FH0/x/0/7  | 0 / 1    | FH0/x/0/13 | 1 / 0    | FH0/x/0/19 | 1 / 1    |
-| FH0/x/0/2 | 0 / 0    | FH0/x/0/8  | 0 / 1    | FH0/x/0/14 | 1 / 0    | FH0/x/0/29 | 1 / 1    |
-| FH0/x/0/3 | 0 / 0    | FH0/x/0/9  | 0 / 1    | FH0/x/0/15 | 1 / 0    | FH0/x/0/21 | 1 / 1    |
-| FH0/x/0/4 | 0 / 0    | FH0/x/0/10 | 0 / 1    | FH0/x/0/16 | 1 / 0    | FH0/x/0/22 | 1 / 1    |
-| FH0/x/0/5 | 0 / 0    | FH0/x/0/11 | 0 / 1    | FH0/x/0/17 | 1 / 0    | FH0/x/0/23 | 1 / 1    |
-
-### NC57-18DD-SE
-
-High Density Line card with combination of 100G and 400G native ports. It is based on 2xJ2 chipset. Allows Flexible combination of 400G/100G/200G/40G optics and breakout options. 
-
-![Screenshot 2021-04-10 at 11.29.40 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-10 at 11.29.40 PM.png)
-
-| Interface | NPU/Core | Interface  | NPU/Core | Interface  | NPU/Core |
-|-----------|----------|------------|----------|------------|----------|
-| Hu0/x/0/0 | 0 / 0    | Hu0/x/0/10 | 0 / 1    | FH0/x/0/20 | 1 / 0    |
-| Hu0/x/0/1 | 0 / 0    | Hu0/x/0/11 | 0 / 1    | FH0/x/0/21 | 1 / 1    |
-| Hu0/x/0/2 | 0 / 0    | Hu0/x/0/12 | 0 / 1    | FH0/x/0/22 | 1 / 1    |
-| Hu0/x/0/3 | 0 / 0    | Hu0/x/0/13 | 0 / 1    | FH0/x/0/23 | 1 / 1    |
-| Hu0/x/0/4 | 0 / 0    | Hu0/x/0/14 | 1 / 0    | FH0/x/0/24 | 1 / 1    |
-| Hu0/x/0/5 | 0 / 0    | Hu0/x/0/15 | 1 / 0    | FH0/x/0/25 | 1 / 1    |
-| Hu0/x/0/6 | 0 / 0    | Hu0/x/0/16 | 1 / 0    | FH0/x/0/26 | 0 / 1    |
-| Hu0/x/0/7 | 0 / 0    | Hu0/x/0/17 | 1 / 0    | FH0/x/0/27 | 0 / 1    |
-| Hu0/x/0/8 | 0 / 0    | FH0/x/0/18 | 1 / 0    | FH0/x/0/28 | 0 / 1    |
-| Hu0/x/0/9 | 0 / 0    | FH0/x/0/19 | 1 / 0    | FH0/x/0/29 | 0 / 1    |
