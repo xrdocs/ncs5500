@@ -40,7 +40,7 @@ To overcome these limitations, it is possible to run BoB and BLB in parallel on 
 ## BoB and BLB Coexistence Feature Support
 
   - The feature is supported from IOS-XR 741.
-  - It is supported on all the platforms including **NCS 540**, **NCS 560** and **NCS 5500** (including systems based on J2).
+  - It is supported on all the platforms including **NCS 540**, **NCS 560** and **NCS 5500** (including systems based on J2 Native and Compatible modes).
   - Support for two modes: Inherit and Logical
   - Supported for BFD v4 and v6 sessions
 
