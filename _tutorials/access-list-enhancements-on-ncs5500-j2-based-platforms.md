@@ -98,3 +98,51 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 
 So we have verified that in Jericho2 based platforms we no longer need to configure the hw-module profile for ingress stats. They are enabled by default. We can automatically see the permit and deny hits for the applied ACL's
 
+## Ingress ACL on External TCAM
+
+Prior to IOS-XR release 7.2.1, traditional ingress IPV4/IPV6 ACLs were always programmed on the internal TCAM of a line card or fixed system be it a base or scale version. From IOS-XR 7.2.1, the programming of the ingress ACLs will be done on the external TCAM for the J2 based scale systems. Let us verify the same with an example. We have an access-list configured as below and applied in the ingress direction of an interface of J2 based Line card (NC57-18DD-SE)
+
+```
+ipv4 access-list permit-stats
+ 10 permit ipv4 25.1.7.0 0.0.0.255 any
+ 20 deny ipv4 26.1.7.0 0.0.0.255 any
+ 30 permit ipv4 host 50.1.1.1 any
+ 35 deny ipv4 62.6.69.128 0.0.0.15 any
+ 40 deny ipv4 any 62.80.66.128 0.0.0.15
+ 45 deny ipv4 62.80.66.128 0.0.0.15 any
+ 50 deny ipv4 any 62.134.38.0 0.0.0.127
+ 60 permit tcp any eq bgp host 1.2.3.1
+ 70 permit tcp any host 1.2.3.1 eq bgp
+ 80 deny ipv4 any host 1.2.3.1
+ 90 deny ipv4 any 212.21.217.0 0.0.0.255
+ 100 permit ipv4 any any
+```
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface FourHundredGigE0/3/0/21
+ cdp
+ ipv4 address 30.1.1.2 255.255.255.0
+ <mark>ipv4 access-group permit-stats ingress</mark>
+!
+</code>
+</pre>
+</div>
+
+![Screenshot 2021-08-31 at 11.15.11 PM.png]({{site.baseurl}}/images/Screenshot 2021-08-31 at 11.15.11 PM.png)
+
+![Screenshot 2021-08-31 at 11.21.55 PM.png]({{site.baseurl}}/images/Screenshot 2021-08-31 at 11.21.55 PM.png)
+
+The above output shows that ACL programming has been done in the external TCAM. The interface belongs to NPU 1. It used the bank ID 15 and the database alloted for the ingress V4 ACL. It shows 15 entries per DB (12 ACEs plus 3 internal entries). 
+
+### Summary of TCAM Usage
+
+| System           | Traditional Ingress ACL | Ingress ACL with UDK/UDF | Egress ACL    | Hybrid Ingress ACL |
+|------------------|-------------------------|--------------------------|---------------|--------------------|
+| J2 with eTCAM    | External TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
+| J+ with eTCAM    | Internal TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
+| J with eTCAM     | Internal TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
+| J2 without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
+| J+ without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
+| J without eTCAM  | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
