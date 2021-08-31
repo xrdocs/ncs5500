@@ -146,3 +146,67 @@ The above output shows that ACL programming has been done in the external TCAM. 
 | J2 without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
 | J+ without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
 | J without eTCAM  | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
+
+
+## Ingress and Egress Default TCAM Keys
+
+In NCS5500 and NCS500 family products, we have the concept of default TCAM keys and user-defined TCAM keys- UDK. For details on the two different key types please [refer](https://xrdocs.io/ncs5500/tutorials/user-defined-key-udk-for-ncs55xx-and-ncs5xx/). Due to enhance capabilities of J2 chipset we have made changes to the default TCAM key support for IPv4 and IPv6 both in ingress and egress directions. 
+
+### IPV4 Ingress Default TCAM keys
+
+| IPv4 Match Fields             | Support | Comment                                                                          |
+|-------------------------------|---------|----------------------------------------------------------------------------------|
+| Src Address                   | Yes     |                                                                                  |
+| Dst Address                   | Yes     |                                                                                  |
+| Source Port or ICMP Code/Type | Yes     |                                                                                  |
+| Destination Port              | Yes     |                                                                                  |
+| TOS/DSCP                      | Yes     |                                                                                  |
+| Packet Length                 | Yes     | Part of the default TCAM key from IOS-XR 7.2.1. Previously allowed only with UDK |
+| TCP Flags                     | Yes     |                                                                                  |
+| Fragments                     | Yes     | Part of the default TCAM key from IOS-XR 7.2.1. Previously allowed only with UDK |
+| Fragment Offset               | Yes     |                                                                                  |
+| Protocol                      | Yes     |                                                                                  |
+
+### IPV6 Ingress Default TCAM keys
+
+| IPv6 Match Fields             | Support | Comment                                                                          |
+|-------------------------------|---------|----------------------------------------------------------------------------------|
+| Src Address                   | Yes     |                                                                                  |
+| Dst Address                   | Yes     |                                                                                  |
+| Source Port or ICMP Code/Type | Yes     |                                                                                  |
+| Destination Port              | Yes     |                                                                                  |
+| Traffic Class (DSCP)          | Yes     |                                                                                  |
+| Packet Length                 | Yes     | Part of the default TCAM key from IOS-XR 7.2.1. Previously allowed only with UDK |
+| TCP Flags                     | Yes     |                                                                                  |
+| Next-header                   | Yes     |                                                                                  |
+
+
+### IPV4 Egress Default TCAM keys
+
+| IPv4 Match Fields             | Support | Comment                                                                          |
+|-------------------------------|---------|----------------------------------------------------------------------------------|
+| Src Address                   | Yes     |                                                                                  |
+| Dst Address                   | Yes     |                                                                                  |
+| Source Port or ICMP Code/Type | Yes     |                                                                                  |
+| Destination Port              | Yes     |                                                                                  |
+| TOS/DSCP                      | Yes     |                                                                                  |
+| Packet Length                 | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
+| TCP Flags                     | Yes     |                                                                                  |
+| Fragments                     | Yes     |                                                                                  |
+| Protocol                      | Yes     |                                                                                  |
+
+
+### IPV6 Egress Default TCAM keys
+
+| IPv6 Match Fields             | Support | Comment                                                                          |
+|-------------------------------|---------|----------------------------------------------------------------------------------|
+| Src Address                   | Yes     |                                                                                  |
+| Dst Address                   | Yes     | Changed to 96 bits only                                                          |
+| Source Port or ICMP Code/Type | Yes     |                                                                                  |
+| Destination Port              | Yes     |                                                                                  |
+| Traffic Class/DSCP            | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
+| Packet Length                 | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
+| TCP Flags                     | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
+| Fragments                     | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
+| Next Header                   | Yes     |                                                                                  |
+
