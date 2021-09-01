@@ -145,9 +145,9 @@ Let us summarise the TCAM usage for the ingress and egress ACLs w.r.t TCAMs used
 
 | System           | Traditional Ingress ACL | Ingress ACL with UDK/UDF | Egress ACL    | Hybrid Ingress ACL |
 |------------------|-------------------------|--------------------------|---------------|--------------------|
-| J2 with eTCAM    | External TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
-| J+ with eTCAM    | Internal TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
-| J with eTCAM     | Internal TCAM           | Internal TCAM            | Internal TCAM | External TCAM      |
+| J2 with eTCAM    | External TCAM           | Internal TCAM            | Internal TCAM | External and Internal TCAM      |
+| J+ with eTCAM    | Internal TCAM           | Internal TCAM            | Internal TCAM | External and Internal TCAM      |
+| J with eTCAM     | Internal TCAM           | Internal TCAM            | Internal TCAM | External and Internal TCAM      |
 | J2 without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
 | J+ without eTCAM | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
 | J without eTCAM  | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
