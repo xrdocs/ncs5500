@@ -31,9 +31,9 @@ There have been quite a few changes in implementation and support for ACLs on Je
 
 ## Permit Stats 
 
-Let us first start with the permit statistics. As we know, in the platforms with J/J+/Q-MX we have limited hardware resources and we need to use them wisely if we need to accomodate different features together. In these platforms, by default ACL permit stats is not accounted for in ingress direction due to resource sharing. We need to enable _hw-module profile stats acl-permit_, to allocate statistic entries to permit ACEs. But there is a drawback after enabling this profile. If acl-permit is configured, qos-enhanced or other options are disabled. But with J2 based platforms, the above permit stats CLI is no longer needed. By default we can allocate statistic entries.
+Let us first start with the permit statistics. As we know, when it comes to NCS5500 and NCS500, we have limited hardware resources and we need to use them wisely if we need to accomodate different features together. In these platforms, by default ACL permit stats is not accounted for in the ingress direction due to resource sharing. We need to enable _hw-module profile stats acl-permit_, to allocate statistic entries to permit ACEs. But there is a drawback after enabling this profile. If acl-permit is configured, qos-enhanced or other options are disabled. But with J2 based platforms, the above permit stats CLI is no longer needed. By default we can allocate statistic entries.
 
-Let us check this with an example. We have a Jericho2 based platform in slot 3. We apply the ACL in the ingress direction and permit the end to end traffic from IXIA
+Let us check this with an example. We have a NC57-18DD-SE in slot 3. We apply the ACL in the ingress direction and send traffic from IXIA.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -74,7 +74,7 @@ interface FourHundredGigE0/3/0/21
 
 ![Screenshot 2021-08-31 at 6.19.02 PM.png]({{site.baseurl}}/images/Screenshot 2021-08-31 at 6.19.02 PM.png)
 
-We have not configured the _hw-module profile stats acl-permit_ 
+We have **not** configured _**hw-module profile stats acl-permit**_ 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -98,11 +98,11 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 </pre>
 </div>
 
-So we have verified that in Jericho2 based platforms we no longer need to configure the hw-module profile for ingress stats. They are enabled by default. We can automatically see the permit and deny hits for the applied ACL's
+The above output shows that Jericho2 based platforms, no longer need the hw-module profile for ingress stats. The stats are enabled by default. 
 
 ## Ingress ACL on External TCAM
 
-Prior to IOS-XR release 7.2.1, traditional ingress IPV4/IPV6 ACLs were always programmed on the internal TCAM of a line card or fixed system be it a base or scale version. From IOS-XR 7.2.1, the programming of the ingress ACLs will be done on the external TCAM for the J2 based scale systems. Let us verify the same with an example. We have an access-list configured as below and applied in the ingress direction of an interface of J2 based Line card (NC57-18DD-SE)
+Prior to IOS-XR release 7.2.1, traditional ingress IPv4/IPv6 ACLs were always programmed on the internal TCAM of a line card or fixed system be it a base or scale version. From IOS-XR 7.2.1, the programming of the ingress ACLs will be done on the external TCAM for the J2 based scale systems. Let us verify the same with an example. We have an access-list configured as below and applied in the ingress direction on interface of NC57-18DD-SE
 
 ```
 ipv4 access-list permit-stats
@@ -136,9 +136,12 @@ interface FourHundredGigE0/3/0/21
 
 ![Screenshot 2021-08-31 at 11.21.55 PM.png]({{site.baseurl}}/images/Screenshot 2021-08-31 at 11.21.55 PM.png)
 
-The above output shows that ACL programming has been done in the external TCAM. The interface belongs to NPU 1. It used the bank ID 15 and the database alloted for the ingress V4 ACL. It shows 15 entries per DB (12 ACEs plus 3 internal entries). 
+The above output shows that ACL programming has been done in the external TCAM. The interface belongs to NPU 1. It used the bank ID 15 and the database alloted for the ingress v4 ACL. It shows 15 entries per DB (12 ACEs plus 3 internal entries). 
 
 ### Summary of TCAM Usage
+
+Let us summarise the TCAM usage for the ingress and egress ACLs w.r.t TCAMs used.
+
 
 | System           | Traditional Ingress ACL | Ingress ACL with UDK/UDF | Egress ACL    | Hybrid Ingress ACL |
 |------------------|-------------------------|--------------------------|---------------|--------------------|
@@ -159,7 +162,7 @@ From the above table, we can see that when using a fixed system or Line card wit
 
 ## Ingress and Egress Default TCAM Keys
 
-In NCS5500 and NCS500 family products, we have the concept of default TCAM keys and user-defined TCAM keys- UDK. For details on the two different key types please [refer](https://xrdocs.io/ncs5500/tutorials/user-defined-key-udk-for-ncs55xx-and-ncs5xx/). Due to enhance capabilities of J2 chipset we have made changes to the default TCAM key support for IPv4 and IPv6 both in ingress and egress directions. 
+In NCS5500 and NCS500, we have the concept of default TCAM keys and user-defined TCAM keys- UDK. For details on the two different key types please [refer](https://xrdocs.io/ncs5500/tutorials/user-defined-key-udk-for-ncs55xx-and-ncs5xx/). Due to enhance capabilities of J2 chipset we have made changes to the default TCAM key support for IPv4 and IPv6 both in ingress and egress directions. 
 
 ### IPV4 Ingress Default TCAM keys
 
@@ -224,7 +227,7 @@ Note: This is applicable for both J2 Native and Compatible Mode.
 
 ## Scale 
 
-As of IOS-XR 741, the scale on the J2 based platforms will be same as previous generations. There is a plan to increase the scale in future releases. Stay tuned !!!
+As of IOS-XR 7.4.1, the scale on the J2 based platforms will be same as previous generations. There is a plan to increase the scale in future releases. Stay tuned !!!
 
 ## Thank You
 
@@ -232,7 +235,7 @@ Special thanks to Shruthi (shrucs@cisco.com) for her valuable inputs during the 
 
 ## Summary
 
-Hope this article was helpful. We covered the new enhancements/support and the programming difference in the new platforms. In the upcoming articles we will cover the IPv6 egress ACL's, ACL for IPv6 EH support, ACL support on BVI interface. We will also have a separate article on how to increase the scale. Stay tuned !!!
+Hope this article was helpful. We covered the new enhancements/support and the programming difference in the new platforms. In the upcoming articles we will cover the IPv6 egress ACL's, ACL for IPv6 EH support, ACL support on BVI interface. We will also have a separate article on how to increase the scale. Stay tuned for the same !!!
 
 
 
