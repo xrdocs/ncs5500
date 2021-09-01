@@ -27,6 +27,8 @@ We discussed [ACL implementation](https://xrdocs.io/ncs5500/tutorials/security-a
 
 ![Screenshot 2021-08-31 at 10.54.58 AM.png]({{site.baseurl}}/images/Screenshot 2021-08-31 at 10.54.58 AM.png)
 
+There have been quite a few changes in implementation and support for ACLs on Jericho2 based platforms. Right from the permit stats availability to the programming of Ingress ACL on eTCAM. We also have introduced the support for more Default Keys for both ingress and egress ACLs. We no more need recyling of the IPv6 egress ACLs. We have the more support on the BVI interfaces compared to previous platforms. So let us start looking into each of them.
+
 ## Permit Stats 
 
 Let us first start with the permit statistics. As we know, in the platforms with J/J+/Q-MX we have limited hardware resources and we need to use them wisely if we need to accomodate different features together. In these platforms, by default ACL permit stats is not accounted for in ingress direction due to resource sharing. We need to enable _hw-module profile stats acl-permit_, to allocate statistic entries to permit ACEs. But there is a drawback after enabling this profile. If acl-permit is configured, qos-enhanced or other options are disabled. But with J2 based platforms, the above permit stats CLI is no longer needed. By default we can allocate statistic entries.
@@ -230,7 +232,7 @@ Special thanks to Shruthi (shrucs@cisco.com) for her valuable inputs during the 
 
 ## Summary
 
-Hope this article was helpful. We covered the new enhancements/support and the programming difference in the new platforms. In the upcoming articles we will cover more such details for various ACL features and their implementation w.r.t new chipset.
+Hope this article was helpful. We covered the new enhancements/support and the programming difference in the new platforms. In the upcoming articles we will cover the IPv6 egress ACL's, ACL for IPv6 EH support, ACL support on BVI interface. We will also have a separate article on how to increase the scale. Stay tuned !!!
 
 
 
