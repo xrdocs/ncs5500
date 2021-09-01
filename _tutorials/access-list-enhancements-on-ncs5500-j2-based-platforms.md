@@ -4,7 +4,7 @@ date: '2021-08-31 10:01 +0530'
 title: Access-List Enhancements on NCS5500 J2 based platforms
 author: Tejas Lad
 excerpt: This document will introduce the behaviour of ACL on J2 based platforms
-position: hidden
+position: top
 tags:
   - iosxr
   - cisco
