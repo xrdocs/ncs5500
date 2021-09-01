@@ -219,3 +219,18 @@ In NCS5500 and NCS500 family products, we have the concept of default TCAM keys 
 
 Note: This is applicable for both J2 Native and Compatible Mode.
 {: .notice--info}
+
+## Scale 
+
+As of IOS-XR 741, the scale on the J2 based platforms will be same as previous generations. There is a plan to increase the scale in future releases. Stay tuned !!!
+
+## Thank You
+
+Special thanks to Shruthi (shrucs@cisco.com) for her valuable inputs during the article.
+
+## Summary
+
+Hope this article was helpful. We covered the new enhancements/support and the programming difference in the new platforms. In the upcoming articles we will cover more such details for various ACL features and their implementation w.r.t new chipset.
+
+
+
