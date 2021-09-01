@@ -148,6 +148,13 @@ The above output shows that ACL programming has been done in the external TCAM. 
 | J without eTCAM  | Internal TCAM           | Internal TCAM            | Internal TCAM | Not Supported      |
 
 
+Note: This is applicable for both J2 Native and Compatible Mode.
+{: .notice--info}
+
+### Advantage of programming ingress ACLs in external TCAM
+
+From the above table, we can see that when using a fixed system or Line card with external TCAM, the traditional ingress ACLs are programmed on external TCAM. The main advantage is that the resources on the internal TCAM can now be used for other features and statistics.
+
 ## Ingress and Egress Default TCAM Keys
 
 In NCS5500 and NCS500 family products, we have the concept of default TCAM keys and user-defined TCAM keys- UDK. For details on the two different key types please [refer](https://xrdocs.io/ncs5500/tutorials/user-defined-key-udk-for-ncs55xx-and-ncs5xx/). Due to enhance capabilities of J2 chipset we have made changes to the default TCAM key support for IPv4 and IPv6 both in ingress and egress directions. 
@@ -210,3 +217,5 @@ In NCS5500 and NCS500 family products, we have the concept of default TCAM keys 
 | Fragments                     | Yes     | Part of the default TCAM key from IOS-XR 7.4.1. Previously allowed only with UDK |
 | Next Header                   | Yes     |                                                                                  |
 
+Note: This is applicable for both J2 Native and Compatible Mode.
+{: .notice--info}
