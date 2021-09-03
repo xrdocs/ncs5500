@@ -115,9 +115,9 @@ It offers 24 ports 100G and 5 or 6 ports 400G. So it's possible to imagine cases
 
 A couple of examples among many other possibilities:
 
-![24+6.png]({{site.baseurl}}/images/24+6.png){: .align-center}
+![24+6-.png]({{site.baseurl}}/images/24+6-.png){: .align-center}
 
-![32+4.png]({{site.baseurl}}/images/32+4.png){: .align-center}
+![32+4-.png]({{site.baseurl}}/images/32+4-.png){: .align-center}
 
 ![48.png]({{site.baseurl}}/images/48.png){: .align-center}
 
@@ -254,10 +254,4 @@ MACsec is not supported in IOS XR 7.3.1 but is tracked in the roadmap (contact y
 ## Conclusion
 
 This new router is the first Jericho2-based platform in fixed form factor. It offers a very high 100G and 400G port density in a very small size (1RU).  
-In a future article, we will demonstrate the routing scale and prefix programming speed in J2.  
-
-
-
-
-
-
+In a future article, we will demonstrate the routing scale and prefix programming speed in J2.
