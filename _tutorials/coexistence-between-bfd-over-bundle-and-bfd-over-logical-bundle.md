@@ -645,10 +645,7 @@ While choosing between the coexistence mode, we need to understand how each mode
 
 There is no memory impact expected while configuring the BoB and BLB coexistence. When using inherit mode the scale will only be considered for the BoB sessions. With logical mode it would be a summation of BoB and BLB. The overall scale calculation will not change and remain as per the existing scale supported. For details on how the scale is calculated please [refer](https://xrdocs.io/ncs5500/tutorials/bfd-architecture-on-ncs5500-and-ncs500/).
 
-## Video for quick reference
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/watch?v=wDfZLHZzOS4&t=121s" frameborder="0" allowfullscreen></iframe>{: .align-center}
-.
 ## Summary
 
 Hope you find this article useful. We covered a quick background BoB and BLB and what are their limitations are when using either of them. We saw how the BoB and BLB coexistence can help BFD converge faster and give better results. We saw the configuration examples along with igp as ISIS. This feature is supported with OSPF, BGP as well as static. We discussed on what basis we can select the coexistence mode. As a best practice, for faster convergence we should use BoB-BLB coexistence wherever possible.
