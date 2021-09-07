@@ -34,6 +34,24 @@ Bridge-Domain: It is a layer 2 broadcast domain
   - Interconnect bridged and routed networks
   - Preserve network addresses
   - Bridge local traffic for efficient network performance
+
+## Configuring ACL and attaching to BVI interface
+
+Configuration and attachment of an ACL over BVI interface is similar to regular ACLs and attachment to a physical interface. Let us check out the same.
+
+### Ingress V4 ACL
+
+### Ingress V6 ACL
+
+### Egress V4 ACL
+
+### Egress V6 ACL
+
+
+
+
+
+
   
   
 
