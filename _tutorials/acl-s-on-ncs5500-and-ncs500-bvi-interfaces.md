@@ -17,4 +17,23 @@ position: hidden
 
 ## Introduction
 
+In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/), we introduced the ACL enhancements on NCS5500 based on J2 chipsets. In this article, we will introduce the ACL implementation on NCS5500 w.r.t to BVI interfaces. We will cover all the platforms based on J/J+ and J2. 
+
+## Quick Recap: Bridged Virtual Interface - BVI 
+
+![Screenshot 2021-09-07 at 3.52.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-07 at 3.52.22 PM.png)
+
+Before we move on the ACL feature, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router.
+It is associated to a bridge group using the routed interface bvi command. 
+
+Bridge-Domain: It is a layer 2 broadcast domain
+{: .notice--info}
+
+### Main Use cases
+
+  - Interconnect bridged and routed networks
+  - Preserve network addresses
+  - Bridge local traffic for efficient network performance
+  
+  
 
