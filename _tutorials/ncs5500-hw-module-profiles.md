@@ -19,6 +19,7 @@ position: top
 | 2020-Jul-31 | Add: hw-mod profile bw-threshold |
 | 2020-Aug-10 | Add: comment on the need to use UDK profile for packet-length match in ACL |
 | 2021-Apr-3  | Add: hw-mod profiles till 7.3.1, updated the support for J2 based platforms for exisiting profiles | 
+| 2021-Sept-9  | Add: hw-mod profiles till 7.4.1, updated the support for J2 based platforms for exisiting profiles | 
 
 
 
@@ -53,10 +54,11 @@ Many thanks to:
 - Richard Poll
 - Tejas Lad
 - Angu Chakravarthy
+- Paban Sarma
 
 ## Hardware Module CLI hierarchy
 
-For this article, we use IOS XR 6.6.3, 7.0.2, 7.3.1. The document will be updated regularly.  
+For this article, we use IOS XR 6.6.3, 7.0.2, 7.3.1, 7.4.1 . The document will be updated regularly.  
 
 ### Graphical view of the 6.6.3 structure
 
@@ -601,6 +603,8 @@ Hash-indices 11 and 12 result in a per-pkt based distribution across bundle. So 
 {: .notice--info}
 
 
+
+
 ### bw-threshold
 
 <div class="highlighter-rouge">
@@ -681,6 +685,30 @@ There are 6 modes which can be configured. The default (i.e. with no configurati
  
 These profiles can be activated without requiring a reload of the system or the line card.
 {: .notice--info}
+
+**_hw-module profile load-balance algorithm PPPoE_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile load-balance algorithm ?
+  L3-only                        L3 Header only Hash.
+  PPPoE                          PPPoE session based optimized hash. Reload is required for this option
+  gtp                            GTP optimized.
+  gtp-mpls                       GTP over MPLS optimized hash.
+  ip-tunnel                      IP tunnel optimized.
+  layer2                         Layer 2 optimized.
+  mpls-safe-speculative-parsing  MPLS safe Speculative parsing.
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile load-balance algorithm PPPoE
+Thu Aug 26 11:12:31.971 PDT
+reload of all chassis/all line cards is required only for PPPoE option configuration/removal
+</code>
+</pre>
+</div>
+
+![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png)
+
+This new load balancing algorthim is introduced in IOS XR 7.4.1 and currently applicable to only J and J+ based NCS 5500 PIDs. When this hw-module profile is enabled it allows ECMP and LAG hashing based on inner header (IPv4/IPv6) soon after PPPoE header for Layer 2  P2P and P2MP bridging cases. A unique FAT label is allocated for this load-balancing to happen. Unlike the other load-balancing profiles, the router needs to be reloaded to enable this mode.
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/b-ncs5500-interfaces-cli-reference/b-ncs5500-interfaces-cli-reference_chapter_011.html#wp2176473466](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/b-ncs5500-interfaces-cli-reference/b-ncs5500-interfaces-cli-reference_chapter_011.html#wp2176473466)
@@ -1131,6 +1159,126 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 ![02.png]({{site.baseurl}}/images/02.png){: .align-center}
 
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
+
+`Note: The encapsulation option is deprecated in 7.4.1 as NCS 5500 will support both SRv6 base and SRv6 uSID modes. Therefore SRv6 related hardware command will follow hw-module profile segment-routing srv6 mode <> and are described below`
+
+**_hw-module profile segment-routing srv6 mode base_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 ?
+  encapsulation  Configure encapsulation parameters (DEPRECATED)
+  mode           Mode of operation
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode ?
+  base           Base SRv6 (Format-1) support only
+  micro-segment  Micro-segment support only
+
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base ?
+  encapsulation  Configure encapsulation parameters
+  -cr-
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base
+Thu Sep  9 06:23:24.077 UTC
+In order to activate/deactivate this srv6 profile, you must manually reload the chassis/all line cards
+</code>
+</pre>
+</div>
+ 
+  ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
+  
+ This hw-module mode enables Segment Routing v6 (SRv6) on the node using base SRH format. To enable disable any SRv6 related profile the router needs to be reloaded.
+ 
+
+ **_hw-module profile segment-routing srv6 mode base encapsulation_**
+ 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation ?
+  traffic-class  Control traffic-class field on IPv6 header
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation traffic-class ?
+  -0x0-0xff-  Traffic-class value (specified as 2 hexadecimal nibbles)
+  propagate   Propagate traffic-class from incoming packet/frame
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation traffic-class 0xe0
+ </code>
+</pre>
+</div>
+  
+ <div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation ?
+  traffic-class  Control traffic-class field on IPv6 header
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation traffic-class ?
+  -0x0-0xff-  Traffic-class value (specified as 2 hexadecimal nibbles)
+  propagate   Propagate traffic-class from incoming packet/frame
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode base encapsulation traffic-class propagate
+ </code>
+</pre>
+</div>
+   
+ ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
+
+
+The encapsulation option followed by the base SRH format decides the QoS bits for the SRv6 header. The TC value on the IPv6 header can be either set explicitly to any value in the range of 0x00-0xff . This value is global for all the SRv6 services that starts on the box. When configured with propagate, QoS marking of the incoming payload is propagated to the SRv6 TC marking. For L3VPN IP Precedence is copied to the SRv6 header IPv6 precedence. For L2VPN the Layer 2 PCP markings are copied to the SRv6 Precedence. A relaod is must to enable disable any SRv6 propagation mode.
+
+**_hw-module profile segment-routing srv6  mode micro-segment format f3216_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment ?
+  format  Specify carrier format
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format ?
+  f3216  32-bit block and 16-bit IDs
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format f3216 ?
+  encapsulation  Configure encapsulation parameters
+  -cr-
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format f3216
+Wed Aug 25 22:58:12.659 PDT
+In order to activate/deactivate this srv6 profile, you must manually reload the chassis/all line cards
+   </code>
+</pre>
+</div>
+  
+   ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
+  
+Introdcued in IOS XR 7.3.1/7.4.1. with this hw-module profile enables SRv6 uSID instead of base SRH format on the node. This needs a router reload to be enabled. 
+
+
+**_hw-module profile segment-routing srv6  mode micro-segment format f3216 encapsulation_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format f3216  encapsulation ?
+  traffic-class  Control traffic-class field on IPv6 header
+RP/0/RP1/CPU0:5508-1-741C(config)#$ode micro-segment format f3216  encapsulation traffic-class ?
+  -0x0-0xff-  Traffic-class value (specified as 2 hexadecimal nibbles)
+  propagate   Propagate traffic-class from incoming packet/frame
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format f3216  encapsulation traffic-class 0xe0
+Wed Aug 25 23:01:54.477 PDT
+In order to activate/deactivate this srv6 profile, you must manually reload the chassis/all line cards
+  </code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6  mode micro-segment format f3216  encapsulation traffic-class propagate
+Wed Aug 25 23:01:59.065 PDT
+In order to activate/deactivate this srv6 profile, you must manually reload the chassis/all line cards
+  </code>
+</pre>
+</div>
+
+   ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
+   
+   The encapsulation option followed by the micro-segment mode decides the QoS bits for the SRv6 header. The TC value on the IPv6 header can be either set explicitly to any value in the range of 0x00-0xff . This value is global for all the SRv6 services on the box. When configured with propagate, QoS marking of the incoming payload is propagated to the SRv6 TC marking. For L3VPN IP Precedence is copied to the SRv6 header IPv6 precedence. For L2VPN the Layer 2 PCP markings are copied to the SRv6 Precedence.
+A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.
+
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/66x/b-segment-routing-cg-ncs5500-66x/b-segment-routing-cg-ncs5500-66x_chapter_011.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/66x/b-segment-routing-cg-ncs5500-66x/b-segment-routing-cg-ncs5500-66x_chapter_011.html)
