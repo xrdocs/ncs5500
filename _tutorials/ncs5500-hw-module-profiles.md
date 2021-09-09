@@ -708,7 +708,9 @@ reload of all chassis/all line cards is required only for PPPoE option configura
 
 ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png)
 
-This new load balancing algorthim is introduced in IOS XR 7.4.1 and currently applicable to only J and J+ based NCS 5500 PIDs. When this hw-module profile is enabled it allows ECMP and LAG hashing based on inner header (IPv4/IPv6) soon after PPPoE header for Layer 2  P2P and P2MP bridging cases. A unique FAT label is allocated for this load-balancing to happen. Unlike the other load-balancing profiles, the router needs to be reloaded to enable this mode.
+This new load balancing algorthim is introduced in IOS XR 7.4.1 and currently applicable to only J and J+ based NCS 5500 PIDs. When this hw-module profile is enabled it allows ECMP and LAG hashing based on inner header (IPv4/IPv6) soon after PPPoE header for Layer 2  P2P and P2MP bridging cases. A unique FAT label is allocated for this load-balancing to happen. 
+
+`NOTE: Unlike the other load-balancing profiles, the router needs to be reloaded to enable this mode`
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/b-ncs5500-interfaces-cli-reference/b-ncs5500-interfaces-cli-reference_chapter_011.html#wp2176473466](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/b-ncs5500-interfaces-cli-reference/b-ncs5500-interfaces-cli-reference_chapter_011.html#wp2176473466)
@@ -1186,7 +1188,9 @@ In order to activate/deactivate this srv6 profile, you must manually reload the 
  
   ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
   
- This hw-module mode enables Segment Routing v6 (SRv6) on the node using base SRH format. To enable disable any SRv6 related profile the router needs to be reloaded.
+ This hw-module mode enables Segment Routing v6 (SRv6) on the node using base SRH format. 
+ 
+ `A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.`
  
 
  **_hw-module profile segment-routing srv6 mode base encapsulation_**
@@ -1220,7 +1224,9 @@ RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile segment-routing srv6 mode ba
  ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
 
 
-The encapsulation option followed by the base SRH format decides the QoS bits for the SRv6 header. The TC value on the IPv6 header can be either set explicitly to any value in the range of 0x00-0xff . This value is global for all the SRv6 services that starts on the box. When configured with propagate, QoS marking of the incoming payload is propagated to the SRv6 TC marking. For L3VPN IP Precedence is copied to the SRv6 header IPv6 precedence. For L2VPN the Layer 2 PCP markings are copied to the SRv6 Precedence. A relaod is must to enable disable any SRv6 propagation mode.
+The encapsulation option followed by the base SRH format decides the QoS bits for the SRv6 header. The TC value on the IPv6 header can be either set explicitly to any value in the range of 0x00-0xff . This value is global for all the SRv6 services that starts on the box. When configured with propagate, QoS marking of the incoming payload is propagated to the SRv6 TC marking. For L3VPN IP Precedence is copied to the SRv6 header IPv6 precedence. For L2VPN the Layer 2 PCP markings are copied to the SRv6 Precedence. 
+
+`A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.`
 
 **_hw-module profile segment-routing srv6  mode micro-segment format f3216_**
 
@@ -1243,7 +1249,8 @@ In order to activate/deactivate this srv6 profile, you must manually reload the 
   
    ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
   
-Introdcued in IOS XR 7.3.1/7.4.1. with this hw-module profile enables SRv6 uSID instead of base SRH format on the node. This needs a router reload to be enabled. 
+Introdcued in IOS XR 7.3.1/7.4.1. with this hw-module profile enables SRv6 uSID instead of base SRH format on the node. 
+`A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.`
 
 
 **_hw-module profile segment-routing srv6  mode micro-segment format f3216 encapsulation_**
@@ -1277,7 +1284,7 @@ In order to activate/deactivate this srv6 profile, you must manually reload the 
    ![J-Jp-only-Global.png]({{site.baseurl}}/images/J-Jp-only-Global.png) 
    
    The encapsulation option followed by the micro-segment mode decides the QoS bits for the SRv6 header. The TC value on the IPv6 header can be either set explicitly to any value in the range of 0x00-0xff . This value is global for all the SRv6 services on the box. When configured with propagate, QoS marking of the incoming payload is propagated to the SRv6 TC marking. For L3VPN IP Precedence is copied to the SRv6 header IPv6 precedence. For L2VPN the Layer 2 PCP markings are copied to the SRv6 Precedence.
-A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.
+`A reload of the chassis is needed to configure/change any SRv6 related hw-module profile.`
 
 
 _External documentation_:  
@@ -1642,6 +1649,61 @@ Note: switching functionality between shared and interface-based ACLs, all exist
 
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/63x/b-ip-addresses-configuration-guide-ncs5500-63x/b-ip-addresses-configuration-guide-ncs5500-63x_chapter_010.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/63x/b-ip-addresses-configuration-guide-ncs5500-63x/b-ip-addresses-configuration-guide-ncs5500-63x_chapter_010.html)
+
+### mdb
+
+The Modular database (MDB) is applicable to all J2 based (NCS 5700) PIDs. This new hardwre module profile is intoroduced to choose the MDB carving used in J2 Native modes i.e all fixed PIDs based on J2 NPU and all modular NCS 5500 chassis operating in Native mode.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile mdb ?
+  l3max     l3max profile for router containing non-TCAM cards
+  l3max-se  l3max-se profile for router containing only TCAM cards
+  </code>
+</pre>
+</div>
+
+
+**_hw-module profile mdb l3max_**
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile mdb l3max ?
+  -cr-
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile mdb l3max
+Wed Aug 25 23:42:53.961 PDT
+In order to activate this new mdb profile, you must manually reload the chassis
+  </code>
+</pre>
+</div>
+
+![J2-Native-Only-Global.png]({{site.baseurl}}/images/J2-Native-Only-Global.png)
+
+
+introduced in IOS XR 7.4.1, This is applicable to J2 based PIDs (NCS 5700) without any e-TCAM (as well as eTCAM based cards when used in mixed mode). This carves out the NPU modular database to maximize the scale from L3 Heavy deployment. This profile should be applied to all Line Cards in a modular system . l3-max profile is the default MDB profile in a J2 fixed box  or NCS 5500 modular chassis operating in J2 Native mode. 
+
+`To change MDB profiles, the router needs a relaod`
+
+**_hw-module profile mdb l3max-se_**
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile mdb l3max-se ?
+  -cr-
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module profile mdb l3max-se
+Wed Aug 25 23:43:00.050 PDT
+In order to activate this new mdb profile, you must manually reload the chassis
+  </code>
+</pre>
+</div>
+
+![J2-Nat-SE-only-global.png]({{site.baseurl}}/images/J2-Nat-SE-only-global.png)
+
+introduced in IOS XR 7.4.1, This is applicable to J2 based PIDs with external TCAM. This carves out the NPU modular database to maximize the scale from L3 Heavy deployment. For a modular system , all the LCs must be the Scale variant (i.e with eTCAM) for this profile to be applicable. If there is mix of scale and non scale LC, then the system falls back to  l3max profile.
+
+
+`To change MDB profiles, the router needs a relaod`
+
 
 ## quad
 
