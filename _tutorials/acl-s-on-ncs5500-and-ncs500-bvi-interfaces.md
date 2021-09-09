@@ -239,8 +239,107 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 Note: Output is truncated
 {: .notice--info}
 
+So as per the explanation above, we could see the replication is happening on all the LCs in the system and all the NPUs on each LC. We can see that the programming of the ingress traditional ACLs is happening on the external TCAM for a LC based on J2 and on the internal TCAM for LCs based on J/J+. TCAM resources are used even if the LCs are not part of that particular BVI or BD.
+
 
 ### Ingress V6 ACL
+
+Let us verify the behaviour with the IPv6 Ingress ACLs.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-74142I-C#show access-lists ipv6 ipv6_1 
+<mark>ipv6 access-list ipv6_1</mark>
+ 10 permit tcp 2001:1:2::/64 any eq 1024
+ 20 permit tcp 2002:1:2::/64 any eq 1024
+ 30 permit tcp 2003:1:2::/64 any eq 1024
+ 40 permit tcp 2004:1:2::/64 any eq 1024
+ 50 deny udp 2001:4:5::/64 any lt 1000
+ 60 permit ipv6 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-74142I-C#show running-config interface bvI 21
+interface BVI21
+ <mark>ipv6 access-group ipv6_1 ingress</mark>
+!
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:5508-2-74142I-C#show controllers npu externaltcam location 0/3/CPU0</mark> 
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">12     480b               1998     50      2722  ext_FG_INGR_V6_ACL</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">12     480b               1998     50      2722  ext_FG_INGR_V6_ACL</span>
+
+RP/0/RP0/CPU0:5508-2-74142I-C#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:5508-2-74142I-C#show controllers npu internaltcam location 0/4/CPU0</mark> 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">2</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">3</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+    
+RP/0/RP0/CPU0:5508-2-74142I-C#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:5508-2-74142I-C#show controllers npu internaltcam location 0/7/CPU0</mark> 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">2</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+
+<span style="background-color:pink">3</span>    <span style="background-color:yellow">6\7    320b   pmf-0       2025     23      48   INGRESS_ACL_L3_IPV6</span>
+    
+RP/0/RP0/CPU0:5508-2-74142I-C#
+</code>
+</pre>
+</div>
+
+We see the same behaviour in terms of programming and TCAM resource utilization when it comes to IPv6 ingress ACLs as well. 
+
 
 ### Egress V4 ACL
 
