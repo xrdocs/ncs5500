@@ -50,7 +50,9 @@ Configuration and attachment of an ACL over BVI interface is similar to regular 
 
 ### Ingress V4 ACL
 
-First we will start with Ingress IPv4 ACL. 
+  - First we will start with Ingress IPv4 ACL. 
+  - IPv4 ACL is supported in Igress direction for J/J+ and J2 (Native and Compatible mode)
+
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -340,13 +342,31 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 </pre>
 </div>
 
-We see the same behaviour in terms of programming and TCAM resource utilization when it comes to IPv6 ingress ACLs as well. 
+Note: Output is truncated
+{: .notice--info}
+
+We see the same behaviour in terms of programming and TCAM resource utilization when it comes to IPv6 ingress ACLs as well. IPv6 ACL is supported in Igress direction for J/J+ and J2 (Native and Compatible mode)
 
 
 ### Egress V4 ACL
 
+  - By default, Egress ACLs over BVI interface is disabled and thus ACL filtering will not take effect even after it is attached to BVI interfaces.
+  - To enable ACL over BVI in the egress direction, _**hw-module profile acl egress layer3 interface-based**_ should be configured.
+  - When we enable the above profile, egress ACL on any non BVI interface will not work.
+  - IPv4 ACL is supported in Egress direction for J/J+ and J2 (Native and Compatible mode)
+  - TCAM entries are unique per interface, even for the same ACL.
+  - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is platform replication.
+  - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
+  - In order to activate/deactivate Egress ACL support over BVI interfaces, you must manually reload the chassis/all line cards
+
+
+
 ### Egress V6 ACL
 
+
+## Summary 
+
+In summary, its more of design choice and optimization, but for sure it can be improved or changed as needed.
 
 ## References
 
