@@ -21,19 +21,27 @@ In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhanc
 
 ## Quick Recap: Bridged Virtual Interface - BVI 
 
-![Screenshot 2021-09-07 at 3.52.22 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-07 at 3.52.22 PM.png)
+![Screenshot 2021-09-09 at 12.07.56 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-09 at 12.07.56 PM.png)
 
-Before we move on the ACL feature, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router.
+Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain
 It is associated to a bridge group using the routed interface bvi command. 
 
-Bridge-Domain: It is a layer 2 broadcast domain
-{: .notice--info}
 
 ### Main Use cases
 
   - Interconnect bridged and routed networks
   - Preserve network addresses
   - Bridge local traffic for efficient network performance
+
+BVI provides a much more flexible solution for bridging and routing
+  
+| Scenarios                                                    | Supported by BVI |
+|--------------------------------------------------------------|------------------|
+| Communication of multiple interfaces in same BD              | Yes              |
+| Communication of multiple interfaces in different BD         | Yes              |
+| Communication between Bridged interface and Routed interface | Yes              |
+  
+  
 
 ## Configuring ACL and attaching to BVI interface
 
@@ -48,10 +56,7 @@ Configuration and attachment of an ACL over BVI interface is similar to regular 
 ### Egress V6 ACL
 
 
+## References
 
-
-
-
-  
-  
-
+- https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html
+- https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html
