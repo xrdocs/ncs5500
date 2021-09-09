@@ -1883,6 +1883,32 @@ In 7.1.1, it's also required to enable HSRP.
 _External documentation_:  
 - [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/b-ip-addresses-cr-ncs5500/b-ncs5500-ip-addresses-cli-reference_chapter_01001.html#id_91192](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/b-ip-addresses-cr-ncs5500/b-ncs5500-ip-addresses-cli-reference_chapter_01001.html#id_91192)
 
+## storm-control-combine-policer-bw
+
+**_hw-module storm-control-combine-policer-bw enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module storm-control-combine-policer-bw ?
+  enable  Enable storm-control-combine-policer-bw mode
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module storm-control-combine-policer-bw enable ?
+  -cr-
+RP/0/RP1/CPU0:5508-1-741C(config)#hw-module storm-control-combine-policer-bw enable
+Thu Aug 26 22:24:41.022 PDT
+In order to activate this storm-control-combine-policer-bw, you must manually reload the chassis
+</code>
+</pre>
+</div>
+
+![J2-Nat-SE-only-global.png]({{site.baseurl}}/images/J2-Nat-SE-only-global.png)
+
+This mode is enabled from IOS XR 7.4.1 and is applicable to J2 based PIDs with external TCAM. For L2 storm control by default the three policer (broadcast, multicast and unknown unicast) are different. This hw-module allows to combine all of them and achieve a combined control late for all BUM traffic. For example, if broadcast storm-control is set to 100 PPS then in default mode, broadcast is limited to 100 PPS and Unknown unicast and Multicast are not subjected to any rate limit. IN the combined mode, the same configuration of a broadcast storm-control policer of 100 pps will rate limit all BUM traffic to 100 PPS. Note that in compbined mode the policer units used must be same for all three policer. If all three policers are configured , then the combined storm control rate is the sum of all three policer.
+
+
+`Note: To enable/disable the combined policer for storm control using this profile , the router needs to be  reloaded`
+
+
 ## Conclusion
 
 Multiple hardware profiles have been added release after release to meet certain use-cases. This document helped at clarifying all the variations available.  
