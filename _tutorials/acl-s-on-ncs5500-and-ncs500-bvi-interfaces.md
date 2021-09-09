@@ -357,7 +357,7 @@ We see the same behaviour in terms of programming and TCAM resource utilization 
   - TCAM entries are unique per interface, even for the same ACL.
   - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is platform replication.
   - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
-  - In order to activate/deactivate Egress ACL support over BVI interfaces, you must manually reload the chassis/all line cards
+  - In order to activate/deactivate Egress ACL support over BVI interfaces, you must manually reload the chassis/all line cards.
 
 
 
