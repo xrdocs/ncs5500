@@ -9,7 +9,7 @@ position: hidden
 {% include toc icon="table" title="XR 7.4.1 New Features and Hardware for DNX Platforms" %} 
 
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/Dna59DZlLmQ?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/qvczWr2Vu_U?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 ## Introduction
