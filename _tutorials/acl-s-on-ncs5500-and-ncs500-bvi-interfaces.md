@@ -17,15 +17,14 @@ position: hidden
 
 ## Introduction
 
-In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/), we introduced the ACL enhancements on NCS5500 based on J2 chipsets. In this article, we will introduce the ACL implementation on NCS5500 w.r.t to BVI interfaces. We will cover all the platforms based on J/J+ and J2. 
+In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/), we introduced the ACL enhancements on NCS5500 based on J2 chipsets. In this article, we will introduce the ACL implementation on NCS5500 w.r.t to BVI interfaces. We will cover all the systems based on J/J+ and J2. 
 
 ## Quick Recap: Bridged Virtual Interface - BVI 
 
 ![Screenshot 2021-09-09 at 12.27.28 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-09 at 12.27.28 PM.png)
 
 
-Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain
-It is associated to a bridge group using the routed interface bvi command. 
+Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain. It is associated to a bridge group using the routed interface bvi command. 
 
 
 ### Main Use cases
@@ -44,14 +43,14 @@ BVI provides a much more flexible solution for bridging and routing
   
   
 
-## Configuring ACL and attaching to BVI interface
+## ACLs with BVI interface
 
 Configuration and attachment of an ACL over BVI interface is similar to regular ACLs attachment to a physical interface. Let us check out the same.
 
 ### Ingress V4 ACL
 
   - First we will start with Ingress IPv4 ACL. 
-  - IPv4 ACL is supported in Igress direction for J/J+ and J2 (Native and Compatible mode)
+  - IPv4 ACL is supported in ingress direction for J/J+ and J2 (Native and Compatible mode).
 
 
 <div class="highlighter-rouge">
@@ -345,7 +344,7 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 Note: Output is truncated
 {: .notice--info}
 
-We see the same behaviour in terms of programming and TCAM resource utilization when it comes to IPv6 ingress ACLs as well. IPv6 ACL is supported in Igress direction for J/J+ and J2 (Native and Compatible mode)
+We see the same behaviour in terms of programming and TCAM resource utilization when it comes to IPv6 ingress ACLs as well. IPv6 ACL is supported in ingress direction for J/J+ and J2 (Native and Compatible mode)
 
 
 ### Egress V4 ACL
@@ -359,7 +358,130 @@ We see the same behaviour in terms of programming and TCAM resource utilization 
   - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
   - In order to activate/deactivate Egress ACL support over BVI interfaces, you must manually reload the chassis/all line cards.
 
+#### Verification
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show running-config | in hw-module 
+<mark>hw-module profile acl egress layer3 interface-based</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show running-config interface bvI 21
+interface BVI21
+ <mark>ipv4 access-group permit-stats egress</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show access-lists ipv4 usage pfilter location all      
+Interface : BVI21 
+    Input ACL : N/A
+    <mark>Output ACL : permit-stats</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/3/CPU0                     
+Mon Sep 13 05:13:38.674 PDT
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">5      160b   EPMF        2031     15      42   EGRESS_ACL_IPV4</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">5      160b   EPMF        2031     15      42   EGRESS_ACL_IPV4</span>
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/7/CPU0                     
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+
+<span style="background-color:pink">2</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+   
+<span style="background-color:pink">3</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+  
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/4/CPU0                     
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+
+<span style="background-color:pink">1</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+
+<span style="background-color:pink">2</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+   
+<span style="background-color:pink">3</span>    <span style="background-color:yellow">0      160b   egress_acl  2016     15      30   EGRESS_ACL_IPV4</span>
+  
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+
+RP/0/RP0/CPU0:5508-2-741C(config)#interface bundle-ether 30
+<span style="background-color:yellow">RP/0/RP0/CPU0:5508-2-741C(config-if)#ipv4 access-group permit-stats egress</span> 
+RP/0/RP0/CPU0:5508-2-741C(config-if)#commit 
+
+<span style="background-color:pink">% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RP0/CPU0:5508-2-741C(config-if)#show configuration failed 
+Mon Sep 13 04:50:14.667 PDT
+!! SEMANTIC ERRORS: This configuration was rejected by 
+!! the system due to semantic errors. The individual 
+!! errors with each failed configuration command can be 
+!! found below.
+
+
+interface Bundle-Ether30
+ ipv4 access-group permit-stats egress
+!!% 'DPA' detected the 'warning' condition 'SDK - Invalid configuration'</span>
+!
+end
+</code>
+</pre>
+</div>
+
+From the above we can see that non BVI interface will not allow the egress IPv4 ACL.
 
 ### Egress V6 ACL
 
