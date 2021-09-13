@@ -173,7 +173,7 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 Note: Output is truncated
 {: .notice--info}
 
-### TCAM Programming with BVI interfaces
+#### TCAM Programming with BVI interfaces
 
   - BVI interfaces are designed in such a way that every feature attachment affects all NPUs on the Line Card.
   - Ingress ACL support over BVI interfaces is designed in a way that when an attach is triggered, the corresponding L2 interface's extlif value gets updated with the ACL ID being programmed.
@@ -390,6 +390,8 @@ Interface : BVI21
 </pre>
 </div>
 
+#### TCAM Programming with BVI interfaces
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -409,6 +411,8 @@ RP/0/RP0/CPU0:5508-2-741C#
 </pre>
 </div>
 
+
+#### TCAM Programming on other LCs
 
 <div class="highlighter-rouge">
 <pre class="highlight">
