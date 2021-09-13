@@ -4,7 +4,7 @@ date: '2021-09-09 23:04 +0200'
 title: IOS XR 7.4.1 Innovations in NCS5500/NCS5700/NCS500 Platforms
 author: Nicolas Fevrier
 excerpt: New features and hardware supported in IOS XR 7.4.1
-position: hidden
+position: Top
 ---
 {% include toc icon="table" title="XR 7.4.1 New Features and Hardware for DNX Platforms" %} 
 
@@ -103,5 +103,3 @@ Coming soon
 ## New hardware in IOS XR 7.4.1
 
 Placeholder for the new platforms, MPA and IM cards.
-
-
