@@ -177,7 +177,6 @@ Note: Output is truncated
 
   - BVI interfaces are designed in such a way that every feature attachment affects all NPUs on the Line Card.
   - Ingress ACL support over BVI interfaces is designed in a way that when an attach is triggered, the corresponding L2 interface's extlif value gets updated with the ACL ID being programmed.
-- TCAM entries can be shared between different interfaces.
 - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is the platform replication.
 - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent and should behave the same across all XR platforms. 
 - To understand this behaviour, we need to recap what we discussed in the earlier section w.r.t BVI.
@@ -353,7 +352,6 @@ We see the same behaviour in terms of programming and TCAM resource utilization 
   - To enable ACL over BVI in the egress direction, _**hw-module profile acl egress layer3 interface-based**_ should be configured.
   - When we enable the above profile, egress ACL on any non BVI interface will not work.
   - IPv4 ACL is supported in Egress direction for J/J+ and J2 (Native and Compatible mode)
-  - TCAM entries are unique per interface, even for the same ACL.
   - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is platform replication.
   - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
   - In order to activate/deactivate Egress ACL support over BVI interfaces, you must manually reload the chassis/all line cards.
@@ -489,12 +487,18 @@ From the above we can see that non BVI interface will not allow the egress IPv4 
 
 ### Egress V6 ACL
 
+### TCAM entries with multiple interfaces
+
+- TCAM entries can be shared between different interfaces.
+- TCAM entries are unique per interface, even for the same ACL.
+
 
 ## Summary 
 
 In summary, its more of design choice and optimization, but for sure it can be improved or changed as needed.
 
 ## References
+
 
 - https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html
 - https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html
