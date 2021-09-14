@@ -498,8 +498,44 @@ From the above we can see that non BVI interface will not allow the egress IPv4 
 
 ### Egress V6 ACL
 
+  - Till now we could see, the TCAM utilizations of the v4 ACLs in ingress and egress is same for platforms based on J/J+ and J2. 
+  - It was same for the ingress v6 ACLs as well. 
+  - The main difference is in the implementation of the Egress V6 ACL. 
+  - Egress IPv6 ACLs on BVI interfaces is not supported on platforms bases on J/J+.
+  - It is supported on the J2 based platforms only in the **Native mode**.
+  - When IPv6 Egress ACL is configured, all non-J2 cards reject it.
+  - Therefore when implementing the egress IPv6 ACLs on BVI interfaces, the chassis should not be in compatible mode.
+  
+**Verification**
 
-### TCAM entries with multiple interfaces
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C(config)#interface bvI 21
+RP/0/RP0/CPU0:5508-2-741C(config-if)#ipv6 access-group ipv6_1 egress 
+RP/0/RP0/CPU0:5508-2-741C(config-if)#commit 
+
+<span style="background-color:pink">% Failed to commit one or more configuration items during a pseudo-atomic operation. All changes made have been reverted. Please issue 'show configuration failed [inheritance]' from this session to view the errors
+RP/0/RP0/CPU0:5508-2-741C(config-if)#show configuration failed 
+!! SEMANTIC ERRORS: This configuration was rejected by 
+!! the system due to semantic errors. The individual 
+!! errors with each failed configuration command can be 
+!! found below.
+
+
+interface BVI21
+ ipv6 access-group ipv6_1 egress
+!!% 'pfilter-ea' detected the 'warning' condition 'Egress ACL not supported on this interface type.'
+!
+end</span>
+
+RP/0/RP0/CPU0:5508-2-741C(config-if)#
+</code>
+</pre>
+</div>
+
+
+## TCAM entries with multiple interfaces have ACLs 
 
 - For ingress ACLs, TCAM entries can be shared between different interfaces in case of same ACL.
 - For egress ACLs, TCAM entries are unique per interface, even for the same ACL.
