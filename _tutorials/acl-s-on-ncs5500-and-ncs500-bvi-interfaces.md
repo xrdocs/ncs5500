@@ -411,6 +411,8 @@ RP/0/RP0/CPU0:5508-2-741C#
 </pre>
 </div>
 
+Note: Output is truncated
+{: .notice--info}
 
 #### TCAM entries on other LCs
 
@@ -436,6 +438,8 @@ RP/0/RP0/CPU0:5508-2-741C#
 </pre>
 </div>
 
+Note: Output is truncated
+{: .notice--info}
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -459,13 +463,15 @@ RP/0/RP0/CPU0:5508-2-741C#
 </pre>
 </div>
 
+Note: Output is truncated
+{: .notice--info}
+
+
 #### Failure of egress ACLs on non BVI interfaces
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
-
 RP/0/RP0/CPU0:5508-2-741C(config)#interface bundle-ether 30
 <span style="background-color:yellow">RP/0/RP0/CPU0:5508-2-741C(config-if)#ipv4 access-group permit-stats egress</span> 
 RP/0/RP0/CPU0:5508-2-741C(config-if)#commit 
@@ -498,6 +504,118 @@ From the above we can see that non BVI interface will not allow the egress IPv4 
 - For ingress ACLs, TCAM entries can be shared between different interfaces in case of same ACL.
 - For egress ACLs, TCAM entries are unique per interface, even for the same ACL.
 - Let us verify the same
+
+**Ingress**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>interface BVI21</mark>
+ <span style="background-color:pink">ipv4 access-group permit-stats ingress</span>
+!
+
+<mark>interface BVI36</mark>
+ <span style="background-color:pink">ipv4 access-group permit-stats ingress</span>
+!
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show access-lists ipv4 usage pfilter location all 
+<mark>Interface : BVI21</mark> 
+    Input  ACL : Common-ACL : N/A  ACL : permit-stats  
+    Output ACL : N/A
+<mark>Interface : BVI36</mark>
+    Input  ACL : Common-ACL : N/A  ACL : permit-stats  
+    Output ACL : N/A
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+Note: Output is truncated
+{: .notice--info}
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu externaltcam location 0/3/CPU0 
+External TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <mark>15     320b               4081     15      2725  ext_FG_INGR_V4_ACL</mark>
+
+<span style="background-color:pink">1</span>    <mark>15     320b               4081     15      2725  ext_FG_INGR_V4_ACL</mark>
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+Note: Output is truncated
+{: .notice--info}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/4/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+
+<span style="background-color:pink">0</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">1</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">2</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">3</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+    
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+Note: Output is truncated
+{: .notice--info}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/7/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+
+<span style="background-color:pink">0</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">1</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">2</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+
+<span style="background-color:pink">3</span>    <mark>2      160b   pmf-0       2023     16      47   INGRESS_ACL_L3_IPV4</mark>
+    
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+Note: Output is truncated
+{: .notice--info}
+
+**Egress**
 
 
 ## Summary 
