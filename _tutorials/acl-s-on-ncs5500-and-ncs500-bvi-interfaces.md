@@ -617,6 +617,103 @@ Note: Output is truncated
 
 **Egress**
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>interface BVI21</mark>
+ <span style="background-color:pink">ipv4 access-group permit-stats egress</span>
+!
+
+<mark>interface BVI36</mark>
+ <span style="background-color:pink">ipv4 access-group permit-stats egress</span>
+!
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show access-lists ipv4 usage pfilter location all 
+
+<mark>Interface : BVI21</mark>
+    Input ACL : N/A
+    Output ACL : permit-stats 
+<mark>Interface : BVI36</mark>
+    Input ACL : N/A
+    Output ACL : permit-stats 
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/3/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <mark>5      160b   EPMF        2016     30      42   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">1</span>    <mark>5      160b   EPMF        2016     30      42   EGRESS_ACL_IPV4</mark>
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/4/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">1</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">2</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">3</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741C#show controllers npu internaltcam location 0/7/CPU0 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<span style="background-color:pink">0</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">1</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">2</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+<span style="background-color:pink">3</span>    <mark>0      160b   egress_acl  2001     30      30   EGRESS_ACL_IPV4</mark>
+
+RP/0/RP0/CPU0:5508-2-741C#
+</code>
+</pre>
+</div>
+
+From the above outputs we can see that for egress ACLs on the BVI interface we do not share the TCAM entries. They are unique per interface. Whereas in the ingress direction, we share the TCAM entries if we apply the same ACL.
+
 
 ## Summary 
 
