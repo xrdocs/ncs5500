@@ -27,7 +27,7 @@ In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhanc
 Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain. It is associated to a bridge group using the routed interface bvi command. 
 
 
-### Main Use cases
+### BVI use cases
 
   - Interconnect bridged and routed networks
   - Preserve network addresses
@@ -117,7 +117,7 @@ We have ingress IPv4 ACL configured as below and applied to BVI interface
 </pre>
 </div>
 
-**BVI configurations**
+#### BVI configurations
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -152,6 +152,19 @@ Output ACL : N/A
 </pre>
 </div>
 
+#### TCAM Programming for ingress ACLs on BVI interfaces
+
+  - BVI interfaces are designed in such a way that every feature attachment affects all NPUs on the Line Card.
+  - Ingress ACL support over BVI interfaces is designed in a way that when an attach is triggered, the corresponding L2 interface's extlif value gets updated with the ACL ID being programmed.
+- TCAM entries are always programmed across all NPUs, regardless of interface membership. This is the platform replication.
+- TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent and should behave the same across all XR platforms. 
+- To understand this behaviour, we need to recap what we discussed in the earlier section w.r.t BVI.
+- BVI has no mapping to specific Physical port / LC.
+- BVI is rather an entity of Bridge Domain. 
+- In XR, BVI has been defined globally just as a Bridge Domain. Hence it is present on all LCs
+- Another important consideration for this implementation is modification of the configurations
+- If we want to add or remove BVI entries in each LC dynamically - based on the presence of a local AC (from that LC) in the given BD it has a lot of overhead. 
+- Hence we allocate resources on all the NPU's of the LCs and also from PI perspective we replicate that on all LCs
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -172,20 +185,6 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 
 Note: Output is truncated
 {: .notice--info}
-
-#### TCAM Programming with BVI interfaces
-
-  - BVI interfaces are designed in such a way that every feature attachment affects all NPUs on the Line Card.
-  - Ingress ACL support over BVI interfaces is designed in a way that when an attach is triggered, the corresponding L2 interface's extlif value gets updated with the ACL ID being programmed.
-- TCAM entries are always programmed across all NPUs, regardless of interface membership. This is the platform replication.
-- TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent and should behave the same across all XR platforms. 
-- To understand this behaviour, we need to recap what we discussed in the earlier section w.r.t BVI.
-- BVI has no mapping to specific Physical port / LC.
-- BVI is rather an entity of Bridge Domain. 
-- In XR, BVI has been defined globally just as a Bridge Domain. Hence it is present on all LCs
-- Another important consideration for this implementation is modification of the configurations
-- If we want to add or remove BVI entries in each LC dynamically - based on the presence of a local AC (from that LC) in the given BD it has a lot of overhead. 
-- Hence we allocate resources on all the NPU's of the LCs and also from PI perspective we replicate that on all LCs
 
 #### TCAM entries on other LCs
 
@@ -239,7 +238,7 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 Note: Output is truncated
 {: .notice--info}
 
-So as per the explanation above, we could see the replication is happening on all the LCs in the system and all the NPUs on each LC. We can see that the programming of the ingress traditional ACLs is happening on the external TCAM for a LC based on J2 and on the internal TCAM for LCs based on J/J+. TCAM resources are used even if the LCs are not part of that particular BVI or BD.
+So as per the explanation above, we could see the replication is happening on all the LCs in the system and all the NPUs on each LC. Note that the programming of the ingress traditional ACLs is happening on the external TCAM for a LC based on J2 (same as normal L3 interface) and on the internal TCAM for LCs based on J/J+. TCAM resources are used even if the LCs are not part of that particular BVI or BD.
 
 
 ### Ingress V6 ACL
@@ -260,6 +259,8 @@ RP/0/RP0/CPU0:5508-2-74142I-C#show access-lists ipv6 ipv6_1
 </code>
 </pre>
 </div>
+
+#### Verification
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -348,9 +349,10 @@ We see the same behaviour in terms of programming and TCAM resource utilization 
 
 ### Egress V4 ACL
 
-  - By default, Egress ACLs over BVI interface is disabled and thus ACL filtering will not take effect even after it is attached to BVI interfaces.
+  - By default, Egress ACLs over BVI interface is disabled.
+  - ACL filtering will not take effect even after it is attached to BVI interfaces.
   - To enable ACL over BVI in the egress direction, _**hw-module profile acl egress layer3 interface-based**_ should be configured.
-  - When we enable the above profile, egress ACL on any non BVI interface will not work.
+  - When we enable the above profile, egress ACLs on any non BVI interface will not work.
   - IPv4 ACL is supported in Egress direction for J/J+ and J2 (Native and Compatible mode)
   - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is platform replication.
   - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
@@ -388,7 +390,7 @@ Interface : BVI21
 </pre>
 </div>
 
-#### TCAM Programming with BVI interfaces
+#### TCAM Programming for egress ACLs on BVI interfaces
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -410,7 +412,7 @@ RP/0/RP0/CPU0:5508-2-741C#
 </div>
 
 
-#### TCAM Programming on other LCs
+#### TCAM entries on other LCs
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -456,6 +458,9 @@ RP/0/RP0/CPU0:5508-2-741C#
 </code>
 </pre>
 </div>
+
+#### Failure of egress ACLs on non BVI interfaces
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -483,14 +488,16 @@ end
 </pre>
 </div>
 
-From the above we can see that non BVI interface will not allow the egress IPv4 ACL.
+From the above we can see that non BVI interface will not allow the egress IPv4 ACL when _hw-module profile acl egress layer3 interface-based_ is configured.
 
 ### Egress V6 ACL
 
+
 ### TCAM entries with multiple interfaces
 
-- TCAM entries can be shared between different interfaces.
-- TCAM entries are unique per interface, even for the same ACL.
+- For ingress ACLs, TCAM entries can be shared between different interfaces in case of same ACL.
+- For egress ACLs, TCAM entries are unique per interface, even for the same ACL.
+- Let us verify the same
 
 
 ## Summary 
