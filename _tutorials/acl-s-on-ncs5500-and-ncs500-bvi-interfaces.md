@@ -534,6 +534,63 @@ RP/0/RP0/CPU0:5508-2-741C(config-if)#
 </pre>
 </div>
 
+We have system based on J2 Native Mode. Let us try configuring it the IPv6 ACL in the egress direction on the BVI interface
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#show platform 
+Node              Type                     State                    Config state
+--------------------------------------------------------------------------------
+0/RP0/CPU0        <mark>NCS-57B1-5DSE-SYS(Active)</mark> IOS XR RUN               NSHUT
+0/PM0             PSU2KW-ACPI              OPERATIONAL              NSHUT
+0/PM1             PSU2KW-ACPI              OPERATIONAL              NSHUT
+0/FT0             N5700-FAN                OPERATIONAL              NSHUT
+0/FT1             N5700-FAN                OPERATIONAL              NSHUT
+0/FT2             N5700-FAN                OPERATIONAL              NSHUT
+0/FT3             N5700-FAN                OPERATIONAL              NSHUT
+0/FT4             N5700-FAN                OPERATIONAL              NSHUT
+0/FT5             N5700-FAN                OPERATIONAL              NSHUT
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface BVI1
+ <mark>ipv6 access-group ipv6_1 egress</mark>
+!
+
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#show access-lists ipv6 usage pfilter lo$
+<mark>Interface : BVI1</mark> 
+    Input ACL : N/A
+    <span style="background-color:pink">Output ACL : ipv6_1</span>
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#
+
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#show controllers npu internaltcam locat$
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+
+<span style="background-color:pink">0</span>    <mark>4\5    320b   EPMF        2030     18      35   EGRESS_ACL_IPV6</mark>
+
+RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#
+</code>
+</pre>
+</div>
+
 
 ## TCAM entries with multiple interfaces have ACLs 
 
