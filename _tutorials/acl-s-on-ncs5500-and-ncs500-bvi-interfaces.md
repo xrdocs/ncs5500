@@ -155,7 +155,6 @@ Output ACL : N/A
 #### TCAM Programming for ingress ACLs on BVI interfaces
 
   - BVI interfaces are designed in such a way that every feature attachment affects all NPUs on the Line Card.
-  - Ingress ACL support over BVI interfaces is designed in a way that when an attach is triggered, the corresponding L2 interface's extlif value gets updated with the ACL ID being programmed.
 - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is the platform replication.
 - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent and should behave the same across all XR platforms. 
 - To understand this behaviour, we need to recap what we discussed in the earlier section w.r.t BVI.
@@ -592,7 +591,7 @@ RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#
 </div>
 
 
-## TCAM entries with multiple interfaces have ACLs 
+## TCAM entries with multiple interfaces having ACLs 
 
 - For ingress ACLs, TCAM entries can be shared between different interfaces in case of same ACL.
 - For egress ACLs, TCAM entries are unique per interface, even for the same ACL.
