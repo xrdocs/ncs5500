@@ -352,6 +352,7 @@ We see the same behaviour in terms of programming and TCAM resource utilization 
   - ACL filtering will not take effect even after it is attached to BVI interfaces.
   - To enable ACL over BVI in the egress direction, _**hw-module profile acl egress layer3 interface-based**_ should be configured.
   - When we enable the above profile, egress ACLs on any non BVI interface will not work.
+  - This limitation comes from the hardware as we have different qualifiers for physical interfaces and BVI interfaces. Due to which there will be increase in the key size and we need more memory banks.
   - IPv4 ACL is supported in Egress direction for J/J+ and J2 (Native and Compatible mode)
   - TCAM entries are always programmed across all NPUs, regardless of interface membership. This is platform replication.
   - TCAM entries are always programmed across all LCs, regardless of interface membership. This is platform independent replication.
@@ -500,7 +501,7 @@ From the above we can see that non BVI interface will not allow the egress IPv4 
   - Till now we could see, the TCAM utilizations of the v4 ACLs in ingress and egress is same for platforms based on J/J+ and J2. 
   - It was same for the ingress v6 ACLs as well. 
   - The main difference is in the implementation of the Egress V6 ACL. 
-  - Egress IPv6 ACLs on BVI interfaces is not supported on platforms bases on J/J+.
+  - Egress IPv6 ACLs on BVI interfaces is not supported on platforms bases on J/J+. This is again due to the hardware limitation. We do not have the qualifiers present needed for the egress support.
   - It is supported on the J2 based platforms only in the **Native mode**.
   - When IPv6 Egress ACL is configured, all non-J2 cards reject it.
   - Therefore when implementing the egress IPv6 ACLs on BVI interfaces, the chassis should not be in compatible mode.
@@ -806,10 +807,19 @@ From the above outputs we can see that for egress ACLs on the BVI interface we d
 
 ## Summary 
 
-In summary, its more of design choice and optimization, but for sure it can be improved or changed as needed.
+Summarizing the ACL support on BVI interfaces.
+
+| ACL Direction  | J   | J+  | J2 Compatible | J2 Native |
+|----------------|-----|-----|---------------|-----------|
+| Ingress v4 ACL | Yes | Yes | Yes           | Yes       |
+| Ingress v6 ACL | Yes | Yes | Yes           | Yes       |
+| Egress v4 ACL  | Yes | Yes | Yes           | Yes       |
+| Egress v6 ACL  | No  | No  | No            | Yes       |
+
+We saw the support and programming of the ingress and egress ACLs on the BVI interfaces along with the TCAM resource utilization. In the next article we will explore the v6 ACLs and its implementation across the chipsets. So stay tuned !!! 
 
 ## References
 
 
-- https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html
-- https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html
+- [BVI Details](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html)
+- [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/71x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-71x/m-adhoc-fretta-irb-unicast.html)
