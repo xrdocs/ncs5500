@@ -630,9 +630,6 @@ RP/0/RP0/CPU0:5508-2-741C#
 </pre>
 </div>
 
-Note: Output is truncated
-{: .notice--info}
-
 
 <div class="highlighter-rouge">
 <pre class="highlight">
