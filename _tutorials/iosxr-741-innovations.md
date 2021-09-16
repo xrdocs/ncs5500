@@ -69,6 +69,7 @@ With Jericho2 platforms, a series of limitations present in Jericho/Jericho+ hav
 
 Tejas also published another article here with plenty of details:  
 [https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/)
+.
 
 In IOS XR 7.4.1, we complete this list of improvements with more fields.
 
