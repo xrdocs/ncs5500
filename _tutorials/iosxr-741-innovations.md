@@ -9,7 +9,7 @@ position: top
 {% include toc icon="table" title="XR 7.4.1 New Features and Hardware for DNX Platforms" %} 
 
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/qvczWr2Vu_U?autoplay=1" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/qvczWr2Vu_U" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
 ## Introduction
@@ -55,11 +55,41 @@ Please refer to the release notes and installation guide to get details on the u
 
 We asked a few colleagues to help documenting the new improvements brought by the 7.3.1 version. It will be split in software innovations on one side (Segment Routing, SRv6, EVPN, Multicast, QoS, Security, ...) and new supported hardware (chassis, power supply, new line cards and new fixed-form-factor products).
 
+### ACL
+
+Tejas Lad demonstrates the improvements brought by J2 ASIC for egress ACL and statistics.  
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/NJHSheNfDZw" frameborder="0" allowfullscreen></iframe>{: .align-center}
+
+With Jericho2 platforms, a series of limitations present in Jericho/Jericho+ have been lifted, for example:  
+- We don't need to use a specific hardware module profile configuration to allocate counters for ACL permit packets. "hw-module profile stats acl-permit" is not used anymore.  
+- In Jericho and Qumran-MX platforms with NL12k eTCAM, it could be necessary to recarve the resource with "hw-module profile  tcam acl-prefix percent <0-100>". It's all dynamic on Jericho+ with OP and Jericho2 with OP2 eTCAMs, no config is needed
+- We don't recycle packets for ACLv6 in egress direction like it was the case in Jericho and Jericho+ platforms, the packet treatment with J2 is done in one pass.
+- We support egress ACLv6 on BVI interfaces, something not supported on J/J+ platforms.
+
+Tejas also published another article here with plenty of details:  
+[https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/)
+
+In IOS XR 7.4.1, we complete this list of improvements with more fields.
+
+| Match Parameter | IPv4 support pre-741 | IPv4 support in 741 | IPv6 support pre-741 | IPv6 support in 741 |
+|:---:|:---:|:---:|:---:|:---:|
+| Source Address | Yes | Yes | Yes | Yes |
+| Destination Address | Yes | Yes | Yes | Yes |
+| Source Port | Yes | Yes | Yes | Yes |
+| Destination Port | Yes | Yes | Yes | Yes |
+| Protocol/ Next Header | Yes | Yes | Yes | Yes |
+| Precedence/DSCP | Yes | Yes | No | Yes |
+| Packet Length | No | Yes | No | Yes |
+| TCP control Flags | Yes | Yes | No | Yes |
+| Fragment bit | Yes | Yes | No | Yes |
+| Extended Header | N/A | N/A | No | Yes |
+| Destination System port | Yes | Yes | Yes | Yes |
+
 ### Security
 
 Rakesh Kandula presented new security feature: Chip Guard on NCS540.  
 Coming soon
-
 
 ### QoS
 
@@ -70,13 +100,6 @@ Coming soon
 
 Tejas Lad presents the BoB-BLB co-existence benefits.  
 Coming soon
-
-
-### ACL
-
-Tejas Lad demonstrates the improvements brought by J2 ASIC for egress ACL and statistics.  
-Coming soon
-
 
 ### Scale improvements
 
