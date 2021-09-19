@@ -59,7 +59,8 @@ We asked a few colleagues to help documenting the new improvements brought by th
 
 Tejas Lad demonstrates the improvements brought by J2 ASIC for egress ACL and statistics.  
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/NJHSheNfDZw" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/NJHSheNfDZw" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
 
 With Jericho2 platforms, a series of limitations present in Jericho/Jericho+ have been lifted, for example:  
 - We don't need to use a specific hardware module profile configuration to allocate counters for ACL permit packets. "hw-module profile stats acl-permit" is not used anymore.  
@@ -69,7 +70,6 @@ With Jericho2 platforms, a series of limitations present in Jericho/Jericho+ hav
 
 Tejas also published another article here with plenty of details:  
 [https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/](https://xrdocs.io/ncs5500/tutorials/access-list-enhancements-on-ncs5500-j2-based-platforms/)
-.
 
 In IOS XR 7.4.1, we complete this list of improvements with more fields.
 
@@ -90,7 +90,41 @@ In IOS XR 7.4.1, we complete this list of improvements with more fields.
 ### Security
 
 Rakesh Kandula presented new security feature: Chip Guard on NCS540.  
-Coming soon
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/2fwIZRRJPSw" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+Let's first describe two essential components into every IOS XR router:  
+- TAm: the Trust Anchor module chip integrated in all recent device
+- Cisco Secure Boot: the chain ensuring the integrity of the entire boot process
+
+![Secure-boot-process.png]({{site.baseurl}}/images/Secure-boot-process.png){: .align-center}
+
+Also these components are not enough if the hardware itself has been replaced by malware infected parts (CPU or NPU). And that's the purpose of this new feature: Chip Guard introduced now in our access platforms: NCS540.
+
+Chip Guard feature is triggered during the BIOS part of the boot sequence.  
+During manufacturing:
+- the SHA-256 hash of the Electronic Chip ID (ECID) of the CPU and NPU are calculated
+- These hashes are then programmed inside the TAm chip
+- The programmed hash values form the ImprintDB inside the TAm chip
+- The ImprintDB cannot be modified during runtime
+
+![Manufacturing-diag-process.png]({{site.baseurl}}/images/Manufacturing-diag-process.png){: .align-center}
+
+![ImprintDB.png]({{site.baseurl}}/images/ImprintDB.png){: .align-center}
+
+When the router boots:  
+- BIOS reads the ECID of the chips and computes their hashes
+- Each of the hashes is then extended into a PCR inside TAm chip
+- These set of observed hashes forms the ObserveDB
+
+![Step1.png]({{site.baseurl}}/images/Step1.png){: .align-center}
+
+- BIOS fetches the factory programmed hash values from imprintDB
+- The hash values are compared with the ObserveDB generated in the previous step
+- BIOS continues with boot process if and only if the hashes match
+
+![Step2.png]({{site.baseurl}}/images/Step2.png){: .align-center}
 
 ### QoS
 
