@@ -103,28 +103,29 @@ Let's first describe two essential components into every IOS XR router:
 Also these components are not enough if the hardware itself has been replaced by malware infected parts (CPU or NPU). And that's the purpose of this new feature: Chip Guard introduced now in our access platforms: NCS540.
 
 Chip Guard feature is triggered during the BIOS part of the boot sequence.  
+
+![Manufacturing-diag-process.png]({{site.baseurl}}/images/Manufacturing-diag-process.png){: .align-center}
+
+![ImprintDB.png]({{site.baseurl}}/images/ImprintDB.png){: .align-center}
 During manufacturing:
 - the SHA-256 hash of the Electronic Chip ID (ECID) of the CPU and NPU are calculated
 - These hashes are then programmed inside the TAm chip
 - The programmed hash values form the ImprintDB inside the TAm chip
 - The ImprintDB cannot be modified during runtime
 
-![Manufacturing-diag-process.png]({{site.baseurl}}/images/Manufacturing-diag-process.png){: .align-center}
-
-![ImprintDB.png]({{site.baseurl}}/images/ImprintDB.png){: .align-center}
-
 When the router boots:  
+
+![Step1.png]({{site.baseurl}}/images/Step1.png){: .align-center}
+
 - BIOS reads the ECID of the chips and computes their hashes
 - Each of the hashes is then extended into a PCR inside TAm chip
 - These set of observed hashes forms the ObserveDB
 
-![Step1.png]({{site.baseurl}}/images/Step1.png){: .align-center}
+![Step2.png]({{site.baseurl}}/images/Step2.png){: .align-center}
 
 - BIOS fetches the factory programmed hash values from imprintDB
 - The hash values are compared with the ObserveDB generated in the previous step
 - BIOS continues with boot process if and only if the hashes match
-
-![Step2.png]({{site.baseurl}}/images/Step2.png){: .align-center}
 
 ### QoS
 
