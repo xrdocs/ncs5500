@@ -237,7 +237,7 @@ RP/0/RP0/CPU0:5508-2-74142I-C#
 Note: Output is truncated
 {: .notice--info}
 
-So as per the explanation above, we could see the replication is happening on all the LCs in the system and all the NPUs on each LC. Note that the programming of the ingress traditional ACLs is happening on the external TCAM for a LC based on J2 (same as normal L3 interface) and on the internal TCAM for LCs based on J/J+. TCAM resources are used even if the LCs are not part of that particular BVI or BD.
+From the above outputs, we could see the replication is happening on all the LCs in the system and all the NPUs on each LC. Note that the programming of the ingress traditional ACLs is happening on the external TCAM for a LC based on J2 (same as normal L3 interface) and on the internal TCAM for LCs based on J/J+. TCAM resources are used even if the LCs are not part of that particular BVI or BD.
 
 
 ### Ingress V6 ACL
@@ -501,12 +501,14 @@ From the above we can see that non BVI interface will not allow the egress IPv4 
   - Till now we could see, the TCAM utilizations of the v4 ACLs in ingress and egress is same for platforms based on J/J+ and J2. 
   - It was same for the ingress v6 ACLs as well. 
   - The main difference is in the implementation of the Egress V6 ACL. 
-  - Egress IPv6 ACLs on BVI interfaces is not supported on platforms bases on J/J+. This is again due to the hardware limitation. We do not have the qualifiers present needed for the egress support.
+  - Egress IPv6 ACLs on BVI interfaces is not supported on platforms based on J/J+. This is again due to the hardware limitation. We do not have the qualifiers present needed for the egress support.
   - It is supported on the J2 based platforms only in the **Native mode**.
   - When IPv6 Egress ACL is configured, all non-J2 cards reject it.
-  - Therefore when implementing the egress IPv6 ACLs on BVI interfaces, the chassis should not be in compatible mode.
+  - Therefore when implementing the egress IPv6 ACLs on BVI interfaces, the chassis should not be operating in compatible mode.
   
 **Verification**
+
+Let us see what happens when we apply the IPv6 Egress ACL on BVI interface for a J2 based Line card in a chassis operating in compatible mode.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -534,7 +536,7 @@ RP/0/RP0/CPU0:5508-2-741C(config-if)#
 </pre>
 </div>
 
-We have system based on J2 Native Mode. Let us try configuring it the IPv6 ACL in the egress direction on the BVI interface
+We can see the configuration is rejected. We have system based on J2 Native Mode. Let us try configuring it the IPv6 ACL in the egress direction on the BVI interface
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -590,6 +592,8 @@ RP/0/RP0/CPU0:NC57B1-5DSE-1-Vega-II5-5#
 </code>
 </pre>
 </div>
+
+From the above output, we can see that Egress IPv6 ACL on BVI interface got accepted on the system with J2 Native Mode.
 
 
 ## TCAM entries with multiple interfaces having ACLs 
@@ -816,7 +820,7 @@ Summarizing the ACL support on BVI interfaces.
 | Egress v4 ACL  | Yes | Yes | Yes           | Yes       |
 | Egress v6 ACL  | No  | No  | No            | Yes       |
 
-We saw the support and programming of the ingress and egress ACLs on the BVI interfaces along with the TCAM resource utilization. In the next article we will explore the v6 ACLs and its implementation across the chipsets. So stay tuned !!! 
+We saw the support and programming of the ingress and egress ACLs on the BVI interfaces along with the TCAM resource utilization. In the next article we will explore the v6 ACLs in more details and its implementation across the chipsets. So stay tuned !!! 
 
 ## References
 
