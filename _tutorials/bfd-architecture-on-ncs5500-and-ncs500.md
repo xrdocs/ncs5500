@@ -58,7 +58,7 @@ BFD IPv4/IPv6 sessions over physical interfaces and sub-interfaces or bundle are
 | BVI                            | Yes | Yes |
 | BGP MultiHop                   | Yes | Yes |
 
-Note1: BFD Multi-Path (v4/v6) over BVI and BGP Multihop is not supported on systems based on J2 at the moment. It will be supported in future release IOS-XR 7.4.1
+Note1: BFD Multi-Path (v4/v6) over BVI and BGP Multihop is supported on systems based on J2 from IOS-XR 7.4.1 in native and compatible mode.
 {: .notice--info}
 
 Note2: BFD Multi-Path (v6) over BVI is not supported on NCS560. It will be supported in future releases.
