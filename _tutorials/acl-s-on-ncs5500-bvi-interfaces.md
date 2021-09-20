@@ -24,7 +24,7 @@ In the [previous article](https://xrdocs.io/ncs5500/tutorials/access-list-enhanc
 ![Screenshot 2021-09-09 at 12.27.28 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-09 at 12.27.28 PM.png)
 
 
-Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain. It is associated to a bridge group using the routed interface bvi command. 
+Before we move to the ACL features, let us do a quick recap of the BVI interface and understand its use cases. The [**BVI**](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html) is a virtual interface within the router that acts like a normal routed interface. BVI provides link between the bridging and the routing domains on the router. The BVI does not support bridging itself, but acts as a gateway for the corresponding bridge-domain to a routed interface within the router. Bridge-Domain is a layer 2 broadcast domain. It is associated to a bridge group using the routed interface bvi command. [Reference](https://www.cisco.com/c/en/us/support/docs/lan-switching/integrated-routing-bridging-irb/17054-741-10.html)
 
 
 ### BVI use cases
