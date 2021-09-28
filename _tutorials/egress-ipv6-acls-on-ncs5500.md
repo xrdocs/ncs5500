@@ -15,6 +15,6 @@ tags:
   - ACL
   - IPv6
   - Egress ACL
-position: top
+position: hidden
 ---
 ## Introduction
