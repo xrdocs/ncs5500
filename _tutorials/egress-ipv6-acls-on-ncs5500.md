@@ -31,9 +31,9 @@ Let us start with the earlier generations of NCS5500. As we already know, platfo
 
 ![Screenshot 2021-09-29 at 4.45.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 4.45.23 PM.png)
 
-In order to support the match criteria that is needed for egress IPv6 ACL, resources in the Ingress PMF block will be used. Therefore, this requires us to recycle the IPv6 packets so that the ACL can be performed by the Ingress PMF. 
+In order to support the match criteria that is needed for egress IPv6 ACL, resources in the Ingress PMF block will be used. Therefore, this requires us to recycle the IPv6 packets so that the ACL can be performed by the Ingress PMF. Sometimes it might happen that certain features will not be processed in a single pass. They will require a second pass in the pipeline for further processing. The recycle interface offers the capability to “re-inject” the packet from the end of the egress pipeline into the ingress pipeline for a “second pass” and may be for a third or fourth if needed. There are 2 types of recycling cases. One is ingress recycle and second is egress recycle. Egress IPv6 ACL is the case of egress recycling.
 
-## Two Pass Design
+## Understanding the Two Pass Approach
 
 Egress IPv6 ACL requires two passes of each IPv6 packet that is subject to ACL. The recycling of the IPv6 packets are controlled by entries in the Egress PMF.  Each packet will go through the following stages:
 
