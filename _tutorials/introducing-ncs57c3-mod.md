@@ -38,6 +38,7 @@ They can be used in multiple places in the network: aggregation, pre-agg, 5G (cl
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ARKLok7dj-w" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
+Coming SOON: video on port configuration, MACsec support and timing support.
 
 ## Understanding the naming logic
 
@@ -96,6 +97,18 @@ Location Card Type             ID  Serial Number  Ver    Card State
 
 ## Product description
 
+### Positioning
+
+NCS57C3-MOD can be positioned in a very large variety of roles in the network due to its flexibility, compact form factor and high-level forwarding capacity. Non exhaustively:  
+- 5G Mobile Backhaul (Class C, 1G to 400G)
+- Core & Peering (MACSEC,100G, 400G, High Routing Scale)
+- Enterprise & Residential Aggregation (MACSEC, 10G, 25G, 100G, Higher Aggregation Scale)
+- Cloud Native Broadband Network Gateway (in roadmap)
+- Routed Optical Networks (400G ZR/ZRP*, PLE*) *roadmap
+
+
+
+
 ### CCO Documentation
 
 The product documentation is available here:  
@@ -128,23 +141,46 @@ They only differ in two aspects: external TCAM to complete the J2C NPU and the n
 | MPA bays | 2x 800G + 1x 400G | 2x 800G + 1x 400G |
 | Dual RP | Yes | Yes |
 | Forwarding ASIC | J2C | J2C |
-| eTCAM | No | Yes |
+| eTCAM | No | OP2 |
+| Total interfaces | 4Tbps | 3.6Tbps |
+| NPU Forwarding | 2.4Tbps | 2.4 Tbps |
 
 Ports, MPA slots, RPs and power supply are reachable from the front:
+
+![base-top-view.jpg]({{site.baseurl}}/images/base-top-view.jpg){: .align-center}
+
+![scale-top-view.jpg]({{site.baseurl}}/images/scale-top-view.jpg){: .align-center}
+
+Fan trays are reachable from the back:
+
+![back-flat.jpg]({{site.baseurl}}/images/back-flat.jpg){: .align-center}
+
+### Route Processors
+
+
+### Power supply
+
+1600W AC or DC
+Mixed only for short period of time / migration.
+1+1 redundancy
+
+### Fan trays
+
+2 types  
+5+1 redundancy
+Front to back
+
+
+### NC57-MPA-2D4H-S
+
+## Ports identification
 
 ![NCS57C3-MOD-S.png]({{site.baseurl}}/images/NCS57C3-MOD-S.png){: .align-center}
 
 ![NCS57C3-MOD-SE-S.png]({{site.baseurl}}/images/NCS57C3-MOD-SE-S.png){: .align-center}
 
-Fan trays are reachable from the back:
-
 ![back-view.png]({{site.baseurl}}/images/back-view.png){: .align-center}
 
-### Elements/Parts
-
-## Modular Port Adaptors
-
-### NC57-MPA-2D4H-S
 
 
 ## Forwarding ASIC (NPU)
@@ -157,7 +193,9 @@ Differences with J2
 | xxx | x | x |
 
 
-## Block Diagram
+## Block Diagrams
+
+
 
 ## MACsec
 
