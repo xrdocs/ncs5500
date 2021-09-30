@@ -158,9 +158,17 @@ Fan trays are reachable from the back:
 ### Route Processors
 
 
+No ISSU
+
+
 ### Power supply
 
 1600W AC or DC
+
+![AC1600.jpg]({{site.baseurl}}/images/AC1600.jpg){: .align-center}
+
+![DC1600.jpg]({{site.baseurl}}/images/DC1600.jpg){: .align-center}
+
 Mixed only for short period of time / migration.
 1+1 redundancy
 
