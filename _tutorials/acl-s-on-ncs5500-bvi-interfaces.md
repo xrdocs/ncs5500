@@ -801,7 +801,7 @@ Summarizing the ACL support on BVI interfaces.
 | Egress v4 ACL  | Yes | Yes | Yes           | Yes       |
 | Egress v6 ACL  | No  | No  | No            | Yes       |
 
-We saw the support and programming of the ingress and egress ACLs on the BVI interfaces along with the TCAM resource utilization. In the next article we will explore the v6 ACLs in more details and its implementation across the chipsets. So stay tuned !!! 
+We saw the support and programming of the ingress and egress ACLs on the BVI interfaces along with the TCAM resource utilization. In the [next article](https://xrdocs.io/ncs5500/tutorials/egress-ipv6-acls-on-ncs5500/) we will explore the v6 ACLs in more details and its implementation across the chipsets. So stay tuned !!! 
 
 ## References
 
