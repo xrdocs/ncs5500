@@ -264,4 +264,8 @@ RP/0/RP0/CPU0:5508-2-741Cs#
 
 From the above outputs, its clearly seen that we no more create a database for recycle port RCY_ACL_L3_IPV6. We can also see that owner of the database is EPMF which is Egress PMF. The Egress PMF is having enough resources to take care of the ACL processing. 
 
+## Summary
+
+Hope this article was helpful in understanding the IPv6 Egress ACL implementation on NCS5500 and the enhancement on the newer generation platforms. In the next article we will understand the various modes of ACLs and see how to use specific profile to increase the ACL scale. Stay tuned !!!
+
 
