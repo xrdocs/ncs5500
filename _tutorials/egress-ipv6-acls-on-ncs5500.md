@@ -50,13 +50,15 @@ During the first pass the normal ingress processing will be performed. This incl
 
 ### 1st Pass Egress
 
-![Screenshot 2021-09-29 at 9.11.42 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 9.11.42 PM.png)
+![Screenshot 2021-09-30 at 10.51.26 AM.png]({{site.baseurl}}/images/Screenshot 2021-09-30 at 10.51.26 AM.png)
+
 
 When an IPv6 ACL is attached to an egress interface, a set of egress PMF entries will created to redirect the IPv6 packet out the recycle port. Based the recycle port configuration, a new program will be selected which will take care of internal processing. At high level it will ensure a fixed packet offset after recycling. It will also build a dummy Ethernet header with Ethertype=IPv6 to prepare for 2nd pass ingress parsing
 
 ### 2nd Pass Ingress
 
-![Screenshot 2021-09-29 at 9.20.30 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 9.20.30 PM.png)
+![Screenshot 2021-09-30 at 10.59.52 AM.png]({{site.baseurl}}/images/Screenshot 2021-09-30 at 10.59.52 AM.png)
+
 
 After the IPv6 packet has been recycled, it will be received on the same NPU/Core as the egress DSP. A field group in PMF  will retrieve DSP, Traffic class and drop precedence from the recycled packet's system header. DSP is retrieved so that the recycled packet will go out the same Egress port.  We don't want to go through forwarding again and possibly choose a different egress port. The Traffic Class might have been set by QoS in the 1st pass Ingress processing. We want to preserve this TC. The Drop Precedence might have been set by QoS in the 1st pass ingress processing. We want to preserve this Drop Precedence. Ingress PMF will now perform the ACL. 
 If matches on a Deny ACE, the normal processing will occur and the packet will be dropped or  forwarded to the Control Plane for ICMPv6 handling. If matches on a Permit ACE, the configured action will occur plus the additional actions to strip the recycled system header. Forwarding will use the retrieved DSP from the recycled system header. The packets will be put in the DSP’s VoQ and will be scheduled by the DSP’s end to end scheduler **a second time**. 
@@ -94,7 +96,3 @@ If you apply the same ACL to X egress interfaces, (B) and (C) will increase X ti
 Since the packet is scheduled twice by the DSP’s E2E schedule, a maximum of 50% link utilization will be supported as, bandwidth for the recycle channel will be set to be 50% of core bandwidth.
 
 ## J2 Enhancement
-
-
-
-
