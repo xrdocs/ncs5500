@@ -71,25 +71,150 @@ The original system headers will be used for normal egress processing
 
 ## TCAM Entries 
 
-Egress IPv6 ACL has 2 databases 
+Egress IPv6 ACL has 2 databases:
   - EGRESS_ACL_IPV6 
   - RCY_ACL_L3_IPV6 
 
-Because the packets are recycled, the EGRESS_ACL_IPV6 database has entries that will facilitate the recycling mechanism. The actual match entries are added at RCY_ACL_L3_IPV6.
+Because the packets are recycled, the EGRESS_ACL_IPV6 database has entries that will facilitate the recycling mechanism. The actual match entries are added at RCY_ACL_L3_IPV6. Let us verify the same on the routers. We will use 3 different Line cards as below 
 
-EGRESS_ACL_IPV6:
 
-(A)   1 static entry per NPU per core for the recycle-channel
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-74142I-C#show platform
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------               
+<mark>0/3/CPU0          NC57-18DD-SE</mark>               IOS XR RUN        NSHUT
+0/3/NPU0          Slice                      UP                
+0/3/NPU1          Slice                      UP                
+<mark>0/4/CPU0          NC55-36X100G-A-SE</mark>          IOS XR RUN        NSHUT
+0/4/NPU0          Slice                      UP                
+0/4/NPU1          Slice                      UP                
+0/4/NPU2          Slice                      UP                
+0/4/NPU3          Slice                      UP                                               
+<mark>0/7/CPU0          NC55-24X100G-SE</mark>            IOS XR RUN        NSHUT
+0/7/NPU0          Slice                      UP                
+0/7/NPU1          Slice                      UP                
+0/7/NPU2          Slice                      UP                
+0/7/NPU3          Slice                      UP                
+</code>
+</pre>
+</div>
 
-(B)   3 entries for setting up the different kinds of TPIDs supported (IPv6 (0x86dd), VLAN (0x8100), or MPLS (0x8847))
+Note: Output is truncated
+{: .notice--info}
 
- 
+We will consider 3 Line cards.
 
-RCY_ACL_L3_IPV6:
+| Line Card         | No of NPU's |
+|-------------------|-------------|
+| NC57-18DD-SE      | 2xJ2        |
+| NC55-36X100G-A-SE | 4xJ+        |
+| NC55-24X100G-SE   | 4xJ         |
 
-(C)   the match entries (computed) from the ACL
+Below ACL is applied on the interface in the egress direction in slot 4.
 
-If you apply the same ACL to X egress interfaces, (B) and (C) will increase X times. While (A) will only increase when the interfaces are in different NPUs.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv6 access-list ipv6_1</mark>
+ 10 permit tcp 2001:1:2::/64 any eq 1024
+ 20 permit tcp 2002:1:2::/64 any eq 1024
+ 30 permit tcp 2003:1:2::/64 any eq 1024
+ 40 permit tcp 2004:1:2::/64 any eq 1024
+ 50 deny udp 2001:4:5::/64 any lt 1000
+ 60 permit ipv6 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741Cs#show running-config interface hundredGigE 0/4/0/2
+Wed Sep 29 22:51:52.131 PDT
+<mark>interface HundredGigE0/4/0/2</mark>
+ description Local H0/4/0/2  to H0/4/0/10
+ <span style="background-color:pink">ipv6 access-group ipv6_1 egress</span>
+</code>
+</pre>
+</div>
+
+
+As pointed out earlier, we can see 2 databases are created.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>RP/0/RP0/CPU0:5508-2-741Cs#show controllers npu internaltcam location 0/4/CPU0</mark> 
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<mark>0    0</mark>      160b   egress_acl  2026     <span style="background-color:pink">5       31   EGRESS_ACL_IPV6</span>
+
+<mark>0    6\7</mark>    320b   pmf-0       2034     <span style="background-color:pink">14      93   RCY_ACL_L3_IPV6</span>
+
+RP/0/RP0/CPU0:5508-2-741Cs#
+</code>
+</pre>
+</div>
+
+Note: Output is truncated
+{: .notice--info}
+
+Let us understand the entries in details:
+
+For database **EGRESS_ACL_IPV6** we have:
+- 1 static entry per NPU per core for the recycle-channel
+- 3 entries for setting up the different kinds of TPIDs supported (IPv6 (0x86dd), VLAN (0x8100), or MPLS (0x8847))
+- We can see 5 entries in the database. (default internal entry + the ones explained above)
+
+For database **RCY_ACL_L3_IPV6** we have:
+
+- The match entries computed from the ACL.
+- We can see 14 entries (default entries plus ACEs configured)
+
+Let us increase the number of ACEs and see how the database entries are changed
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>ipv6 access-list ipv6_1</mark>
+ 10 permit tcp 2001:1:2::/64 any eq 1024
+ 20 permit tcp 2002:1:2::/64 any eq 1024
+ 30 permit tcp 2003:1:2::/64 any eq 1024
+ 40 permit tcp 2004:1:2::/64 any eq 1024
+ 50 deny udp 2001:4:5::/64 any lt 1000
+ 60 permit tcp 2005:1:2::/64 any eq 1024
+ 70 permit tcp 2006:1:2::/64 any eq 1024
+ 80 permit tcp 2007:1:2::/64 any eq 1024
+ 90 permit tcp 2008:1:2::/64 any eq 1024
+ 100 permit ipv6 any any
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741Cs#show controllers npu internaltcam location 0/4/CPU0 
+Wed Sep 29 23:12:18.921 PDT
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+<mark>0    0</mark>      160b   egress_acl  2026     <span style="background-color:pink">5       31   EGRESS_ACL_IPV6</span>
+
+<mark>0    6\7</mark>    320b   pmf-0       2030     <span style="background-color:pink">18      93   RCY_ACL_L3_IPV6</span>
+
+RP/0/RP0/CPU0:5508-2-741Cs#
+</code>
+</pre>
+</div>
+
+We can see for database **EGRESS_ACL_IPV6** the entries are not increasing. The entries are only increasing for the database **RCY_ACL_L3_IPV6**. This is because actual match entries are added only at **RCY_ACL_L3_IPV6**. This is very important to understand during debugging or verifying the outputs. Other thing to remember is, if the same ACL is applied to multiple egress interfaces, match entries and different kinds of TPIDs will increase as per number of interfaces. While the entries for the recycle channel will only increase when the interfaces are in different NPUs.
 
 ## Link Utilization due to recycle
 
