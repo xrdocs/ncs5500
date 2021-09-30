@@ -10,6 +10,14 @@ position: hidden
 ---
 {% include toc icon="table" title="Cisco NCS 57C3 MOD Routers" %} 
 
+This article has been written and reviewed by (in alphabetical order):
+- Akshaya Kumar Sankaran, TME
+- Amit Kumar Dey, PM
+- Nicolas Fevrier, TME
+- Paban Sarma, TME
+- Tejas Lad, TME
+- Vincent Ng, TME
+
 ## Introduction
 
 With IOS XR 7.4.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware are also launched with this release. We are very happy to introduce a new member to the NCS5500 family, the NCS57C3-MOD series.
@@ -82,6 +90,81 @@ Location Card Type             ID  Serial Number  Ver    Card State
 </pre>
 </div>
 
+![FCM.png]({{site.baseurl}}/images/FCM.png){: .align-center}
 
+![BAU.png]({{site.baseurl}}/images/BAU.png){: .align-center}
+
+## Product description
+
+### CCO Documentation
+
+The product documentation is available here:  
+- datasheet: [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html)
+	- dimensions
+    - power usage
+    - PIDs
+    - ports
+    - supported standards
+    - pretty much everything you need to know ;)
+- fixed systems white paper: [https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf](https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf)  
+- installation guide: [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html)
+
+### Software
+
+The product is launched with IOS XR 7.4.1.
+
+Note: the system is running XR 64bit and not "XR7". So it shares the same image than other modular and fixed chassis (except the NCS57B1 variants).
+{: .notice--info}
+
+### Hardware
+
+We launch two versions of this new 3-RU modular system: base and scale.  
+They only differ in two aspects: external TCAM to complete the J2C NPU and the number of QSFP ports.
+
+|  | NCS-57C3-MOD-S / NCS-57C3-MOD-SYS | NCS-57C3-MOD-SE-S / NCS-57C3-MODS-SYS |
+|:-----:|:-----:|:-----:|
+| Fixed SFP 1G/10G/25G | 48 | 48 |
+| Fixed QSFP 40G/100G | 8 | 4 |
+| MPA bays | 2x 800G + 1x 400G | 2x 800G + 1x 400G |
+| Dual RP | Yes | Yes |
+| Forwarding ASIC | J2C | J2C |
+| eTCAM | No | Yes |
+
+Ports, MPA slots, RPs and power supply are reachable from the front:
+
+![NCS57C3-MOD-S.png]({{site.baseurl}}/images/NCS57C3-MOD-S.png){: .align-center}
+
+![NCS57C3-MOD-SE-S.png]({{site.baseurl}}/images/NCS57C3-MOD-SE-S.png){: .align-center}
+
+Fan trays are reachable from the back:
+
+![back-view.png]({{site.baseurl}}/images/back-view.png){: .align-center}
+
+### Elements/Parts
+
+## Modular Port Adaptors
+
+### NC57-MPA-2D4H-S
+
+
+## Forwarding ASIC (NPU)
+
+Presentation J2C  
+Differences with J2  
+
+|  | Jericho2 | Jericho2C |
+|:-----:|:-----:|:-----:|
+| xxx | x | x |
+
+
+## Block Diagram
+
+## MACsec
+
+Will be completed with next videos
+
+## Timing
+
+Will be completed with next videos
 
 
