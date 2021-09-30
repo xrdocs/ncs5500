@@ -46,7 +46,7 @@ Egress IPv6 ACL requires two passes of each IPv6 packet that is subject to ACL. 
 
 ![Screenshot 2021-09-29 at 5.28.14 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 5.28.14 PM.png)
 
-During the first pass the normal ingress processing will be performed. This includes ingress PMF, QoS, and any other configured features. The forwarding decision, is determined based on the Destination System Port (DSP). Each DSP in the system has a corresponding set of VoQs. Since a FEC is pointing to the DSP, packets are sent to destination port on the destination NPU. The header contains DSP  as system port. The packets will be put in the DSP’s VoQ and will be scheduled by the DSP’s End-to-End (E2E) scheduler
+During the first pass the normal ingress processing will be performed. This includes ingress PMF, QoS, and any other configured features. The forwarding decision, is determined based on the Destination System Port (DSP). Each DSP in the system has a corresponding set of VoQs. Since a FEC (Forwarding Equivalence Class) is pointing to the DSP, packets are sent to destination port on the destination NPU. The header contains DSP as system port. The packets will be put in the DSP’s VoQ and will be scheduled by the DSP’s End-to-End (E2E) scheduler
 
 ### 1st Pass Egress
 
@@ -75,7 +75,7 @@ Egress IPv6 ACL has 2 databases:
   - EGRESS_ACL_IPV6 
   - RCY_ACL_L3_IPV6 
 
-Because the packets are recycled, the EGRESS_ACL_IPV6 database has entries that will facilitate the recycling mechanism. The actual match entries are added at RCY_ACL_L3_IPV6. Let us verify the same on the routers. We will use 3 different Line cards as below 
+Because the packets are recycled, the EGRESS_ACL_IPV6 database has entries that will facilitate the recycling mechanism. The actual match entries are added at RCY_ACL_L3_IPV6. Let us verify the same on the routers. We will use 2 different Line cards as below 
 
 
 <div class="highlighter-rouge">
@@ -91,12 +91,7 @@ Node              Type                       State             Config state
 0/4/NPU0          Slice                      UP                
 0/4/NPU1          Slice                      UP                
 0/4/NPU2          Slice                      UP                
-0/4/NPU3          Slice                      UP                                               
-<mark>0/7/CPU0          NC55-24X100G-SE</mark>            IOS XR RUN        NSHUT
-0/7/NPU0          Slice                      UP                
-0/7/NPU1          Slice                      UP                
-0/7/NPU2          Slice                      UP                
-0/7/NPU3          Slice                      UP                
+0/4/NPU3          Slice                      UP                                                   
 </code>
 </pre>
 </div>
@@ -110,7 +105,6 @@ We will consider 3 Line cards.
 |-------------------|-------------|
 | NC57-18DD-SE      | 2xJ2        |
 | NC55-36X100G-A-SE | 4xJ+        |
-| NC55-24X100G-SE   | 4xJ         |
 
 Below ACL is applied on the interface in the egress direction in slot 4.
 
@@ -139,7 +133,6 @@ Wed Sep 29 22:51:52.131 PDT
 </code>
 </pre>
 </div>
-
 
 As pointed out earlier, we can see 2 databases are created.
 <div class="highlighter-rouge">
