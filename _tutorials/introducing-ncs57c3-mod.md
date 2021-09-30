@@ -195,6 +195,9 @@ Differences with J2
 
 ## Block Diagrams
 
+![block-diagram.png]({{site.baseurl}}/images/block-diagram.png){: .align-center}
+
+![EPC-EOBC.png]({{site.baseurl}}/images/EPC-EOBC.png){: .align-center}
 
 
 ## MACsec
