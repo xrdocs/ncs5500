@@ -221,3 +221,47 @@ We can see for database **EGRESS_ACL_IPV6** the entries are not increasing. The 
 Since the packet is scheduled twice by the DSP’s E2E schedule, a maximum of 50% link utilization will be supported as, bandwidth for the recycle channel will be set to be 50% of core bandwidth.
 
 ## J2 Enhancement
+
+NCS5500 based on J2 ASICs do not face the issue of packet recycling when it comes to IPv6 Egress ACLs. They can be processed in single pass like IPv4 Egress ACLs. This is possible because of the presence of more resources in the Egress PMF. Let us verify the same on the Line card based on J2.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>interface FourHundredGigE0/3/0/21</mark>
+ description 5508-2 FH0/3/0/21 to 5508-1 FH0/7/0/21
+ cdp
+ <mark>ipv6 access-group ipv6_1 egress</mark>
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741Cs#show controllers npu internaltcam location 0/3/CPU0   
+Wed Sep 29 23:42:35.179 PDT
+Internal TCAM Resource Information
+=============================================================
+NPU  Bank   Entry  Owner       Free     Per-DB  DB   DB
+     Id     Size               Entries  Entry   ID   Name
+=============================================================
+
+<mark>1</mark>    6\7    320b   <span style="background-color:pink">EPMF</span>        2013     26      44   <span style="background-color:pink">EGRESS_ACL_IPV6</span>
+RP/0/RP0/CPU0:5508-2-741Cs#
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:5508-2-741Cs#<mark>show controllers npu internaltcam location 0/3/CPU0 | in RCY_ACL_L3_IPV6</mark>
+
+RP/0/RP0/CPU0:5508-2-741Cs#
+</code>
+</pre>
+</div>
+
+From the above outputs, its clearly seen that we no more create a database for recycle port RCY_ACL_L3_IPV6. We can also see that owner of the database is EPMF which is Egress PMF. The Egress PMF is having enough resources to take care of the ACL processing. 
+
+
