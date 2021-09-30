@@ -21,13 +21,13 @@ position: hidden
 
 ## Introduction
 
-In the [previous article](https://xrdocs.io/ncs5500/tutorials/acl-s-on-ncs5500-bvi-interfaces/), we discussed the ACLs on NCS5500 BVI interfaces. We covered the ACL implementation and support for IPv4 and IPv6 ACLs in both ingress and egress directions. We also discussed the enhancements w.r.t IPv6 Egress ACLs. In this article we discuss the overall implementation of IPv6 Egress ACLs across NCS5500 product family (J/J+ and J2).
+In the [previous article](https://xrdocs.io/ncs5500/tutorials/acl-s-on-ncs5500-bvi-interfaces/), we discussed the ACLs on NCS5500 BVI interfaces. We covered the ACL implementation and support for IPv4 and IPv6 ACLs in both ingress and egress directions. We also discussed the enhancements w.r.t IPv6 Egress ACLs. In this article we discuss the overall implementation of IPv6 Egress ACLs across NCS5500 product family based on J/J+ and see how it differs with the platforms based on J2.
 
 ## Overview
 
 ![Screenshot 2021-09-29 at 2.16.58 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 2.16.58 PM.png)
 
-Let us start with the earlier generations of NCS5500. As we already know, platforms based on J/J+ have limited hardware resources. They have very limited capabilities in the Egress PMF as well. PMF means Programmable Mapping and Filtering block in the ingress and egress pipeline. It is one of the blocks in the pipeline. It is the most programmable and the last programmable block in the pipeline. It has all the history of the packet from other blocks (incoming port, lookup results, etc). We can override here every decision taken along the pipeline. Here we do ACL, QoS, LPTS classification and set actions (counters, policers, Traffic Class).  Egress PMF is capable of doing internal TCAM lookup for egress ACLs
+Let us start with the earlier generations of NCS5500. As we already know, platforms based on J/J+ have limited hardware resources. They have very limited capabilities in the Egress PMF as well. PMF is one of the blocks in the ingress and egress pipeline. It means Programmable Mapping and Filtering. It is the most programmable and the last programmable block in the pipeline. It has all the history of the packet from other blocks (incoming port, lookup results, etc). We can override here every decision taken along the pipeline. Here we do ACL, QoS, LPTS classification and set actions (counters, policers, Traffic Class).  Egress PMF is capable of doing internal TCAM lookup for egress ACLs
 
 ![Screenshot 2021-09-29 at 4.45.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 4.45.23 PM.png)
 
