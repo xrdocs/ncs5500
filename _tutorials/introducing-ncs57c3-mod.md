@@ -308,6 +308,91 @@ The same innovations are present in the J2C and J2. Among them, the capability t
 
 By default, in IOS XR 7.4.1, the base system will enable the L3max profile and the scale version will activate the L3max-SE profile. In future releases, we will allow the configuration of diverse profiles depending on the use-case (L2max, L2max-SE for example).
 
+### Port assignment to ASIC Core
+
+For once, it will very simple: it's a single-ASIC system and it's a single-core NPU. So all ports are connected to NPU 0 Core 0.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:Router# sh controllers npu voq-usage interface all instance$
+
+-------------------------------------------------------------------
+Node ID: 0/0/CPU0
+Intf Intf NPU NPU PP Sys VOQ Flow VOQ Port
+name handle # core Port Port base base port speed
+(hex) type
+----------------------------------------------------------------------
+Hu0/0/3/2 8 0 0 1 1 1520 6648 local 100G
+Hu0/0/3/3 28 0 0 5 5 1528 6656 local 100G
+Hu0/0/3/1 68 0 0 13 13 1512 6640 local 100G
+Hu0/0/2/2 88 0 0 17 17 1488 6616 local 100G
+Hu0/0/2/3 a8 0 0 21 21 1496 6624 local 100G
+Hu0/0/2/0 c8 0 0 25 25 1472 6600 local 100G
+Hu0/0/2/1 e8 0 0 29 29 1480 6608 local 100G
+Te0/0/0/8 188 0 0 49 49 1088 6216 local 10G
+Te0/0/0/9 190 0 0 50 50 1096 6224 local 10G
+TF0/0/0/10 198 0 0 51 51 1320 6448 local 25G
+TF0/0/0/11 1a0 0 0 52 52 1432 6560 local 25G
+Te0/0/0/12 1a8 0 0 53 53 1104 6232 local 10G
+Te0/0/0/13 1b0 0 0 54 54 1112 6240 local 10G
+Te0/0/0/14 1b8 0 0 55 55 1120 6248 local 10G
+Te0/0/0/15 1c0 0 0 56 56 1128 6256 local 10G
+Te0/0/0/16 1c8 0 0 57 57 1136 6264 local 10G
+Te0/0/0/17 1d0 0 0 58 58 1144 6272 local 10G
+Te0/0/0/18 1d8 0 0 59 59 1152 6280 local 10G
+Te0/0/0/19 1e0 0 0 60 60 1160 6288 local 10G
+Te0/0/0/20 1e8 0 0 61 61 1168 6296 local 10G
+Te0/0/0/21 1f0 0 0 62 62 1176 6304 local 10G
+Te0/0/0/22 1f8 0 0 63 63 1280 6408 local 10G
+Te0/0/0/23 200 0 0 64 64 1272 6400 local 10G
+Hu0/0/0/24 208 0 0 65 65 1312 6440 local 100G
+Hu0/0/0/25 228 0 0 69 69 1304 6432 local 100G
+Hu0/0/0/26 248 0 0 73 73 1296 6424 local 100G
+Hu0/0/0/27 268 0 0 77 77 1288 6416 local 100G
+TF0/0/0/28 288 0 0 81 81 1424 6552 local 25G
+TF0/0/0/29 290 0 0 82 82 1416 6544 local 25G
+TF0/0/0/30 298 0 0 83 83 1328 6456 local 25G
+TF0/0/0/31 2a0 0 0 84 84 1336 6464 local 25G
+TF0/0/0/32 2a8 0 0 85 85 1344 6472 local 25G
+TF0/0/0/33 2b0 0 0 86 86 1352 6480 local 25G
+TF0/0/0/34 2b8 0 0 87 87 1360 6488 local 25G
+TF0/0/0/35 2c0 0 0 88 88 1368 6496 local 25G
+TF0/0/0/36 2c8 0 0 89 89 1376 6504 local 25G
+TF0/0/0/39 2d0 0 0 90 90 1400 6528 local 25G
+TF0/0/0/38 2d8 0 0 91 91 1392 6520 local 25G
+TF0/0/0/37 2e0 0 0 92 92 1384 6512 local 25G
+Te0/0/0/40 2e8 0 0 93 93 1264 6392 local 10G
+Te0/0/0/41 2f0 0 0 94 94 1256 6384 local 10G
+Te0/0/0/42 2f8 0 0 95 95 1248 6376 local 10G
+Te0/0/0/43 300 0 0 96 96 1240 6368 local 10G
+Te0/0/0/4 308 0 0 97 97 1056 6184 local 10G
+Te0/0/0/5 310 0 0 98 98 1064 6192 local 10G
+Te0/0/0/6 318 0 0 99 99 1072 6200 local 10G
+Te0/0/0/7 320 0 0 100 100 1080 6208 local 10G
+Te0/0/0/0 328 0 0 101 101 1024 6152 local 10G
+Te0/0/0/1 330 0 0 102 102 1032 6160 local 10G
+Te0/0/0/2 338 0 0 103 103 1040 6168 local 10G
+Te0/0/0/3 340 0 0 104 104 1048 6176 local 10G
+Hu0/0/1/0 348 0 0 105 105 1440 6568 local 100G
+Hu0/0/1/1 368 0 0 109 109 1448 6576 local 100G
+Hu0/0/1/2 388 0 0 113 113 1456 6584 local 100G
+Hu0/0/1/3 3a8 0 0 117 117 1464 6592 local 100G
+Te0/0/0/48 3c8 0 0 121 121 1200 6328 local 10G
+Te0/0/0/49 3d0 0 0 122 122 1192 6320 local 10G
+Te0/0/0/50 3d8 0 0 123 123 1184 6312 local 10G
+TF0/0/0/51 3e0 0 0 124 124 1408 6536 local 25G
+Te0/0/0/45 3e8 0 0 125 125 1224 6352 local 10G
+Te0/0/0/44 3f0 0 0 126 126 1232 6360 local 10G
+Te0/0/0/46 3f8 0 0 127 127 1216 6344 local 10G
+Te0/0/0/47 438 0 0 135 135 1208 6336 local 10G
+Te0/0/3/0/0 2048 0 0 9 9 1504 6632 local 10G
+Te0/0/3/0/1 2050 0 0 10 10 1536 6664 local 10G
+Te0/0/3/0/2 2058 0 0 11 11 1544 6672 local 10G
+Te0/0/3/0/3 2060 0 0 12 12 1552 6680 local 10G
+RP/0/RP0/CPU0:Router#</code>
+</pre>
+</div>
+
 ## Block Diagrams
 
 The systems are logically split in an (dual) RP part and a LC part, each powered by Intel 8-core CPUs.
