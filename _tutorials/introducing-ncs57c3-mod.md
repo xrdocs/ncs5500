@@ -6,7 +6,7 @@ author: Nicolas Fevrire
 excerpt: >-
   Very happy to announce the new member of the NCS5500 fixed routers: the
   NCS57C3-MOD
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Cisco NCS 57C3 MOD Routers" %} 
 
@@ -130,7 +130,7 @@ In the download center, the search engine will not help with NCS 57C3 keywords:
 
 ![not-found.png]({{site.baseurl}}/images/not-found.png){: .align-center}
 
-But you can pick any image NCS5500 image to upgrade your NCS57C3-MOD routers (except the one for NCS57B1, of course since it's XR7 one):
+But you can pick any image NCS5500 image to upgrade your NCS57C3-MOD routers (except the one for NCS57B1, of course since it's XR7):
 
 ![xr-image-741.png]({{site.baseurl}}/images/xr-image-741.png){: .align-center}
 
