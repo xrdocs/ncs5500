@@ -270,13 +270,25 @@ The scale variant offers 4 ports:
 
 ## Forwarding ASIC (NPU)
 
-Presentation J2C  
-Differences with J2  
+NCS57C3-MOD routers are powered by a single NPU: the Broadcom Jericho2C. It's the first platform of its kind in the Cisco MIG portfolio to use this chipset (Jericho2 being used in multiple line cards and stand-alone platforms already).
+
+![J2-J2C.png]({{site.baseurl}}/images/J2-J2C.png){: .align-center}
+
+At very high level, the J2C ASIC is a J2 with just one core instead of two. Therefore,  
+- it will have half the bandwidth (2.4Tbps) and forwarding capabilities (1BPPS)
+- more resources since they don't need to be shared between two cores
 
 |  | Jericho2 | Jericho2C |
 |:-----:|:-----:|:-----:|
-| xxx | x | x |
-
+| Bandwidth (Gbps) | 4,800 | 2,400 |
+| PPS | 2B | 1B |
+| Network IF | 96x50G | 32x50G+96x25G |
+| Fabric IF | 112x50G | 48x50G |
+| On-Chip Buffer | 32MB | 16MB |
+| Off-Chip Buffer (HBM) | 8GB | 4GB |
+| Virtual Output Queues per Core | 64K | 128K |
+| Counters | 192K | 384L |
+| Timing | Class B | Class C |
 
 ## Block Diagrams
 
