@@ -423,6 +423,6 @@ In the right part of the central raw of the system, you'll find all timing ports
 - GNSS antenna
 - Time Of Day
 
-More details will be add with next video.
+More details will be added with next video.
 
 
