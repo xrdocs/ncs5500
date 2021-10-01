@@ -171,6 +171,8 @@ The NCS57C3-MOD is the first of the "fixed platforms" portfolio to offer control
 
 ![RP2-side.jpg]({{site.baseurl}}/images/RP2-side.jpg){: .align-center}
 
+Each route processor offers an USB port (for log/dump storage or "USB boot"), a console port and an management ethernet port.
+
 Note: the system can operate in nominal manner with only one RP. The dual RP is optional.  
 As mentioned above, it offers control plane redundancy and not forwarding plane redundancy. It means the protocols and processes will be checkpointed between the two route processors, in the same way it's done on the chassis 5504/5508/5516, enabling the NSR/NSF/GR features between protocols. But at the difference of the chassis, we don't have multiple fabric cards (no fabric card at all).  
 The RP doesn't contain the Jericho2C NPU, it's located in an "internal line card".
@@ -180,6 +182,7 @@ You'll find details on the CPU type, memories, etc in the datasheet linked above
 Notes:  
 - the NC57-MOD-RP2-E is specific to the NCS57C3 and can't be used in the modular chassis (or vice versa), it's a totally different form factor
 - we don't have plans to implement ISSU on this system. The RP doesn't contain the forwarding device, so at best we should be able to speed up the reload process but not reach true ISSU capabilities.
+- with this dual RP architecture, the system is rated for a 5x9 availability (99.999%) at 30C.
 
 ### Power supply
 
@@ -287,19 +290,21 @@ At very high level, the J2C ASIC is a J2 with just one core instead of two. Ther
 | On-Chip Buffer | 32MB | 16MB |
 | Off-Chip Buffer (HBM) | 8GB | 4GB |
 | Virtual Output Queues per Core | 64K | 128K |
-| Counters | 192K | 384L |
+| Counters | 192K | 384K |
 | Timing | Class B | Class C |
 
 ## Block Diagrams
 
 ![block-diagram.png]({{site.baseurl}}/images/block-diagram.png){: .align-center}
 
-Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.
-
-
+Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
+But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset. This element will provide MACsec encryption.
 
 ![EPC-EOBC.png]({{site.baseurl}}/images/EPC-EOBC.png){: .align-center}
 
+Internally, the different parts of the system are interconnected through an ethernet switch that will "service" both the EPC and EOBC networks:  
+- the EPC for Ethernet Protocol Channel for the punted traffic ("for us" packets or netflow samples for example). The LC CPU and LC NPU are connected through a PCIe connection.
+- the EOBC: Ethernet Out-of Band Channel for system management
 
 ## MACsec
 
