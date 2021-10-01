@@ -317,7 +317,7 @@ The systems are logically split in an (dual) RP part and a LC part, each powered
 Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
 But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset. This element will provide MACsec encryption.
 
-![EPC-EOBC-.png]({{site.baseurl}}/images/EPC-EOBC-.png){: .align-center}
+![EPC-EOBC--.png]({{site.baseurl}}/images/EPC-EOBC--.png){: .align-center}
 
 Internally, the different parts of the system are interconnected through an ethernet switch that will "service" both the EPC and EOBC networks:  
 - the EPC for Ethernet Protocol Channel for the punted traffic ("for us" packets or netflow samples for example). The LC CPU and LC NPU are connected through a PCIe connection.
