@@ -104,7 +104,7 @@ NCS57C3-MOD can be positioned in a very large variety of roles in the network du
 - Core & Peering (MACSEC,100G, 400G, High Routing Scale)
 - Enterprise & Residential Aggregation (MACSEC, 10G, 25G, 100G, Higher Aggregation Scale)
 - Cloud Native Broadband Network Gateway (in roadmap)
-- Routed Optical Networks (400G ZR/ZRP*, PLE*) *roadmap
+- Routed Optical Networks (400G ZR/ZRP, PLE) (ZRP and PLE in roadmap)
 
 ### CCO Documentation
 
@@ -174,7 +174,8 @@ The NCS57C3-MOD is the first of the "fixed platforms" portfolio to offer control
 
 Each route processor offers an USB port (for log/dump storage or "USB boot"), a console port and an management ethernet port.
 
-Note: the system can operate in nominal manner with only one RP. The dual RP is optional.  
+Note: the system can operate in nominal manner with only one RP. The dual RP is optional.
+
 As mentioned above, it offers control plane redundancy and not forwarding plane redundancy. It means the protocols and processes will be checkpointed between the two route processors, in the same way it's done on the chassis 5504/5508/5516, enabling the NSR/NSF/GR features between protocols. But at the difference of the chassis, we don't have multiple fabric cards (no fabric card at all).  
 The RP doesn't contain the Jericho2C NPU, it's located in an "internal line card".
 
@@ -193,11 +194,11 @@ In the bottom left side of the front, we can insert two PSUs. Two flavors exist:
 
 ![DC1600-.jpg]({{site.baseurl}}/images/DC1600-.jpg){: .align-center}
 
-Mixed (AC+DC) is possible but only tested for short period of time (like during a live migration).
+Mixed (AC+DC) is possible but only tested for short period of time (during a live migration, for example).
 
 ### Fan trays
 
-The cooling of the chassis is guaranteed by a system of 6 fan trays inserted in the back of the box. It's a front to back design with two types of FTs:
+The cooling of the chassis is guaranteed by a system of 6 fan trays inserted in the back of the box. It's a front-to-back design with two types of FTs:
 
 NC57-C3-FAN1-FW (40mm):  
 ![NC57-C3-FAN1-FW-side-.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side-.jpg){: .align-center}
@@ -246,7 +247,7 @@ More details to come very soon with the second video
 
 ![Ports-MPA.png]({{site.baseurl}}/images/Ports-MPA.png){: .align-center}
 
-Port numbering for MPA are the same for both base and scale version of the router. The MPA type will of course influence the port name and numbers.
+Port numbering for MPA are the same for both base and scale versions of the router. The MPA type will of course influence the port name and numbers.
 
 ### SFP ports
 
@@ -264,7 +265,7 @@ Note: the 1G ports are supporting only "optical" and not "copper" (no auto-neg).
 
 ### QSFP ports
 
-That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offer half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
+That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offers half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
 
 The base variant has 8 ports:
 
@@ -310,7 +311,7 @@ By default, in IOS XR 7.4.1, the base system will enable the L3max profile and t
 
 ### Port assignment to ASIC Core
 
-For once, it will very simple: it's a single-ASIC system and it's a single-core NPU. So all ports are connected to NPU 0 Core 0.
+For once, it will be very simple: it's a single-ASIC system and it's a single-core NPU. So all ports are connected to NPU 0 Core 0.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -402,9 +403,10 @@ The systems are logically split in an (dual) RP part and a LC part, each powered
 Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
 But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset. This element will provide MACsec encryption.
 
+Internally, the different parts of the system are interconnected through an ethernet switch that will "service" both the EPC and EOBC networks:
+
 ![EPC-EOBC--.png]({{site.baseurl}}/images/EPC-EOBC--.png){: .align-center}
 
-Internally, the different parts of the system are interconnected through an ethernet switch that will "service" both the EPC and EOBC networks:  
 - the EPC for Ethernet Protocol Channel for the punted traffic ("for us" packets or netflow samples for example). The LC CPU and LC NPU are connected through a PCIe connection.
 - the EOBC: Ethernet Out-of Band Channel for system management
 
