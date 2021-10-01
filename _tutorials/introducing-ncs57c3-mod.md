@@ -310,6 +310,8 @@ By default, in IOS XR 7.4.1, the base system will enable the L3max profile and t
 
 ## Block Diagrams
 
+The systems are logically split in an (dual) RP part and a LC part, each powered by Intel 8-core CPUs.
+
 ![block-diagram.png]({{site.baseurl}}/images/block-diagram.png){: .align-center}
 
 Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
@@ -323,10 +325,19 @@ Internally, the different parts of the system are interconnected through an ethe
 
 ## MACsec
 
-Will be completed with next videos
+All MPAs and the last 24 SFP ports are MACsec capable. More details will be added with the next video.
 
 ## Timing
 
-Will be completed with next videos
+In the right part of the central raw of the system, you'll find all timing ports:
+
+![Timing-ports.png]({{site.baseurl}}/images/Timing-ports.png){: .align-center}
+
+- 1PPS
+- 10MHz
+- GNSS antenna
+- Time Of Day
+
+More details will be add with next video.
 
 
