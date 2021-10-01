@@ -218,12 +218,23 @@ With a single fan failure (whether it is NC57-C3-FAN1-FW or NC57-C3-FAN2-FW), th
 
 ### Modular Port Adaptors
 
+![MPA-numbered.png]({{site.baseurl}}/images/MPA-numbered.png){: .align-center}
 
-![MPA-positions.png]({{site.baseurl}}/images/MPA-positions.png){: .align-center}
+NCS57C3-MOD offers three MPA bays:
+- 2 for 800Gbps MPA (or 400G): slot 1/2
+- 1 for 400Gbps MPA only: slot 0
 
+All slots support existing MPAs:
+- NC55-MPA-2TH-S: NCS 5500 2X200G CFP2 MPA
+- NC55-MPA-1TH2H-S: NCS 5500 1X200G CFP2 + 2X100G QSFP28 MPA
+- NC55-MPA-12T-S: NCS 5500 12X10G MPA
+- NC55-MPA-4H-S: NCS 5500 4X100G QSFP28 MPA
 
+And slots 1 and 2 support new generation MPAs at 800G:
 
-More details to come very soon with the second video (on NC57-MPA-2D4H-S).
+- NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
+
+More details to come very soon with the second video 
 
 
 
