@@ -151,13 +151,13 @@ They only differ in two aspects: external TCAM to complete the J2C NPU and the n
 | Total interfaces | 4Tbps | 3.6Tbps |
 | NPU Forwarding | 2.4Tbps | 2.4 Tbps |
 
-Ports, MPA slots, RPs and power supply are reachable from the front:
+Fixed ports (interfaces), Modular Port Adaptors (MPA) slots, Route Processors (RPs) and Power Supply Units (PSUs) are reachable from the front:
 
 ![dimensions-base.png]({{site.baseurl}}/images/dimensions-base.png){: .align-center}
 
 ![dimensions-SE-.png]({{site.baseurl}}/images/dimensions-SE-.png){: .align-center}
 
-Fan trays are reachable from the back:
+Only Fan trays are reachable from the back:
 
 ![back-flat.jpg]({{site.baseurl}}/images/back-flat.jpg){: .align-center}
 
@@ -195,10 +195,10 @@ Mixed (AC+DC) is possible but only tested for short period of time (like during 
 
 The cooling of the chassis is guaranteed by a system of 6 fan trays inserted in the back of the box. It's a front to back design with two types of FTs:
 
-![NC57-C3-FAN1-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side.jpg){: .align-center}  
+![NC57-C3-FAN1-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side.jpg){: .align-center}{ width: 300px; }  
 NC57-C3-FAN1-FW (40mm){: .align-center}
 
-![NC57-C3-FAN2-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN2-FW-side.jpg){: .align-center}  
+![NC57-C3-FAN2-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN2-FW-side.jpg){: .align-center}{ width: 300px; }  
 NC57-C3-FAN2-FW (60mm){: .align-center}
 
 The fan slots are numbers from left to right, 0 to 5 (from a back perspective).
