@@ -126,6 +126,15 @@ The product is launched with IOS XR 7.4.1.
 Note: the system is running XR 64bit and not "XR7". So it shares the same image than other modular and fixed chassis (except the NCS57B1 variants).
 {: .notice--info}
 
+In the download center, the search engine will not help with NCS 57C3 keywords:
+
+![not-found.png]({{site.baseurl}}/images/not-found.png){: .align-center}
+
+But you can pick any image (except the one for NCS57B1, of course since it's XR7 one):
+
+![xr-image-741.png]({{site.baseurl}}/images/xr-image-741.png){: .align-center}
+
+
 ### Hardware
 
 We launch two versions of this new 3-RU modular system: base and scale.  
