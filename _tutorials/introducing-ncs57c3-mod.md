@@ -155,7 +155,7 @@ Ports, MPA slots, RPs and power supply are reachable from the front:
 
 ![dimensions-base.png]({{site.baseurl}}/images/dimensions-base.png){: .align-center}
 
-![dimensions-SE.png]({{site.baseurl}}/images/dimensions-SE.png){: .align-center}
+![dimensions-SE-.png]({{site.baseurl}}/images/dimensions-SE-.png){: .align-center}
 
 Fan trays are reachable from the back:
 
