@@ -22,12 +22,12 @@ This article has been written and reviewed by (in alphabetical order):
 
 With IOS XR 7.4.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware are also launched with this release. We are very happy to introduce a new member to the NCS5500 family, the NCS57C3-MOD series.
 
-These two new routers are the NCS-57C3-MOD-SYS and NCS-57C3-MODS-SYS, that can be considered the successors of the NCS55A2-MOD since they are built following the same philosophy:  
+These two new routers are the NCS-57C3-MOD-SYS and NCS-57C3-MODS-SYS, that can be considered the successors of NCS55A2-MOD. They are built following the same philosophy:  
 - compact form-factor (less than 300mm deep and 3RU here)
--offering the highest level of flexibility with both fixed SFP and QSFP ports (1G, 10G, 25G, 40G, 100G) 
-- modular port adaptors
+- offering the highest level of flexibility with both fixed SFP and QSFP ports (1G, 10G, 25G, 40G, 100G) 
+- modular port adaptors  
 but also new goodies are specific to this NCS57C3-MOD:  
-- a 2.4Tbps of forwarding capability (compared to the 900G on NCS55A2-MOD)
+- much higher forwarding capability ( 2.4Tbps compared to 900G on NCS55A2-MOD)
 - dual RP for control plane redundancy
 - 3x MPA (two at 800G and one at 400G)
 
@@ -46,7 +46,7 @@ The name of the product is different depending on the licensing model used.
 
 With Flexible Consumption Model:  
 - NCS-57C3-MOD-SYS is the "base" version
-- NCS-57C3-MODS-SYS is the "scale" version (ie: equiped with External TCAM and half the numbers of 100G fixed ports)
+- NCS-57C3-MODS-SYS is the "scale" version (ie: equipped with External TCAM and half the numbers of 100G fixed ports)
 
 With Perpetual / Business As Usual model:  
 - NCS-57C3-MOD-S is the "base" version
@@ -130,7 +130,7 @@ In the download center, the search engine will not help with NCS 57C3 keywords:
 
 ![not-found.png]({{site.baseurl}}/images/not-found.png){: .align-center}
 
-But you can pick any image NCS5500 image to upgrade your NCS57C3-MOD routers (except the one for NCS57B1, of course since it's XR7):
+But you can pick any NCS5500 image to upgrade your NCS57C3-MOD routers (except the one for NCS57B1, of course since it's XR7):
 
 ![xr-image-741.png]({{site.baseurl}}/images/xr-image-741.png){: .align-center}
 
