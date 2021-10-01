@@ -46,7 +46,7 @@ The name of the product is different depending on the licensing model used.
 
 With Flexible Consumption Model:  
 - NCS-57C3-MOD-SYS is the "base" version
-- NCS-57C3-MODS-SYS is the "scale" version (ie: equipped with External TCAM and half the numbers of 100G fixed ports)
+- NCS-57C3-MODS-SYS is the "scale" version (ie: equiped with External TCAM and half the numbers of 100G fixed ports)
 
 With Perpetual / Business As Usual model:  
 - NCS-57C3-MOD-S is the "base" version
@@ -106,9 +106,6 @@ NCS57C3-MOD can be positioned in a very large variety of roles in the network du
 - Cloud Native Broadband Network Gateway (in roadmap)
 - Routed Optical Networks (400G ZR/ZRP*, PLE*) *roadmap
 
-
-
-
 ### CCO Documentation
 
 The product documentation is available here:  
@@ -147,47 +144,85 @@ They only differ in two aspects: external TCAM to complete the J2C NPU and the n
 
 Ports, MPA slots, RPs and power supply are reachable from the front:
 
-![base-top-view.jpg]({{site.baseurl}}/images/base-top-view.jpg){: .align-center}
+![dimensions-base.png]({{site.baseurl}}/images/dimensions-base.png){: .align-center}
 
-![scale-top-view.jpg]({{site.baseurl}}/images/scale-top-view.jpg){: .align-center}
+![dimensions-SE.png]({{site.baseurl}}/images/dimensions-SE.png){: .align-center}
 
 Fan trays are reachable from the back:
 
 ![back-flat.jpg]({{site.baseurl}}/images/back-flat.jpg){: .align-center}
 
+### LEDs and Displays
+
+Coming very soon.
+
 ### Route Processors
 
+The NCS57C3-MOD is the first of the "fixed platforms" portfolio to offer control plane redundancy via the presence of these two NC57-MOD-RP2-E inserted in the front of the router (top right two slots).  
 
-No ISSU
+![RP2-side.jpg]({{site.baseurl}}/images/RP2-side.jpg){: .align-center}
 
+Note: the system can operate in nominal manner with only one RP. The dual RP is optional.  
+As mentioned above, it offers control plane redundancy and not forwarding plane redundancy. It means the protocols and processes will be checkpointed between the two route processors, in the same way it's done on the chassis 5504/5508/5516, enabling the NSR/NSF/GR features between protocols. But at the difference of the chassis, we don't have multiple fabric cards (no fabric card at all).  
+The RP doesn't contain the Jericho2C NPU, it's located in an "internal line card".
+
+You'll find details on the CPU type, memories, etc in the datasheet linked above.
+
+Notes:  
+- the NC57-MOD-RP2-E is specific to the NCS57C3 and can't be used in the modular chassis (or vice versa), it's a totally different form factor
+- we don't have plans to implement ISSU on this system. The RP doesn't contain the forwarding device, so at best we should be able to speed up the reload process but not reach true ISSU capabilities.
 
 ### Power supply
 
-1600W AC or DC
+In the bottom left side of the front, we can insert two PSUs. Two flavors exist: 1600W AC or 1600W DC. Both AC or DC options offer 1+1 redundancy.
 
-![AC1600.jpg]({{site.baseurl}}/images/AC1600.jpg){: .align-center}
+![AC1600-.jpg]({{site.baseurl}}/images/AC1600-.jpg){: .align-center}
 
-![DC1600.jpg]({{site.baseurl}}/images/DC1600.jpg){: .align-center}
+![DC1600-.jpg]({{site.baseurl}}/images/DC1600-.jpg){: .align-center}
 
-Mixed only for short period of time / migration.
-1+1 redundancy
+Mixed (AC+DC) is possible but only tested for short period of time (like during a live migration).
 
 ### Fan trays
 
-2 types  
-5+1 redundancy
-Front to back
+The cooling of the chassis is guaranteed by a system of 6 fan trays inserted in the back of the box. It's a front to back design with two types of FTs:
+
+![NC57-C3-FAN1-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side.jpg){: .align-center}  
+NC57-C3-FAN1-FW (40mm){: .align-center}
+
+![NC57-C3-FAN2-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN2-FW-side.jpg){: .align-center}  
+NC57-C3-FAN2-FW (60mm){: .align-center}
+
+The fan slots are numbers from left to right, 0 to 5 (from a back perspective).
+
+![Fans-Numbering.png]({{site.baseurl}}/images/Fans-Numbering.png){: .align-center}
+
+|  | NC57-C3-FAN1-FW | NC57-C3-FAN2-FW |
+|:-----:|:-----:|:-----:|
+| Size | 40mm | 60mm |
+| Position/Slot | 2/3/4/5 | 0/1 |
+
+In normal conditions (all 6 fan trays active), the system can operate at:  
+- 50C (at 1800m)
+- 45C when using QSFP-DD MPA with low powered optics 
+
+With a single fan failure (whether it is NC57-C3-FAN1-FW or NC57-C3-FAN2-FW), the system can operate at 40C.
+
+### Modular Port Adaptors
 
 
-### NC57-MPA-2D4H-S
+![MPA-positions.png]({{site.baseurl}}/images/MPA-positions.png){: .align-center}
+
+
+
+More details to come very soon with the second video (on NC57-MPA-2D4H-S).
+
+
 
 ## Ports identification
 
 ![NCS57C3-MOD-S.png]({{site.baseurl}}/images/NCS57C3-MOD-S.png){: .align-center}
 
 ![NCS57C3-MOD-SE-S.png]({{site.baseurl}}/images/NCS57C3-MOD-SE-S.png){: .align-center}
-
-![back-view.png]({{site.baseurl}}/images/back-view.png){: .align-center}
 
 
 
@@ -204,6 +239,10 @@ Differences with J2
 ## Block Diagrams
 
 ![block-diagram.png]({{site.baseurl}}/images/block-diagram.png){: .align-center}
+
+Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.
+
+
 
 ![EPC-EOBC.png]({{site.baseurl}}/images/EPC-EOBC.png){: .align-center}
 
