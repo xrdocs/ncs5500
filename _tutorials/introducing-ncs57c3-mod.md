@@ -331,7 +331,7 @@ All MPAs and the last 24 SFP ports are MACsec capable. More details will be adde
 
 In the right part of the central raw of the system, you'll find all timing ports:
 
-![Timing-ports.png]({{site.baseurl}}/images/Timing-ports.png){: .align-center}
+![Timing-ports-.png]({{site.baseurl}}/images/Timing-ports-.png){: .align-center}
 
 - 1PPS
 - 10MHz
