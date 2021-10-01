@@ -259,6 +259,9 @@ On scale system we have 48 ports split in two blocks, separated by the 4 high sp
 
 ![Ports-SFP-scale.png]({{site.baseurl}}/images/Ports-SFP-scale.png){: .align-center}
 
+Note: the 1G ports are supporting only "optical" and not "copper" (no auto-neg).
+{: .notice--info}
+
 ### QSFP ports
 
 That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offer half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
