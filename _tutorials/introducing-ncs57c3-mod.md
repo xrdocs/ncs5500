@@ -196,12 +196,12 @@ Mixed (AC+DC) is possible but only tested for short period of time (like during 
 The cooling of the chassis is guaranteed by a system of 6 fan trays inserted in the back of the box. It's a front to back design with two types of FTs:
 
 NC57-C3-FAN1-FW (40mm):  
-![NC57-C3-FAN1-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side.jpg =300x){: .align-center}
+![NC57-C3-FAN1-FW-side-.jpg]({{site.baseurl}}/images/NC57-C3-FAN1-FW-side-.jpg){: .align-center}
 
 NC57-C3-FAN2-FW (60mm):  
-![NC57-C3-FAN2-FW-side.jpg]({{site.baseurl}}/images/NC57-C3-FAN2-FW-side.jpg =300x){: .align-center}
+![NC57-C3-FAN2-FW-side-.jpg]({{site.baseurl}}/images/NC57-C3-FAN2-FW-side-.jpg){: .align-center}
 
-The fan slots are numbers from left to right, 0 to 5 (from a back perspective).
+From a back perspective, the fan slots are numbered from left to right, 0 to 5.
 
 ![Fans-Numbering.png]({{site.baseurl}}/images/Fans-Numbering.png){: .align-center}
 
