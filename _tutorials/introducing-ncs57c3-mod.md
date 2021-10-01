@@ -130,7 +130,7 @@ In the download center, the search engine will not help with NCS 57C3 keywords:
 
 ![not-found.png]({{site.baseurl}}/images/not-found.png){: .align-center}
 
-But you can pick any image (except the one for NCS57B1, of course since it's XR7 one):
+But you can pick any image NCS5500 image to upgrade your NCS57C3-MOD routers (except the one for NCS57B1, of course since it's XR7 one):
 
 ![xr-image-741.png]({{site.baseurl}}/images/xr-image-741.png){: .align-center}
 
@@ -235,8 +235,6 @@ And slots 1 and 2 support new generation MPAs at 800G:
 - NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
 
 More details to come very soon with the second video 
-
-
 
 ## Ports identification
 
