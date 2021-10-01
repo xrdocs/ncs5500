@@ -238,10 +238,34 @@ More details to come very soon with the second video
 
 ## Ports identification
 
-![NCS57C3-MOD-S.png]({{site.baseurl}}/images/NCS57C3-MOD-S.png){: .align-center}
+### MPA ports
 
-![NCS57C3-MOD-SE-S.png]({{site.baseurl}}/images/NCS57C3-MOD-SE-S.png){: .align-center}
+![Ports-MPA.png]({{site.baseurl}}/images/Ports-MPA.png){: .align-center}
 
+Port numbering for MPA are the same for both base and scale version of the router. The MPA type will of course influence the port name and numbers.
+
+### SFP ports
+
+NCS57C3-MOD systems are offering 1G, 10G, 25G native ports.  
+On base system we have 48 ports split in two blocks, separated by the 8 high speed port in the middle.
+
+![Ports-SFP-base.png]({{site.baseurl}}/images/Ports-SFP-base.png){: .align-center}
+
+On scale system we have 48 ports split in two blocks, separated by the 4 high speed port in the middle.
+
+![Ports-SFP-scale.png]({{site.baseurl}}/images/Ports-SFP-scale.png){: .align-center}
+
+### QSFP ports
+
+That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offer half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
+
+The base variant has 8 ports:
+
+![Ports-QSFP-base.png]({{site.baseurl}}/images/Ports-QSFP-base.png){: .align-center}
+
+The scale variant offers 4 ports:
+
+![Ports.QSFP-scale.png]({{site.baseurl}}/images/Ports.QSFP-scale.png){: .align-center}
 
 
 ## Forwarding ASIC (NPU)
