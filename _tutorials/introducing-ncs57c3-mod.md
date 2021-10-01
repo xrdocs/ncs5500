@@ -414,7 +414,7 @@ All MPAs and the last 24 SFP ports are MACsec capable. More details will be adde
 
 ## Timing
 
-In the right part of the central raw of the system, you'll find all timing ports:
+In the right part of the central row of the system, you'll find all timing ports:
 
 ![Timing-ports-.png]({{site.baseurl}}/images/Timing-ports-.png){: .align-center}
 
