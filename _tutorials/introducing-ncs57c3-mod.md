@@ -134,6 +134,7 @@ But you can pick any image NCS5500 image to upgrade your NCS57C3-MOD routers (ex
 
 ![xr-image-741.png]({{site.baseurl}}/images/xr-image-741.png){: .align-center}
 
+The system is based on a single J2C, the operating system will be activated by default (no config required) in "Native mode".
 
 ### Hardware
 
@@ -271,12 +272,13 @@ The scale variant offers 4 ports:
 ![Ports.QSFP-scale.png]({{site.baseurl}}/images/Ports.QSFP-scale.png){: .align-center}
 
 
-## Forwarding ASIC (NPU)
+## Forwarding ASIC (J2C NPU)
 
 NCS57C3-MOD routers are powered by a single NPU: the Broadcom Jericho2C. It's the first platform of its kind in the Cisco MIG portfolio to use this chipset (Jericho2 being used in multiple line cards and stand-alone platforms already).
 
 ![J2-J2C.png]({{site.baseurl}}/images/J2-J2C.png){: .align-center}
 
+### Differences with Jericho2
 At very high level, the J2C ASIC is a J2 with just one core instead of two. Therefore,  
 - it will have half the bandwidth (2.4Tbps) and forwarding capabilities (1BPPS)
 - more resources since they don't need to be shared between two cores
@@ -292,6 +294,16 @@ At very high level, the J2C ASIC is a J2 with just one core instead of two. Ther
 | Virtual Output Queues per Core | 64K | 128K |
 | Counters | 192K | 384K |
 | Timing | Class B | Class C |
+
+### MDB Profiles
+
+The same innovations are present in the J2C and J2. Among them, the capability to carve a large block of memory into "database", will permit the creation of specific profiles:  
+- more L3-oriented for peering roles
+- more L2-oriented for aggregation roles
+
+![MDB.png]({{site.baseurl}}/images/MDB.png){: .align-center}
+
+By default, in IOS XR 7.4.1, the base system will enable the L3max profile and the scale version will activate the L3max-SE profile. In future releases, we will allow the configuration of diverse profiles depending on the use-case (L2max, L2max-SE for example).
 
 ## Block Diagrams
 
