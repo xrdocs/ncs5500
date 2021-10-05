@@ -38,7 +38,7 @@ They can be used in multiple places in the network: aggregation, pre-agg, 5G (cl
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ARKLok7dj-w" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
 
-Coming SOON: video on port configuration, MACsec support and timing support.
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q" frameborder="0" allowfullscreen></iframe>{: .align-center}
 
 ## Understanding the naming logic
 
@@ -164,7 +164,9 @@ Only Fan trays are reachable from the back:
 
 ### LEDs and Displays
 
-Coming very soon.
+The front plane is very packed, therefore we don't have dedicated status LED for each port.   Instead, 4 LEDs and a switch button are available on the bottom right.
+
+![LED.png]({{site.baseurl}}/images/LED.png){: .align-center}
 
 ### Route Processors
 
@@ -403,6 +405,34 @@ The systems are logically split in an (dual) RP part and a LC part, each powered
 Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
 But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset. This element will provide MACsec encryption.
 
+It's very important to identify clearly the SFP28 ports connected directly to the NPU or via this PHY, since it will impact the features you can expect to activate on them.
+
+### SFP28 "direct" ports
+
+In the base version, the direct ports are 0/0/0/<8-23><32-39>
+
+![Direct-base.png]({{site.baseurl}}/images/Direct-base.png){: .align-center}
+
+In the scale/-SE version, the direct ports are 0/0/0/<8-23><28-35>
+
+![Direct-scale.png]({{site.baseurl}}/images/Direct-scale.png){: .align-center}
+
+### SFP28 PHY ports
+
+In the base version, the PHY ports are 0/0/0/<0-7><40-55>
+
+![PHY-base.png]({{site.baseurl}}/images/PHY-base.png){: .align-center}
+
+In the scale/-SE version, the PHY ports are 0/0/0/<0-7><36-51>
+
+![PHY-scale.png]({{site.baseurl}}/images/PHY-scale.png){: .align-center}
+
+### QSFP28 ports
+
+All these 8 or 4 ports (on base and scale respectively), are directly connected to NPU.
+
+### EOBC and EPC internal networks
+
 Internally, the different parts of the system are interconnected through an ethernet switch that will "service" both the EPC and EOBC networks:
 
 ![EPC-EOBC--.png]({{site.baseurl}}/images/EPC-EOBC--.png){: .align-center}
@@ -426,5 +456,3 @@ In the right part of the central row of the system, you'll find all timing ports
 - Time Of Day
 
 More details will be added with next video.
-
-
