@@ -442,7 +442,13 @@ Internally, the different parts of the system are interconnected through an ethe
 
 ## MACsec
 
-All MPAs and the last 24 SFP ports are MACsec capable. More details will be added with the next video.
+MACsec is supported on the PHY SFP28 port and ALL MPAs (check section SFP28 PHY ports above).  
+On fixed ports, it works for 10G and 25G optics but not 1G ports.
+
+MACsec is not supported on the direct SFP ports or the QSFP28 ports.
+
+Note: MACsec on the NC57-MPA-2D4H-S is planned for next release and is not supported in 7.4.1.
+{: .notice--info}
 
 ## Timing
 
