@@ -443,7 +443,9 @@ Internally, the different parts of the system are interconnected through an ethe
 ## MACsec
 
 MACsec is supported on the PHY SFP28 port and ALL MPAs (check section SFP28 PHY ports above).  
-On fixed ports, it works for 10G and 25G optics but not 1G ports.
+On fixed ports, it works for 10G and 25G optics but not 1G ports:  
+- base system: ports 0/0/0/<0-7> and <40-55>
+- scale system: ports 0/0/0/<0-7> and <36-51>
 
 MACsec is not supported on the direct SFP ports or the QSFP28 ports.
 
@@ -454,11 +456,29 @@ Note: MACsec on the NC57-MPA-2D4H-S is planned for next release and is not suppo
 
 In the right part of the central row of the system, you'll find all timing ports:
 
-![Timing-ports-.png]({{site.baseurl}}/images/Timing-ports-.png){: .align-center}
+![timing-ports--.png]({{site.baseurl}}/images/timing-ports--.png){: .align-center}
 
-- 1PPS
-- 10MHz
-- GNSS antenna
-- Time Of Day
+- 1PPS and 10MHz (DIN 1.0/2.3 50 Ohm Coax)
+- GNSS antenna (SMA 50 Ohm Coax)
+- Time Of Day (RJ45/RS-422, Cisco and NTPv4 TOD format support)
 
-More details will be added with next video.
+No BITS support.
+
+Cisco NCS57C3-MOD routers support Sync-E and PTP (no difference between base and scale systems).  
+The systems support PTP T-GM (Grand Master) clock with PRTC-A performance (G.8272).  
+PTP scale 128 sessions with max 64/16 pps Sync/DelayReq.
+
+All fixed ports support Sync-E: 
+- QSFP ports with QSFP28 and QSFP+ optics
+- SFP ports with SFP28 and SFP+ optics
+- SFP ports 1G are in the roadmap and will be on PHY ports (not supported in 7.4.1)
+
+All fixed ports support T-BC (Boundary Clock) for both telecom profiles:
+- G.8275.1/G.8273.2
+- G.8275.2 (IPv4)
+
+The clock quality (Class-B or Class-C) is dependant of the type of port, whether they are directly connected to the NPU or they are PHY ports:
+- direct ports support Class-C (ports 0/0/0/<8-39> on base and ports 0/0/0/<8-35> on scale variant)
+- PHY ports support Class-B (ports 0/0/0/<0-7><40-55> on base and ports 0/0/0/<0-7><36-51> on scale variant)
+
+
