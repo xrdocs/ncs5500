@@ -237,15 +237,16 @@ NCS57C3-MOD offers three MPA bays:
 - 2 for 800Gbps MPA (or 400G): slot 1/2
 - 1 for 400Gbps MPA only: slot 0
 
-All slots support existing MPAs:
+All slots support existing MPAs:  
 - NC55-MPA-2TH-S: NCS 5500 2X200G CFP2 MPA
 - NC55-MPA-1TH2H-S: NCS 5500 1X200G CFP2 + 2X100G QSFP28 MPA
 - NC55-MPA-12T-S: NCS 5500 12X10G MPA
 - NC55-MPA-4H-S: NCS 5500 4X100G QSFP28 MPA
 
-And slots 1 and 2 support new generation MPAs at 800G:
+And slots 1 and 2 support new generation MPAs at 800G:  
 - NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
 
+This new MPA is also supported in slot 1 in 400Gbps mode, and can't offer 400GE over a single port (but 4x100GE instead).  
 More details on the supported ports / optics in this article --ADD LINK--
 
 ### Fixed SFP ports
