@@ -225,9 +225,13 @@ In normal conditions (all 6 fan trays active), the system can operate at:
 
 With a single fan failure (whether it is NC57-C3-FAN1-FW or NC57-C3-FAN2-FW), the system can operate at 40C.
 
-### Modular Port Adaptors
+## Ports identification
+
+### MPA ports
 
 ![MPA-numbered.png]({{site.baseurl}}/images/MPA-numbered.png){: .align-center}
+
+Port numbering for MPA are the same for both base and scale versions of the router. The MPA type will of course influence the port name and numbers.
 
 NCS57C3-MOD offers three MPA bays:
 - 2 for 800Gbps MPA (or 400G): slot 1/2
@@ -240,20 +244,11 @@ All slots support existing MPAs:
 - NC55-MPA-4H-S: NCS 5500 4X100G QSFP28 MPA
 
 And slots 1 and 2 support new generation MPAs at 800G:
-
 - NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
 
-More details on the supported ports / optics below. 
+More details on the supported ports / optics in this article --ADD LINK--
 
-## Ports identification
-
-### MPA ports
-
-![Ports-MPA.png]({{site.baseurl}}/images/Ports-MPA.png){: .align-center}
-
-Port numbering for MPA are the same for both base and scale versions of the router. The MPA type will of course influence the port name and numbers.
-
-### SFP ports
+### Fixed SFP ports
 
 NCS57C3-MOD systems are offering 1G, 10G, 25G native ports.  
 On base system we have 48 ports split in two blocks, separated by the 8 high speed port in the middle.
@@ -264,7 +259,7 @@ On scale system we have 48 ports split in two blocks, separated by the 4 high sp
 
 ![Ports-SFP-scale.png]({{site.baseurl}}/images/Ports-SFP-scale.png){: .align-center}
 
-### QSFP ports
+### Fixed QSFP ports
 
 That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offers half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
 
@@ -316,23 +311,48 @@ Total: 48 + (4 x 4) + 12 + 12 + 12 = 100 ports 10GE.
 
 ### 25GE
 
+To reach the higher possible scale, we will use NC55-MPA-4H-S or NC57-MPA-2D4H-S, so we can break out the four 100GE ports in 4x 25GE.  
+We will use the same break out option in the QSFP fixed ports in the center.  
+Finally all SFP fixed ports support SFP28 25GE.
+
 ![25G-base.png]({{site.baseurl}}/images/25G-base.png){: .align-center}
+
+Total: 48 + (8 x 4) + 16 + 16 + 16 = 128 ports 2GE.
 
 ![25G-scale.png]({{site.baseurl}}/images/25G-scale.png){: .align-center}
 
+Total: 48 + (4 x 4) + 16 + 16 + 16 = 112 ports 25GE.
+
 ### 40GE
+
+For QSFP+ 40GE ports, we will only be able to use the fixed QSFP ports in the center, and three times NC55-MPA-4H-S or NC57-MPA-2D4H-S. 
 
 ![40G-base.png]({{site.baseurl}}/images/40G-base.png){: .align-center}
 
+Total: 8 + 4 + 4 + 4 = 20 ports 40GE.
+
 ![40G-scale.png]({{site.baseurl}}/images/40G-scale.png){: .align-center}
+
+Total: 4 + 4 + 4 + 4 = 16 ports 40GE.
 
 ### 100GE
 
+The highest scale we can reach for 100GE connectivity will require NC57-MPA-2D4H-S in slot 2 and 3. In slot 1, we can use NC55-MPA-4H-S or NC57-MPA-2D4H-S. We are showing two different configuration of the NC57-MPA-2D4H-S. In slot 2, we have two ports 4x100GE while in slot 3, we have 2x100 in all four ports. Both offer 8 times 100GE.  
+The QSFP fixed ports support natively QSFP28 optics.
+
 ![100G-base.png]({{site.baseurl}}/images/100G-base.png){: .align-center}
+
+Total: 8 + (4+4) + (2+2+2+2) + 4 = 28 ports 100GE
 
 ![100G-scale.png]({{site.baseurl}}/images/100G-scale.png){: .align-center}
 
-Include ZR
+Total: 4 + (4+4) + (2+2+2+2) + 4 = 24 ports 100GE
+
+### 100GE ZR
+
+For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:  
+- in slot 2 and 3, we will support two ports 4x100G ZR in Muxponder mode.
+- in slot 1, we will only support one port 4x100G ZR
 
 ![4x100G-ZR.png]({{site.baseurl}}/images/4x100G-ZR.png){: .align-center}
 
@@ -341,13 +361,22 @@ Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in th
 
 ### 400GE
 
+We only support 400GE Grey optics in NC57-MPA-2D4H-S in slot 2 and 3:  
+- 2 ports per MPA, in position 0 and 2
+
+Note: this MPA in slot 1 can't offer 400GE on a single port.
+
 ![400G-base.png]({{site.baseurl}}/images/400G-base.png){: .align-center}
 
-![400G-scale.png]({{site.baseurl}}/images/400G-scale.png){: .align-center}
+Total : 2 + 2 = 4 ports 400GE
 
-Include ZR/ZRP info
+### 400GE ZR
+
+For future ZR/ZR+ use, with NC57-MPA-2D4H-S in MPA slots 2 and 3:
 
 ![400G-ZR.png]({{site.baseurl}}/images/400G-ZR.png){: .align-center}
+
+Total : 2 + 2 = 4 ports 400GE ZR in Muxponder mode
 
 Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
 {: .notice--info}
