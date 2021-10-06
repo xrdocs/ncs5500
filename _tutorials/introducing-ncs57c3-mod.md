@@ -136,6 +136,8 @@ But you can pick any NCS5500 image to upgrade your NCS57C3-MOD routers (except t
 
 The system is based on a single J2C, the operating system will be activated by default (no config required) in "Native mode".
 
+From a security / integrity perspective, the NCS57C3-MOD implements the latest secureboot features with TAm (Trust Anchor module) FPGA.
+
 ### Hardware
 
 We launch two versions of this new 3-RU modular system: base and scale.  
@@ -241,7 +243,7 @@ And slots 1 and 2 support new generation MPAs at 800G:
 
 - NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
 
-More details to come very soon with the second video 
+More details on the supported ports / optics below. 
 
 ## Ports identification
 
@@ -262,9 +264,6 @@ On scale system we have 48 ports split in two blocks, separated by the 4 high sp
 
 ![Ports-SFP-scale.png]({{site.baseurl}}/images/Ports-SFP-scale.png){: .align-center}
 
-Note: the 1G ports are supporting only "optical" and not "copper" (no auto-neg).
-{: .notice--info}
-
 ### QSFP ports
 
 That's one of the most apparent difference between base and scale NCS57C3-MOD systems, the scale one offers half the amount of 40G/100G ports, due to the required internal connection to the external TCAM.
@@ -277,6 +276,81 @@ The scale variant offers 4 ports:
 
 ![Ports.QSFP-scale.png]({{site.baseurl}}/images/Ports.QSFP-scale.png){: .align-center}
 
+## Ports scale and support
+
+To identify the optic types supported on the NCS57C3-MOD routers, please check the TMG matrix:
+
+[https://tmgmatrix.cisco.com/?npid=4662&npid=4661](https://tmgmatrix.cisco.com/?npid=4662&npid=4661)
+
+It contains details on the connector types, the reach, the minimum release required, etc.
+
+### 1GE
+
+The following diagram represents the maximum number of 1G optics the NCS57C3-MOD routers can offer (same numbers for base and scale system).
+
+![1G-all.png]({{site.baseurl}}/images/1G-all.png){: .align-center}
+
+In this configuration, we are using the NC55-MPA-12T-S in slot 1, 2 and 3. Each MPA can only support 8 ports 1GE.  
+All SFP fixed ports support 1G, and at the moment, we don't plan to support QSA in the QSFP ports.
+
+We have a total of 48 + 8 + 8 + 8 = 72 ports 1GE.
+
+Note: only "optical" 1G ports are supported and not "copper" (no auto-neg).
+
+### 10GE
+
+We repeat the same exercise to identify the max number of 10GE ports we can accomodate. We will re-use the same NC55-MPA-12T-S in all MPA slots. But this time, they will we can use all the MPA ports at 10GE.  
+The QSFP slots in the center can all use QSFP+ in 4x10GE breakout mode (with no restriction).
+
+Base:
+
+![10G-base.png]({{site.baseurl}}/images/10G-base.png){: .align-center}
+
+Total: 48 + (8 x 4) + 12 + 12 + 12 = 116 ports 10GE.
+
+Scale:
+
+![10G-scale.png]({{site.baseurl}}/images/10G-scale.png){: .align-center}
+
+Total: 48 + (4 x 4) + 12 + 12 + 12 = 100 ports 10GE.
+
+### 25GE
+
+![25G-base.png]({{site.baseurl}}/images/25G-base.png){: .align-center}
+
+![25G-scale.png]({{site.baseurl}}/images/25G-scale.png){: .align-center}
+
+### 40GE
+
+![40G-base.png]({{site.baseurl}}/images/40G-base.png){: .align-center}
+
+![40G-scale.png]({{site.baseurl}}/images/40G-scale.png){: .align-center}
+
+### 100GE
+
+![100G-base.png]({{site.baseurl}}/images/100G-base.png){: .align-center}
+
+![100G-scale.png]({{site.baseurl}}/images/100G-scale.png){: .align-center}
+
+Include ZR
+
+![4x100G-ZR.png]({{site.baseurl}}/images/4x100G-ZR.png){: .align-center}
+
+Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
+{: .notice--info}
+
+### 400GE
+
+![400G-base.png]({{site.baseurl}}/images/400G-base.png){: .align-center}
+
+![400G-scale.png]({{site.baseurl}}/images/400G-scale.png){: .align-center}
+
+Include ZR/ZRP info
+
+![400G-ZR.png]({{site.baseurl}}/images/400G-ZR.png){: .align-center}
+
+Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
+{: .notice--info}
 
 ## Forwarding ASIC (J2C NPU)
 
@@ -429,7 +503,7 @@ In the scale/-SE version, the PHY ports are 0/0/0/<0-7><36-51>
 
 ### QSFP28 ports
 
-All these 8 or 4 ports (on base and scale respectively), are directly connected to NPU.
+All these fixed 8 or 4 ports (on base and scale respectively), are directly connected to NPU.
 
 ### EOBC and EPC internal networks
 
@@ -442,12 +516,14 @@ Internally, the different parts of the system are interconnected through an ethe
 
 ## MACsec
 
-MACsec is supported on the PHY SFP28 port and ALL MPAs (check section SFP28 PHY ports above).  
+MACsec is supported on the PHY SFP28 port (check section SFP28 PHY ports above).  
 On fixed ports, it works for 10G and 25G optics but not 1G ports:  
 - base system: ports 0/0/0/<0-7> and <40-55>
 - scale system: ports 0/0/0/<0-7> and <36-51>
 
 MACsec is not supported on the direct SFP ports or the QSFP28 ports.
+
+All MPA will support MACsec.
 
 Note: MACsec on the NC57-MPA-2D4H-S is planned for next release and is not supported in 7.4.1.
 {: .notice--info}
