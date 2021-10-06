@@ -310,6 +310,8 @@ Scale:
 
 Total: 48 + (4 x 4) + 12 + 12 + 12 = 100 ports 10GE.
 
+Note: to reach even higher 10GE scale, we could have used NC55-MPA-4H-S with QSFP+ 4x10GE in each port. With this breakout approach, we can get 12 additional ports.
+
 ### 25GE
 
 To reach the higher possible scale, we will use NC55-MPA-4H-S or NC57-MPA-2D4H-S, so we can break out the four 100GE ports in 4x 25GE.  
