@@ -376,7 +376,7 @@ For future ZR/ZR+ use, with NC57-MPA-2D4H-S in MPA slots 2 and 3:
 
 ![400G-ZR.png]({{site.baseurl}}/images/400G-ZR.png){: .align-center}
 
-Total : 2 + 2 = 4 ports 400GE ZR in Muxponder mode
+Total : 2 + 2 = 4 ports 400GE ZR in Transponder mode
 
 Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
 {: .notice--info}
