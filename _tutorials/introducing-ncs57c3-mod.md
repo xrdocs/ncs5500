@@ -356,19 +356,6 @@ Total: 4 + (4+4) + (2+2+2+2) + 4 = 24 ports 100GE
 Note: it's also possible to use a NC57-MPA-2D4H-S in slot 1 with a 4x100G breakout, but we must port 0 in the MPA for that, other three ports will be disabled.
 {: .notice--info}
 
-### 100GE ZR
-
-For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:  
-- in slot 2 and 3, we will support two ports 4x100G ZR in Muxponder mode.
-- in slot 1, we will only support one port 4x100G ZR
-
-The 100GE ZR will NOT be supported in the fixed QSFP since they require QSFP-DD cages. Same applies for the NC55-MPA-xxx.
-
-![4x100G-ZR.png]({{site.baseurl}}/images/4x100G-ZR.png){: .align-center}
-
-Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
-{: .notice--info}
-
 ### 400GE
 
 We only support 400GE Grey optics in NC57-MPA-2D4H-S in slot 2 and 3:  
@@ -382,14 +369,16 @@ Total : 2 + 2 = 4 ports 400GE
 
 ### 400GE ZR
 
-For future ZR/ZR+ use, with NC57-MPA-2D4H-S in MPA slots 2 and 3:
+For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:
 
-![400G-ZR.png]({{site.baseurl}}/images/400G-ZR.png){: .align-center}
+- in slot 2 and 3, we will support two ports in 400G Transpoinder mode or 4x100G Muxponder mode.
+- in slot 1, we will only support one port in 4x100G Muxponder mode
 
-Total : 2 + 2 = 4 ports 400GE ZR in Transponder mode
+The 400G-ZR/ZR+ will NOT be supported in the fixed QSFP since they require QSFP-DD cages. Same applies for the NC55-MPA-xxx.
 
 Note: the 100G/400G ZR/ZRP are not supported in IOS XR 7.4.1, but they are in the roadmap. Contact your Cisco representative for more details.
 {: .notice--info}
+
 
 ## Forwarding ASIC (J2C NPU)
 
