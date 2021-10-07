@@ -118,6 +118,14 @@ The two MPA slots being 400G, it's the same port capability than 400Gbps mode de
 
 Timing and MACsec support are not available at 7.4.1 and are currently tracked in the roadmap, contact your Cisco representative for more details.
 
+### Use case?
+
+Most obvious question here will be: why not using the good ol' NC55-MPA-4H-S since you can't afford more than 4 ports 100G here?
+
+The main use case for using an NC57-MPA-2D4H-S in NCS55A2-MOD will be the Route Optical (RON) architectures. Indeed, for ZR and ZRP optics support at 100G, you need a QSFP-DD cage. So, using coherent ZR/ZR+ optics in 100G, 4x100G or 2x100G will require the new MPA.
+
+Note: support of ZR/ZRP is in the roadmap and currently not available in IOS XR 7.4.1 at FCS.
+
 ## In NC55-MOD-A Line Cards
 
 Currently tracked in the roadmap, contact your Cisco representative for more details.
