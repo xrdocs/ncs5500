@@ -74,7 +74,7 @@ When inserted in slot 2 and 3, the MPA offers 800Gbps of throughput, 400G for ea
 | QDD-2x100G | 100G or 4x25G |
 | 100G or 4x25G | QDD-2x100G |
 
-ZR and ZRP is in the roadmap. Contact your Cisco representative if you need more details.
+400G-ZR/ZR+ Transponder and Nx100G Muxponder modes are in the roadmap.. Contact your Cisco representative if you need more details.
 
 ### In 400Gbps Mode
 
@@ -106,7 +106,7 @@ All speeds 400G, 100G, 40G support SyncE and PTP:
 
 ## In NCS55A2-MOD Routers
 
-The two MPA slots being 400G, it's the same port capability than 400Gbps mode described above. We don't support 1x400G grey or coherent but we have the following capabilities:
+The two MPA slots being 400G, it's the same port capability than 400Gbps mode described above. We don't support 1x400G Grey but will support 4x100G breakout. For 400G-ZR/ZR+ Coherent in the future plan, we will support Nx100G Muxponder modes. Current optics speeds and breakout supported are as follows:
 
 | Port 0 | Port 1 | Port 2 | Port 3 |
 |:-----:|:-----:|:-----:|:-----:|
