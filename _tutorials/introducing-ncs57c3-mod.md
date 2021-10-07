@@ -362,7 +362,7 @@ For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:
 - in slot 2 and 3, we will support two ports 4x100G ZR in Muxponder mode.
 - in slot 1, we will only support one port 4x100G ZR
 
-The 100GE ZR will NOT be supported in the fixed QSFP since they require QSFP-DD cages.
+The 100GE ZR will NOT be supported in the fixed QSFP since they require QSFP-DD cages. Same applies for the NC55-MPA-xxx.
 
 ![4x100G-ZR.png]({{site.baseurl}}/images/4x100G-ZR.png){: .align-center}
 
@@ -423,6 +423,38 @@ The same innovations are present in the J2C and J2. Among them, the capability t
 ![MDB.png]({{site.baseurl}}/images/MDB.png){: .align-center}
 
 By default, in IOS XR 7.4.1, the base system will enable the L3max profile and the scale version will activate the L3max-SE profile. In future releases, we will allow the configuration of diverse profiles depending on the use-case (L2max, L2max-SE for example).
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:57C3#show controllers fia diagshell 0 "mdb info" location 0/0/CPU0          
+
+Node ID: 0/0/CPU0
+
+R/S/I: 0/0/0 
+=============================
+| MDB Profile               |
+|   MDB profile: l3max      |
+|   MDB profile KAPS cfg: 2 |
+=============================
+--%--SNIP-SNIP-SNIP--%--</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP0/CPU0:57C3-SE#sh controllers fia diagshell 0 "mdb info" location 0/0/CPU0 
+
+Node ID: 0/0/CPU0
+
+R/S/I: 0/0/0 
+=============================
+| MDB Profile               |
+|   MDB profile: l3max-se   |
+|   MDB profile KAPS cfg: 9 |
+=============================
+--%--SNIP-SNIP-SNIP--%--</code>
+</pre>
+</div>
 
 ### Port assignment to ASIC Core
 
@@ -516,9 +548,9 @@ The systems are logically split in an (dual) RP part and a LC part, each powered
 ![block-diagram.png]({{site.baseurl}}/images/block-diagram.png){: .align-center}
 
 Interesting to note the NCS57C3-MOD-SYS and NCS57C3-MODS-SYS are SoC (system on the chip). That means all the ports are directly connected to a single forwarding ASIC.  
-But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset. This element will provide MACsec encryption.
+But not all fixed ports are directly connected to the NPU, some SFP ports are connected through an intermediate PHY chipset.
 
-It's very important to identify clearly the SFP28 ports connected directly to the NPU or via this PHY, since it will impact the features you can expect to activate on them.
+It's very important to identify clearly the SFP28 ports connected directly to the NPU or via this PHY, since it will impact the features you can expect to activate on them (MACsec support and Timing performance/quality).
 
 ### SFP28 "direct" ports
 
@@ -562,12 +594,16 @@ On fixed ports, it works for 10G and 25G optics but not 1G ports:
 
 MACsec is not supported on the direct SFP ports or the QSFP28 ports.
 
-All MPA will support MACsec.
-
-Note: MACsec on the NC57-MPA-2D4H-S is planned for next release and is not supported in 7.4.1.
-{: .notice--info}
+All MPA support MACsec, regardless of the slot of insertion
+- **NC55-MPA-2TH-S**: supported on coherent CFP2 ports
+- **NC55-MPA-1TH2H-S**: on both CFP2 ports and all grey ports 40G, 100G, 4x10G and 4x25G but no QSA
+- **NC55-MPA-12T-S**: on all ports with 10G optics but not 1G
+- **NC55-MPA-4H-S**: 40G, 100G, 4x10G and 4x25G but no QSA
+- **NC57-MPA-2D4H-S** MACsec planned for next release and is not supported in 7.4.1.
 
 ## Timing
+
+### External timing ports
 
 In the right part of the central row of the system, you'll find all timing ports:
 
@@ -579,6 +615,8 @@ In the right part of the central row of the system, you'll find all timing ports
 
 No BITS support.
 
+### Fixed ports
+
 Cisco NCS57C3-MOD routers support Sync-E and PTP (no difference between base and scale systems).  
 The systems support PTP T-GM (Grand Master) clock with PRTC-A performance (G.8272).  
 PTP scale 128 sessions with max 64/16 pps Sync/DelayReq.
@@ -586,7 +624,7 @@ PTP scale 128 sessions with max 64/16 pps Sync/DelayReq.
 All fixed ports support Sync-E: 
 - QSFP ports with QSFP28 and QSFP+ optics
 - SFP ports with SFP28 and SFP+ optics
-- SFP ports 1G are in the roadmap and will be on PHY ports (not supported in 7.4.1)
+- SFP ports 1G are in the roadmap and will be on PHY ports only (not supported in 7.4.1)
 
 All fixed ports support T-BC (Boundary Clock) for both telecom profiles:
 - G.8275.1/G.8273.2
@@ -596,4 +634,14 @@ The clock quality (Class-B or Class-C) is dependant of the type of port, whether
 - direct ports support Class-C (ports 0/0/0/<8-39> on base and ports 0/0/0/<8-35> on scale variant)
 - PHY ports support Class-B (ports 0/0/0/<0-7><40-55> on base and ports 0/0/0/<0-7><36-51> on scale variant)
 
+### MPA ports
+
+- **NC55-MPA-2TH-S**: Class-A timing over coherent links is in the roadmap, not supported in 7.4.1
+- **NC55-MPA-1TH2H-S**: Class-A timing over coherent and Class-B over grey ports is in the roadmap
+- **NC55-MPA-12T-S**: Class-B supported over 10G links in 7.4.1, but no support with 1G optics
+- **NC55-MPA-4H-S**: Class-B is in the roadmap
+- **NC57-MPA-2D4H-S** 
+	- at FCS in 7.4.1, we support Class C performance on 40G/100GE and 400GE grey ports
+    - Timing over 2x100G and 4x100G grey breakout is in roadmap (Class C)
+    - Timing over ZR/ZRP, with Class A quality, is in the roadmap
 
