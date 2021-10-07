@@ -25,15 +25,21 @@ So it will be supported in the existing 400Gbps MPA slots, protecting your inves
 
 ## Video
 
-In this one, Vincent presents both the NCS57C3-MOD specificities and the NC57-MPA-2D4H-S module (in the second part).
+In this one, Vincent presents both the NCS57C3-MOD specificities and the NC57-MPA-2D4H-S module (in the second part starting at 3:15 [https://www.youtube.com/watch?v=MV2hNv4xn6Q&t=196s](https://www.youtube.com/watch?v=MV2hNv4xn6Q&t=196s)) 
 
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q" frameborder="0" allowfullscreen></iframe>{: .align-center}
+
+
+## CCO documentation
+
+- datasheet: [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html)
+- TMG matrix for supported optics: [https://tmgmatrix.cisco.com/?npid=4661](https://tmgmatrix.cisco.com/?npid=4661)
 
 ## Product Description
 
 The form factor is comparable to the 400Gbps version available today (NC55-MPA-2TH-S, NC55-MPA-1TH2H-S, NC55-MPA-12T-S and NC55-MPA-4H-S).
 
-![Side-view-black.png]({{site.baseurl}}/images/Side-view-black.png){: .align-center}
+![Side-view-blue.png]({{site.baseurl}}/images/Side-view-blue.png){: .align-center}
 
 This MPA is 800Gbps capable and can accomodate a variety of port mixing combinations.  
 The 4 ports are QSFP-DD cages, making it ready for ZR/ZRP optics (100G and 400G). It's the perfect fit for the Routed Optical Network architectures, [you can find more details on this design here](https://www.cisco.com/c/en/us/solutions/service-provider/routed-optical-networking.html).
