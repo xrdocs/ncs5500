@@ -235,8 +235,8 @@ With a single fan failure (whether it is NC57-C3-FAN1-FW or NC57-C3-FAN2-FW), th
 Port numbering for MPA are the same for both base and scale versions of the router. The MPA type will of course influence the port name and numbers.
 
 NCS57C3-MOD offers three MPA bays:
-- 2 for 800Gbps MPA (or 400Gbps): slot 1/2
-- 1 for 400Gbps MPA only: slot 0
+- 2 for 800Gbps MPA (or 400Gbps): slot 2/3
+- 1 for 400Gbps MPA only: slot 1
 
 All slots support existing MPAs:  
 - **NC55-MPA-2TH-S**: NCS 5500 2X200G CFP2 MPA
