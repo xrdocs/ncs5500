@@ -248,7 +248,7 @@ And slots 1 and 2 support new generation MPAs at 800G:
 - **NC57-MPA-2D4H-S** (New): NCS 5700 4X QSFP-DD MPA
 
 This new MPA is also supported in slot 1 in 400Gbps mode, and can't offer 400GE connection over a single port (but 4x100GE instead).  
-More details on the supported ports / optics in this article --ADD LINK--
+More details on the supported ports / optics in this article: [https://xrdocs.io/ncs5500/tutorials/introducing-nc57-mpa-2d4h-s/](https://xrdocs.io/ncs5500/tutorials/introducing-nc57-mpa-2d4h-s/)
 
 ### Fixed SFP ports
 
