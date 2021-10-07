@@ -27,7 +27,7 @@ These two new routers are the NCS-57C3-MOD-SYS and NCS-57C3-MODS-SYS, that can b
 - offering the highest level of flexibility with both fixed SFP and QSFP ports (1G, 10G, 25G, 40G, 100G) 
 - modular port adaptors  
 but also new goodies are specific to this NCS57C3-MOD:  
-- much higher forwarding capability ( 2.4Tbps compared to 900G on NCS55A2-MOD)
+- much higher forwarding capability (2.4Tbps compared to 900G on NCS55A2-MOD)
 - dual RP for control plane redundancy
 - 3x MPA (two at 800G and one at 400G)
 
@@ -181,7 +181,7 @@ Each route processor offers an USB port (for log/dump storage or "USB boot"), a 
 Note: the system can operate in nominal manner with only one RP. The dual RP is optional.
 
 As mentioned above, it offers control plane redundancy and not forwarding plane redundancy. It means the protocols and processes will be checkpointed between the two route processors, in the same way it's done on the chassis 5504/5508/5516, enabling the NSR/NSF/GR features between protocols. But at the difference of the chassis, we don't have multiple fabric cards (no fabric card at all).  
-The RP doesn't contain the Jericho2C NPU, it's located in an "internal line card".
+The RP doesn't contain the Jericho2C NPU, this ASIC is located in an "internal line card".
 
 You'll find details on the CPU type, memories, etc in the datasheet linked above.
 
@@ -192,7 +192,8 @@ Notes:
 
 ### Power supply
 
-In the bottom left side of the front, we can insert two PSUs. Two flavors exist: 1600W AC or 1600W DC. Both AC or DC options offer 1+1 redundancy.
+In the bottom left side of the front, we can insert two PSUs.  
+Two flavors exist: 1600W AC or 1600W DC. Both AC or DC options offer 1+1 redundancy (ie the system can operate on one module only).
 
 ![AC1600-.jpg]({{site.baseurl}}/images/AC1600-.jpg){: .align-center}
 
@@ -234,29 +235,30 @@ With a single fan failure (whether it is NC57-C3-FAN1-FW or NC57-C3-FAN2-FW), th
 Port numbering for MPA are the same for both base and scale versions of the router. The MPA type will of course influence the port name and numbers.
 
 NCS57C3-MOD offers three MPA bays:
-- 2 for 800Gbps MPA (or 400G): slot 1/2
+- 2 for 800Gbps MPA (or 400Gbps): slot 1/2
 - 1 for 400Gbps MPA only: slot 0
 
 All slots support existing MPAs:  
-- NC55-MPA-2TH-S: NCS 5500 2X200G CFP2 MPA
-- NC55-MPA-1TH2H-S: NCS 5500 1X200G CFP2 + 2X100G QSFP28 MPA
-- NC55-MPA-12T-S: NCS 5500 12X10G MPA
-- NC55-MPA-4H-S: NCS 5500 4X100G QSFP28 MPA
+- **NC55-MPA-2TH-S**: NCS 5500 2X200G CFP2 MPA
+- **NC55-MPA-1TH2H-S**: NCS 5500 1X200G CFP2 + 2X100G QSFP28 MPA
+- **NC55-MPA-12T-S**: NCS 5500 12X10G MPA
+- **NC55-MPA-4H-S**: NCS 5500 4X100G QSFP28 MPA
 
 And slots 1 and 2 support new generation MPAs at 800G:  
-- NC57-MPA-2D4H-S (New): NCS 5700 4X QSFP-DD MPA
+- **NC57-MPA-2D4H-S** (New): NCS 5700 4X QSFP-DD MPA
 
-This new MPA is also supported in slot 1 in 400Gbps mode, and can't offer 400GE over a single port (but 4x100GE instead).  
+This new MPA is also supported in slot 1 in 400Gbps mode, and can't offer 400GE connection over a single port (but 4x100GE instead).  
 More details on the supported ports / optics in this article --ADD LINK--
 
 ### Fixed SFP ports
 
-NCS57C3-MOD systems are offering 1G, 10G, 25G native ports.  
-On base system we have 48 ports split in two blocks, separated by the 8 high speed port in the middle.
+NCS57C3-MOD systems are offering 1G, 10G, 25G native ports in the central raw of the system. This is actually representing an internal line card "0". You can NOT eject this card of course. The ports will be numbered 0/0/0/x.
+
+On base system we have 48 SFP ports split in two blocks, separated by the 8 high speed (QSFP) ports in the middle.
 
 ![Ports-SFP-base.png]({{site.baseurl}}/images/Ports-SFP-base.png){: .align-center}
 
-On scale system we have 48 ports split in two blocks, separated by the 4 high speed port in the middle.
+On scale system we have 48 ports split in two blocks, separated by the 4 high speed ports in the middle.
 
 ![Ports-SFP-scale.png]({{site.baseurl}}/images/Ports-SFP-scale.png){: .align-center}
 
@@ -291,7 +293,7 @@ All SFP fixed ports support 1G, and at the moment, we don't plan to support QSA 
 
 We have a total of 48 + 8 + 8 + 8 = 72 ports 1GE.
 
-Note: only "optical" 1G ports are supported and not "copper" (no auto-neg).
+Note: only "optical" 1G ports are supported and not "copper" (since we don't support auto-negociation at 1G).
 
 ### 10GE
 
@@ -351,11 +353,16 @@ Total: 8 + (4+4) + (2+2+2+2) + 4 = 28 ports 100GE
 
 Total: 4 + (4+4) + (2+2+2+2) + 4 = 24 ports 100GE
 
+Note: it's also possible to use a NC57-MPA-2D4H-S in slot 1 with a 4x100G breakout, but we must port 0 in the MPA for that.
+{: .notice--info}
+
 ### 100GE ZR
 
 For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:  
 - in slot 2 and 3, we will support two ports 4x100G ZR in Muxponder mode.
 - in slot 1, we will only support one port 4x100G ZR
+
+The 100GE ZR will NOT be supported in the fixed QSFP since they require QSFP-DD cages.
 
 ![4x100G-ZR.png]({{site.baseurl}}/images/4x100G-ZR.png){: .align-center}
 
