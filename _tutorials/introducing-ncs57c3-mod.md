@@ -353,7 +353,7 @@ Total: 8 + (4+4) + (2+2+2+2) + 4 = 28 ports 100GE
 
 Total: 4 + (4+4) + (2+2+2+2) + 4 = 24 ports 100GE
 
-Note: it's also possible to use a NC57-MPA-2D4H-S in slot 1 with a 4x100G breakout, but we must port 0 in the MPA for that, other three ports will be disabled.
+Note: it's also possible to use a NC57-MPA-2D4H-S in slot 1 with a 4x100G breakout, but we must use port 0 specifically in the MPA for that, other three ports will be disabled.
 {: .notice--info}
 
 ### 400GE
