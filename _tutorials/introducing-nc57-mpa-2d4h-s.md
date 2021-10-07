@@ -120,14 +120,4 @@ Timing and MACsec support are not available at 7.4.1 and are currently tracked i
 
 ## In NC55-MOD-A Line Cards
 
-Same situation and same level of support than NCS55A2-MOD routers above.  We don't support 1x400G grey or coherent but we have the following capabilities:
-
-| Port 0 | Port 1 | Port 2 | Port 3 |
-|:-----:|:-----:|:-----:|:-----:|
-| 4x100G breakout | Disabled | Disabled | Disabled |
-| QDD-2x100G | Disabled | QDD-2x100G | Disabled |
-| 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G |
-| QDD2x100G | Disabled | 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G |
-| 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G | QDD2x100G | Disabled |
-
-Timing and MACsec support are not available at 7.4.1 and are currently tracked in the roadmap, contact your Cisco representative for more details.
+Currently tracked in the roadmap, contact your Cisco representative for more details.
