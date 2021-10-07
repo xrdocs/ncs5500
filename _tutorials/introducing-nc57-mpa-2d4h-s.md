@@ -27,7 +27,7 @@ So it will be supported in the existing 400Gbps MPA slots, protecting your inves
 
 In this one, Vincent presents both the NCS57C3-MOD specificities and the NC57-MPA-2D4H-S module (in the second part).
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q&t=195s" frameborder="0" allowfullscreen></iframe>{: .align-center}
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q" frameborder="0" allowfullscreen></iframe>{: .align-center}
 
 ## Product Description
 
