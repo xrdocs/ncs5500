@@ -74,7 +74,7 @@ When inserted in slot 2 and 3, the MPA offers 800Gbps of throughput, 400G for ea
 | QDD-2x100G | 100G or 4x25G |
 | 100G or 4x25G | QDD-2x100G |
 
-400G-ZR/ZR+ Transponder and Nx100G Muxponder modes are in the roadmap.. Contact your Cisco representative if you need more details.
+100G/400G-ZR/ZR+ Transponder and Nx100G Muxponder modes are in the roadmap. Contact your Cisco representative if you need more details.
 
 ### In 400Gbps Mode
 
@@ -92,7 +92,7 @@ We can't offer a single 400GE port in this mode, only 4x100G in port 0 or multip
 | QDD2x100G | Disabled | 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G |
 | 100G/40G/4x25G/4x10G | 100G/40G/4x25G/4x10G | QDD2x100G | Disabled |
 
-ZR and ZRP is in the roadmap. Contact your Cisco representative if you need more details.
+100G/400G-ZR/ZR+ Transponder and Nx100G Muxponder modes are in the roadmap. Contact your Cisco representative if you need more details.
 
 ### MACsec Support
 
