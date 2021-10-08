@@ -25,15 +25,19 @@ So it will be supported in the existing 400Gbps MPA slots, protecting your inves
 
 ## Video
 
-In this one, Vincent presents both the NCS57C3-MOD specificities and the NC57-MPA-2D4H-S module (in the second part starting at 3:15 [https://www.youtube.com/watch?v=MV2hNv4xn6Q&t=196s](https://www.youtube.com/watch?v=MV2hNv4xn6Q&t=196s)) 
+Vincent Ng presents the NC57-MPA-2D4H-S module:
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q" frameborder="0" allowfullscreen></iframe>{: .align-center}
-
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/6Ksv8oqhBk0" frameborder="0" allowfullscreen></iframe>{: .align-center}
 
 ## CCO documentation
 
-- datasheet: [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html)
-- TMG matrix for supported optics: [https://tmgmatrix.cisco.com/?npid=4661](https://tmgmatrix.cisco.com/?npid=4661)
+- Datasheet:  
+[https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-5700-series-mpa-ds.html)
+- TMG matrix for supported optics:  
+[https://tmgmatrix.cisco.com/?npid=4661](https://tmgmatrix.cisco.com/?npid=4661)
+- Visio stencils:  
+[https://www.cisco.com/c/en/us/products/visio-stencil-listing.html](https://www.cisco.com/c/en/us/products/visio-stencil-listing.html)
+
 
 ## Product Description
 
