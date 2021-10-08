@@ -20,7 +20,7 @@ This article has been written and reviewed by (in alphabetical order):
 
 ## Introduction
 
-With IOS XR 7.4.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-731-innovations/)) but new hardware are also launched with this release. We are very happy to introduce a new member to the NCS5500 family, the NCS57C3-MOD series.
+With IOS XR 7.4.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-741-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-741-innovations/)) but new hardware are also launched with this release. We are very happy to introduce a new member to the NCS5500 family, the NCS57C3-MOD series.
 
 These two new routers are the NCS-57C3-MOD-SYS and NCS-57C3-MODS-SYS, that can be considered the successors of NCS55A2-MOD. They are built following the same philosophy:  
 - compact form-factor (less than 300mm deep and 3RU here)
