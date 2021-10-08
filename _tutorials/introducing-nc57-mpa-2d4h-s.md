@@ -4,7 +4,7 @@ date: '2021-10-07 14:55 +0200'
 title: 'Introducing the new QSFP-DD MPA: NC57-MPA-2D4H-S'
 author: Nicolas Fevrier
 excerpt: Introducing the new QSFP-DD modular port adaptor
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="New QSFP-DD MPA: NC57-MPA-2D4H-S" %} 
 
@@ -132,4 +132,4 @@ Note: support of ZR/ZRP is in the roadmap and currently not available in IOS XR 
 
 ## In NC55-MOD-A Line Cards
 
-Currently tracked in the roadmap, contact your Cisco representative for more details.
+Currently we don't support the NC57-MPA-2D4H-S in the NC55-MOD-A line cards (base or scale).
