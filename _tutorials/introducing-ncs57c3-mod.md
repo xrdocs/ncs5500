@@ -109,15 +109,18 @@ NCS57C3-MOD can be positioned in a very large variety of roles in the network du
 ### CCO Documentation
 
 The product documentation is available here:  
-- datasheet: [https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html)
+- Datasheet:  
+[https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57C3-fixed-chassis-ds.html)
 	- dimensions
     - power usage
     - PIDs
     - ports
     - supported standards
     - pretty much everything you need to know ;)
-- fixed systems white paper: [https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf](https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf)  
-- installation guide: [https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html)
+- Fixed systems white paper:  
+[https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf](https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf)  
+- Installation guide:  
+[https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/hardware-install/b-ncs5700-hardware-installation-guide-fixed-port/m-ncs-5700-router-overview.html)
 
 ### Software
 
