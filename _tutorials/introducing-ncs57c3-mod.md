@@ -18,7 +18,7 @@ This article has been written and reviewed by (in alphabetical order):
 - Tejas Lad, TME
 - Vincent Ng, TME
 
-Update 1 the 12 Oct 2021: fixed a mistake in the 1G scenario, MPA slot 2 and 3 don't support 1G ports on the 12T MPA.
+Update 1 (12 Oct 2021): fixed an error in the 1G scenario, MPA slot 2 and 3 don't support 1G ports on the 12T MPA.
 {: .notice--info}
 
 ## Introduction
