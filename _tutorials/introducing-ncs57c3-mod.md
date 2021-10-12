@@ -18,6 +18,9 @@ This article has been written and reviewed by (in alphabetical order):
 - Tejas Lad, TME
 - Vincent Ng, TME
 
+Update 1 the 12 Oct 2021: fixed a mistake in the 1G scenario, MPA slot 2 and 3 don't support 1G ports on the 12T MPA.
+{: .notice--info}
+
 ## Introduction
 
 With IOS XR 7.4.1, we introduced multiple software features ([https://xrdocs.io/ncs5500/tutorials/iosxr-741-innovations/](https://xrdocs.io/ncs5500/tutorials/iosxr-741-innovations/)) but new hardware are also launched with this release. We are very happy to introduce a new member to the NCS5500 family, the NCS57C3-MOD series.
