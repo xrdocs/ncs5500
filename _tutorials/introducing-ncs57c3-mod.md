@@ -289,12 +289,12 @@ It contains details on the connector types, the reach, the minimum release requi
 
 The following diagram represents the maximum number of 1G optics the NCS57C3-MOD routers can offer (same numbers for base and scale system).
 
-![1G-all.png]({{site.baseurl}}/images/1G-all.png){: .align-center}
+![1G-all-.png]({{site.baseurl}}/images/1G-all-.png){: .align-center}
 
-In this configuration, we are using the NC55-MPA-12T-S in slot 1, 2 and 3. Each MPA can only support 8 ports 1GE.  
+In this configuration, we are inserting NC55-MPA-12T-S in slot 1, 2 and 3 but only slot 1 (400G) can handle this MPA for 1G (it's fine for 10G). Also, it can only support 8 ports 1GE in slot 1.  
 All SFP fixed ports support 1G, and at the moment, we don't plan to support QSA in the QSFP ports.
 
-We have a total of 48 + 8 + 8 + 8 = 72 ports 1GE.
+We have a total of 48 + 8 = 56 ports 1GE.
 
 Note: only "optical" 1G ports are supported and not "copper" (since we don't support auto-negociation at 1G).
 
@@ -636,4 +636,3 @@ The clock quality (Class-B or Class-C) is dependant of the type of port, whether
 	- at FCS in 7.4.1, we support Class C performance on 40G/100GE and 400GE grey ports
     - Timing over 2x100G and 4x100G grey breakout is in roadmap (Class C)
     - Timing over ZR/ZRP, with Class A quality, is in the roadmap
-
