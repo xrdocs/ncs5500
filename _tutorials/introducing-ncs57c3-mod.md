@@ -377,7 +377,7 @@ Total : 2 + 2 = 4 ports 400GE
 
 For future ZR/ZR+ use, with NC57-MPA-2D4H-S in all three MPA slots:
 
-- in slot 2 and 3, we will support two ports in 400G Transpoinder mode or 4x100G Muxponder mode.
+- in slot 2 and 3, we will support two ports in 400G Transponder mode or 4x100G Muxponder mode.
 - in slot 1, we will only support one port in 4x100G Muxponder mode
 
 The 400G-ZR/ZR+ will NOT be supported in the fixed QSFP since they require QSFP-DD cages. Same applies for the NC55-MPA-xxx.
