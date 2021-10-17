@@ -228,7 +228,7 @@ Coming soon
 
 ### Deeper dive in Cisco NCS57C3
 
-<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ARKLok7dj-w" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/MV2hNv4xn6Q" frameborder="0" allowfullscreen></iframe>{: .align-center}  
 .
 
 [https://www.youtube.com/watch?v=MV2hNv4xn6Q](https://www.youtube.com/watch?v=MV2hNv4xn6Q)
