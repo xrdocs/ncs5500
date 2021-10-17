@@ -129,7 +129,7 @@ When the router boots:
 
 ### QoS
 
-Paban Sarma introduces PPS-based policer.  
+Paban Sarma introduces PPS-based policer for DNX platforms (NCS500 / NCS5500).  
 
 <iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/xUFR_DVV1bo" frameborder="0" allowfullscreen></iframe>{: .align-center}  
 .
@@ -201,7 +201,12 @@ Burst size to be defined in packets PPS and BPS may coexist in a Flat Policy. PP
 ### BFD
 
 Tejas Lad presents the BoB-BLB co-existence benefits.  
-Coming soon
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/60Kuy1NY6JA" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+In IOS XR 7.4.1, we introduce the action of both BoB and BLB simultaneously on the same bundle for faster convergence. All technical details can be found in this dedicated article:  
+[https://xrdocs.io/ncs5500/tutorials/coexistence-between-bfd-over-bundle-and-bfd-over-logical-bundle/](https://xrdocs.io/ncs5500/tutorials/coexistence-between-bfd-over-bundle-and-bfd-over-logical-bundle/)
 
 ### Scale improvements
 
