@@ -130,7 +130,73 @@ When the router boots:
 ### QoS
 
 Paban Sarma introduces PPS-based policer.  
-Coming soon
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/xUFR_DVV1bo" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+Before the introduction of this feature, we used absolute values in bps for policer rate and burst in bytes or unit of time:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>policy-map police-bps
+ class class-default
+  police rate 10 mpbs burst 12 kbytes
+  !
+ !
+ end-policy-map
+!</code>
+</pre>
+</div>
+
+Or we can use relative units (percent):
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>policy-map police-percent
+ class class-default
+  police rate percent 1 burst 2 ms
+  !
+ !
+ end-policy-map
+!</code>
+</pre>
+</div>
+
+Starting in IOS XR 7.4.1, we can use absolute units of PPS and burst expressed in number of packets.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>policy-map police-pps
+ class class-default
+  police rate 1000 pps burst 2000 packets
+  !
+ !
+ end-policy-map
+!
+
+RP/0/RP0/CPU0:NCS-55A1-24Q6H-2#show  qos interface  tenGigE 0/0/0/1.1 input
+
+NOTE:- Configured values are displayed within parentheses
+Interface TenGigE0/0/0/1.1 ifh 0x8022  -- input policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           10000000 kbps
+Policy Name:                   police-pps
+SPI Id:                        0x0
+Accounting Type:               Layer2 (Include Layer 2 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+
+Policer Bucket ID                        =   0x100
+Policer Stats Handle                     =   0x0
+Policer committed rate                   =   998 kbps (<mark>1000 packets/sec</mark>)
+Policer conform burst                    =   256000 bytes (<mark>2000 packets</mark>)</code>
+</pre>
+</div>
+
+With this approach, the policer behaves regardless of the size of the packets handled by the policy.  
+Min and max configurable values are 100 pps and 66,000,000 pps respectively.  
+Burst size to be defined in packets PPS and BPS may coexist in a Flat Policy. PPS and BPS can’t coexist in an Hierarchical policy.
 
 ### BFD
 
@@ -142,18 +208,10 @@ Coming soon
 Nicolas Fevrier presents the scale improvements directly available in J2 native mode for BGP Flowspec, ARP scale and ECMP FEC.  
 Coming soon
 
-
 ### Segment Routing
 
 Jose Liste describes in details the new features introduced in SR MPLS world.  
 Coming soon
-
-
-### Timing
-
-Vincent Ng presents timing features introduced in XR 7.4.1.  
-Coming soon
-
 
 ### Misc
 
@@ -161,4 +219,31 @@ Coming soon
 
 ## New hardware in IOS XR 7.4.1
 
-Placeholder for the new platforms, MPA and IM cards.
+### Introducing NCS57C3-MOD
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ARKLok7dj-w" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+[https://www.youtube.com/watch?v=ARKLok7dj-w](https://www.youtube.com/watch?v=ARKLok7dj-w)
+
+### Deeper dive in Cisco NCS57C3
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/ARKLok7dj-w" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+[https://www.youtube.com/watch?v=MV2hNv4xn6Q](https://www.youtube.com/watch?v=MV2hNv4xn6Q)
+
+### Introducing the new QSFP-DD MPA on NCS5500 Routers
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/6Ksv8oqhBk0" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+[https://www.youtube.com/watch?v=6Ksv8oqhBk0](https://www.youtube.com/watch?v=6Ksv8oqhBk0)
+
+### Newest Cisco Router Unboxed (NCS57C3-MOD Installation)
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/sma8sQwSbfk" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+[https://www.youtube.com/watch?v=sma8sQwSbfk](https://www.youtube.com/watch?v=sma8sQwSbfk)
+
