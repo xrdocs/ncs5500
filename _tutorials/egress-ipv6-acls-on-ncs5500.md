@@ -27,7 +27,7 @@ In the [previous article](https://xrdocs.io/ncs5500/tutorials/acl-s-on-ncs5500-b
 
 ![Screenshot 2021-09-29 at 2.16.58 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 2.16.58 PM.png)
 
-Let us start with the earlier generations of NCS5500. As we already know, platforms based on J/J+ have limited hardware resources. They have very limited capabilities in the Egress PMF as well. PMF is one of the blocks in the ingress and egress pipeline. It means Programmable Mapping and Filtering. It is the most programmable and the last programmable block in the pipeline. It has all the history of the packet from other blocks (incoming port, lookup results, etc). We can override here every decision taken along the pipeline. Here we do ACL, QoS, LPTS classification and set actions (counters, policers, Traffic Class).  Egress PMF is capable of doing internal TCAM lookup for egress ACLs
+Let us start with the understanding the PMF block. It is one of the blocks in the ingress and egress pipeline aka Programmable Mapping and Filtering. It is the most programmable and the last programmable block in the pipeline. It has all the history of the packet from other blocks (incoming port, lookup results, etc). We can override here every decision taken along the pipeline. Here we do ACL, QoS, LPTS classification and set actions (counters, policers, Traffic Class).  Egress PMF is capable of doing internal TCAM lookup for egress ACLs
 
 ![Screenshot 2021-09-29 at 4.45.23 PM.png]({{site.baseurl}}/images/Screenshot 2021-09-29 at 4.45.23 PM.png)
 
@@ -209,9 +209,6 @@ RP/0/RP0/CPU0:5508-2-741Cs#
 
 We can see for database **EGRESS_ACL_IPV6** the entries are not increasing. The entries are only increasing for the database **RCY_ACL_L3_IPV6**. This is because actual match entries are added only at **RCY_ACL_L3_IPV6**. This is very important to understand during debugging or verifying the outputs. Other thing to remember is, if the same ACL is applied to multiple egress interfaces, match entries and different kinds of TPIDs will increase as per number of interfaces. While the entries for the recycle channel will only increase when the interfaces are in different NPUs.
 
-## Link Utilization due to recycle
-
-Since the packet is scheduled twice by the DSP’s E2E schedule, a maximum of 50% link utilization will be supported as, bandwidth for the recycle channel will be set to be 50% of core bandwidth.
 
 ## J2 Enhancement
 
@@ -260,5 +257,3 @@ From the above outputs, its clearly seen that we no more create a database for r
 ## Summary
 
 Hope this article was helpful in understanding the IPv6 Egress ACL implementation on NCS5500 and the enhancement on the newer generation platforms. In the next article we will understand the various modes of ACLs and see how to use specific profile to increase the ACL scale. Stay tuned !!!
-
-
