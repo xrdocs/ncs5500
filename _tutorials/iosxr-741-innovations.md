@@ -252,3 +252,64 @@ Coming soon
 
 [https://www.youtube.com/watch?v=sma8sQwSbfk](https://www.youtube.com/watch?v=sma8sQwSbfk)
 
+### New NCS560 IMA and 4x10G support
+
+Paban Sarma introduces the new IMA and the partial 4x10G mode for NCS560:
+
+<iframe class="responsive" width="560" height="315" src="https://www.youtube.com/embed/NUEAc8gPP-0" frameborder="0" allowfullscreen></iframe>{: .align-center}  
+.
+
+IOS XR 7.4.1 is used as the vehicule to introduce the support of a new IMA for NCS560 series (4-slot or 7-slot): N560-IMA-N560-IMA-8Q/4L
+
+![new-IMA.png]({{site.baseurl}}/images/new-IMA.png){: .align-center}
+
+Cisco NCS 560 Series Routers Interface Modules Data Sheet:  
+[https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-560-series-routers/datasheet-c78-740295.html](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-560-series-routers/datasheet-c78-740295.html)
+
+8 ports split in two "QUADs" (groups of 4 contiguous ports):
+- QUAD-1: port 0-3
+- QUAD-2: port 4-7
+
+You can configure these QUAD in a specific mode (by default, it's 25G) and the four ports of the group will be configured in the same mode:  
+- all four ports 10GE
+- all four ports 25GE
+- one port on two at 50G
+
+So, it's possible to use these ports in various combinations:  
+- 8x 10G
+- 4x 10G + 4x 25G (or vice versa)
+- 4x 10G + 2x 50G (or vice versa)
+- 4x 25G + 2x 50G (or vice versa)
+- 8x 25G
+- 4x 50G
+
+Note1: that configuring a port in 50G mode is only supported in the even-numbered port and it disables the N+1 port.
+{: .notice--info}
+
+Note2: in 10G mode, we don't support 1G insertion either
+{: .notice--info}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>ADD LOGS HERE</code>
+</pre>
+</div>
+
+Also introduced in IOS XR 7.4.1, the support of "Partial" 4x10G to support the insertion of N560-IMA-8Z(-L) in 40Gbps slots.  
+Before 7.4.1, these IMA were only supported in the 80+Gbps slots: 4, 5, 7, 9, 10 and 11:
+
+![560-7.png]({{site.baseurl}}/images/560-7.png){: .align-center}
+
+Now, it's possible to insert the IMA in 40Gbps slots (2, 3, 12 and 13) and support half of the ports (and which ports will be disabled is dependent on the type of IMA):
+
+![IMA-8Z.png]({{site.baseurl}}/images/IMA-8Z.png){: .align-center}
+
+![IMA-8Z-L.png]({{site.baseurl}}/images/IMA-8Z-L.png){: .align-center}
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>ADD LOGS HERE</code>
+</pre>
+</div>
+
+
