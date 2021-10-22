@@ -289,9 +289,136 @@ Note1: that configuring a port in 50G mode is only supported in the even-numbere
 Note2: in 10G mode, we don't support 1G insertion either
 {: .notice--info}
 
+In this example below, we have the IMA inserted in slot 7 and slot 9 and no QUAD configuration, all the ports are 25GE by default.
+
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ADD LOGS HERE</code>
+<code>RP/0/RP1/CPU0:N560-7#show version
+Wed Aug 11 05:36:26.011 UTC
+Cisco IOS XR Software, Version 7.4.1
+Copyright (c) 2013-2021 by Cisco Systems, Inc.
+
+Build Information:
+ Built By     : ingunawa
+ Built On     : Thu Feb 25 19:40:08 PST 2021
+ Built Host   : iox-ucs-024
+ Workspace    : /auto/srcarchive17/prod/7.4.1/ncs560/ws
+ Version      : 7.4.1
+ Location     : /opt/cisco/XR/packages/
+ Label        : 7.4.1
+
+cisco NCS-560 () processor
+System uptime is 0 weeks 4 days 12 hours 44 minutes
+
+RP/0/RP1/CPU0:N560-7#show platform 
+Wed Aug 11 05:39:29.011 UTC
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/0/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/1/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/2/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/4/CPU0          A900-IMA8Z                 OPERATIONAL       NSHUT
+0/5/CPU0          A900-IMA8Z                 OPERATIONAL       NSHUT
+0/7/CPU0          N560-IMA-8Q/4L             OPERATIONAL       NSHUT
+0/9/CPU0          N560-IMA-8Q/4L             OPERATIONAL       NSHUT
+0/10/CPU0         A900-IMA8Z                 OPERATIONAL       NSHUT
+0/11/CPU0         A900-IMA8Z-L               OPERATIONAL       NSHUT
+0/12/CPU0         A900-IMA8Z                 OPERATIONAL       NSHUT
+0/13/CPU0         A900-IMA8Z-L               OPERATIONAL       NSHUT
+0/RP0/CPU0        N560-RSP4-E(Standby)       IOS XR RUN        NSHUT
+0/RP1/CPU0        N560-RSP4-E(Active)        IOS XR RUN        NSHUT
+0/FT0/CPU0        N560-FAN-H                 OPERATIONAL       NSHUT
+0/PM2/CPU0        A900-PWR1200-A             OPERATIONAL       NSHUT
+RP/0/RP1/CPU0:N560-7#
+RP/0/RP1/CPU0:N560-7#show ipv4 int brief | inc 0/9/0/
+Wed Aug 11 05:42:29.011 UTC
+TwentyFiveGigE0/9/0/0          unassigned      Up              Up       default 
+TwentyFiveGigE0/9/0/1          120.0.1.1       Up              Up       vpn1    
+TwentyFiveGigE0/9/0/2          120.0.5.1       Up              Up       vpn5    
+TwentyFiveGigE0/9/0/3          120.0.5.2       Up              Up       vpn6    
+TwentyFiveGigE0/9/0/4          120.0.9.2       Up              Up       vpn10   
+TwentyFiveGigE0/9/0/5          120.0.9.1       Up              Up       vpn9    
+TwentyFiveGigE0/9/0/6          120.0.1.2       Up              Up       vpn2    
+TwentyFiveGigE0/9/0/7          120.0.0.1       Up              Up       vpn1</code>
+</pre>
+</div>
+
+If you configure the QUAD 1 in slot 9 to 10GE, we'll have the first 4 ports in TenGigE and the last 4 ports in TwentyFiveGigE:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:N560-7#conf
+Wed Aug 11 05:44:29.011 UTC
+RP/0/RP0/CPU0:ios(config)#hw-module quad ?                
+  1-2  configure quad properties
+RP/0/RP0/CPU0:ios(config)#hw-module quad 1 slot ?
+  0-15  configure slot properties
+RP/0/RP0/CPU0:ios(config)#hw-module quad 1 slot 9 ?
+  mode  select mode 10g or 25g or 50g for a quad(group of 4 ports).
+  cr  
+RP/0/RP0/CPU0:ios(config)#hw-module quad 1 slot 9 mode 10g ?
+  cr  
+RP/0/RP0/CPU0:ios(config)#hw-module quad 1 slot 9 mode 10g 
+RP/0/RP0/CPU0:ios(config)#commit
+RP/0/RP0/CPU0:ios(config)#exit
+RP/0/RP1/CPU0:N560-7#
+RP/0/RP1/CPU0:N560-7#show ipv4 int brief | inc 0/9/0/ 
+Wed Aug 11 05:49:32.015 UTC 
+TenGigE0/9/0/0                 unassigned      Down            Down     default  
+TenGigE0/9/0/1                 unassigned      Down            Down     default  
+TenGigE0/9/0/2                 unassigned      Down            Down     default  
+TenGigE0/9/0/3                 unassigned      Down            Down     default  
+TwentyFiveGigE0/9/0/4          120.0.9.2       Up              Up       vpn10    
+TwentyFiveGigE0/9/0/5          120.0.9.1       Up              Up       vpn9     
+TwentyFiveGigE0/9/0/6          120.0.1.2       Down            Down     vpn2     
+TwentyFiveGigE0/9/0/7          120.0.0.1       Up              Up       vpn1   
+RP/0/RP1/CPU0:N560-7#</code>
+</pre>
+</div>
+
+Now, we configure slot 7 QUAD-1 in 10G mode and QUAD-2 in 50G mode. Logically, we will see 4 ports TenGigE in 0-3 and two ports FiftyGigE in 4 and 6:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>RP/0/RP1/CPU0:N560-7#show run | inc "hw-module|mode"                  
+Wed Aug 11 05:52:32.023 UTC
+Building configuration...
+hw-module quad 1 slot 7
+ mode 10g
+hw-module quad 2 slot 7
+ mode 50
+hw-module quad 1 slot 9 
+ mode 10g
+RP/0/RP1/CPU0:N560-7#
+RP/0/RP1/CPU0:N560-7#show ipv4 int brief | inc 0/7/0/                 
+Wed Aug 11 05:54:12.009 UTC
+TenGigE0/7/0/0                 unassigned      Down            Down     default 
+TenGigE0/7/0/1                 120.0.7.2       Up              Up       vpn8    
+TenGigE0/7/0/2                 120.0.3.2       Up              Up       vpn4    
+TenGigE0/7/0/3                 120.0.4.1       Up              Up       vpn4    
+FiftyGigE0/7/0/4               unassigned      down            down     default   
+FiftyGigE0/7/0/6               unassigned      down            down     default   
+RP/0/RP1/CPU0:N560-7#
+RP/0/RP1/CPU0:N560-7#show inventory location 0/7
+NAME: "0/7", DESCR: "Cisco NCS 560 8-port 25G Interface Module, SFP+/SFP28 optics" 
+PID: N560-IMA-8Q/4L    , VID: V00, SN: xxxxxxxxxxx 
+  
+NAME: "TenGigE0/7/0/1", DESCR: "Cisco SFP+ 10G SR Pluggable Optics Module" 
+PID: SFP-10G-SR-S      , VID: V01, SN: xxxxxxxxxxx 
+  
+NAME: "TenGigE0/7/0/2", DESCR: "Cisco SFP+ 10G CWDM 1610nm Pluggable Optics Module" 
+PID: CWDM-SFP10G-1610  , VID: V01, SN: xxxxxxxxxxx 
+  
+NAME: "TenGigE0/7/0/3", DESCR: "Cisco SFP+ 10G BXU-I Pluggable Optics Module" 
+PID: SFP-10G-BXU-I     , VID: V01, SN: xxxxxxxxxxx 
+  
+NAME: "FiftyGigE0/7/0/4", DESCR: "Unknown Pluggable Optics Module" 
+PID: N/A               , VID: N/A, SN: xxxxxxx 
+  
+NAME: "FiftyGigE0/7/0/6", DESCR: "Unknown Pluggable Optics Module" 
+PID: N/A               , VID: N/A, SN: xxxxxxx 
+RP/0/RP1/CPU0:N560-7#
+</code>
 </pre>
 </div>
 
@@ -306,10 +433,44 @@ Now, it's possible to insert the IMA in 40Gbps slots (2, 3, 12 and 13) and suppo
 
 ![IMA-8Z-L.png]({{site.baseurl}}/images/IMA-8Z-L.png){: .align-center}
 
+In this example below, we inserted an IMA-8Z in slot 12 and an IMA-8Z-L in slot 13 (both 40Gbps). You can see the first ports are enabled for the 8Z and the last ports are enabled for the 8Z-L:
+
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>ADD LOGS HERE</code>
+<code>RP/0/RP1/CPU0:N560-7#show platform 
+Wed Aug 11 05:39:29.011 UTC
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/0/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/1/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/2/CPU0          A900-IMA8CS1Z-M            OPERATIONAL       NSHUT
+0/4/CPU0          A900-IMA8Z                 OPERATIONAL       NSHUT
+0/5/CPU0          A900-IMA8Z                 OPERATIONAL       NSHUT
+0/7/CPU0          N560-IMA-8Q/4L             OPERATIONAL       NSHUT
+0/9/CPU0          N560-IMA-8Q/4L             OPERATIONAL       NSHUT
+0/10/CPU0         A900-IMA8Z                 OPERATIONAL       NSHUT
+0/11/CPU0         A900-IMA8Z-L               OPERATIONAL       NSHUT
+0/12/CPU0         <mark>A900-IMA8Z</mark>                 OPERATIONAL       NSHUT
+0/13/CPU0         <mark>A900-IMA8Z-L</mark>               OPERATIONAL       NSHUT
+0/RP0/CPU0        N560-RSP4-E(Standby)       IOS XR RUN        NSHUT
+0/RP1/CPU0        N560-RSP4-E(Active)        IOS XR RUN        NSHUT
+0/FT0/CPU0        N560-FAN-H                 OPERATIONAL       NSHUT
+0/PM2/CPU0        A900-PWR1200-A             OPERATIONAL       NSHUT
+RP/0/RP1/CPU0:N560-7#
+RP/0/RP0/CPU0:ios#show ipv4 int brief | inc 0/12/0
+Wed Aug 11 05:42:26.011 UTC
+Interface                      IP-Address      Status          Protocol Vrf-Name
+TenGigE0/12/0/0                unassigned      Shutdown        Down     default 
+TenGigE0/12/0/1                unassigned      Down            Down     default 
+TenGigE0/12/0/2                unassigned      Down            Down     default 
+TenGigE0/12/0/3                unassigned      Down            Down     default 
+RP/0/RP0/CPU0:ios#show ipv4 int brief | inc 0/13/0
+Wed Aug 11 05:43:12.011 UTC 
+Interface                      IP-Address      Status          Protocol Vrf-Name
+TenGigE0/13/0/4                unassigned      Shutdown        Down     default 
+TenGigE0/13/0/5                unassigned      Shutdown        Down     default 
+TenGigE0/13/0/6                unassigned      Shutdown        Down     default 
+TenGigE0/13/0/7                unassigned      Shutdown        Down     default 
+RP/0/RP1/CPU0:N560-7#</code>
 </pre>
 </div>
-
-
