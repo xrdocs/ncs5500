@@ -100,7 +100,7 @@ Let’s summarise:
 
 ## Scale
 
-The number of ACLs and ACEs we support is expressed per NPU (Qumran-MX, Jericho, Jericho+). Since the ACLs are applied on ports, we invite you to check [the former blog post describing the port to NPU assignments](https://xrdocs.io/ncs5500/tutorials/2018-02-15-port-assignments-on-ncs5500-platforms/).
+The number of ACLs and ACEs we support is expressed per NPU (Qumran-MX, Jericho, Jericho+). Since the ACLs are applied on ports, we invite you to check [the former blog post describing the port to NPU assignments](https://xrdocs.io/ncs5500/tutorials/port-assignments-on-ncs5500-platforms/).
 
 Also, keep in mind that an ACL applied to a bundle interface with port members spanning over multiple NPUs will see the ACL/ACEs replicated on all the participating NPUs.
 
