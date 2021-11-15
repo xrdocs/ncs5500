@@ -1397,7 +1397,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 ![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
 
 Profile increasing the counters available in the egress pipeline from 16K (default) to 24K. These counters are taken from the ingress pipeline, impacting the scale for ACL/QOS/LPTS/etc.   
-This command also enables ingress SR counters.  
+This command also enables ingress SR counters. QoS stats are disabled while enabling this particular stats profile. 
 Higher egress stats: upto 16K stats available for MPLS cases like RSVP-TE and SR-TE, 4K for ARP/ND and 4K for L2-AC's. 
 
 ### stats qos-enhanced
