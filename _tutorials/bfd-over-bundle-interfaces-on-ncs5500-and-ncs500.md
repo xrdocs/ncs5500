@@ -340,6 +340,8 @@ From the above output we can see that the source and destination value taken now
 | NCS540   | Yes     |
 | NCS560   | Yes     |
 
+Note: BFD over Bundle is supported with mixed speed interfaces.
+{: .notice--info}
 
 ## Summary
 
