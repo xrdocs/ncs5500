@@ -2,7 +2,7 @@
 published: true
 date: '2021-09-29 17:13 +0200'
 title: Introducing NCS57C3-MOD Routers
-author: Nicolas Fevrire
+author: Nicolas Fevrier
 excerpt: >-
   Very happy to announce the new member of the NCS5500 fixed routers: the
   NCS57C3-MOD
