@@ -20,6 +20,8 @@ position: top
 | 2020-Aug-10 | Add: comment on the need to use UDK profile for packet-length match in ACL |
 | 2021-Apr-3  | Add: hw-mod profiles till 7.3.1, updated the support for J2 based platforms for exisiting profiles | 
 | 2021-Sept-9  | Add: hw-mod profiles till 7.4.1, updated the support for J2 based platforms for exisiting profiles | 
+| 2022-Jan-20  | Add: hw-mod profiles till 7.5.1  | 
+
 
 
 
@@ -763,11 +765,13 @@ _External documentation_:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:NCS5500-702(config)#hw-module profile offload ?
+<code>
+RP/0/RP0/CPU0:NCS5500-702(config)#hw-module profile offload ?
   1  BFDv6 and Bsync
   2  BFDv6 and Route download
   3  Route download and Bsync
-RP/0/RP0/CPU0:NCS5500-702(config)#</code>
+RP/0/RP0/CPU0:NCS5500-702(config)#
+</code>
 </pre>
 </div>
 
@@ -786,6 +790,30 @@ _External documentation_:
 
 Note: This profile is not needed for J2 based systems
 {: .notice--info}
+
+### oam
+
+**_hw-module profile oam 48byte-cfm-maid-enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile oam ?
+  48byte-cfm-maid-enable  Enable 48byte cfm maid feature
+  sat-enable              enable SAT feature
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile oam 48byte-cfm-maid-enable ?
+  -cr-
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile oam 48byte-cfm-maid-enable
+Thu Jan 20 09:55:51.661 UTC
+In order to make the oam profile take effect, the router must be manually reloaded.
+</code>
+</pre>
+</div>
+
+![Screenshot 2022-01-20 at 3.40.30 PM.png]({{site.baseurl}}/images/Screenshot 2022-01-20 at 3.40.30 PM.png)
+
+The NCS 5500 and NCS 5700 system has limited format support for MAID/MDID formats for hw-offloaded CFM session (<1 minutes). With introduction to this new hw-module profile, NCS 5700 fixed systems and modular boxes running in J2 native mode will support flexible format MDID/MAIDs for hardware offloaded MEPs. Activation of this mode needs the router to be reloated. 
+
 
 ### qos
 
@@ -1107,6 +1135,99 @@ With this profile enabled, Egress IPv4 and IPv6 ACL will not work due to PMF res
 Note: In order to activate this new npu profile, you must manually reload the chassis
 With this profile enabled, Egress IPv4 and IPv6 ACL will not work due to PMF resource limitation in egress.
 {: .notice--info}
+
+**_hw-module profile qos l2-match-dest-addr-v4v6_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile qos ?
+  arp-isis-priority-enable        Prioritize ISIS and ARP packets
+  conform-aware-policer           Configure Conform Aware Policer mode
+  ecn-marking-stats               Enable ECN marking stats mode
+  hqos-enable                     Enable Hierarchical QoS on physical and sub-interfaces
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  l2-match-dest-addr-v4v6         Enable l2qos match on ipv4/ipv6 destination address
+  max-classmap-size               max class map size
+  physical-hqos-enable            Enable Hierarchical QoS only on physical interfaces, and not on sub-interfaces
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in the same ingress QoS po
+licy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+  wred-stats-enable               Enable Wred egress stats
+
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile qos l2-match-dest-addr-v4v6
+Thu Jan 20 09:52:48.156 UTC
+In order to activate this profile, you must manually reload the chassis/all line cards
+</code>
+</pre>
+</div>
+
+![Screenshot 2022-01-20 at 3.30.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-01-20 at 3.30.57 PM.png)
+
+Prior to 7.5.1 there is no option to match IPv4/v6 destination addresses for QoS classification on l2transport interface. With introduction to this profile , QoS classification can be done based on destination address even on l2transport interface/sub interface. activation of this profile needs the router to be reloaded. A new match criterion  “match destination-address” is also introduced along with the hw-module profile. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#class-map l2-dest
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#match destination-address ipv4 ?
+  A.B.C.D/prefix  IP prefix -network/length-
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#match destination-address ipv4 100.1.1.1/24 ?
+  -cr-
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#match destination-address ipv4 100.1.1.1/24
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#match destination-address ipv6 ?
+  X:X::X/0-128  IPV6 address with prefix and mask
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#match destination-address ipv6 2001::1/128
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config-cmap)#show configuration
+Thu Jan 20 09:54:11.276 UTC
+Building configuration...
+!! IOS XR Configuration 7.5.1
+!
+class-map match-any l2-dest
+ match destination-address ipv4 100.1.1.1 255.255.255.0
+ match destination-address ipv6 2001::1/128
+ end-class-map
+!
+end
+</code>
+</pre>
+</div>
+
+**_hw-module profile qos arp-isis-priority-enable_**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile qos ?
+  arp-isis-priority-enable        Prioritize ISIS and ARP packets
+  conform-aware-policer           Configure Conform Aware Policer mode
+  ecn-marking-stats               Enable ECN marking stats mode
+  hqos-enable                     Enable Hierarchical QoS on physical and sub-interfaces
+  ingress-model                   QoS model for ingress feature
+  ipv6                            Configure ipv6 protocol
+  l2-match-dest-addr-v4v6         Enable l2qos match on ipv4/ipv6 destination address
+  max-classmap-size               max class map size
+  physical-hqos-enable            Enable Hierarchical QoS only on physical interfaces, and not on sub-interfaces
+  qosg-dscp-mark-enable           Enable both 'set qos-group' and 'set dscp/precedence' actions in the same ingress QoS po
+licy
+  shared-policer-per-class-stats  Enable shared policer (per class stats) mode
+  wred-stats-enable               Enable Wred egress stats
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile qos arp-isis-priority-enable ?
+  -cr-
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#hw-module profile qos arp-isis-priority-enable
+Thu Jan 20 09:51:01.244 UTC
+In order to activate this profile, you must manually reload the chassis/all line cards
+</code>
+</pre>
+</div>
+  
+![Screenshot 2022-01-20 at 3.30.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-01-20 at 3.30.57 PM.png)
+
+This feature gives an option to assign the highest priority (TC7) to Integrated Intermediate System-to-Intermediate System (IS-IS) and Address Resolution Protocol (ARP) packets in transit. This feature is disabled by default.
+The feature provides more flexibility in transit traffic management on a per-hop basis and also fine-tunes the traffic profile management for transit traffic.
+
 
 ### enabling native mode 
 
