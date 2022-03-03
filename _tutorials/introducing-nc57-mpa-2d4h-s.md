@@ -108,6 +108,78 @@ All speeds 400G, 100G, 40G support SyncE and PTP:
 - G.8275.1 Telecom Profile supported with Class C Performance
 - G.8275.2 Telecom Profile also supported
 
+### Configuring 400G on the MPA
+
+As discussed in the above section we can use the MPA is either slot 1,2,3. It will operate in either 400G or 800G mode. Now we will see the default mode of the ports when the MPA boots up and how to configure a port for 400G speed.
+
+We have a router with the MPA in slot 1 and slot 2. We will concentrate on slot 2 for this example
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#show platform
+Thu Mar  3 11:21:37.216 UTC
+Node              Type                       State             Config state
+--------------------------------------------------------------------------------
+0/0/1             NC57-MPA-2D4H-S            OK                
+<mark>0/0/2             NC57-MPA-2D4H-S            OK </mark>               
+0/0/3             NC57-MPA-12L-S             OK                
+0/0/CPU0          NCS-57C3-MODS-SYS          IOS XR RUN        NSHUT
+0/0/NPU0          Slice                      UP                
+0/RP0/CPU0        NC57-MOD-RP2-E(Active)     IOS XR RUN        NSHUT
+0/FT0             NC57-C3-FAN2-FW            OPERATIONAL       NSHUT
+0/FT1             NC57-C3-FAN2-FW            OPERATIONAL       NSHUT
+0/FT2             NC57-C3-FAN1-FW            OPERATIONAL       NSHUT
+0/FT3             NC57-C3-FAN1-FW            OPERATIONAL       NSHUT
+0/FT4             NC57-C3-FAN1-FW            OPERATIONAL       NSHUT
+0/FT5             NC57-C3-FAN1-FW            OPERATIONAL       NSHUT
+0/PM0             NC57-1600W-ACFW            OPERATIONAL       NSHUT
+0/PM1             NC57-1600W-ACFW            FAILED            NSHUT
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
+</code>
+</pre>
+</div>
+
+We have inserted 400G optics in slot 0 and slot 2
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#show inventory 
+NAME: "0/0", DESCR: "NCS 5700 Eyrie Line Card"
+PID: NCS-57C3-MODS-SYS , VID: V01, SN: FOC25296E5Z
+
+NAME: "0/0/1", DESCR: "2X400G or 4X200/100G QSFP-DD MPA"
+PID: NC57-MPA-2D4H-S   , VID: V01, SN: FOC252925T7
+
+NAME: "0/0/2", DESCR: "2X400G or 4X200/100G QSFP-DD MPA"
+PID: NC57-MPA-2D4H-S   , VID: V01, SN: FOC252925T8
+
+<mark>NAME: "HundredGigE0/0/2/0", DESCR: "Cisco QSFPDD 400G AOC Pluggable Optics Module"
+PID: QDD-400-AOC3M     , VID: V01 , SN: INL2528A9ZV-B</mark>
+
+<mark>NAME: "HundredGigE0/0/2/2", DESCR: "Cisco QSFPDD 400G AOC Pluggable Optics Module"
+PID: QDD-400-AOC3M     , VID: V01 , SN: INL2528A9XN-A</mark>
+</code>
+</pre>
+</div>
+
+
+We can see that when the MPA boots up the interface comes up as 100G by default. It does not automatically take into consideration the inserted optics.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#show ipv4 interface brief | in 0/0/2
+<mark>HundredGigE0/0/2/0             unassigned      Down            Down     default 
+HundredGigE0/0/2/1             unassigned      Down            Down     default 
+HundredGigE0/0/2/2             unassigned      Down            Down     default 
+HundredGigE0/0/2/3             unassigned      Down            Down     default </mark>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
+</code>
+</pre>
+</div>
+
 ## In NCS55A2-MOD Routers
 
 The two MPA slots being 400G, it's the same port capability than 400Gbps mode described above. We don't support 1x400G Grey but will support 4x100G breakout. For 400G-ZR/ZR+ Coherent in the future plan, we will support Nx100G Muxponder modes. Current optics speeds and breakout supported are as follows:
