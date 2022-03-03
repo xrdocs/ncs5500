@@ -180,6 +180,26 @@ RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
 </pre>
 </div>
 
+For configuring the port as 400G, we need to execute the below commands
+
+```
+hw-module port-range 0 1 instance 2 location 0/0/CPU0 mode 400
+hw-module port-range 2 3 instance 2 location 0/0/CPU0 mode 400
+```
+
+After configuring the above profile the interface comes up in 400G mode.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#show ipv4 interface brief  | in FourHundredGigE0/0/2
+<mark>FourHundredGigE0/0/2/0         unassigned      Up              Up       default 
+FourHundredGigE0/0/2/2         unassigned      Up              Up       default </mark>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
+</code>
+</pre>
+</div>
+
 ## In NCS55A2-MOD Routers
 
 The two MPA slots being 400G, it's the same port capability than 400Gbps mode described above. We don't support 1x400G Grey but will support 4x100G breakout. For 400G-ZR/ZR+ Coherent in the future plan, we will support Nx100G Muxponder modes. Current optics speeds and breakout supported are as follows:
