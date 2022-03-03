@@ -4,7 +4,7 @@ date: '2021-10-07 14:55 +0200'
 title: 'Introducing the new QSFP-DD MPA: NC57-MPA-2D4H-S'
 author: Nicolas Fevrier
 excerpt: Introducing the new QSFP-DD modular port adaptor
-position: top
+position: hidden
 ---
 {% include toc icon="table" title="New QSFP-DD MPA: NC57-MPA-2D4H-S" %} 
 
