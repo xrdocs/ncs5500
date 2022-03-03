@@ -187,6 +187,13 @@ hw-module port-range 0 1 instance 2 location 0/0/CPU0 mode 400
 hw-module port-range 2 3 instance 2 location 0/0/CPU0 mode 400
 ```
 
+| CLI portion | Meaning                                |
+|-------------|----------------------------------------|
+| port-range  | either 0-1 or 2-3                      |
+| instance    | card instance of MPA's                 |
+| location    | fully qualified location specification |
+| mode        | port mode                              |
+
 After configuring the above profile the interface comes up in 400G mode.
 
 <div class="highlighter-rouge">
