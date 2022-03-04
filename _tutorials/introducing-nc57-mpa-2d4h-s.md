@@ -108,7 +108,7 @@ All speeds 400G, 100G, 40G support SyncE and PTP:
 - G.8275.1 Telecom Profile supported with Class C Performance
 - G.8275.2 Telecom Profile also supported
 
-### Configuring 400G on the MPA
+### Configuring Interface Speed 400G on the MPA
 
 As discussed in the above section we can use the MPA is either slot 1,2,3. It will operate in either 400G or 800G mode. Now we will see the default mode of the ports when the MPA boots up and how to configure a port for 400G speed.
 
@@ -206,6 +206,30 @@ RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
 </code>
 </pre>
 </div>
+
+### Configuring one breakout option on the MPA
+
+As seen in the above example, if we want to configure a port for a breakout option, please use the below CLI
+
+```
+hw-module port-range 0 1 instance 2 location 0/0/CPU0 mode 4x100
+```
+In this example, the 400G port in slot 0 is used in 4x100G mode. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#show ip int brief | in 0/0/2/0/
+<mark>HundredGigE0/0/2/0/0           unassigned      Down            Down     default 
+HundredGigE0/0/2/0/1           unassigned      Down            Down     default 
+HundredGigE0/0/2/0/2           unassigned      Down            Down     default 
+HundredGigE0/0/2/0/3           unassigned      Down            Down     default</mark> 
+RP/0/RP0/CPU0:NC57C3-Vega-II5-53#
+</code>
+</pre>
+</div>
+
+Similarly you can use different ports in different speeds and breakout options. The table described above gives the combination details.
 
 ## In NCS55A2-MOD Routers
 
