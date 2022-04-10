@@ -242,9 +242,11 @@ Now we insert a QSFP+ in port 3 and the port doesn't go up: we can't get QSFP+ a
 
 ### MACsec support
 
-MACsec is not supported in IOS XR 7.3.1 but is tracked in the roadmap (contact your Cisco representative for the latest plans). Still, all ports are connected to PHY supporting the feature. It will be supported on 100G ports, 400G ports and also breakout ports.
+Starting IOS-XR 7.6.1, MACsec is supported on NCS-57B1-5DSE-SYS and NCS-57B1-6D24-SYS. All ports are connected to PHY supporting the feature. It will be supported on 100G ports, 400G ports and also breakout ports.
 
 ![MACsec.png]({{site.baseurl}}/images/MACsec.png){: .align-center}
+
+[MACsec configurations on NCS500/5700](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/76x/b-system-security-cg-ncs5500-76x/implementing-macsec-encryption.html)
 
 ### Other things to know?
 
