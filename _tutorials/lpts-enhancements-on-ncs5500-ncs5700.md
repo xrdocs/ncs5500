@@ -14,7 +14,7 @@ tags:
   - NCS5700
   - control plane
   - CoPP
-position: top
+position: hidden
 ---
 {% include toc %}
 
