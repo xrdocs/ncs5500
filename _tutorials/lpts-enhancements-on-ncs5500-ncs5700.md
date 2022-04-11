@@ -109,7 +109,7 @@ Node              Type                     State                    Config state
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show version 
+<mark>RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show version</mark> 
 Mon Apr 11 09:17:51.091 UTC
 Cisco IOS XR Software, Version 7.6.1 LNT
 Copyright (c) 2013-2022 by Cisco Systems, Inc.
@@ -144,8 +144,6 @@ RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show lpts pifib dynamic-flows statistics locat
  ActLimit - Actual Max Limit
  SWCnt    - Software Entries Count
  P, (+)   - Pending Software Entries
-
-
   FLOW-TYPE           C  Def_Max Conf_Max     HWCnt/ActLimit      SWCnt P
  -------------------- -- ------- --------   -------/--------    ------- -
  Fragment             T        4       --         2/4                 2  
@@ -211,9 +209,9 @@ RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show lpts pifib dynamic-flows statistics locat
  Active TCAM Usage : 11450/12000 <mark>[Platform MAX: 12000]</mark>
  HWCnt/SWCnt       : 43/47
 ---------------------------------------------------
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
+</code>
+</pre>
+</div>
 
 For modular chassis we need to first bring the chassis to native mode using the below command 
 
@@ -221,9 +219,9 @@ For modular chassis we need to first bring the chassis to native mode using the 
 <pre class="highlight">
 <code>
 hw-module profile npu native-mode-enable
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
+</code>
+</pre>
+</div>
 
 This will need a router reload. Once the chassis is operating in native mode and has line cards with external TCAM then we should be able to get the 12k LPTS entries.
 
@@ -233,9 +231,9 @@ If you want to toggle back to the previous behaviour for 8k entries then use the
 <pre class="highlight">
 <code>
 hw-module profile tcam lpts-internal
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
+</code>
+</pre>
+</div>
 
 
 ## Memory and Performance
