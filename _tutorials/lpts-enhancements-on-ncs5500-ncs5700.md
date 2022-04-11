@@ -69,6 +69,7 @@ Let us have a high level understanding of how this works internally:
 Note: This happens transparently in the platforms once it is upgraded to IOS-XR 7.6.1 and operating in native mode
 {: .notice--info}
 
+
 ## IOS-XR 7.6.1 Support Matrix
 
 | Host Router                                                | Remote Router                                              | LPTS Scale |
