@@ -240,8 +240,14 @@ hw-module profile tcam lpts-internal
 
 ## Memory and Performance
 
-Creating new field groups will take up hardware resources on the ASIC. But with the current implementation we will not face any memory issue. The current implementation also uses 2 pass implementation but will not have any issues of latency in the platform.
+Creating new field groups will take up hardware resources on the ASIC. But with the current implementation we will not face any memory issue. Though it uses 2 pass implementation but will not have any issues of latency in the platforms. This will be taken care at the boot time itself and will be transparent to the end users.
+
+## References
+
+
 
 ## Summary
 
 As discussed, this enhancement will help increase the LPTS scale and increase the number of hardware entries of the routing protocols and other features in the hardware. This is supported from IOS-XR 7.6.1 and only on the newer generation platforms with external TCAM. We have a roadmap to further increase this values from 12k. Stay tuned for the same.
+
+
