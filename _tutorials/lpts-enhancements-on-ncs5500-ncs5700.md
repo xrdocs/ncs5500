@@ -35,7 +35,9 @@ Before we move on to this topic, it would be recommended to visit our LPTS archi
 
 Local Packet Transfer Services (LPTS) maintains tables that redirect packets to a logical router or the Secure Domain Router (SDR) to make sure that packets are delivered to their intended destination on the Routing Processor(RP). These packets are termed as “for-us” packets. Examples include PIM, IGMP, ICMP, RSVP other protocol packets like OSPFv2/v3 hello packets, ISIS packets, BGP packets etc. As mentioned above, the on chip TCAM or the iTCAM can only support a maximum of 8K LPTS table entries along with other features. This causes us to have a limit to which we can have the hardware entries for the protocols. Entries exceeding the allowed numbers is processed under a common pool of software entries. 
 
-From IOS-XR 7.6.1, the implementation will be changed. To increase the scale of the LPTS entries, the second pass will happen in the eTCAM instead of iTCAM. This will help increase the LPTS routing packet entries to 12000 (from current support of 8k). This helps in scaling the other protocol entries up to 1.5 times the current scale.
+## Solution
+
+From IOS-XR 7.6.1, the scale of the LPTS hardware entries has been increased. To achieve the same, the second pass will happen in the eTCAM instead of iTCAM. This will help increase the LPTS hardware entries to 12000 (from current support of 8k). This helps in scaling the other protocol entries up to 1.5 times the current scale.
 
 ## Platform Support
 
@@ -243,9 +245,3 @@ Creating new field groups will take up hardware resources on the ASIC. But with 
 ## Summary
 
 As discussed, this enhancement will help increase the LPTS scale and increase the number of hardware entries of the routing protocols and other features in the hardware. This is supported from IOS-XR 7.6.1 and only on the newer generation platforms with external TCAM. We have a roadmap to further increase this values from 12k. Stay tuned for the same.
-
-
- 
- 
-
-
