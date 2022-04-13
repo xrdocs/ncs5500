@@ -50,7 +50,7 @@ To avoid the impact to multiple customer interface due to modifications, there h
 - This feature is not supported in egress direction.
 - This feature is not supported on Layer 2 interfaces.
 - ACL with object groups is not supported with common ACL. 
-- ACL with ABF is not supported with common ACL.
+- ACL with ABF is supported with common ACL from IOS-XR 7.6.1
 - It cannot be configured on the same line card which has compression configured.
 - Atomic replace of the common ACL is not supported.
 
@@ -251,7 +251,7 @@ From the above output we can see that with the use of common ACL along with inte
 
 ## Reference
 
-  - [CCO Config Guide ](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html#Cisco_Generic_Topic.dita_4cf5c796-edf6-4712-a7d8-4982a251e265 "CCO Config Guide ")
+  - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/76x/b-ip-addresses-cg-ncs5500-76x/m-implementing-access-lists-prefix-lists-ncs5500.html)
   
 ## Summary
 
