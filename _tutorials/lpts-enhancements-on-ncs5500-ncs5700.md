@@ -27,13 +27,13 @@ In our previous article, we had introduced the [LPTS architecture](https://xrdoc
 
 ## Brief Background 
 
-Before we move on to this topic, it would be recommended to visit our LPTS architecture document for understanding the implementation on the platform. As we covered, in the document LPTS is an integral component of **IOS-XR** systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. IOS XR software classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. We also discussed how the LPTS processes the for-us packets in the two pass in the hardware pipeline. For-us packets will go through the ASIC twice before getting punted to the CPU. In the current implementation this already happens in iTCAM.
+Before we move on to this topic, it would be recommended to visit our [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) document for understanding the implementation on the platform. As we covered, in the document LPTS is an integral component of **IOS-XR** systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. IOS XR software classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. We also discussed how the LPTS processes the for-us packets in the two pass in the hardware pipeline. For-us packets will go through the ASIC twice before getting punted to the CPU. In the current implementation this happens in iTCAM.
 
 
 
 ## Problem Statement
 
-Local Packet Transfer Services (LPTS) maintains tables that redirect packets to a logical router or the Secure Domain Router (SDR) to make sure that packets are delivered to their intended destination on the Routing Processor(RP). These packets are termed as “for-us” packets. Examples include PIM, IGMP, ICMP, RSVP other protocol packets like OSPFv2/v3 hello packets, ISIS packets, BGP packets etc. As mentioned above, the on chip TCAM or the iTCAM can only support a maximum of 8K LPTS table entries along with other features. This causes us to have a limit to which we can have the hardware entries for the protocols. Entries exceeding the allowed numbers is processed under a common pool of software entries. 
+Local Packet Transfer Services (LPTS) maintains tables that redirect packets to a logical router or the Secure Domain Router (SDR) to make sure that packets are delivered to their intended destination on the Routing Processor(RP). These packets are termed as “for-us” packets. Examples include PIM, IGMP, ICMP, RSVP other protocol packets like OSPFv2/v3 hello packets, ISIS packets, BGP packets etc. As mentioned above, the on chip TCAM or the iTCAM can only support a maximum of 8K LPTS table entries along with other features. This causes us to have a limit to which we can have the hardware entries for the protocols. Entries exceeding the allowed numbers is processed under a common pool of software entries. Customers want their protocol entries to be in the hardware and be subjected to hardware LPTS policing. 
 
 ## Solution
 
@@ -250,5 +250,3 @@ Creating new field groups will take up hardware resources on the ASIC. But with 
 ## Summary
 
 As discussed, this enhancement will help increase the LPTS scale and increase the number of hardware entries of the routing protocols and other features in the hardware. This is supported from IOS-XR 7.6.1 and only on the newer generation platforms with external TCAM. We have a roadmap to further increase this values from 12k. Stay tuned for the same.
-
-
