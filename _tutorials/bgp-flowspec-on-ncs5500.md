@@ -1064,6 +1064,13 @@ We were able to push to 4000 with this platform with no noticeable problem, to 6
 
 The results may be different on a different NCS5500 platform or a different IOS XR version. So, please take all this with a grain of salt.
 
+## Latest Scale
+
+With **IOS-XR 7.6.1**, we can now assign **32K BGP Flowspec entries**, thus increasing the number of matches and actions covered. In earlier releases, you could configure 16K BGP Flowspec entries. BGP Flowspec entries up to 32K are supported only on Cisco NCS 5700 series fixed port routers and the Cisco NCS 5500 series routers that have the Cisco NC57 line cards that are installed and operating in the native mode. BGP Flowspec can scale up to 32K entries only when you enable the l3max-se profile. 
+
+More details on the scale can be found [here.](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/bgp/76x/b-bgp-cg-ncs5500-76x/implementing-bgp.html#Cisco_Concept.dita_38717a1a-6b0b-4fa1-96cb-9383ac932f80)
+
+
 ## Session limit configuration
 
 _Is it possible to limit the number of rules received per session or globally?_ 
