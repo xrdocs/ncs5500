@@ -75,7 +75,7 @@ There are 3 types of ABF supported on NCS55xx and NCS5xx [Reference](https://www
 - It is supported only for permit action. 
 - Deny action is not supported with ABF.
 - ABF is supported on Physical Interfaces, Sub-interfaces, Bundle Interfaces and Bundle Sub-Interfaces.
-- ABF is not supported for common-ACL's.
+- ABF is supported for common-ACL's from IOS-XR 7.6.1
 - ABF supports dynamic next-hop modifications.
 - ABF default route is not supported.
 - IPv4 ABF next hops routed over GRE interfaces is supported.
@@ -451,9 +451,9 @@ This is just one of scenario. There can be multiple sceanrios where network admi
 ## Reference
 
   - Reference 1: https://community.cisco.com/t5/service-providers-documents/asr9000-xr-abf-acl-based-forwarding/ta-p/3153403
-  - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/72x/b-ip-addresses-cg-ncs5500-72x/m-implementing-access-lists-prefix-lists-ncs5500.html "CCO Config Guide")
+  - [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/76x/b-ip-addresses-cg-ncs5500-76x/m-implementing-access-lists-prefix-lists-ncs5500.html)
   
   
 ## Summary
 
-In this technote, we tried to cover the ABF feature, possible use cases and how to use ABF along with Object tracking to track the next-hops for failure scenarios. We also saw configuration examples on NCS55xx and NCS5xx. We have taken a simple network topology to explain the concept in easier way, but there is no restriction for ABF to work flawlessly in complex networks. Network admins can use this feature effectively to engineer the traffic along desired paths and perform load-balancing and troubleshooting as and when required. However we should note that since ABF is ACL-based, all packets which do not match an existing rules in the ACL will be subject to the default ACL rule i.e. drop all. Therefore, it is suggested that the user put an explicit rule which is of lower priority to "permit" all traffic.  This will ensure that all traffic which does not match an ABF rule will be permitted and forwarded as normal. 
+In this technote, we tried to cover the ABF feature, possible use cases and how to use ABF along with Object tracking to track the next-hops for failure scenarios. We also saw configuration examples on NCS55xx and NCS5xx. We have taken a simple network topology to explain the concept in easier way, but there is no restriction for ABF to work flawlessly in complex networks. Network admins can use this feature effectively to engineer the traffic along desired paths and perform load-balancing and troubleshooting as and when required. However we should note that since ABF is ACL-based, all packets which do not match an existing rules in the ACL will be subject to the default ACL rule i.e. drop all. Therefore, it is suggested that the user put an explicit rule which is of lower priority to "permit" all traffic.  This will ensure that all traffic which does not match an ABF rule will be permitted and forwarded as normal.
