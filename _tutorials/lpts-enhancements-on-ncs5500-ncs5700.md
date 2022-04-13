@@ -20,14 +20,14 @@ position: hidden
 
 ## Introduction
 
-In our previous article, we had introduced the [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) on NCS5500 and NCS500 product family. There we introduced the concept of LPTS and its internal architecture. We also saw with examples how LPTS entries are created in the hardware and how they can be altered as per different requirements. We then followed it up with introduction to [Domain based LPTS Policers](https://xrdocs.io/ncs5500/tutorials/ncs55x-and-ncs5xx-domain-based-lpts-policers/) and understanding its use cases. In this article, we will discuss the LPTS latest enhancements on the newer generation products.
+In our previous article, we had introduced the [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) on NCS5500 and NCS500 product family. There we discussed, concept of LPTS and its internal architecture. We also saw with examples how LPTS entries are created in the hardware and how they can be altered as per different requirements. We then followed it up with introduction to [Domain based LPTS Policers](https://xrdocs.io/ncs5500/tutorials/ncs55x-and-ncs5xx-domain-based-lpts-policers/) and understanding its use cases. In this article, we will discuss the LPTS latest enhancements on the newer generation products.
 
 ![Screenshot 2022-04-11 at 12.53.23 PM.png]({{site.baseurl}}/images/Screenshot 2022-04-11 at 12.53.23 PM.png)
 
 
 ## Brief Background 
 
-Before we move on to this topic, it would be recommended to visit our [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) document for understanding the implementation on the platform. As we covered, in the document LPTS is an integral component of **IOS-XR** systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. IOS XR software classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. We also discussed how the LPTS processes the for-us packets in the two pass in the hardware pipeline. For-us packets will go through the ASIC twice before getting punted to the CPU. In the current implementation this happens in iTCAM.
+Before we move on to this topic, it would be recommended to visit our [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) document for understanding the implementation on the platform. As discussed in the document, LPTS is an integral component of **IOS-XR** systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. IOS XR software classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. We also discussed how the LPTS processes the for-us packets in the two pass in the hardware pipeline. For-us packets will go through the ASIC twice before getting punted to the CPU. In the current implementation this happens in iTCAM.
 
 
 
