@@ -44,13 +44,13 @@ To avoid the impact to multiple customer interface due to modifications, there h
 - Statistics of common/chained ACL is supported.
 - The is no change in scale after applying the common/chained ACL.
 - There is no performance impact with both the common and interface ACL applied.
+- ACL with ABF is supported with common ACL from IOS-XR 7.6.1
 
 ## What's Not Supported
 
 - This feature is not supported in egress direction.
 - This feature is not supported on Layer 2 interfaces.
 - ACL with object groups is not supported with common ACL. 
-- ACL with ABF is supported with common ACL from IOS-XR 7.6.1
 - It cannot be configured on the same line card which has compression configured.
 - Atomic replace of the common ACL is not supported.
 
