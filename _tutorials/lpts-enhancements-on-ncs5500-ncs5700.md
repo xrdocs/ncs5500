@@ -29,6 +29,8 @@ In our previous article, we had introduced the [LPTS architecture](https://xrdoc
 
 Before we move on to this topic, it would be recommended to visit our [LPTS architecture](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/) document for understanding the implementation on the platform. As discussed in the document, LPTS is an integral component of **IOS-XR** systems which provides firewall and policing functionality. LPTS maintains per interface complete table in netio chain in Line card CPU, making sure that packets are delivered to their intended destinations. IOS XR software classifies all ‘For Us’ control packets into **97** different flows. Each flow has it own hardware policer to restrict the punt traffic rate for the flow type. We also discussed how the LPTS processes the for-us packets in the two pass in the hardware pipeline. For-us packets will go through the ASIC twice before getting punted to the CPU. In the current implementation this happens in iTCAM.
 
+![Screenshot 2022-04-13 at 3.19.33 PM.png]({{site.baseurl}}/images/Screenshot 2022-04-13 at 3.19.33 PM.png)
+
 
 
 ## Problem Statement
@@ -38,6 +40,9 @@ Local Packet Transfer Services (LPTS) maintains tables that redirect packets to 
 ## Solution
 
 From IOS-XR 7.6.1, the scale of the LPTS hardware entries has been increased. To achieve the same, the second pass will happen in the eTCAM instead of iTCAM. This will help increase the LPTS hardware entries to 12000 (from current support of 8k). This helps in scaling the other protocol entries up to 1.5 times the current scale.
+
+![Screenshot 2022-04-13 at 3.22.49 PM.png]({{site.baseurl}}/images/Screenshot 2022-04-13 at 3.22.49 PM.png)
+
 
 ## Platform Support
 
