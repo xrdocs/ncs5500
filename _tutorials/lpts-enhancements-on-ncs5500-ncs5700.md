@@ -220,7 +220,107 @@ RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show lpts pifib dynamic-flows statistics locat
 </pre>
 </div>
 
-For modular chassis we need to first bring the chassis to native mode using the below command 
+From the above output, we can see that when the router boots up with IOS-XR 761, we have only 11450 TCAM entries occupied. Whereas the maximum supported in 12000. This means that we have room to increase a particular flow without affecting the others. Let us check with an example.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-2-Vega-II5-58(config)#lpts pifib hardware dynamic-flows location 0/RP0/CPU0 flow bgp configured max <mark>2000</mark>
+RP/0/RP0/CPU0:N57B1-2-Vega-II5-58(config)#commit 
+</code>
+</pre>
+</div>
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-2-Vega-II5-58#show lpts pifib dynamic-flows statistics location 0/RP0/CPU0 
+
+ Dynamic-flows Statistics:
+ -------------------------
+ (C - Configurable, T - TRUE, F - FALSE, * - Configured)
+ Def_Max  - Default Max Limit
+ Conf_Max - Configured Max Limit
+ HWCnt    - Hardware Entries Count
+ ActLimit - Actual Max Limit
+ SWCnt    - Software Entries Count
+ P, (+)   - Pending Software Entries
+
+
+  FLOW-TYPE           C  Def_Max Conf_Max     HWCnt/ActLimit      SWCnt P
+ -------------------- -- ------- --------   -------/--------    ------- -
+ Fragment             T        4       --         2/4                 2  
+ OSPF-mc-known        T      900       --         0/900               0  
+ OSPF-mc-default      T        8       --         4/8                 4  
+ OSPF-uc-known        T      450       --         0/450               0  
+ OSPF-uc-default      T        4       --         2/4                 2  
+ ISIS-known           T      300       --         0/300               0  
+ ISIS-default         T        2       --         1/2                 1  
+ BGP-known            T     1800       --         0/1800              0  
+ BGP-cfg-peer         T*    <mark>1800</mark>     <mark>2000</mark>         0/2000              0  
+ BGP-default          T        8       --         4/8                 4  
+ PIM-mcast-default    T       40       --         0/40                0  
+ PIM-mcast-known      T      450       --         0/450               0  
+ PIM-ucast            T       40       --         2/40                2  
+ IGMP                 T     1464       --         0/1464              0  
+ ICMP-local           T        4       --         4/4                 4  
+ ICMP-control         T       10       --         5/10                5  
+ ICMP-default         T       18       --         9/18                9  
+ ICMP-app-default     T        4       --         2/4                 2  
+ LDP-TCP-known        T      450       --         0/450               0  
+ LDP-TCP-cfg-peer     T      450       --         0/450               0  
+ LDP-TCP-default      T       40       --         0/40                0  
+ LDP-UDP              T      450       --         0/450               0  
+ All-routers          T      450       --         0/450               0  
+ RSVP-default         T        4       --         0/4                 0  
+ RSVP-known           T      450       --         0/450               0  
+ IPSEC-known          T      150       --         0/150               0  
+ SNMP                 T      150       --         0/150               0  
+ SSH-known            T      150       --         0/150               0  
+ SSH-default          T       40       --         2/40                2  
+ HTTP-known           T       40       --         0/40                0  
+ HTTP-default         T       40       --         0/40                0  
+ SHTTP-known          T       40       --         0/40                0  
+ SHTTP-default        T       40       --         0/40                0  
+ TELNET-known         T      150       --         0/150               0  
+ TELNET-default       T        4       --         0/4                 0  
+ UDP-known            T       40       --         0/40                0  
+ UDP-listen           T       40       --         0/40                0  
+ UDP-default          T        4       --         2/4                 2  
+ TCP-known            T       40       --         0/40                0  
+ TCP-listen           T       40       --         0/40                0  
+ TCP-default          T        4       --         2/4                 2  
+ Raw-default          T        4       --         2/4                 2  
+ ip-sla               T       50       --         0/50                0  
+ EIGRP                T       40       --         0/40                0  
+ RIP                  T       40       --         0/40                0  
+ PCEP                 T       20       --         0/20                0  
+ GRE                  T        4       --         0/4                 0  
+ VRRP                 T      150       --         0/150               0  
+ HSRP                 T       40       --         0/40                0  
+ MPLS-oam             T       40       --         0/40                0  
+ DNS                  T       40       --         0/40                0  
+ RADIUS               T       40       --         0/40                0  
+ TACACS               T       40       --         0/40                0  
+ NTP-default          T        4       --         0/4                 0  
+ NTP-known            T      150       --         0/150               0  
+ DHCPv4               T       40       --         0/40                0  
+ DHCPv6               T       40       --         0/40                0  
+ TPA                  T      100       --         0/100               0  
+ PM-TWAMP             T       36       --         0/36                0  
+---------------------------------------------------
+ Active TCAM Usage : <mark>11650</mark>/12000 [Platform MAX: 12000]
+ HWCnt/SWCnt       : 43/47
+---------------------------------------------------
+</code>
+</pre>
+</div>
+
+We can see that the hardware entries for BGP configured flow has been increased to 2000 from 1800. In the previous release this was not possible. All the 8k entries were utilised at the boot time itself. If we wanted to increase any particular flow, it would be at the cost of other flows.
+
+
+For modular chassis we need to first bring the chassis to native mode using the below command. Then only this enhancement will be effective. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
