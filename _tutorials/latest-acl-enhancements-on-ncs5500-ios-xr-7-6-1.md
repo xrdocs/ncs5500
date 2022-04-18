@@ -14,7 +14,7 @@ tags:
   - access-list
   - access control list
   - data plane
-position: top
+position: hidden
 ---
 ## Introduction
 
