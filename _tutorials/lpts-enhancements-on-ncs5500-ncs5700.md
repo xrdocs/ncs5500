@@ -354,4 +354,4 @@ Creating new field groups will take up hardware resources on the ASIC. But with 
 
 ## Summary
 
-As discussed, this enhancement will help increase the LPTS scale and increase the number of hardware entries of the routing protocols and other features in the hardware. This is supported from IOS-XR 7.6.1 and only on the newer generation platforms with external TCAM. We have a roadmap to further increase this values from 12k. Stay tuned for the same.
+As discussed, this enhancement will help increase the LPTS scale and increase the number of hardware entries of the routing protocols and other features in the hardware. This helps in increasing the protocol stability as they are subjected to hardware policing, thereby helping the customers to achieve their SLAs and get network stability. This is supported from IOS-XR 7.6.1 and only on the newer generation platforms with external TCAM. We have a roadmap to further increase this values from 12k. Stay tuned for the same.
