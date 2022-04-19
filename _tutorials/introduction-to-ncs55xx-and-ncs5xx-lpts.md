@@ -360,7 +360,7 @@ RP/0/RP0/CPU0:N55-24#show lpts pifib dynamic-flows statistics location 0/0/CPU0
 </pre>
 </div>
 
-From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS and may have instability. Let us take an example of expanding the max entries from 300 to 400.
+From the above output we can see the maximum entries supported in the hardware is 8000. Let us take example of our ISIS configuration. From the output we can see 300 entries alllocated for ISIS- PIM-mcast-known. That means for 300 sessions we will have the hardware programming or entries and we will be able to track that via LPTS and subjected to the properties of hardware LPTS (police/stats etc). The entries above 300 will be programmed in sofware. This can be seen via the column SWCnt. All the entries which are not having entries in hardware will be kept under a common pool in sofware and will be subjected to the properties different than hardware LPTS. Let us take an example of expanding the max entries from 300 to 400.
 
 Note: It is recommended to use HW flows and have no software flow.
 {: .notice--info}
