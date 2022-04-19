@@ -86,7 +86,7 @@ RP/0/RP0/CPU0:N57B1-1-Vega-II5-57(config)#ipv4 access-list log-update threshold
 Note: The similar is applicable for IPv6 Access-list as well.
 {: .notice--info}
 
-From IOS-XR 7.6.1, we have enhanced the logging feature for the ACL to give more readability to the users. We have introduced the keyword **log-input**. This is an optional keyowrd and it provides the same functionality as the log keyword, as described above, except that the log-message also includes the ingress interface on which the router receives the packet. The router supports this feature for both IPv4 and IPv6 ingress ACLs on:
+From IOS-XR 7.6.1, we have enhanced the logging feature for the ACL to give more readability to the users. We have introduced the keyword **log-input**. This is an optional keyword and it provides the same functionality as the log keyword, as described above, except that the log-message also includes the ingress interface on which the router receives the packet. The router supports this feature for both IPv4 and IPv6 ingress ACLs on:
  - Physical Interfaces
  - Sub-interfaces and 
  - Bridged-virtual interfaces (BVI)
