@@ -14,7 +14,7 @@ tags:
   - NCS5700
   - control plane
   - CoPP
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="LPTS Enhancements on NCS5500/NCS5700" %} 
 
