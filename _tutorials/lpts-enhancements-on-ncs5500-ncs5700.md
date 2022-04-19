@@ -351,6 +351,7 @@ Creating new field groups will take up hardware resources on the ASIC. But with 
 
 [Introduction to LPTS on NCS5500](https://xrdocs.io/ncs5500/tutorials/introduction-to-ncs55xx-and-ncs5xx-lpts/)
 [CCO Configuration Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/60x/b-ncs5500-ip-addresses-configuration-guide-60x/b-ncs5500-ip-addresses-configuration-guide-60x_chapter_0101.html)
+[Short Video](https://www.youtube.com/watch?v=i_hGvda6e64)
 
 ## Summary
 
