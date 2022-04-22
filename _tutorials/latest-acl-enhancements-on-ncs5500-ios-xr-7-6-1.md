@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2022-04-18 13:10 +0530'
-title: Latest ACL Enhancements on NCS5500 - IOS-XR 7.6.1
+title: Latest ACL Enhancements on NCS5500/NCS5700 - IOS-XR 7.6.1
 author: Tejas Lad
 excerpt: >-
   This document will introduce the behaviour new enhancements w.r.t ACL feature
@@ -41,9 +41,13 @@ In earlier releases, we could configure maximum upto 127 different traditional i
 
 Increased ACLs provide you with enhanced traffic filtering capabilities to control how traffic packets move through the network and restrict the access of users and devices to the network. For further deepdive please follow the [link](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/76x/b-ip-addresses-cg-ncs5500-76x/m-implementing-access-lists-prefix-lists-ncs5500.html#id_63255). 
 
+### Support Matrix 
+
 ## ACL Chaining with ACL Based Forwarding (ABF)
 
 Prior to IOS-XR 7.6.1, ABF and ACL chaining with Common ACL were mutually exclusive features. From 7.6.1 onwards, we can enable ABF in conjunction with ACL chaining in Common ACL. With this feature, the router can inspect and forward the packets based on the ABF rule in Common ACL. In earlier releases. For further deepdive, please follow the links for [Chained ACL](https://xrdocs.io/ncs5500/tutorials/chained-acl-for-ncs55xx-and-ncs5xx/) and [ABF](https://xrdocs.io/ncs5500/tutorials/acl-based-forwarding-and-object-tracking-for-ncs5xx-and-ncs55xx/).
+
+### Support Matrix
 
 ## Enable Ingress Interface Logging on ACE
 
@@ -102,3 +106,4 @@ From IOS-XR 7.6.1, we have enhanced the logging feature for the ACL to give more
 </pre>
 </div>
 
+### Support Matrix
