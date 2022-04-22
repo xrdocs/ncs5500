@@ -62,7 +62,7 @@ Prior to IOS-XR 7.6.1, ABF and ACL chaining with Common ACL were mutually exclus
 | NCS5500 without eTCAM (J/J+)   | Yes     |
 | NCS5500 with eTCAM (J/J+)      | Yes     |
 | NCS5700 without eTCAM (J2/J2C) | Yes     |
-| NCS5700 without eTCAM (J2/J2C) | Yes     |
+| NCS5700 with eTCAM (J2/J2C)    | Yes     |
 
 
 ## Enable Ingress Interface Logging on ACE
@@ -129,5 +129,112 @@ From IOS-XR 7.6.1, we have enhanced the logging feature for the ACL to give more
 | NCS5500 without eTCAM (J/J+)   | Yes     |
 | NCS5500 with eTCAM (J/J+)      | Yes     |
 | NCS5700 without eTCAM (J2/J2C) | Yes     |
-| NCS5700 without eTCAM (J2/J2C) | Yes     |
+| NCS5700 with eTCAM (J2/J2C)    | Yes     |
+
+
+## ACL-Based Policing
+
+Prior to IOS-XR 7.6.1, ACLs could only permit or deny packets based on the matching criteria. From IOS-XR 7.6.1, users can control the traffic that an access control entry (ACE) allows in the ingress direction by configuring the policing rate for the ACE in an IPv4 or IPv6 Hybrid ACL. This functionality limits packet rates and takes different actions for different packets. This feature brings in simplicity for traffic policing as users do not have to configure a QoS policy for the same. 
+
+### Feature support 
+
+ - It is supported only in the ingress direction
+ - It is supported only with hybrind ACL
+ - It is supported only on J2/J2C based NCS5700 with external TCAM 
+ - It is supported only on chassis operating in native mode
+ - Both IPv4 and IPv6 ACLs are supported with policing
+ - Policing rate in PPS is not supported 
+ - L2 ACL is not supported for policing
+
+### Configurations
+
+Let us verify the feature functionality. We have a NCS5700 router with IOS-XR 7.6.1 with next with external TCAM operating in native mode. We have configured a simple ACL which matches traffic from a host destined to another host. If the criteria matches we have policed the traffic to 500 Mbps. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ipv4 access-list acl_policing
+ 10 permit ipv4 host 100.57.2.2 host 100.53.2.2 <mark>police 500 mbps</mark>
+</code>
+</pre>
+</div>
+
+We need to enable the below hw-module profile for the compressed ACL to be configured in the ingress direction on the interface.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile acl ingress compress enable
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface HundredGigE0/0/0/2
+ description IXIA_2/2_Non_ETM_port
+ mtu 9000
+ ipv4 address 100.57.2.1 255.255.255.0
+ load-interval 30
+ ipv4 access-group acl_policing <mark>ingress compress level 3</mark>
+</code>
+</pre>
+</div>
+
+Let us verify the traffic and the router stats. From the below output we can see the received rate is 500 Mbps on the IXIA 
+
+![Screenshot 2022-04-22 at 9.21.06 PM.png]({{site.baseurl}}/images/Screenshot 2022-04-22 at 9.21.06 PM.png)
+
+**Ingress interface stats** 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#show interfaces hundredGigE 0/0/0/2 | in rate
+  30 second input rate <mark>9973195000</mark> bits/sec, 833322 packets/sec
+  30 second output rate 0 bits/sec, 0 packets/sec
+</code>
+</pre>
+</div>
+
+**Egress interface stats **
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#show interfaces hundredGigE 0/0/0/8 | in rate
+  30 second input rate 0 bits/sec, 0 packets/sec
+  30 second output rate  <mark>498657000 </mark> bits/sec, 41666 packets/sec
+</code>
+</pre>
+</div>
+
+
+We also verify the ACL stats to verify that packets are getting dropped due to the policer. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#show access-lists ipv4 acl_policing hardware ingress location 0/RP0/CPU0   
+ipv4 access-list acl_policing
+ 10 permit ipv4 host 100.57.2.2 host 100.53.2.2 police 500 mbps <mark>(Accepted: 210369109 packets, Dropped: 3997142972 packets)</mark>
+</code>
+</pre>
+</div>
+
+
+### Support Matrix
+
+| Platforms                      | Support |
+|--------------------------------|---------|
+| NCS5500 without eTCAM (J/J+)   | No      |
+| NCS5500 with eTCAM (J/J+)      | No      |
+| NCS5700 without eTCAM (J2/J2C) | No      | 
+| NCS5700 with eTCAM (J2/J2C)    | Yes     |
+
+
+## Reference
+
+[CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/76x/b-ip-addresses-cg-ncs5500-76x/m-implementing-access-lists-prefix-lists-ncs5500.html#Cisco_Concept.dita_7976abf0-4633-433c-972b-6debffd8f9e8)
 
