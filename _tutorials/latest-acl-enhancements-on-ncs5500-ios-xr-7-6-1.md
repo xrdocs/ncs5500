@@ -43,11 +43,20 @@ Increased ACLs provide you with enhanced traffic filtering capabilities to contr
 
 ### Support Matrix 
 
+| Platforms                      | Support |
+|--------------------------------|---------|
+| NCS5500 without eTCAM (J/J+)   | No      |
+| NCS5500 with eTCAM (J/J+)      | No      |
+| NCS5700 without eTCAM (J2/J2C) | Yes     |
+| NCS5700 without eTCAM (J2/J2C) | Yes     |
+
 ## ACL Chaining with ACL Based Forwarding (ABF)
 
 Prior to IOS-XR 7.6.1, ABF and ACL chaining with Common ACL were mutually exclusive features. From 7.6.1 onwards, we can enable ABF in conjunction with ACL chaining in Common ACL. With this feature, the router can inspect and forward the packets based on the ABF rule in Common ACL. In earlier releases. For further deepdive, please follow the links for [Chained ACL](https://xrdocs.io/ncs5500/tutorials/chained-acl-for-ncs55xx-and-ncs5xx/) and [ABF](https://xrdocs.io/ncs5500/tutorials/acl-based-forwarding-and-object-tracking-for-ncs5xx-and-ncs55xx/).
 
 ### Support Matrix
+
+
 
 ## Enable Ingress Interface Logging on ACE
 
