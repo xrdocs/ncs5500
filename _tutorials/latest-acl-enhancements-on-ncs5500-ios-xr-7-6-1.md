@@ -233,6 +233,10 @@ ipv4 access-list acl_policing
 | NCS5700 without eTCAM (J2/J2C) | No      | 
 | NCS5700 with eTCAM (J2/J2C)    | Yes     |
 
+## Summary
+
+So with IOS-XR 7.6.1, we bring in few more enhancements w.r.t data-plane security. As a part of our continous improvement, we keep on enhancing our sofwtare and hardware capabilities. Hope this article was helpful. Stay tuned for new enhancements !!!
+
 
 ## Reference
 
