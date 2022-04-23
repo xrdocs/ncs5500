@@ -139,10 +139,11 @@ Prior to IOS-XR 7.6.1, ACLs could only permit or deny packets based on the match
 ### Feature support 
 
  - It is supported only in the ingress direction
- - It is supported only with hybrind ACL
+ - It is supported only with hybrid ACL
  - It is supported only on J2/J2C based NCS5700 with external TCAM 
  - It is supported only on chassis operating in native mode
  - Both IPv4 and IPv6 ACLs are supported with policing
+ - It i supported only with permit criteria
  - Policing rate in PPS is not supported 
  - L2 ACL is not supported for policing
 
@@ -241,4 +242,3 @@ So with IOS-XR 7.6.1, we bring in few more enhancements w.r.t data-plane securit
 ## Reference
 
 [CCO Config Guide](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/ip-addresses/76x/b-ip-addresses-cg-ncs5500-76x/m-implementing-access-lists-prefix-lists-ncs5500.html#Cisco_Concept.dita_7976abf0-4633-433c-972b-6debffd8f9e8)
-
