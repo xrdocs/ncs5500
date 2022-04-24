@@ -117,6 +117,14 @@ From IOS-XR 7.6.1, we have enhanced the logging feature for the ACL to give more
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#show access-lists ipv4 acl_log 
+ipv4 access-list acl_log
+ 10 permit icmp host 172.16.0.57 host 172.16.0.53 log-input
+ 20 permit icmp host 172.16.0.53 host 172.16.0.57 log-input
+RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#
+
+
  RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#RP/0/RP0/CPU0:Apr 19 09:32:29.700 UTC: ipv4_acl_mgr[162]: %ACL-IPV4_ACL-6-IPACCESSLOGDP : access-list acl_log (20) permit icmp 172.16.0.53 <mark>HundredGigE0/0/0/8-> 172.16.0.57 (8/0), 1 packet</mark> 
 </code>
 </pre>
