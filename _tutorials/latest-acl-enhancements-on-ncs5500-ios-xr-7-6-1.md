@@ -48,7 +48,7 @@ Increased ACLs provide you with enhanced traffic filtering capabilities to contr
 | NCS5500 without eTCAM (J/J+)   | No      |
 | NCS5500 with eTCAM (J/J+)      | No      |
 | NCS5700 without eTCAM (J2/J2C) | Yes     |
-| NCS5700 without eTCAM (J2/J2C) | Yes     |
+| NCS5700 with eTCAM (J2/J2C)    | Yes     |
 
 
 ## ACL Chaining with ACL Based Forwarding (ABF)
