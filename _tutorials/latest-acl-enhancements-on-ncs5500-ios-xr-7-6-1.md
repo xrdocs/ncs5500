@@ -207,7 +207,7 @@ RP/0/RP0/CPU0:N57B1-1-Vega-II5-57#show interfaces hundredGigE 0/0/0/2 | in rate
 </pre>
 </div>
 
-**Egress interface stats **
+**Egress interface stats**
 
 <div class="highlighter-rouge">
 <pre class="highlight">
