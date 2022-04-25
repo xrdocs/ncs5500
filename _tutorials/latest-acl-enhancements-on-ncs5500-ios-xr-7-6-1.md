@@ -244,7 +244,7 @@ ipv4 access-list acl_policing
 
 ## Summary
 
-So with IOS-XR 7.6.1, we bring in few more enhancements w.r.t data-plane security. As a part of our continous improvement, we keep on enhancing our sofwtare and hardware capabilities. Hope this article was helpful. Stay tuned for new enhancements !!!
+So with IOS-XR 7.6.1, we bring in new enhancements w.r.t data-plane security, as a part of our continous improvement. Each release we keep on enhancing our sofwtare and hardware capabilities. These enhancements help strengthen our portfolio and helps in catering customer requirements. Stay tuned for new updates in future releases !!! 
 
 
 ## Reference
