@@ -183,11 +183,41 @@ R/S/I: 0/0/0
 
 ![Screenshot 2022-05-09 at 8.03.11 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 8.03.11 PM.png)
 
+As mentioned earlier ports 0/2/4 will be supporting MACSEC through PHY. Below table summarises different modes and combinations which can be used for MACSEC support. 
 
+| Port Speed/Breakout Mode | MACSEC Support |
+|--------------------------|----------------|
+| Native 400G              | Yes            |
+| Native 100G              | Yes            |
+| Native 40G               | Yes            |
+| 400G/4x100G              | Yes            |
+| 400G/2x100G              | Yes            |
+| 100G/4x25G               | Yes            |
+| 40G/4x10G                | Yes            |
+
+Note: Ports 1,3,5 and 6-53 does not support MACSEC.
+{: .notice--info}
 
 ## TIMING
 
+![Screenshot 2022-05-09 at 9.52.24 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 9.52.24 PM.png)
 
+- From timing perspective, the platform is capable of supporting class C timing
+- SyncE and PTP is also supported on the breakout options.
+- 1G mode support Class A. 
+- AT FCS we will be supporting all the PTP profiles with IPv4. 
+- With IPv6 we will support in future releases. 
+- BITS is not supported at FCS.
+
+## Power Consumption
+
+Below is the power consumption of the router
+
+|                      | NCS-57C1-48Q6D-S                                   |
+|----------------------|----------------------------------------------------|
+| Power without Optics | Typical:340W (25C) Max: 488W (40C)                 |
+| Power with Optics    | Typical:550W (25C) Max:690W (40C)                  |
+| Comments             | 48x SFP-25G-SR, 3x QDD-400G-ZRP-S, 3x QDD-400G-DR4-S |
 
 
 
