@@ -150,20 +150,34 @@ Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these p
 
 The entire port configurations is supported with a single Q2C ASIC. 400G ports i.e ports 0/2 and is connected to the ASIC via MACSEC PHY . Another 400G port is directly connected to the ASIC. We have another intermediate PHY which is connected in gearbox mode to two QSFPDD ports i.e ports 1 and 3 which will support 4x100G mode in each port. 16x50G ports are connected from optics to intermediate PHY to the ASIC. For these intermediate PHY will be configured in gearbox mode. These ports can also support 25G and 10G. In this mode, intermediate PHY will be configured in retimer mode.32x25G ports are connected from optics to PHY to Q2C. Q2C will be configured in 1x25G mode for each port and PHY will be configured in retimer mode. These ports can also support 10G and 1G. Control path is connected to the CPU. Timing chips are available to support SYNCE and PTP for class C performance.
 
-### MDB profile output 
 
-RP/0/RP0/CPU0:ios#show controllers fia diagshell 0 "mdb info" location 0/RP0/C$
-Mon Mar 28 00:29:26.545 UTC
+## Port Assigment to ASIC core
 
+![Screenshot 2022-05-09 at 7.55.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 7.55.57 PM.png)
+
+The port mapping is pretty simple for this platform. As we have single NPU and single core all the interfaces will be mapped to a single core on the NPU. The important thing to highlight from the above output is the default speed of the interfaces when the platform boots up. As you can see ports 0/2/4 and 5 comes up as 400G whereas ports 1 and 3 comes up as 100G. So we need CLI command to change the speed of these ports. Ports 6 to 21 will come up as 50 gig and the rest 32 ports will come up as 25G when platform comes up. In these ports we do not need any CLI command to change the speed. It will automatically detect the optics and accordingly bring up the port.
+
+![Screenshot 2022-05-09 at 7.57.13 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 7.57.13 PM.png)
+
+## MDB profile 
+
+NCS57C1 will also support the MDB profiles. At FCS we will support profile L3MAX and in upcoming releases we will support L2MAX along with L3MAX. The platform will not support the scale MDB profiles as we do not have eTCAM in this platform. Below is the MDB profile output on the platform
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:ios#show controllers fia diagshell 0 "mdb info" location 0/RP0/CPU0
 Node ID: 0/RP0/CPU0
 
 R/S/I: 0/0/0 
 =============================
 | MDB Profile               |
-|   MDB profile: l3max      |
+|   <mark>MDB profile: l3max      |</mark>
 |   MDB profile KAPS cfg: 2 |
 =============================
-
+</code>
+</pre>
+</div>
 
 ## MACSEC 
 
