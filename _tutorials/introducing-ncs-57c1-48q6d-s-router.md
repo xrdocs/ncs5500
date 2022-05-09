@@ -102,7 +102,15 @@ NCS 57C1 Base Chassis, Flexible Consumption Need Smart Lic
 
 The system is based on a single Q2C, the operating system will be activated by default (no config required) in “Native mode”. From a security / integrity perspective, the NCS57C1 implements the latest secureboot features with TAM (Trust Anchor module) FPGA.
 
-## Hardware
+## Hardware Details
+
+![Screenshot 2022-05-09 at 5.22.59 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 5.22.59 PM.png)
+
+NCS57C1 is available in 1 RU Form Factor. It is 19’’ rack mountable and fits in standard 600 mm depth rack. It has 54 ports in the front panel. Out of which we have 4 400G multirate ports. 2 4x100G multirate ports. 16 50GE multirate ports and 32 25G multirate ports. It has an integrated RSP, timing and synchronization and LC complex in one box. It has one console and management port in the front panel along with all the data ports. All the timing ports are in the rear of the system. It has one USB 2.0 host port access, 1 RJ45 TOD port, 2 SMB connectors 1 1PPS and 1 10MHZ clock and one port for the GPS receiver. It has 2 Power supply slots. They are field replaceable with both AC and DC options. It operates in 1+1 active-active redundant mode. Each power supply has a built-in fan to cool the power supply. It supports front to back airflow. It has 5 Fan Units for cooling and proper airflow for the system with N+1 redundancy.
+
+## Port Details
+
+Let us see in details each block of ports:
 
 ### Ports 0-5
 
@@ -136,6 +144,30 @@ Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these p
 | 10G                  | 48     | 24       | 72        | Ports 6-53 Native Support Ports 0-5 (4x10G) BO Support |
 | 1G                   | 48     | -        | 48        | Ports 6-53                                             |
 
+## Block Diagram
+
+![Screenshot 2022-05-09 at 5.26.58 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 5.26.58 PM.png)
+
+The entire port configurations is supported with a single Q2C ASIC. 400G ports i.e ports 0/2 and is connected to the ASIC via MACSEC PHY . Another 400G port is directly connected to the ASIC. We have another intermediate PHY which is connected in gearbox mode to two QSFPDD ports i.e ports 1 and 3 which will support 4x100G mode in each port. 16x50G ports are connected from optics to intermediate PHY to the ASIC. For these intermediate PHY will be configured in gearbox mode. These ports can also support 25G and 10G. In this mode, intermediate PHY will be configured in retimer mode.32x25G ports are connected from optics to PHY to Q2C. Q2C will be configured in 1x25G mode for each port and PHY will be configured in retimer mode. These ports can also support 10G and 1G. Control path is connected to the CPU. Timing chips are available to support SYNCE and PTP for class C performance.
+
+### MDB profile output 
+
+RP/0/RP0/CPU0:ios#show controllers fia diagshell 0 "mdb info" location 0/RP0/C$
+Mon Mar 28 00:29:26.545 UTC
+
+Node ID: 0/RP0/CPU0
+
+R/S/I: 0/0/0 
+=============================
+| MDB Profile               |
+|   MDB profile: l3max      |
+|   MDB profile KAPS cfg: 2 |
+=============================
+
+
+## MACSEC 
+
+## TIMING
 
 
 
