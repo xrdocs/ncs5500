@@ -9,7 +9,7 @@ tags:
   - cisco
   - NCS5700
   - NCS5500
-position: top
+position: hidden
 ---
 {% include toc icon="table" title="Introducing NCS-57C1-48Q6D-S Router" %}
 ## Introduction
