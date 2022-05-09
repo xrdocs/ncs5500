@@ -102,6 +102,42 @@ NCS 57C1 Base Chassis, Flexible Consumption Need Smart Lic
 
 The system is based on a single Q2C, the operating system will be activated by default (no config required) in “Native mode”. From a security / integrity perspective, the NCS57C1 implements the latest secureboot features with TAM (Trust Anchor module) FPGA.
 
+## Hardware
+
+### Ports 0-5
+
+The platform supports 400G ZR/ZRP Optics supported only on top row i.e., ports 0,2,4. Ports 0,2,4,5 will support 400G Grey, 4x100G, 2x100G mode. Ports 1 and 3 will support only 4x100G and 2x100G Breakout. Ports 0-5 will support all the breakout options. Ports 0-5 will support native 100G and 40G.
+
+![Screenshot 2022-05-09 at 4.42.37 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.42.37 PM.png)
+
+### Ports 6-21
+
+Ports 6-21 will natively support 50G/25G/10/1G. No breakout is supported on these ports. No auto-negotiation supported as well
+
+![Screenshot 2022-05-09 at 4.44.20 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.44.20 PM.png)
+
+### Ports 22-53
+
+Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these ports.No 1G auto-negotiation supported at FCS 
+
+![Screenshot 2022-05-09 at 4.45.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.45.57 PM.png)
+
+
+### Available Ports Summary
+
+|                      | Native | Breakout | Max Ports | Comments                                               |
+|----------------------|--------|----------|-----------|--------------------------------------------------------|
+| 400G ZR/ZRP (native) | 3      | -        | 3         | Ports 0/2/4                                            |
+| 400G Grey            | 6      | -        | 6         | Port 0-5 4x400G + 2(4x100G)                            |
+| 100G                 | 6      | 24       | 24        | Ports 0-5 Native Support Ports 0-5 (4x100G) BO Support |
+| 50G                  | 16     | -        | 16        | Ports 6-21                                             |
+| 40G                  | 6      | -        | 6         | Ports 0-5                                              |
+| 25G                  | 48     | 24       | 72        | Ports 6-53 Native Support Ports 0-5 (4x25G) BO Support |
+| 10G                  | 48     | 24       | 72        | Ports 6-53 Native Support Ports 0-5 (4x10G) BO Support |
+| 1G                   | 48     | -        | 48        | Ports 6-53                                             |
+
+
+
 
 
 
