@@ -12,15 +12,15 @@ tags:
 position: hidden
 ---
 {% include toc icon="table" title="Introducing NCS-57C1-48Q6D-S Router" %}
+## Authors
+
+This article has been written and reviewed by MIG PM/TME team
+
 ## Introduction
 
-This article has been written and reviewed by:
-
-MIG PM/TME team
-
-With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Cisco NCS 5700 series. It is high-capacity, low power consuming router providing the following support and capabilities:
+With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Cisco NCS 5700 series. It is a high-capacity, low power consuming router providing the following support and capabilities:
  - Up to 4T total port bandwidth (oversubscribed)
- - 4T forwarding capacity.
+ - 2.4T forwarding capacity.
  - Total of 54 ports - 4 ports of 400G QSFP-DD, 2 ports of 4x100G QSFP-DD, 16 ports of 50G SFP+ (also support traffic speed of 10G, 25G, and 1G), 32 ports of 25G SFP+ (also support traffic speed of 10G and 1G)
  - Support for SFP, SFP+, SFP28, and QSFP28 optics
  - Synchronous Ethernet (SyncE) and PTP
@@ -32,7 +32,7 @@ With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Ci
 
 ![Screenshot 2022-05-09 at 3.56.50 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 3.56.50 PM.png)
 
-NCS-57C1-48Q6D-S is the first product based on Qumran-2C chipset. The PIDs of the model will vary depending on the licencing model used. 
+NCS-57C1-48Q6D-S is the first product based on Qumran-2C chipset. The PIDs will vary depending on the licencing model used. 
 
 | PID               | Licensing Model                  |
 |-------------------|----------------------------------|
@@ -63,8 +63,6 @@ RP/0/RP0/CPU0:ios#
 NCS-57C1-48Q6-SYS/NCS-57C1-48Q6D-S can be positioned in a very large variety of roles in the network due to its flexibility, compact form factor, combination of low and high rate ports and high-level forwarding capacity.
 
 ![Screenshot 2022-05-09 at 3.53.29 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 3.53.29 PM.png)
-
-We will discuss the use cases in details in the below section.
 
 ## CCO documentation 
 
@@ -114,19 +112,19 @@ Let us see in details each block of ports:
 
 ### Ports 0-5
 
-The platform supports 400G ZR/ZRP Optics supported only on top row i.e., ports 0,2,4. Ports 0,2,4,5 will support 400G Grey, 4x100G, 2x100G mode. Ports 1 and 3 will support only 4x100G and 2x100G Breakout. Ports 0-5 will support all the breakout options. Ports 0-5 will support native 100G and 40G.
+The platform supports 400G ZR/ZRP Optics supported only on top row i.e., ports 0,2,4. Ports 0,2,4,5 will support 400G Grey, 4x100G, 2x100G mode. Ports 1 and 3 will support only 4x100G and 2x100G Breakout. Ports 0-5 will support all the breakout options. Ports 0-5 will also support native 100G and 40G.
 
 ![Screenshot 2022-05-09 at 4.42.37 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.42.37 PM.png)
 
 ### Ports 6-21
 
-Ports 6-21 will natively support 50G/25G/10/1G. No breakout is supported on these ports. No auto-negotiation supported as well
+Ports 6-21 will natively support 50G/25G/10/1G. No breakout is supported on these ports. No support for auto-negotiation as well.
 
 ![Screenshot 2022-05-09 at 4.44.20 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.44.20 PM.png)
 
 ### Ports 22-53
 
-Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these ports.No 1G auto-negotiation supported at FCS 
+Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these ports.No 1G auto-negotiation supported at FCS.
 
 ![Screenshot 2022-05-09 at 4.45.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 4.45.57 PM.png)
 
@@ -148,14 +146,14 @@ Ports 22-53 will natively support 25G/10/1G. No breakout is supported on these p
 
 ![Screenshot 2022-05-09 at 5.26.58 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 5.26.58 PM.png)
 
-The entire port configurations is supported with a single Q2C ASIC. 400G ports i.e ports 0/2 and is connected to the ASIC via MACSEC PHY . Another 400G port is directly connected to the ASIC. We have another intermediate PHY which is connected in gearbox mode to two QSFPDD ports i.e ports 1 and 3 which will support 4x100G mode in each port. 16x50G ports are connected from optics to intermediate PHY to the ASIC. For these intermediate PHY will be configured in gearbox mode. These ports can also support 25G and 10G. In this mode, intermediate PHY will be configured in retimer mode.32x25G ports are connected from optics to PHY to Q2C. Q2C will be configured in 1x25G mode for each port and PHY will be configured in retimer mode. These ports can also support 10G and 1G. Control path is connected to the CPU. Timing chips are available to support SYNCE and PTP for class C performance.
+The entire port configurations is supported with a single Q2C ASIC. 400G ports i.e ports 0/2 and is connected to the ASIC via MACSEC PHY . Another 400G port is directly connected to the ASIC. We have another intermediate PHY which is connected in gearbox mode to two QSFPDD ports i.e ports 1 and 3 which will support 4x100G mode in each port. 16x50G ports are connected from optics to intermediate PHY to the ASIC. For these intermediate PHY will be configured in gearbox mode. These ports can also support 25G and 10G. In this mode, intermediate PHY will be configured in retimer mode.32x25G ports are connected from optics to PHY to ASIC. ASIC will be configured in 1x25G mode for each port and PHY will be configured in retimer mode. These ports can also support 10G and 1G. Control path is connected to the CPU. Timing chips are available to support SYNCE and PTP for class C performance.
 
 
 ## Port Assigment to ASIC core
 
 ![Screenshot 2022-05-09 at 7.55.57 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 7.55.57 PM.png)
 
-The port mapping is pretty simple for this platform. As we have single NPU and single core all the interfaces will be mapped to a single core on the NPU. The important thing to highlight from the above output is the default speed of the interfaces when the platform boots up. As you can see ports 0/2/4 and 5 comes up as 400G whereas ports 1 and 3 comes up as 100G. So we need CLI command to change the speed of these ports. Ports 6 to 21 will come up as 50 gig and the rest 32 ports will come up as 25G when platform comes up. In these ports we do not need any CLI command to change the speed. It will automatically detect the optics and accordingly bring up the port.
+The port mapping is pretty simple for this platform. As we have single NPU and single core all the interfaces will be mapped to a single core on the NPU. The important thing to highlight from the above output is the default speed of the interfaces when the platform boots up. As you can see ports 0/2/4 and 5 comes up as 400G whereas ports 1 and 3 comes up as 100G. So we need CLI command to change the speed of these ports. Ports 6 to 21 will come up as 50 gig and the rest 32 ports will come up as 25G when platform the first boots up. In these ports we do not need any CLI command to change the speed. It will automatically detect the optics and accordingly bring up the port.
 
 ![Screenshot 2022-05-09 at 7.57.13 PM.png]({{site.baseurl}}/images/Screenshot 2022-05-09 at 7.57.13 PM.png)
 
@@ -220,10 +218,9 @@ Below is the power consumption of the router
 | Comments             | 48x SFP-25G-SR, 3x QDD-400G-ZRP-S, 3x QDD-400G-DR4-S |
 
 
+## References
 
+For other recently launched products and understanding their architecture please check the below:
 
-
-
-
-
-
+- [Introducing the NCS57C3 Routers](https://xrdocs.io/ncs5500/tutorials/introducing-ncs57c3-mod/)
+- [Introducing the NCS57B1 Routers](https://xrdocs.io/ncs5500/tutorials/introducing-ncs57b1-routers/)
