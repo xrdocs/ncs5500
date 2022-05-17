@@ -11,6 +11,27 @@ tags:
   - cisco
   - NCS 5700
 ---
+```
+Revision History:
+v1: Updated as of IOS XR 7.6.1
+```
+
+
 ## Introduction
 
-Enter text in [Markdown](http://daringfireball.net/projects/markdown/). Use the toolbar above, or click the **?** button for formatting help.
+As explained in our previous article, the queuing model on NCS 5500 is Virtual output Queues (VoQ) based and it happens on the ingress NPU in the packet path. With IOS XR 7.6.1, there is a new queuing mode intorocued on NCS 5700 system where queuing is done on the NPU where the egress port belong. This improves the overall system scale in terms of QoS scale by restricting VoQ distribution and also allows better flexibility in terms of QoS functionality. This feature is applicable to NCS 5700 system with external TCAM.
+
+This new mode is called Egress Traffic Manager (ETM), and can be enabled on port basis while non ETM port behaves the previous way. This article will cover in depth explantion on the implementation and configuration aspects of the newly introduced ETM mode for QoS. 
+
+
+## Quick Recap of VoQ Model 
+
+## Egress Traffic Manager (ETM) Architecture and Data Path
+
+## ETM Configuration Steps
+
+## ETM Related Facts
+
+## Conclusion
+
+
