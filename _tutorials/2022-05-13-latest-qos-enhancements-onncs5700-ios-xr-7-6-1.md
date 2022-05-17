@@ -11,6 +11,8 @@ tags:
   - cisco
   - NCS 5700
 ---
+{% include toc %}
+
 ```
 Revision History:
 v1: Updated as of IOS XR 7.6.1
@@ -54,5 +56,3 @@ The following diagram explains the data path for packets destined to a port enab
 ## ETM Related Facts
 
 ## Conclusion
-
-
