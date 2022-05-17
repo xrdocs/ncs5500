@@ -46,6 +46,8 @@ The new ETM mode, when enabled restricts the replication of VoQ across the syste
 ### ETM Model Data Path
 The following diagram explains the data path for packets destined to a port enabled with ETM. In a modular system it can be briefly explained as six step process.
 
+---- add diagram for ETM Data Path ---
+
 
 ## ETM Configuration Steps
 
