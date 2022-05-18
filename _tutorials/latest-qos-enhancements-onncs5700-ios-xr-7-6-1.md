@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2022-05-13 13:49 +0530'
 title: Latest QoS Enhancements onNCS5700 - IOS-XR 7.6.1
 author: Paban Sarma
