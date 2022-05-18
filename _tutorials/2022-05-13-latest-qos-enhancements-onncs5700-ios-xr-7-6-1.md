@@ -45,14 +45,58 @@ The new ETM mode, when enabled restricts the replication of VoQ across the syste
 ---- Add diagram for the ETM/non ETM VoQ model -----
 
 
-### ETM Model Data Path
+### ETM Data Path
 The following diagram explains the data path for packets destined to a port enabled with ETM. In a modular system it can be briefly explained as six step process.
 
 ---- add diagram for ETM Data Path ---
 
 
 ## ETM Configuration Steps
+Enabling and configuring QoS policies in ETM mode is a three step process. 
+- Enabling ETM on the port
+- Defining ETM Policy map
+- Applying policy to intreface
+
+### Enabling ETM
+ETM needs to be enabled on the main port using controller optics configuration. Once enabled it erases the existing interface configuration and the same is shown as a warning during the configuration process. if there is breakout used then ETM needs to be enabled under the controller optics for the newly created ports.
+
+```
+config snippet from ETM
+
+```
+
+Once ETM is enabled, we can verify the same by checking the VoQ allocation. As we can see in the below output, there are two VoQ bases allotted to the ETM enabled port. the first one corresponds to the VoQ base for the NPU recycle port whereas the second base corresponds to the actual port VoQ where packets will be queued in the second pass.
+
+```
+Add VoQ output here
+
+```
+
+### Defining ETM policy
+QoS policy Map for ETM ports is just like a regular policy with few exceptions.
+
+#### classification
+Ideally, queuing policy uses traffic-class for classifying traffic into different queues, these traffic-class values are set on the ingress itslef. With ETM, since we get the feature rich ingress pipeline again, the classification can be done just like an ingress policy map. i.e we can classify and queur based on QoS fields present in the packet header.
+
+- L2 : cos, dei
+- L3 : precedence/dscp/ACLs/fragments
+- MPLS: EXP 
+
+There is an way to match based on traffic-class as well which need a special hw-mdoule CLI to be enabled. 
+
+#### Actions in the policy-map
+
+For and ETM policy-map we can have queing actions like shaping, queue-limit, priority, BWR for WFQ and RED/WRED. Upto 4 priority levels are supported in an ETM policy. there is no support for policing and bandwidth command.
+
+There must be  a marking action with "set traffic class <>"  on each user defined class apart from class default. This is to choose the VoQ where the traffic will be queued. for class default TC value is 0, rest of the class can be allotted TC values between 1-7.
+
 
 ## ETM Related Facts
+
+### ETM and Queuing Scale
+### New QoS functionality with ETM
+### ETM vs throughput & latency
+### ETM and shaper granularity
+### ETM with Bundle
 
 ## Conclusion
