@@ -119,3 +119,10 @@ add Bundle diagram
 
 
 ## Conclusion
+
+ETM Mode helps in improving QoS scalability and functionality on the NCS 5700 scaled system. Here is a qucik demo on ETM availeble on XRdocs channel.
+
+```
+add video link
+
+```
