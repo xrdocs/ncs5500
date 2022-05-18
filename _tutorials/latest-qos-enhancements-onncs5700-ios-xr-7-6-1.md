@@ -29,8 +29,8 @@ This new mode is called Egress Traffic Manager (ETM), and can be enabled on port
 ## Quick Recap of VoQ Model
 
 As the below diagram on and NCS 5500 (or NCS 5700) system, there are 8 VoQs per attachment point. However, they are present at the ingress pipleine of the data path. Now, for a particular egress port/interface, traffic may ingess at any other port in the system. Therefore, the VoQ for the particular egress port is replicated on each ingress pipeline (NPU/LC) present in the system. The packets are forewarded to the egress port with exchange of credit messege from egress to ingress VoQ schedulars. 
+![voq-non-etm.png]({{site.baseurl}}/images/voq-non-etm.png)
 
----- add the diagram of VoQ architecture & Credit flows----
 
 ## Egress Traffic Manager (ETM) Architecture and Data Path
 
@@ -42,13 +42,24 @@ The new ETM mode, when enabled restricts the replication of VoQ across the syste
 - non ETM port VoQs replicated across the system
 - NPU recycle port VoQs replicated across the system
 
----- Add diagram for the ETM/non ETM VoQ model -----
+![voq-etm.png]({{site.baseurl}}/images/voq-etm.png)
 
 
 ### ETM Data Path
 The following diagram explains the data path for packets destined to a port enabled with ETM. In a modular system it can be briefly explained as six step process.
 
----- add diagram for ETM Data Path ---
+![etm-data-path.png]({{site.baseurl}}/images/etm-data-path.png)
+
+
+1. when packet enters the ingress interface the lookup at ingress points to remote RCY port
+2. Packet forwarding to destination NPU
+  (If Queuing needed it is on RCY port VoQ)
+3. Packet forwarding to destination NPU
+4. Packet is recycled back to ingress pipeline of destination NPU
+5. More lookups happen and points to actual egress port
+  (queuing is done on the actual port VoQ)
+6. Packet Goes out of  egress Port 
+
 
 
 ## ETM Configuration Steps
