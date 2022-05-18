@@ -88,7 +88,7 @@ There is an way to match based on traffic-class as well which need a special hw-
 
 For and ETM policy-map we can have queing actions like shaping, queue-limit, priority, BWR for WFQ and RED/WRED. Upto 4 priority levels are supported in an ETM policy. there is no support for policing and bandwidth command.
 
-There must be  a marking action with "set traffic class <>"  on each user defined class apart from class default. This is to choose the VoQ where the traffic will be queued. for class default TC value is 0, rest of the class can be allotted TC values between 1-7.
+There must be  a marking action with "set traffic class <\>"  on each user defined class apart from class default. This is to choose the VoQ where the traffic will be queued. for class default TC value is 0, rest of the class can be allotted TC values between 1-7.
 
 
 ## ETM Related Facts
