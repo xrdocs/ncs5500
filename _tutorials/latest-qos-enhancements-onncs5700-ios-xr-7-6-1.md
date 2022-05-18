@@ -45,7 +45,7 @@ The new ETM mode, when enabled restricts the replication of VoQ across the syste
 ![voq-etm.png]({{site.baseurl}}/images/voq-etm.png)
 
 
-### ETM Data Path
+### Life of a Packet with ETM
 The following diagram explains the data path for packets destined to a port enabled with ETM. In a modular system it can be briefly explained as six step process.
 
 ![etm-data-path.png]({{site.baseurl}}/images/etm-data-path.png)
@@ -54,11 +54,10 @@ The following diagram explains the data path for packets destined to a port enab
 1. when packet enters the ingress interface the lookup at ingress points to remote RCY port
 2. Packet forwarding to destination NPU
   (If Queuing needed it is on RCY port VoQ)
-3. Packet forwarding to destination NPU
-4. Packet is recycled back to ingress pipeline of destination NPU
-5. More lookups happen and points to actual egress port
-  (queuing is done on the actual port VoQ)
-6. Packet Goes out of  egress Port 
+3. Packet reached to destination NPU egress pipeline (RCY port)
+4. Packet is recycled back to ingress pipeline of destination NPU. Loopup at this stage points to actual port
+5. Packet is forwarded to Egress Pipeline (actual port). Queuing at this stage is done on the actual port VoQ
+6. Packet Goes out of egress Port 
 
 
 
