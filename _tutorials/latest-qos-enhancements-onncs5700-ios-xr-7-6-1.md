@@ -21,14 +21,14 @@ v1: Updated as of IOS XR 7.6.1
 
 ## Introduction
 
-As explained in our previous article, the queuing model on NCS 5500 is Virtual output Queues (VoQ) based and it happens on the ingress NPU in the packet path. With IOS XR 7.6.1, there is a new queuing mode intorocued on NCS 5700 system where queuing is done on the NPU where the egress port belong. This improves the overall system scale in terms of QoS scale by restricting VoQ distribution and also allows better flexibility in terms of QoS functionality. This feature is applicable to NCS 5700 system with external TCAM.
+As explained in our previous article, the queuing model on NCS 5500 is Virtual output Queues (VoQ) based and it happens on the ingress NPU in the packet path. With IOS XR 7.6.1, there is a new queuing mode intordocued on NCS 5700 system where queuing is done on the NPU where the egress port belong. This improves the overall system scale in terms of QoS scale by restricting VoQ distribution and also allows better flexibility in terms of QoS functionality. This feature is applicable to NCS 5700 system with external TCAM.
 
-This new mode is called Egress Traffic Manager (ETM), and can be enabled on port basis while non ETM port behaves the previous way. This article will cover in depth explantion on the implementation and configuration aspects of the newly introduced ETM mode for QoS. 
+This new mode is called Egress Traffic Manager (ETM), and can be enabled on port basis while non ETM port behaves the previous way. This article will cover in depth explanation on the implementation and configuration aspects of the newly introduced ETM mode for QoS. 
 
 
 ## Quick Recap of VoQ Model
 
-As the below diagram on and NCS 5500 (or NCS 5700) system, there are 8 VoQs per attachment point. However, they are present at the ingress pipleine of the data path. Now, for a particular egress port/interface, traffic may ingess at any other port in the system. Therefore, the VoQ for the particular egress port is replicated on each ingress pipeline (NPU/LC) present in the system. The packets are forewarded to the egress port with exchange of credit messege from egress to ingress VoQ schedulars. 
+As per the below diagram, The  NCS 5500 (or NCS 5700) system, there are 8 VoQs per attachment point. However, they are present at the ingress pipleine of the data path. Now, for a particular egress port/interface, traffic may ingess at any other port in the system. Therefore, the VoQ for the particular egress port is replicated on each ingress pipeline (NPU/LC) present in the system. The packets are forwarded to the egress port with exchange of credit messege from egress to ingress VoQ schedulars. 
 ![voq-non-etm.png]({{site.baseurl}}/images/voq-non-etm.png)
 
 
@@ -36,7 +36,7 @@ As the below diagram on and NCS 5500 (or NCS 5700) system, there are 8 VoQs per 
 
 ### VoQs with ETM
 
-The new ETM mode, when enabled restricts the replication of VoQ across the system. Rather packets are queued only on the egress NPU i.e VoQ on the ingress pipeline of the egress NPU. For non ETM port, the previous architercure holds good. for the ETM enabled ports, queues are created only on the local NPU. The recycle port VoQ on each NPU is replicated across the system where packets are queued first for ETM enabled ports. Therefore the VoQ replication with ETM can happen three ways,
+The new ETM mode, when enabled, restricts the replication of VoQ across the system. Rather packets are queued only on the egress NPU i.e VoQ on the ingress pipeline of the egress NPU. For non ETM port, the previous architercure holds good. For the ETM enabled ports, queues are created only on the local NPU. The recycle port VoQ on each NPU is replicated across the system where packets are queued first for ETM enabled ports. Therefore the VoQ replication with ETM can happen three ways,
 
 - ETM enabled port VoQ replicated only on the local NPU
 - non ETM port VoQs replicated across the system
@@ -55,7 +55,7 @@ The following diagram explains the data path for packets destined to a port enab
 2. Packet forwarding to destination NPU
   (If Queuing needed it is on RCY port VoQ)
 3. Packet reached to destination NPU egress pipeline (RCY port)
-4. Packet is recycled back to ingress pipeline of destination NPU. Loopup at this stage points to actual port
+4. Packet is recycled back to ingress pipeline of destination NPU. Lookup at this stage points to actual port
 5. Packet is forwarded to Egress Pipeline (actual port). Queuing at this stage is done on the actual port VoQ
 6. Packet Goes out of egress Port 
 
@@ -67,7 +67,7 @@ Enabling and configuring QoS policies in ETM mode is a three step process.
 - Applying policy to intreface
 
 ### Enabling ETM
-ETM needs to be enabled on the main port using controller optics configuration. Once enabled it erases the existing interface configuration and the same is shown as a warning during the configuration process. if there is breakout used then ETM needs to be enabled under the controller optics for the newly created ports.
+ETM needs to be enabled on the main port using controller optics configuration. Once enabled it erases the existing interface configuration and the same is shown as a warning during the configuration process. In case of breakout, ETM needs to be enabled under the controller optics for the newly created ports.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -121,18 +121,26 @@ Hu0/0/0/5    3c000098   0   0   19    19   1104   6256 local   100G
 QoS policy Map for ETM ports is just like a regular policy with few exceptions.
 
 #### classification
-Ideally, queuing policy uses traffic-class for classifying traffic into different queues, these traffic-class values are set on the ingress itslef. With ETM, since we get the feature rich ingress pipeline again, the classification can be done just like an ingress policy map. i.e we can classify and queur based on QoS fields present in the packet header.
+Ideally, queuing policy uses traffic-class for classifying traffic into different queues, these traffic-class values are set on the ingress. With ETM, since we get the feature rich ingress pipeline again, the classification can be done just like an ingress policy map. i.e we can classify and queue based on QoS fields present in the packet header.
 
 - L2 : cos, dei
 - L3 : precedence/dscp/ACLs/fragments
 - MPLS: EXP 
 
-There is an way to match based on traffic-class as well which need a special hw-mdoule CLI `hw-module profile qos ipv6 short-etm` to be enabled. The unmatched traffic class in this case goes to class-default.
+There is an way to match based on traffic-class as well which need a special hw-mdoule CLI needs to be enabled.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+<mark>hw-module profile qos ipv6 short-etm</mark> 
+</code>
+</pre>
+</div>
+The unmatched traffic class in this case goes to class-default.
 
 
 #### Actions in the policy-map
 
-For and ETM policy-map we can have queing actions like shaping, queue-limit, priority, BWR for WFQ and RED/WRED. Upto 4 priority levels are supported in an ETM policy. there is no support for policing and bandwidth command.
+For and ETM policy-map we can have queing actions like shaping, queue-limit, priority, BWR for WFQ and RED/WRED. Upto 4 priority levels are supported in an ETM policy. There is no support for policing and bandwidth command.
 
 There must be  a marking action with "set traffic class "  on each user defined class apart from class default. This is to choose the VoQ where the traffic will be queued. for class default TC value is 0, rest of the class can be allotted TC values between 1-7.
 
@@ -199,7 +207,7 @@ interface HundredGigE0/0/0/0.2 l2transport
 ## ETM Related Facts
 
 ### ETM and Queuing Scale
-when ETM is enabled VoQ resources across the system is saved as there is no need to replicate the same across the system. Thus queuing scale is increases signicantly for the system. 
+when ETM is enabled VoQ resources across the system is saved as there is no need to replicate the same across the system. Thus, queuing scale increases signicantly for the system. 
 
 ### New QoS functionality with ETM
 ETM makes the feature rich ingress pipeline available for the egress QoS function. Thus we are able to do classification based on parameters like cos/dscp/exp for egress. This adds support for QoS short pipe mode.
@@ -208,11 +216,11 @@ with ETM, multicast traffic is also scheduled and can be shaped along with unica
 
 ### ETM vs throughput & latency
 
-ETM involves two pass where packet is recylced back on the egress NPU. This reduces the NOU level throughput and it may go down to 50% when ETM is enabled on all the ports.
+ETM involves two pass where packet is recylced back on the egress NPU. This reduces the NPU level throughput and it may go down to 50% when ETM is enabled on all the ports.
 The second pass will also add few microseconds of added latency for the traffic destined towards an ETM enabled port.
 
 ### ETM and shaper granularity
-by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is a low speed mode where more granular shaper ~122 kbps can be configured. This low rate mode is activated when any shpaer present in the policy-map is less than 5 Mbps. The below outpit shows programming of a low rate shaper and a normal shaper.
+by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is a low speed mode where more granular shaper ~122 kbps can be configured. This low rate mode is activated when any shaper present in the policy-map is less than 5 Mbps. The below outpit shows programming of a low rate shaper and a normal shaper.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
