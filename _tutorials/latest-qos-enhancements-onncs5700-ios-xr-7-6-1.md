@@ -60,8 +60,7 @@ The following diagram explains the data path for packets destined to a port enab
 6. Packet Goes out of egress Port 
 
 
-
-## ETM Configuration Steps
+## ETM Configuration
 Enabling and configuring QoS policies in ETM mode is a three step process. 
 - Enabling ETM on the port
 - Defining ETM Policy map
@@ -93,7 +92,7 @@ controller Optics0/0/0/0
 </pre>
 </div>
 
-Once ETM is enabled, we can verify the same by checking the VoQ allocation. As we can see in the below output, there are two VoQ bases allotted to the ETM enabled port. the first one corresponds to the VoQ base for the NPU recycle port whereas the second base corresponds to the actual port VoQ where packets will be queued in the second pass.
+Once ETM is enabled, we can verify the same by checking the VoQ allocation. As we can see in the below output, there are two VoQ bases allotted to the ETM enabled port. the first one corresponds to the VoQ base (1792) for the egress port whereas the second base corresponds to  VoQ base (1024) of the recycle port where packets will be queued in the first pass
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -107,8 +106,8 @@ Intf         Intf     NPU NPU  PP   Sys   VOQ   Flow   VOQ    Port
 name         handle    #  core Port Port  base  base   port   speed
              (hex)                                     type        
 ----------------------------------------------------------------------
-Hu0/0/0/0    3c000048   0   0    9   521   1792   6912 local   100G
-Hu0/0/0/0    3c000048   0   0  156     9   1024   6160 local   100G
+<mark>Hu0/0/0/0    3c000048   0   0    9   521   1792   6912 local   100G</mark>
+<mark>Hu0/0/0/0    3c000048   0   0  156     9   1024   6160 local   100G</mark>
 Hu0/0/0/1    3c000058   0   0   11    11   1072   6192 local   100G
 Hu0/0/0/2    3c000068   0   0   13    13   1080   6208 local   100G
 Hu0/0/0/3    3c000078   0   0   15    15   1088   6224 local   100G
@@ -213,7 +212,61 @@ ETM involves two pass where packet is recylced back on the egress NPU. This redu
 The second pass will also add few microseconds of added latency for the traffic destined towards an ETM enabled port.
 
 ### ETM and shaper granularity
-by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is a low speed mode where more granular shaper ~122 kbps can be configured. This low rate mode is activated when any shpaer present in the policy-map is less than 5 Mbps.
+by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is a low speed mode where more granular shaper ~122 kbps can be configured. This low rate mode is activated when any shpaer present in the policy-map is less than 5 Mbps. The below outpit shows programming of a low rate shaper and a normal shaper.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57B1-57-II-5#show  qos int hundredGigE 0/0/0/0.3 output 
+NOTE:- Configured values are displayed within parentheses
+Interface HundredGigE0/0/0/0.3 ifh 0x3c00800a  -- output policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           100000000 kbps
+Policy Name:                   4mbps
+SPI Id:                        0x0
+VOQ Base:                      1816
+PFC enabled:                   0
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+Egressq Queue ID                         =   1816 (Default LP queue)
+Queue Max. BW.                           =   <mark?4028 kbps (4 mbits/sec)</mark>
+Queue Min. BW.                           =   0 kbps (default)
+Inverse Weight / Weight                  =   1 / (BWR not configured)
+Guaranteed service rate                  =   4000 kbps
+Peak burst                               =   32832 bytes (default)
+TailDrop Threshold                       =   4864 bytes / 10 ms (default)
+
+<mark>LOW SHAPER                               =   Enabled</mark>
+
+WRED not configured for this class
+
+
+RP/0/RP0/CPU0:NC57B1-57-II-5#show  qos int hundredGigE 0/0/0/0.4 output 
+NOTE:- Configured values are displayed within parentheses
+Interface HundredGigE0/0/0/0.4 ifh 0x3c008012  -- output policy
+NPU Id:                        0
+Total number of classes:       1
+Interface Bandwidth:           100000000 kbps
+Policy Name:                   5mbps
+SPI Id:                        0x0
+VOQ Base:                      1824
+PFC enabled:                   0
+Accounting Type:               Layer1 (Include Layer 1 encapsulation and above)
+------------------------------------------------------------------------------
+Level1 Class                             =   class-default
+Egressq Queue ID                         =   1824 (Default LP queue)
+Queue Max. BW.                           =   <mark>7812 kbps (5 mbits/sec)</mark>
+Queue Min. BW.                           =   0 kbps (default)
+Inverse Weight / Weight                  =   1 / (BWR not configured)
+Guaranteed service rate                  =   5000 kbps
+Peak burst                               =   36864 bytes (default)
+TailDrop Threshold                       =   6144 bytes / 10 ms (default)
+WRED not configured for this class
+</code>
+</pre>
+</div>
 
 ### ETM with Bundle
 On the NCS 5700 system, Egress policy on bundle is replicated per member interface. Therefore, all members of a bundle has to be either ETM or non ETM. we can't have bundle with mix of ETM and non ETM ports.
