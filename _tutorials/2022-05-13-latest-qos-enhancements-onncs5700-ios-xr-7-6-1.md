@@ -94,9 +94,28 @@ There must be  a marking action with "set traffic class <>"  on each user define
 ## ETM Related Facts
 
 ### ETM and Queuing Scale
+when ETM is enabled VoQ resources across the system is saved as there is no need to replicate the same across the system. Thus queuing scale is increases signicantly for the system. 
 ### New QoS functionality with ETM
+ETM makes the feature rich ingress pipeline available for the egress QoS function. Thus we are able to do classification based on parameters like cos/dscp/exp for egress. This adds support for QoS short pipe mode.
+
+with ETM, multicast traffic is also scheduled and can be shaped along with unicast which is not the case for normal/non-ETM mode.
+
 ### ETM vs throughput & latency
+
+ETM involves two pass where packet is recylced back on the egress NPU. This reduces the NOU level throughput and it may go down to 50% when ETM is enabled on all the ports.
+The second pass will also add few microseconds of added latency for the traffic destined towards an ETM enabled port.
+
 ### ETM and shaper granularity
+by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is a low speed mode where more granular shaper ~122 kbps can be configured. This low rate mode is activated when any shpaer present in the policy-map is less than 5 Mbps.
+
 ### ETM with Bundle
+On the NCS 5700 system, Egress policy on bundle is replicated per member interface. Therefore, all members of a bundle has to be either ETM or non ETM. we can't have bundle with mix of ETM and non ETM ports.
+
+
+```
+add Bundle diagram
+
+```
+
 
 ## Conclusion
