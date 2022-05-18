@@ -70,17 +70,53 @@ Enabling and configuring QoS policies in ETM mode is a three step process.
 ### Enabling ETM
 ETM needs to be enabled on the main port using controller optics configuration. Once enabled it erases the existing interface configuration and the same is shown as a warning during the configuration process. if there is breakout used then ETM needs to be enabled under the controller optics for the newly created ports.
 
-```
-config snippet from ETM
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57B1-57-II-5#configure terminal 
+RP/0/RP0/CPU0:NC57B1-57-II-5(config)#controller optics 0/0/0/0 
+RP/0/RP0/CPU0:NC57B1-57-II-5(config-Optics)#mode etm 
+Wed May 18 09:05:48.532 UTC
+!! Warning ! This will remove the existing interface configuration
+RP/0/RP0/CPU0:NC57B1-57-II-5(config-Optics)#commit 
+</code>
+</pre>
+</div>
 
-```
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+controller Optics0/0/0/0
+ mode etm
+!
+</code>
+</pre>
+</div>
 
 Once ETM is enabled, we can verify the same by checking the VoQ allocation. As we can see in the below output, there are two VoQ bases allotted to the ETM enabled port. the first one corresponds to the VoQ base for the NPU recycle port whereas the second base corresponds to the actual port VoQ where packets will be queued in the second pass.
 
-```
-Add VoQ output here
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:NC57B1-57-II-5#show  controllers npu  voq-usage interface all  instance all location all 
+Wed May 18 09:07:39.531 UTC
 
-```
+-------------------------------------------------------------------
+Node ID: 0/RP0/CPU0
+Intf         Intf     NPU NPU  PP   Sys   VOQ   Flow   VOQ    Port 
+name         handle    #  core Port Port  base  base   port   speed
+             (hex)                                     type        
+----------------------------------------------------------------------
+Hu0/0/0/0    3c000048   0   0    9   521   1792   6912 local   100G
+Hu0/0/0/0    3c000048   0   0  156     9   1024   6160 local   100G
+Hu0/0/0/1    3c000058   0   0   11    11   1072   6192 local   100G
+Hu0/0/0/2    3c000068   0   0   13    13   1080   6208 local   100G
+Hu0/0/0/3    3c000078   0   0   15    15   1088   6224 local   100G
+Hu0/0/0/4    3c000088   0   0   17    17   1096   6240 local   100G
+Hu0/0/0/5    3c000098   0   0   19    19   1104   6256 local   100G
+</code>
+</pre>
+</div>
 
 ### Defining ETM policy
 QoS policy Map for ETM ports is just like a regular policy with few exceptions.
@@ -92,7 +128,8 @@ Ideally, queuing policy uses traffic-class for classifying traffic into differen
 - L3 : precedence/dscp/ACLs/fragments
 - MPLS: EXP 
 
-There is an way to match based on traffic-class as well which need a special hw-mdoule CLI to be enabled. 
+There is an way to match based on traffic-class as well which need a special hw-mdoule CLI `hw-module profile qos ipv6 short-etm` to be enabled. The unmatched traffic class in this case goes to class-default.
+
 
 #### Actions in the policy-map
 
@@ -100,11 +137,71 @@ For and ETM policy-map we can have queing actions like shaping, queue-limit, pri
 
 There must be  a marking action with "set traffic class "  on each user defined class apart from class default. This is to choose the VoQ where the traffic will be queued. for class default TC value is 0, rest of the class can be allotted TC values between 1-7.
 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+class-map match-any prec4
+ match precedence 4 
+ end-class-map
+! 
+class-map match-any prec5
+ match precedence 5 
+ end-class-map
+! 
+class-map match-any prec6
+ match precedence 6 
+ end-class-map
+! 
+!
+policy-map etm-policy
+ class prec6
+  shape average percent 2 
+  priority level 1 
+  set traffic-class 6
+ ! 
+ class prec5
+  shape average percent 38 
+  priority level 2 
+  set traffic-class 5
+ ! 
+ class prec4
+  bandwidth remaining percent 65 
+  set traffic-class 4
+ ! 
+ class class-default
+  bandwidth remaining percent 35 
+ ! 
+ end-policy-map
+! 
+</code>
+</pre>
+</div>
+
+### Attaching Policy to Interface
+An ETM policy can be applied to the main or the subinterface of the port enabled with ETM mode. Unlike previous releases with normal mode, we don't need to enable `hw-module profile qos hqos-enable` to add policy on subinterafce for ETM ports. In fact both ETM & hqos mode can't coexist together in the system.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface HundredGigE0/0/0/0.1
+ service-policy output etm-policy
+ vrf test
+ ipv4 address 57.1.0.1 255.255.255.0
+ encapsulation dot1q 1
+!
+interface HundredGigE0/0/0/0.2 l2transport
+ encapsulation dot1q 2
+ service-policy output etm-policy
+</code>
+</pre>
+</div>
 
 ## ETM Related Facts
 
 ### ETM and Queuing Scale
 when ETM is enabled VoQ resources across the system is saved as there is no need to replicate the same across the system. Thus queuing scale is increases signicantly for the system. 
+
 ### New QoS functionality with ETM
 ETM makes the feature rich ingress pipeline available for the egress QoS function. Thus we are able to do classification based on parameters like cos/dscp/exp for egress. This adds support for QoS short pipe mode.
 
@@ -122,17 +219,8 @@ by default, shaper granularity on NCS 5700 system is ~4 mbps. With ETM, there is
 On the NCS 5700 system, Egress policy on bundle is replicated per member interface. Therefore, all members of a bundle has to be either ETM or non ETM. we can't have bundle with mix of ETM and non ETM ports.
 
 
-```
-add Bundle diagram
-
-```
+![etm-bundle.png]({{site.baseurl}}/images/etm-bundle.png)
 
 
 ## Conclusion
-
-ETM Mode helps in improving QoS scalability and functionality on the NCS 5700 scaled system. Here is a qucik demo on ETM availeble on XRdocs channel.
-
-```
-add video link
-
-```
+So with IOS-XR 7.6.1, we brought this  in new enhancements in QoS segment, as a part of our continous improvement and innovations. ETM as a function will adress QoS scalability and functionality in the NCS 5700 scaled system. Each release we keep on enhancing our sofwtare and hardware capabilities. These enhancements help strengthen our portfolio and helps in catering customer requirements. Stay tuned for new updates in future releases !!!
