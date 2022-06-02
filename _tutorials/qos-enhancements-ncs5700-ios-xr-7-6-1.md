@@ -25,6 +25,12 @@ As explained in our previous [articles](https://xrdocs.io/ncs5500/tutorials/ncs5
 
 This new mode is called Egress Traffic Manager (ETM), and can be enabled on port basis while non ETM port behaves the previous way. This article will cover in depth explanation on the implementation and configuration aspects of the newly introduced ETM mode for QoS. 
 
+### ETM Video on Youtube
+
+<iframe width="560" height="315" src="https://youtu.be/Jfa6eWvyOlw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+
+[https://youtu.be/Jfa6eWvyOlw](https://youtu.be/Jfa6eWvyOlw)
+
 
 ## Quick Recap of VoQ Model
 
