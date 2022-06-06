@@ -27,7 +27,7 @@ This new mode is called Egress Traffic Manager (ETM), and can be enabled on port
 
 ### ETM Video on Youtube
 
-<iframe width="560" height="315" src="https://youtu.be/Jfa6eWvyOlw" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Jfa6eWvyOlw" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 [https://youtu.be/Jfa6eWvyOlw](https://youtu.be/Jfa6eWvyOlw)
 
