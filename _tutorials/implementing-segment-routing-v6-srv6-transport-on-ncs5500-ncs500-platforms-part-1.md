@@ -56,3 +56,33 @@ For understanding the technology in details and the latest enhancements, please 
 ## Reference Topology
 
 ![Screenshot 2022-08-16 at 12.53.39 PM.png]({{site.baseurl}}/images/Screenshot 2022-08-16 at 12.53.39 PM.png)
+
+## Configuration tasks
+
+### Configuring hw-module profile
+
+To start with, we will configure the hw-module profile on all the routers.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code> 
+RP/0/RP0/CPU0:PE1#show running-config | in hw-module 
+Building configuration...
+<mark>hw-module profile segment-routing srv6 mode micro-segment format f3216</mark>
+</code>
+</pre>
+</div> 
+Note: Configure the same on all the routers.
+
+The reason for configuring the above is because, data plane in NCS500 and NCS5500 needs to be explicitly enabled for SRv6 with specific mode i.e. whether SRv6 Base or SRv6 micro-segment (uSID). We are using uSID based SRv6 transport and this is done by configuring the  hardware module profiles:“hw-module profile segment-routing srv6 mode micro-segment format f3216”. The hw-module profile is kind of self-explanatory, we have enabled segment routing v6 (srv6) and the mode used is micro-segment. (another mode for SRv6 is the base mode). The uSID carrier format used is f3216, i.e 32 bit block size and 16bit uSID. Thus a single DA can carry upto 6 micro-instructions or uSID.
+
+Note: This hardware-module profile configuration needs reload of the router.
+{: .notice--info}
+
+### Configuring locators
+
+As discussed above, we need to configure f3216 format locator. So for each node we will configure /48 locator of which first 32 bits will be SID block and remaining 16 bits will be Node ID. 
+
+| PE1                                                                                                                                                                       | P2                                                                                                                                                                         | P3                                                                                                                                                                       | PE4                                                                                                                                                                      |
+|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| segment-routing  srv6   encapsulation     source-address 2001::1  !  locators   locator POD0    micro-segment behavior unode psp-usd    prefix fcbb:bb00:1::/48   !   ! ! | segment-routing  srv6   encapsulation    source-address 2001::2  !  locators   locator POD0    micro-segment behavior unode psp-usd    prefix fcbb:bb00:2::/48   !   ! !   | segment-routing  srv6    encapsulation   source-address 2001::3  !  locators   locator POD0    micro-segment behavior unode psp-usd    prefix fcbb:bb00:3::/48    !  ! ! | segment-routing  srv6    encapsulation   source-address 2001::4  !  locators   locator POD0    micro-segment behavior unode psp-usd    prefix fcbb:bb00:4::/48    !  ! ! |
