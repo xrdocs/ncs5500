@@ -52,5 +52,7 @@ The locator part can be further divided into two parts:
 
 For understanding the technology in details and the latest enhancements, please visit the following [page](https://www.segment-routing.net/)
 
+
 ## Reference Topology
 
+![Screenshot 2022-08-16 at 12.53.39 PM.png]({{site.baseurl}}/images/Screenshot 2022-08-16 at 12.53.39 PM.png)
