@@ -57,6 +57,13 @@ For understanding the technology in details and the latest enhancements, please 
 
 ![Screenshot 2022-08-16 at 12.53.39 PM.png]({{site.baseurl}}/images/Screenshot 2022-08-16 at 12.53.39 PM.png)
 
+| Nodes | Loopback    |
+|-------|-------------|
+| PE1   | 2001::1/128 |
+| P2    | 2001::2/128 |
+| P3    | 2001::3/128 |
+| PE4   | 2001::4/128 |
+
 ## Configuration tasks
 
 ### Configuring hw-module profile
@@ -79,6 +86,42 @@ The reason for configuring the above is because, data plane in NCS500 and NCS550
 Note: This hardware-module profile configuration needs reload of the router.
 {: .notice--info}
 
+### Configuring ISIS for reachability
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router isis 1
+ is-type level-2-only
+ net 49.0000.0000.0001.00 
+ address-family ipv6 unicast
+  metric-style wide 
+ !
+ interface Bundle-Ether12 
+ point-to-point 
+ address-family ipv6 unicast
+  fast-reroute per-prefix
+  fast-reroute per-prefix ti-lfa 
+ !
+!
+ interface Bundle-Ether13
+ point-to-point 
+ address-family ipv6 unicast
+ fast-reroute per-prefix
+ fast-reroute per-prefix ti-lfa 
+ !
+!
+ interface Loopback0
+ address-family ipv6 unicast
+ ! 
+ !
+!
+</code>
+</pre>
+</div>
+
+The above configuration is for router PE1. Similarly configure the IGP ISIS on all the other routers P2, P3 and PE4.
+
 ### Configuring locators
 
 As discussed above, we need to configure f3216 format locator. So for each node we will configure /48 locator of which first 32 bits will be SID block and remaining 16 bits will be Node ID. 
@@ -86,3 +129,22 @@ As discussed above, we need to configure f3216 format locator. So for each node 
 | PE1                                                                                                                                                                                                                 | P2                                                                                                                                                                                                                   | P3                                                                                                                                                                                                              | PE4                                                                                                                                                                                                             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | segment-routing<br> srv6<br>  encapsulation <br>  <br>  source-address 2001::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:1::/48<br>  !<br> <br> !<br>! | segment-routing<br> srv6<br>  encapsulation<br><br>  source-address 2001::2<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:2::/48<br>  !<br><br> !<br>!<br>  | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address 2001::3<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:3::/48<br><br>  !<br> !<br>! | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address 2001::4<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:4::/48<br><br>  !<br> !<br>! |
+
+### Enabling SRv6 for IGP ISIS
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router isis 1 
+ address-family ipv6 unicast
+  segment-routing srv6 
+   <mark>locator POD0</mark>
+   !
+  ! 
+ !
+!
+</code>
+</pre>
+</div>
+
+
