@@ -147,4 +147,61 @@ router isis 1
 </pre>
 </div>
 
+Configure the above on all the routers and Thats it !!!!! You are done with the SRv6 Underlay Transport 
+
+
+## Verification
+
+You can use a few verification commands to check the SRv6 transport. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE1#show segment-routing  srv6 locator 
+Name                  ID       Algo  Prefix                    Status   Flags   
+--------------------  -------  ----  ------------------------  -------  --------
+<mark>POD0                  2        0     fcbb:bb00:1::/48          Up       U</mark> 
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE1#show segment-routing  srv6 locator POD0 detail 
+Name                  ID       Algo  Prefix                    Status   Flags   
+--------------------  -------  ----  ------------------------  -------  --------
+POD0                  2        0     fcbb:bb00:1::/48          Up       U       
+  <mark>(U): Micro-segment (behavior: uN (PSP/USD))</mark>
+  Interface: 
+    Name: srv6-POD0
+    IFH : 0x2000800c
+    IPv6 address: fcbb:bb00:1::/48
+  Number of SIDs: 4
+  Created: Apr 21 08:34:45.886 (1w1d ago)
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE1#show segment-routing srv6 sid 
+
+<mark>*** Locator: 'POD0' ***</mark> 
+
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  ------------------------------    ------------------  -----  --
+fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
+fcbb:bb00:1:e001::          uA (PSP/USD)      [BE12, Link-Local]:0              isis-1              InUse  Y 
+fcbb:bb00:1:e002::          uA (PSP/USD)      [BE13, Link-Local]:0              isis-1              InUse  Y 
+</code>
+</pre>
+</div>
+
+## Conclusion
+
+This concludes the Part 1 of the this document series. Stay tuned for the next article.
+
+
 
