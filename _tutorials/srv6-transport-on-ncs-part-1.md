@@ -13,7 +13,7 @@ tags:
   - Segment Routing v6
   - NCS500
   - NCS5700
-position: top
+position: hidden
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
