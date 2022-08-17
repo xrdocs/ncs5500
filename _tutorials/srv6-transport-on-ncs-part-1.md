@@ -68,7 +68,7 @@ To bring up SRv6 transport, the very first task needed to perform is making the 
 - configuring SRv6 locator
 - Enabling SRv6 over ISIS
 
-### Configuring ISIS for reachability
+### Configuring and Verifying ISIS for reachability
 
 <div class="highlighter-rouge">
 <pre class="highlight">
