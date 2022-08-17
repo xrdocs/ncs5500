@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2022-08-16 11:27 -0700'
 title: Segment Routing v6 (SRv6) Transport on NCS5500/NCS500 Platforms - Part 1
 author: Tejas Lad
