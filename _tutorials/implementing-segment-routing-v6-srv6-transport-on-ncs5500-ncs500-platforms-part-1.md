@@ -21,7 +21,7 @@ position: hidden
 
 ## Authors 
 |Paban Sarma, Technical Marketing Engineer (pasarma@cisco.com) |  
-|Tejas Lad, Technical Marketing Engineer (telad@cisco.com) |
+|Tejas Lad, Technical Marketing Engineer (ches@cisco.com) |
 
 ## Introduction
 
@@ -202,6 +202,3 @@ fcbb:bb00:1:e002::          uA (PSP/USD)      [BE13, Link-Local]:0              
 ## Conclusion
 
 This concludes the Part 1 of the this document series. Stay tuned for the next article.
-
-
-
