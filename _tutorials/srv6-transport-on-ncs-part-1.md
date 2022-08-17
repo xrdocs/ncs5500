@@ -2,7 +2,7 @@
 published: true
 date: '2022-08-16 11:27 -0700'
 title: Segment Routing v6 (SRv6) Transport on NCS5500/NCS500 Platforms - Part 1
-author: Tejas Lad
+author: Tejas Lad and Paban Sarma
 excerpt: >-
   This is the first document in the series which will focus on SRv6 basics and
   underlay transport bringup
@@ -13,7 +13,7 @@ tags:
   - Segment Routing v6
   - NCS500
   - NCS5700
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
