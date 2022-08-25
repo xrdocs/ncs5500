@@ -83,16 +83,12 @@ router isis 1
  !
  interface Bundle-Ether12 
  point-to-point 
- address-family ipv6 unicast
-  fast-reroute per-prefix
-  fast-reroute per-prefix ti-lfa 
+ address-family ipv6 unicast 
  !
 !
  interface Bundle-Ether13
  point-to-point 
  address-family ipv6 unicast
- fast-reroute per-prefix
- fast-reroute per-prefix ti-lfa 
  !
 !
  interface Loopback0
