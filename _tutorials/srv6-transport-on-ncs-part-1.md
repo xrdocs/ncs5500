@@ -175,7 +175,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
 </pre>
 </div>
 
-### Enabling SRv6
+### Enabling SRv6 over IGP 
 
 #### Platform hw-module profile
 To start with, we will configure the hw-module profile on all the routers.
@@ -226,7 +226,7 @@ router isis 1
 Configure the above on all the routers and Thats it !!!!! You are done with the SRv6 Underlay Transport 
 
 
-## Verification
+### Verification of SRv6 transport
 
 You can use a few verification commands to check the SRv6 transport. 
 
@@ -325,7 +325,64 @@ i L2 fcbb:bb00:4::/48
 </pre>
 </div>
 
-## Additional Configuration: Enabling  Ti-LFA
+### Additional Configuration Step : Enabling and Verify Ti-LFA
+Topology Independent Loop Free Alternate (TI-LFA) is a method of fast convergence in SR networks; the principles are identical for SR MPLS and SRv6. The backup path has to be always preprogrammed on the router which detects failure. The backup path always has to be Loop-Free. The IGP protocol has detailed knowledge about entire domain’s topology so IGP is always able to calculate where a packet has to be sent in case of a particular failure (without any convergence in the network). In this step we will strengthen the SRv6 transport built by enabling Ti-LFA on each node. The following snippet is for the additional configuration done on PE1, the same needs to be done on each node for every IGP member links.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router isis 1
+ interface Bundle-Ether12
+  address-family ipv6 unicast
+   <mark>fast-reroute per-prefix</mark>
+   <mark>fast-reroute per-prefix ti-lfa</mark>
+  !
+ !
+ interface Bundle-Ether13
+  address-family ipv6 unicast
+   <mark>fast-reroute per-prefix</mark>
+   <mark>fast-reroute per-prefix ti-lfa</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+Now, when we verify the ipv6 routing entries, the pre-programmed backup paths will be seen. The following snipped output shows the FRR backup paths for the respective prefix.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  route ipv6
+Thu Aug 25 09:04:33.307 UTC
+
+Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - ISIS, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, su - IS-IS summary null, * - candidate default
+       U - per-user static route, o - ODR, L - local, G  - DAGR, l - LISP
+       A - access/subscriber, a - Application route
+       M - mobile route, r - RPL, t - Traffic Engineering, (!) - FRR Backup path
+
+Gateway of last resort is not set
+
+L    2001::1/128 is directly connected,
+      10w0d, Loopback0
+i L2 2001::2/128 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:56, Bundle-Ether12
+     <mark> [115/30] via fe80::28a:96ff:fe2c:58dd, 00:01:56, Bundle-Ether13 (!)</mark>
+i L2 2001::3/128 
+      <mark>[115/30] via fe80::28a:96ff:fe2d:18dd, 00:01:56, Bundle-Ether12 (!)</mark>
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:56, Bundle-Ether13
+</code>
+</pre>
+</div>
+
+
+
 ## Conclusion
 
 This concludes the Part 1 of the this document series. Stay tuned for the next article.
