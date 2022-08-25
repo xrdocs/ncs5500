@@ -262,6 +262,23 @@ POD0                  2        0     fcbb:bb00:1::/48          Up       U
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+RP/0/RP0/CPU0:PE1#show  isis segment-routing srv6 locators  detail 
+Thu Aug 25 08:50:35.389 UTC
+
+IS-IS 1 SRv6 Locators
+Name                  ID       Algo  Prefix                    Status
+------                ----     ----  ------                    ------
+POD0                  3        0     fcbb:bb00:1::/48          Active
+  SID behavior: uN (PSP/USD)
+  SID value:    fcbb:bb00:1::
+  Block Length: 32, Node Length: 16, Func Length: 0, Args Length: 0
+</code>
+</pre>
+</div>
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
 RP/0/RP0/CPU0:PE1#show segment-routing srv6 sid 
 
 <mark>*** Locator: 'POD0' ***</mark> 
@@ -275,6 +292,40 @@ fcbb:bb00:1:e002::          uA (PSP/USD)      [BE13, Link-Local]:0              
 </pre>
 </div>
 
+The ipv6 route table will also be updated with the locators from the other nodes and can be verified using the routing table.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  route ipv6 isis 
+Thu Aug 25 08:52:59.629 UTC
+
+i L2 2001::2/128 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+i L2 2001::3/128 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+i L2 2001::4/128 
+      [115/30] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+      [115/30] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+i L2 2001:0:0:23::/64 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+i L2 2001:0:0:24::/64 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+i L2 2001:0:0:34::/64 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+i L2 fcbb:bb00:2::/48 
+      [115/11] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+i L2 fcbb:bb00:3::/48 
+      [115/11] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+i L2 fcbb:bb00:4::/48 
+      [115/21] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+      [115/21] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+</code>
+</pre>
+</div>
+
+## Additional Configuration: Enabling  Ti-LFA
 ## Conclusion
 
 This concludes the Part 1 of the this document series. Stay tuned for the next article.
