@@ -72,6 +72,17 @@ To bring up SRv6 transport, the very first task needed to perform is making the 
 
 ### Configuring and Verifying ISIS for reachability
 
+ISIS is used as IGP for the sample topology. The follwoing table summerizes the ISIS NET and member interfaces for all the nodes
+
+| Node | net id               | member interfaces    |
+|------|----------------------|----------------------|
+| PE1  | 49.0000.0000.0001.00 | BE 12, BE 13         |
+| P2   | 49.0000.0000.0002.00 | BE 12, BE 23, BE 24  |
+| P3   | 49.0000.0000.0003.00 | BE 13, BE 23, BE 34  |
+| PE4  | 49.0000.0000.0004.00 | BE 24, BE 34         |
+
+The following snippet is for  configuration on router PE1. Similarly configure the IGP ISIS on all the other routers P2, P3 and PE4 and enable all the respective interface. 
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -100,7 +111,69 @@ router isis 1
 </pre>
 </div>
 
-The above configuration is for router PE1. Similarly configure the IGP ISIS on all the other routers P2, P3 and PE4.
+
+Once all nodes are configured, we can verify the IPv6 routes learned via ISIS and reachability from one node to another over the ISIS.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#sh route ipv6
+Thu Aug 25 08:40:11.893 UTC
+
+Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+       N1 - OSPF NSSA external type 1, N2 - OSPF NSSA external type 2
+       E1 - OSPF external type 1, E2 - OSPF external type 2, E - EGP
+       i - ISIS, L1 - IS-IS level-1, L2 - IS-IS level-2
+       ia - IS-IS inter area, su - IS-IS summary null, * - candidate default
+       U - per-user static route, o - ODR, L - local, G  - DAGR, l - LISP
+       A - access/subscriber, a - Application route
+       M - mobile route, r - RPL, t - Traffic Engineering, (!) - FRR Backup path
+
+Gateway of last resort is not set
+
+L    2001::1/128 is directly connected,
+      10w0d, Loopback0
+i L2 2001::2/128 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+i L2 2001::3/128 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+i L2 2001::4/128 
+      [115/30] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+      [115/30] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+C    2001:0:0:12::/64 is directly connected,
+      10w0d, Bundle-Ether12
+L    2001:0:0:12::1/128 is directly connected,
+      10w0d, Bundle-Ether12
+C    2001:0:0:13::/64 is directly connected,
+      10w0d, Bundle-Ether13
+L    2001:0:0:13::1/128 is directly connected,
+      10w0d, Bundle-Ether13
+i L2 2001:0:0:23::/64 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+i L2 2001:0:0:24::/64 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+i L2 2001:0:0:34::/64 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+i L2 fcbb:bb00:2::/48 
+      [115/11] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+i L2 fcbb:bb00:3::/48 
+      [115/11] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+i L2 fcbb:bb00:4::/48 
+      [115/21] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
+      [115/21] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
+      
+RP/0/RP0/CPU0:LABSP-3393-PE1#ping 2001::4 source loopback 0
+Thu Aug 25 08:46:13.965 UTC
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 2001::4, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+
+</code>
+</pre>
+</div>
 
 ### Enabling SRv6
 
