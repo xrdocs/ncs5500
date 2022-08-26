@@ -61,3 +61,80 @@ Let’s look into the forwarding ASIC layout. The blue boxes (which are circled)
 While we have other components like buffers and blocks which are essentially used for packets buffering and processing won’t be impacted by MDB carving.
 
 
+![02-MDB.png]({{site.baseurl}}/images/02-MDB.png)
+
+_Picture #1 ASIC layout_
+
+
+In Jericho2 based platforms we give user the flexibility to carve resources for the circled on-chip databases in picture #1 based on the MDB profiles which are configured during the system bootup.
+In the below pictorial representation (picture #2), we can see how the static carving of resources for on-chip databases have been made modular.
+
+
+![03-MDB.png]({{site.baseurl}}/images/03-MDB.png)
+
+_Picture #2 Databases having MDB impact_
+
+
+On the left we have Jericho1 based systems where the database carving is always static which is now made modular in the Jericho2 based platforms. 
+If we have a scaled system with external-TCAM , the on-chip resource carving for MDB is designed in way considering the features usage of the resources in the OP2 external TCAM.
+
+
+
+## Benefits of MDB
+
+
+In today’s network deployments we position our routers in various use cases ranging from metro access, aggregation, core, Peering, DCI, Cloud Interconnect and many more.
+Each use case comes with its own interesting set of features and importantly the scale requirements.
+
+Like in the Peering use case, where we position our high-density aggregation devices in the edge of the network with high eBGP sessions scale being metro, Datacenters, Internet Edge. We need features rich in Layer3 like high-capacity Routing scale, security features VRFs, ACL, FS and many more.
+
+While for Business Aggregation use cases based on carrier-ethernet deployments are Layer2 heavy with requirements of higher MAC scale, l2vpn or Bridge-Domain scale 
+
+
+
+![04-MDB.png]({{site.baseurl}}/images/04-MDB.png)
+_Picture #3 Network deployment use cases_
+
+So, it’s obvious that the requirements are not same for these different use cases.
+Rather than just having a fixed profiles why not give users some flexibility in adding more resources to the databases which fits in for their scale requirements. 
+**That flexibility is available with the MDB feature!**
+
+
+## Path to MDB
+
+During the initial release of NCS5700 platform, we started with shipping NCS57 based line cards on the NCS5500 system running in Compatible mode along with previous generation line cards based on Jericho1. We had default system profile to tune the scale and restrict the scale of system resources based on Jericho1 scale parameters.
+
+Then in the subsequent release we started supporting native mode with all LCs on a modular NCS5500 are Jericho2(ncs57) for higher scale than the compatible mode. 
+We supported both base and scale variants of Jericho2 LCs with custom scale profiles.
+
+And in the next release(73x) we had the MDB infra developed in the XR software and introduced default profiles with higher scale. 
+They were balanced (for base systems) and balanced-SE (for scale systems). 
+And we made these as default profiles on the new SoC (system on chip) routers which were released in 73x.  
+Please note the balanced/balanced-SE profiles were enabled by default and were not user configurable
+
+![05-MDB.png]({{site.baseurl}}/images/05-MDB.png)
+
+_Picture #4 Default MDB Profile - 73x_
+
+Above picture #4 depicts the behavior during 73x release time on J2 based modular and fixed systems operating in native mode.
+
+In 74x, the balanced profiles were reincarnated as L3MAX and L3MAX-SE profiles with better scale optimizations. 
+On NCS5500 modular systems on native mode, default was L3MAX and we introduced a “hw-module CLI” to enable the L3MAX-SE if all the line cards on the system are scale (-SE) cards. 
+On the SoC Jericho2 boxes, based on the availability of eTCAM we enable the right profile (base or SE) and they always operate in native mode. 
+
+
+![06-MDB.png]({{site.baseurl}}/images/06-MDB.png)
+_Picture #5   Modular ncs5500: MDB modes during 74x_
+
+
+![07-MDB.png]({{site.baseurl}}/images/07-MDB.png)
+_Picture #6   SoC systems default modes_
+
+
+Then in release 752/761 we came up with layer-2 feature centric L2MAX and L2MAX-SE profiles for the base and scale variants of NCS5700 routers and line-cards.
+The default mode of operation will be L3MAX (-SE) and if a user wishes to get L2 rich resource carving they are provided options to configure the L2MAX(-SE) profiles.  
+Please note, these MDB profiles are supported on our systems with J2, J2C, Q2C & Q2A asics.
+Also, MDB will be supported on the J2C+ based system being planned for XR781.
+
+![08-MDB.png]({{site.baseurl}}/images/08-MDB.png)
+Picture #7   Q2C based fixed system default mode in 75x
