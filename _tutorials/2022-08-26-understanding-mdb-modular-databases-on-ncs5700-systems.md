@@ -41,3 +41,23 @@ This shows the applications/features mapped to the important databases in the as
 
 ![01-MDB.png]({{site.baseurl}}/images/01-MDB.png)
 
+_Table #1 Jericho on-chip databases_
+
+We use different asics from the same ASIC family on our NCS5500 and NCS5700 routers which are Qumran-MX, Jericho, Jericho+ and the latest Jericho2, Jericho2C, Qumran2C and Qumran2A asics.
+Out latest platform in works will come with new Jericho2C+ asic from Broadcom.
+
+The on-chip databases mentioned in the table #1 are common across all these different ASICs. But the flexibility to carve resources for these databases are only supported with the NCS5700 systems or line-cards using Jericho2 family of asics (Jericho2, Jericho2C, Qumran2C and Qumran2A)
+
+|**NCS5500/5700 Products** | **MDB supported**  
+|------------------------|------------------------------------------------------------------|
+| Fixed Systems          | NCS-57B1-6D24H-S NCS-57B1-5D24H-SE NCS-57C3-MOD-S NCS-57C3-MOD-SE-S NCS-57C1-48Q6D-S NCS-57D2-18DD-S*
+| Line cards Supported on NCS5504, NCS5508, NCS5516 (Native Mode only)       | NC57-18DD-SE NC57-24DD NC57-36H-SE NC57-36H6D-S NC57-MOD-S NC57-48Q2D-S* NC57-48Q2D-SE-S*
+
+_Table #2 NCS5700 PIDs support for MDB (* PIDs in works for future releases)_
+
+
+Let’s look into the forwarding ASIC layout. The blue boxes (which are circled) are some of the important on-chip memories which are used for storing information like IP prefixes, labels, MAC tables, next-hop information and may more.  
+
+While we have other components like buffers and blocks which are essentially used for packets buffering and processing won’t be impacted by MDB carving.
+
+
