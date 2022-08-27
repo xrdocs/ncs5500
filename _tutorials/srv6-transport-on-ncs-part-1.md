@@ -54,7 +54,7 @@ For understanding the technology in details and the latest enhancements, please 
 
 ![Screenshot 2022-08-16 at 12.53.39 PM.png]({{site.baseurl}}/images/Screenshot 2022-08-16 at 12.53.39 PM.png)
 
-The topology used is a simple four node network comprising of Cisco NCS 540 and NCS 5500 series platforms. there are two CE nodes connected to PE1 and PE4 to simulate customer networks. Details of each node along with Loopback IPs are mentioned in the below table.
+The topology used is a simple four node network comprising of Cisco NCS 540 and NCS 5500 series platforms. There are two CE nodes connected to PE1 and PE4 respectively to simulate customer networks. Details of each node along with Loopback IPs are mentioned in the below table.
 
 | Nodes | Device Type | Loopback0   |
 |-------|-------------|-------------|
@@ -72,7 +72,7 @@ To bring up SRv6 transport, the very first task needed to perform is making the 
 
 ### Configuring and Verifying ISIS for reachability
 
-ISIS is used as IGP for the sample topology. The follwoing table summerizes the ISIS NET and member interfaces for all the nodes
+ISIS is used as IGP for the sample topology. The following table summarizes the ISIS NET and member interfaces for all the nodes
 
 | Node | net id               | member interfaces    |
 |------|----------------------|----------------------|
@@ -228,7 +228,7 @@ Configure the above on all the routers and Thats it !!!!! You are done with the 
 
 ### Verification of SRv6 transport
 
-You can use a few verification commands to check the SRv6 transport. 
+You can use below verification commands to check the SRv6 transport. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -293,6 +293,7 @@ fcbb:bb00:1:e002::          uA (PSP/USD)      [BE13, Link-Local]:0              
 </div>
 
 The ipv6 route table will also be updated with the locators from the other nodes and can be verified using the routing table.
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -326,7 +327,9 @@ i L2 fcbb:bb00:4::/48
 </div>
 
 ### Additional Configuration Step : Enabling and Verify Ti-LFA
+
 Topology Independent Loop Free Alternate (TI-LFA) is a method of fast convergence in SR networks; the principles are identical for SR MPLS and SRv6. The backup path has to be always preprogrammed on the router which detects failure. The backup path always has to be Loop-Free. The IGP protocol has detailed knowledge about entire domain’s topology so IGP is always able to calculate where a packet has to be sent in case of a particular failure (without any convergence in the network). In this step we will strengthen the SRv6 transport built by enabling Ti-LFA on each node. The following snippet is for the additional configuration done on PE1, the same needs to be done on each node for every IGP member links.
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -348,7 +351,7 @@ router isis 1
 </pre>
 </div>
 
-Now, when we verify the ipv6 routing entries, the pre-programmed backup paths will be seen. The following snipped output shows the FRR backup paths for the respective prefix.
+Now, when we verify the ipv6 routing entries, the pre-programmed backup paths will be seen. The following output shows the FRR backup paths for the respective prefix.
 
 
 <div class="highlighter-rouge">
