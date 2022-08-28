@@ -137,4 +137,4 @@ Please note, these MDB profiles are supported on our systems with J2, J2C, Q2C &
 Also, MDB will be supported on the J2C+ based system being planned for XR781.
 
 ![08-MDB.png]({{site.baseurl}}/images/08-MDB.png)
-Picture #7   Q2C based fixed system default mode in 75x
+_Picture #7   Q2C based fixed system default mode in 75x_
