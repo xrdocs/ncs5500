@@ -131,6 +131,7 @@ _Picture #5   Modular ncs5500: MDB modes during 74x_
 _Picture #6   SoC systems default modes_
 
 
+
 Then in release 752/761 we came up with layer-2 feature centric L2MAX and L2MAX-SE profiles for the base and scale variants of NCS5700 routers and line-cards.
 The default mode of operation will be L3MAX (-SE) and if a user wishes to get L2 rich resource carving they are provided options to configure the L2MAX(-SE) profiles.  
 Please note, these MDB profiles are supported on our systems with J2, J2C, Q2C & Q2A asics.
@@ -138,3 +139,18 @@ Also, MDB will be supported on the J2C+ based system being planned for XR781.
 
 ![08-MDB.png]({{site.baseurl}}/images/08-MDB.png)
 _Picture #7   Q2C based fixed system default mode in 75x_
+
+In latest releases (761 onwards) all the SoC and modular systems (in native mode) supports all  4 MDB profiles 
+
+
+| No | MDB    |  Systems config  |  external TCAM presense
+|---|----------|---------------------------|--------------------|
+| 1 | L3MAX    | Base LCs & Fixed Systems  | No external TCAM 
+| 2 | L3MAX-SE | Scale LCs & Fixed Systems | With external TCAM 
+| 3 | L2MAX    | Base LCs & Fixed Systems  | No external TCAM 
+| 4 | L2MAX-SE | Scale LCs & Fixed Systems | With external TCAM 
+
+_Table #3 MDB profiles_
+
+
+
