@@ -153,4 +153,31 @@ In latest releases (761 onwards) all the SoC and modular systems (in native mode
 _Table #3 MDB profiles_
 
 
+## MDB on Modular systems
+
+This is a bit tricky. By default, the NCS5500 systems boots up in compatible mode.
+We will need explicit “hw-mod profile” configuration to enable native mode provided we have all the line-cards being nc57 based.
+
+With native mode configured (post reload) by default, system will operate in L3MAX mode in latest releases (74x and beyond).  
+Users are given options to configure any of the MDB profiles based on their card configurations and requirements. (where L2 profiles are included in 761)
+
+
+### Step by Step transition towards NCS5700 with MDB:
+
+Let’s start with NCS5500 system having mix of Jericho1 and Jericho2 LCs. It will by default operate in compatible mode having a default scale profile.
+1.	First step is to remove Jericho/Jericho+ LCs and convert it into Jericho2 only system. 
+2.	Next step is to configure “native mode” and reload the system for the mode to take effect and the MDB profile will set to L3max 
+(This is the right profile if we have a mix of scale and base J2 LCs)
+
+
+![Picture #9   Compatible to native mode migration ]({{site.baseurl}}/images/09-MDB.png)
+
+_Picture #9   Compatible to native mode migration_ 
+
+
+3.	In the above state #2 (with mixed scale and base J2 LCs), user can configure L2max profile based on their requirements
+
+![10-MDB.png]({{site.baseurl}}/images/10-MDB.png)
+
+_Picture #10   L2max MDB configuration_
 
