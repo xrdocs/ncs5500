@@ -210,9 +210,86 @@ Users are given options to configure L2max(-SE) profiles with a system reload.
 | N540-24Q8L2DD-SYS* | L3MAX*    | L2MAX*  |
 
 _Table #4 MDB options on fixed systems_
-* N540-24Q8L2DD-SYS (Q2A based) only ncs540 system to support MDB at present.
-* Resource carving on Q2A is different from J2/J2C/Q2C based on resource availability
-** On SE systems base profiles can be configured but not recommended to use low scale profile
+
+*N540-24Q8L2DD-SYS (Q2A based) only ncs540 system to support MDB at present.
+
+_*Resource carving on Q2A is different from J2/J2C/Q2C based on resource availability_
+
+_** On SE systems base profiles can be configured but not recommended to use low scale profile_
 
 
+## Configuration & Verification 
 
+**Configure Native Mode**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile npu native-mode-enable
+</code>
+</pre>
+</div>
+
+**Verify J2 Native mode - Only for Modular (NCS5504/08/16)**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+show hw-module profile npu-operating-mode
+</code>
+</pre>
+</div>
+
+
+**Configure MDB Profile**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile mdb l3max | l3max-se | l2max | l2max-se
+</code>
+</pre>
+</div>
+  
+**Verify MDB Profile**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ show hw-module profile mdb-scale 
+</code>
+</pre>
+</div>
+
+
+**Verify Resource Utilization**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+show controllers npu resources lem location 0/LC/CPU0
+show controllers npu resources lpm location 0/LC/CPU0
+show controllers npu resources exttcamipv4 | exttcamipv6 location 0/LC/CPU0 (for -SE)
+show controllers npu resources fec location 0/LC/CPU0
+show controllers npu resources encap location 0/LC/CPU0
+show controllers npu external location 0/LC/CPU0 (for -SE)
+</code>
+</pre>
+</div>
+
+
+## Conclusion
+
+We conclude here understanding the flexibility of MDB in the NCS5700 systems which provides the user with options to choose the resource carving based on their requirements. 
+
+![12-MDB.png]({{site.baseurl}}/images/12-MDB.png)
+_Picture #12 Flexibility with MDB carving_
+
+As depicted in Picture#12, based on the profile carving we get more on resources carved for specific databases to support to certain higher scale requirements. 
+On a broader level with L2MAX profiles we get more resources or application mapping done for L2 features like MAC scale, L2 interfaces etc. 
+
+While with L3MAX profiles we get higher resource carving and application mapping for L3 features like routes, VRF prefixed etc.
+
+These MDB profiles goes through the continuous process of fine tuning to adapt to new technology areas like SRv6 and to accommodate the new critical use cases.
+
+**Please stay tuned for more updates!**
