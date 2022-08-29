@@ -181,3 +181,38 @@ _Picture #9   Compatible to native mode migration_
 
 _Picture #10   L2max MDB configuration_
 
+
+4.	If the user wants to operate only with the scale J2 line-cards to use the full potential of the scale and feature parity it offers, the l3max-se/l2max-se profiles can be enabled.
+If we have the base non-SE cards in the system, they won’t bootup as shown in below picture
+
+![11-MDB.png]({{site.baseurl}}/images/11-MDB.png)
+
+_Picture #11 L3max-SE/L2max-SE MDB configuration_
+
+
+We can also club the native mode conversation and new MDB profile configuration in a single reload. Ex- Step #1 to #3 or #4 can be achieved with a single reload.
+
+
+## MDB on Fixed systems
+
+This is straightforward. As the fixed NC5700 SoC systems always operate in native mode and comes up by default with L3max on base systems and L3max-SE on scale systems. 
+Users are given options to configure L2max(-SE) profiles with a system reload.
+
+
+
+| Platform | Default    |  Configurable Options(Recommended**)  | 
+|---|----------|---------------------------|
+| NCS57B1-24H6D | L3MAX    | L2MAX  | 
+| NCS57B1-24HSE | L3MAX-SE | L2MAX-SE |
+| NCS57C3-MOD-S | L3MAX    | L2MAX  |
+| NCS57C3-MOD-SE-S | L3MAX-SE | L2MAX-SE |
+| NCS57C1-48Q6D-S | L3MAX    | L2MAX  |
+| N540-24Q8L2DD-SYS* | L3MAX*    | L2MAX*  |
+
+_Table #4 MDB options on fixed systems_
+* N540-24Q8L2DD-SYS (Q2A based) only ncs540 system to support MDB at present.
+* Resource carving on Q2A is different from J2/J2C/Q2C based on resource availability
+** On SE systems base profiles can be configured but not recommended to use low scale profile
+
+
+
