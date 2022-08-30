@@ -287,9 +287,9 @@ We conclude here understanding the flexibility of MDB in the NCS5700 systems whi
 _Picture #12 Flexibility with MDB carving_
 
 As depicted in Picture#12, based on the profile carving we get more on resources carved for specific databases to support to certain higher scale requirements. 
-On a broader level with L2MAX profiles we get more resources for applications mapped to L2 features like MAC scale, L2 interfaces etc. 
+On a broader level with L2MAX profiles we get more resources for applications mapped to L2 features like MAC scale, L2VPN etc. 
 
-While with L3MAX profiles we get higher resource carving for applications mapped to L3 features like routes, VRF prefixed etc.
+While with L3MAX profiles we get higher resource carving for applications mapped to L3 features like routes, L3VPN etc.
 
 Also these MDB profiles goes through the continuous process of fine-tuning to adapt to new technology areas like SRv6 and to accommodate the new critical use cases.
 
