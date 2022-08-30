@@ -56,12 +56,12 @@ For understanding the technology in details and the latest enhancements, please 
 
 The topology used is a simple four node network comprising of Cisco NCS 540 and NCS 5500 series platforms. There are two CE nodes connected to PE1 and PE4 respectively to simulate customer networks. Details of each node along with Loopback IPs are mentioned in the below table.
 
-| Nodes | Device Type | Loopback0   |
-|-------|-------------|-------------|
-| PE1   |  NCS 540    | 2001::1/128 |
-| P2    |  NCS 5500   | 2001::2/128 |
-| P3    |  NCS 5500   | 2001::3/128 |
-| PE4   |  NCS 5500   | 2001::4/128 |
+| Nodes | Device Type | Software Version  |Loopback0   |
+|-------|-------------|-------------------|------------|
+| PE1   |  NCS 540    | IOS XR 7.5.2      |2001::1/128 |
+| P2    |  NCS 5500   | IOS XR 7.5.2      |2001::2/128 |
+| P3    |  NCS 5500   | IOS XR 7.5.2      |2001::3/128 |
+| PE4   |  NCS 5500   | IOS XR 7.5.2      |2001::4/128 |
 
 ## Configuration Steps
 To bring up SRv6 transport, the very first task needed to perform is making the underlay IGP ready. We will be using ISIS as the underlay IGP protocol to bring up IPv6 connecticity across the nodes. Once, the network is ready with IGP, there are three steps to enable SRv6, i.e.
