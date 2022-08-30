@@ -4,7 +4,7 @@ date: '2022-08-26 14:11 +0530'
 title: Understanding MDB (Modular Databases) on NCS5700 systems
 author: Deepak Balasubramanian
 excerpt: MDB profile on J2 based systems
-position: hidden
+position: top
 tags:
   - iosxr
 ---
