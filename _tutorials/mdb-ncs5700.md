@@ -19,14 +19,14 @@ In Today’s Network deployments we position our routers in various roles pertai
 
 So how to fit in the same product addressing these different scale requirements? 
 
-We bring in that modularity in the form of **MDB (Modular Database)** profiles in our NCS5700 Fixed systems and NC57 Line cards on the modular NCS5500 operating in Native mode.
+We bring in that flexibility in the form of **MDB (Modular Database)** profiles in our NCS5700 Fixed systems and NC57 Linecards on the modular NCS5500 router operating in Native mode.
 
 
 ## Introduction to MDB
 
 _What is a Modular Database?_ 
 
-In the NCS5500/NCS5700 routers we have various on-chip databases for different purposes like storing the IP prefix table, MAC information, Labels, Access-list rules and may more.
+In the NCS5500/NCS5700 routers we have various on-chip databases for different purposes like storing the IP prefix table, MAC information, Labels, Access-list rules and many more.
 On the scale variant we have an external-TCAM (OptimusPrime2 in NCS5700 family) to offload storage of prefixes, ACL rules, QOS, etc for a higher scale compared to the base systems.
 
 We also have the on-chip buffers and off-chip HBM buffers used for queuing the packets. 
@@ -109,7 +109,7 @@ During the initial release of NCS5700 platform, we started with shipping NCS57 b
 Then in the subsequent release we started supporting native mode with all LCs on a modular NCS5500 being Jericho2(ncs57) for higher scale than the compatible mode. 
 We supported both base and scale variants of Jericho2 LCs with custom scale profiles.
 
-And in the next release(73x) we had the MDB infra developed in the XR software and introduced default profiles with higher scale. 
+And in the next release(73x) we had the MDB infra developed in the IOS-XR software and introduced default profiles with higher scale. 
 They were balanced (for base systems) and balanced-SE (for scale systems). 
 And we made these as default profiles on the new SoC (system on chip) routers which were released in 73x.  
 Please note the balanced/balanced-SE profiles were enabled by default and were not user configurable
@@ -132,15 +132,14 @@ _Picture #5   Modular ncs5500: MDB modes during 74x_
 ![07-MDB.png]({{site.baseurl}}/images/07-MDB.png)
 _Picture #6   SoC systems default modes_
 
-
+![08-MDB.png]({{site.baseurl}}/images/08-MDB.png)
+_Picture #7   Q2C based fixed system default mode in 75x_
 
 Then in release 761 we came up with layer-2 feature centric L2MAX and L2MAX-SE profiles for the base and scale variants of NCS5700 routers and line-cards.
 The default mode of operation will be L3MAX (-SE) and if a user wishes to do L2 rich resource carving they are provided options to configure the L2MAX(-SE) profiles.  
 Please note, these MDB profiles are supported on our systems with J2, J2C, Q2C & Q2A asics.
 Also, MDB will be supported on the J2C+ based system being planned for XR781.
 
-![08-MDB.png]({{site.baseurl}}/images/08-MDB.png)
-_Picture #7   Q2C based fixed system default mode in 75x_
 
 In latest releases (761 onwards) all the SoC and modular systems (in native mode) supports all  4 MDB profiles 
 
