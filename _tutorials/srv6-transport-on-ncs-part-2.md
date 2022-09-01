@@ -204,6 +204,74 @@ router bgp 100
 </pre>
 </div>
 ### Verification of VPNv4
+The control plane for the layer3 VPN established can be verified using different CLI commands related to SRv6 SIDs and BGP. We can see the respective uSIDs (uDT4) on each PE for the VRF using `show segment routing srv6 sid`
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE1#show  segment-routing  srv6 locator POD0 sid 
+Thu Sep  1 09:47:46.965 UTC
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  ------------------------------    ------------------  -----  --
+fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
+<mark>fcbb:bb00:1:e004::          uDT4              '1'                               bgp-100             InUse  Y</mark>
+
+RP/0/RP0/CPU0:PE4#show segment-routing  srv6 locator POD0 sid 
+Thu Sep  1 09:07:01.392 UTC
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  ------------------------------    ------------------  -----  --
+fcbb:bb00:4::               uN (PSP/USD)      'default':4                       sidmgr              InUse  Y 
+<mark>fcbb:bb00:4:e000::          uDT4              '1'                               bgp-100             InUse  Y  </mark>
+</code>
+</pre>
+</div>
+
+The Prefix received from BGP can also be verified using some of the commands/outputs listed below
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE1#show  bgp  vpnv4 unicast summary       
+
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker               7          7          7          7           7           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001::4           0   100      68      69        7    0    0 00:27:12          1
+
+RP/0/RP0/CPU0:PE1#show  bgp  vpnv4 unicast received-sids 
+Thu Sep  1 09:50:48.872 UTC
+
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop                            Received Sid
+Route Distinguisher: 1.1.1.1:0 (default for vrf 1)
+*> 192.168.1.0/24     0.0.0.0                             NO SRv6 Sid
+*>i192.168.2.0/24     2001::4                             fcbb:bb00:4:e000::
+Route Distinguisher: 4.4.4.4:0
+*>i192.168.2.0/24     2001::4                             fcbb:bb00:4:e000::
+
+Processed 3 prefixes, 3 paths
+
+RP/0/RP0/CPU0:PE#show  route vrf 1
+Thu Sep  1 09:50:55.427 UTC
+
+
+Gateway of last resort is not set
+
+C    192.168.1.0/24 is directly connected, 00:38:52, TenGigE0/0/0/0.1
+L    192.168.1.1/32 is directly connected, 00:38:52, TenGigE0/0/0/0.1
+B    192.168.2.0/24 [200/0] via 2001::4 (nexthop in vrf default), 00:13:44
+</code>
+</pre>
+</div>
 
 ## Configuration & Verification for VPNv6 
 ### Configuring BGP Control Plane
