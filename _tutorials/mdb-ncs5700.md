@@ -8,7 +8,6 @@ position: top
 tags:
   - iosxr
 ---
-## A New Post
 
 |Deepak Balasubramanian, Technical Marketing Engineer (deebalas@cisco.com)|
 
