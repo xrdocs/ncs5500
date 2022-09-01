@@ -273,6 +273,85 @@ B    192.168.2.0/24 [200/0] via 2001::4 (nexthop in vrf default), 00:13:44
 </pre>
 </div>
 
+The above outputs are taken from  PE1 for reference, we can also verify the equivalent outputs on the other end (i.e PE4). Now if we check the CEF entry in PE4, we can see that it points to the respective uDT4 SID on PE1,
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE4#show  cef vrf 1 192.168.1.0/24
+Thu Sep  1 09:15:07.546 UTC
+192.168.1.0/24, version 3, SRv6 Headend, internal 0x5000001 0x30 (ptr 0x8afe0198) [1], 0x0 (0x0), 0x0 (0x8bf261e8)
+ Updated Sep  1 08:57:20.244
+ Prefix Len 24, traffic index 0, precedence n/a, priority 3
+  gateway array (0x8c49f0a8) reference count 1, flags 0x2010, source rib (7), 0 backups
+                [1 type 3 flags 0x48441 (0x8a097128) ext 0x0 (0x0)]
+  LW-LDI[type=0, refc=0, ptr=0x0, sh-ldi=0x0]
+  gateway array update type-time 1 Sep  1 08:57:20.244
+ LDI Update time Sep  1 08:57:20.287
+
+  Level 1 - Load distribution: 0
+  [0] via fcbb:bb00:1::/128, recursive
+
+   via fcbb:bb00:1::/128, 3 dependencies, recursive [flags 0x6000]
+    path-idx 0 NHID 0x0 [0x8b091778 0x0]
+    next hop VRF - 'default', table - 0xe0800000
+    <mark>next hop fcbb:bb00:1::/128 via fcbb:bb00:1::/48
+    SRv6 H.Encaps.Red SID-list {fcbb:bb00:1:e004::}</mark>
+
+    Load distribution: 0 1 (refcount 1)
+
+    Hash  OK  Interface                 Address
+    0     Y   Bundle-Ether24            fe80::28a:96ff:fe2d:18db
+    1     Y   Bundle-Ether34            fe80::28a:96ff:fe2c:58db
+</code>
+</pre>
+</div>
+
+We can also verify that the destination SID is a combination of the remote node Sid (uN) and received label using the below comamnd:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE4#show  bgp vrf 1 192.168.1.0/24
+Thu Sep  1 09:23:01.344 UTC
+BGP routing table entry for 192.168.1.0/24, Route Distinguisher: 4.4.4.4:0
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                   5            5
+Last Modified: Sep  1 08:57:19.939 for 00:25:41
+Paths: (1 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Not advertised to any peer
+  Local
+    2001::1 (metric 30) from 2001::1 (1.1.1.1)
+      <mark>Received Label 0xe0040</mark>
+      Origin incomplete, metric 0, localpref 100, valid, internal, best, group-best, import-candidate, imported
+      Received Path ID 0, Local Path ID 1, version 5
+      Extended community: RT:100:1 
+      PSID-Type:L3, SubTLV Count:1
+       SubTLV:
+        T:1(Sid information), <mark>Sid:fcbb:bb00:1::</mark>, Behavior:63, SS-TLV Count:1
+         SubSubTLV:
+          T:1(Sid structure):
+      Source AFI: VPNv4 Unicast, Source VRF: default, Source Route Distinguisher: 1.1.1.1:0
+</code>
+</pre>
+</div>
+
+Finally, the data plane can be verified by simply pinging CE2 from CE1
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-CE1#ping  192.168.2.10 repeat 10
+Thu Sep  1 09:14:37.319 UTC
+Type escape sequence to abort.
+Sending 10, 100-byte ICMP Echos to 192.168.2.10, timeout is 2 seconds:
+!!!!!!!!!!
+Success rate is 100 percent (10/10), round-trip min/avg/max = 1/5/21 ms
+</code>
+</pre>
+</div>
 ## Configuration & Verification for VPNv6 
 ### Configuring BGP Control Plane
 ### Configuring VRF and PE-CE links
