@@ -33,6 +33,77 @@ In this tutorial, we will establish a L3VPN (VPNv4 & VPNv6) connecting two subne
 
 ## Configuration & Verification for VPNv4 
 ### Configuring BGP Control Plane
+At first, we will setup the BGP control palne with VPNv4 address family between PE1 and PE2. We are directly peering between PE1 and PE4 in this example, however in a real network there can be route reflectors used for BGP to improve simplicity and scalability. 
+
+#### BGP configuration on PE1
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 1.1.1.1
+ address-family vpnv4 unicast
+ !
+ neighbor 2001::4
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+#### BGP configuration on PE4
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 4.4.4.4
+ address-family vpnv4 unicast
+ !
+ neighbor 2001::1
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+we can verify the BGP neighbourship with VPNv4 AFI using `show bgp vpnv4 unicast summary`
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:PE4#show  bgp  vpnv4 unicast summary 
+Thu Sep  1 08:12:21.733 UTC
+BGP router identifier 4.4.4.4, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0
+BGP main routing table version 1
+BGP NSR Initial initsync version 1 (Not Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+BGP is operating in STANDALONE mode.
+
+
+Process       RcvTblVer   bRIB/RIB   LabelVer  ImportVer  SendTblVer  StandbyVer
+Speaker               1          1          1          1           1           0
+
+Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
+2001::1           0   100       3       3        1    0    0 00:00:07          0
+</code>
+</pre>
+</div>
+
+
 ### Configuring VRF and PE-CE links
 ### Configuring VRF under BGP
 ### Verification of VPNv4
