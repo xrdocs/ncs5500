@@ -185,6 +185,25 @@ router static
 </div>
 
 ### Configuring VRF under BGP
+Now to establish the L3VPN, the final step is to advertize the VRF routes via BGP. This is established by configuring the VRF under BGP on each PE. For simplicity we are using auto rd just redistributing the connected routes. For SRv6 we will specify the locator to be used and the label mode as per VRF. 
+
+The follwoing configuration lines need to be added to both PE1 and PE4. 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ vrf 1
+  rd auto
+  address-family ipv4 unicast
+   <mark>segment-routing srv6</mark>
+    <mark>locator POD0</mark>
+    alloc mode per-vrf
+   !
+   redistribute connected
+   
+</code>
+</pre>
+</div>
 ### Verification of VPNv4
 
 ## Configuration & Verification for VPNv6 
