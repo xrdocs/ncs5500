@@ -29,6 +29,18 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 | P3    |  NCS 5500   | IOS XR 7.5.2      |2001::3/128 |
 | PE4   |  NCS 5500   | IOS XR 7.5.2      |2001::4/128 |
 
-## Configuring & Verifying VPNv4
-## Configuring & Verifying VPNv6
-## Conclusion
+In this tutorial, we will establish a L3VPN (VPNv4 & VPNv6) connecting two subnets across CE1 and CE2. 
+
+## Configuration & Verification for VPNv4 
+### Configuring BGP Control Plane
+### Configuring VRF and PE-CE links
+### Configuring VRF under BGP
+### Verification of VPNv4
+
+## Configuration & Verification for VPNv6 
+### Configuring BGP Control Plane
+### Configuring VRF and PE-CE links
+### Configuring VRF under BGP
+### Verification of VPNv6
+
+## Summary
