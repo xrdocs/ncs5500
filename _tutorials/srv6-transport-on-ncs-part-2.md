@@ -105,6 +105,85 @@ Neighbor        Spk    AS MsgRcvd MsgSent   TblVer  InQ OutQ  Up/Down  St/PfxRcd
 
 
 ### Configuring VRF and PE-CE links
+The next step is to confgure the virtual forwarding instances (VRFs) on each PE. we are using vrf 1 on both PE1 and PE4. The following needs to be configured on both the nodes. Note that we are using the same rt import/export on both end. 
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+vrf 1
+ address-family ipv4 unicast
+  import route-target
+   100:1
+  !
+  export route-target
+   100:1
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+For simplicty, we will simply connect subnet 192.168.1.0/24 present on CE1 to 192.168.2.0/24 present in CE2. We are using a PE-CE subinterface  (with VLAN 1) under VRF 1 on PE1 and PE4. one the CE we are using static routing to point to gateway PE. For a scaled network, there can be eBGP or other routing protocols for exchange of route info between PE and CE which is out of scope for this tutorial. The respective configuration on the PE/CE nodes are listed below:
+
+#### PE1
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.1
+ vrf 1
+ ipv4 address 192.168.1.1 255.255.255.0
+ encapsulation dot1q 1
+</code>
+</pre>
+</div>
+
+#### PE4
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.1
+ vrf 1
+ ipv4 address 192.168.2.1 255.255.255.0
+ encapsulation dot1q 1
+</code>
+</pre>
+</div>
+
+#### CE1
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.1
+ ipv4 address 192.168.1.10 255.255.255.0
+ encapsulation dot1q 1
+!
+router static
+ address-family ipv4 unicast
+  <mark>192.168.2.0/24 192.168.1.1</mark>
+ !
+!
+</code>
+</pre>
+</div>
+
+#### CE2
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.1
+ ipv4 address 192.168.2.10 255.255.255.0
+ encapsulation dot1q 1
+!
+router static
+ address-family ipv4 unicast
+  <mark>192.168.1.0/24 192.168.2.1</mark>
+ !
+!
+</code>
+</pre>
+</div>
+
 ### Configuring VRF under BGP
 ### Verification of VPNv4
 
