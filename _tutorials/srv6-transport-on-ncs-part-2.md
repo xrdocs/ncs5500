@@ -199,8 +199,7 @@ router bgp 100
     <mark>locator POD0</mark>
     alloc mode per-vrf
    !
-   redistribute connected
-   
+   redistribute connected  
 </code>
 </pre>
 </div>
