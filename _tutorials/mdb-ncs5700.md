@@ -170,15 +170,17 @@ Let’s start with NCS5500 system having mix of Jericho1 and Jericho2 LCs. It wi
 2.	Next step is to configure “native mode” and reload the system for the mode to take effect and the MDB profile will set to L3max 
 (This is the right profile if we have a mix of scale and base J2 LCs)
 
+![13-MDB.png]({{site.baseurl}}/images/13-MDB.png)
 
-![Picture #9   Compatible to native mode migration ]({{site.baseurl}}/images/09-MDB.png)
 
 _Picture #9   Compatible to native mode migration_ 
 
 
 3.	In the above state #2 (with mixed scale and base J2 LCs), user can configure L2max profile based on their requirements
 
-![10-MDB.png]({{site.baseurl}}/images/10-MDB.png)
+![14-MDB.png]({{site.baseurl}}/images/14-MDB.png)
+
+
 
 _Picture #10   L2max MDB configuration_
 
@@ -186,7 +188,8 @@ _Picture #10   L2max MDB configuration_
 4.	If the user wants to operate only with the J2 scale line-cards to use the full potential of the scale and the extra features (ex: Flowspec) it offers, the l3max-se/l2max-se profiles can be enabled.
 If we have the base non-SE cards in the system, they won’t bootup as shown in below picture
 
-![11-MDB.png]({{site.baseurl}}/images/11-MDB.png)
+![15-MDB.png]({{site.baseurl}}/images/15-MDB.png)
+
 
 _Picture #11 L3max-SE/L2max-SE MDB configuration_
 
