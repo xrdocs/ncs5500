@@ -38,7 +38,8 @@ Our focus of discussion will be on the memory databases available on the Jericho
 A quick refresher of Jericho ASIC's on-chip resources seen in the below table. 
 This shows the applications/features mapped to the important databases in the ASIC. 
 
-![00-MDB.png]({{site.baseurl}}/images/00-MDB.png)
+![16-MDB.png]({{site.baseurl}}/images/16-MDB.png)
+
 
 
 _Table #1 Jericho on-chip databases_
