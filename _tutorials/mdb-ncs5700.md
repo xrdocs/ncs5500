@@ -237,6 +237,7 @@ hw-module profile npu native-mode-enable
 <pre class="highlight">
 <code>
 show hw-module profile npu-operating-mode
+Native Mode
 </code>
 </pre>
 </div>
@@ -258,6 +259,7 @@ hw-module profile mdb l3max | l3max-se | l2max | l2max-se
 <pre class="highlight">
 <code>
  show hw-module profile mdb-scale 
+ MDB scale profile: l3max-se
 </code>
 </pre>
 </div>
