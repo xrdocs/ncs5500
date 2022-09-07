@@ -22,10 +22,10 @@ position: hidden
 
 ## Introduction
 
-This is the first document of the series focussing on SRv6 transport. In this document we will focus on SRv6 basics and understand how to bring up SRv6 transport on Cisco NCS 500 and NCS 5500 platforms. In the subsequent tutorials, we will cover more topics related to SRv6 transport showing implementation of layer2 and layer3 services, QoS behaviour, Traffic-Engineering etc.
+This is the first tutorial of the series focussing on SRv6 transport. In this document we will focus on SRv6 basics and understand how to bring up SRv6 transport on Cisco NCS 500 and NCS 5500 platforms. In the subsequent tutorials, we will cover more topics related to SRv6 transport showing implementation of layer2 and layer3 services, QoS behaviour, Traffic-Engineering etc.
 
 ## Brief Background
-The Service Provider transport network has evolved recently to provide converged transport for various 5G applications and use cases. As we already know, Segment Routing (SR) brings in programmability to the transport network using the MPLS data plane. Whereas Segment Routing v6 (SRv6) uses IPv6 instead of MPLS. This brings more simpler way to build a programmable transport where we can easily do network slicing and traffic engineering for various services. This advanced series of documents will demonstrate, new SRv6 transport on the IOS XR based NCS 5500/500 routers and how to configure and implement various overlay services like L3VPN/BGP-EVPN based E-Line service using the underlay. In this document series, we will be using SRv6 Transport with ISIS as the IGP and provision end-to-end L3/L2 services over the transport. Service SLA and QoS being one of the important aspects of any services, we will also explore how end-to-end QoS can be managed for Services over SRv6 on these routers.
+The Service Provider transport network has evolved recently to provide converged transport for various 5G applications and use cases. As we already know, Segment Routing (SR) brings in programmability to the transport network using the MPLS data plane, whereas Segment Routing v6 (SRv6) uses IPv6 instead of MPLS. This brings more simpler way to build a programmable transport where we can easily do network slicing and traffic engineering for various services. This advanced series of tutorials will demonstrate new SRv6 transport on the IOS XR based NCS 5500/500 routers and how to configure and implement various overlay services like L3VPN/BGP-EVPN based E-Line service using the underlay. In this document series, we will be using SRv6 Transport with ISIS as the IGP and provision end-to-end L3/L2 services over the transport. Service SLA and QoS being one of the important aspects of any services, we will also explore how end-to-end QoS can be managed for Services over SRv6 on these routers.
 
 Note: This document is to familiarise users with the technology. The configurations and lab setup can be taken as a reference, and this by no means represent a real production network.
 {: .notice--info}
@@ -68,7 +68,7 @@ To bring up SRv6 transport, the very first task needed to perform is making the 
 
 - enabling platform hw-module profile
 - configuring SRv6 locator
-- Enabling SRv6 over ISIS
+- enabling SRv6 over ISIS
 
 ### Configuring and Verifying ISIS for reachability
 
@@ -81,7 +81,7 @@ ISIS is used as IGP for the sample topology. The following table summarizes the 
 | P3   | 49.0000.0000.0003.00 | BE 13, BE 23, BE 34  |
 | PE4  | 49.0000.0000.0004.00 | BE 24, BE 34         |
 
-The following snippet is for  configuration on router PE1. Similarly configure the IGP ISIS on all the other routers P2, P3 and PE4 and enable all the respective interface. 
+The following snippet is for  configuration on router PE1. Similarly configure the IGP ISIS on all the other routers P2, P3 and PE4 and enable all the respective interfaces. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -191,7 +191,7 @@ Building configuration...
 </div> 
 Note: Configure the same on all the routers.
 
-The reason for configuring the above is because, data plane in NCS500 and NCS5500 needs to be explicitly enabled for SRv6 with specific mode i.e. whether SRv6 Base or SRv6 micro-segment (uSID). We are using uSID based SRv6 transport and this is done by configuring the  hardware module profiles:“hw-module profile segment-routing srv6 mode micro-segment format f3216”. The hw-module profile is kind of self-explanatory, we have enabled segment routing v6 (srv6) and the mode used is micro-segment. (another mode for SRv6 is the base mode). The uSID carrier format used is f3216, i.e 32 bit block size and 16bit uSID. Thus a single DA can carry upto 6 micro-instructions or uSID.
+The reason behind configuring the above hw-module profile  is to explicitely enable data plane in NCS500 and NCS5500 for SRv6 with specific mode i.e. either SRv6 Base format or SRv6 micro-segment (uSID). We are using uSID based SRv6 transport and this is done by configuring the  hardware module profiles:“hw-module profile segment-routing srv6 mode micro-segment format f3216”. The hw-module profile is self-explanatory, we have enabled segment routing v6 (srv6) and the mode used is micro-segment. (another mode for SRv6 is the base mode). The uSID carrier format used is f3216, i.e 32 bit block size and 16bit uSID. Thus a single DA can carry upto 6 micro-instructions or uSID.
 
 Note: This hardware-module profile configuration needs reload of the router.
 {: .notice--info}
@@ -386,6 +386,6 @@ i L2 2001::3/128
 
 
 
-## Conclusion
+## Summary
 
-This concludes the Part 1 of the this document series. Stay tuned for the next article.
+This concludes the Part 1 of this tutorial series. Stay tuned for the next article.
