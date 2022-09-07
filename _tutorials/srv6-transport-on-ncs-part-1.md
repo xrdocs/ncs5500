@@ -13,7 +13,7 @@ tags:
   - Segment Routing v6
   - NCS500
   - NCS5700
-position: hidden
+position: top
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
@@ -22,10 +22,10 @@ position: hidden
 
 ## Introduction
 
-This is the first tutorial of the series focussing on SRv6 transport. In this document we will focus on SRv6 basics and understand how to bring up SRv6 transport on Cisco NCS 500 and NCS 5500 platforms. In the subsequent tutorials, we will cover more topics related to SRv6 transport showing implementation of layer2 and layer3 services, QoS behaviour, Traffic-Engineering etc.
+This is the first tutorial of the series focusing on SRv6 transport. In this document we will focus on SRv6 basics and understand how to bring up SRv6 transport on Cisco NCS 500 and NCS 5500 platforms. In the subsequent tutorials, we will cover more topics related to SRv6 transport showing implementation of layer2 and layer3 services, QoS behaviour, Traffic-Engineering etc.
 
 ## Brief Background
-The Service Provider transport network has evolved recently to provide converged transport for various 5G applications and use cases. As we already know, Segment Routing (SR) brings in programmability to the transport network using the MPLS data plane, whereas Segment Routing v6 (SRv6) uses IPv6 instead of MPLS. This brings more simpler way to build a programmable transport where we can easily do network slicing and traffic engineering for various services. This advanced series of tutorials will demonstrate new SRv6 transport on the IOS XR based NCS 5500/500 routers and how to configure and implement various overlay services like L3VPN/BGP-EVPN based E-Line service using the underlay. In this document series, we will be using SRv6 Transport with ISIS as the IGP and provision end-to-end L3/L2 services over the transport. Service SLA and QoS being one of the important aspects of any services, we will also explore how end-to-end QoS can be managed for Services over SRv6 on these routers.
+The Service Provider transport network has evolved to provide converged transport for various 5G applications and use cases. As we already know, Segment Routing (SR) brings in programmability to the transport network using the MPLS data plane, whereas Segment Routing v6 (SRv6) uses IPv6 instead of MPLS. This offers a simpler way to build a programmable transport where we can easily do network slicing and traffic engineering for various services. This advanced series of tutorials will demonstrate new SRv6 transport on the IOS XR based NCS 5500/500 routers and explain how to configure and implement various overlay services like L3VPN/BGP-EVPN based E-Line service. In this document series, we will be using SRv6 Transport with ISIS as the IGP and provision end-to-end L3/L2 services over the transport.
 
 Note: This document is to familiarise users with the technology. The configurations and lab setup can be taken as a reference, and this by no means represent a real production network.
 {: .notice--info}
@@ -64,7 +64,7 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 | PE4   |  NCS 5500   | IOS XR 7.5.2      |2001::4/128 |
 
 ## Configuration Steps
-To bring up SRv6 transport, the very first task needed to perform is making the underlay IGP ready. We will be using ISIS as the underlay IGP protocol to bring up IPv6 connecticity across the nodes. Once, the network is ready with IGP, there are three steps to enable SRv6, i.e.
+To bring up SRv6 transport, the very first task to be performed is to make the underlay IGP ready. We will be using ISIS as the underlay IGP protocol to bring up IPv6 connecticity across the nodes. Once, the network is ready with IGP, there are three steps to enable SRv6, i.e.
 
 - enabling platform hw-module profile
 - configuring SRv6 locator
@@ -112,7 +112,7 @@ router isis 1
 </div>
 
 
-Once all nodes are configured, we can verify the IPv6 routes learned via ISIS and reachability from one node to another over the ISIS.
+Once all nodes are configured, we can verify the IPv6 routes learned via ISIS and the reachability from one node to another over ISIS.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -191,7 +191,7 @@ Building configuration...
 </div> 
 Note: Configure the same on all the routers.
 
-The reason behind configuring the above hw-module profile  is to explicitely enable data plane in NCS500 and NCS5500 for SRv6 with specific mode i.e. either SRv6 Base format or SRv6 micro-segment (uSID). We are using uSID based SRv6 transport and this is done by configuring the  hardware module profiles:“hw-module profile segment-routing srv6 mode micro-segment format f3216”. The hw-module profile is self-explanatory, we have enabled segment routing v6 (srv6) and the mode used is micro-segment. (another mode for SRv6 is the base mode). The uSID carrier format used is f3216, i.e 32 bit block size and 16bit uSID. Thus a single DA can carry upto 6 micro-instructions or uSID.
+The reason behind configuring the above hw-module profile  is to explicitly enable data plane in NCS500 and NCS5500 for SRv6 with specific mode i.e. either **SRv6 Base**  or **SRv6 micro-segment** (uSID). We are using uSID based SRv6 transport and this is done by configuring the  hardware module profiles:“hw-module profile segment-routing srv6 mode micro-segment format f3216”. The hw-module profile is self-explanatory, we have enabled segment routing v6 (srv6) and the mode used is micro-segment. (another mode for SRv6 is the base mode). The uSID carrier format used is f3216, i.e 32 bit block size and 16bit uSID. Thus a single DA can carry upto 6 micro-instructions or uSID.
 
 Note: This hardware-module profile configuration needs reload of the router.
 {: .notice--info}
@@ -326,9 +326,9 @@ i L2 fcbb:bb00:4::/48
 </pre>
 </div>
 
-### Additional Configuration Step : Enabling and Verify Ti-LFA
+### Additional Configuration Step : Enabling and Verify TI-LFA
 
-Topology Independent Loop Free Alternate (TI-LFA) is a method of fast convergence in SR networks; the principles are identical for SR MPLS and SRv6. The backup path has to be always preprogrammed on the router which detects failure. The backup path always has to be Loop-Free. The IGP protocol has detailed knowledge about entire domain’s topology so IGP is always able to calculate where a packet has to be sent in case of a particular failure (without any convergence in the network). In this step we will strengthen the SRv6 transport built by enabling Ti-LFA on each node. The following snippet is for the additional configuration done on PE1, the same needs to be done on each node for every IGP member links.
+Topology Independent Loop Free Alternate (TI-LFA) is a method of fast convergence in SR networks; the principles are identical for SR MPLS and SRv6. The backup path has to be always pre-programmed on the router which detects failure. The backup path always has to be Loop-Free. The IGP protocol has detailed knowledge about entire topology, so the IGP is always able to calculate where a packet has to be sent in case of a particular failure (without any convergence in the network). In this step we will strengthen the SRv6 transport built by enabling TI-LFA on each node. The following snippet is for the additional configuration done on PE1, the same needs to be done on each node for each IGP member link.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
