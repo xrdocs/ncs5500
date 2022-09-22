@@ -58,10 +58,12 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 
 | Nodes | Device Type | Software Version  |Loopback0   |
 |-------|-------------|-------------------|------------|
-| PE1   |  NCS 540    | IOS XR 7.5.2      |2001::1/128 |
-| P2    |  NCS 5500   | IOS XR 7.5.2      |2001::2/128 |
-| P3    |  NCS 5500   | IOS XR 7.5.2      |2001::3/128 |
-| PE4   |  NCS 5500   | IOS XR 7.5.2      |2001::4/128 |
+| PE1   |  NCS 540    | IOS XR 7.5.2      |fcbb:bb00:1::1/128 |
+| P2    |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:2::1/128 |
+| P3    |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:3::1/128 |
+| PE4   |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:4::1/128 |
+
+The loopback0 IP are choosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
 
 ## Configuration Steps
 To bring up SRv6 transport, the very first task to be performed is to make the underlay IGP ready. We will be using ISIS as the underlay IGP protocol to bring up IPv6 connecticity across the nodes. Once, the network is ready with IGP, there are three steps to enable SRv6, i.e.
@@ -118,7 +120,6 @@ Once all nodes are configured, we can verify the IPv6 routes learned via ISIS an
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:LABSP-3393-PE1#sh route ipv6
-Thu Aug 25 08:40:11.893 UTC
 
 Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -132,13 +133,13 @@ Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
 
 Gateway of last resort is not set
 
-L    2001::1/128 is directly connected,
+L    fcbb:bb00:1::1/128 is directly connected,
       10w0d, Loopback0
-i L2 2001::2/128 
+i L2 fcbb:bb00:2::1/128 
       [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
-i L2 2001::3/128 
+i L2 fcbb:bb00:3::1/128 
       [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
-i L2 2001::4/128 
+i L2 fcbb:bb00:4::1/128 
       [115/30] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
       [115/30] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
 C    2001:0:0:12::/64 is directly connected,
@@ -164,12 +165,11 @@ i L2 fcbb:bb00:4::/48
       [115/21] via fe80::28a:96ff:fe2d:18dd, 00:01:04, Bundle-Ether12
       [115/21] via fe80::28a:96ff:fe2c:58dd, 00:01:04, Bundle-Ether13
       
-RP/0/RP0/CPU0:LABSP-3393-PE1#ping 2001::4 source loopback 0
-Thu Aug 25 08:46:13.965 UTC
+RP/0/RP0/CPU0:LABSP-3393-PE1#ping fcbb:bb00:4::1 source loopback 0
 Type escape sequence to abort.
-Sending 5, 100-byte ICMP Echos to 2001::4, timeout is 2 seconds:
+Sending 5, 100-byte ICMP Echos to fcbb:bb00:4::1, timeout is 2 seconds:
 !!!!!
-Success rate is 100 percent (5/5), round-trip min/avg/max = 1/2/4 ms
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
 
 </code>
 </pre>
@@ -204,7 +204,7 @@ As discussed above, we need to configure f3216 format locator. So for each node 
 
 | PE1                                                                                                                                                                                                                 | P2                                                                                                                                                                                                                   | P3                                                                                                                                                                                                              | PE4                                                                                                                                                                                                             |
 |---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| segment-routing<br> srv6<br>  encapsulation <br>  <br>  source-address 2001::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:1::/48<br>  !<br> <br> !<br>! | segment-routing<br> srv6<br>  encapsulation<br><br>  source-address 2001::2<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:2::/48<br>  !<br><br> !<br>!<br>  | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address 2001::3<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:3::/48<br><br>  !<br> !<br>! | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address 2001::4<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:4::/48<br><br>  !<br> !<br>! |
+| segment-routing<br> srv6<br>  encapsulation <br>  <br>  source-address fcbb:bb00:1::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:1::/48<br>  !<br> <br> !<br>! | segment-routing<br> srv6<br>  encapsulation<br><br>  source-address fcbb:bb00:2::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:2::/48<br>  !<br><br> !<br>!<br>  | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address fcbb:bb00:3::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:3::/48<br><br>  !<br> !<br>! | segment-routing<br> srv6<br><br>  encapsulation<br>  source-address fcbb:bb00:4::1<br> !<br> locators<br>  locator POD0<br>   micro-segment behavior unode psp-usd<br>   prefix fcbb:bb00:4::/48<br><br>  !<br> !<br>! |
 
 #### Enabling SRv6 over ISIS
 
@@ -263,7 +263,6 @@ POD0                  2        0     fcbb:bb00:1::/48          Up       U
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:PE1#show  isis segment-routing srv6 locators  detail 
-Thu Aug 25 08:50:35.389 UTC
 
 IS-IS 1 SRv6 Locators
 Name                  ID       Algo  Prefix                    Status
@@ -296,32 +295,30 @@ The ipv6 route table will also be updated with the locators from the other nodes
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>
+<code>      
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  route ipv6 isis  
 
-RP/0/RP0/CPU0:LABSP-3393-PE1#show  route ipv6 isis 
-Thu Aug 25 08:52:59.629 UTC
-
-i L2 2001::2/128 
-      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
-i L2 2001::3/128 
-      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
-i L2 2001::4/128 
-      [115/30] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
-      [115/30] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
 i L2 2001:0:0:23::/64 
-      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
-      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:10:31, Bundle-Ether13
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:10:31, Bundle-Ether12
 i L2 2001:0:0:24::/64 
-      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:11:12, Bundle-Ether12
 i L2 2001:0:0:34::/64 
-      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:10:31, Bundle-Ether13
 i L2 fcbb:bb00:2::/48 
-      [115/11] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+      [115/11] via fe80::28a:96ff:fe2d:18dd, 00:11:12, Bundle-Ether12
+i L2 fcbb:bb00:2::1/128 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:11:12, Bundle-Ether12
 i L2 fcbb:bb00:3::/48 
-      [115/11] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
+      [115/11] via fe80::28a:96ff:fe2c:58dd, 00:10:31, Bundle-Ether13
+i L2 fcbb:bb00:3::1/128 
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:10:31, Bundle-Ether13
 i L2 fcbb:bb00:4::/48 
-      [115/21] via fe80::28a:96ff:fe2c:58dd, 00:03:31, Bundle-Ether13
-      [115/21] via fe80::28a:96ff:fe2d:18dd, 00:03:31, Bundle-Ether12
+      [115/21] via fe80::28a:96ff:fe2c:58dd, 00:10:00, Bundle-Ether13
+      [115/21] via fe80::28a:96ff:fe2d:18dd, 00:10:00, Bundle-Ether12
+i L2 fcbb:bb00:4::1/128 
+      [115/30] via fe80::28a:96ff:fe2c:58dd, 00:10:00, Bundle-Ether13
+      [115/30] via fe80::28a:96ff:fe2d:18dd, 00:10:00, Bundle-Ether12
 </code>
 </pre>
 </div>
@@ -358,7 +355,6 @@ Now, when we verify the ipv6 routing entries, the pre-programmed backup paths wi
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:LABSP-3393-PE1#show  route ipv6
-Thu Aug 25 09:04:33.307 UTC
 
 Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
        D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
@@ -372,19 +368,23 @@ Codes: C - connected, S - static, R - RIP, B - BGP, (>) - Diversion path
 
 Gateway of last resort is not set
 
-L    2001::1/128 is directly connected,
-      10w0d, Loopback0
-i L2 2001::2/128 
-      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:01:56, Bundle-Ether12
-     <mark> [115/30] via fe80::28a:96ff:fe2c:58dd, 00:01:56, Bundle-Ether13 (!)</mark>
-i L2 2001::3/128 
-      <mark>[115/30] via fe80::28a:96ff:fe2d:18dd, 00:01:56, Bundle-Ether12 (!)</mark>
-      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:01:56, Bundle-Ether13
+i L2 fcbb:bb00:2::/48 
+      [115/11] via fe80::28a:96ff:fe2d:18dd, 00:15:57, Bundle-Ether12
+      [115/21] via fe80::28a:96ff:fe2c:58dd, 00:15:57, Bundle-Ether13 (!)
+i L2 fcbb:bb00:2::1/128 
+      [115/20] via fe80::28a:96ff:fe2d:18dd, 00:15:57, Bundle-Ether12
+      [115/30] via fe80::28a:96ff:fe2c:58dd, 00:15:57, Bundle-Ether13 (!)
+i L2 fcbb:bb00:3::/48 
+      [115/21] via fe80::28a:96ff:fe2d:18dd, 00:15:15, Bundle-Ether12 (!)
+      [115/11] via fe80::28a:96ff:fe2c:58dd, 00:15:15, Bundle-Ether13
+i L2 fcbb:bb00:3::1/128 
+      [115/30] via fe80::28a:96ff:fe2d:18dd, 00:15:15, Bundle-Ether12 (!)
+      [115/20] via fe80::28a:96ff:fe2c:58dd, 00:15:15, Bundle-Ether13
 </code>
 </pre>
 </div>
 
-
+Note: Above output is truncketed for brevity.
 
 ## Summary
 
