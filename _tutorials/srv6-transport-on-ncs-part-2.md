@@ -36,6 +36,9 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 | P3    |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:3::1/128 |
 | PE4   |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:4::1/128 |
 
+
+The loopback0 IP are choosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
+
 In this tutorial, we will establish a L3VPN (VPNv4 & VPNv6) connecting two subnets across CE1 and CE2. 
 
 ## Configuration & Verification for VPNv4 
