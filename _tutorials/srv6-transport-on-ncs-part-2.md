@@ -21,7 +21,7 @@ tags:
 |Tejas Lad, Technical Marketing Engineer (telad@cisco.com)|
 
 ## Overview
-In [Previous Artcile](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/), we discussed how to setup a segment routing v6 (SRv6) transport on the NCS 500 and NCS 5500 platforms. In this article, we will explore setting up layer 3 services over the SRv6 transport. 
+In [Previous Article](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/), we discussed how to setup a segment routing v6 (SRv6) transport on the NCS 500 and NCS 5500 platforms. In this article, we will explore setting up layer 3 vpn services over that SRv6 transport. 
 
 ## Topology
 
@@ -39,11 +39,12 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 
 The loopback0 IP are choosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
 
-In this tutorial, we will establish a L3VPN (VPNv4 & VPNv6) connecting two subnets across CE1 and CE2. 
+In this tutorial, we will establish a L3VPN (VPNv4) connecting two subnets across CE1 and CE2. 
 
 ## Configuration & Verification for VPNv4 
+
 ### Configuring BGP Control Plane
-At first, we will setup the BGP control palne with VPNv4 address family between PE1 and PE2. We are directly peering between PE1 and PE4 in this example, however in a real network there can be route reflectors used for BGP to improve simplicity and scalability. 
+At first, we will setup the BGP control planne with VPNv4 address family between PE1 and PE4. We are directly peering between PE1 and PE4 in this example, however in a real network there can be route reflectors used for BGP to improve simplicity and scalability. 
 
 #### BGP configuration on PE1
 
@@ -85,11 +86,12 @@ router bgp 100
 </pre>
 </div>
 
-we can verify the BGP neighbourship with VPNv4 AFI using `show bgp vpnv4 unicast summary`
+We can verify the BGP neighbourship with VPNv4 AFI using `show bgp vpnv4 unicast summary`
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:LABSP-3393-PE1#show  bgp  vpnv4 unicast summary 
+RP/0/RP0/CPU0:LABSP-3393-PE1#<mark>show  bgp  vpnv4 unicast summary</mark> 
 BGP router identifier 1.1.1.1, local AS number 100
 BGP generic scan interval 60 secs
 Non-stop routing is enabled
@@ -114,7 +116,8 @@ fcbb:bb00:4::1    0   100      10      12       23    0    0 00:00:26          0
 
 
 ### Configuring VRF and PE-CE links
-The next step is to confgure the virtual forwarding instances (VRFs) on each PE. we are using vrf 1 on both PE1 and PE4. The following needs to be configured on both the nodes. Note that we are using the same rt import/export on both end. 
+
+The next step is to confgure the virtual forwarding instances (VRFs) on each PE. We are using vrf 1 on both PE1 and PE4. The following needs to be configured on both the nodes. Note that we are using the same route-targets import/export on both end. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -133,7 +136,7 @@ vrf 1
 </pre>
 </div>
 
-For simplicty, we will simply connect subnet 192.168.1.0/24 present on CE1 to 192.168.2.0/24 present in CE2. We are using a PE-CE subinterface  (with VLAN 1) under VRF 1 on PE1 and PE4. one the CE we are using static routing to point to gateway PE. For a scaled network, there can be eBGP or other routing protocols for exchange of route info between PE and CE which is out of scope for this tutorial. The respective configuration on the PE/CE nodes are listed below:
+For simplicty, we will simply connect subnet 192.168.1.0/24 present on CE1 to 192.168.2.0/24 present in CE2. We are using a PE-CE subinterface  (with VLAN 1) under VRF 1 on PE1 and PE4. On the CE we are using static routing to point to gateway PE. For a scaled network, there can be eBGP or other routing protocols for exchange of route information between PE and CE which is out of scope for this tutorial. The respective configuration on the PE/CE nodes are listed below:
 
 #### PE1
 <div class="highlighter-rouge">
@@ -196,7 +199,7 @@ router static
 ### Configuring VRF under BGP
 Now to establish the L3VPN, the final step is to advertize the VRF routes via BGP. This is established by configuring the VRF under BGP on each PE. For simplicity we are using auto rd just redistributing the connected routes. For SRv6 we will specify the locator to be used and the label mode as per VRF. 
 
-The follwoing configuration lines need to be added to both PE1 and PE4. 
+The following configurations needs to be added on both PE1 and PE4. 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -212,6 +215,7 @@ router bgp 100
 </code>
 </pre>
 </div>
+
 ### Verification of VPNv4
 The control plane for the layer3 VPN established can be verified using different CLI commands related to SRv6 SIDs and BGP. We can see the respective uSIDs (uDT4) on each PE for the VRF using `show segment routing srv6 sid`
 
@@ -287,7 +291,7 @@ The above outputs are taken from  PE1 for reference, we can also verify the equi
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:LABSP-3393-PE4#show  cef vrf 1 192.168.1.0/24
+RP/0/RP0/CPU0:LABSP-3393-PE4#show cef vrf 1 192.168.1.0/24
 192.168.1.0/24, version 11, SRv6 Headend, internal 0x5000001 0x30 (ptr 0x8afe0198) [1], 0x0 (0x0), 0x0 (0x8bf261e8)
  Updated Sep 22 05:09:52.385
  Prefix Len 24, traffic index 0, precedence n/a, priority 3
@@ -346,6 +350,7 @@ Paths: (1 available, best #1)
 </pre>
 </div>
 
+
 Finally, the data plane can be verified by simply pinging CE2 from CE1
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -361,4 +366,5 @@ Success rate is 100 percent (10/10), round-trip min/avg/max = 1/5/21 ms
 </div>
 
 ## Summary
-This concludes the tutorial on provisioning Layer 3 VPN  services over SRv6 transport on NCS platforms. We covered sample example of VPNv4 service, similarly VPNv6 can also be configured (uDT6). Stay tuned for upcoming tutorial covering layer2 services over SRv6 transport. 
+
+This concludes the tutorial on provisioning Layer 3 VPN  services over SRv6 transport on NCS 500 and 5500 platforms. We covered sample example of VPNv4 service. Similarly VPNv6 can also be configured (uDT6). Stay tuned for upcoming tutorial covering layer2 services over SRv6 transport.
