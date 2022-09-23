@@ -16,3 +16,21 @@ excerpt: >-
 ## Overview
 
 Until now, we covered [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/) and [Layer3 VPN](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) over SRv6 transport on NCS 5500 and NCS 500 platforms. In this tutorial, we will cover the impelementaion of EVPN based point-to-point l2vpn service (EVPN-VPWS) over SRv6. 
+
+## Topology
+
+![Screenshot 2022-08-16 at 12.53.39 PM.png]({{site.baseurl}}/images/Screenshot 2022-08-16 at 12.53.39 PM.png)
+
+The topology used is a simple four node network comprising of Cisco NCS 540 and NCS 5500 series platforms. There are two CE nodes connected to PE1 and PE4 respectively to simulate customer networks. Details of each node along with Loopback IPs are mentioned in the below table.
+
+| Nodes | Device Type | Software Version  |Loopback0   |
+|-------|-------------|-------------------|------------|
+| PE1   |  NCS 540    | IOS XR 7.5.2      |fcbb:bb00:1::1/128 |
+| P2    |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:2::1/128 |
+| P3    |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:3::1/128 |
+| PE4   |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:4::1/128 |
+
+
+The loopback0 IPs are chosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
+
+In this tutorial, we will establish a L2VPN (EVPN-VPWS) connecting CE1 and CE2. 
