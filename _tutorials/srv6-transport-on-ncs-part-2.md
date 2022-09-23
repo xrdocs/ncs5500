@@ -21,7 +21,7 @@ tags:
 |Tejas Lad, Technical Marketing Engineer (telad@cisco.com)|
 
 ## Overview
-In [Previous Article](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/), we discussed how to setup a segment routing v6 (SRv6) transport on the NCS 500 and NCS 5500 platforms. In this article, we will explore setting up layer 3 vpn services over that SRv6 transport. 
+In [Previous Article](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/), we discussed how to set up segment routing v6 (SRv6) transport on the NCS 500 and NCS 5500 platforms. In this article, we will explore setting up Layer3 vpn services over SRv6 transport. 
 
 ## Topology
 
@@ -37,14 +37,14 @@ The topology used is a simple four node network comprising of Cisco NCS 540 and 
 | PE4   |  NCS 5500   | IOS XR 7.5.2      |fcbb:bb00:4::1/128 |
 
 
-The loopback0 IP are choosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
+The loopback0 IPs are chosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
 
 In this tutorial, we will establish a L3VPN (VPNv4) connecting two subnets across CE1 and CE2. 
 
 ## Configuration & Verification for VPNv4 
 
 ### Configuring BGP Control Plane
-At first, we will setup the BGP control planne with VPNv4 address family between PE1 and PE4. We are directly peering between PE1 and PE4 in this example, however in a real network there can be route reflectors used for BGP to improve simplicity and scalability. 
+At first, we will set up the BGP control plane with VPNv4 address family between PE1 and PE4. We are directly peering between PE1 and PE4 in this example, however in a real network there can be route reflectors used for BGP to improve simplicity and scalability. 
 
 #### BGP configuration on PE1
 
@@ -117,7 +117,7 @@ fcbb:bb00:4::1    0   100      10      12       23    0    0 00:00:26          0
 
 ### Configuring VRF and PE-CE links
 
-The next step is to confgure the virtual forwarding instances (VRFs) on each PE. We are using vrf 1 on both PE1 and PE4. The following needs to be configured on both the nodes. Note that we are using the same route-targets import/export on both end. 
+The next step is to confgure the virtual forwarding instances (VRFs) on each PE. We are using vrf 1 on both PE1 and PE4. The following needs to be configured on both the nodes. Note that we are using the same route-targets import/export on both ends. 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -136,7 +136,7 @@ vrf 1
 </pre>
 </div>
 
-For simplicty, we will simply connect subnet 192.168.1.0/24 present on CE1 to 192.168.2.0/24 present in CE2. We are using a PE-CE subinterface  (with VLAN 1) under VRF 1 on PE1 and PE4. On the CE we are using static routing to point to gateway PE. For a scaled network, there can be eBGP or other routing protocols for exchange of route information between PE and CE which is out of scope for this tutorial. The respective configuration on the PE/CE nodes are listed below:
+For simplicty, we will connect subnet 192.168.1.0/24 present in CE1 to 192.168.2.0/24 present in CE2. We are using a PE-CE subinterface  (with VLAN 1) under VRF 1 on PE1 and PE4. On both of the CE nodes we are using static routing to reach gateway PE. For a scaled network, there can be eBGP or other routing protocols for exchange of route information between PE and CE which is out of scope for this tutorial. The respective configurations on the PE/CE nodes are listed below:
 
 #### PE1
 <div class="highlighter-rouge">
@@ -197,7 +197,7 @@ router static
 </div>
 
 ### Configuring VRF under BGP
-Now to establish the L3VPN, the final step is to advertize the VRF routes via BGP. This is established by configuring the VRF under BGP on each PE. For simplicity we are using auto rd just redistributing the connected routes. For SRv6 we will specify the locator to be used and the label mode as per VRF. 
+Now to establish the L3VPN, the final step is to advertise the VRF routes via BGP. This is established by configuring the VRF under BGP on each PE. For simplicity we are using _auto rd_ under the VRF and redistributing the connected routes. For SRv6 we will specify the locator to be used and the label mode as per VRF. 
 
 The following configurations needs to be added on both PE1 and PE4. 
 <div class="highlighter-rouge">
@@ -240,7 +240,7 @@ fcbb:bb00:4::               uN (PSP/USD)      'default':4                       
 </pre>
 </div>
 
-The Prefix received from BGP can also be verified using some of the commands/outputs listed below
+The Prefix received from BGP can also be verified using some of the commands/outputs listed below: 
 
 
 <div class="highlighter-rouge">
@@ -286,7 +286,7 @@ B    192.168.2.0/24 [200/0] via fcbb:bb00:4::1 (nexthop in vrf default), 00:03:4
 </pre>
 </div>
 
-The above outputs are taken from  PE1 for reference, we can also verify the equivalent outputs on the other end (i.e PE4). Now if we check the CEF entry in PE4, we can see that it points to the respective uDT4 SID on PE1,
+The above outputs are taken from  PE1 for reference. We can also verify the equivalent outputs on the other end (i.e PE4). Now if we check the CEF entry in PE4, we can see that it points to the respective uDT4 SID on PE1.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -308,7 +308,7 @@ RP/0/RP0/CPU0:LABSP-3393-PE4#show cef vrf 1 192.168.1.0/24
     path-idx 0 NHID 0x0 [0x8b091778 0x0]
     next hop VRF - 'default', table - 0xe0800000
     next hop fcbb:bb00:1::/128 via fcbb:bb00:1::/48
-    SRv6 H.Encaps.Red SID-list {fcbb:bb00:1:e004::}
+    <mark>SRv6 H.Encaps.Red SID-list {fcbb:bb00:1:e004::}</mark>
 
     Load distribution: 0 1 (refcount 1)
 
@@ -319,7 +319,7 @@ RP/0/RP0/CPU0:LABSP-3393-PE4#show cef vrf 1 192.168.1.0/24
 </pre>
 </div>
 
-We can also verify that the destination SID is a combination of the remote node Sid (uN) and received label using the below comamnd:
+We can also verify that the destination SID is a combination of the remote node SID (uN) and the _received label_ using the below command:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -342,7 +342,7 @@ Paths: (1 available, best #1)
       Extended community: RT:100:1 
       PSID-Type:L3, SubTLV Count:1
        SubTLV:
-        T:1(Sid information), Sid:fcbb:bb00:1::, Behavior:63, SS-TLV Count:1
+        T:1(Sid information), <mark>Sid:fcbb:bb00:1::</mark>, Behavior:63, SS-TLV Count:1
          SubSubTLV:
           T:1(Sid structure):
       Source AFI: VPNv4 Unicast, Source VRF: default, Source Route Distinguisher: 1.1.1.1:0
@@ -367,4 +367,4 @@ Success rate is 100 percent (10/10), round-trip min/avg/max = 1/5/21 ms
 
 ## Summary
 
-This concludes the tutorial on provisioning Layer 3 VPN  services over SRv6 transport on NCS 500 and 5500 platforms. We covered sample example of VPNv4 service. Similarly VPNv6 can also be configured (uDT6). Stay tuned for upcoming tutorial covering layer2 services over SRv6 transport.
+This concludes the tutorial on provisioning Layer3 VPN  services over SRv6 transport on NCS 500 and 5500 platforms. We covered sample example of VPNv4 service. Similarly VPNv6 can also be configured (uDT6). Stay tuned for upcoming tutorial covering layer2 services over SRv6 transport.
