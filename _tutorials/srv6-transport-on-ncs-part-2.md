@@ -2,7 +2,7 @@
 published: true
 date: '2022-09-01 08:46 +0530'
 title: Implementing Layer3 VPN over SRv6 Transport on NCS 5500/500
-position: hidden
+position: top
 author: Paban Sarma
 excerpt: >-
   L3VPN configuration and verification over SRv6 Transport on NCS 500 and NCS
