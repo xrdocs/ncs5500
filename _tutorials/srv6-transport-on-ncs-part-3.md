@@ -83,8 +83,19 @@ router bgp 100
 </pre>
 </div>
 
-### Layer2 attachment circuits
+### Configuring Layer2 Attachment Circuits
 
+We need to configure l2transport sub-interface (on the PE-CE link) with appropriate VLAN encapsulations. This tutorial is showing VLAN based service with VLAN ID 100. We are not showing any VLAN translation operation (rewrite commands) as the are out of scope of this tutorial. 
+
+_**PE1 and PE4**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.100 l2transport
+ encapsulation dot1q 100
+</code>
+</pre>
+</div>
 ### Configuring EVPN and L2VPN Service
 
 ## Verifiation Steps
