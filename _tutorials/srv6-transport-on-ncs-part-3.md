@@ -45,10 +45,43 @@ EVPN based P2P service over SRv6 transport will involve 3 steps, viz.
 
 Traditional L2 Services uses LDP for signalling, which is simplified by EVPN with the use of BGP for control plane operation. In our [previous tutorial](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/), we established BGP neighburship between PE1 and PE4 with VPNv4 AFI. Now we need to enable EVPN AFI over BGP. Below snippet shows full BGP configuration needed for L2 Service over SRv6.
 
+_**PE1**_
+<div class="highlighter-rouge">
+<pre class="highlight">
 <code>
-  BGP config snippet
+router bgp 100
+ bgp router-id 1.1.1.1
+ <mark>address-family l2vpn evpn</mark>
+ !
+ neighbor fcbb:bb00:1::4
+  remote-as 100
+  update-source Loopback0
+  <mark>address-family l2vpn evpn</mark>
+  !
+ !
+!
 </code>
+</pre>
+</div>
 
+_**PE4**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 4.4.4.4
+ <mark>address-family l2vpn evpn</mark>
+ !
+ neighbor fcbb:bb00:1::1
+  remote-as 100
+  update-source Loopback0
+ <mark>address-family l2vpn evpn</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
 
 ### Layer2 attachment circuits
 
