@@ -53,7 +53,7 @@ router bgp 100
  bgp router-id 1.1.1.1
  <mark>address-family l2vpn evpn</mark>
  !
- neighbor fcbb:bb00:1::4
+ neighbor fcbb:bb00:4::1
   remote-as 100
   update-source Loopback0
   <mark>address-family l2vpn evpn</mark>
@@ -97,5 +97,33 @@ interface TenGigE0/0/0/0.100 l2transport
 </pre>
 </div>
 ### Configuring EVPN and L2VPN Service
+
+Next step is to configure EVPN and L2VPN service construct on both the PE. since we have a symmetric topology, our configuration on both node will be similar. Configure the below on PE1 and PE4.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+evpn
+ <mark>interface TenGigE0/0/0/0</mark>
+ !
+ segment-routing srv6
+  locator POD0
+ !
+!
+l2vpn
+ xconnect group 100
+  p2p 100
+   interface TenGigE0/0/0/0.100
+   neighbor evpn evi 100 service 100 segment-routing srv6
+   !
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+The interface under EVPN configuration doesn't have any ESI configured, this is because of single Homed service and default ESI being used. For detailed understanding on evpn configuration and modes refer [e-evpn.io](https://e-vpn.io/).
+We have globally enabled srv6 locator POD0 under evpn, this means l2vpn SIDs (UDX2) will be allocated from the same locator. The srv6 configuration under l2vpb xconnect group service construct can be used to override the global evpn configuration and assign new locator.
 
 ## Verifiation Steps
