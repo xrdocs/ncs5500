@@ -55,7 +55,7 @@ router bgp 100
  bgp router-id 1.1.1.1
  address-family vpnv4 unicast
  !
- neighbor fcbb:bb00:1::4
+ neighbor fcbb:bb00:4::1
   remote-as 100
   update-source Loopback0
   address-family vpnv4 unicast
@@ -222,16 +222,15 @@ The control plane for the layer3 VPN established can be verified using different
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-RP/0/RP0/CPU0:PE1#
+RP/0/RP0/CPU0:PE1#show segment-routing  srv6 locator POD0 sid
 
-Thu Sep  1 09:47:46.965 UTC
 SID                         Behavior          Context                           Owner               State  RW
 --------------------------  ----------------  ------------------------------    ------------------  -----  --
 fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
 <mark>fcbb:bb00:1:e004::          uDT4              '1'                               bgp-100             InUse  Y</mark>
 
 RP/0/RP0/CPU0:PE4#show segment-routing  srv6 locator POD0 sid 
-Thu Sep  1 09:07:01.392 UTC
+
 SID                         Behavior          Context                           Owner               State  RW
 --------------------------  ----------------  ------------------------------    ------------------  -----  --
 fcbb:bb00:4::               uN (PSP/USD)      'default':4                       sidmgr              InUse  Y 
