@@ -40,7 +40,7 @@ That implies, only the systems equiped with external TCAM can be used here. It's
 
 ![image-center]({{site.baseurl}}/images/-SE.png){: .align-center}
 
-Hybrid ACLs can be used with IPv4 and IPv6 in ingress direction. So, L2 ACLs or L3 ICMP are not in the scope of this feature. Hybrid ACLs in the egress direction is supported from IOS-XR 771. 
+Hybrid ACLs can be used with IPv4 and IPv6 in ingress and egress direction. Hybrid ACLs in the egress direction is supported from IOS-XR 771. 
 
 ## Configuration
 
