@@ -127,3 +127,134 @@ The interface under EVPN configuration doesn't have any ESI configured, this is 
 We have globally enabled srv6 locator POD0 under evpn, this means l2vpn SIDs (UDX2) will be allocated from the same locator. The srv6 configuration under l2vpb xconnect group service construct can be used to override the global evpn configuration and assign new locator.
 
 ## Verifiation Steps
+At first we will verify that the layer2 P2P service is up,
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show l2vpn xconnect 
+Legend: ST = State, UP = Up, DN = Down, AD = Admin Down, UR = Unresolved,
+        SB = Standby, SR = Standby Ready, (PP) = Partially Programmed,
+        LU = Local Up, RU = Remote Up, CO = Connected, (SI) = Seamless Inactive
+
+XConnect                   Segment 1                       Segment 2                
+Group      Name       ST   Description            ST       Description            ST    
+------------------------   -----------------------------   -----------------------------
+<mark>2          2          UP   Te0/0/0/0.2            UP       EVPN 2,2,::ffff:10.0.0.2 
+                                                                                  UP    </mark>
+----------------------------------------------------------------------------------------
+</code>
+</pre>
+</div>
+
+We can also see, the SRv6 uDX2 SID assigned to each segment of the service in the detailed show command below:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  l2vpn xconnect group 2 detail 
+Mon Nov 14 04:53:49.165 UTC
+
+Group 2, XC 2, state is up; Interworking none
+  AC: TenGigE0/0/0/0.2, state is up
+    Type VLAN; Num Ranges: 1
+    Rewrite Tags: []
+    VLAN ranges: [2, 2]
+    MTU 1504; XC ID 0x2; interworking none
+    Statistics:
+      packets: received 0, sent 0
+      bytes: received 0, sent 0
+      drops: illegal VLAN 0, illegal length 0
+  EVPN: neighbor ::ffff:10.0.0.2, PW ID: evi 2, ac-id 2, state is up ( established )
+    XC ID 0xc0000002
+    Encapsulation SRv6
+    Encap type Ethernet
+    Ignore MTU mismatch: Enabled
+    Transmit MTU zero: Enabled
+    Reachability: Up
+
+      SRv6              Local                        Remote                      
+      ----------------  ---------------------------- --------------------------
+      <mark> uDX2              fcbb:bb00:1:e006::           fcbb:bb00:4:e006::</mark>
+      AC ID             2                            2                           
+      MTU               1518                         0                           
+      Locator           POD0                         N/A                         
+      Locator Resolved  Yes                          N/A                         
+      SRv6 Headend      H.Encaps.L2.Red              N/A                         
+    Statistics:
+      packets: received 0, sent 0
+      bytes: received 0, sent 0
+      
+ </code>
+</pre>
+</div>
+
+The same SID information is updated in the SRv6 SID table as well.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  segment-routing srv6  locator POD0 sid 
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  ------------------------------    ------------------  -----  --
+fcbb:bb00:1::               uN (PSP/USD)      'default':1                       sidmgr              InUse  Y 
+fcbb:bb00:1:e001::          uA (PSP/USD)      [BE12, Link-Local]:0:P            isis-1              InUse  Y 
+fcbb:bb00:1:e002::          uA (PSP/USD)      [BE12, Link-Local]:0              isis-1              InUse  Y 
+fcbb:bb00:1:e003::          uA (PSP/USD)      [BE13, Link-Local]:0:P            isis-1              InUse  Y 
+fcbb:bb00:1:e004::          uA (PSP/USD)      [BE13, Link-Local]:0              isis-1              InUse  Y 
+fcbb:bb00:1:e005::          uDT4              '1'                               bgp-100             InUse  Y 
+<mark>fcbb:bb00:1:e006::          uDX2              2:2                               l2vpn_srv6          InUse  Y </mark>
+
+ </code>
+</pre>
+</div>
+
+The SID details and functions can also be verified using SID details CLI as shown below:
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  segment-routing srv6 sid fcbb:bb00:1:e006::  detail 
+
+
+*** Locator: 'POD0' *** 
+
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  ------------------------------    ------------------  -----  --
+fcbb:bb00:1:e006::          uDX2              2:2                               l2vpn_srv6          InUse  Y 
+  <mark>SID Function: 0xe006</mark>
+  <mark>SID context: { evi=2, eth-tag=2 }</mark>
+  <mark>Locator: 'POD0'</mark>
+  Allocation type: Dynamic
+  Created: Nov 14 04:49:43.505 (00:08:54 ago)
+  
+ </code>
+</pre>
+</div>
+
+Finally, to verify the data plane operation we will initiate ICMP ping from CE1 to CE2. we already have configured CE1 & CE2 in the same subnet and established the L2 stretch between the two nodes with EVPN-VPWS over SRv6 transort. 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+<mark>RP/0/RP0/CPU0:CE1<mark>#show run int tenGigE 0/0/0/0.2
+interface TenGigE0/0/0/0.2
+ ipv4 address 192.2.0.1 255.255.255.0
+ encapsulation dot1q 2
+!
+
+<mark>RP/0/RP0/CPU0:CE2<mark>#show run int tenGigE 0/0/0/0.2
+interface TenGigE0/0/0/0.2
+ ipv4 address 192.2.0.2 255.255.255.0
+ encapsulation dot1q 2
+!
+
+<mark>RP/0/RP0/CPU0:CE1</mark>#ping 192.2.0.2 repeat 20
+Type escape sequence to abort.
+Sending 20, 100-byte ICMP Echos to 192.2.0.2, timeout is 2 seconds:
+!!!!!!!!!!!!!!!!!!!!
+<mark>Success rate is 100 percent (20/20), round-trip min/avg/max = 1/3/45 ms</mark>
+RP/0/RP0/CPU0:CE1#
+ </code>
+</pre>
+</div>
+
