@@ -91,8 +91,8 @@ _**PE1 and PE4**_
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-interface TenGigE0/0/0/0.100 l2transport
- encapsulation dot1q 100
+interface TenGigE0/0/0/0.2 l2transport
+ encapsulation dot1q 2
 </code>
 </pre>
 </div>
@@ -111,10 +111,10 @@ evpn
  !
 !
 l2vpn
- xconnect group 100
-  p2p 100
-   interface TenGigE0/0/0/0.100
-   neighbor evpn evi 100 service 100 segment-routing srv6
+ xconnect group 2
+  p2p 2
+   interface TenGigE0/0/0/0.2
+   neighbor evpn evi 2 service 2 segment-routing srv6
    !
   !
  !
