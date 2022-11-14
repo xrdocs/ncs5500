@@ -127,6 +127,7 @@ The interface under EVPN configuration doesn't have any ESI configured, this is 
 We have globally enabled srv6 locator POD0 under evpn, this means l2vpn SIDs (UDX2) will be allocated from the same locator. The srv6 configuration under l2vpb xconnect group service construct can be used to override the global evpn configuration and assign new locator.
 
 ## Verifiation Steps
+
 At first we will verify that the layer2 P2P service is up,
 
 <div class="highlighter-rouge">
@@ -209,7 +210,8 @@ fcbb:bb00:1:e005::          uDT4              '1'                               
 </pre>
 </div>
 
-The SID details and functions can also be verified using SID details CLI as shown below:
+The SID details and functions can also be verified using SID details CLI as shown below. It shows that the SID finction is 0xe0006 and it is in the context of EVPN EVI  2 with AC IDs 2 (eth-tag=2).
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -236,13 +238,13 @@ Finally, to verify the data plane operation we will initiate ICMP ping from CE1 
 <pre class="highlight">
 <code>
 
-<mark>RP/0/RP0/CPU0:CE1<mark>#show run int tenGigE 0/0/0/0.2
+<mark>RP/0/RP0/CPU0:CE1</mark>#show run int tenGigE 0/0/0/0.2
 interface TenGigE0/0/0/0.2
  ipv4 address 192.2.0.1 255.255.255.0
  encapsulation dot1q 2
 !
 
-<mark>RP/0/RP0/CPU0:CE2<mark>#show run int tenGigE 0/0/0/0.2
+<mark>RP/0/RP0/CPU0:CE2</mark>#show run int tenGigE 0/0/0/0.2
 interface TenGigE0/0/0/0.2
  ipv4 address 192.2.0.2 255.255.255.0
  encapsulation dot1q 2
@@ -258,3 +260,7 @@ RP/0/RP0/CPU0:CE1#
 </pre>
 </div>
 
+## Conclusion
+This concludes Part 3 of our tutorial explaing point-to-point l2 serviec over SRv6 transport. Stay tuned for our upcoming tutorials. 
+
+ 
