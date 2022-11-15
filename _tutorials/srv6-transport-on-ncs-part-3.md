@@ -15,7 +15,7 @@ excerpt: >-
 
 <h2> Overview </h2>
 
-Until now, we covered [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/) and [Layer3 VPN](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) over SRv6 transport on NCS 5500 and NCS 500 platforms. In this tutorial, we will cover the impelementaion of EVPN based point-to-point (E-Line) L2 service (EVPN-VPWS) over SRv6. 
+Until now we covered setting up, [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/) and bringing up [Layer3 VPN](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) using that on NCS 5500 and NCS 500 platforms. In this tutorial, we will cover the impelementaion of EVPN based point-to-point (E-Line) L2 service (EVPN-VPWS) over SRv6. 
 
 ## Topology
 
@@ -37,13 +37,13 @@ In this tutorial, we will establish a L2VPN (EVPN-VPWS) connecting CE1 and CE2. 
 
 ## Configuration Steps
 EVPN based P2P service over SRv6 transport will involve 3 steps, viz.
-	- Establishing EVPN control plane  over BGP
-    - Configuring l2transport CE-PE liks
-    - Configutring EVPN EVI and L2VPN Service
+	- Establishing EVPN control plane over BGP
+    - Configuring l2transport between CE-PE links
+    - Configuring EVPN EVI and L2VPN Service
     
 ### BGP Control Plane
 
-Traditional L2 Services uses LDP for signalling, which is simplified by EVPN with the use of BGP for control plane operation. In our [previous tutorial](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/), we established BGP neighburship between PE1 and PE4 with VPNv4 AFI. Now we need to enable EVPN AFI over BGP. Below snippet shows full BGP configuration needed for L2 Service over SRv6.
+Traditional L2 services uses LDP for signalling, which is simplified by EVPN with the use of BGP for control plane operation. In our [previous tutorial](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/), we established BGP neighborship between PE1 and PE4 with VPNv4 AFI. Now we need to enable EVPN AFI over BGP. Below snippet shows full BGP configuration needed for layer2 service over SRv6.
 
 _**PE1**_
 <div class="highlighter-rouge">
@@ -96,6 +96,7 @@ interface TenGigE0/0/0/0.2 l2transport
 </code>
 </pre>
 </div>
+
 ### Configuring EVPN and L2VPN Service
 
 Next step is to configure EVPN and L2VPN service construct on both the PE. since we have a symmetric topology, our configuration on both node will be similar. Configure the below on PE1 and PE4.
@@ -123,8 +124,8 @@ l2vpn
 </pre>
 </div>
 
-The interface under EVPN configuration doesn't have any ESI configured, this is because of single Homed service and default ESI being used. For detailed understanding on evpn configuration and modes refer [e-evpn.io](https://e-vpn.io/).
-We have globally enabled srv6 locator POD0 under evpn, this means l2vpn SIDs (UDX2) will be allocated from the same locator. The srv6 configuration under l2vpb xconnect group service construct can be used to override the global evpn configuration and assign new locator.
+The interface under EVPN configuration doesn't have any ESI configured, this is because of single homed service and default ESI being used. For detailed understanding on evpn configuration and modes refer [e-evpn.io](https://e-vpn.io/).
+We have globally enabled srv6 locator POD0 under evpn, this means l2vpn SIDs (UDX2) will be allocated from the same locator. The srv6 configuration under l2vpn xconnect group service construct can be used to override the global evpn configuration and assign new locator.
 
 ## Verifiation Steps
 
@@ -210,7 +211,7 @@ fcbb:bb00:1:e005::          uDT4              '1'                               
 </pre>
 </div>
 
-The SID details and functions can also be verified using SID details CLI as shown below. It shows that the SID finction is 0xe0006 and it is in the context of EVPN EVI  2 with AC IDs 2 (eth-tag=2).
+The SID details and functions can also be verified using SID details CLI as shown below. It shows that the SID function is 0xe0006 and it is in the context of EVPN EVI 2 with AC IDs 2 (eth-tag=2).
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -261,6 +262,4 @@ RP/0/RP0/CPU0:CE1#
 </div>
 
 ## Conclusion
-This concludes Part 3 of our tutorial explaing point-to-point l2 serviec over SRv6 transport. Stay tuned for our upcoming tutorials. 
-
- 
+This concludes Part 3 of our tutorial explaing point-to-point l2 serviec over SRv6 transport. Stay tuned for our upcoming tutorials.
