@@ -37,9 +37,10 @@ In this tutorial, we will establish a L2VPN (EVPN-VPWS) connecting CE1 and CE2. 
 
 ## Configuration Steps
 EVPN based P2P service over SRv6 transport will involve 3 steps, viz.
-	- Establishing EVPN control plane over BGP
-    - Configuring l2transport between CE-PE links
-    - Configuring EVPN EVI and L2VPN Service
+- Establishing EVPN control plane over BGP
+- Configuring l2transport between CE-PE links
+- Configuring EVPN EVI and L2VPN Service
+
     
 ### BGP Control Plane
 
@@ -198,7 +199,6 @@ We can also view, the SRv6 uDX2 SID assigned to each segment of the service in t
 <pre class="highlight">
 <code>
 RP/0/RP0/CPU0:LABSP-3393-PE1#show  l2vpn xconnect group 2 detail 
-Mon Nov 14 04:53:49.165 UTC
 
 Group 2, XC 2, state is up; Interworking none
   AC: TenGigE0/0/0/0.2, state is up
@@ -265,7 +265,6 @@ Route Distinguisher: 1.1.1.1:2 (default for vrf VPWS:2)
 Processed 2 prefixes, 3 paths
 
 RP/0/RP0/CPU0:LABSP-3393-PE1#show  bgp  l2vpn evpn rd 4.4.4.4:2 [1][0000.0000.0000.0000.0000][2]/120
-Wed Nov 16 05:00:24.650 UTC
 BGP routing table entry for [1][0000.0000.0000.0000.0000][2]/120, Route Distinguisher: 4.4.4.4:2
 Versions:
   Process           bRIB/RIB  SendTblVer
