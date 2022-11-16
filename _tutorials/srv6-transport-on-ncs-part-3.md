@@ -149,49 +149,7 @@ Group      Name       ST   Description            ST       Description          
 </pre>
 </div>
 
-We can also see, the SRv6 uDX2 SID assigned to each segment of the service in the detailed show command below:
-
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
-RP/0/RP0/CPU0:LABSP-3393-PE1#show  l2vpn xconnect group 2 detail 
-Mon Nov 14 04:53:49.165 UTC
-
-Group 2, XC 2, state is up; Interworking none
-  AC: TenGigE0/0/0/0.2, state is up
-    Type VLAN; Num Ranges: 1
-    Rewrite Tags: []
-    VLAN ranges: [2, 2]
-    MTU 1504; XC ID 0x2; interworking none
-    Statistics:
-      packets: received 0, sent 0
-      bytes: received 0, sent 0
-      drops: illegal VLAN 0, illegal length 0
-  EVPN: neighbor ::ffff:10.0.0.2, PW ID: evi 2, ac-id 2, state is up ( established )
-    XC ID 0xc0000002
-    Encapsulation SRv6
-    Encap type Ethernet
-    Ignore MTU mismatch: Enabled
-    Transmit MTU zero: Enabled
-    Reachability: Up
-
-      SRv6              Local                        Remote                      
-      ----------------  ---------------------------- --------------------------
-      <mark> uDX2              fcbb:bb00:1:e006::           fcbb:bb00:4:e006::</mark>
-      AC ID             2                            2                           
-      MTU               1518                         0                           
-      Locator           POD0                         N/A                         
-      Locator Resolved  Yes                          N/A                         
-      SRv6 Headend      H.Encaps.L2.Red              N/A                         
-    Statistics:
-      packets: received 0, sent 0
-      bytes: received 0, sent 0
-      
- </code>
-</pre>
-</div>
-
-The same SID information is updated in the SRv6 SID table as well.
+The local SID information for the configured service is updated in the SRv6 SID table as well.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -233,6 +191,105 @@ fcbb:bb00:1:e006::          uDX2              2:2                               
  </code>
 </pre>
 </div>
+
+We can also view, the SRv6 uDX2 SID assigned to each segment of the service in the detailed show command below:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  l2vpn xconnect group 2 detail 
+Mon Nov 14 04:53:49.165 UTC
+
+Group 2, XC 2, state is up; Interworking none
+  AC: TenGigE0/0/0/0.2, state is up
+    Type VLAN; Num Ranges: 1
+    Rewrite Tags: []
+    VLAN ranges: [2, 2]
+    MTU 1504; XC ID 0x2; interworking none
+    Statistics:
+      packets: received 0, sent 0
+      bytes: received 0, sent 0
+      drops: illegal VLAN 0, illegal length 0
+  EVPN: neighbor ::ffff:10.0.0.2, PW ID: evi 2, ac-id 2, state is up ( established )
+    XC ID 0xc0000002
+    Encapsulation SRv6
+    Encap type Ethernet
+    Ignore MTU mismatch: Enabled
+    Transmit MTU zero: Enabled
+    Reachability: Up
+
+      SRv6              Local                        Remote                      
+      ----------------  ---------------------------- --------------------------
+      <mark> uDX2              fcbb:bb00:1:e006::           fcbb:bb00:4:e006::</mark>
+      AC ID             2                            2                           
+      MTU               1518                         0                           
+      Locator           POD0                         N/A                         
+      Locator Resolved  Yes                          N/A                         
+      SRv6 Headend      H.Encaps.L2.Red              N/A                         
+    Statistics:
+      packets: received 0, sent 0
+      bytes: received 0, sent 0
+      
+ </code>
+</pre>
+</div>
+
+We can verify the Remote uSID advertised via BGP with the help of the below CLI outputs. 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+RP/0/RP0/CPU0:PE1#<mark>show  bgp  l2vpn evpn </mark>
+BGP router identifier 1.1.1.1, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0
+BGP main routing table version 20
+BGP NSR Initial initsync version 1 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 1.1.1.1:2 (default for vrf VPWS:2)
+*> [1][0000.0000.0000.0000.0000][2]/120
+                      0.0.0.0                                0 i
+* i                   fcbb:bb00:4::1                100      0 i
+<mark>Route Distinguisher: 4.4.4.4:2</mark>
+*><mark>i[1][0000.0000.0000.0000.0000][2]/120</mark>
+                      fcbb:bb00:4::1                100      0 i
+
+Processed 2 prefixes, 3 paths
+
+RP/0/RP0/CPU0:LABSP-3393-PE1#show  bgp  l2vpn evpn rd 4.4.4.4:2 [1][0000.0000.0000.0000.0000][2]/120
+Wed Nov 16 05:00:24.650 UTC
+BGP routing table entry for [1][0000.0000.0000.0000.0000][2]/120, Route Distinguisher: 4.4.4.4:2
+Versions:
+  Process           bRIB/RIB  SendTblVer
+  Speaker                  19           19
+Last Modified: Nov 14 04:50:18.448 for 2d00h
+Paths: (1 available, best #1)
+  Not advertised to any peer
+  Path #1: Received by speaker 0
+  Not advertised to any peer
+  Local
+    fcbb:bb00:4::1 (metric 30) from fcbb:bb00:4::1 (4.4.4.4)
+      <mark>Received Label 0xe00600</mark>
+      Origin IGP, localpref 100, valid, internal, best, group-best, import-candidate, not-in-vrf
+      Received Path ID 0, Local Path ID 1, version 19
+      Extended community: EVPN L2 ATTRS:0x02:0 RT:100:2 
+      PSID-Type:L2, SubTLV Count:1
+       SubTLV:
+        <mark>T:1(Sid information), Sid:fcbb:bb00:4::, Behavior:65, SS-TLV Count:1</mark>
+         SubSubTLV:
+          T:1(Sid structure):
+ </code>
+</pre>
+</div>
+There is single RT1 coming from PE4 with all zero ESI as we have only used single-homing. A detailed look into the advertised route shows that the remote uDX2 sid comprise of the two parts, the Sid information _fcbb:bb00:4::_ with _Behavior:65_ meaning this is uDX2. Also the received label is _0xe00600_ . Thus, we can see that the remote uDX2 SID _fcbb:bb00:4:e006::_ comprises of SID and the Received_Label.
 
 Finally, to verify the data plane operation we will initiate ICMP ping from CE1 to CE2. we already have configured CE1 & CE2 in the same subnet and established the L2 stretch between the two nodes with EVPN-VPWS over SRv6 transort. 
 <div class="highlighter-rouge">
