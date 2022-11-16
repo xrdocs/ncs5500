@@ -15,10 +15,22 @@ Cisco MIG Access & Aggreagtion product line, i.e NCS 500 and NCS 5500 series has
 
 This article, will focus on config knob differences to setup the SRv6 transport on new generation of products i.e. the NCS 5700 and particular variants in NCS 540 series. 
 
-<h2> Applicable Platform Models <h2>
+<h2> Applicable Platform Models </h2>
   
  - NCS 500 Series
   	-- put Arches PID
   - NCS 5500 Series
   	-- Put NCS 5700 Fixed PIDs
   	-- NCS 5500 modular routers running native-mode (with NCS 5700 LC ) 
+
+<h2> Differences in Configuration</h2>
+
+### Platform hw-module command for format
+### Defining traffic-class encapsulations
+### SRv6 Locator blocks
+### Others
+  
+  <h2> What is similar </h2>
+As discussed in the Overview section, any type of service creation. show comamnds related to transport and service infra are common to all the NCS 500 and NCS 5500/5700 PIDs.
+
+<h3> Summary </h2>
