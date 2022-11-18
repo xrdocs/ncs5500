@@ -1,5 +1,5 @@
 ---
-published: true
+published: false
 date: '2022-11-18 09:53 +0530'
 title: 'SRv6 Transport on NCS 5500 : Resource Overview'
 position: hidden
