@@ -1,5 +1,5 @@
 ---
-published: true
+published: false
 date: '2022-11-14 15:25 +0530'
 title: SRv6 Transport on NCS 5700
 position: hidden
