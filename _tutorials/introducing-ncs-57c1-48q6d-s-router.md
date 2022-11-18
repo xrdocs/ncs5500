@@ -29,6 +29,10 @@ With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Ci
 
 ### Video 
 
+[NCS](https://www.youtube.com/watch?v=k199LAJh8tQ)
+
+
+
 <iframe class="responsive" width="560" height="315" 
 src="https://www.youtube.com/watch?v=k199LAJh8tQ" frameborder="0" allowfullscreen></iframe>{: .align-center}
 .
