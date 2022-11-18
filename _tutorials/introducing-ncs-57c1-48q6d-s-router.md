@@ -29,12 +29,12 @@ With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Ci
 
 ### Video 
 
+<iframe src="https://www.youtube.com/watch?v=k199LAJh8tQ" title="W3Schools Free Online Web Tutorials"></iframe>
 
 
 
-<iframe class="responsive" width="560" height="315" 
-src="https://www.youtube.com/watch?v=k199LAJh8tQ" frameborder="0" allowfullscreen></iframe>{: .align-center}
-.
+<iframe width="560" height="315" 
+src="https://www.youtube.com/watch?v=k199LAJh8tQ" frameborder="0" allowfullscreen></iframe>
 
 <iframe width="560" height="315" src="https://www.youtube.com/watch?v=k199LAJh8tQ" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>{: .align-center}
 
