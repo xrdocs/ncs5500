@@ -31,7 +31,7 @@ We are seeing a [major architecture shift](https://blogs.cisco.com/sp/catching-t
 - Operational Simplicity
 
 
-## Inflection points in defining the converged metro
+## Inflection points in defining the converged metro ([Cisco Annual Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html))
 
 | Drivers                        | Use cases                                                                                                                                                                                                                                                                                 |
 |--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -41,6 +41,6 @@ We are seeing a [major architecture shift](https://blogs.cisco.com/sp/catching-t
 | Internet of Things             | M2M applications across many industries accelerate IoT growth<br><br>Not just People but processes, data, and things connect to the Internet and each other<br><br>Applications, such as telemedicine and smart car navigation systems, which require greater bandwidth and lower latency |
 | Fixed Broadband                | Broadband-speed improvements have resulted in increased consumption of internet<br>Requirements for catering of high-bandwidth content and applications<br>                                                                                                                               |
 
-_Source:Cisco Annual Internet Report (2018–2023) White Paper_
+
 
 
