@@ -46,6 +46,13 @@ Below are some of the use cases which we see will drive the evolution of the met
 
 ![Screenshot 2022-12-13 at 5.36.45 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 5.36.45 PM.png)
 
+## NCS5500/5700 Portfolio Evolution for supporting the converged metro
+
+The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) Series is an industry-leading portfolio developed to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, Utilities and service providers. It has a range of products from fixed platforms (1RU,2RU,3RU) to Modular Chassis (4,8,16 slots).
+
+![Screenshot 2022-12-13 at 6.02.18 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 6.02.18 PM.png)
+
+
 
 
 
