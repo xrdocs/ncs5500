@@ -55,6 +55,35 @@ The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network
 ![Screenshot 2022-12-13 at 6.02.18 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 6.02.18 PM.png)
 
 
+### Portfolio details
+
+#### Fixed
+
+| Product ID          | Form Factor | Description                                                                                                                                                                                     |
+|---------------------|-------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| NCS-5501(SE)        | 1           | Base: 48x 1/10G SFP + 6x 40/100G QSFP <br><br>Scale : 40x 1/10G SFP + 4x 40/100G QSFP                                                                                                           |
+| NCS-55A1-36H(-SE)-S | 1           | 36x 40/100G QSFP                                                                                                                                                                                |
+| NCS-55A1-24H        | 1           | 24x 40/100G QSFP                                                                                                                                                                                |
+| NCS-55A1-24Q6H-S    | 1           | 24x 1/10G SFP + 24x 1/10/25G SFP<br>+ 6x 40/100G QSFP                                                                                                                                           |
+| NCS-55A1-48Q6H      | 1           | 48x 1/10/25G SFP + 6x 40/100G QSFP                                                                                                                                                              |
+| NCS-55A2-MOD        | 2           | 24x 1/10G SFP + 16x 1/10/25G SFP<br>+ 2x 400G MPAs <br><br>MPA 4x 100G QSFP<br>MPA 2x 100/200G DWDM CFP2<br>MPA 2x 100G QSFP + 1x 100/200G DWDM CFP2<br>MPA 12x 1/10G SFP                       |
+| NCS-57B1-6D24/5DSE  | 1           | Base: 24x 100G QSFPDD + 6x400G QSFPDD <br> <br>Scale:24x 100G QSFPDD + 5x400G QSFPDD                                                                                                            |
+| NCS-57C1-48Q6D-S    | 1           | 32x SFP28 + 16x SFP56 +<br>2x QSFP-DD(4x100G) + 4x QSFP-DD (400G)                                                                                                                               |
+| NCS-57C3-MOD(S)-SYS | 3           | 48x 1/10/25G + 8x or 4x port 40/100G + <br><br>MPAs:<br>2x400G or 4x 100G MPA<br>MPA 4x 100G QSFP<br>MPA 2x 100/200G DWDM CFP2<br>MPA 2x 100G QSFP + 1x 100/200G DWDM CFP2<br>MPA 12x 1/10G SFP |
+| NCS-57D2-18DD-S     | 2           | 66 Ports: 2x 400G QSFP-DD  +<br> <br>                 16x 400GQSFP-DD / 64x 100G QSFP-DD                                                                                                        |
+
+#### Modular Line Cards
+
+| Product ID        | Description                                                                                               |
+|-------------------|-----------------------------------------------------------------------------------------------------------|
+| NC55-32T16Q4H-A   | 32x1/10GE SFP/SFP+ <br><br>16x10/25GE SFP+/SFP28 <br><br>4x40/100GE QSFP+/QSFP28 <br><br>(oversubscribed) |
+| NC55-MOD-A(-SE)-S | Fixed:12x1/10G SFP/SFP+2x40G QSFP+ <br><br>2X MPA:2x400G or 12x50G                                        |
+| NC55-36X100-A-SE  | 36x100/40G                                                                                                |
+| NC57-24DD         | 24x400G QSFPDD                                                                                            |
+| NC57-18DD-SE      | 18x400G QSFPDD or 30x200/100G QSFPDD                                                                      |
+| NC57-36H6D-S      | 24x100G + 12 flex ports (6x400GE or 12x200GE/100GE)                                                       |
+| NC57-36H-SE       | 36x100G QSFPDD                                                                                            |
+| NC57-MOD-S        | Fixed:2x400G QSFPDD+ 8x10/25/50G SFP56 <br><br>2X MPA:2x400G or 12x50G                                    |
 
 
 
