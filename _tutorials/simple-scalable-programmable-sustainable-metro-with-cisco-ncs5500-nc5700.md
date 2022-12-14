@@ -86,6 +86,31 @@ The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network
 | NC57-MOD-S        | Fixed:2x400G QSFPDD+ 8x10/25/50G SFP56 <br><br>2X MPA:2x400G or 12x50G                                    |
 
 
+## NCS5500/NCS5700 Capabilities to design the next generation Metro
+
+Powered by Cisco IOS-XR, NCS5500/5700 has all the capabilities to design the next-gen metro. They provide cost structures and power efficiency in a fixed systems as well as flexibility of a modular system in terms of redundancy options, upgradability, higher radix, and interface mixing. Below are the top capabilities we think are needed to build a successful network.
+
+| Metro Network Capabilities              | Support                                                                                                                                                                                                                |
+|-----------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| High Speed Transport                    | Supports 400G ZR/ZRP <br><br>Capability of dense 100G/400G in small 1RU form factors <br><br>Ability to support low end speeds from 1G/10G/25G/40G along with 100G/200G/400G                                           |
+| Packet and Optical Convergence          | Unleash transformative operational efficiency with Cisco Routed optical Network -aka RON <br><br>Achieve Network efficiency and Service Profitability <br>Lower TCO with Simple Architecture                           |
+| Network Slicing using Segment Routing   | Full support for Segment Routing/SRv6 Features <br><br>Capability to impose 26 usids in a single pass <br><br>Support for Flex Algo/SRTE/Ti-LFA<br><br>MicroLoop Avoidance and SR-PM plus many more features           |
+| Service deployment using EVPN Overlay   | Support for next-gen EVPN Features <br><br>EVPN-VPWS,EVPN-ELAN, EVPN Etree <br><br>EVPN IRB Anycast Gateway <br><br>EVPN Single home and Multihome <br><br>EVPN Single Active, Active-Active, Port-Active Capabilities |
+| Network Security                        | Built-in hardware security along with software security in IOS-XR <br><br>Secure-boot with Cisco TAM chip<br>DDoS protection<br>Malware protection<br>Anti-Theft protection<br>Secure app-hosting environment          |
+| IP-SLA                                  | <br>Network performance monitoring with rich set of IP-SLA features <br><br>TWAMP/TWAMP-Lite<br>                                                                                                                       |
+| Ability to terminate non-Ethernet ports | Transparently transfer ODU/SONET/SDH/Eth/FC packets over PSN using PLE                                                                                                                                                 |
+| Flexible Resource Carving               | Support for different MDB profiles to cater multiple use cases                                                                                                                                                         |
+| Quality of Service                      | Rich ingress and egress QoS features <br><br>Support for Policing/Shaping/WFQ/WRED etc <br><br>Enhance QoS scale with Egress Traffic Manager implementation                                                            |
+| Timing                                  | <br>Class C timing support for low latency applications                                                                                                                                                                |
+| Telemetry                               | Support for Model Driven as well as AI driven Telemetry                                                                                                                                                                |
+| Automation                              | Flexible Automation with Cisco Crossworks                                                                                                                                                                              |
+| Sustainability                          | Reduce environmental impacts with systems delivering lower power consumption and by integrating automation tools to reduce manual and onsite operation <br>Cisco Sustainability Report                             |
+
+## Conclusion
+
+Going forward the challenge for CSPs will be not just delivering services, but it is about delivering experience. With metro network as the center of gravity along edge/cloud convergence combined with the broadband it becomes mandatory for the CSPs to seriously invest in upgrading it. CSPs not just need to think about delivering the experience but also think ways to monetize it. Cisco is committed to be a trusted partner for the same and as mentioned above we have all the capabilities to help CSPs built a simple, scalable, programmable and sustainable network.
+
+## References
 
 
 
