@@ -25,21 +25,29 @@ As per [Cisco's Annual Internet Report](https://www.cisco.com/c/en/us/solutions/
 
 We are seeing a [major architecture shift](https://blogs.cisco.com/sp/catching-the-next-wave-of-innovation-in-routing-and-automation) in the way the new metro fabric is evolving. Applications (8K Video, Gaming, AR/VR) are becoming more dynamic requiring differentiated user experiences and optimizing distributed compute and decomposed network resources in places where power and space are constrained. Below key trends has driven the evolution of our routing portfolio with software capabilities and compact form-factors. As we look to the future, the trends will require even more accelerated innovation.
 
-- IP and Optical Convergence
-- Flexible and Versatile Platforms (1G to 400G port terminations)
-- Converged SDN Transport (SR/SRv6/EVPN)
-- Operational Simplicity
+## Need for architecture transistions
+
+![Screenshot 2022-12-13 at 5.23.19 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 5.23.19 PM.png)
+
+In past CSPs used to build siloed networks for their mobile, enterprise and residential networks. But this is not helping the CSPs to maintain their networks efficiently. They need to move to a single transport network which allows them to move to faster service delivery. The C[onverged Transport architecture](https://www.cisco.com/c/en/us/solutions/collateral/service-provider/converged-sdn-transport/at-a-glance-c45-744218.html) uses advanced features and technology to help CSPs design and migrate to a network prepared to scale to meet the stringent bandwidth and performance demands of their customers. At the fundamental level, the Converged SDN Transport architecture drives simplification into the CSP’s network and operations.
+
+Implementing the Converged SDN Transport architecture will allow CSPs to realize the following business benefits:
+
+- Reduced operational complexity for network management
+- Increased revenue with a service-focused, service-centric network
+- Improved time to market for new value-added services
+- Optimized utilization of fiber capacity
+- Decreased operational and capital expenditures associated with the network
 
 
-## Inflection points in defining the converged metro ([Cisco Annual Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html))
+## Evolved Metro Use cases
 
-| Drivers                        | Use cases                                                                                                                                                                                                                                                                                 |
-|--------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Defining Cell Network Advances | Evolution of the Mobile network from 2G,3G,4G to 5G<br><br>Requirement for faster speeds and higher bandwidth<br><br>Advanced multimedia applications contributing to increased mobile and Wi-Fi traffic                                                                                  |
-| Cloud Services                 | Support on-premises, hybrid, and public cloud environments<br><br>Scalable and adaptable solution for various deployment needs                                                                                                                                                            |
-| Enterprise Services            | Need for continuous, automated network monitoring and optimization to support increasingly dynamic and digitally driven business models<br><br>Flexible and programmable network infrastructure for changing business needs                                                               |
-| Internet of Things             | M2M applications across many industries accelerate IoT growth<br><br>Not just People but processes, data, and things connect to the Internet and each other<br><br>Applications, such as telemedicine and smart car navigation systems, which require greater bandwidth and lower latency |
-| Fixed Broadband                | Broadband-speed improvements have resulted in increased consumption of internet<br>Requirements for catering of high-bandwidth content and applications<br>                                                                                                                               |
+Below are some of the use cases which we see will drive the evolution of the metro architecture as well as the products.
+
+![Screenshot 2022-12-13 at 5.36.45 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 5.36.45 PM.png)
+
+
+
 
 
 
