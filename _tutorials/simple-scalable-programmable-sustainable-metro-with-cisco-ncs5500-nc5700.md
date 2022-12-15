@@ -17,21 +17,21 @@ position: hidden
 
 ## Introduction
 
-As per [Cisco's Annual Internet Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html), the number of devices connected to IP networks will be more than three times the global population by 2023. There will be 3.6 networked devices per capita by 2023, up from 2.4 networked devices per capita in 2018. There will be 29.3 billion networked devices by 2023, up from 18.4 billion in 2018. As per Gartner, by 2025 more than 75% of the computing data needs to be analyzed, processed, and stored near to the end users. New paradigms such as 5G introduction, video traffic continuous growth, IoT proliferation and cloud services model require unprecedented flexibility, elasticity and scale from the network. Increasing bandwidth demands and decreasing ARPU put pressure on reducing network cost. At the same time, services need to be deployed faster and more cost effectively to stay competitive. The metro network becomes the key to this transformation where we see services getting terminated and end users are looking for better experiences. In this article, we will discuss latest trends in the metro architecture and how communication service providers (CSPs) can design their network for optimised value proposition.  
+According to the [Cisco's Annual Internet Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html), the number of devices connected to IP networks will be more than three times the global population by 2023. There will be 3.6 networked devices per capita by 2023, up from 2.4 networked devices per capita in 2018. There will be 29.3 billion networked devices by 2023, up from 18.4 billion in 2018. According to Gartner, by 2025 more than 75% of the computing data will need to be analyzed, processed, and stored closer to the end users. New paradigms such as 5G introduction, rapid growth in video traffic, and proliferation of IoT and cloud services model require unprecedented flexibility, elasticity and scale from the network. Increasing bandwidth demands and decreasing ARPU is putting pressure to reduce network cost. At the same time, services need to be deployed faster and more cost effectively to stay competitive. The metro network becomes the key to this transformation where we see services getting terminated and end users are looking for better experiences. In this article, we will discuss latest trends in the metro architecture and how communication service providers (CSPs) can design their network for optimized value proposition.  
 
 ![Screenshot 2022-12-13 at 1.40.09 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 1.40.09 PM.png)
 
-## Metro Architecture Trends
+## Metro Architecture Shift
 
 ![Screenshot 2022-12-13 at 1.52.45 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 1.52.45 PM.png)
 
-We are seeing a [major architecture shift](https://blogs.cisco.com/sp/catching-the-next-wave-of-innovation-in-routing-and-automation) in the way the new metro fabric is evolving. Applications (8K Video, Gaming, AR/VR) are becoming more dynamic requiring differentiated user experiences and optimizing distributed compute and decomposed network resources in places where power and space are constrained. These trends has driven the evolution of our product portfolio with software capabilities and compact form-factors. As we look into the future, the trends will require even more accelerated innovation.
+We are seeing a [major architecture shift](https://blogs.cisco.com/sp/catching-the-next-wave-of-innovation-in-routing-and-automation) in the way the new metro fabric is evolving. Applications (8K Video, Gaming, AR/VR) are becoming more dynamic requiring differentiated user experiences and optimizing distributed compute and decomposed network resources in places where power and space are constrained. These trends have driven the evolution of our product portfolio with enhanced software capabilities and compact form-factors. As we look into the future, the trends will require even more accelerated innovation.
 
-## Need for architecture transistions
+## Need for architecture transistion
 
 ![Screenshot 2022-12-13 at 5.23.19 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 5.23.19 PM.png)
 
-In past CSPs used to build siloed networks for their mobile, enterprise and residential networks. But this is not helping the CSPs to maintain their networks efficiently. They need to move to a single transport network which allows them to move to faster service delivery. The [Converged Transport architecture](https://www.cisco.com/c/en/us/solutions/collateral/service-provider/converged-sdn-transport/at-a-glance-c45-744218.html) uses advanced features and technology to help CSPs design and migrate to a network prepared to scale to meet the stringent bandwidth and performance demands of their customers. At the fundamental level, it drives simplification into the CSP’s network and operations.
+In the past CSPs used to build siloed networks for their mobile, enterprise and residential networks. But this creates challenges for them to maintain their networks efficiently. They need to move to a single transport network which allows them to move to faster service delivery. The [Converged Transport architecture](https://www.cisco.com/c/en/us/solutions/collateral/service-provider/converged-sdn-transport/at-a-glance-c45-744218.html) uses advanced features and technology to help CSPs design and migrate to a network prepared to scale to meet the stringent bandwidth and performance demands of their customers. At the fundamental level, it drives simplification into the CSP’s network and operations.
 
 Implementing the Converged Transport architecture will allow CSPs to realize the following business benefits:
 
@@ -50,7 +50,7 @@ Below are some of the use cases which we see will drive the evolution of the met
 
 ## NCS5500/5700 Portfolio Evolution for supporting the converged metro
 
-The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) Series is an industry-leading portfolio developed to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, Utilities and service providers. It has a range of products from fixed platforms (1RU,2RU,3RU) to Modular Chassis (4,8,16 slots).
+The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) Series is an industry-leading portfolio developed to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, Utilities and service providers. It has a range of products in fixed (1RU,2RU,3RU) and Modular (4,8,16 slots) form factors.
 
 ![Screenshot 2022-12-13 at 6.02.18 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 6.02.18 PM.png)
 
@@ -100,21 +100,20 @@ Powered by Cisco IOS-XR, NCS5500/5700 has all the capabilities to design the nex
 | IP-SLA                                  | <br>Network performance monitoring with rich set of [IP-SLA features](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/system-monitoring/76x/b-system-monitoring-cg-ncs5500-76x/m-ipsla-twamp-ncs5500.html) <br>TWAMP/TWAMP-Lite<br>                                                                                                                       |
 | Ability to terminate non-Ethernet ports | Transparently transfer ODU/SONET/SDH/Eth/FC packets over PSN using [PLE](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-con-5500-series-ds.pdf)                                                                                                                                                 |
 | Flexible Resource Carving               | Support for different [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) to cater multiple use cases                                                                                                                                                         |
-| Quality of Service                      | Rich ingress and egress QoS features <br>Support for Policing/Shaping/WFQ/WRED etc <br>Enhance QoS scale with [Egress Traffic Manager](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/74x/b-qos-cg-ncs5500-74x/m-configure-egress-traffic-management.html#Cisco_Concept.dita_e0ac2096-7453-4a18-a2a7-3a9c00cc46d6) implementation                                                            |
+| Quality of Service                      | Rich ingress and egress QoS features <br>Support for Policing/Shaping/WFQ/WRED etc <br>Enhance QoS scale with [Egress Traffic Manager](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/qos/74x/b-qos-cg-ncs5500-74x/m-configure-egress-traffic-management.html#Cisco_Concept.dita_e0ac2096-7453-4a18-a2a7-3a9c00cc46d6) implementation                                                            
+| MACsec | Layer 2 security with full [MACsec](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/76x/b-system-security-cg-ncs5500-76x/implementing-macsec-encryption.html) support |
+|
 | Timing                                  | <br>Class C timing support for low latency applications                                                                                                                                                                |
 | Telemetry                               | Support for Model Driven as well as AI driven Telemetry                                                                                                                                                                |
 | Automation                              | Flexible Automation with [Cisco Crossworks Network Automation](https://www.cisco.com/c/en/us/products/cloud-systems-management/crosswork-network-automation/index.html)                                                                                                                                                                              |
+| Programmability      | Drive Network Automation with Using [Programmable models](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/programmability/76x/b-programmability-cg-ncs5500-76x.html) <br> Support for Yang Models <br> Support for netconf and grpc protocols <br> Automation scripts |
 | Sustainability                          | Reduce environmental impacts with systems delivering lower power consumption and by integrating automation tools to reduce manual and onsite operation <br>[Cisco Sustainability Report](https://www.cisco.com/c/dam/m/en_us/about/csr/esg-hub/_pdf/purpose-report-2021.pdf)                            |
+
 
 ## Conclusion
 
-Going forward the challenge for CSPs will be not just to deliver services, but it is about delivering experience. With metro network as the center of gravity along edge/cloud convergence combined with the broadband it becomes mandatory for the CSPs to seriously invest in upgrading it. CSPs not just need to think about delivering the experience but also think ways to monetize it. Cisco is committed to be a trusted partner for the same and as mentioned above we have all the capabilities to help CSPs built a simple, scalable, programmable and sustainable network.
+Going forward the challenge for CSPs will be not just to deliver services, but it is about delivering experience. With metro network as the center of gravity along edge/cloud convergence combined with the broadband is crucial for the CSPs to seriously invest in upgrading their network. CSPs not just need to think about delivering the experience but also think ways to monetize it. Cisco is committed to be a trusted partner for the same and as mentioned above we have all the capabilities to help CSPs build a simple, scalable, programmable and sustainable network.
 
 ## References
 
 [NCS5500/5700 Resources](https://xrdocs.io/ncs5500/)
-
-
-
-
-
