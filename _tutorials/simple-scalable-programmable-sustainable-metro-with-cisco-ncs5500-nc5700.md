@@ -17,7 +17,7 @@ position: hidden
 
 ## Introduction
 
-According to the [Cisco's Annual Internet Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html), the number of devices connected to IP networks will be more than three times the global population by 2023. There will be 3.6 networked devices per capita by 2023, up from 2.4 networked devices per capita in 2018. There will be 29.3 billion networked devices by 2023, up from 18.4 billion in 2018. According to Gartner, by 2025 more than 75% of the computing data will need to be analyzed, processed, and stored closer to the end users. New paradigms such as 5G introduction, rapid growth in video traffic, and proliferation of IoT and cloud services model require unprecedented flexibility, elasticity and scale from the network. Increasing bandwidth demands and decreasing ARPU is putting pressure to reduce network cost. At the same time, services need to be deployed faster and more cost effectively to stay competitive. The metro network becomes the key to this transformation where we see services getting terminated and end users are looking for better experiences. In this article, we will discuss latest trends in the metro architecture and how communication service providers (CSPs) can design their network for optimized value proposition.  
+According to [Cisco's Annual Internet Report](https://www.cisco.com/c/en/us/solutions/collateral/executive-perspectives/annual-internet-report/white-paper-c11-741490.html), the number of devices connected to IP networks will be more than three times the global population by 2023. There will be 3.6 networked devices per capita by 2023, up from 2.4 networked devices per capita in 2018. There will be 29.3 billion networked devices by 2023, up from 18.4 billion in 2018. According to Gartner, by 2025 more than 75% of the computing data will need to be analyzed, processed, and stored closer to the end users. New paradigms such as 5G introduction, rapid growth in video traffic, and proliferation of IoT and cloud services model require unprecedented flexibility, elasticity and scale from the network. Increasing bandwidth demands and decreasing ARPU is putting pressure to reduce network cost. At the same time, services need to be deployed faster and more cost-effectively to stay competitive. The metro network becomes the key to this transformation where we see services getting terminated and end users looking for better experiences. In this article, we will discuss latest trends in the metro architecture and how communication service providers (CSPs) can design their network for optimized value proposition.  
 
 ![Screenshot 2022-12-13 at 1.40.09 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 1.40.09 PM.png)
 
@@ -50,7 +50,7 @@ Below are some of the use cases which we see will drive the evolution of the met
 
 ## NCS5500/5700 Portfolio Evolution for supporting the converged metro
 
-The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) Series is an industry-leading portfolio developed to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, Utilities and service providers. It has a range of products in fixed (1RU,2RU,3RU) and Modular (4,8,16 slots) form factors.
+The Cisco [NCS 5500/5700](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) Series is an industry-leading portfolio developed to handle massive traffic growth. It is designed for operational simplicity and for efficiently meeting the scaling needs of large enterprises, web, utilities and service providers. It comprises a range of products in fixed (1RU,2RU,3RU) and Modular (4,8,16 slots) form factors.
 
 ![Screenshot 2022-12-13 at 6.02.18 PM.png]({{site.baseurl}}/images/Screenshot 2022-12-13 at 6.02.18 PM.png)
 
@@ -111,8 +111,11 @@ Powered by Cisco IOS-XR, NCS5500/5700 has all the capabilities to design the nex
 
 ## Conclusion
 
-Going forward the challenge for CSPs will be not just to deliver services, but it is about delivering experience. With metro network as the center of gravity along edge/cloud convergence combined with the broadband is crucial for the CSPs to seriously invest in upgrading their network. CSPs not just need to think about delivering the experience but also think ways to monetize it. Cisco is committed to be a trusted partner for the same and as mentioned above we have all the capabilities to help CSPs build a simple, scalable, programmable and sustainable network.
+Going forward the challenge for CSPs will not just be to deliver services, but also to deliver experience. With metro network as the center of gravity along edge/cloud convergence combined with the broadband, it is crucial for the CSPs to seriously invest in upgrading their network. CSPs need to think not only about delivering the experience but also about ways to monetize it. Cisco is committed to be a trusted partner for the same and is equipped with the capabilities to help CSPs build a simple, scalable, programmable and sustainable network.
 
 ## References
 
-[NCS5500/5700 Resources](https://xrdocs.io/ncs5500/)
+- [NCS5500/5700 Resources](https://xrdocs.io/ncs5500/)
+- [Metro Fabric High Level Design](https://xrdocs.io/design/blogs/2018-10-01-metro-fabric-hld/)
+- [Implementation Guide](https://xrdocs.io/design/blogs/latest-converged-sdn-transport-ig)
+
