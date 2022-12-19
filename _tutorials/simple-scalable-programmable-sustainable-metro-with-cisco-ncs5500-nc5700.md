@@ -118,3 +118,4 @@ Going forward the challenge for CSPs will not just be to deliver services, but a
 - [NCS5500/5700 Resources](https://xrdocs.io/ncs5500/)
 - [Metro Fabric High Level Design](https://xrdocs.io/design/blogs/2018-10-01-metro-fabric-hld/)
 - [Implementation Guide](https://xrdocs.io/design/blogs/latest-converged-sdn-transport-ig)
+- [Inflection Points of a Converged Metro](https://blogs.cisco.com/sp/inflection-points-of-a-converged-metro)
