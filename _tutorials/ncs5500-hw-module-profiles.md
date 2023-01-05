@@ -458,7 +458,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-Note: This profiles is not applicable for J2 based systems
+Note: This profiles is applicable only for J2 based systems with etcam
 {: .notice--info} 
 
 
