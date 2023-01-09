@@ -45,4 +45,4 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 
 ### Physical Interfaces
 
-Fixed
+**Fixed ports**
