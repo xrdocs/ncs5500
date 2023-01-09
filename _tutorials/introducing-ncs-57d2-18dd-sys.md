@@ -57,6 +57,12 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 
 **Other port**
 
+![]({{site.baseurl}}/images/Screenshot%202023-01-09%20at%2011.18.26%20AM.png)
+
+- RJ-45 ports for console and management
+- 1 Pulse Per Second (PPS) in/out, 10 MHz in/out, Time of Day (ToD)
+- Internal Global Navigation Satellite System (GNSS) with antenna port
+- 1 USB port
 
 ### Physical Specifications
 
