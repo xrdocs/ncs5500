@@ -212,6 +212,11 @@ All the 66 ports can be configured with 40G native speeds
 - 4x25G and 4x10G Breakout cannot co-exist together
 
 
+## Port Assignment to ASIC core
+
+![Screenshot 2023-01-09 at 2.31.35 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.31.35 PM.png)
+
+The ASIC has 2 cores. The above figure shows the port mapping to all the interfaces. The important thing to highlight from the above output is the default speed of the interfaces when the platform boots up is 100G. We can change the port speed of each port as per the requirements.
 
 
 
