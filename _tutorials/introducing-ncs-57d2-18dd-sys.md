@@ -185,11 +185,33 @@ All the 66 ports can be configured with 40G native speeds
 
 ### Breakout combination 25G
 
+![Screenshot 2023-01-09 at 2.23.50 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.23.50 PM.png)
 
+- 4x25G breakout option is supported only in ports P0 and P3 in each quad.
+- If P0 and P3 is configured with the above breakout option, ports P1 and P2 are disabled. 
+- 4x25G Breakout with native 100G in a port group is supported. 
+- 4x25G Breakout with native 40G in a port group is not supported.
+- Port 64 and 65 can both be configured with 4x25G breakout option.
+- Above breakout is not supported with 400G in any port. 
 
 ### Breakout combination 10G
 
+![Screenshot 2023-01-09 at 2.23.58 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.23.58 PM.png)
+
+- 4x10G breakout option is supported only in ports P0 and P3 in each quad.
+- If P0 and P3 is configured with the above breakout option, ports P1 and P2 are disabled.
+- 4x10G breakout option plus native 100G/40G in a port group is supported.
+- Port 64 and 65 can both be configured with 4x10G breakout option.
+- Above breakout is not supported with 400G in any port 
+
+
 ### Breakout combination 25G and 10G
+
+![Screenshot 2023-01-09 at 2.24.09 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.24.09 PM.png)
+
+- 4x25G and 4x10G Breakout cannot co-exist together
+
+
 
 
 
