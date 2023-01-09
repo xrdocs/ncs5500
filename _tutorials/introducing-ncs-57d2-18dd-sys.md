@@ -132,5 +132,21 @@ Cisco's [Converged SDN Transport Solution](https://blogs.cisco.com/sp/routed-opt
 
 ### End to End Network Slicing using Segment Routing
 
+Latency is one of most important KPIs when it comes to service provider networks. Applications must be capable of reaching the end-user quickly enough to prevent the degradation of the experience. Network slicing and segment routing provide intelligent routing and traffic differentiation required to efficiently support this distributed architecture. With Network Slicing we can have independent networks on the same physical infrastructure. NCS5500/5700 portfolio supports full set of [Segment routing/SRV6](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/76x/b-segment-routing-cg-ncs5500-76x.html) features to help the operators design an efficent and future ready architecture.
+
+### Trustworthy Infrastructure
+
+Build a [trustworthy infrastructure](https://www.cisco.com/site/us/en/products/security/resources.html) with in-built software security of [Cisco IOS-XR](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/77x/b-system-security-cg-ncs5500-77x.html) along with hardware security features of NCS5500/5700 portfolio. The NCS5500/5700 supports: 
+- Secure boot with Cisco TAM chip
+- Anti-counterfeit and Trust Anchor Infrastructure
+- Image Signing
+- Run-time Defense
+- Encrypted Transport
+- DDoS Protection 
+- Integrity Measurement and Verification Infrastructure
+
+
+
+
 
 
