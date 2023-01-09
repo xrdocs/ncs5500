@@ -134,7 +134,7 @@ As the user applications are becoming more dynamic, requiring differentiated use
 
 Cisco's [Converged SDN Transport Solution](https://blogs.cisco.com/sp/routed-optical-networking-its-about-the-architecture), is an architecture that delivers improved operational efficiencies and simplicity. The solution works by merging IP and Optical onto a single layer where all the switching is done at Layer 3. Routers are connected with standardized [400G ZR/ZR+ coherent pluggable optics](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/73x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-73x/m-zr-zrp.html). With a single service layer based upon IP, flexible management tools can leverage [telemetry](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/telemetry/77x/b-telemetry-cg-ncs5500-78x.html) and [model-driven programmability](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/programmability/76x/b-programmability-cg-ncs5500-76x.html) to streamline lifecycle operations.
 
-### End to End Network Slicing using Segment Routing
+### End to End Network Slicing using Segment Routing/Segment Routing v6
 
 Latency is one of most important KPIs when it comes to service provider networks. Applications must be capable of reaching the end-user quickly enough to prevent the degradation of the experience. Network slicing and segment routing provide intelligent routing and traffic differentiation required to efficiently support this distributed architecture. With Network Slicing we can have independent networks on the same physical infrastructure. NCS5500/5700 portfolio supports full set of [Segment routing/SRV6](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/76x/b-segment-routing-cg-ncs5500-76x.html) features to help the operators design an efficent and future ready architecture.
 
@@ -222,8 +222,22 @@ All the 66 ports can be configured with 40G native speeds
 
 The ASIC has 2 cores. The above figure shows the port mapping to all the interfaces. The important thing to highlight from the above output is the default speed of the interfaces when the platform boots up is 100G. We can change the port speed of each port as per the requirements.
 
+## MACSEC and IPSEC support
 
+The hardware is fully capable of MACSEC and IPSEC. The features will be support post FCS. These features are not supported IOS-XR 7.8.1
 
+## MDB Profiles
+
+The platform will support the below profiles:
+
+- L2MAX
+- L3MAX
+
+## References
+
+- [NCS5500/5700 XRdocs](https://xrdocs.io/ncs5500/) 
+- [NCS5500/5700 Modular WhitePaper](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-convergence-sys-wp.html)
+- [NCS5500/5700 Fixed WhitePaper](https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf)
 
 
 
