@@ -165,7 +165,35 @@ Along with above major use cases, the NCS-57D2 (and entire NCS5500/5700 portfoli
 
 Above figure shows the port numbering of all the 66 ports of NCS-57D2
 
-### 
+### 400G
+
+![Screenshot 2023-01-09 at 2.16.03 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.16.03 PM.png)
+
+NCS-57D2 support 1 400G ZR/ZRP/Grey optics per quad. Only P0 in each quad can be configured with 400G i.e ports 0,4,8 .. 60. When ports P0 are configured with 400G, other 3 ports in the quad are disabled. Ports 65 and 66 can be individually configured for 400G
+
+### 100G
+
+![Screenshot 2023-01-09 at 2.16.37 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.16.37 PM.png)
+
+All the 66 ports can be configured with 100G native speeds
+
+### 40G
+
+![Screenshot 2023-01-09 at 2.18.01 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.18.01 PM.png)
+
+All the 66 ports can be configured with 40G native speeds
+
+### Breakout combination 25G
+
+
+
+### Breakout combination 10G
+
+### Breakout combination 25G and 10G
+
+
+
+
 
 
 
