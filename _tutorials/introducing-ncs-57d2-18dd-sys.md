@@ -42,6 +42,10 @@ Before deep-diving into the NCS57-D2, let us have a quick refresher of the NCS55
 
 ![Screenshot 2023-01-09 at 11.02.11 AM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 11.02.11 AM.png)
 
+**Rear view**
+
+![Screenshot 2023-01-09 at 2.34.44 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.34.44 PM.png)
+
 NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It offers 7.2 Terabits of 400GE/100GE optimized forwarding capacity, high power efficiency, QSFP-DD optics, deep packet buffering combined with next-generation security, automation, telemetry, segment routing, EVPN, and Equal-Cost Multipathing (ECMP) capabilities making it suitable for high capacity metro applications. The industry-leading Cisco IOS XR pushes the scalability of the hardware even further through the use of flexible [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) (modular database) that allows ASIC and TCAM resources to be reconfigured as per the network use cases.
 
 ### Physical Interfaces
