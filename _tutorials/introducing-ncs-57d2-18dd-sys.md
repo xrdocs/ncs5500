@@ -11,6 +11,7 @@ tags:
   - NCS5700
   - metro
   - NCS57-D2-18DD
+position: hidden
 ---
 {% include toc icon="table" title="Introducing NCS-57D2-18DD-SYS" %}
 
