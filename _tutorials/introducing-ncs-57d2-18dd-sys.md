@@ -84,3 +84,34 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 Note: Quad is a group of 4 ports.
 {: .notice--info}
 
+## Naming Logic 
+
+![]({{site.baseurl}}/images/Screenshot%202023-01-09%20at%2011.29.23%20AM.png)
+
+NCS-57D2 is built with J2C+ chipset. The PIDs will vary depending on the licencing model used. 
+
+| PID               | Licensing Model                  |
+|-------------------|----------------------------------|
+| NCS-57D2-18DD-SYS | Flexible Consumption Model (FCM) |
+| NCS-57D2-18DD-S  | Perpetual/BAE                    |
+
+Note: The show platform output will display the FCM Model
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:BGL-CB#show platform 
+Node              Type                     State                    Config state
+--------------------------------------------------------------------------------
+0/RP0/CPU0        NCS-57D2-18DD-SYS(Active) IOS XR RUN               NSHUT
+0/PM0             PSU2KW-ACPI              OPERATIONAL              NSHUT
+0/PM1             PSU2KW-ACPI              OPERATIONAL              NSHUT
+0/FT0             NC57-D2-FAN-FW           OPERATIONAL              NSHUT
+0/FT1             NC57-D2-FAN-FW           OPERATIONAL              NSHUT
+0/FT2             NC57-D2-FAN-FW           OPERATIONAL              NSHUT
+0/FT3             NC57-D2-FAN-FW           OPERATIONAL              NSHUT
+0/FB0             NC57-D2-FAN-FW           OPERATIONAL              NSHUT
+RP/0/RP0/CPU0:BGL-CB#
+</code>
+</pre>
+</div>
