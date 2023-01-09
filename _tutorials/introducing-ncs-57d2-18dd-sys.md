@@ -145,6 +145,28 @@ Build a [trustworthy infrastructure](https://www.cisco.com/site/us/en/products/s
 - DDoS Protection 
 - Integrity Measurement and Verification Infrastructure
 
+### Other feature support
+
+Along with above major use cases, the NCS-57D2 (and entire NCS5500/5700 portfolio) support full features of 
+
+- Overlay Laye2 services using EVPN and VPLS
+- IPSLA support including TWAMP and TWAMP Lite
+- Multicast
+- BGP features
+- Class C timing 
+- QoS
+- Telemetry
+
+## NCS-57D2 Port Details
+
+### Port Numbering 
+
+![Screenshot 2023-01-09 at 2.14.26 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.14.26 PM.png)
+
+Above figure shows the port numbering of all the 66 ports of NCS-57D2
+
+### 
+
 
 
 
