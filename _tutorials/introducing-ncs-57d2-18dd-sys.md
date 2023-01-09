@@ -120,4 +120,17 @@ RP/0/RP0/CPU0:BGL-CB#
 
 ### High End Aggregation
 
+![Screenshot 2023-01-09 at 12.52.33 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 12.52.33 PM.png)
+
+As the user applications are becoming more dynamic, requiring differentiated user experiences network resources needs to be optimised in terms of power and real estate. Catering bandwidth demand by deploying huge equipments is really not a smart business model both in terms of OPEX and environment. NCS-57D2 has been custom designed to cater high end aggregation use cases in a 2RU compact form factor. It supports 7.2Tbps of forwarding capacity. It provides 18 ports of high speed 400G or 66 ports of 100G at extremely low power.
+
+### Rethink the architecture
+
+![Screenshot 2023-01-09 at 1.38.11 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 1.38.11 PM.png)
+
+Cisco's [Converged SDN Transport Solution](https://blogs.cisco.com/sp/routed-optical-networking-its-about-the-architecture), is an architecture that delivers improved operational efficiencies and simplicity. The solution works by merging IP and Optical onto a single layer where all the switching is done at Layer 3. Routers are connected with standardized [400G ZR/ZR+ coherent pluggable optics](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/interfaces/73x/configuration/guide/b-interfaces-hardware-component-cg-ncs5500-73x/m-zr-zrp.html). With a single service layer based upon IP, flexible management tools can leverage [telemetry](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/telemetry/77x/b-telemetry-cg-ncs5500-78x.html) and [model-driven programmability](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/programmability/76x/b-programmability-cg-ncs5500-76x.html) to streamline lifecycle operations.
+
+### End to End Network Slicing using Segment Routing
+
+
 
