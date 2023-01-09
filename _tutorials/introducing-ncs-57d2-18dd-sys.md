@@ -67,6 +67,20 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 ### Physical Specifications
 
 **Dimensions**
+
+- Height: 2RU 3.45” in. (8.76 cm)
+- Width: 17.60 in. (43.94 cm)
+- Depth: 23.62 in. (59.99 cm)
+
 **Weight**
+
+- 53 lb (24 kg) including fans and PSUs
+
 **Power**
+
+-Typical: 500W without optics
+-Power handling of each quad = 43W
+
+Note: Quad is a group of 4 ports.
+{: .notice--info}
 
