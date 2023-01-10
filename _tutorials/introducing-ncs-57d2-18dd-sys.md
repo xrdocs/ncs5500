@@ -17,7 +17,7 @@ position: hidden
 
 ## Introduction
 
-Latest trends in the [metro architecture](https://xrdocs.io/ncs5500/tutorials/simple-scalable-programmable-sustainable-metro-with-cisco-ncs5500-nc5700/) have driven the evolution of our [product portfolio](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) with enhanced software capabilities and compact form-factors. The Cisco NCS 5500/5700 Series offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, and service providers. With [IOS-XR 7.8.1](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/general/78x/release/notes/b-release-notes-ncs5500-r781.html#Cisco_Concept.dita_f911b3f4-9c37-46b7-b0b4-c151641ff919), we have introduced the latest addition to our portfolio: [NCS57-D2-18DD-SYS](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57d2-18dd-fixed-chassis-ds.html). In this article, we will discuss the features and its use cases.
+Latest trends in the [metro architecture](https://xrdocs.io/ncs5500/tutorials/simple-scalable-programmable-sustainable-metro-with-cisco-ncs5500-nc5700/) have driven the evolution of our [product portfolio](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html) with enhanced software capabilities and compact form-factors. The Cisco NCS 5500/5700 Series offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. It is designed for operational simplicity and to efficiently meet the scaling needs of large enterprises, web, and service providers. With [IOS-XR 7.8.1](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/general/78x/release/notes/b-release-notes-ncs5500-r781.html#Cisco_Concept.dita_f911b3f4-9c37-46b7-b0b4-c151641ff919), we have introduced the latest addition to our portfolio: [NCS57-D2-18DD-SYS](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs-57d2-18dd-fixed-chassis-ds.html). In this article, we will deepdive into the features and understand its use cases.
 
 ## NCS5500/5700 Fixed Portfolio
 
@@ -238,10 +238,3 @@ The platform will support the below profiles:
 - [NCS5500/5700 XRdocs](https://xrdocs.io/ncs5500/) 
 - [NCS5500/5700 Modular WhitePaper](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-convergence-sys-wp.html)
 - [NCS5500/5700 Fixed WhitePaper](https://www.cisco.com/c/dam/en/us/products/collateral/routers/network-convergence-system-5500-series/ncs5500-fixed-platform-architecture-white-paper.pdf)
-
-
-
-
-
-
-
