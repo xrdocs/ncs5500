@@ -59,7 +59,7 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 - Breakout options supported for 10G/25G/100G
 - Support for ZR/ZR+ Coherent optics
 
-**Other port**
+**Other ports**
 
 ![]({{site.baseurl}}/images/Screenshot%202023-01-09%20at%2011.18.26%20AM.png)
 
@@ -82,8 +82,8 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 
 **Power**
 
--Typical: 500W without optics
--Power handling of each quad = 43W
+- Typical: 500W without optics
+- Power handling of each quad = 43W
 
 Note: Quad is a group of 4 ports. For example ports 0,1,2,3 makes one quad.
 {: .notice--info}
@@ -136,7 +136,7 @@ Cisco's [Converged SDN Transport Solution](https://blogs.cisco.com/sp/routed-opt
 
 ### End to End Network Slicing using Segment Routing/Segment Routing v6
 
-Latency is one of most important KPIs when it comes to service provider networks. Applications must be capable of reaching the end-user quickly enough to prevent the degradation of the experience. Network slicing and segment routing provide intelligent routing and traffic differentiation required to efficiently support this distributed architecture. With Network Slicing we can have independent networks on the same physical infrastructure. NCS5500/5700 portfolio supports full set of [Segment routing/SRV6](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/76x/b-segment-routing-cg-ncs5500-76x.html) features to help the operators design an efficent and future ready architecture.
+Latency is one of most important KPIs when it comes to service provider networks. Applications must be capable of reaching the end-user quickly enough to prevent the degradation of the experience. Network slicing and segment routing provide intelligent routing and traffic differentiation required to efficiently support this distributed architecture. With Network Slicing we can have independent networks on the same physical infrastructure. NCS5500/5700 portfolio supports full set of [Segment routing/SRV6](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/76x/b-segment-routing-cg-ncs5500-76x.html) features to help the operators design an efficient and future ready architecture.
 
 ### Trustworthy Infrastructure
 
@@ -153,7 +153,7 @@ Build a [trustworthy infrastructure](https://www.cisco.com/site/us/en/products/s
 
 Along with above major use cases, the NCS-57D2 (and entire NCS5500/5700 portfolio) support full features of 
 
-- Overlay Laye2 services using EVPN and VPLS
+- Overlay Layer2 services using EVPN and VPLS
 - IPSLA support including TWAMP and TWAMP Lite
 - Multicast
 - BGP features
