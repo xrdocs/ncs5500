@@ -85,7 +85,7 @@ NCS57-D2 is a compact 2RU chassis purpose built for dense 400G aggregation. It o
 -Typical: 500W without optics
 -Power handling of each quad = 43W
 
-Note: Quad is a group of 4 ports.
+Note: Quad is a group of 4 ports. For example ports 0,1,2,3 makes one quad.
 {: .notice--info}
 
 ## Naming Logic 
