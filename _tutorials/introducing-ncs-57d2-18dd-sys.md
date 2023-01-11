@@ -138,6 +138,12 @@ Cisco's [Converged SDN Transport Solution](https://blogs.cisco.com/sp/routed-opt
 
 Latency is one of most important KPIs when it comes to service provider networks. Applications must be capable of reaching the end-user quickly enough to prevent the degradation of the experience. Network slicing and segment routing provide intelligent routing and traffic differentiation required to efficiently support this distributed architecture. With Network Slicing we can have independent networks on the same physical infrastructure. NCS5500/5700 portfolio supports full set of [Segment routing/SRV6](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/segment-routing/76x/b-segment-routing-cg-ncs5500-76x.html) features to help the operators design an efficient and future ready architecture.
 
+### Scale better with 3-layer spine-leaf architecture
+
+![Screenshot 2023-01-11 at 10.34.01 AM.png]({{site.baseurl}}/images/Screenshot 2023-01-11 at 10.34.01 AM.png)
+
+The above design example is a three-tiered spine-leaf topology. Leverage the power of MP-BGP EVPN to distributes the Layer 2 and Layer 3 reachability information for the overlay network. NCS5500/5700 portfolio supports full set of [EVPN features](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/vpn/78x/b-l2vpn-cg-ncs5500-78x/evpn-features.html) to scale the datacenter fabric. The design allows flexibility to run MP-BGP in a multi-POD environment across different AS or within a single AS. EVPN routes can be distributed among PODs through MP-eBGP peering without the need for additional configuration.
+
 ### Trustworthy Infrastructure
 
 Build a [trustworthy infrastructure](https://www.cisco.com/site/us/en/products/security/resources.html) with in-built software security of [Cisco IOS-XR](https://www.cisco.com/c/en/us/td/docs/iosxr/ncs5500/security/77x/b-system-security-cg-ncs5500-77x.html) along with hardware security features of NCS5500/5700 portfolio. The NCS5500/5700 supports: 
@@ -211,9 +217,10 @@ All the 66 ports can be configured with 40G native speeds
 
 ### Breakout combination 25G and 10G
 
-![Screenshot 2023-01-09 at 2.24.09 PM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 2.24.09 PM.png)
+![Screenshot 2023-01-11 at 9.59.46 AM.png]({{site.baseurl}}/images/Screenshot 2023-01-11 at 9.59.46 AM.png)
 
-- 4x25G and 4x10G Breakout cannot co-exist together
+- 4x25G and 4x10G Breakout cannot co-exist together in a single quad
+- 4x25G and 4x10G Breakout can be configured individually on port 64 and 65
 
 
 ## Port Assignment to ASIC core
