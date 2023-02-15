@@ -29,9 +29,7 @@ With IOS XR 7.5.2, we introduce one rack unit (1RU) fixed port routers in the Ci
 
 ### Video 
 
-<iframe width="1236" height="695" src="https://www.youtube.com/embed/k199LAJh8tQ" title="Introducing Cisco NCS-57C1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
+<iframe width="1236" height="695" src="https://youtu.be/zPpbkILJgew" title="Introducing Cisco NCS-57D2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 ## Naming Logic
