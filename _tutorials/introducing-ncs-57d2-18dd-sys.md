@@ -38,6 +38,12 @@ Before deep-diving into the NCS-57D2, let us have a quick refresher of the NCS55
 
 ## NCS-57D2 Product Specifications
 
+### Product Design
+
+For NCS-57D2 we have come up with Belly-to-Belly design concept. This helps in better air-flow and cooling and providing the environment to pack in more ZR/ZRP optics in a single chassis. It is designed to have air flow on both sides of PCB for uniform cooling of upper and lower rows to allow for coherent support. Total 16 Quads with 32 cages and 64 QSFP-DD ports. 
+
+![Screenshot 2023-02-15 at 2.18.30 PM.png]({{site.baseurl}}/images/Screenshot 2023-02-15 at 2.18.30 PM.png)
+
 **Front view**
 
 ![Screenshot 2023-01-09 at 11.02.11 AM.png]({{site.baseurl}}/images/Screenshot 2023-01-09 at 11.02.11 AM.png)
