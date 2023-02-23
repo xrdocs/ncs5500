@@ -248,8 +248,6 @@ The platform will support the below profiles:
 
 ## NCS-57D2 Video 
 
-<iframe width="1236" height="695" src="https://www.youtube.com/embed/k199LAJh8tQ" title="Introducing Cisco NCS-57C1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
 <iframe width="1236" height="695" src="https://www.youtube.com/embed/zPpbkILJgew" title=" Introducing the NCS-57D2-18DD" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## References
