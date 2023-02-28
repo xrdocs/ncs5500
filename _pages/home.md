@@ -10,6 +10,26 @@ date: null
 
 {% include base_path %}
 
+<div class="feature__wrapper">    
+    <div class="feature__item--left">
+      <div class="archive__item" style="margin-left: 2em;">
+          <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/mRx-pX69YTc" frameborder="0"
+               allowfullscreen></iframe>
+          </div>
+        <div class="archive__item-body">
+            <h2 class="archive__item-title"><a href="https://www.youtube.com/watch?v=mRx-pX69YTc" target="_blank" ></a>
+            Introducing the Cisco NCS57D2 Fixed Router</h2>
+            <div class="archive__item-excerpt" style="font-size: 0.65em;">
+            <p>This video covers the latest 2RU Fixed High Dense 400G router in NCS5700 product family.
+               Based on J2C+ chipset, it offers upto 18x400G or Upto 66x100G Native fixed ports with QDD form factor.
+               <b>Tejas Lad</b> describes the architecture and unique system capabilities.</p>
+            </div>
+          <a href="https://www.youtube.com/watch?v=mRx-pX69YTc" target="_blank"  class="btn btn--large">Watch on Youtube</a>
+        </div>
+      </div>
+    </div>
+</div>
 
 <div class="feature__wrapper">    
     <div class="feature__item--right">
