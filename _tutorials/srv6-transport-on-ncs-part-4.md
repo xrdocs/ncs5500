@@ -3,6 +3,10 @@ published: false
 date: '2022-11-14 15:25 +0530'
 title: SRv6 Transport on NCS 5700
 position: hidden
+author: Paban Sarma
+excerpt: >-
+  SRv6 Transport building with NCS 5700. compare the difference in configuration
+  option w.r.t NCS 5500
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
@@ -26,7 +30,11 @@ This article, will focus on config knob differences to setup the SRv6 transport 
 <h2> Differences in Configuration</h2>
 
 ### Platform hw-module command for format
+To enable, SRv6 transport on the NCS 5500 series (1st gen) we need to enable hw-module profile. This is not needed on the NCS 5700 series. SRv6 Mode base or uSID is configured directly under segment routing global configuration.
+
 ### Defining traffic-class encapsulations
+Another important factor in SRv6 is the traffic-class filed in the encapsulated SRv6 header. The otion is to either propagate from the payload or define a global value for all services. With NCS 5500 this is enabled along with the hw-module profile. While for NCS 5700 this is configured under SRv6 encapsulation. The hw-module profile allows a knob separately treat for l2 and l3 encapsulation. 
+
 ### SRv6 Locator blocks
 ### Others
   
