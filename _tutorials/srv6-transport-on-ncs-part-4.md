@@ -4,6 +4,9 @@ date: '2023-03-23 16:37 +0530'
 title: ''
 author: Paban Sarma
 position: hidden
+excerpt: >-
+  SRv6 Transport on NCS 5700. Basic configuration approach comparison with NCS
+  5500
 ---
 
 
