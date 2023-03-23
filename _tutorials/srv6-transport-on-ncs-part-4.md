@@ -3,10 +3,15 @@ published: true
 date: '2023-03-23 16:37 +0530'
 title: SRv6 Transport on NCS 5700
 author: Paban Sarma
-position: hidden
+position: top
 excerpt: >-
   SRv6 Transport on NCS 5700. Basic configuration approach comparison with NCS
   5500
+tags:
+  - iosxr
+  - SRv6
+  - Segment-Routing
+  - NCS 5700
 ---
 
 
@@ -17,9 +22,9 @@ excerpt: >-
 
 <h2> Overview </h2>
 
-Cisco MIG Access & Aggreagtion platforms, i.e NCS 500 and NCS 5500 series have variants built with BCM J1 and J2 ASICs. Inour previous articles on SRv6 transport and services, we covered platforms built with first generation of BCM ASIC. While, service configuration and behaviour are same on both generations of platforms, there are specific config knobs needed on the first generation of platforms. we discussed the same in details in our first article on [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/). 
+Cisco MIG Access & Aggreagtion platforms, i.e NCS 500 and NCS 5500 series have variants built with BCM J1 and J2 ASICs. In our previous articles on SRv6 transport and services, we covered platforms built with first generation of BCM ASIC. While, service configuration and behaviour are same on both generations of platforms, there are specific config knobs needed on the first generation of platforms. we discussed the same in details in our first article on [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/). 
 
-This article, will focus on config knob differences to setup the SRv6 transport on new generation of products i.e. the NCS 5700 and particular variants in NCS 540 series. 
+This tutorial will focus on various config knob differences to setup the SRv6 transport on the new generation of products i.e. the NCS 5700 and particular variants in NCS 540 series. 
 
 <h2> Applicable Platform Models </h2>
   
