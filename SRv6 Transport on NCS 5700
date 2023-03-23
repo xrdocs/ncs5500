@@ -79,7 +79,7 @@ segment-routing
 </code>
 </pre>
 </div>
-​
+
 ### Defining source encapsulation
 The SRv6 header source address definition is done the same way on both NCS 5500 and NCS 5700 platform. This configuration is present under the segment-routing global configuration block.
 
@@ -123,5 +123,3 @@ As discussed in the Overview section, any type of service creation. show comamnd
 
 <h2> Summary </h2>
 In this short article, we covered the fundamental difference in configuration approach for SRv6 transport between NCS 5700 and NCS 5500 platforms. Stay tuned for more SRv6 transport related contents.
-
-
