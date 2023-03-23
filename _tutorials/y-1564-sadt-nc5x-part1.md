@@ -22,7 +22,9 @@ The ITU-T recommendation Y.1564 defines an out-of-service test methodology to co
 The objective of this series of articles is to capture the Y.1564 capabilities of NCS 5500 and NCS 500 series routers. We will discuss the implementation and various use-cases and their configurations & verifications. This part includes concepts, supported scenarios & configuration examples to demonstrate how operators can run Y.1564 SADT on the box.
 
 ## Y.1564 Concepts:
-![concepts_1564.png]({{site.baseurl}}/images/concepts_1564.png)
+![internal.png]({{site.baseurl}}/images/internal.png)
+
+![external.png]({{site.baseurl}}/images/external.png)
 
 ### Traffic Generation and Measurement 
 There are various operations as per Y.1564 viz.
