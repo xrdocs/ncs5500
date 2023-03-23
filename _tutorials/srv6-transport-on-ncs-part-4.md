@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2023-03-23 16:37 +0530'
-title: ''
+title: SRv6 Transport on NCS 5700
 author: Paban Sarma
 position: hidden
 excerpt: >-
@@ -133,4 +133,3 @@ As discussed in the Overview section, any type of service creation. show comamnd
 
 <h2> Summary </h2>
 In this short article, we covered the fundamental difference in configuration approach for SRv6 transport between NCS 5700 and NCS 5500 platforms. Stay tuned for more SRv6 transport related contents.
-
