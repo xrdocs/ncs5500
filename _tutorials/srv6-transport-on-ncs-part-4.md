@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2022-11-14 15:25 +0530'
 title: SRv6 Transport on NCS 5700
 position: hidden
@@ -11,7 +11,6 @@ excerpt: >-
 {% include toc icon="table" title="Table of Contents" %}
 
 |Paban Sarma, Technical Marketing Engineer (pasarma@cisco.com)|  
-|Tejas Lad, Technical Marketing Engineer (telad@cisco.com)|
 
 <h2> Overview </h2>
 
@@ -32,9 +31,79 @@ This article, will focus on config knob differences to setup the SRv6 transport 
 ### Platform hw-module command for format
 To enable, SRv6 transport on the NCS 5500 series (1st gen) we need to enable hw-module profile. This is not needed on the NCS 5700 series. SRv6 Mode base or uSID is configured directly under segment routing global configuration.
 
+#### NCS 5500 Configuration via hw-module
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile segment-routing srv6 mode micro-segment format f3216
+</code>
+</pre>
+</div>
+	
+#### NCS 5700 Configuration
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+segment-routing
+ srv6
+  formats
+   format usid-f3216
+</code>
+</pre>
+</div>
+
 ### Defining traffic-class encapsulations
 Another important factor in SRv6 is the traffic-class filed in the encapsulated SRv6 header. The otion is to either propagate from the payload or define a global value for all services. With NCS 5500 this is enabled along with the hw-module profile. While for NCS 5700 this is configured under SRv6 encapsulation. The hw-module profile allows a knob separately treat for l2 and l3 encapsulation. 
 
+#### NCS 5500 Configuration via hw-module
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+hw-module profile segment-routing srv6 mode micro-segment format f3216
+ <mark>encapsulation
+  l2-traffic
+   traffic-class propagate
+  !
+  l3-traffic
+   traffic-class propagate</mark>
+</code>
+</pre>
+</div>
+
+#### NCS 5700 Configuration
+
+#### NCS 5700 Configuration
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+segment-routing
+ srv6
+  encapsulation
+   traffic-class propagate
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+### Defining source encapsulation
+The SRv6 header source address definition is done the same way on both NCS 5500 and NCS 5700 platform. This configuration is present under the segment-routing global configuration block.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+segment-routing
+ srv6
+  encapsulation
+   <mark>source-address 2001::1</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
 ### SRv6 Locator blocks
 ### Others
   
