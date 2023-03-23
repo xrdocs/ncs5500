@@ -105,7 +105,7 @@ segment-routing
 </pre>
 </div>
 ### SRv6 Locator blocks
-SRv6 locator is one of the important configuration parameter for SRv6. The locator is comination of Base and Node ID. For SRv6 uSID (f3216 format), the 32 bit base is divided into 24 bit BASE and 8 bit block ID. On NCS 5500 the block ID can range from 0x00-0x3F whereas on NCS 5700 it can go from 0x00-0xFF. The following example shows configuration example from SRv6 locator for uSID.
+SRv6 locator is one of the important configuration parameter for SRv6. The locator is comination of Base and Node ID. For SRv6 uSID (f3216 format), the 32 bit base is divided into 24 bit BASE and 8 bit block ID. The following example shows configuration example from SRv6 locator for uSID.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -123,11 +123,11 @@ segment-routing
 </code>
 </pre>
 </div>
-On the example above the highlighted two nibbles can be in the range of _00-ff_ on NCS 5700 while, for NCS 5500 this can be within the range of _00-3f_.
+On the example above, the highlighted two nibbles can be in the range of _00-ff_ on NCS 5700 platforms. For the first generation, NCS 5500/500 the block ID range is _00-3f_.
 
 ### Service Configurations
 
-As discussed in the Overview section, any type of service creation. show comamnds related to transport and service infra are common to all the NCS 500 and NCS 5500/5700 PIDs. The basic layer2 and layer3 service over SRv6 transport is already covered in our previous tutorials.
+As discussed in the Overview section, any type of service creation. show comamnds related to transport and service infra are common to all the NCS 500 and NCS 5500/5700 PIDs. The basic [Layer3](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) and [Layer2](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-3/) service over SRv6 transport is already covered in our previous tutorials.
 
 <h2> Summary </h2>
 In this short article, we covered the fundamental difference in configuration approach for SRv6 transport between NCS 5700 and NCS 5500 platforms. Stay tuned for more SRv6 transport related contents.
