@@ -1,7 +1,7 @@
 ---
 published: true
 date: '2023-03-23 16:37 +0530'
-title: SRv6 Transport on NCS 5700
+title: Segment Routing v6 (SRv6) Transport on NCS 5700
 author: Paban Sarma
 position: top
 excerpt: >-
@@ -22,9 +22,9 @@ tags:
 
 <h2> Overview </h2>
 
-Cisco MIG Access & Aggreagtion platforms, i.e NCS 500 and NCS 5500 series have variants built with BCM J1 and J2 ASICs. In our previous articles on SRv6 transport and services, we covered platforms built with first generation of BCM ASIC. While, service configuration and behaviour are same on both generations of platforms, there are specific config knobs needed on the first generation of platforms. we discussed the same in details in our first article on [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/). 
+Cisco MIG Access & Aggregation platforms, i.e NCS 500 and NCS 5500 series have variants built with BCM J1 and J2 ASICs. In our previous articles on SRv6 transport and services, we covered platforms built with first generation of BCM ASIC. While service configuration and behaviour are same on both the generations of platforms, there are specific config knobs needed on the first generation of platforms. We discussed the same in detail in our first article on [SRv6 Transport](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/). 
 
-This tutorial will focus on various config knob differences to setup the SRv6 transport on the new generation of products i.e. the NCS 5700 and particular variants in NCS 540 series. 
+This tutorial will focus on various config knob differences to set up the SRv6 transport on the new generation of products i.e. the NCS 5700 and particular variants in NCS 540 series. 
 
 <h2> Applicable Platform Models </h2>
   
@@ -37,7 +37,7 @@ This tutorial will focus on various config knob differences to setup the SRv6 tr
 <h2> Differences in Configuration</h2>
 
 ### Platform hw-module command for format
-To enable, SRv6 transport on the NCS 5500 series (1st gen) we need to enable hw-module profile. This is not needed on the NCS 5700 series. SRv6 Mode base or uSID is configured directly under segment routing global configuration.
+To enable SRv6 transport on the NCS 5500 series (1st gen) we need to enable hw-module profile. This is not needed on the NCS 5700 series. SRv6 Mode base or uSID is configured directly under segment routing global configuration.
 
 #### _NCS 5500 Configuration via hw-module_
 
@@ -62,7 +62,7 @@ segment-routing
 </div>
 
 ### Defining traffic-class encapsulations
-Another important factor in SRv6 is the traffic-class filed in the encapsulated SRv6 header. The otion is to either propagate from the payload or define a global value for all services. With NCS 5500 this is enabled along with the hw-module profile. While for NCS 5700 this is configured under SRv6 encapsulation. The hw-module profile allows a knob separately treat for l2 and l3 encapsulation. 
+Another important factor in SRv6 is the traffic-class field in the encapsulated SRv6 header. The option is to either propagate from the payload or define a global value for all services. With NCS 5500 this is enabled along with the hw-module profile. On NCS 5700 this is configured under SRv6 encapsulation. The hw-module profile knob allows separate treatment for L2 and L3 encapsulation. 
 
 #### _NCS 5500 Configuration via hw-module_
 <div class="highlighter-rouge">
@@ -86,8 +86,8 @@ hw-module profile segment-routing srv6 mode micro-segment format f3216
 <code>
 segment-routing
  srv6
-  encapsulation
-   traffic-class propagate
+  <mark>encapsulation
+   traffic-class propagate</mark>
   !
  !
 !
@@ -112,7 +112,7 @@ segment-routing
 </pre>
 </div>
 ### SRv6 Locator blocks
-SRv6 locator is one of the important configuration parameter for SRv6. The locator is comination of Base and Node ID. For SRv6 uSID (f3216 format), the 32 bit base is divided into 24 bit BASE and 8 bit block ID. The following example shows configuration example from SRv6 locator for uSID.
+SRv6 locator is an important configuration parameter for SRv6. The locator is combination of Base and Node ID. For SRv6 uSID (f3216 format), the 32 bit base is divided into 24 bit BASE and 8 bit block ID. The following example shows configuration example from SRv6 locator for uSID.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -130,11 +130,11 @@ segment-routing
 </code>
 </pre>
 </div>
-On the example above, the highlighted two nibbles can be in the range of _00-ff_ on NCS 5700 platforms. For the first generation, NCS 5500/500 the block ID range is _00-3f_.
+In the example above, the highlighted two nibbles can be in the range of _00-ff_ on NCS 5700 platforms. For the first generation, NCS 5500/500 the block ID range is _00-3f_.
 
 ### Service Configurations
 
-As discussed in the Overview section, any type of service creation. show comamnds related to transport and service infra are common to all the NCS 500 and NCS 5500/5700 PIDs. The basic [Layer3](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) and [Layer2](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-3/) service over SRv6 transport is already covered in our previous tutorials.
+As discussed in the Overview section, any type of service creation, show comamnds related to transport and service infra are common to all the NCS 500 and NCS 5500/5700 PIDs. The basic [Layer3](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/) and [Layer2](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-3/) service over SRv6 transport is already covered in our previous tutorials.
 
 <h2> Summary </h2>
-In this short article, we covered the fundamental difference in configuration approach for SRv6 transport between NCS 5700 and NCS 5500 platforms. Stay tuned for more SRv6 transport related contents.
+In this short article, we covered the fundamental difference in configuration approach for SRv6 transport between NCS 5700 and NCS 5500 platforms. Stay tuned for more SRv6 transport related content.
