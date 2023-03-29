@@ -56,11 +56,11 @@ Parameters:
 **Summary**:
   Number of Locators: 15 (15 operational)     /*Current scale*/  
   Number of SIDs: 6749 (0 stale)              /*Current scale*/  
-  Max SID resources: 12256           **/Scale Limit J2 L3MAX-SE/**
+  Max SID resources: 12256           <mark>/Scale Limit J2 L3MAX-SE/</mark>
   Number of free SID resources: 4487
   OOR:
     Thresholds (resources): Green 613, Warning 368 
-    Status: **Resource Available**            /*Current OOR state*/
+    Status: <mark>Resource Available</mark>            /*Current OOR state*/
         History: (0 cleared, 0 warnings, 0 full)
         
         Block fc05::/32:
@@ -69,14 +69,14 @@ Parameters:
         Thresholds: Green 384, Warning 231
         Status: Resource Available
             History: (0 cleared, 0 warnings, 0 full)
-<snipped>
+_/snipped/_
     Block fc05:4::/32:
         Number of free SID resources: 4946 /*Current Available resources*/
-       **Max SIDs: 7680            /Max scale limit per block/**
+       <mark>Max SIDs: 7680            /Max scale limit per block/</mark>
         Thresholds: Green 384, Warning 231
         Status: Resource Available
             History: (0 cleared, 0 warnings, 0 full)
-<snipped>
+_/snipped/_
 **Platform Capabilities:**
   SRv6: Yes
   TILFA: Yes
@@ -112,8 +112,8 @@ Security rules: 
   **Signaled parameters:**
     Max-SL          : 11                                           
     Max-End-Pop-SRH : 5
-  **Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
-    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/**
+<mark>Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
+    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/</mark>
     Max-End-D       : 8
   Configurable parameters (under srv6): 
     Encapsulation: 
@@ -124,10 +124,12 @@ Security rules: 
     Encapsulation: 
       Hop-Limit     : value=0, propagate=No
       Traffic-class : value=0, propagate=No
-**Max Locators: 16                 /Max scale for locators/
-  Max SIDs: 12256                  /Max scale for L3MAX-SE/**
+<mark>Max Locators: 16                 /Max scale for locators/
+  Max SIDs: 12256                  /Max scale for L3MAX-SE/</mark>
   SID Holdtime: 3 mins             /*Configurable value for SID clean=up*/
 
-<div class="highlighter-rouge">
-<pre class="highlight">
-<code>
+</code>
+</pre>
+</div>
+
+
