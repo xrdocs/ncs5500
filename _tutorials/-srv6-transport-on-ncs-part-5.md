@@ -13,7 +13,7 @@ excerpt: Resource Consumption with SRv6 transport and overlay services
 
 ## Overview
 
-This will be the fifth article in SRv6 series on NCS5500/NCS500 platforms. In this write-up we will focus on covering the NPU resources usage when we provision SRv6 services on the NCS product family which is build on BCM DNX Jercho/Jericho+/Jericho2 asics.
+This will be the fifth article in SRv6 series on NCS5500/NCS500 platforms. In this write-up we will focus on covering the platform capabilties for SRv6 and resources usage when we provision SRv6 services on the NCS500/500 product-family which is build with BCM DNX Jercho/Jericho+/Jericho2 asics.
 
 
 ## Platform Capabilties
@@ -25,6 +25,7 @@ Details are also captured in correspondance to the different MDB profiles we sup
 
 ![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
 
+_Please note: These scale numbers are subjected to change with the future XR releases and more feature enhancements in pipeline as well_
 
 MDB to PID mapping for reference
 
@@ -132,6 +133,49 @@ Security rules: 
 </pre>
 </div>
 
+
+## SRv6 MAX SIDs
+
+Every platform with the combination of MDB profiles (for ncs57) will have the maximum local SID allocation limit (Numbers are shared in the table above) 
+We can use the below CLI to check the max SIDs,
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+sh segment-routing srv6 manager | i Max SID r
+  Max SID resources: 12256
+
+</code>
+</pre>
+</div>
+
+In SRv6 we can support multiple locators for various reasons like slicing/flex-algo. So we enfore max CAP per locator block which can be checked with
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+sh segment-routing srv6 manager | i "Block|Max SIDs"
+    Block fc05::/32:
+        Max SIDs: 7680
+
+</code>
+</pre>
+</div>
+
+Please note: Sum of the SIDs in different locator blocks should be <= Max SID resources supported 
+
+We will see in details the local SID allocation for different SID functionalities. (lets keep the focus restricted to uSID and not Format1 )
+
+These are some of the mails SID functioanlities we have today
+
+uN : Locator SID
+uA : Adjacency SID
+uDT4/6 : Per-VRF SID for GRT/VPN (ipv4/ipv6)
+uDX4/6 : Per-CE SID for GRT/VPN (ipv4/ipv6)
+uDX2 : L2VPN SID for EVPN VPWS
+uB6 : BSID for SRv6 Policy
+uDT2U: EVPN ELAN SID for known-unicast
+uDT2M : EVPN ELAN SID for BUM traffic
 
 
 
