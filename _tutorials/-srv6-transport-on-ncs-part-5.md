@@ -22,117 +22,112 @@ Lets get started with a brief overview of the capabilties of the platforms under
 
 Details are also captured in correspondance to the different MDB profiles we support in NCS5700 platforms. Fore more understanding on MDB pls refer to https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/
 
-| Parameters | NCS57 L3MAX SE | NCS7 L3MAX | NCS57 L2MAX SE | NCS57 L2MAX | NCS540 L3MAX | NCS540 L2MAX | NCS55 |
-|------------||------------|------------|------------|------------|------------|---------|------|
-| Applicable Platforms | NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE |  NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE  | NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | N540-24Q8L2DD-SYS | NC55 Systems |
+
+![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
 
 
-Number of Locators
-16
-16
-16
-16
-16
-16
-8
-Max SIDs
-12K
-6K
-16K
-11K
-3K
-6K
-8K
-SRv6 encap
-(H.encap)
-16K
-16K
-12K
-16k
-10K
-12K
--
-F1, uSID support
-F1, uSID
-F1, uSID
-F1, uSID
-F1, uSID
-F1, uSID
-F1, uSID
-F1, uSID
-uDX4/6 in later releases*
-uSID: PSP, USD
-USP (c8K only)
-PSP, USD
-PSP, USD
-PSP, USD
-PSP, USD
-PSP, USD
-PSP, USD
-PSP, USD
-SRv6TE
-uSID only
-781
-781
-781
-781
-781
-781
-Phase1: 732
-Phase2: 781
-LSS (Large SID stack)
-No Recycle
-(24 usids)
-No Recycle
-(24 usids)
-No Recycle
-(24 usids)
-No Recycle
-(24 usids)
-No Recycle
-(24 usids)
-No Recycle
-(24 usids)
-Recycle
-(12 usids)
-ELAN support 
-(uDT2U, uDT2M)
-Planned for Future release
-Planned for Future release
-Planned for Future release
-Planned for Future release
-Planned for Future release
-Planned for Future release
-752
-MAX SRv6 carriers
-H-Insert    : 4 sids
-H-Encap   : 5 sids
+MDB to PID mapping for reference
 
-H-Insert    : 4 sids
-H-Encap   : 5 sids
-H-Insert    : 4 sids
-H-Encap   : 5 sids
-H-Insert    : 4 sids
-H-Encap   : 5 sids
-H-Insert    : 4 sids
-H-Encap   : 5 sids
-H-Insert    : 4 sids
-H-Encap   : 5 sids
-H-Insert    : 2 sids
-H-Encap   : 2 sids
-Overlay Underlay Merge
-No
-No
-No
-No
-No
-No
-Yes, with a CLI
-L2, L3 propagate differentiation
-No
-No
-No
-No
-No
-No
-Yes, 771 with a CLI
+
+![MDB-PID-MAP.png]({{site.baseurl}}/images/MDB-PID-MAP.png)
+
+
+## SRv6 Manager CLI for details
+
+We have an IOS-XR on the box CLI to check the functional and scale capabilitie of any Cisco XR platforms.  CLI : **"show segment-routing srb6 manger"**
+
+**Illustration below**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+**“sh segment-routing srv6 manager”**
+Parameters:
+  SRv6 Enabled: Yes
+  SRv6 Operational Mode: 
+    Micro-segment:
+      SID Base Block: fc05::/24       /*Configured base block*/
+  Encapsulation:
+    Source Address:
+      Configured: ::
+      Default: 100:1:1::1                        /*Loopback IP*/
+    Hop-Limit: Propagate                   /*Configured Values*/    
+    Traffic-class: Propagate               /*Configured Values*/
+**Summary**:
+  Number of Locators: 15 (15 operational)     /*Current scale*/  
+  Number of SIDs: 6749 (0 stale)              /*Current scale*/  
+  Max SID resources: 12256           **/Scale Limit J2 L3MAX-SE/**
+  Number of free SID resources: 4487
+  OOR:
+    Thresholds (resources): Green 613, Warning 368 
+    Status: **Resource Available**            /*Current OOR state*/
+        History: (0 cleared, 0 warnings, 0 full)
+        
+        Block fc05::/32:
+        Number of free SID resources: 7607
+        Max SIDs: 7680
+        Thresholds: Green 384, Warning 231
+        Status: Resource Available
+            History: (0 cleared, 0 warnings, 0 full)
+<snipped>
+    Block fc05:4::/32:
+        Number of free SID resources: 4946 /*Current Available resources*/
+       **Max SIDs: 7680            /Max scale limit per block/**
+        Thresholds: Green 384, Warning 231
+        Status: Resource Available
+            History: (0 cleared, 0 warnings, 0 full)
+<snipped>
+**Platform Capabilities:**
+  SRv6: Yes
+  TILFA: Yes
+  Microloop-Avoidance: Yes
+  **Endpoint behaviors:** 
+    End.DX6                                  /*F1 per-CE v6*/
+    End.DX4                                  /*F1 per-CE v4*/
+    End.DT6                                 /*F1 per-VRF v6*/
+    End.DT4                                 /*F1 per-VRF v4*/
+    End.DX2                                   /*F1 P2P VPWS*/
+    End (PSP/USD)                 
+    End.X (PSP/USD)
+    uN (PSP/USD)                              /*node locator*/
+    uA (PSP/USD)                            /*Adjacency usid*/ 
+    uDX6                                    /*usid per-CE v6*/
+    uDX4                                    /*usid per-CE v4*/
+    uDT6                                   /*usid per-VRF v6*/
+    uDT4                                   /*usid per-VRF v4*/
+    uDX2                                     /*usid P2P VPWS*/
+    uB6 (Insert.Red)                       /*BSID for SRv6TE*/
+ **Headend behaviors:** 
+    T
+    H.Insert.Red                        /*SID Insert - LFA,TE*/
+    H.Encaps.Red                            /*L3 encap*/                  
+    H.Encaps.L2.Red                         /*L2 encap*/
+
+Security rules: 
+    SEC-1
+    SEC-2
+    SEC-3
+  Counters: 
+    CNT-3
+  **Signaled parameters:**
+    Max-SL          : 11                                           
+    Max-End-Pop-SRH : 5
+  **Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
+    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/**
+    Max-End-D       : 8
+  Configurable parameters (under srv6): 
+    Encapsulation: 
+      Source Address: Yes
+      Hop-Limit     : value=Yes, propagate=Yes
+      Traffic-class : value=Yes, propagate=Yes
+  Default parameters (under srv6): 
+    Encapsulation: 
+      Hop-Limit     : value=0, propagate=No
+      Traffic-class : value=0, propagate=No
+**Max Locators: 16                 /Max scale for locators/
+  Max SIDs: 12256                  /Max scale for L3MAX-SE/**
+  SID Holdtime: 3 mins             /*Configurable value for SID clean=up*/
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
