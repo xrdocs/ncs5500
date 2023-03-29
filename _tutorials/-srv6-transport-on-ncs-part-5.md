@@ -193,7 +193,7 @@ Calculaton goes like this,
 sh segment-routing srv6 manager 
 Summary:
   Number of Locators: 15 (15 operational)                            /*uN or Locators*/
-  Number of SIDs: <mark>6749</mark> (0 stale)                                     /*PI output to check the SID usage*/
+  Number of SIDs: <mark>6749</mark> (0 stale)                                     /* SID usage*/
   Max SID resources: <mark>12256</mark>
   Number of free SID resources: <mark>4487 </mark>                                /* 12256 - 6749 != 4487 :) */
   OOR:
@@ -203,7 +203,7 @@ Summary:
 sh segment-routing srv6 sid | i uA | ut wc
     <mark>510</mark>    4080   56100
 RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
-   6239   37482  686534
+  <mark> 6239/<mark>   37482  686534
   
 </code>
 </pre>
