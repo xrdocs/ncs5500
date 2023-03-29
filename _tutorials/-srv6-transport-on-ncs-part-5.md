@@ -1,7 +1,7 @@
 ---
 published: false
 date: '2022-11-18 09:53 +0530'
-title: 'SRv6 Transport on NCS5500/NCS500 : Capabilities & Monitoring'
+title: 'SRv6 Transport on NCS5500/5700/500 : Capabilities & Monitoring'
 position: hidden
 excerpt: Resource Consumption with SRv6 transport and overlay services
 ---
@@ -254,8 +254,157 @@ Block level OOR Threshold set based on SID usage on a specific block
 If we reach the status “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
 
 
+## SRv6 Encap resource usage
+
+SRv6 uSIDs(remote) consumes encap resources (in EEDB -Egress Encap DataBase) like the MPLS labels. In NC57 (J2) systems we have encap bank carving in the form of cluster bank pairs which are dedicated to different network applications like SRv6, L3VPN, BGP LU ..etc
+
+SRv6 encap usage can be monitered as srv6nh category which is similar to mplsnh for labels
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:J2-PE1#sh controllers npu resources encap location 0/4/CPU0 
+HW Resource Information
+    Name                            : encap
+    Asic Type                       : Jericho Two
+OFA Table Information
+(May not match HW usage)
+        ipnh                        : 1038     
+        ip6nh                       : 2042     
+        mplsnh                      : 79             
+       **srv6nh                      : 5185**
+       
+</code>
+</pre>
+</div>    
+
+SRv6NH scale depends on the remote SIDs which we use for the H/T.Encap (like encapsulating with DT4/6 or DX4/6/2 SIDs) and T.Insert (which we use for TILFA or SRv6TE scenarios)
+
+
+## SRv6 FEC resource usage
+
+FEC table is present in the ingress pipleline of the forwarding block. Basically a prefix/label/SID lookup can point to a FEC entry which will have information about the VOQ of the egress interface and also the encap pointers where the remote labels/SIDs are stored.
+
+In NCS5700 we have 3 levels of FEC hierarchy vs 2 levels in NCS5500/540 systems
+Below is an ouput from NCS5700 system where we can see the services SID in H2 FEC and locator SIDs in H3 FEC.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+show controllers npu resources fec location 0/1/CPU0  
+    Name: hier_0
+           Estimated Max Entries       : 52416   
+           Total In-Use                : 8        (0 %)
+           OOR State                   : Green
+           Bank Info                   : H1 FEC       
+       Name: hier_1
+           Estimated Max Entries       : 209664  
+           Total In-Use                : 45       (0 %)
+           OOR State                   : Green
+           Bank Info                   : **H2 FEC   >> Services SID**
+       Name: hier_2
+           Estimated Max Entries       : 78592   
+           Total In-Use                : 9    (0 %)
+           OOR State                   : Green
+           Bank Info                   : **H3 FEC >> uN locator SID**
+</code>
+</pre>
+</div>
+
+ 
+ ## SRv6 ECMP_FEC resource usage
+ 
+ Similar to FEC we will also use ECMP_FEC for multipath entries pointing to a list of FEC array.
+ In NC5700 it maps to similar application hierarchy as that of FEC. 
+ This can be monitored with,
+ 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+show controllers npu resources ecmpfec location 0/RP0/CPU0
+Current Hardware Usage
+    Name: ecmp_fec
+        Estimated Max Entries       : 32768   
+        Total In-Use                : 6        (0 %)
+        OOR State                   : Green
+        Bank Info                   : ECMP 
+       Name: hier_0
+           Estimated Max Entries       : 30720   
+           Total In-Use                : 0        
+           OOR State                   : Green
+           Bank Info                   : H1 ECMP 
+       Name: hier_1
+           Estimated Max Entries       : 30720   
+           Total In-Use                : 1        
+           OOR State                   : Green
+           Bank Info                   : H2 ECMP 
+       Name: hier_2
+           Estimated Max Entries       : 32763   
+           Total In-Use                : 5        
+           OOR State                   : Green
+           Bank Info                   : H3 ECMP
+
+</code>
+</pre>
+</div>
+
+
+ ## SRv6 Ultra USID scale with NCS5700
+ 
+ With the encap budget in NCS5700 we do "Ultra-Scale packing for SRv6 uSIDs"
+ 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+ <mark>Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
+    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/</mark>
+</code>
+</pre>
+</div>
+
+Using this encap budget we have succesfully validated 26 usids packing in a single pass. 
+(24 Transport uSIDs + 2 Service USIDs)
 
 
 
+![Ultras-scale]({{site.baseurl}}/images/Screenshot%202023-03-29%20at%203.25.10%20PM.png)![Screenshot 2023-03-29 at 3.25.10 PM.png]({{site.baseurl}}/images/Screenshot 2023-03-29 at 3.25.10 PM.png)
 
+
+![Ultra-scale-pcap]({{site.baseurl}}/images/Screenshot 2023-03-29 at 3.25.33 PM.png)
+
+
+
+ ##  Show techs required to troublesshoot Srv6 issues
+ 
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>  
+ 
+show tech cef
+show tech cef platform
+show tech l2vpn
+show tech l2vpn platform
+show tech ofa
+show tech segment-routing traffic-eng
+show tech routing isis
+show tech routing bgp
+show tech ipv6 nd  
+
+
+</code>
+</pre>
+</div>
+
+
+## Summary
+
+This article has given an overview on the SRv6 capabilities with respect to the NCS platforms based on the differences in the forwarding asics and the MDB profiles which have been used.
+We also touched upon the important XR commands and outptus to check in the capabilities , scale of the platform with respoect to SRv6 and also the resource usage.
+
+This concludes SRv6 series Part-5. Please stay tuned for more !
+
+ 
  
