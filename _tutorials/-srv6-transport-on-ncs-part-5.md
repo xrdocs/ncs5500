@@ -230,10 +230,10 @@ Summary:
   Number of SIDs: **6749** (0 stale)                                  
   Max SID resources: **12256**
   Number of free SID resources: **4487**                             
- OOR:
+ **OOR**:
     Thresholds (resources): <mark>Green 613</mark>, Warning 368               **/ Global Free resources > 5% of MAX SID for Green/**
     Status: **Resource Available**                                   /*To recover from OOR state, need to be in GREEN threshold*/ 
-    Block fc05:3e::/32:
+    **Block fc05:3e::/32**:
         Number of free SID resources: **4946**                       /* Block level MAX free SIDs = 7680 - current allocation from the block*/
         Max SIDs: 7680
         Thresholds: <mark>Green 384</mark>, Warning 231                       **/ > 5% green threshold for Block level max SID/**
@@ -243,11 +243,16 @@ Summary:
 </pre>
 </div>     
 
-Global level SID allocation and usage is the MAX across all the locator blocks.
- If (Global OOR thresholds and Free entries > 5 % of MAX SID will be Green
-- If we reach the status “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
-- We also CAP each locator block at 7K and the Green threshold is 5% of 7k and the same rules apply
-- In latest release we pre-carve uN resources for 16 locators in hardware so we can handle new locator provisioning even during OOR state .
+Global level OOR Threshold set based on SID usage across all the locator blocks (system level)
+-Green threshold if (global level free resources > 5% of MAX SID on system level)
+-Warning if (global level free resources < 3% of MAX SID on system level)
+
+Block level OOR Threshold set based on SID usage on a specific block
+-Green threshold if (Block level free resources > 5% of MAX SID for locator block)
+-Warning if (Blcok level free resources < 3% of MAX SID for locator block)
+
+If we reach the status “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
+
 
 
 
