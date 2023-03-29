@@ -377,7 +377,7 @@ Using this encap budget we have succesfully validated 26 usids packing in a sing
 ![Ultra-Scale-pcap2]({{site.baseurl}}/images/Screenshot 2023-03-29 at 5.06.59 PM.png)
 
 
-## Show techs required to troublesshoot Srv6 issues 
+## Showtechs required to troublesshoot SRv6 issues 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>   
