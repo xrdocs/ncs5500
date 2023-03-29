@@ -13,21 +13,21 @@ excerpt: Resource Consumption with SRv6 transport and overlay services
 
 ## Overview
 
-This will be the fifth article in SRv6 series on NCS5500/NCS500 platforms. In this write-up we will focus on covering the platform capabilties for SRv6 and resources usage when we provision SRv6 services on the NCS500/500 product-family which is build with BCM DNX Jercho/Jericho+/Jericho2 asics.
+This is the 5th in SRv6 series on NCS5500/NCS500 platforms. In this article we will focus on covering the platform capabilties and resources usage when we provision SRv6 services on the NCS5500/5700/500 product-family which is build with BCM DNX Jercho/Jericho+/Jericho2 NPUs.
 
 
 ## Platform Capabilties
 
-Lets get started with a brief overview of the capabilties of the platforms under discussion with resepct to SRv6 features & scale. 
+Let's get started with a brief overview on capabilties of the platforms under discussion with resepct to SRv6 features & scale. 
 
-Details are also captured in correspondance to the different MDB profiles we support in NCS5700 platforms. Fore more understanding on MDB pls refer to https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/
+Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. Fore more understanding on MDB pls refer to https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/
 
 
 ![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
 
-_Please note: These scale numbers are subjected to change with the future XR releases and more feature enhancements in pipeline as well_
+_Please note: These scale numbers are subjected to change in the future XR releases along with more feature enhancements in the pipeline_
 
-MDB to PID mapping for reference
+**MDB to PID mapping for reference**
 
 
 ![MDB-PID-MAP.png]({{site.baseurl}}/images/MDB-PID-MAP.png)
@@ -35,7 +35,7 @@ MDB to PID mapping for reference
 
 ## SRv6 Manager CLI for details
 
-We have an IOS-XR on the box CLI to check the functional and scale capabilitie of any Cisco XR platforms.  CLI : **"show segment-routing srb6 manger"**
+We have an IOS-XR on-box CLI to check the SRv6 functional and scale capabilities of any the Cisco XR platforms.  CLI : **"show segment-routing srv6 manger"**
 
 **Illustration below**
 
@@ -136,8 +136,8 @@ Security rules: 
 
 ## SRv6 MAX SIDs
 
-Every platform with the combination of MDB profiles (for ncs57) will have the maximum local SID allocation limit (Numbers are shared in the table above) 
-We can use the below CLI to check the max SIDs,
+Every platform with the combination of MDB profiles (for ncs57,) will have the maximum local SID allocation limit (Numbers are shared in the table above) 
+We can use the below CLI to check the max SIDs supported on the router,
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -149,7 +149,7 @@ sh segment-routing srv6 manager | i Max SID r
 </pre>
 </div>
 
-In SRv6 we can support multiple locators for various reasons like slicing/flex-algo. So we enfore max CAP per locator block which can be checked with
+In SRv6, we can support multiple locators for various reasons like slicing/flex-algo. And we enfore max CAP per locator block which can be checked with,
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -164,7 +164,7 @@ sh segment-routing srv6 manager | i "Block|Max SIDs"
 
 Please note: Sum of the SIDs in different locator blocks should be <= Max SID resources supported 
 
-We will see in details the local SID allocation for different SID functionalities. (lets keep the focus restricted to uSID and not Format1 )
+We will see in detail about the local SID allocation for different SID functionalities. (lets keep the focus restricted to uSID and not Format1 )
 
 These are some of the mails SID functioanlities we have today
 
