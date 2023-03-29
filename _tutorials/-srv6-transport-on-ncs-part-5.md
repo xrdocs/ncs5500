@@ -25,6 +25,8 @@ Details are also captured in correspondance to different MDB profiles which are 
 
 ![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
 
+_Table #1 Platform Capabilities_
+
 _Please note: These scale numbers are subjected to change in the future XR releases along with more feature enhancements in the pipeline_
 
 **MDB to PID mapping for reference**
@@ -32,6 +34,7 @@ _Please note: These scale numbers are subjected to change in the future XR relea
 
 ![MDB-PID-MAP.png]({{site.baseurl}}/images/MDB-PID-MAP.png)
 
+_Table #2 Platform MDB mapping_
 
 ## SRv6 Manager CLI for details
 
@@ -166,23 +169,24 @@ Please note: Sum of the SIDs in different locator blocks should be <= Max SID re
 
 We will see in detail about the local SID allocation for different SID functionalities. (lets keep the focus restricted to uSID and not Format1 )
 
-These are some of the mails SID functioanlities we have today
+These are some of the important SID functionalities we have today
 
-uN : Locator SID
-uA : Adjacency SID
-uDT4/6 : Per-VRF SID for GRT/VPN (ipv4/ipv6)
-uDX4/6 : Per-CE SID for GRT/VPN (ipv4/ipv6)
-uDX2 : L2VPN SID for EVPN VPWS
-uB6 : BSID for SRv6 Policy
-uDT2U: EVPN ELAN SID for known-unicast
-uDT2M : EVPN ELAN SID for BUM traffic
+- uN : Locator SID
+- uA : Adjacency SID
+- uDT4/6 : Per-VRF SID for GRT/VPN (ipv4/ipv6)
+- uDX4/6 : Per-CE SID for GRT/VPN (ipv4/ipv6)
+- uDX2 : L2VPN SID for EVPN VPWS
+- uB6 : BSID for SRv6 Policy
+- uDT2U: EVPN ELAN SID for known-unicast
+- uDT2M : EVPN ELAN SID for BUM traffic
+
 
 Calculaton goes like this,
 
 **MAX SIDs allocated** =  sum (uN:uLocal) + 2*uA
 
-- We now reserve 16 uN SIDs by default in hardware to avoid issues with locator configs during OOR conditions
-- uLocal here is the local SID on the box which can fall into categories like (uA, uDT4/6, uDX4/6/2)
+- 16 uN SIDs are reserved by default in hardware to avoid issues with locator configs during OOR conditions
+- uLocal here is the local SID on the box which can fall into categories like (uA, uDT4/6, uDX4/6/2 .. etc )
 - uA is counted 3 times, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
 
 **Example:**
@@ -214,7 +218,7 @@ RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
 
 **Actual SID resource usage**: _6749 + 2*510 (uA) =_ **7769**
 
-**Number of free SID resources:** **4487**  _= ( 12256 - 7769 )_
+**Number of free SID resources:** <mark>4487</mark>  _= ( 12256 - 7769 )_
 
 
 ## OOR (Out Of Resource) monitoring for MAX SIDs
@@ -249,14 +253,14 @@ Global level OOR Threshold set based on SID usage across all the locator blocks 
 
 Block level OOR Threshold set based on SID usage on a specific block
 -Green threshold if (Block level free resources > 5% of MAX SID for locator block)
--Warning if (Blcok level free resources < 3% of MAX SID for locator block)
+-Warning if (Block level free resources < 3% of MAX SID for locator block)
 
-If we reach the status “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
+If we reach the state of OOR “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
 
 
 ## SRv6 Encap resource usage
 
-SRv6 uSIDs(remote) consumes encap resources (in EEDB -Egress Encap DataBase) like the MPLS labels. In NC57 (J2) systems we have encap bank carving in the form of cluster bank pairs which are dedicated to different network applications like SRv6, L3VPN, BGP LU ..etc
+SRv6 uSIDs(remote) consumes encap resources (in EEDB-Egress Encap DataBase) like the MPLS labels. In NC57 (J2) systems we have encap bank carving in the form of cluster bank pairs which are dedicated to different network applications like SRv6, L3VPN, BGP LU ..etc
 
 SRv6 encap usage can be monitered as srv6nh category which is similar to mplsnh for labels
 
@@ -280,11 +284,11 @@ OFA Table Information
 </div>    
 
 SRv6NH scale depends on the remote SIDs which we use for the H/T.Encap (like encapsulating with DT4/6 or DX4/6/2 SIDs) and T.Insert (which we use for TILFA or SRv6TE scenarios)
-
+We also use the encap resources for SRv6-Policy which is not tied to the H.encap numbers in Table#1
 
 ## SRv6 FEC resource usage
 
-FEC table is present in the ingress pipleline of the forwarding block. Basically a prefix/label/SID lookup can point to a FEC entry which will have information about the VOQ of the egress interface and also the encap pointers where the remote labels/SIDs are stored.
+FEC table is present in the ingress pipleline of the NPU forwarding block. Basically a prefix/label/SID lookup can point to a FEC entry which will have information about the VOQ of the egress interface and also the encap pointers where the remote labels/SIDs are stored.
 
 In NCS5700 we have 3 levels of FEC hierarchy vs 2 levels in NCS5500/540 systems
 Below is an ouput from NCS5700 system where we can see the services SID in H2 FEC and locator SIDs in H3 FEC.
@@ -354,7 +358,7 @@ Current Hardware Usage
 
  ## SRv6 Ultra USID scale with NCS5700
  
- With the encap budget in NCS5700 we do "Ultra-Scale packing for SRv6 uSIDs"
+ With the encap budget in NCS5700 we can do "Ultra-Scale packing for SRv6 uSIDs"
  
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -401,8 +405,8 @@ show tech ipv6 nd
 
 ## Summary
 
-This article has given an overview on the SRv6 capabilities with respect to the NCS platforms based on the differences in the forwarding asics and the MDB profiles which have been used.
-We also touched upon the important XR commands and outptus to check in the capabilities , scale of the platform with respoect to SRv6 and also the resource usage.
+This article has given an overview on the SRv6 capabilities with respect to the NCS platforms based on the differences in the forwarding asics and the MDB profiles.
+We also touched upon the important XR commands and outputs to check on the capabilities, scale of the platform with respect to SRv6 and also covered the resource usage for important on chip databases.
 
 This concludes SRv6 series Part-5. Please stay tuned for more !
 
