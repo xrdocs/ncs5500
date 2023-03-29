@@ -318,7 +318,8 @@ show controllers npu resources fec location 0/1/CPU0
 </div>
 
  
- ## SRv6 ECMP_FEC resource usage
+ 
+ ## SRv6 ECMP_FEC usage
  
  Similar to FEC we will also use ECMP_FEC for multipath entries pointing to a list of FEC array.
  In NC5700 it maps to similar application hierarchy as that of FEC. 
