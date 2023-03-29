@@ -23,7 +23,7 @@ This is the 5th tutorial in SRv6 series on NCS5500/NCS500 platforms. In this art
 
 Let's get started with a summary on capabilties of the platforms under discussion with respect to SRv6 features & scale. 
 
-Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. For more understanding on MDB refer to [NCS700-MDB-Details]
+Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. For more understanding on MDB refer to [NCS700-MDB-Info](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/ "NCS700-MDB-Info") 
 
 
 ![SRv6-DNX-CAP-MDB]({{site.baseurl}}/images/Screenshot 2023-03-29 at 8.19.59 PM.png)
