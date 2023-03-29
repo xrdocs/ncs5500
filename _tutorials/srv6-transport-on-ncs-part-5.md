@@ -25,7 +25,8 @@ Let's get started with a summary on capabilties of the platforms under discussio
 
 Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. For more understanding on MDB refer to [NCS700-MDB-Details]
 
-![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
+
+![SRv6-DNX-CAP-MDB]({{site.baseurl}}/images/Screenshot 2023-03-29 at 8.19.59 PM.png)
 
 _Table #1 Platform Capabilities_
 
@@ -34,7 +35,7 @@ _Table #1 Platform Capabilities_
 **MDB to PID mapping for reference**
 
 
-![MDB-PID-MAP.png]({{site.baseurl}}/images/MDB-PID-MAP.png)
+![MDB-PID-MAPING]({{site.baseurl}}/images/Screenshot 2023-03-29 at 8.20.36 PM.png)
 
 _Table #2 Platform MDB mapping_
 
