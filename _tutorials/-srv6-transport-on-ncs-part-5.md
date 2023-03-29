@@ -1,9 +1,12 @@
 ---
-published: false
+published: true
 date: '2022-11-18 09:53 +0530'
-title: 'SRv6 Transport on NCS5500/5700/500 : Capabilities & Monitoring'
+title: 'SRv6 Transport on NCS5500/5700/500 : Capabilities & Resource Monitoring'
 position: hidden
-excerpt: Resource Consumption with SRv6 transport and overlay services
+excerpt: SRv6 Platform capabilities and resource monitoring
+author: Deepak Balasubramanian
+tags:
+  - iosxr
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
