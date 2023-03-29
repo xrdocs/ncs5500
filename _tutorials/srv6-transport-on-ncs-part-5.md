@@ -401,6 +401,3 @@ This article has given an overview on the SRv6 capabilities with respect to the 
 We also touched upon the important XR commands and outputs to check on the capabilities, scale of the platform with respect to SRv6 and also covered the resource usage for important on chip databases.
 
 This concludes SRv6 series Part-5. Please stay tuned for more !
-
- 
- 
