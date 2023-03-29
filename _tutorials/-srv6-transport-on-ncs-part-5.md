@@ -1,7 +1,7 @@
 ---
 published: false
 date: '2022-11-18 09:53 +0530'
-title: 'SRv6 Transport on NCS5500/NCS5700/NCS500 : Platform Capabilities & Resources'
+title: 'SRv6 Transport on NCS5500/NCS500 : Capabilities & Monitoring'
 position: hidden
 excerpt: Resource Consumption with SRv6 transport and overlay services
 ---
@@ -131,5 +131,7 @@ Security rules: 
 </code>
 </pre>
 </div>
+
+
 
 
