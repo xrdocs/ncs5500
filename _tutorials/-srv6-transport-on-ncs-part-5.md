@@ -190,6 +190,7 @@ Calculaton goes like this,
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 sh segment-routing srv6 manager 
 Summary:
   Number of Locators: 15 (15 operational)                            /*uN or Locators*/
@@ -203,7 +204,7 @@ Summary:
 sh segment-routing srv6 sid | i uA | ut wc
     <mark>510</mark>    4080   56100
 RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
-  <mark> 6239/<mark>   37482  686534
+  <mark> 6239/</mark>   37482  686534
   
 </code>
 </pre>
@@ -216,5 +217,40 @@ RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
 **Number of free SID resources:** **4487**  _= ( 12256 - 7769 )_
 
 
+## OOR (Out Of Resource) monitoring for MAX SIDs
+
+**Illustration:**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+sh segment-routing srv6 manager 
+Summary:
+  Number of Locators: 15 (15 operational)                         
+  Number of SIDs: **6749** (0 stale)                                  
+  Max SID resources: **12256**
+  Number of free SID resources: **4487**                             
+ OOR:
+    Thresholds (resources): <mark>Green 613</mark>, Warning 368               **/ Global Free resources > 5% of MAX SID for Green/**
+    Status: **Resource Available**                                   /*To recover from OOR state, need to be in GREEN threshold*/ 
+    Block fc05:3e::/32:
+        Number of free SID resources: **4946**                       /* Block level MAX free SIDs = 7680 - current allocation from the block*/
+        Max SIDs: 7680
+        Thresholds: <mark>Green 384</mark>, Warning 231                       **/ > 5% green threshold for Block level max SID/**
+        Status: Resource Available
+        
+</code>
+</pre>
+</div>     
+
+Global level SID allocation and usage is the MAX across all the locator blocks.
+ If (Global OOR thresholds and Free entries > 5 % of MAX SID will be Green
+- If we reach the status “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
+- We also CAP each locator block at 7K and the Green threshold is 5% of 7k and the same rules apply
+- In latest release we pre-carve uN resources for 16 locators in hardware so we can handle new locator provisioning even during OOR state .
 
 
+
+
+
+ 
