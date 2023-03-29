@@ -21,9 +21,9 @@ This is the 5th tutorial in SRv6 series on NCS5500/NCS500 platforms. In this art
 
 ## Platform Capabilties
 
-Let's get started with a summary on capabilties of the platforms under discussion with resepct to SRv6 features & scale. 
+Let's get started with a summary on capabilties of the platforms under discussion with respect to SRv6 features & scale. 
 
-Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. Fore more understanding on MDB refer to https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/
+Details are also captured in correspondance to different MDB profiles which are supported in NCS5700 platforms. For more understanding on MDB refer to https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/
 
 
 ![SRv6-DNX-CAP.png]({{site.baseurl}}/images/SRv6-DNX-CAP.png)
@@ -155,7 +155,7 @@ sh segment-routing srv6 manager | i Max SID r
 </pre>
 </div>
 
-In SRv6, we can support multiple locators for various reasons like slicing/flex-algo. And we enfore max CAP per locator block which can be checked with,
+In SRv6, we can support multiple locators for various reasons like slicing/flex-algo. And we enforce max CAP per locator block which can be checked with,
 
 <div class="highlighter-rouge">
 <pre class="highlight">
