@@ -319,9 +319,9 @@ show controllers npu resources fec location 0/1/CPU0
 
  
 ## SRv6 ECMP_FEC resource usage
- Similar to FEC we will also use ECMP_FEC for multipath entries pointing to a list of FEC array.
- In NC5700 it maps to similar application hierarchy as that of FEC. 
- This can be monitored with,
+We use ECMP_FEC for multipath/ECMP entries pointing to a list of FEC array. This database is also used  by SRv6 when we have to deal with multipaths. In NC5700 ecmp_fec mapping follows similar application mapping hierarchy as that of FEC. 
+ 
+This can be monitored with,
  
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -342,7 +342,7 @@ Current Hardware Usage
            Estimated Max Entries       : 30720   
            Total In-Use                : 1        
            OOR State                   : Green
-           Bank Info                   : H2 ECMP 
+           Bank Info                   : <mark>H2 ECMP  >> Services SID</mark>
        Name: hier_2
            Estimated Max Entries       : 32763   
            Total In-Use                : 5        
