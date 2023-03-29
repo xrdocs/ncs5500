@@ -24,7 +24,7 @@ Details are also captured in correspondance to the different MDB profiles we sup
 
 | Parameters | NCS57 L3MAX SE | NCS7 L3MAX | NCS57 L2MAX SE | NCS57 L2MAX | NCS540 L3MAX | NCS540 L2MAX | NCS55 |
 |------------||------------|------------|------------|------------|------------|------------|------------|
-| Applicable Platforms| NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE |  NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE  | NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | N540-24Q8L2DD-SYS | NC55 Systems |
+| Applicable Platforms | NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE |  NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | NC57 18DD-SE, 36H-SE, 57B1-5DSE, 57C3-MOD-SE  | NC57 24DD, 36H6D-S, MOD-S, 57B1-6D24H, 57C3-MOD-S, 57C1, 57D2 | N540-24Q8L2DD-SYS | NC55 Systems |
 
 
 Number of Locators
