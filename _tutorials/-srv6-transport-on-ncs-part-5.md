@@ -177,5 +177,44 @@ uB6 : BSID for SRv6 Policy
 uDT2U: EVPN ELAN SID for known-unicast
 uDT2M : EVPN ELAN SID for BUM traffic
 
+Calculaton goes like this,
+
+**MAX SIDs allocated** =  sum (uN:uLocal) + 2*uA
+
+- We now reserve 16 uN SIDs by default in hardware to avoid issues with locator configs during OOR conditions
+- uLocal here is the local SID on the box which can fall into categories like (uA, uDT4/6, uDX4/6/2)
+- uA is counted 3 times, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
+
+**Example:**
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+sh segment-routing srv6 manager 
+Summary:
+  Number of Locators: 15 (15 operational)                            /*uN or Locators*/
+  Number of SIDs: <mark>6749</mark> (0 stale)                                     /*PI output to check the SID usage*/
+  Max SID resources: <mark>12256</mark>
+  Number of free SID resources: <mark>4487 </mark>                                /* 12256 - 6749 != 4487 :) */
+  OOR:
+    Thresholds (resources): Green 613, Warning 368                   /* Free resources > 5% of MAX SID for Green*/
+    Status: Resource Available                                /*To recover from OOR state, need to be in GREEN threshold*/ 
+
+sh segment-routing srv6 sid | i uA | ut wc
+    <mark>510</mark>    4080   56100
+RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
+   6239   37482  686534
+  
+</code>
+</pre>
+</div>
+
+**Number of SIDs:** **6749** _= sum of uLocals (uA|uDT|uDX|uB)_ 
+
+**Actual SID resource usage**: _6749 + 2*510 (uA) =_ **7769**
+
+**Number of free SID resources:** **4487**  _= ( 12256 - 7769 )_
+
+
 
 
