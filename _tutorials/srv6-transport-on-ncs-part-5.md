@@ -48,7 +48,7 @@ We have an IOS-XR CLI to check the SRv6 functional and scale capabilities on any
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-**“sh segment-routing srv6 manager”**
+“sh segment-routing srv6 manager”
 Parameters:
   SRv6 Enabled: Yes
   SRv6 Operational Mode: 
@@ -60,7 +60,7 @@ Parameters:
       Default: 100:1:1::1                        /*Loopback IP*/
     Hop-Limit: Propagate                   /*Configured Values*/    
     Traffic-class: Propagate               /*Configured Values*/
-**Summary**:
+Summary:
   Number of Locators: 15 (15 operational)     /*Current scale*/  
   Number of SIDs: 6749 (0 stale)              /*Current scale*/  
   Max SID resources: 12256           <mark>/Scale Limit J2 L3MAX-SE/</mark>
@@ -84,11 +84,11 @@ _/snipped/_
         Status: Resource Available
             History: (0 cleared, 0 warnings, 0 full)
 _/snipped/_
-**Platform Capabilities:**
+Platform Capabilities:
   SRv6: Yes
   TILFA: Yes
   Microloop-Avoidance: Yes
-  **Endpoint behaviors:** 
+  Endpoint behaviors: 
     End.DX6                                  /*F1 per-CE v6*/
     End.DX4                                  /*F1 per-CE v4*/
     End.DT6                                 /*F1 per-VRF v6*/
@@ -104,7 +104,7 @@ _/snipped/_
     uDT4                                   /*usid per-VRF v4*/
     uDX2                                     /*usid P2P VPWS*/
     uB6 (Insert.Red)                       /*BSID for SRv6TE*/
- **Headend behaviors:** 
+ Headend behaviors: 
     T
     H.Insert.Red                        /*SID Insert - LFA,TE*/
     H.Encaps.Red                            /*L3 encap*/                  
@@ -116,7 +116,7 @@ Security rules: 
     SEC-3
   Counters: 
     CNT-3
-  **Signaled parameters:**
+ Signaled parameters:
     Max-SL          : 11                                           
     Max-End-Pop-SRH : 5
 <mark>Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
@@ -139,19 +139,18 @@ Security rules: 
 </pre>
 </div>
 
-> _Highlights for critical params_
+> _Highlights for critical params in above output_ 
 
 ## SRv6 MAX SIDs
 
-Every platform with the combination of MDB profiles (NCS5700) will have the maximum local SID allocation limit (Numbers are shared in the table above) 
-We can use the below CLI to check the max SIDs supported on the router,
+Every platform with the combination of MDB profiles (NCS5700) will have maximum SID allocation limit. Numbers mentioned in Table#1
+We can use the below CLI to check the max SIDs (local) supported on the router,
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
 sh segment-routing srv6 manager | i Max SID r
   Max SID resources: 12256
-
 </code>
 </pre>
 </div>
@@ -164,16 +163,15 @@ In SRv6, we can support multiple locators for various reasons like slicing/flex-
 sh segment-routing srv6 manager | i "Block|Max SIDs"
     Block fc05::/32:
         Max SIDs: 7680
-
 </code>
 </pre>
 </div>
 
-Please note: Sum of the SIDs in different locator blocks should be <= Max SID resources supported 
+Please note, Sum of the SIDs in different locator blocks should be <= Max SID resources supported 
 
-We will see in detail about the local SID allocation for different SID functionalities. (lets keep the focus restricted to uSID and not Format1 )
+We will see in detail about the local SID allocation for different SID functionalities. Lets keep the focus restricted to uSID and not Format1
 
-These are some of the important SID functionalities we have today
+These are some of the important uSID functionalities we have today
 
 - uN : Locator SID
 - uA : Adjacency SID
@@ -185,20 +183,19 @@ These are some of the important SID functionalities we have today
 - uDT2M : EVPN ELAN SID for BUM traffic
 
 
-Calculaton goes like this,
+**Calculaton goes like this,**
 
 **MAX SIDs allocated** =  sum (uN:uLocal) + 2*uA
 
 - 16 uN SIDs are reserved by default in hardware to avoid issues with locator configs during OOR conditions
 - uLocal here is the local SID on the box which can fall into categories like (uA, uDT4/6, uDX4/6/2 .. etc )
-- uA is counted 3 times, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
+- uA is counted thrice, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
 
 **Example:**
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 sh segment-routing srv6 manager 
 Summary:
   Number of Locators: 15 (15 operational)                            /*uN or Locators*/
@@ -212,17 +209,16 @@ Summary:
 sh segment-routing srv6 sid | i uA | ut wc
     <mark>510</mark>    4080   56100
 RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
-  <mark> 6239/</mark>   37482  686534
-  
+  <mark> 6239/</mark>   37482  686534 
 </code>
 </pre>
 </div>
 
-**Number of SIDs:** **6749** _= sum of uLocals (uA|uDT|uDX|uB)_ 
+**Number of SIDs:** Equals to sum of uLocals (uA,uDT,uDX,uB) = **6749**
 
-**Actual SID resource usage**: _6749 + 2*510 (uA) =_ **7769**
+**Actual SID resource usage**: 6749 + 2*510 (uA) = **7769**
 
-**Number of free SID resources:** <mark>4487</mark>  _= ( 12256 - 7769 )_
+**Number of free SID resources:** Max SID (12256) - SID in use (7769) = **4487**  
 
 
 ## OOR (Out Of Resource) monitoring for MAX SIDs
@@ -235,29 +231,30 @@ RP/0/RP0/CPU0:J2-PE1#sh segment-routing srv6 sid | i "uDT|uDX|uB" | ut wc
 sh segment-routing srv6 manager 
 Summary:
   Number of Locators: 15 (15 operational)                         
-  Number of SIDs: **6749** (0 stale)                                  
-  Max SID resources: **12256**
-  Number of free SID resources: **4487**                             
- **OOR**:
-    Thresholds (resources): <mark>Green 613</mark>, Warning 368               **/ Global Free resources > 5% of MAX SID for Green/**
-    Status: **Resource Available**                                   /*To recover from OOR state, need to be in GREEN threshold*/ 
-    **Block fc05:3e::/32**:
-        Number of free SID resources: **4946**                       /* Block level MAX free SIDs = 7680 - current allocation from the block*/
+  Number of SIDs: 6749 (0 stale)                                  
+  Max SID resources: 12256
+  Number of free SID resources: 4487                             
+ OOR:
+    Thresholds (resources): <mark>Green 613</mark>, Warning 368      /*Global Free resources > 5% of MAX SID for Green*/
+    Status: Resource Available                                   /*To recover from OOR state, need to be in GREEN threshold*/ 
+    Block fc05:3e::/32:
+        Number of free SID resources: 4946                       /* Block level MAX free SIDs = 7680 - current allocation from the block*/
         Max SIDs: 7680
-        Thresholds: <mark>Green 384</mark>, Warning 231                       **/ > 5% green threshold for Block level max SID/**
-        Status: Resource Available
-        
+        Thresholds: <mark>Green 384</mark>, Warning 231                       / > 5% green threshold for Block level max SID/
+        Status: Resource Available       
 </code>
 </pre>
 </div>     
 
-Global level OOR Threshold set based on SID usage across all the locator blocks (system level)
--Green threshold if (global level free resources > 5% of MAX SID on system level)
--Warning if (global level free resources < 3% of MAX SID on system level)
+**Global level OOR Threshold** set based on SID usage across all the locator blocks (system level)
+- Green threshold if (global level free resources > 5% of MAX SID on system level)
+- Warning if (global level free resources < 3% of MAX SID on system level)
 
-Block level OOR Threshold set based on SID usage on a specific block
--Green threshold if (Block level free resources > 5% of MAX SID for locator block)
--Warning if (Block level free resources < 3% of MAX SID for locator block)
+
+**Block level OOR Threshold** set based on SID usage on a specific block
+- Green threshold if (Block level free resources > 5% of MAX SID for locator block)
+- Warning if (Block level free resources < 3% of MAX SID for locator block)
+
 
 If we reach the state of OOR “Out of Resources” we will stop programming the SIDs till we go back to GREEN Threshold
 
@@ -281,8 +278,7 @@ OFA Table Information
         ipnh                        : 1038     
         ip6nh                       : 2042     
         mplsnh                      : 79             
-       **srv6nh                      : 5185**
-       
+       <mark>srv6nh                      : 5185</mark>       
 </code>
 </pre>
 </div>    
@@ -311,12 +307,12 @@ show controllers npu resources fec location 0/1/CPU0
            Estimated Max Entries       : 209664  
            Total In-Use                : 45       (0 %)
            OOR State                   : Green
-           Bank Info                   : **H2 FEC   >> Services SID**
+           Bank Info                   : <mark>H2 FEC   >> Services SID</mark>
        Name: hier_2
            Estimated Max Entries       : 78592   
            Total In-Use                : 9    (0 %)
            OOR State                   : Green
-           Bank Info                   : **H3 FEC >> uN locator SID**
+           Bank Info                   : <mark>H3 FEC >> uN locator SID</mark>
 </code>
 </pre>
 </div>
@@ -331,7 +327,6 @@ show controllers npu resources fec location 0/1/CPU0
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
-
 show controllers npu resources ecmpfec location 0/RP0/CPU0
 Current Hardware Usage
     Name: ecmp_fec
@@ -354,21 +349,19 @@ Current Hardware Usage
            Total In-Use                : 5        
            OOR State                   : Green
            Bank Info                   : H3 ECMP
-
 </code>
 </pre>
 </div>
 
 
- ## SRv6 Ultra USID scale with NCS5700
- 
+## SRv6 Ultra USID scale with NCS5700
  With the encap budget in NCS5700 we can do "Ultra-Scale packing for SRv6 uSIDs"
  
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
- <mark>Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
-    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/</mark>
+    Max-H-Insert    : 4 sids       / 4 Max carriers Inserted/
+    Max-H-Encap     : 5 sids    / 5 MAX carriers while encap/
 </code>
 </pre>
 </div>
@@ -378,19 +371,17 @@ Using this encap budget we have succesfully validated 26 usids packing in a sing
 
 
 
-![Ultras-scale]({{site.baseurl}}/images/Screenshot%202023-03-29%20at%203.25.10%20PM.png)![Screenshot 2023-03-29 at 3.25.10 PM.png]({{site.baseurl}}/images/Screenshot 2023-03-29 at 3.25.10 PM.png)
+![Ultras-scale]({{site.baseurl}}/images/Screenshot%202023-03-29%20at%203.25.10%20PM.png)!
 
 
 ![Ultra-scale-pcap]({{site.baseurl}}/images/Screenshot 2023-03-29 at 3.25.33 PM.png)
 
 
 
- ##  Show techs required to troublesshoot Srv6 issues
- 
+## Show techs required to troublesshoot Srv6 issues 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>  
- 
+<code>   
 show tech cef
 show tech cef platform
 show tech l2vpn
@@ -400,8 +391,6 @@ show tech segment-routing traffic-eng
 show tech routing isis
 show tech routing bgp
 show tech ipv6 nd  
-
-
 </code>
 </pre>
 </div>
