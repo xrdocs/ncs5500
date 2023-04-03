@@ -262,7 +262,7 @@ If we reach the state of OOR “Out of Resources” we will stop programming the
 
 ## SRv6 Encap resource usage
 
-SRv6 uSIDs(remote) consumes encap resources (in EEDB-Egress Encap DataBase) like the MPLS labels. In NC57 (J2) systems we have encap bank carving in the form of cluster bank pairs which are dedicated to different network applications like SRv6, L3VPN, BGP LU ..etc
+SRv6 uSIDs (remote) consumes encap resources (in EEDB-Egress Encap DataBase) like the MPLS labels. In NC57 (J2) systems we have encap bank carving in the form of cluster bank pairs which are dedicated to different network applications like SRv6, L3VPN, BGP LU ..etc
 
 SRv6 encap usage can be monitered as srv6nh category which is similar to mplsnh for labels
 
