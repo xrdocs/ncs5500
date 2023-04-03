@@ -16,7 +16,7 @@ tags:
 
 ## Overview
 
-This is the 5th tutorial in SRv6 series on NCS5500/NCS500 platforms. In this article we will focus on covering the platform capabilties and resources usage when we provision SRv6 services on  NCS5500/5700/500 product-family which is build with BCM DNX Jercho/Jericho+/Jericho2 NPUs.
+This is the 5th tutorial in SRv6 series on NCS5500/NCS500 platforms. In this article we will focus on covering the platform capabilties and resources usage when we provision SRv6 services on  NCS5500/5700/500 product-family which is build with BCM DNX Jericho/Jericho+/Jericho2 NPUs.
 
 
 ## Platform Capabilties
