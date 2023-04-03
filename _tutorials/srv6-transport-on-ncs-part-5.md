@@ -190,7 +190,7 @@ These are some of the important uSID functionalities we have today
 
 - 16 uN SIDs are reserved by default in hardware to avoid issues with locator configs during OOR conditions
 - uLocal here is the local SID on the box which can fall into categories like (uA, uDT4/6, uDX4/6/2 .. etc )
-- uA is counted thrice, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
+- uA is counted twice, once as a part of uN:uLocal (uLocal = uA),and twice for local-only uA
 
 **Example:**
 
