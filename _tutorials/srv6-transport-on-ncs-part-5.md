@@ -42,7 +42,7 @@ _Table #2 Platform MDB mapping_
 
 ## SRv6 Manager CLI for details
 
-We have an IOS-XR CLI to check the SRv6 functional and scale capabilities on any of the Cisco XR platforms.  CLI : **"show segment-routing srv6 manger"**
+We have an IOS-XR CLI to check the SRv6 functional and scale capabilities on any of the Cisco XR platforms.  CLI : **"show segment-routing srv6 manager"**
 
 **Illustration below**
 
