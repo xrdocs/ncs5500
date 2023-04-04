@@ -7,6 +7,10 @@ excerpt: SRv6 Platform capabilities and resource monitoring
 author: Deepak Balasubramanian
 tags:
   - iosxr
+  - SRv6
+  - NCS5700
+  - NCS5500
+  - Segment Routing
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
