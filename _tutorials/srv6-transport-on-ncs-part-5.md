@@ -2,7 +2,7 @@
 published: true
 date: '2023-03-28 09:53 +0530'
 title: 'SRv6 Transport on NCS5500/5700/500 : Capabilities & Resource Monitoring'
-position: hidden
+position: top
 excerpt: SRv6 Platform capabilities and resource monitoring
 author: Deepak Balasubramanian
 tags:
