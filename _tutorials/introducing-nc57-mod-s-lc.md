@@ -25,10 +25,10 @@ The NC57 Series Line Cards brought the support for 400G with enhanced scalabilit
 ### Dimensions , Weights etc.
 
 ## Modular Port Adapters
+As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also back compitable with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
 
-### Newer 800G MPA
-### Backward Compatibility with 400G MPA
-## PORT to NPU Core Mapping
+***Line Card MPA supported List***
+
 ## MACsec & Timing 
 ## Scalability & Use Cases
 
