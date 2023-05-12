@@ -9,7 +9,7 @@ author: Paban Sarma
 In our previous tutorials, covered SRv6 Transport with uSID on the NCS 500 and 5500 platforms, and L3/L2 P2P services on top of it. This tutorial will cover, implementaion of Ethernet VPN based multipoint layer 2 service (ELAN) over the SRv6 uSID transport. As of today, only Single homed EVPN ELAN is supported on these platform.
 
 ## Topology
-
+<<< image placeholder>>
 
 | Nodes | Device Type | Software Version  |Loopback0   |
 |-------|-------------|-------------------|------------|
