@@ -9,12 +9,16 @@ excerpt: >-
   on NCS 500 and NCS 5500 series platforms. Includes detailed explanation of
   configuration and verificationsteps
 ---
+{% include toc icon="table" title="Table of Contents" %}
+
+
 ## Overview
 
 In our previous tutorials, covered SRv6 Transport with uSID on the NCS 500 and 5500 platforms, and L3/L2 P2P services on top of it. This tutorial will cover, implementaion of Ethernet VPN based multipoint layer 2 service (ELAN) over the SRv6 uSID transport. As of today, only Single homed EVPN ELAN is supported on these platform.
 
 ## Topology
-image placeholder
+![elan-topo.png]({{site.baseurl}}/images/elan-topo.png)
+
 
 | Nodes | Device Type | Software Version  |Loopback0   |
 |-------|-------------|-------------------|------------|
@@ -120,31 +124,22 @@ router bgp 100
  neighbor fcbb:bb00:1::1
   remote-as 100
   update-source Loopback0
-  address-family vpnv4 unicast
-   route-reflector-client
-  !
   address-family l2vpn evpn
-   route-reflector-client
+   <mark>route-reflector-client</mark>
   !
  !
  neighbor fcbb:bb00:4::1
   remote-as 100
   update-source Loopback0
-  address-family vpnv4 unicast
-   route-reflector-client
-  !
   address-family l2vpn evpn
-   route-reflector-client
+   <mark>route-reflector-client</mark>
   !
  !
  neighbor fcbb:bb00:5::1
   remote-as 100
   update-source Loopback0
-  address-family vpnv4 unicast
-   route-reflector-client
-  !
   address-family l2vpn evpn
-   route-reflector-client
+   <mark>route-reflector-client</mark>
   !
  !
 !
@@ -452,7 +447,7 @@ Fri May 12 06:32:40.216 UTC
 VPN-ID     Encap      MAC address    IP address                               Nexthop                                 Label    SID                                    
 ---------- ---------- -------------- ---------------------------------------- --------------------------------------- -------- ---------------------------------------
 200        SRv6       00bc.6016.5800 ::                                       fcbb:bb00:1::1                                 IMP-NULL fcbb:bb00:1:e000::                     
-200        SRv6       00bc.6024.c400 ::                                       fcbb:bb00:1::4                                IMP-NULL fcbb:bb00:4:e000::                     
+200        SRv6       00bc.6024.c400 ::                                       fcbb:bb00:4::1                                IMP-NULL fcbb:bb00:4:e000::                     
 200        SRv6       00bc.6027.6400 ::                                       TenGigE0/0/0/0.2                        0        fcbb:bb00:5:e006::    
 		</code>
 		</pre>
@@ -504,9 +499,9 @@ Origin codes: i - IGP, e - EGP, ? - incomplete
    Network            Next Hop            Metric LocPrf Weight Path
 Route Distinguisher: 4.4.4.4:200
 <mark>*>i[2][0][48][00bc.6024.c400][0]/104
-                      fcbb:bb00:1::4                       100      0 i</mark>
+                      fcbb:bb00:4::1                       100      0 i</mark>
 *>i[3][0][32][4.4.4.4]/80
-                      fcbb:bb00:1::4                       100      0 i
+                      fcbb:bb00:4::1                       100      0 i
 
 Processed 2 prefixes, 2 paths
 </code>
