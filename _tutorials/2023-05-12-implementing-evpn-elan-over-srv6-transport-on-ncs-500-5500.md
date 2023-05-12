@@ -196,6 +196,7 @@ evpn
 
 Below is the config snippet from all the PE nodes. (we have the exact same configuration on all three as the topology is symmetric i.e same interfaces are used on each node)
 
+_**PE1, PE4  and PE5**_
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -213,6 +214,41 @@ evpn
 </code>
 </pre>
 </div>
+
+### Configuring Layer2 Attachment Circuits & Bridge-Domain
+
+We need to configure l2transport sub-interface (on the PE-CE link) with appropriate VLAN encapsulations. This tutorial is showing VLAN based service with VLAN ID 200. We are not showing any VLAN translation operation (rewrite commands) as the are out of scope of this tutorial. 
+
+_**PE1, PE4 and PE5**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+interface TenGigE0/0/0/0.2 l2transport
+ encapsulation dot1q 200
+</code>
+</pre>
+</div>
+
+The layer2 sub interface created now needs to be stitched with the EVI by using the l2vpn bridge-domain service construct as shown below. Note that the `segment-routing srv6` keyword is must here , along with that we can also specify a locator if we wish to use different locator for the bridge-domain.
+
+_**PE1, PE4 and PE5**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+l2vpn
+ bridge group POD0
+  bridge-domain POD0
+   interface TenGigE0/0/0/0.2
+   !
+   evi 200 segment-routing srv6
+   !
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
 ## Verification Steps
 
 ## Summary
