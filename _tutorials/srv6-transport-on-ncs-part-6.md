@@ -14,7 +14,7 @@ excerpt: >-
 
 ## Overview
 
-In our previous tutorials, covered SRv6 Transport with uSID on the NCS 500 and 5500 platforms, and L3/L2 P2P services on top of it. This tutorial will cover, implementaion of Ethernet VPN based multipoint layer 2 service (ELAN) over the SRv6 uSID transport. As of today, only Single homed EVPN ELAN is supported on these platform.
+In our previous tutorials, we covered [SRv6 Transport with uSID](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/) on the NCS 500 and 5500 platforms, and [L3](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-2/)/[L2 P2P](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-3/) services on top of it. This tutorial will cover implementaion of ethernet VPN (EVPN) based multipoint layer 2 service (ELAN) over SRv6 uSID transport. As of today, only Single homed EVPN ELAN is supported on these platforms. EVPN ELAN is not supported on the NCS 5700 series platforms as of latest XR release.
 
 ## Topology
 ![elan-topo.png]({{site.baseurl}}/images/elan-topo.png)
@@ -31,10 +31,10 @@ In our previous tutorials, covered SRv6 Transport with uSID on the NCS 500 and 5
 
 The loopback0 IPs are chosen as per the SRv6 addressing best practice (check out [segment-routing.net](https://www.segment-routing.net/) for more details). 
 
-In this tutorial, we will establish a multipoint L2VPN (EVPN-ELAN) connecting CE1, CE2 and CE3. the example will demonstrate VLAN based E-LAN (EVPLAN) service and establish L2 stretch across CE1 CE2 and CE3 for VLAN 200.
+In this tutorial, we will establish a multipoint L2VPN (EVPN-ELAN) connecting CE1, CE2 and CE3. The example will demonstrate VLAN based ELAN (EVPLAN) service and establish L2 stretch across CE1, CE2 and CE3 for VLAN 200.
 
 ## Configuration Steps
-We already covered the configuration steps for the transport in our previous tutorial. The below table summerizes the SRv6 uSID locator used (name POD0) on each Node for reference. 
+We already covered the configuration steps for the transport in our previous [tutorial](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-1/). The below table summerizes the SRv6 uSID locator used (name POD0) on each node for reference. 
 
 | Nodes | SRv6 Locator         |
 |-------|----------------------|
@@ -51,7 +51,7 @@ Configuration steps included in this tutorial will focus only on  the service sp
 - Layer 2 UNI and L2VPN configuration
 
 ### BGP configuration for EVPN
-BGP configuration is simplar to what we did in our previous tutorial. However, since we have multiple PE nodes here, we need to establish full mesh BGP with EVPN AFI here. For simplicity, we are using P2 as a route-reflector. In real time deployment, it is recomended to use dedicated route reflectors in the netwrok. The following config snippet shows the BGP confifuration on all the PEs and the RR node.
+BGP configuration is similar to what we did in our previous [tutorial](https://xrdocs.io/ncs5500/tutorials/srv6-transport-on-ncs-part-3/). However, since we have multiple PE nodes here, we need to establish full mesh BGP with EVPN AFI. For simplicity, we are using P2 as a route-reflector (RR). In real time deployment, it is recommended to use dedicated route-reflectors in the network. The following config snippet shows the BGP configuration on all the PEs and the RR node.
 
 _**PE1**_
 
@@ -150,7 +150,7 @@ router bgp 100
 ### EVPN ES and EVI configuration
 
 The next step is to configure the EVPN. It includes three steps,
-- ES configuration: Since we are not using Multihoming CE, we won't explictely configure any ESI but simply enable to physical PE-CE link under EVPN  
+- ES configuration: Since we are not using Multihoming CE, we won't explicitly configure any ESI but simply enable to physical PE-CE link under EVPN  
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -165,7 +165,7 @@ evpn
 </pre>
 </div>
 
-- Enabling SRv6: we need to globally enable SRv6 for EVPN under EVPN global configuration. This steps optionally includes specifying the SRv6 locator to be used for EVPN services.  
+- Enabling SRv6: we need to globally enable SRv6 for EVPN under EVPN global configuration. This step optionally includes specifying the SRv6 locator to be used for EVPN services.  
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -179,7 +179,7 @@ evpn
 </pre>
 </div>
 
-- EVI configuartion: The next important step is to configure the EVPN identifier (EVI) and enable mac advertisement and SRv6 for the EVI. we can also specify the locator per EVI in this stage.  The configuration explained in the tutorial we are using per EVI locator.
+- EVI configuartion: The next important step is to configure the EVPN identifier (EVI) and enable MAC advertisement and SRv6 for the EVI. We can also specify the locator per EVI in this stage. We are using per EVI locator in this tutorial.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -195,7 +195,7 @@ evpn
 </pre>
 </div>
 
-Below is the config snippet from all the PE nodes. (we have the exact same configuration on all three as the topology is symmetric i.e same interfaces are used on each node)
+Below is the config snippet from all the PE nodes. (we have the exact same configuration on all three PEs as the topology is symmetric i.e same interfaces are used on each PE)
 
 _**PE1, PE4  and PE5**_
 <div class="highlighter-rouge">
@@ -218,7 +218,7 @@ evpn
 
 ### Configuring Layer2 Attachment Circuits & Bridge-Domain
 
-We need to configure l2transport sub-interface (on the PE-CE link) with appropriate VLAN encapsulations. This tutorial is showing VLAN based service with VLAN ID 200. We are not showing any VLAN translation operation (rewrite commands) as the are out of scope of this tutorial. 
+We need to configure l2transport sub-interface (on the PE-CE link) with appropriate VLAN encapsulations. This tutorial is showing VLAN based service with VLAN ID 200. We are not showing any VLAN translation operation (rewrite commands) as they are out of scope of this tutorial. 
 
 _**PE1, PE4 and PE5**_
 <div class="highlighter-rouge">
@@ -230,7 +230,7 @@ interface TenGigE0/0/0/0.2 l2transport
 </pre>
 </div>
 
-The layer2 sub interface created now needs to be stitched with the EVI by using the l2vpn bridge-domain service construct as shown below. Note that the `segment-routing srv6` keyword is must here , along with that we can also specify a locator if we wish to use different locator for the bridge-domain.
+The layer2 sub interface created now needs to be stitched with the EVI by using the l2vpn bridge-domain service construct as shown below. Note that the `segment-routing srv6` keyword is must here . We can also specify a locator if we wish to use a different locator for the bridge-domain.
 
 _**PE1, PE4 and PE5**_
 <div class="highlighter-rouge">
@@ -253,7 +253,7 @@ l2vpn
 ## Verification Steps
 
 ### Verifying EVPN ELAN control Plane
-The very first step is to verify weather the configured bridge-domain is in Up state on all the PE nodes. For brevity we have included the verification outputs only from PE5.
+The very first step is to verify whether the configured bridge-domain is in Up state on all the PE nodes. For brevity we have included the verification outputs only from PE5.
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -268,7 +268,7 @@ POD0:POD0                        1     up             1/1          0/0          
 </pre>
 </div>
 
-The next, step is to see the programmed SRv6 SIDs for the service we configured. For each EVI , there are two SRv6 SID programmed, uDT2U and uDT2M for Unicast and BUM traffic respectively.
+The next step is to see the programmed SRv6 SIDs for the service we configured. For each EVI , there are two SRv6 SID programmed, uDT2U and uDT2M for Unicast and BUM traffic respectively.
 
 
 <div class="highlighter-rouge">
@@ -337,7 +337,7 @@ VPN-ID     Encap      Bridge Domain                Type
 </pre>
 </div>
 
-The above output also shows the two SIDs for two types of traffic for the EVI. we can check details of the SIDs using `show segment-routing srv6 sid <> detail` commands as below:
+The above output shows the two SIDs for two types of traffic for the EVI. We can check details of the SIDs using `show segment-routing srv6 sid <> detail` commands as below:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
@@ -361,7 +361,7 @@ fcbb:bb00:5:e006::          uDT2U             200:0                             
 </div>
 
 ### Verifying EVPN ELAN Data Plane and MAC Learnings
-The CE nodes are are configured in the same L2 subnets which we want to stich using the EVPN service. Below are the IP configurations on each CE
+The CE nodes are configured in the same L2 subnets which we want to stitch using the EVPN service. Below are the IP configurations on each CE.
 
 <table>
 <tr>
@@ -436,7 +436,7 @@ Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
 		</pre>
 	</div>
 
-As the packets went through the EVPN PE's , we will see the respective MAC addresses learnt locally and via EVPN. The below CLI snippets shows the learnings on PE5.
+As the packets went through the EVPN PEs, we will see the respective MAC addresses learnt locally and via EVPN. The below CLI snippets shows the learnings on PE5.
 
 <div class="highlighter-rouge">
 		<pre class="highlight">
@@ -452,7 +452,7 @@ VPN-ID     Encap      MAC address    IP address                               Ne
 		</code>
 		</pre>
 	</div>
-We can see one locally learnt MAC on the UNI side and two remote MAC learnt from the peer PEs. The same can also be seen in the EVPN RT2 received.
+We can see one locally learnt MAC on the UNI side and two remote MACs learnt from the peer PEs. The same can also be seen in the EVPN RT2 received.
 
 <div class="highlighter-rouge">
 		<pre class="highlight">
@@ -510,4 +510,4 @@ Processed 2 prefixes, 2 paths
 
 ## Summary
 
-This concludes Part 6 of our SRv6 tutorial series explaing multipoint L2 serviec over SRv6 transport with EVPN control Plane (EVPN ELAN). Stay tuned for our upcoming tutorials.
+This concludes Part 6 of our SRv6 tutorial series explaining multipoint L2 service over SRv6 transport with EVPN control Plane (EVPN ELAN). Stay tuned for our upcoming tutorials.
