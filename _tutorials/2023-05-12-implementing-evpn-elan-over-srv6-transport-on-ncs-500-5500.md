@@ -41,6 +41,178 @@ Configuration steps included in this tutorial will focus only on  the service sp
 - EVPN ES and EVI configuration
 - Layer 2 UNI and L2VPN configuration
 
+### BGP configuration for EVPN
+BGP configuration is simplar to what we did in our previous tutorial. However, since we have multiple PE nodes here, we need to establish full mesh BGP with EVPN AFI here. For simplicity, we are using P2 as a route-reflector (In real time deployment, it is recomended to use dedicated route reflectors in the netwrok). The following config snippet shows the BGP confifuration on all the PEs and the RR node.
+
+_**PE1**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 1.1.1.1
+ <mark>address-family l2vpn evpn</mark>
+ !
+ neighbor fcbb:bb00:2::1
+  remote-as 100
+  update-source Loopback0
+  <mark>address-family l2vpn evpn</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+_**PE4**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 4.4.4.4
+ <mark>address-family l2vpn evpn</mark>
+ !
+ neighbor fcbb:bb00:2::1
+  remote-as 100
+  update-source Loopback0
+ <mark>address-family l2vpn evpn</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+_**PE5**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 5.5.5.5
+ <mark>address-family l2vpn evpn</mark>
+ !
+ neighbor fcbb:bb00:2::1
+  remote-as 100
+  update-source Loopback0
+  <mark>address-family l2vpn evpn</mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+_**P2 as RR**_
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+router bgp 100
+ bgp router-id 2.2.2.2
+ address-family vpnv4 unicast
+ !
+ address-family l2vpn evpn
+ !
+ neighbor fcbb:bb00:1::1
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+  !
+  address-family l2vpn evpn
+   route-reflector-client
+  !
+ !
+ neighbor fcbb:bb00:4::1
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+  !
+  address-family l2vpn evpn
+   route-reflector-client
+  !
+ !
+ neighbor fcbb:bb00:5::1
+  remote-as 100
+  update-source Loopback0
+  address-family vpnv4 unicast
+   route-reflector-client
+  !
+  address-family l2vpn evpn
+   route-reflector-client
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+### EVPN ES and EVI configuration
+
+The next step is to configure the EVPN. It includes three steps,
+- ES configuration: Since we are not using Multihoming CE, we won't explictely configure any ESI but simply enable to physical PE-CE link under EVPN  
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+evpn
+ interface  TenGigE0/0/0/0
+  <mark> ethernet-segment
+    identifier type 0  1.1.1.1.1.1.0 </mark>
+  !
+ !
+!
+</code>
+</pre>
+</div>
+
+- Enabling SRv6: we need to globally enable SRv6 for EVPN under EVPN global configuration. This steps optionally includes specifying the SRv6 locator to be used for EVPN services.  
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+evpn
+ segment-routing srv6
+  <mark>locator  locator-name </mark>
+ !
+!
+</code>
+</pre>
+</div>
+
+- EVI configuartion: The next important step is to configure the EVPN identifier (EVI) and enable mac advertisement and SRv6 for the EVI. we can also specify the locator per EVI in this stage.  The configuration explained in the tutorial we are using per EVI locator.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+evpn
+ evi 200 segment-routing srv6
+  advertise-mac
+  !
+  <mark> locator POD0</mark>
+ !
+!
+</code>
+</pre>
+</div>
+
+Below is the config snippet from all the PE nodes. (we have the exact same configuration on all three as the topology is symmetric i.e same interfaces are used on each node)
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+evpn
+ evi 200 segment-routing srv6
+  advertise-mac
+  !
+  locator POD0
+ !
+ interface TenGigE0/0/0/0
+ !
+ segment-routing srv6
+ !
+!
+</code>
+</pre>
+</div>
 ## Verification Steps
 
 ## Summary
