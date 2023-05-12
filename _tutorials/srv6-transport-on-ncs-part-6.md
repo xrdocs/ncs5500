@@ -47,9 +47,10 @@ Configuration steps included in this tutorial will focus only on  the service sp
 - Layer 2 UNI and L2VPN configuration
 
 ### BGP configuration for EVPN
-BGP configuration is simplar to what we did in our previous tutorial. However, since we have multiple PE nodes here, we need to establish full mesh BGP with EVPN AFI here. For simplicity, we are using P2 as a route-reflector (In real time deployment, it is recomended to use dedicated route reflectors in the netwrok). The following config snippet shows the BGP confifuration on all the PEs and the RR node.
+BGP configuration is simplar to what we did in our previous tutorial. However, since we have multiple PE nodes here, we need to establish full mesh BGP with EVPN AFI here. For simplicity, we are using P2 as a route-reflector. In real time deployment, it is recomended to use dedicated route reflectors in the netwrok. The following config snippet shows the BGP confifuration on all the PEs and the RR node.
 
 _**PE1**_
+
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
@@ -413,5 +414,103 @@ The CE nodes are are configured in the same L2 subnets which we want to stich us
  </tr>
 </table>
   
+We can now try verifying end-to-end ping from CE1 to the other CE nodes to confirm the working of the EVPN service. 
+
+<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+			RP/0/RP0/CPU0:LABSP-3393-CE1#ping 200.0.0.1
+Fri May 12 05:22:43.472 UTC
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.0.0.1, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/1 ms
+RP/0/RP0/CPU0:LABSP-3393-CE1#ping 200.0.0.2
+Fri May 12 05:22:44.911 UTC
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.0.0.2, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+RP/0/RP0/CPU0:LABSP-3393-CE1#ping 200.0.0.3
+Fri May 12 05:22:46.593 UTC
+Type escape sequence to abort.
+Sending 5, 100-byte ICMP Echos to 200.0.0.3, timeout is 2 seconds:
+!!!!!
+Success rate is 100 percent (5/5), round-trip min/avg/max = 1/1/2 ms
+			</code>
+		</pre>
+	</div>
+
+As the packets went through the EVPN PE's , we will see the respective MAC addresses learnt locally and via EVPN. The below CLI snippets shows the learnings on PE5.
+
+<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+RP/0/RP0/CPU0:LABSP-3393-PE5#show  evpn  evi  vpn-id 200 mac 
+Fri May 12 06:32:40.216 UTC
+
+VPN-ID     Encap      MAC address    IP address                               Nexthop                                 Label    SID                                    
+---------- ---------- -------------- ---------------------------------------- --------------------------------------- -------- ---------------------------------------
+200        SRv6       00bc.6016.5800 ::                                       fcbb:bb00:1::1                                 IMP-NULL fcbb:bb00:1:e000::                     
+200        SRv6       00bc.6024.c400 ::                                       fcbb:bb00:1::4                                IMP-NULL fcbb:bb00:4:e000::                     
+200        SRv6       00bc.6027.6400 ::                                       TenGigE0/0/0/0.2                        0        fcbb:bb00:5:e006::    
+		</code>
+		</pre>
+	</div>
+We can see one locally learnt MAC on the UNI side and two remote MAC learnt from the peer PEs. The same can also be seen in the EVPN RT2 received.
+
+<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+RP/0/RP0/CPU0:LABSP-3393-PE5#<mark> show  bgp  l2vpn evpn  rd 1.1.1.1:200</mark>
+Fri May 12 06:36:10.445 UTC
+BGP router identifier 5.5.5.5, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0
+BGP main routing table version 218
+BGP NSR Initial initsync version 1 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 1.1.1.1:200
+<mark>*>i[2][0][48][00bc.6016.5800][0]/104
+                      fcbb:bb00:1::1                      100      0 i</mark>
+*>i[3][0][32][1.1.1.1]/80
+                      fcbb:bb00:1::1                       100      0 i
+
+Processed 2 prefixes, 2 paths
+
+RP/0/RP0/CPU0:LABSP-3393-PE5#<mark>show  bgp  l2vpn evpn  rd 4.4.4.4:200</mark>
+Fri May 12 06:36:28.768 UTC
+BGP router identifier 5.5.5.5, local AS number 100
+BGP generic scan interval 60 secs
+Non-stop routing is enabled
+BGP table state: Active
+Table ID: 0x0
+BGP main routing table version 218
+BGP NSR Initial initsync version 1 (Reached)
+BGP NSR/ISSU Sync-Group versions 0/0
+BGP scan interval 60 secs
+
+Status codes: s suppressed, d damped, h history, * valid, > best
+              i - internal, r RIB-failure, S stale, N Nexthop-discard
+Origin codes: i - IGP, e - EGP, ? - incomplete
+   Network            Next Hop            Metric LocPrf Weight Path
+Route Distinguisher: 4.4.4.4:200
+<mark>*>i[2][0][48][00bc.6024.c400][0]/104
+                      fcbb:bb00:1::4                       100      0 i</mark>
+*>i[3][0][32][4.4.4.4]/80
+                      fcbb:bb00:1::4                       100      0 i
+
+Processed 2 prefixes, 2 paths
+</code>
+</pre>
+</div>
 
 ## Summary
