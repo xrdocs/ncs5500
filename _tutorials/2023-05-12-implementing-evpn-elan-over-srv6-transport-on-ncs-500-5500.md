@@ -4,6 +4,10 @@ date: '2023-05-12 09:03 +0530'
 title: Implementing EVPN ELAN over SRv6 Transport on NCS 500/5500
 author: Paban Sarma
 position: hidden
+excerpt: >-
+  Ethernet VPN based layer 2 multipoint (ELAN) service over SRv6 uSID Transport
+  on NCS 500 and NCS 5500 series platforms. Includes detailed explanation of
+  configuration and verificationsteps
 ---
 ## Overview
 
@@ -252,6 +256,7 @@ l2vpn
 
 ## Verification Steps
 
+### Verifying EVPN ELAN control Plane
 The very first step is to verify weather the configured bridge-domain is in Up state on all the PE nodes. For brevity we have included the verification outputs only from PE5.
 
 <div class="highlighter-rouge">
@@ -267,12 +272,13 @@ POD0:POD0                        1     up             1/1          0/0          
 </pre>
 </div>
 
-The next, step is to see the programmed SRv6 SIDs for the service we configured.
+The next, step is to see the programmed SRv6 SIDs for the service we configured. For each EVI , there are two SRv6 SID programmed, uDT2U and uDT2M for Unicast and BUM traffic respectively.
 
 
 <div class="highlighter-rouge">
 <pre class="highlight">
 <code>
+
 RP/0/RP0/CPU0:LABSP-3393-PE5#show  segment-routing  srv6  sid 
 Fri May 12 04:38:57.345 UTC
 
@@ -292,4 +298,120 @@ fcbb:bb00:5:e005::          uA (PSP/USD)      [BE45, Link-Local]:0              
 </code>
 </pre>
 </div>
+
+The same SIDs can also be verified using the EVI detail CLI.
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+RP/0/RP0/CPU0:LABSP-3393-PE5#show  evpn  evi  vpn-id  200 detail 
+Fri May 12 06:04:53.970 UTC
+
+VPN-ID     Encap      Bridge Domain                Type               
+---------- ---------- ---------------------------- -------------------
+<mark> 200        SRv6       POD0                         EVPN     </mark>          
+   Stitching: Regular
+   <mark>Unicast SID:  fcbb:bb00:5:e006::</mark>                  
+   <mark>Multicast SID:  fcbb:bb00:5:e007::</mark>                     
+   E-Tree: Root
+   Forward-class: 0
+   Advertise MACs: Yes
+   Advertise BVI MACs: No
+   Aliasing: Enabled
+   UUF: Enabled
+   Re-origination: Enabled
+   Multicast:
+     Source connected   : No
+     IGMP-Snooping Proxy: No
+     MLD-Snooping Proxy : No
+   BGP Implicit Import: Enabled
+   VRF Name: 
+   SRv6 Locator Name: POD0
+   Preferred Nexthop Mode: Off
+   BVI Coupled Mode: No
+   BVI Subnet Withheld: ipv4 No, ipv6 No
+   RD Config: none
+   RD Auto  : (auto) 5.5.5.5:200
+   RT Auto  : 100:200
+   Route Targets in Use           Type                 
+   ------------------------------ ---------------------
+   100:200                        Import               
+   100:200                        Export 
+</code>
+</pre>
+</div>
+
+The above output also shows the two SIDs for two types of traffic for the EVI. we can check details of the SIDs using `show segment-routing srv6 sid <> detail` commands as below:
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+
+RP/0/RP0/CPU0:LABSP-3393-PE5#show  segment-routing  srv6  sid  fcbb:bb00:5:e006:: detail 
+Fri May 12 06:11:15.177 UTC
+
+*** Locator: 'POD0' *** 
+
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  --------------------------------  ------------------  -----  --
+fcbb:bb00:5:e006::          uDT2U             200:0                             l2vpn_srv6          InUse  Y 
+  <mark> SID Function: 0xe006</mark>
+  <mark>SID context: { evi=200, opaque-id=0 }</mark>
+  <mark>Locator: 'POD0'</mark>
+  Allocation type: Dynamic
+  Created: May 11 06:29:44.913 (23:41:30 ago)
+  </code>
+</pre>
+</div>
+
+### Verifying EVPN ELAN Data Plane and MAC Learnings
+The CE nodes are are configured in the same L2 subnets which we want to stich using the EVPN service. Below are the IP configurations on each CE
+
+<table>
+<tr>
+    <th>CE1</th>
+    <th>CE2</th>
+    <th>CE3</th>
+</tr>
+<tr>
+  <td>
+	<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+			interface TenGigE0/0/0/0.2
+ 			ipv4 address 200.0.0.1 255.255.255.0
+ 			encapsulation dot1q 200
+			!
+			</code>
+		</pre>
+	</div>
+  </td>
+  <td>
+	<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+			interface TenGigE0/0/0/0.2
+ 			ipv4 address 200.0.0.2 255.255.255.0
+ 			encapsulation dot1q 200
+			!
+			</code>
+		</pre>
+	</div>
+  </td>
+  <td>
+	<div class="highlighter-rouge">
+		<pre class="highlight">
+			<code>
+			interface TenGigE0/0/0/0.2
+ 			ipv4 address 200.0.0.3 255.255.255.0
+ 			encapsulation dot1q 200
+			!
+			</code>
+		</pre>
+	</div>
+  </td>
+ </tr>
+</table>
+  
+
 ## Summary
