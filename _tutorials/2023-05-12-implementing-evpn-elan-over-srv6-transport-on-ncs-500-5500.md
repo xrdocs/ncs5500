@@ -251,4 +251,44 @@ l2vpn
 
 ## Verification Steps
 
+The very first step is to verify weather the configured bridge-domain is in Up state on all the PE nodes. For brevity we have included the verification outputs only from PE5.
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE5#show  l2vpn bridge-domain brief 
+Fri May 12 04:35:22.647 UTC
+Legend: pp = Partially Programmed.
+Bridge Group:Bridge-Domain Name  ID    State          Num ACs/up   Num PWs/up    Num PBBs/up Num VNIs/up
+-------------------------------- ----- -------------- ------------ ------------- ----------- -----------
+POD0:POD0                        1     up             1/1          0/0           0/0         0/0   
+</code>
+</pre>
+</div>
+
+The next, step is to see the programmed SRv6 SIDs for the service we configured.
+
+
+<div class="highlighter-rouge">
+<pre class="highlight">
+<code>
+RP/0/RP0/CPU0:LABSP-3393-PE5#show  segment-routing  srv6  sid 
+Fri May 12 04:38:57.345 UTC
+
+*** Locator: 'POD0' *** 
+
+SID                         Behavior          Context                           Owner               State  RW
+--------------------------  ----------------  --------------------------------  ------------------  -----  --
+fcbb:bb00:5::               uN (PSP/USD)      'default':5                       sidmgr              InUse  Y 
+fcbb:bb00:5:e000::          uA (PSP/USD)      [BE35, Link-Local]:0:P            isis-1              InUse  Y 
+fcbb:bb00:5:e001::          uA (PSP/USD)      [BE35, Link-Local]:0              isis-1              InUse  Y 
+fcbb:bb00:5:e002::          uA (PSP/USD)      [BE25, Link-Local]:0:P            isis-1              InUse  Y 
+fcbb:bb00:5:e003::          uA (PSP/USD)      [BE25, Link-Local]:0              isis-1              InUse  Y 
+fcbb:bb00:5:e004::          uA (PSP/USD)      [BE45, Link-Local]:0:P            isis-1              InUse  Y 
+fcbb:bb00:5:e005::          uA (PSP/USD)      [BE45, Link-Local]:0              isis-1              InUse  Y 
+<mark> fcbb:bb00:5:e006::          uDT2U             200:0                             l2vpn_srv6          InUse  Y</mark>
+<mark>fcbb:bb00:5:e007::          uDT2M             200:0                             l2vpn_srv6          InUse  Y</mark>
+</code>
+</pre>
+</div>
 ## Summary
