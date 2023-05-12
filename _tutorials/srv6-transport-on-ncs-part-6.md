@@ -379,10 +379,10 @@ The CE nodes are are configured in the same L2 subnets which we want to stich us
 	<div class="highlighter-rouge">
 		<pre class="highlight">
 			<code>
-			interface TenGigE0/0/0/0.2
- 			ipv4 address 200.0.0.1 255.255.255.0
- 			encapsulation dot1q 200
-			!
+	interface TenGigE0/0/0/0.2
+ 	ipv4 address 200.0.0.1 255.255.255.0
+ 	encapsulation dot1q 200
+	!
 			</code>
 		</pre>
 	</div>
@@ -391,10 +391,10 @@ The CE nodes are are configured in the same L2 subnets which we want to stich us
 	<div class="highlighter-rouge">
 		<pre class="highlight">
 			<code>
-			interface TenGigE0/0/0/0.2
- 			ipv4 address 200.0.0.2 255.255.255.0
- 			encapsulation dot1q 200
-			!
+	interface TenGigE0/0/0/0.2
+ 	ipv4 address 200.0.0.2 255.255.255.0
+ 	encapsulation dot1q 200
+	!
 			</code>
 		</pre>
 	</div>
@@ -403,10 +403,10 @@ The CE nodes are are configured in the same L2 subnets which we want to stich us
 	<div class="highlighter-rouge">
 		<pre class="highlight">
 			<code>
-			interface TenGigE0/0/0/0.2
- 			ipv4 address 200.0.0.3 255.255.255.0
- 			encapsulation dot1q 200
-			!
+	interface TenGigE0/0/0/0.2
+ 	ipv4 address 200.0.0.3 255.255.255.0
+ 	encapsulation dot1q 200
+	!
 			</code>
 		</pre>
 	</div>
@@ -419,7 +419,7 @@ We can now try verifying end-to-end ping from CE1 to the other CE nodes to confi
 <div class="highlighter-rouge">
 		<pre class="highlight">
 			<code>
-			RP/0/RP0/CPU0:LABSP-3393-CE1#ping 200.0.0.1
+RP/0/RP0/CPU0:LABSP-3393-CE1#ping 200.0.0.1
 Fri May 12 05:22:43.472 UTC
 Type escape sequence to abort.
 Sending 5, 100-byte ICMP Echos to 200.0.0.1, timeout is 2 seconds:
@@ -514,3 +514,5 @@ Processed 2 prefixes, 2 paths
 </div>
 
 ## Summary
+
+This concludes Part 6 of our SRv6 tutorial series explaing multipoint L2 serviec over SRv6 transport with EVPN control Plane (EVPN ELAN). Stay tuned for our upcoming tutorials.
