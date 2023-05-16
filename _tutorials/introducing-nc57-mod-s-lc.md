@@ -32,7 +32,7 @@ The NC57 Series Line Cards brought the support for 400G with enhanced scalabilit
 
 NC57-MOD-S is a modular line card available only in Base version. It is based on a single Jericho2 ASIC. It is the successor of the NC5500 modular Line card (NC55-MOD-S). It offers a mix of fixed port and two slots for modular port adapters (MPAs). The Fixed ports includes 2xQSFP56-DD 100/200/400G ports and 8xSFP56 offering 10/25/50G. The MPA slots have a maximum throughput of 800G each. 
 
-`Note: 1G ports are not supported on the NC57-MOD line card`
+`Note: 1G port speed are not supported on the NC57-MOD line card on fixed or MPA based SFP ports`
 
 _placeholder for line card image with port displays_
 
