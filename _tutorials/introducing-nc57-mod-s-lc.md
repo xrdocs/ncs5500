@@ -62,8 +62,14 @@ _placeholder for timing support_
 
 As it is built on the J2 generation of BCM ASIC, NC57-MOD LC also supports the modular Database profiles (MDB) for  scale. We already covered the [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) in our previous article. Since the line card comes only in base veriosn,  it can be configured with both L2MAX and L3MAX MDB profiles when operated in J2 native Mode. 
 
-NC57-MOD-S Line card can be inserted in all the three variants of NCS 5500 modular chassis, viz. 5504, 5508 and 5516. These modular chassis equiped with this line card can be positioned in various roles such as Metro Aggregation , Core and Peering etc. Also, the support of ZR/ZR+ and 400G CFP2DCO optics via the MPA-1FH-1D makes, this Line card an important piece in Cisco's [Routed Optical Networking](https://www.cisco.com/c/en/us/solutions/service-provider/routed-optical-networking/index.html) Architecture.
+NC57-MOD-S Line card can be inserted in all the three variants of NCS 5500 modular chassis, viz. 5504, 5508 and 5516. These modular chassis equiped with this line card can be positioned in various roles such as Metro Aggregation , Core and Peering etc. Also, the support of ZR/ZR+ and 400G CFP2DCO optics via the MPA-1FH-1D make this line card an important piece in Cisco's [Routed Optical Networking](https://www.cisco.com/c/en/us/solutions/service-provider/routed-optical-networking/index.html) Architecture.
 
- 
 
-## Summary
+## Summary & References
+The Cisco NCS 5700 modular line card NC57-MOD-S is a great choice for a versatile, high-performance networking solution. 
+
+
+- [NCS 5500/5700 @ Cisco.com](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html)
+- [NCS 5500/5700 XRdocs](https://xrdocs.io/ncs5500/)
+- [NCS5500/5700 Modular WhitePaper](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-convergence-sys-wp.html)
+
