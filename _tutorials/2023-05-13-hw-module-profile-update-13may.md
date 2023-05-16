@@ -254,7 +254,7 @@ EVPN services are not supported with this profile.
 Note1: in an IGP domain, only the router's loopbacks need to be bound to labels. It's a best practise to use filters to reduce the IGP to MPLS relationship.
 {: .notice--info}
 
-Note2: This profiles is not applicable for J2 based systems.
+Note2: This profiles is not supported for J2 based systems.
 {: .notice--info}
 
 _External documentation_:  
@@ -288,7 +288,7 @@ Note1: lsr-optimized mode was introduced in 6.5.x and was not supported on J+ w/
 Note2: this profile can not be used with the internet-optimized.
 {: .notice--info}
 
-Note3: This profiles are not applicable for J2 based systems.
+Note3: This profiles are not supported for J2 based systems.
 {: .notice--info}
 
 ### recycle
@@ -496,7 +496,7 @@ When these extension headers are detected, these packets are sent to control pla
 This behavior of sending packet to CPU is enabled by default, but in case user wants to disable this special handling of extension headers, they can enable the hardware profile.  
 With this, they don't have to insert permit rules in each ACLs. All the packets with extension headers will bypass security ACLs and will be permitted. This CLI can be configured or de-configured anytime during router operation and does not need any restart of system.  
 
-Note: Can be enabled and disabled without requiring a system reload. This profile is not needed on J2 based systems.
+Note: Can be enabled and disabled without requiring a system reload. 
 {: .notice--info}
 
 _External documentation_:  
