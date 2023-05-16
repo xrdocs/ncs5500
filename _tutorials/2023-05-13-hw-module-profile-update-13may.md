@@ -1288,6 +1288,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
+![SRV6.png]({{site.baseurl}}/images/SRV6.png)
 
 
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
@@ -1470,8 +1471,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-
-
+![stats acl permit .png]({{site.baseurl}}/images/stats acl permit .png)
 
 
 By default, access-lists don't count permit ACE hits but only the deny ones.  
