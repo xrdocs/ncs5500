@@ -3,11 +3,11 @@ published: true
 date: '2023-05-12 09:03 +0530'
 title: Implementing EVPN ELAN over SRv6 Transport on NCS 500/5500
 author: Paban Sarma
-position: hidden
+position: top
 excerpt: >-
   Ethernet VPN based layer 2 multipoint (ELAN) service over SRv6 uSID Transport
   on NCS 500 and NCS 5500 series platforms. Includes detailed explanation of
-  configuration and verificationsteps
+  configuration and verification steps
 ---
 {% include toc icon="table" title="Table of Contents" %}
 
