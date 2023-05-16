@@ -679,6 +679,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
+![load-balance algorithm{L3 only|gtp|layer2|gtp-mpls|ip-tunnel | mpls-safe-speculative-parsing}.png]({{site.baseurl}}/images/load-balance algorithm{L3 only|gtp|layer2|gtp-mpls|ip-tunnel | mpls-safe-speculative-parsing}.png)
 
 
 
@@ -1291,6 +1292,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 
 
 
+
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
 
 `Note: The encapsulation option is deprecated in 7.4.1 as NCS 5500 will support both SRv6 base and SRv6 uSID modes. Therefore SRv6 related hardware command will follow hw-module profile segment-routing srv6 mode <> and are described below`
@@ -1471,7 +1473,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![stats acl-permit.png]({{site.baseurl}}/images/stats acl-permit.png)
+
 
 
 
