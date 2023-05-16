@@ -680,7 +680,6 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </div>
 
 
-![load-balance algorithm mpls-safe-speculative-parsing.png]({{site.baseurl}}/images/load-balance algorithm mpls-safe-speculative-parsing.png)
 
 
 There are 6 modes which can be configured. The default (i.e. with no configuration) selects the algorithm which has been running in previous releases.
