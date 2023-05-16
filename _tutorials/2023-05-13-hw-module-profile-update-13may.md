@@ -1258,7 +1258,9 @@ RP/0/RP0/CPU0:ios(config)
 </pre>
 </div>
 
-![npu native-mode-enable.png]({{site.baseurl}}/images/npu native-mode-enable.png)
+![native.png]({{site.baseurl}}/images/native.png)
+
+
 
 
 J2 based systems can operate in 2 modes: 
@@ -1977,7 +1979,8 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![route-stats .png]({{site.baseurl}}/images/route-stats .png)
+![Route_stats.png]({{site.baseurl}}/images/Route_stats.png)
+
 
 Where mcast-counter is an access-list defined in the configuration
 
