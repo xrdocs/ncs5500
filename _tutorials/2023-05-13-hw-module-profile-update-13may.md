@@ -3,7 +3,6 @@ published: false
 date: '2023-05-13 21:58 +0530'
 title: Hw-module-profile-update-13may
 ---
-
 {% include toc icon="table" title="NCS5500 Hw Profiles" %} 
 
 |   |   |
@@ -229,7 +228,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+![mpls ldp lsr-optimized.png]({{site.baseurl}}/images/mpls ldp lsr-optimized.png)
+
 
 When using an MPLS network, you bind specific prefixes to labels for the IP-to-MPLS case, and also you bind  ingress labels to egress labels for the LSR role (MPLS-to-MPLS case).  
 In the NCS5500, several resources are used to store this information. Among them, the FEC database is solicited. LEM and EEDB are also important in this discussion but we will try to simplify it to focus only on the FEC part.  
@@ -269,7 +270,7 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </div>
 
 
-![MPLS-LDP-LSR-Optimized.png]({{site.baseurl}}/images/MPLS-LDP-LSR-Optimized.png)
+![mpls label lsr-optimized 2.png]({{site.baseurl}}/images/mpls label lsr-optimized 2.png)
 
 
 ECMP optimization for /32 prefixes - when all paths have same label, the common label stored in the LEM so we don't have to consume EMCP FEC entries.
@@ -455,6 +456,10 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
+![acl ingress compress enable.png]({{site.baseurl}}/images/acl ingress compress enable.png)
+
+
+
 Note: This profiles is applicable only for J2 based systems with etcam
 {: .notice--info} 
 
@@ -477,7 +482,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+![acl ipv6 ext-header permit.png]({{site.baseurl}}/images/acl ipv6 ext-header permit.png)
+
 
 Feature available on 6.6.3 and 7.0.1.  
 
@@ -672,7 +679,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+![load-balance algorithm mpls-safe-speculative-parsing.png]({{site.baseurl}}/images/load-balance algorithm mpls-safe-speculative-parsing.png)
+
 
 There are 6 modes which can be configured. The default (i.e. with no configuration) selects the algorithm which has been running in previous releases.
 - ip-tunnel allows the hashing algorithm to use the outer IPv4 GRE header even when doing an IP tunnel decapsulation. 
@@ -1246,6 +1255,9 @@ RP/0/RP0/CPU0:ios(config)
 </pre>
 </div>
 
+![npu native-mode-enable.png]({{site.baseurl}}/images/npu native-mode-enable.png)
+
+
 J2 based systems can operate in 2 modes: 
 Compatible Mode—Used when the chassis contains combination of Cisco NC57 and older generation line cards. This is the default mode.
 Native Mode—Used when the chassis contains only Cisco NC57 line cards. 
@@ -1276,7 +1288,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+
 
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
 
@@ -2042,4 +2055,4 @@ Note that several profiles are orthogonal and can not be used simultaneously, li
 | hw-module fib mpls label lsr-optimized | hw-module fib ipv4 scale internet-optimized |
 | hw-module fib mpls ldp lsr-optimized | No EVPN Services |
 
-
+Bookmark this link and check it regularly for updates.
