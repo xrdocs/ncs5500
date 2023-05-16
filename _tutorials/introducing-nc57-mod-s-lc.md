@@ -8,7 +8,7 @@ author: Paban Sarma
 
 The Cisco NCS 5500 Series Modular Platforms offer industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest Trends in the Metro Architecture has driven the evoltion of The product portfolio. Staring XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flerxible scalablity. With IOS XR 7.6.1, we have introduced the Modular Flavour line card NC57-MOD-S, which support a great flexibility in terms of supported speed and form factors of optics. 
 
-***placeholder for Line Card Image with Port Display***
+***placeholder for Line Card Image and Chassis***
 
 ## NC57 Series  Modular Line Cards for NCS 55xx Chassis
 The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modlar Chassis Family. The table summeriese the NC57 series line card family as of today. 
@@ -30,7 +30,9 @@ The NC57 Series Line Cards brought the support for 400G with enhanced scalabilit
 
 NC57-MOD-S is a modular line card available only in Base version. It is based on a single Jericho2 ASIC. It is the successor of the NC5500 modular Line card (NC55-MOD-S). It offers a mix of fixed port and two slots for modular port adapters (MPAs). The Fixed ports includes 2xQSFP56-DD 100/200/400G ports and 8xSFP56 offering 10/25/50G. The MPA slots have a maximum throughput of 800G each. 
 
+_placeholder for line card image with port displays_
 
+_placeholder for Line card internal architecture_
 
 
 ### Dimensions , Weights etc.
@@ -38,7 +40,13 @@ NC57-MOD-S is a modular line card available only in Base version. It is based on
 ## Modular Port Adapters
 As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also back compitable with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
 
-***Line Card MPA supported List***
+| MPA PID | MPA Port Configuration | MACSec Support|
+|---------|------------------------|---------------|
+|NC57-MPA-2D4H| 2x400G QDD or 4x100/200G QDD| YES|
+|NC57-MPA-1FH1D| 1x400G CFP2 + 1x400G QDD | YES|
+|NC57-MPA-12L | 12xSFP56 (10/25/50G) | |
+
+
 
 ## MACsec & Timing 
 ## Scalability & Use Cases
