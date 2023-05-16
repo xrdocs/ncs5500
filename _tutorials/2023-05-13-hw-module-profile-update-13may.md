@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2023-05-13 21:58 +0530'
 title: Hw-module-profile-update-13may
 ---
@@ -2023,6 +2023,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#hw-module vrrpscale enable ?
 RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
+
+![VrrpScale.png]({{site.baseurl}}/images/VrrpScale.png)
+
 
 Extends the scale from 16 (or even 13 with BFD) to 255.  
 In 7.1.1, it's also required to enable HSRP.
