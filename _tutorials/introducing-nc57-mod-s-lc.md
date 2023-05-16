@@ -3,6 +3,10 @@ published: false
 date: '2023-05-08 09:36 +0530'
 title: Untitled
 author: Paban Sarma
+position: hidden
+excerpt: >-
+  Introduction to Cisco NC57-MOD-S Line card. A modular Line card for NCS 5500
+  Modular Chassis. Detailed LC architecture, Capabilities and Use Cases.
 ---
 ## Introduction
 
@@ -74,4 +78,3 @@ The Cisco NCS 5700 modular line card NC57-MOD-S is a great choice for a versatil
 - [NCS 5500/5700 @ Cisco.com](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html)
 - [NCS 5500/5700 XRdocs](https://xrdocs.io/ncs5500/)
 - [NCS5500/5700 Modular WhitePaper](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-convergence-sys-wp.html)
-
