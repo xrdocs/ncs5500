@@ -1,7 +1,8 @@
 ---
-published: false
+published: true
 date: '2023-05-13 21:58 +0530'
 title: Hw-module-profile-update-13may
+position: hidden
 ---
 {% include toc icon="table" title="NCS5500 Hw Profiles" %} 
 
