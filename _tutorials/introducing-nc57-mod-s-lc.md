@@ -14,6 +14,8 @@ The Cisco NCS 5500 Series Modular Platforms offer industry-leading 100 GbE and 4
 The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modlar Chassis Family. The table summeriese the NC57 series line card family as of today. 
 
 
+*_Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_*
+
 | Line Card PID | Line Card Description | FCS Release |
 |---------------|-----------------------|-------------|
 | NC57-18DD-SE |18x400G or 30x200/100G Scale LC| 7.0.2|
@@ -40,6 +42,8 @@ _placeholder for Line card internal architecture_
 ## Modular Port Adapters
 As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also back compitable with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
 
+*_Table 2: List Supported MPAs on NC57-MOD Line Card_*
+
 | MPA PID | MPA Port Configuration | MACSec Support|
 |---------|------------------------|---------------|
 |NC57-MPA-2D4H| 2x400G QDD or 4x100/200G QDD| YES|
@@ -52,6 +56,7 @@ As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwi
 
 MACsec is supported on all the fixed port on the NC57-MOD line card. As shown in figure above, MACsec support is achived via the MACsec capable PHY in the system. for the MPA ports, MACsec support on all the MACsec capable MPAs. This is listed in the table <> above.
 
+_placeholder for timing support_
 
 ## Scalability & Use Cases
 
