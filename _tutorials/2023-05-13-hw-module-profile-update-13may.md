@@ -1472,7 +1472,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![stats acl-permit.png]({{site.baseurl}}/images/stats acl-permit.png)
+
+
 
 By default, access-lists don't count permit ACE hits but only the deny ones.  
 It could be very important to track the packets permitted, for example when using ABF (ACL Based Forwarding).  
@@ -1504,7 +1506,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
+
+
 
 Profile enabling per-label statistics at "ingress" for Segment Routing labels (only for the labels within configured SRGB and SRLB).
 Once activated, QoS Stats will not work for the same labeled packets.
