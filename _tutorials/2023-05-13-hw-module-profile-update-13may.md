@@ -463,6 +463,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 
 
 
+Note: This profiles is applicable only for systems with etcam
 {: .notice--info} 
 
 
