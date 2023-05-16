@@ -15,7 +15,7 @@ title: Hw-module-profile-update-13may
 | 2021-Apr-3  | Add: hw-mod profiles till 7.3.1, updated the support for J2 based platforms for exisiting profiles | 
 | 2021-Sept-9  | Add: hw-mod profiles till 7.4.1, updated the support for J2 based platforms for exisiting profiles | 
 | 2022-Jan-20  | Add: hw-mod profiles till 7.5.1  | 
-
+| 2023-May-16  | Add: Updated the support for J2 based platforms for existing profiles  |
 
 
 
@@ -51,6 +51,9 @@ Many thanks to:
 - Tejas Lad
 - Angu Chakravarthy
 - Paban Sarma
+- Bala Murali Krishna Sanka
+- Deepak Balasubramanian
+- Gaddam Ravindher Reddy
 
 ## Hardware Module CLI hierarchy
 
