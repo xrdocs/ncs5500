@@ -1290,9 +1290,6 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 
 
 
-
-
-
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
 
 `Note: The encapsulation option is deprecated in 7.4.1 as NCS 5500 will support both SRv6 base and SRv6 uSID modes. Therefore SRv6 related hardware command will follow hw-module profile segment-routing srv6 mode <> and are described below`
@@ -1507,6 +1504,7 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
+![stats ingress-sr.png]({{site.baseurl}}/images/stats ingress-sr.png)
 
 
 
@@ -1636,7 +1634,8 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![stats egress-stats-scale.png]({{site.baseurl}}/images/stats egress-stats-scale.png)
+
 
 Very similar the enh profile, extending the MPLS scale from 8k to 20k counters (4k for ARP/ND) and at the expense of the L2 counters (no L2 with this one).
 
@@ -1659,7 +1658,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![07.png]({{site.baseurl}}/images/07.png){: .align-center}
+
+![tcam acl-prefix percent.png]({{site.baseurl}}/images/tcam acl-prefix percent.png)
+
 
 Hybrid (or Scaled) ACLs are stored in two places: iTCAM and eTCAM. But by default in 6.3.2 (onwards), the eTCAM is not carved to receive ACL information.  
 This hardware profiles helps with this carving.  
@@ -1936,6 +1937,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#hw-module route-stats l3mcast ipv4 TEST ?
 RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
+
+
   
 In IOS XR 6.6.3:
 
@@ -1970,6 +1973,8 @@ RP/0/RP0/CPU0:NCS5500-663(config)#hw-module route-stats l3mcast vrf foo ?
 RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
+
+![route-stats .png]({{site.baseurl}}/images/route-stats .png)
 
 Where mcast-counter is an access-list defined in the configuration
 
