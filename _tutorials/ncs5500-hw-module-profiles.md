@@ -21,7 +21,7 @@ position: top
 | 2021-Apr-3  | Add: hw-mod profiles till 7.3.1, updated the support for J2 based platforms for exisiting profiles | 
 | 2021-Sept-9  | Add: hw-mod profiles till 7.4.1, updated the support for J2 based platforms for exisiting profiles | 
 | 2022-Jan-20  | Add: hw-mod profiles till 7.5.1  | 
-
+| 2023-May-16  | Add: Updated the support for J2 based platforms for existing profiles  |
 
 
 
@@ -57,6 +57,9 @@ Many thanks to:
 - Tejas Lad
 - Angu Chakravarthy
 - Paban Sarma
+- Bala Murali Krishna Sanka
+- Deepak Balasubramanian
+- Gaddam Ravindher Reddy
 
 ## Hardware Module CLI hierarchy
 
@@ -234,7 +237,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+![mpls ldp lsr-optimized.png]({{site.baseurl}}/images/mpls ldp lsr-optimized.png)
+
 
 When using an MPLS network, you bind specific prefixes to labels for the IP-to-MPLS case, and also you bind  ingress labels to egress labels for the LSR role (MPLS-to-MPLS case).  
 In the NCS5500, several resources are used to store this information. Among them, the FEC database is solicited. LEM and EEDB are also important in this discussion but we will try to simplify it to focus only on the FEC part.  
@@ -255,7 +260,7 @@ EVPN services are not supported with this profile.
 Note1: in an IGP domain, only the router's loopbacks need to be bound to labels. It's a best practise to use filters to reduce the IGP to MPLS relationship.
 {: .notice--info}
 
-Note2: This profiles is not applicable for J2 based systems.
+Note2: This profiles is not supported for J2 based systems.
 {: .notice--info}
 
 _External documentation_:  
@@ -273,7 +278,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![08.png]({{site.baseurl}}/images/08.png){: .align-center}
+
+![mpls label lsr-optimized 2.png]({{site.baseurl}}/images/mpls label lsr-optimized 2.png)
+
 
 ECMP optimization for /32 prefixes - when all paths have same label, the common label stored in the LEM so we don't have to consume EMCP FEC entries.
 In 6.5.x: no services could work with this profile (no L2VPN/L3VPN as the "transport" label won't be pushed on the traffic). Starting from 7.1.1, L3VPN supported but no L2.
@@ -287,7 +294,7 @@ Note1: lsr-optimized mode was introduced in 6.5.x and was not supported on J+ w/
 Note2: this profile can not be used with the internet-optimized.
 {: .notice--info}
 
-Note3: This profiles are not applicable for J2 based systems.
+Note3: This profiles are not supported for J2 based systems.
 {: .notice--info}
 
 ### recycle
@@ -458,7 +465,11 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-Note: This profiles is applicable only for J2 based systems with etcam
+![acl ingress compress enable.png]({{site.baseurl}}/images/acl ingress compress enable.png)
+
+
+
+Note: This profiles is applicable only for systems with etcam
 {: .notice--info} 
 
 
@@ -480,7 +491,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+
+![acl ipv6 ext-header permit.png]({{site.baseurl}}/images/acl ipv6 ext-header permit.png)
+
 
 Feature available on 6.6.3 and 7.0.1.  
 
@@ -489,7 +502,7 @@ When these extension headers are detected, these packets are sent to control pla
 This behavior of sending packet to CPU is enabled by default, but in case user wants to disable this special handling of extension headers, they can enable the hardware profile.  
 With this, they don't have to insert permit rules in each ACLs. All the packets with extension headers will bypass security ACLs and will be permitted. This CLI can be configured or de-configured anytime during router operation and does not need any restart of system.  
 
-Note: Can be enabled and disabled without requiring a system reload. This profile is not needed on J2 based systems.
+Note: Can be enabled and disabled without requiring a system reload. 
 {: .notice--info}
 
 _External documentation_:  
@@ -675,7 +688,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![load-balance algorithm{L3 only|gtp|layer2|gtp-mpls|ip-tunnel | mpls-safe-speculative-parsing}.png]({{site.baseurl}}/images/load-balance algorithm{L3 only|gtp|layer2|gtp-mpls|ip-tunnel | mpls-safe-speculative-parsing}.png)
+
+
 
 There are 6 modes which can be configured. The default (i.e. with no configuration) selects the algorithm which has been running in previous releases.
 - ip-tunnel allows the hashing algorithm to use the outer IPv4 GRE header even when doing an IP tunnel decapsulation. 
@@ -1249,6 +1264,11 @@ RP/0/RP0/CPU0:ios(config)
 </pre>
 </div>
 
+![native.png]({{site.baseurl}}/images/native.png)
+
+
+
+
 J2 based systems can operate in 2 modes: 
 Compatible Mode—Used when the chassis contains combination of Cisco NC57 and older generation line cards. This is the default mode.
 Native Mode—Used when the chassis contains only Cisco NC57 line cards. 
@@ -1279,7 +1299,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![SRV6.png]({{site.baseurl}}/images/SRV6.png)
+
 
 This profile is required to enable Segment Routing v6. We can define a static TC value or copy it from the payload.
 
@@ -1461,7 +1482,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![stats acl permit .png]({{site.baseurl}}/images/stats acl permit .png)
+
 
 By default, access-lists don't count permit ACE hits but only the deny ones.  
 It could be very important to track the packets permitted, for example when using ABF (ACL Based Forwarding).  
@@ -1493,7 +1515,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![Screenshot 2021-04-03 at 12.57.20 PM.png]({{site.baseurl}}/images/Screenshot 2021-04-03 at 12.57.20 PM.png)
+![stats ingress-sr.png]({{site.baseurl}}/images/stats ingress-sr.png)
+
+
 
 Profile enabling per-label statistics at "ingress" for Segment Routing labels (only for the labels within configured SRGB and SRLB).
 Once activated, QoS Stats will not work for the same labeled packets.
@@ -1621,7 +1645,8 @@ RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
 
-![02.png]({{site.baseurl}}/images/02.png){: .align-center}
+![stats egress-stats-scale.png]({{site.baseurl}}/images/stats egress-stats-scale.png)
+
 
 Very similar the enh profile, extending the MPLS scale from 8k to 20k counters (4k for ARP/ND) and at the expense of the L2 counters (no L2 with this one).
 
@@ -1644,7 +1669,9 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
 
-![07.png]({{site.baseurl}}/images/07.png){: .align-center}
+
+![tcam acl-prefix percent.png]({{site.baseurl}}/images/tcam acl-prefix percent.png)
+
 
 Hybrid (or Scaled) ACLs are stored in two places: iTCAM and eTCAM. But by default in 6.3.2 (onwards), the eTCAM is not carved to receive ACL information.  
 This hardware profiles helps with this carving.  
@@ -1921,6 +1948,8 @@ RP/0/RP0/CPU0:NCS5500-702(config)#hw-module route-stats l3mcast ipv4 TEST ?
 RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 </pre>
 </div>
+
+
   
 In IOS XR 6.6.3:
 
@@ -1955,6 +1984,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#hw-module route-stats l3mcast vrf foo ?
 RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
+
+![Route_stats.png]({{site.baseurl}}/images/Route_stats.png)
+
 
 Where mcast-counter is an access-list defined in the configuration
 
@@ -1997,6 +2029,9 @@ RP/0/RP0/CPU0:NCS5500-663(config)#hw-module vrrpscale enable ?
 RP/0/RP0/CPU0:NCS5500-663(config)#</code>
 </pre>
 </div>
+
+![VrrpScale.png]({{site.baseurl}}/images/VrrpScale.png)
+
 
 Extends the scale from 16 (or even 13 with BFD) to 255.  
 In 7.1.1, it's also required to enable HSRP.
