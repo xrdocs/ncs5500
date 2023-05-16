@@ -48,7 +48,11 @@ As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwi
 
 
 
-## MACsec & Timing 
+## MACsec & Timing
+
+MACsec is supported on all the fixed port on the NC57-MOD line card. As shown in figure above, MACsec support is achived via the MACsec capable PHY in the system. for the MPA ports, MACsec support on all the MACsec capable MPAs. This is listed in the table <> above.
+
+
 ## Scalability & Use Cases
 
 ## Summary
