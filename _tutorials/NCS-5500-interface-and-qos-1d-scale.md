@@ -392,8 +392,8 @@ Below table will present the above scale limits in graphical format for ease of 
   <tr>
     <td></td>
     <td></td>
-    <td></td>
     <td class="body1"></td>
+    <td></td>
     <td></td>
     <td></td>
     <td></td>
@@ -403,8 +403,8 @@ Below table will present the above scale limits in graphical format for ease of 
   <tr>
     <td></td>
     <td></td>
-    <td class="body1"></td>
     <td></td>
+    <td class="body1"></td>
     <td></td>
     <td></td>
     <td class="body1"></td>
