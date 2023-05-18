@@ -40,7 +40,9 @@ NC57-MOD-S is a modular line card available only in Base version. It is based on
 
 `Note: 1G port speed are not supported on the NC57-MOD line card on fixed or MPA based SFP ports`
 
-_placeholder for line card image with port displays_
+![NC57-MOD-S-FV.png]({{site.baseurl}}/images/NC57-MOD-S-FV.png)
+_Figure 1: NC57-MOD-S Modular Line Card Fixed Ports & MPA slots_
+
 
 _placeholder for Line card internal architecture_
 
