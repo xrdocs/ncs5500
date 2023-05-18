@@ -12,7 +12,9 @@ excerpt: >-
 
 The Cisco NCS 5500 Series Modular Platforms offer industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest Trends in the Metro Architecture has driven the evoltion of The product portfolio. Staring XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flerxible scalablity. With IOS XR 7.6.1, we have introduced the Modular Flavour line card NC57-MOD-S, which support a great flexibility in terms of supported speed and form factors of optics. 
 
-***placeholder for Line Card Image and Chassis***
+![NC57-MOD-S.png]({{site.baseurl}}/images/NC57-MOD-S.png)
+_Figure 1: The New Cisco NC57-MOD-S Modular Line Card_
+
 
 ## NC57 Series  Modular Line Cards for NCS 55xx Chassis
 The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modlar Chassis Family. The table summeriese the NC57 series line card family as of today. 
@@ -54,15 +56,16 @@ As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwi
 |---------|------------------------|---------------|
 |NC57-MPA-2D4H| 2x400G QDD or 4x100/200G QDD| YES|
 |NC57-MPA-1FH1D| 1x400G CFP2 + 1x400G QDD | YES|
-|NC57-MPA-12L | 12xSFP56 (10/25/50G) | |
+|NC57-MPA-12L | 12xSFP56 (10/25/50G) | YES |
 
 
 
 ## MACsec & Timing
 
-MACsec is supported on all the fixed port on the NC57-MOD line card. As shown in figure above, MACsec support is achived via the MACsec capable PHY in the system. for the MPA ports, MACsec support on all the MACsec capable MPAs. This is listed in the table <> above.
+MACsec is supported on all the fixed port on the NC57-MOD line card. As shown in figure above, MACsec support is achived via the MACsec capable PHY in the system. for the MPA ports, MACsec support on all the MACsec capable MPAs. This is listed in the _table 2_ above.
 
-_placeholder for timing support_
+NC57-MOD line card supports all the timing functionality supported by NCS 5500 modular platforms. The line card is capable of supporting PTP Class-C timing accuracy, When the Chassis is equiped with NC55-RP2-E as the route processor.
+
 
 ## Scalability & Use Cases
 
