@@ -54,9 +54,13 @@ As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwi
 
 | MPA PID | MPA Port Configuration | MACSec Support|
 |---------|------------------------|---------------|
-|NC57-MPA-2D4H| 2x400G QDD or 4x100/200G QDD| YES|
-|NC57-MPA-1FH1D| 1x400G CFP2 + 1x400G QDD | YES|
-|NC57-MPA-12L | 12xSFP56 (10/25/50G) | YES |
+|NC57-MPA-2D4H| 2x400G QDD or 4x100/200G QDD| Yes|
+|NC57-MPA-1FH1D| 1x400G CFP2 + 1x400G QDD | Yes|
+|NC57-MPA-12L | 12xSFP56 (10/25/50G) | Yes |
+|NC55-MPA-4H-S| 4xQSFP28 (40/100G)| Yes|
+| NC55-MPA-12T-S | 12xSFP+ (10G)|Yes|
+|NC55-MPA-2TH-S | 2xCFP2DCO (200G)| Yes |
+|NC55-MPA-1TH2H-S | 1xCFP2DCO (100G) + 2xQSFP28 (40/100G) | Yes|
 
 
 
