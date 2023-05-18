@@ -24,11 +24,11 @@ The NC57 Series Line Cards brought the support for 400G with enhanced scalabilit
 
 | Line Card PID | Line Card Description | FCS Release |
 |---------------|-----------------------|-------------|
-| NC57-18DD-SE |18x400G or 30x200/100G Scale LC| 7.0.2|
-|NC57-24DD | 24x400G Base LC | 7.0.2 |
+| NC57-18DD-SE |18x400G or 30x200/100G Scale LC| IOS XR 7.0.2|
+|NC57-24DD | 24x400G Base LC | IOS XR 7.0.2 |
 | NC57-36H6D-S | 24x400G + 12 Flex Port (6x400GE or 12x200GE/100GE) base LC| |
 | NC57-36H-SE |36x100G Scale Line Card ||
-|<mark>NC57-MOD-S</mark>| <mark>2x400G + 8x50G + 2xMPA Base LC </mark> |<mark>7.6.1</mark>| 
+|<mark>NC57-MOD-S</mark>| <mark>2x400G + 8x50G + 2xMPA Base LC </mark> |<mark>IOS XR 7.6.1</mark>| 
 
 
 ## NC57-MOD-S Line Card Specification
