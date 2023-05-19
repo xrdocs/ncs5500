@@ -48,7 +48,7 @@ _Figure 2: NC57-MOD-S Modular Line Card Fixed Ports & MPA slots_
 ![NC57-MOD-S-FV.png]({{site.baseurl}}/images/NC57-MOD-S-Arch.png)
 _Figure 3: NC57-MOD-S Modular Line Card Archtecture_
 
-A single J2 ASIC is the primary building block of the Line card. It has another LC CPU complex and DRAM for deep buffering. The NIF interfaces are connected to the fixed front panel ports via a PHY that enables MACsec capability in those ports. the two MPA slots are directly connected via a group of NIFs allowing a maximum throughput of 800Gbps per MPA slots. Most of the MPAs contain PHY internally enabling support  MACsec encryption.
+A single J2 ASIC is the primary building block of the Line card. There is also LC CPU complex present in the line card. This line card support deep buffering with the help of integrated Hing Bandwidth Memory(8GB). The NIF interfaces are connected to the fixed front panel ports via a PHY that enables MACsec capability in those ports. the two MPA slots are directly connected via a group of NIFs allowing a maximum throughput of 800Gbps per MPA slots. Most of the MPAs contain PHY internally enabling support  MACsec encryption.
 
 ### Dimensions , Weights etc.
 
