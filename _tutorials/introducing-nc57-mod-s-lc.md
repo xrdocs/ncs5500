@@ -1,5 +1,5 @@
 ---
-published: false
+published: true
 date: '2023-05-08 09:36 +0530'
 title: 'Introducing NC57-MOD-S: NCS 5700 Modular Line Card'
 author: Paban Sarma
@@ -50,7 +50,6 @@ _Figure 3: NC57-MOD-S Modular Line Card Archtecture_
 
 A single J2 ASIC is the primary building block of the Line card. There is also LC CPU complex present in the line card. This line card support deep buffering with the help of integrated Hing Bandwidth Memory(8GB). The NIF interfaces are connected to the fixed front panel ports via a PHY that enables MACsec capability in those ports. the two MPA slots are directly connected via a group of NIFs allowing a maximum throughput of 800Gbps per MPA slots. Most of the MPAs contain PHY internally enabling support  MACsec encryption.
 
-### Dimensions , Weights etc.
 
 ## Modular Port Adapters
 As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also back compitable with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
