@@ -44,7 +44,9 @@ NC57-MOD-S is a modular line card available only in Base version. It is based on
 _Figure 2: NC57-MOD-S Modular Line Card Fixed Ports & MPA slots_
 
 
-_placeholder for Line card internal architecture_
+
+![NC57-MOD-S-FV.png]({{site.baseurl}}/images/NC57-MOD-S-Arch.png)
+_Figure 3: NC57-MOD-S Modular Line Card Archtecture_
 
 
 ### Dimensions , Weights etc.
