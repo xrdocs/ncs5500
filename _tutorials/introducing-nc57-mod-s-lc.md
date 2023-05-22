@@ -3,10 +3,14 @@ published: true
 date: '2023-05-08 09:36 +0530'
 title: 'Introducing NC57-MOD-S: NCS 5700 Modular Line Card'
 author: Paban Sarma
-position: hidden
+position: top
 excerpt: >-
   Introduction to Cisco NC57-MOD-S Line card. A modular Line card for NCS 5500
   Modular Chassis. Detailed LC architecture, Capabilities and Use Cases.
+tags:
+  - iosxr
+  - NCS 5700
+  - NCS 5500
 ---
 ## Introduction
 
