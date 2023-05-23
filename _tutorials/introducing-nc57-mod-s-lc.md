@@ -81,9 +81,9 @@ NC57-MOD line card supports all the timing functionality supported by NCS 5500 m
 
 ### Scalability & Use Cases
 
-As NC57-MOD LC is built on the J2 generation of BCM ASIC, italso supports the modular Database profiles (MDB) for scale. We have already covered the  [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) in our previous article. Since the line card comes only in base version, it can be configured with both L2MAX and L3MAX MDB profiles when operating in J2 native Mode.
+As NC57-MOD LC is built on the J2 generation of BCM ASIC, it also supports the modular Database profiles (MDB) for scale. We have already covered the  [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) in our previous article. Since the line card comes only in base version, it can be configured with both L2MAX and L3MAX MDB profiles when operating in J2 native Mode.
 
-NC57-MOD-S Line card can be inserted in all the three variants of NCS 5500 modular chassis, viz. 5504, 5508 and 5516. These modular chassis equipped with this line card can be positioned in various roles such as Metro Aggregation , Core and Peering etc. Also, the support of ZR/ZR+ and 400G CFP2DCO optics via the MPA-1FH-1D make this line card an important piece in Cisco's [Routed Optical Networking](https://www.cisco.com/c/en/us/solutions/service-provider/routed-optical-networking/index.html) Architecture.
+NC57-MOD-S Line card can be inserted in all the three variants of NCS 5500 modular chassis, viz. 5504, 5508 and 5516. These modular chassis equipped with this line card can be positioned in various roles such as Metro Aggregation , Core and Peering etc. Also, the support of ZR/ZR+ and 400G CFP2DCO optics via the MPA-1FH1D make this line card an important piece in Cisco's [Routed Optical Networking](https://www.cisco.com/c/en/us/solutions/service-provider/routed-optical-networking/index.html) Architecture.
 
 
 ## Summary & References
