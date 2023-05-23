@@ -56,7 +56,7 @@ A single J2 ASIC is the primary building block of the line card. There is also L
 
 
 
-## Modular Port Adapters
+### Modular Port Adapters
 As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also backward  compatible with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
 
 *_Table 2: List Supported MPAs on NC57-MOD Line Card_*
@@ -72,14 +72,14 @@ As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwi
 |NC55-MPA-1TH2H-S | 1xCFP2DCO (100G) + 2xQSFP28 (40/100G) | Yes|
 
 
-## MACsec & Timing
+### MACsec & Timing
 
 MACsec is supported on all the fixed ports on the NC57-MOD line card. As shown in the _figure 3_ above, MACsec support is achieved via the MACsec capable PHY in the system. For the MPA ports, MACsec support is on all the MACsec capable MPAs. This is listed in the _table 2_ above.
 
 NC57-MOD line card supports all the timing functionality supported by NCS 5500 modular platforms. The line card is capable of supporting PTP Class-C timing accuracy, when the chassis is equipped with NC55-RP2-E as the route processor.
 
 
-## Scalability & Use Cases
+### Scalability & Use Cases
 
 As NC57-MOD LC is built on the J2 generation of BCM ASIC, italso supports the modular Database profiles (MDB) for scale. We have already covered the  [MDB profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/) in our previous article. Since the line card comes only in base version, it can be configured with both L2MAX and L3MAX MDB profiles when operating in J2 native Mode.
 
