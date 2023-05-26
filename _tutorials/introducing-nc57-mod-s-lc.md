@@ -24,7 +24,7 @@ _Figure 1: The New Cisco NC57-MOD-S Modular Line Card_
 The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modular Chassis Family. The table below summarises the NC57 series line card family as of today.
 
 
-*_Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_*
+_Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 
 | Line Card PID | Line Card Description | FCS Release |
 |---------------|-----------------------|-------------|
@@ -59,7 +59,7 @@ A single J2 ASIC is the primary building block of the line card. There is also L
 ### Modular Port Adapters
 As Mentioned earlier the two MPA slots on the NC57-MOD-S line card have a bandwidth upto 800 Gbps/slot. It supports the new generation of MPAs (Upto 800G/MPA) supporting form factors like QSFP56-DD, 400G CFP2DCO, SFP56 etc. The line card is also backward  compatible with the previous generation of MPAs (Upto 400G/MPA). The below table lists out all the MPA modules supported on the line card.
 
-*_Table 2: List Supported MPAs on NC57-MOD Line Card_*
+_Table 2: List Supported MPAs on NC57-MOD Line Card_
 
 | MPA PID | MPA Port Configuration | MACSec Support|
 |---------|------------------------|---------------|
