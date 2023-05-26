@@ -20,7 +20,7 @@ date: null
             <h2 class="archive__item-title"><a href="https://youtu.be/1HA7x6pHx4c" target="_blank" ></a>
             Introducing the NC57-MOD-S Line card</h2>
             <div class="archive__item-excerpt" style="font-size: 0.65em;">
-            <p>This video covers the latest NCS 5700 Modular Line Card NC57-MOD-S. Based on J2 chipset, it offers 2 MPA slots supporting Upto 80Gbps                and 8x50G+2x400G Fixed front panel ports. <b>Amit Dey</b> and <b>Paban Sarma</b> describes the architecture and unique capabilities.                of the line card
+            <p>This video covers the latest NCS 5700 Modular Line Card NC57-MOD-S. Based on J2 chipset, it offers 2 MPA slots supporting Upto 80Gbps                and 8x50G+2x400G Fixed front panel ports. <b>Amit Dey</b> and <b>Paban Sarma</b> describe the architecture and unique capabilities.                of the line card
              </p>
             </div>
           <a href="https://youtu.be/1HA7x6pHx4c" target="_blank"  class="btn btn--large">Watch on Youtube</a>
