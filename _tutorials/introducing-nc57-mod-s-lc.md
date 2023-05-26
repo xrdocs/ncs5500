@@ -34,6 +34,9 @@ _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 | NC57-36H6D-S | 24x400G + 12 Flex Port (6x400GE or 12x200GE/100GE) base LC| IOS XR 7.4.1 |
 |<mark>NC57-MOD-S</mark>| <mark>2x400G + 8x50G + 2xMPA Base LC </mark> |<mark>IOS XR 7.6.1</mark>| 
 
+## NC57-MOD-S Video Introduction
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/1HA7x6pHx4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## NC57-MOD-S Line Card Specification
 
