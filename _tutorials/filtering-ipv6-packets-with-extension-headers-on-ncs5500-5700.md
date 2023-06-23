@@ -25,4 +25,11 @@ postion: hidden
 
 In our previous [tech-note](https://xrdocs.io/ncs5500/tutorials/user-defined-field-ncs55xx-and-ncs5xx/), we saw how User Defined Fields - UDF can provide advanced filtering capabilities on NCS5500/5700. We saw examples of how different fields can be matched and used to filter traffic. In this tech-note, we will see how IPv6 packets with Extension Header can also be filtered using UDF. 
 
-## What is IPv6 Extension Headers
+## What is IPv6 Extension Headers ?
+
+Before filtering the packets with Extension Header (EH), let us try to understand what is extension header. Let us understand the implications of the presence of extension headers  the native IPv6 traffic forwarding performance of network devices. ([Reference](https://www.cisco.com/en/US/technologies/tk648/tk872/technologies_white_paper0900aecd8054d37d.html)). IPv6 has two distinct types of headers: **Main/Regular IPv6 Header** and **IPv6 Extension Headers**. The main IPv6 header is equivalent to the basic IPv4 shown below. An IPv6 basic header is 40 bytes long. Each IPv6 packet has basic header that provides basic packet forwarding information, which is needed for each devices in the forwarding path.
+
+![Screenshot 2023-06-23 at 3.17.43 PM.png]({{site.baseurl}}/images/Screenshot 2023-06-23 at 3.17.43 PM.png)
+
+
+
