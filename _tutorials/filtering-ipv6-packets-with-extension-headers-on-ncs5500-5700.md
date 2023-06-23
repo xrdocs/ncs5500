@@ -39,6 +39,21 @@ The options field in the IPv4 header is very important which is used to convey a
 
 As per [RFC 2460](https://datatracker.ietf.org/doc/html/rfc2460) in IPv6,   optional internet-layer information is encoded in separate headers that may be placed between the IPv6 header and the upper-layer header in a packet.  There are a small number of such extension headers, each identified by a distinct Next Header value. An IPv6 packet may carry zero, one, or more extension headers, each identified by the Next Header field of the preceding header. 
 
+Note: RFC 2460 is now obselete and it is taken over by [RFC 8200](https://www.rfc-editor.org/rfc/rfc8200.html) 
+{: .notice--info} 
+
+These RFCs defines IPv6 packet format, different extension headers, order of processing and various other features. For deeper understanding of the same please follow the RFCs.
+
+The commonly used extension headers and their usage is defind the following [document](https://www.cisco.com/en/US/technologies/tk648/tk872/technologies_white_paper0900aecd8054d37d.html). 
+
+## IPv6 Extension Header Processing 
+
+As per the standards defined, all networking devices must process Extension Header under basic forwarding conditions or in the context of advanced features such as Access Lists. It identifies the protocol requirements that must be observed. ([Reference](https://www.cisco.com/en/US/technologies/tk648/tk872/technologies_white_paper0900aecd8054d37d.html)). The Hop-by-Hop Extension Header is the only EH that must be fully processed by all network devices. The Hop-by-Hop EH is similar to the IPv4 options and must be the first in a chain of extension headers. Because the Hop-by-Hop EH must be fully processed, it is handled by the CPU and the IPv6 traffic that contains a Hop-by-Hop EH will go through the slow forwarding path. Network devices are not required to process any of the other IPv6 extension headers when simply forwarding the traffic. For this reason, IPv6 traffic with one or more EHs other than Hop-by-Hop can be forwarded in hardware.
+
+
+
+
+
 
 
 
