@@ -50,6 +50,12 @@ The commonly used extension headers and their usage is defind the following [doc
 
 As per the standards defined, all networking devices must process Extension Header under basic forwarding conditions or in the context of advanced features such as Access Lists. It identifies the protocol requirements that must be observed. ([Reference](https://www.cisco.com/en/US/technologies/tk648/tk872/technologies_white_paper0900aecd8054d37d.html)). The Hop-by-Hop Extension Header is the only EH that must be fully processed by all network devices. The Hop-by-Hop EH is similar to the IPv4 options and must be the first in a chain of extension headers. Because the Hop-by-Hop EH must be fully processed, it is handled by the CPU and the IPv6 traffic that contains a Hop-by-Hop EH will go through the slow forwarding path. Network devices are not required to process any of the other IPv6 extension headers when simply forwarding the traffic. For this reason, IPv6 traffic with one or more EHs other than Hop-by-Hop can be forwarded in hardware.
 
+## Security concerns with IPv6 Extension Headers
+
+[RFC 9288](https://datatracker.ietf.org/doc/rfc9288/) documents security implications of IPv6 Extension Headers. It discusses the operational and interoperability implications of discarding packets based on the IPv6 Extension Headers and IPv6 options they contain. It also provides advice on the filtering of such IPv6 packets at transit routers for traffic not directed to them, for those cases where such filtering is deemed as necessary. Therefore it becomes necessary for the network devices to be capable of filtering those packets that may have Extension Headers and which may pose threat to the network.
+
+## NCS5500/NCS5700 capabilities to filter IPv6 Traffic with extension headers
+
 
 
 
