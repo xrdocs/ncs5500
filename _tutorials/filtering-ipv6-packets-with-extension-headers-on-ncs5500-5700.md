@@ -31,5 +31,15 @@ Before filtering the packets with Extension Header (EH), let us try to understan
 
 ![Screenshot 2023-06-23 at 3.17.43 PM.png]({{site.baseurl}}/images/Screenshot 2023-06-23 at 3.17.43 PM.png)
 
+### Comparison to options field in IPv4 header
+
+The options field in the IPv4 header is very important which is used to convey additional information on the packet or on the way it should be processed. Unless instructed otherwise, network devices must process the options in the IPv4 header. The processing of most header options pushes the packet into the slow path leading to a forwarding performance hit. This capability has been preserved in IPv6 packet. During the development of IPv6, the impact of IPv4 Options on performance was taken into consideration. The functionality of options is removed from the main header and implemented through a set of additional headers called Extension Headers. The main header remains fixed in size (40 bytes) while customized EHs are added as needed. 
+
+### Every IPv6 packet carry one extension header?
+
+As per [RFC 2460](https://datatracker.ietf.org/doc/html/rfc2460) in IPv6,   optional internet-layer information is encoded in separate headers that may be placed between the IPv6 header and the upper-layer header in a packet.  There are a small number of such extension headers, each identified by a distinct Next Header value. An IPv6 packet may carry zero, one, or more extension headers, each identified by the Next Header field of the preceding header. 
+
+
+
 
 
