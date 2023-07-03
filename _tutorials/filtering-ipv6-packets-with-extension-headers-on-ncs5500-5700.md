@@ -14,7 +14,6 @@ tags:
   - IPv6
   - ACL
   - IPv6 EH
-postion: hidden
 position: hidden
 ---
 {% include toc icon="table" title="Table of Contents" %}
