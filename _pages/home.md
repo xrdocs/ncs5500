@@ -11,7 +11,7 @@ date: null
 {% include base_path %}
 
 <div class="feature__wrapper">    
-    <div class="feature__item--left">
+    <div class="feature__item--right">
       <div class="archive__item" style="margin-left: 2em;">
           <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
               <iframe width="560" height="315" src="https://www.youtube.com/embed/1HA7x6pHx4c" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
@@ -71,59 +71,6 @@ date: null
       </div>
     </div>
 </div>
-
-<div class="feature__wrapper">    
-    <div class="feature__item--left">
-      <div class="archive__item" style="margin-left: 2em;">
-          <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/8Tq4nyP2wuA" frameborder="0"
-               allowfullscreen></iframe>
-          </div>
-        <div class="archive__item-body">
-            <h2 class="archive__item-title"><a href="https://www.youtube.com/watch?v=8Tq4nyP2wuA" target="_blank" ></a>Full Internet View
-             on “Base” NCS 5500 Systems</h2>
-            <div class="archive__item-excerpt" style="font-size: 0.65em;">
-            <p>In this video <b>Nicolas Fevrier</b> shows NCS5500 using Jericho-based line cards without external TCAM (also valid for fixed-form
-             systems) handling the current internet table with still significant growth margin. </p>
-            </div>
-          <p><a href="https://www.youtube.com/watch?v=8Tq4nyP2wuA" target="_blank"  class="btn btn--large">Watch on Youtube</a>
-          <a href="https://xrdocs.io/ncs5500/tutorials/2017-12-30-full-internet-view-on-base-ncs-5500-systems-s01e04/" target="_blank"
-           class="btn btn--large">Read article</a></p>
-        </div>
-      </div>
-    </div>
-</div>
-
-
-
-
-
-<div class="feature__wrapper">    
-    <div class="feature__item--right">
-      <div class="archive__item" style="margin-left: 2em;">
-          <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/lVC3ppgi7ak" frameborder="0"
-               allowfullscreen></iframe>
-          </div>
-        <div class="archive__item-body">
-            <h2 class="archive__item-title"><a href="https://www.youtube.com/watch?v=lVC3ppgi7ak" target="_blank" ></a>
-            Large Routing Tables on “Scale” NCS 5500 Systems</h2>
-            <div class="archive__item-excerpt" style="font-size: 0.65em;">
-            <p>Pushing the limits further. We will take a much larger existing (ie. real) routing table (internet
-             + a very large number of host routes), we will add a projection of the internet table to year 2025 and
-              we will see how it can fit in a Jericho-based system with External TCAM </p>
-            </div>
-          <p><a href="https://www.youtube.com/watch?v=lVC3ppgi7ak" target="_blank"  class="btn btn--large">Watch on Youtube</a>
-          <a href="https://xrdocs.io/ncs5500/tutorials/2018-01-25-s01e05-large-routing-tables-on-scale-ncs-5500-systems/" target="_blank"
-           class="btn btn--large">Read article</a></p>
-        </div>
-      </div>
-    </div>
-</div>
-
-
-
-
 
 
 <div class="feature__wrapper">
