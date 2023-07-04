@@ -55,3 +55,11 @@ As per the standards defined, all networking devices must process Extension Head
 [RFC 9288](https://datatracker.ietf.org/doc/rfc9288/) documents security implications of IPv6 Extension Headers. It discusses the operational and interoperability implications of discarding packets based on the IPv6 Extension Headers and IPv6 options they contain. It also provides advice on the filtering of such IPv6 packets at transit routers for traffic not directed to them, for those cases where such filtering is deemed as necessary. Therefore it becomes necessary for the network devices to be capable of filtering those packets that may have Extension Headers and which may pose threat to the network.
 
 ## NCS5500/NCS5700 capabilities to filter IPv6 Traffic with extension headers
+
+### without hw-module profile packets will be punted to CPU and ACL on L4 header --- Not needed 
+
+### hw-module profile is present packets will not be punted to CPU but ACL wont take affect --- Not needed 
+
+### In scenarios where customer wants to filter those packets then use UDF and one example to show that 
+
+### Note to document limitatio of 63 bytes parsing 
