@@ -11,7 +11,7 @@ _Placeholder for Image_
 
 
 ## NC57 Series  Modular Line Cards for NCS 55xx Chassis
-The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modular Chassis Family. The table below summarises the NC57 series line card family as of today.
+The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modular Chassis Family. The family of line card now offers speed range starting from 1G to 400G at unmatched scalability and functionality. The table below summarises the NC57 series line card family as of today.
 
 
 _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
