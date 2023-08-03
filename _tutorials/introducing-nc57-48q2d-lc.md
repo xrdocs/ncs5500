@@ -4,5 +4,24 @@ date: '2023-05-18 14:28 +0530'
 title: 'Introducing NC57-48Q2D : Low Speed NCS 5700 Line Card'
 author: Paban Sarma
 ---
-## Overview
-This article is a placeholder for NCS 5700 Low Speed Line Card NC57-48Q2D details.
+## Introduction
+The Cisco NCS 5500 Series Modular Platforms offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest trends in the Metro Architecture have driven the evolution of the product portfolio. Starting XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flexible scalablity. With IOS-XR 7.10.1 two new variants of line cards are introduced _viz._ NC57-48Q2D-S and NC57-48Q2D-SE-S, bringing highly scalable dense low speed line card to the family of NCS 5700 modular line card.
+
+_Placeholder for Image_
+
+
+## NC57 Series  Modular Line Cards for NCS 55xx Chassis
+The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modular Chassis Family. The table below summarises the NC57 series line card family as of today.
+
+
+_Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
+
+| Line Card PID | Line Card Description | FCS Release |
+|---------------|-----------------------|-------------|
+| NC57-18DD-SE |18x400G or 30x200/100G Scale LC| IOS XR 7.0.2|
+|NC57-24DD | 24x400G Base LC | IOS XR 7.0.2 |
+| NC57-36H-SE |36x100G Scale Line Card |IOS XR 7.3.1|
+| NC57-36H6D-S | 24x400G + 12 Flex Port (6x400GE or 12x200GE/100GE) base LC| IOS XR 7.4.1 |
+|NC57-MOD-S| 2x400G + 8x50G + 2xMPA Base LC  |IOS XR 7.6.1| 
+|<mark>NC57-48Q2D-S</mark>| <mark>32x25G+16x50G+2x400G Base LC </mark> |<mark>IOS XR 7.10.1</mark>|
+|<mark>NC57-48Q2D-SE-S</mark>| <mark>32x25G+16x50G+2x400G Scale LC </mark> |<mark>IOS XR 7.10.1</mark>|
