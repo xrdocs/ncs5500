@@ -25,3 +25,21 @@ _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 |NC57-MOD-S| 2x400G + 8x50G + 2xMPA Base LC  |IOS XR 7.6.1| 
 |<mark>NC57-48Q2D-S</mark>| <mark>32x25G+16x50G+2x400G Base LC </mark> |<mark>IOS XR 7.10.1</mark>|
 |<mark>NC57-48Q2D-SE-S</mark>| <mark>32x25G+16x50G+2x400G Scale LC </mark> |<mark>IOS XR 7.10.1</mark>|
+
+## NC57-48Q2D Video Introduction
+
+_Placeholder  Video link_
+
+## NC57-48Q2D Line Card Specification
+
+The new NCS5700 line card variants are build to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD port works 100/200/400G with Breakout support. 
+
+### Internal Architecture
+
+### Front Panel Ports and Speed
+
+### MACsec & timing
+
+## Scalability & Use Cases
+
+## Summary & References
