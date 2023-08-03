@@ -34,8 +34,10 @@ _Placeholder  Video link_
 
 The new NCS5700 line card variants are build to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD port works 100/200/400G with Breakout support. 
 
+_Placeholder for picture with Port combination view_
+
 ### Internal Architecture
-The NC57-48Q2D-(SE)-S line card is built with 
+The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. 
 
 ### Front Panel Ports and Speed
 
