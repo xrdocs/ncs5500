@@ -35,6 +35,7 @@ _Placeholder  Video link_
 The new NCS5700 line card variants are build to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD port works 100/200/400G with Breakout support. 
 
 ### Internal Architecture
+The NC57-48Q2D-(SE)-S line card is built with 
 
 ### Front Panel Ports and Speed
 
@@ -43,3 +44,9 @@ The new NCS5700 line card variants are build to bring in dense low speed variant
 ## Scalability & Use Cases
 
 ## Summary & References
+
+With the addition of the NC57-48Q2D line cards to the existing portfolio of 400G, 100G and modular line cards, the NCS 5500 modular systems can be deployed in a diverse set of use cases and unleash the full power of Jericho 2 native mode. More information on the line card and the NCS 5500/5700 product family can be found in the below links. 
+
+
+- [NCS 5500/5700 @ Cisco.com](https://www.cisco.com/c/en/us/products/routers/network-convergence-system-5500-series/index.html)
+- [NCS5500/5700 Modular WhitePaper](https://www.cisco.com/c/en/us/products/collateral/routers/network-convergence-system-5500-series/network-convergence-sys-wp.html)
