@@ -13,8 +13,9 @@ tags:
 ## Introduction
 The Cisco NCS 5500 Series Modular Platforms offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest trends in the Metro Architecture have driven the evolution of the product portfolio. Starting XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flexible scalablity. With IOS-XR 7.10.1 two new variants of line cards are introduced _viz._ NC57-48Q2D-S and NC57-48Q2D-SE-S, bringing highly scalable dense low speed line card to the family of NCS 5700 modular line card.
 
-_Placeholder for Image_
+![xdocs.jpg]({{site.baseurl}}/images/xdocs.jpg)
 
+_Figure 1: NC57-48Q2D-S/NC57-48Q2D-SE-S Front View_
 
 ## NC57 Series  Modular Line Cards for NCS 55xx Chassis
 The NC57 Series Line Cards brought the support for 400G with enhanced scalability in the NCS 5500 Modular Chassis Family. The family of line card now offers speed range starting from 1G to 400G at unmatched scalability and functionality. The table below summarises the NC57 series line card family as of today.
