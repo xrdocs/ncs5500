@@ -677,14 +677,17 @@ _External documentation_:
 
 <div class="highlighter-rouge">
 <pre class="highlight">
-<code>RP/0/RP0/CPU0:NCS5500-702(config)#hw-module profile load-balance algorithm ?
+<code>RP/0/RP0/CPU0:N57B1-SE-33-781-28I(config)#hw-module profile load-balance algorithm ?
   L3-only                        L3 Header only Hash.
+  PPPoE                          PPPoE session based optimized hash. Reload is required for this option
   gtp                            GTP optimized.
   gtp-mpls                       GTP over MPLS optimized hash.
+  inner-l2-field                 Inner MAC based optimised hashing.
   ip-tunnel                      IP tunnel optimized.
   layer2                         Layer 2 optimized.
+  mpls-lsr-ler                   MPLS lsr ler LB profile.
   mpls-safe-speculative-parsing  MPLS safe Speculative parsing.
-RP/0/RP0/CPU0:NCS5500-702(config)#</code>
+</code>
 </pre>
 </div>
 
@@ -692,13 +695,15 @@ RP/0/RP0/CPU0:NCS5500-702(config)#</code>
 
 
 
-There are 6 modes which can be configured. The default (i.e. with no configuration) selects the algorithm which has been running in previous releases.
+There are 9 modes which can be configured. The default (i.e. with no configuration) selects the algorithm which has been running in previous releases.
 - ip-tunnel allows the hashing algorithm to use the outer IPv4 GRE header even when doing an IP tunnel decapsulation. 
 - layer2 allows the hashing algorithm to be able to use the inner IP header information when doing layer 2 forwarding and the inner payload is MPLS.
 - gtp allows hashing based upon the tunnel id in GTP-U (UDP DST 2152) packets. (6.5.1 release or later). When this option is selected, the hashing is based on ip[v4/v6] (src, dest, protocol) + udp (src, dest) + tunnel endpoint id).
 - gtp-mpls allows hashing based upon the tunnel id in GTP-U (UDP DST 2152) packets. (7.2.1 release or later). When this option is selected, the hashing is based on tunnel endpoint id.
 - mpls-safe-speculative-parsing mode was introduced (6.5.3 release or later) for cases where the network has MPLS carrying L2VPN packets without control words. In this case, if the first nibble of the MAC DA address is a 4 or 6, the rest of the packet could be interpreted incorrectly as IPv4 or IPv6 header. In this mode, the algorithm uses a subset of the IPv4 and IPv6 header for load balancing. It does this for MPLS 1-6 labels for IPv6 and MPLS 4-6 labels for IPv4. For MPLS 1-3 labels and IPv4, the hardware can correctly determine whether it’s an IPv4 header or not (uses the checksum).
 - L3-only will not use any L4 headers for the hashing. Only IPv4 and IPv6 will be used. It could be useful in certain corner-cases, particularly to guarantee the fragmented packets will take the same path than the first packet of the fragment.
+- mpls-lsr-ler Loadbalancing specific to LSR and LER operation where we could have SWAN flows (MPLS deag for partial MPLS termination)
+- inner-L2-Field Knob to take inner L2 fields for an EthoMPLSoIPoEth kind of packets into consideration for hashing. By default these fields are not taken. This knob is applicable to J2 as well. 
  
 These profiles can be activated without requiring a reload of the system or the line card.
 {: .notice--info}
