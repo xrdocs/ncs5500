@@ -11,6 +11,11 @@ tags:
   - iosxr
 position: hidden
 ---
+
+|Paban Sarma, Technical Marketing Engineer, Cisco (pasarma@cisco.com)|
+|Bala Murali Krishna, Technical Marketing Engineer, Cisco (bsanka@cisco.com)|
+
+
 ## Introduction
 The Cisco NCS 5500 Series Modular Platforms offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest trends in the Metro Architecture have driven the evolution of the product portfolio. Starting XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flexible scalablity. With IOS-XR 7.10.1 two new variants of line cards are introduced _viz._ NC57-48Q2D-S and NC57-48Q2D-SE-S, bringing highly scalable dense low speed line card to the family of NCS 5700 modular line card.
 
