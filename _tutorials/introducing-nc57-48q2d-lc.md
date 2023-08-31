@@ -61,9 +61,23 @@ Apart from the low speed SFP form factors, the line card variant is also equippe
 
 
 ### Internal Architecture
-The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. 
 
+![vigor-ls-block.png]({{site.baseurl}}/images/vigor-ls-block.png)
 
+The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to to network IFs of the NPU via PHY element which works as retimes and also enabled MACsec capability for all ports. 
+
+The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC via 2x PHY elements. The next set of 16xSFP56 Ports also connected via 2xPHY element , each taking 16x25GE NIF line and connecting 8xSFP56 ports at the faceplate. Thus each individual port works at 1/10/25/50G multirate. 
+
+The QSFP56-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
+
+### Port Speed Breakouts
+Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds.
+
+`
+sho ip int br 
+`
+
+the speeds of each port can be set individully using the controller optics configuration. 
 
 ### MACsec & timing
 
