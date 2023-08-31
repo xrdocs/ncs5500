@@ -76,11 +76,66 @@ The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC v
 The QSFP56-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
 
 ### Port Speed Breakouts
-Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds.
-
-`
-sho ip int br 
-`
+Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds. 
+   
+   <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in E0/5
+Mon Aug 29 19:57:58.648 UTC
+TwentyFiveGigE0/5/0/0          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/1          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/2          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/3          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/4          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/5          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/6          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/7          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/8          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/9          unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/10         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/11         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/12         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/13         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/14         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/15         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/16         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/17         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/18         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/19         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/20         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/21         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/22         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/23         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/24         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/25         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/26         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/27         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/28         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/29         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/30         unassigned      Shutdown        Down     default 
+TwentyFiveGigE0/5/0/31         unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/32              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/33              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/34              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/35              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/36              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/37              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/38              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/39              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/40              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/41              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/42              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/43              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/44              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/45              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/46              unassigned      Shutdown        Down     default 
+FiftyGigE0/5/0/47              unassigned      Shutdown        Down     default 
+FourHundredGigE0/5/0/48        unassigned      Shutdown        Down     default 
+FourHundredGigE0/5/0/49        unassigned      Shutdown        Down     default 
+      </code>
+     </pre>
+    </div>
 
 the speeds of each port can be set individully using the controller optics configuration. 
 
