@@ -167,6 +167,23 @@ Mon Aug 29 20:07:42.253 UTC
       </code>
      </pre>
     </div>
+ <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+     controller Optics0/5/0/48
+      speed 100g
+      breakout 4x25
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in 0/5/0/48
+Tue Aug 30 17:36:51.439 UTC
+<mark>TwentyFiveGigE0/5/0/48/0       unassigned      Down            Down     default </mark>
+<mark>TwentyFiveGigE0/5/0/48/1       unassigned      Down            Down     default </mark>
+<mark>TwentyFiveGigE0/5/0/48/2       unassigned      Down            Down     default </mark>
+<mark>TwentyFiveGigE0/5/0/48/3       unassigned      Down            Down     default </mark>
+
+      </code>
+     </pre>
+    </div>
     
 ### MACsec & timing
 
