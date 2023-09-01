@@ -139,7 +139,7 @@ FourHundredGigE0/5/0/49        unassigned      Shutdown        Down     default
 
 The speeds of each port can be set individully using the controller optics configuration. Different supported breakout modes are also configured under the controller optics configuration for the QDD ports.
 
-_Snippte showing 100g speed on QDD port_
+_Snippet showing 100g speed on QDD port_
    <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -154,7 +154,7 @@ _Snippte showing 100g speed on QDD port_
      </pre>
     </div>
     
-_Snippte showing 4x100G  breakout on QDD port_
+_Snippet showing 4x100G  breakout on QDD port_
     <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
@@ -171,7 +171,7 @@ Mon Aug 29 20:07:42.253 UTC
      </pre>
     </div>
  
- _Snippte showing 4x25G  breakout on QDD port_
+ _Snippet showing 4x25G  breakout on QDD port_
  <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
