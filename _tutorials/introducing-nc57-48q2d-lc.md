@@ -154,12 +154,12 @@ _Snippet showing 100g speed on QDD port_
      </pre>
     </div>
     
-_Snippet showing 4x100G  breakout on QDD port_
+_Snippet showing 4x100G  breakout on QDD port_  
     <div class="highlighter-rouge">
       <pre class="highlight">
       <code>
-     controller Optics0/5/0/48
-      breakout 4x100
+controller Optics0/5/0/48
+ breakout 4x100
 
 RP/0/RP0/CPU0:NCS5508-II9-43#sho ipv4 int br | i 0/5/0/48
 Mon Aug 29 20:07:42.253 UTC
@@ -167,7 +167,7 @@ Mon Aug 29 20:07:42.253 UTC
 <mark>HundredGigE0/5/0/48/1          unassigned      Down            Down     default </mark>
 <mark>HundredGigE0/5/0/48/2          unassigned      Down            Down     default </mark>
 <mark>HundredGigE0/5/0/48/3          unassigned      Down            Down     default </mark>
-      </code>
+     </code>
      </pre>
     </div>
  
