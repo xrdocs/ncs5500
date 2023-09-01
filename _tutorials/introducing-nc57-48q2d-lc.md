@@ -75,7 +75,8 @@ The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC v
 
 The QSFP56-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
 
-### Port Speed Breakouts
+### Port Speeds &  Breakouts Options
+
 Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds. 
    
    <div class="highlighter-rouge">
@@ -213,6 +214,53 @@ Tue Aug 30 18:25:22.564 UTC
      </pre>
     </div>
     
+
+On the NC5748Q-2D series line cards, port speeds are reseted based on inserted optics as well. for example, when 1G SFP is inserted on the SFP28 ports or a 10G or 25G optics is inserted in the SFP 56 ports, the corresponding  ports will be set to a GigabitE or TenGE or TwentyFiveGE port respectively. 
+
+ <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+ 
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  run controller optics 0/5/0/34
+Tue Aug 30 21:22:51.676 UTC
+% No such configuration item(s)
+RP/0/RP0/CPU0:NCS5508-II9-43#show  inventory  | in 25G   
+Tue Aug 30 21:23:02.160 UTC
+NAME: "0/5", DESCR: "NCS 5700 32x1/10/25G + 16x1/10/25/50G + 2x400G Line Card BASE"
+<mark>NAME: "TwentyFiveGigE0/5/0/34", DESCR: "Cisco SFP28 25G SR Pluggable Optics Module"</mark>
+PID: SFP-25G-SR-S      , VID: V01, SN: INL2453AF2M
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in 0/5/0/34
+Tue Aug 30 21:23:20.934 UTC
+<mark>TwentyFiveGigE0/5/0/34</mark>         unassigned      Shutdown        Down     default 
+
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  inventory  | in 1G 
+Tue Aug 30 21:25:08.065 UTC
+<mark>NAME: "GigabitEthernet0/5/0/20", DESCR: "Cisco SFP 1G 1000BASE-SX Pluggable Optics Module </mark>
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in 0/5/0/20
+Tue Aug 30 21:25:20.803 UTC
+<mark>GigabitEthernet0/5/0/20        unassigned      Shutdown        Down     default </mark>
+RP/0/RP0/CPU0:NCS5508-II9-43#show  run controller optics 0/5/0/20
+Tue Aug 30 21:25:29.688 UTC
+% No such configuration item(s)
+
+
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  run controller optics 0/5/0/48
+Tue Aug 30 21:28:35.462 UTC
+% No such configuration item(s)
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in 0/5/0/48
+Tue Aug 30 21:28:46.336 UTC
+<mark>FortyGigE0/5/0/48</mark>              unassigned      Shutdown        Down     default 
+RP/0/RP0/CPU0:NCS5508-II9-43#show  inventory | in Forty
+Tue Aug 30 21:28:52.485 UTC
+<mark>NAME: "FortyGigE0/5/0/48", DESCR: "Cisco QSFP+ 40G SR4 Pluggable Optics Module"</mark>
+RP/0/RP0/CPU0:NCS5508-II9-43#
+ </code>
+     </pre>
+    </div>
+
 ### MACsec & Timing
 The NC57-48Q2D series line card supports MACsec encryption on all the ports. This is achieved by the use of the PHY element. The following table summerize, MACsec support at different port speed for the type of ports.
 
