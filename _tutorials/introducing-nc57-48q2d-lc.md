@@ -222,7 +222,6 @@ On the NC5748Q-2D series line cards, port speeds are reseted based on inserted o
       <pre class="highlight">
       <code>
  
-
 RP/0/RP0/CPU0:NCS5508-II9-43#show  run controller optics 0/5/0/34
 Tue Aug 30 21:22:51.676 UTC
 % No such configuration item(s)
