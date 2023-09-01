@@ -190,6 +190,29 @@ Tue Aug 30 17:36:51.439 UTC
      </pre>
     </div>
     
+_Snippet showing  changing speed for SFP56 ports_
+
+ <div class="highlighter-rouge">
+      <pre class="highlight">
+      <code>
+controller Optics0/5/0/32
+ speed 25g
+!
+controller Optics0/5/0/33
+ speed 10g
+!
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int brief | in 0/5/0/32
+Tue Aug 30 18:25:21.057 UTC
+<mark>TwentyFiveGigE0/5/0/32         unassigned      Down            Down     default </mark>
+
+RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int brief | in 0/5/0/33
+Tue Aug 30 18:25:22.564 UTC
+<mark>TenGigE0/5/0/33                unassigned      Down            Down     default </mark>
+ </code>
+     </pre>
+    </div>
+    
 ### MACsec & timing
 
 ## Scalability & Use Cases
