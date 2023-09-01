@@ -282,6 +282,7 @@ The new dense low speed line card comes with high scalability and powered with t
 |NC57-48Q2D-S| <mark>Yes</mark>  | No      | Yes   | No      |
 |NC57-48Q2D-SE-S|Yes  | <mark>Yes</mark>     | Yes   | yes     |
 
+With L3max-SE profile, NC57-48Q2D-SE-S  can hold up to 5M IPv4 or 3M IPv6 prefixes. Also, the presence of eTCAM on this card enables additional features like, BGP-Flow spec, strict uRPF  etc.
 
 ## Summary & References
 
