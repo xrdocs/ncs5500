@@ -149,10 +149,11 @@ _Snippte showing 100g speed on QDD port_
        
        RP/0/RP0/CPU0:NCS5508-II9-43#sho ipv4 int br | i 0/5/0/48
 	   Mon Aug 29 20:08:46.900 UTC
-	   <mark>HundredGigE0/5/0/48            unassigned      Down            Down     default</mark> 
+	   <mark>HundredGigE0/5/0/48            unassigned      Down            Down    default</mark> 
       </code>
      </pre>
     </div>
+    
 _Snippte showing 4x100G  breakout on QDD port_
     <div class="highlighter-rouge">
       <pre class="highlight">
