@@ -213,7 +213,17 @@ Tue Aug 30 18:25:22.564 UTC
      </pre>
     </div>
     
-### MACsec & timing
+### MACsec & Timing
+The NC57-48Q2D series line card supports MACsec encryption on all the ports. This is achieved by the use of the PHY element. The following table summerize, MACsec support at different port speed for the type of ports.
+
+| SFP 28 ports 0-31 | SPF56 ports 32-47 | QDD56 Ports 48,49|
+|-------------------|-------------------|------------------|
+|1G, 10G,25G | 10G, 25G, 50G | 4x10G/40G/4x25G/100G/2x100G/4x100G/400G|
+
+`Note: 1G MAcsec support on the SFP56 ports (32-47) are not available in the initail release and`
+
+This line card variants support industry standard class C timing on all the ports when the modular chasis is equiped with NC55-RP2-E card. 
+
 
 ## Scalability & Use Cases
 
