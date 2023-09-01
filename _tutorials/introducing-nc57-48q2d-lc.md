@@ -155,8 +155,9 @@ _Snippet showing 100g speed on QDD port_
      </pre>
     </div>
     
-_Snippet showing 4x100G  breakout on QDD port_  
-    <div class="highlighter-rouge">
+_Snippet showing 4x100G  breakout on QDD port_
+
+<div class="highlighter-rouge">
       <pre class="highlight">
       <code>
 controller Optics0/5/0/48
