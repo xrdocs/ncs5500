@@ -275,6 +275,14 @@ This line card variants support industry standard class C timing on all the port
 
 ## Scalability & Use Cases
 
+The new dense low speed line card comes with high scalability and powered with the flexibility of [MDB Profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/). By default, in J2 Native the base line card runs L3MAX and the scale line card runs L3MAX-SE profile. Since we are talking about modular platform, -SE profile is usefull when all the line card in the system are eTCAM variants. The table below summerize supported MDB profiles for the line card variants
+
+| LC variant | L3MAX| L3MAX-SE| L2MAX | L2MAX-SE|
+|-----------|-------|---------|-------|---------|
+|NC57-48Q2D-S| <mark>Yes</mark>  | No      | Yes   | No      |
+|NC57-48Q2D-SE-S|Yes  | <mark>Yes</mark>     | Yes   | yes     |
+
+
 ## Summary & References
 
 With the addition of the NC57-48Q2D line cards to the existing portfolio of 400G, 100G and modular line cards, the NCS 5500 modular systems can be deployed in a diverse set of use cases and unleash the full power of Jericho 2 native mode. More information on the line card and the NCS 5500/5700 product family can be found in the below links. 
