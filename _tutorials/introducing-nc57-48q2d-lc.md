@@ -215,7 +215,7 @@ Tue Aug 30 18:25:22.564 UTC
     </div>
     
 
-On the NC5748Q-2D series line cards, port speeds are reseted based on inserted optics as well. for example, when 1G SFP is inserted on the SFP28 ports or a 10G or 25G optics is inserted in the SFP 56 ports, the corresponding  ports will be set to a GigabitE or TenGE or TwentyFiveGE port respectively. 
+On the NC5748Q-2D series line cards, port speeds are reseted based on inserted optics as well. for example, when 1G SFP is inserted on the SFP28 ports or a 10G or 25G optics is inserted in the SFP 56 ports, the corresponding  ports will be set to a GigabitE or TenGE or TwentyFiveGE port respectively. However, it is best practice to configure the speed manually, as the reset doesn't happen after removing the optics from the port.
 
  <div class="highlighter-rouge">
       <pre class="highlight">
