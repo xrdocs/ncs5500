@@ -79,7 +79,7 @@ The QSFP56-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is con
 
 Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds. 
    
-   <div class="highlighter-rouge">
+   <div style="overflow-y: scroll; class=highlighter-rouge; height:400px;">
       <pre class="highlight">
       <code>
 RP/0/RP0/CPU0:NCS5508-II9-43#show  ipv4 int br | in E0/5
