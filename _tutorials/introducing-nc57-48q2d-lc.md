@@ -70,6 +70,7 @@ Apart from the low speed SFP form factors, the line card variant is also equippe
 ### Internal Architecture
 
 ![vigor-ls-block.png]({{site.baseurl}}/images/vigor-ls-block.png)
+_Figure 3: NC57-48Q2D-S/NC57-48Q2D-SE-S Building Blocks_
 
 The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to to network IFs of the NPU via PHY element which works as retimer to set interface speeds and also enabled MACsec capability on all the ports. 
 
@@ -139,6 +140,9 @@ FourHundredGigE0/5/0/49        unassigned      Shutdown        Down     default
       </code>
      </pre>
     </div>
+
+ ![vigor-ls-port-speed.png]({{site.baseurl}}/images/vigor-ls-port-speed.png)
+_Figure 4: NC57-48Q2D-S/NC57-48Q2D-SE-S Supported Port Speed & Breakout Options_
 
 The speeds of each port can be set individully using the controller optics configuration. Different supported breakout modes are also configured under the controller optics configuration for the QDD ports.
 
@@ -262,6 +266,7 @@ RP/0/RP0/CPU0:NCS5508-II9-43#
  </code>
      </pre>
     </div>
+    
 
 ### MACsec & Timing
 The NC57-48Q2D series line card supports MACsec encryption on all the ports. This is achieved by the use of the PHY element. The following table summerize, MACsec support at different port speed for the type of ports.
