@@ -41,17 +41,19 @@ _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 
 ## NC57-48Q2D Video Introduction
 
-_Placeholder  Video link_
+<iframe width="560" height="315" src="https://www.youtube.com/embed/hJc9wk-Muns?si=J4Dt5FTw_Spu75wr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## NC57-48Q2D Line Card Specification
 
-The new NCS5700 line card variants are build to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 10/25/50G and the 2xQDD port works 100/200/400G with Breakout support. 
+The new NCS5700 line card variants are built to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD port works 40/100/200/400G with Breakout support. 
 
 ![Vigor-LS-Ports.png]({{site.baseurl}}/images/Vigor-LS-Ports.png)
 _Figure 2: NC57-48Q2D-(SE)-S Line Card Ports view
 
+`Note: 1G support on the SFP56 will be availble later release`
+
 ### Front Panel Ports and Speed
-The NC57-48Q2D line card is built to serve as a dense low speed line and the first line card in NCS 5700 modular family to support native 1G. All the front panel ports are multirate in nature and the speed ranges from 1G to 400G. 
+The NC57-48Q2D line card is built to serve as a dense low speed aggregation line card and the very first line card in NCS 5700 modular family to support native 1G. All the front panel ports are multirate in nature and the speed ranges from 1G to 400G. 
 
 #### SFP28 Ports
 As described _Figure 2_, The first 32 ports (P0 to P31) are of SFP28 Form factor and works at 1/10/25G speed. By default ports comes up as 25G, the speed can be changed with controller optics command per port. 
@@ -69,11 +71,11 @@ Apart from the low speed SFP form factors, the line card variant is also equippe
 
 ![vigor-ls-block.png]({{site.baseurl}}/images/vigor-ls-block.png)
 
-The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to to network IFs of the NPU via PHY element which works as retimes and also enabled MACsec capability for all ports. 
+The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to to network IFs of the NPU via PHY element which works as retimer to set interface speeds and also enabled MACsec capability on all the ports. 
 
 The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC via 2x PHY elements. The next set of 16xSFP56 Ports also connected via 2xPHY element , each taking 16x25GE NIF line and connecting 8xSFP56 ports at the faceplate. Thus each individual port works at 1/10/25/50G multirate. 
 
-The QSFP56-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
+For the  QSFP-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
 
 ### Port Speeds &  Breakouts Options
 
