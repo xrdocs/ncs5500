@@ -17,7 +17,7 @@ position: hidden
 
 
 ## Introduction
-The Cisco NCS 5500 Series Modular Platforms offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest trends in the Metro Architecture have driven the evolution of the product portfolio. Starting XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flexible scalablity. With IOS-XR 7.10.1 two new variants of line cards are introduced _viz._ NC57-48Q2D-S and NC57-48Q2D-SE-S, bringing highly scalable dense low speed line card to the family of NCS 5700 modular line card.
+The Cisco NCS 5500 Series Modular Platforms offers industry-leading 100 GbE and 400 GbE port density to handle massive traffic growth. Latest trends in the Metro Architecture have driven the evolution of the product portfolio. Starting XR release 7.0.2 , the NC57 Line Cards are introduced in the platform to support higher speed and flexible scalablity. With IOS-XR 7.10.1, two new variants of line cards are introduced _viz._ NC57-48Q2D-S and NC57-48Q2D-SE-S, bringing highly scalable dense low speed line card to the family of NCS 5700 modular line card.
 
 ![xdocs.jpg]({{site.baseurl}}/images/xdocs.jpg)
 
@@ -45,7 +45,7 @@ _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 
 ## NC57-48Q2D Line Card Specification
 
-The new NCS5700 line card variants are built to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. There are 32xSFP28 ports that can work at 1/10/25G , the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD port works 40/100/200/400G with Breakout support. 
+The new NCS5700 line card variants are built to bring in dense low speed variant to the fold. The NC57-48Q2D-(SE)-S line card is comprised of multirate SFP28, SFP56 & QSFP56-DD ports. The 32xSFP28 ports can work at 1/10/25G, the 16xSFP56 ports can work at 1/10/25/50G and the 2xQDD ports work at 40/100/200/400G with Breakout support. 
 
 ![Vigor-LS-Ports.png]({{site.baseurl}}/images/Vigor-LS-Ports.png)
 _Figure 2: NC57-48Q2D-(SE)-S Line Card Ports view
@@ -56,7 +56,7 @@ _Figure 2: NC57-48Q2D-(SE)-S Line Card Ports view
 The NC57-48Q2D line card is built to serve as a dense low speed aggregation line card and the very first line card in NCS 5700 modular family to support native 1G. All the front panel ports are multirate in nature and the speed ranges from 1G to 400G. 
 
 #### SFP28 Ports
-As described _Figure 2_, The first 32 ports (P0 to P31) are of SFP28 Form factor and works at 1/10/25G speed. By default ports comes up as 25G, the speed can be changed with controller optics command per port. 
+As described in _Figure 2_, the first 32 ports (P0 to P31) are of SFP28 form factor and work at 1/10/25G speed. By default, ports comes up as 25G and the speed can be changed with controller optics command per port. 
 
 #### SFP56 Ports
 The next 16 ports (P32 to P47) can support a speed upto 50G. These are true multirate port capabale of supporting 1/10/25/50G. 
@@ -64,7 +64,7 @@ The next 16 ports (P32 to P47) can support a speed upto 50G. These are true mult
 `Note: 1G support on the SFP56 will be availble later release`
 
 #### QSFP56DD Ports
-Apart from the low speed SFP form factors, the line card variant is also equipped with 2 Nos. of QSFP56DD ports supporting upto 400G. The ports are back compitable with QSFP28 and support 40G/ 100G, 200G and breakout options.
+Apart from the low speed SFP form factors, the line card variant is also equipped with 2 Nos. of QSFP56DD ports supporting upto 400G. The ports are backward compitable with QSFP+/QSFP28 and support 40G/100G, 200G and breakout options.
 
 
 ### Internal Architecture
@@ -72,15 +72,18 @@ Apart from the low speed SFP form factors, the line card variant is also equippe
 ![vigor-ls-block.png]({{site.baseurl}}/images/vigor-ls-block.png)
 _Figure 3: NC57-48Q2D-S/NC57-48Q2D-SE-S Building Blocks_
 
-The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to to network IFs of the NPU via PHY element which works as retimer to set interface speeds and also enabled MACsec capability on all the ports. 
+The NC57-48Q2D-(SE)-S line card is built with single J2C ASIC and offers a massive throughput of 2.4 Tbps/1BPPS. The scaled variant of the line card, NC57-48Q2D-SE-S comes with OP2 external TCAM that assists in achieveing higher prefix and service scale. All the front panel ports of the line cards are connected to network IFs of the NPU via PHY element which works as retimer to set interface speeds and also enables MACsec capability on all the ports. 
 
-The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC via 2x PHY elements. The next set of 16xSFP56 Ports also connected via 2xPHY element , each taking 16x25GE NIF line and connecting 8xSFP56 ports at the faceplate. Thus each individual port works at 1/10/25/50G multirate. 
+The first set of 32 SFP28 ports are coming from 32 set of 25GE NIF on the ASIC via 2x PHY elements. The next set of 16xSFP56 ports are also connected via 2xPHY element , each taking 16x25GE NIF line and connecting 8xSFP56 ports at the faceplate. Thus each individual port works at 1/10/25/50G multirate. 
 
-For the  QSFP-DD ports takes out 16x50GE Serdes and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works 40/100/200/400G speed. It can be also used in various breakout mode combination. 
+The QSFP-DD ports take out 16x50GE NIF and each group of 8x50GE NIF is converted to one QDD 400G port at the faceplate. This is a true multirate port and natively works at 40/100/200/400G speed. It can be also used in various breakout mode combination. 
+
+ ![vigor-ls-port-speed.png]({{site.baseurl}}/images/vigor-ls-port-speed.png)
+_Figure 4: NC57-48Q2D-S/NC57-48Q2D-SE-S Supported Port Speed & Breakout Options_
 
 ### Port Speeds &  Breakouts Options
 
-Bu default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line cards. following snippet shows the default port speeds. 
+By default, the NC57-48Q2D-(SE)-S line cards comes up as an 32x25G+16x50G+2x400G line card. following snippet shows the default port speeds. 
    
    <div style="overflow-y: scroll; class=highlighter-rouge; height:400px;">
       <pre class="highlight">
@@ -141,8 +144,7 @@ FourHundredGigE0/5/0/49        unassigned      Shutdown        Down     default
      </pre>
     </div>
 
- ![vigor-ls-port-speed.png]({{site.baseurl}}/images/vigor-ls-port-speed.png)
-_Figure 4: NC57-48Q2D-S/NC57-48Q2D-SE-S Supported Port Speed & Breakout Options_
+
 
 The speeds of each port can be set individully using the controller optics configuration. Different supported breakout modes are also configured under the controller optics configuration for the QDD ports.
 
@@ -222,7 +224,7 @@ Tue Aug 30 18:25:22.564 UTC
     </div>
     
 
-On the NC5748Q-2D series line cards, port speeds are reseted based on inserted optics as well. for example, when 1G SFP is inserted on the SFP28 ports or a 10G or 25G optics is inserted in the SFP 56 ports, the corresponding  ports will be set to a GigabitE or TenGE or TwentyFiveGE port respectively. However, it is best practice to configure the speed manually, as the reset doesn't happen after removing the optics from the port.
+On the NC5748Q-2D series line cards, port speeds are reset based on inserted optics as well. For example, when 1G SFP is inserted on the SFP28 ports or a 10G or 25G optics is inserted in the SFP 56 ports, the corresponding  ports will be set to a GigabitE or TenGE or TwentyFiveGE port respectively. However, it is best practice to configure the speed manually, as the reset doesn't happen after removing the optics from the port.
 
  <div class="highlighter-rouge">
       <pre class="highlight">
@@ -269,7 +271,7 @@ RP/0/RP0/CPU0:NCS5508-II9-43#
     
 
 ### MACsec & Timing
-The NC57-48Q2D series line card supports MACsec encryption on all the ports. This is achieved by the use of the PHY element. The following table summerize, MACsec support at different port speed for the type of ports.
+The NC57-48Q2D series line card supports MACsec encryption on all the ports. This is achieved by the use of the PHY element. The following table summarizes MACsec support at different port speed for the type of ports.
 
 | SFP 28 ports 0-31 | SPF56 ports 32-47 | QDD56 Ports 48,49|
 |-------------------|-------------------|------------------|
@@ -277,19 +279,19 @@ The NC57-48Q2D series line card supports MACsec encryption on all the ports. Thi
 
 `Note: 1G MAcsec support on the SFP56 ports (32-47) are not available in the initail release and`
 
-This line card variants support industry standard class C timing on all the ports when the modular chasis is equiped with NC55-RP2-E card. 
+This line card variants support industry standard class C timing on all the ports when the modular chassis is equiped with NC55-RP2-E card. 
 
 
 ## Scalability & Use Cases
 
-The new dense low speed line card comes with high scalability and powered with the flexibility of [MDB Profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/). By default, in J2 Native the base line card runs L3MAX and the scale line card runs L3MAX-SE profile. Since we are talking about modular platform, -SE profile is usefull when all the line card in the system are eTCAM variants. The table below summerize supported MDB profiles for the line card variants
+The new dense low speed line card comes with high scalability and powered with the flexibility of [MDB Profiles](https://xrdocs.io/ncs5500/tutorials/mdb-ncs5700/). By default, in J2 Native the base line card runs L3MAX and the scale line card runs L3MAX-SE profile. Since we are talking about modular platform, -SE profile is usefull when all the line card in the system are eTCAM variants. The table below summarizes supported MDB profiles for the line card variants.
 
 | LC variant | L3MAX| L3MAX-SE| L2MAX | L2MAX-SE|
 |-----------|-------|---------|-------|---------|
 |NC57-48Q2D-S| <mark>Yes</mark>  | No      | Yes   | No      |
 |NC57-48Q2D-SE-S|Yes  | <mark>Yes</mark>     | Yes   | yes     |
 
-With L3max-SE profile, NC57-48Q2D-SE-S  can hold up to 5M IPv4 or 3M IPv6 prefixes. Also, the presence of eTCAM on this card enables additional features like, BGP-Flow spec, strict uRPF  etc.
+With L3max-SE profile, NC57-48Q2D-SE-S  can hold up to 5M IPv4 or 3M IPv6 prefixes. Also, the presence of eTCAM on this card enables additional features, e.g. BGP-Flow spec, strict uRPF  etc.
 
 ## Summary & References
 
