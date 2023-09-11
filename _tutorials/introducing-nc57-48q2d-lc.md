@@ -9,7 +9,9 @@ excerpt: >-
   details. 
 tags:
   - iosxr
-position: hidden
+  - NCS 5500
+  - NCS 5700
+position: top
 ---
 
 |Paban Sarma, Technical Marketing Engineer, Cisco (pasarma@cisco.com)|
