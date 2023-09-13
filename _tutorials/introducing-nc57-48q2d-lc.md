@@ -15,7 +15,7 @@ position: top
 ---
 
 |Paban Sarma, Technical Marketing Engineer, Cisco (pasarma@cisco.com)|
-|Bala Murali Krishna, Technical Marketing Engineer, Cisco (bsanka@cisco.com)|
+|Bala Murali Krishna Sanka, Technical Marketing Engineer, Cisco (bsanka@cisco.com)|
 
 
 ## Introduction
