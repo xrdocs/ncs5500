@@ -11,6 +11,26 @@ date: null
 {% include base_path %}
 
 <div class="feature__wrapper">    
+    <div class="feature__item--left">
+      <div class="archive__item" style="margin-left: 2em;">
+          <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
+             <iframe width="560" height="315" src="https://www.youtube.com/embed/hJc9wk-Muns?si=qZxHxEvexb4scxJZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          </div>
+        <div class="archive__item-body">
+            <h2 class="archive__item-title"><a href="https://youtu.be/sb8vOnOlZTY" target="_blank" ></a>
+            Introducing the NC57-48Q2D-(SE)-S Line card</h2>
+            <div class="archive__item-excerpt" style="font-size: 0.65em;">
+            <p>The latest NCS 5700 Modular Line Card NC57-48Q2D-(SE)-S, offers 32xSFP28 + 16xSFP56 + 2xQSFPDD Fixed front panel ports. <b>Amit Dey</b> and <b>Bala Murali</b> describe the architecture and unique capabilities of the line card.
+             </p>
+            </div>
+          <a href="https://youtu.be/sb8vOnOlZTY" target="_blank"  class="btn btn--large">Watch on Youtube</a>
+          <a href="https://xrdocs.io/ncs5500/tutorials/introducing-nc57-48q2d-lc/" target="_blank"  class="btn btn--large">Read Introductory Blog</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="feature__wrapper">    
     <div class="feature__item--right">
       <div class="archive__item" style="margin-left: 2em;">
           <div class="archive__item-teaser center" style="display: block; margin-left: auto; margin-right: auto;">
@@ -20,7 +40,7 @@ date: null
             <h2 class="archive__item-title"><a href="https://youtu.be/1HA7x6pHx4c" target="_blank" ></a>
             Introducing the NC57-MOD-S Line card</h2>
             <div class="archive__item-excerpt" style="font-size: 0.65em;">
-            <p>This video covers the latest NCS 5700 Modular Line Card NC57-MOD-S. Based on J2 chipset, it offers 2 MPA slots supporting Upto 80Gbps                and 8x50G+2x400G Fixed front panel ports. <b>Amit Dey</b> and <b>Paban Sarma</b> describe the architecture and unique capabilities.                of the line card
+            <p>This video covers the latest NCS 5700 Modular Line Card NC57-MOD-S. Based on J2 chipset, it offers 2 MPA slots supporting Upto 800Gbps                and 8x50G+2x400G Fixed front panel ports. <b>Amit Dey</b> and <b>Paban Sarma</b> describe the architecture and unique capabilities.                of the line card
              </p>
             </div>
           <a href="https://youtu.be/1HA7x6pHx4c" target="_blank"  class="btn btn--large">Watch on Youtube</a>
