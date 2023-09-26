@@ -43,7 +43,7 @@ _Table 1: List of NC57 Line Cards for NCS 55xx Modular Chassis_
 
 ## NC57-48Q2D Video Introduction
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/hJc9wk-Muns?si=J4Dt5FTw_Spu75wr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sb8vOnOlZTY?si=reJp3YLjMbr3pt7S" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
 ## NC57-48Q2D Line Card Specification
 
@@ -281,7 +281,9 @@ The NC57-48Q2D series line card supports MACsec encryption on all the ports. Thi
 
 `Note: 1G MAcsec support on the SFP56 ports (32-47) are not available in the initail release and`
 
-This line card variants support industry standard class C timing on all the ports when the modular chassis is equiped with NC55-RP2-E card. 
+This line card variants can support industry standard class C timing on all the ports when the modular chassis is equiped with NC55-RP2-E card. 
+
+`Note that Class-C timing support on J2 Native mode is in software roadmap`
 
 
 ## Scalability & Use Cases
