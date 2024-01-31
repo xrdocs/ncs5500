@@ -172,7 +172,7 @@ evpn
 <code>
 evpn
  segment-routing srv6
-  <mark>locator  locator-name </mark>
+  <mark>locator  POD0 </mark>
  !
 !
 </code>
