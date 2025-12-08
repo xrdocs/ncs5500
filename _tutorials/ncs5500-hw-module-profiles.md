@@ -327,7 +327,7 @@ Regarding "inheritance" of MPLS header properties into the IP header:
 - The IP TTL is typically copied from the MPLS TTL and QoS markings (EXP bits) may be mapped to IP DSCP values. This is carried out using the “mpls ip propagate-ttl propagate” configuration. This is termed as PIPE mode
 
 By configuring the above mentioned hw-module configuration the TTL will be propagated from outer MPLS header to inner header and preserve the qos by default on Penultimate Hop Popping (PHP) node.
-This feature is supported in r242x-200 and from r253x release onwards.
+This feature is introduced in an IOS-XR customer special release 24.2.200 and from IOS-XR 25.3.1 onwards.
 
 This feature is not compatible with the below list of features, as it cannot be configured on NCS5500 due to resource constraints
 - hw-module profile segment-routing srv6 mode <>
