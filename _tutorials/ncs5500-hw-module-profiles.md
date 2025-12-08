@@ -23,6 +23,7 @@ position: top
 | 2022-Jan-20  | Add: hw-mod profiles till 7.5.1  | 
 | 2023-May-16  | Add: Updated the support for J2 based platforms for existing profiles  |
 | 2024-May-13  | Add: Modified the loadbalancing algo |
+| 2025-December-8  | Correction: IOS-XR release for hw-module fib mpls php dscp-preserve  |
 
 
 
