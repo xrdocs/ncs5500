@@ -422,7 +422,7 @@ Note: In order to activate/deactivate bgp multipath pic core, you must manually 
 <pre class="highlight">
 <code>RP/0/RP1/CPU0:PE1-UUT-rsp4(config)#hw-module fib bgp-pic level-3 ?    
   l2services  Enable BGP-PIC for l2services over BGP Labelled Unicast (only EVPN is supported)
-RP/0/RP1/CPU0:PE1-UUT-rsp4(config)#hw-module fib hw-module fib bgp-pic level-3 evpn
+RP/0/RP1/CPU0:PE1-UUT-rsp4(config)#hw-module fib bgp-pic level-3 l2services
 Fri Apr 11 06:10:23.734 UTC
 In order to activate/deactivate bgp pic level-3 l2services on Jericho based routers/cards, you must manually reload the chassis/all line cards</code>
 </pre>
